@@ -1,9 +1,9 @@
-# Your Project's Title...
-Your project's description...
+# Mack Trucks
+Franklin site for macktrucks.com
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--vg-macktrucks-com--hlxsites.hlx.page/
+- Live: https://main--vg-macktrucks-com--hlxsites.hlx.live/
 
 ## Installation
 
