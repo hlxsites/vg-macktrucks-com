@@ -1,1 +1,22 @@
 /* below the fold CSS goes here */
+
+/* fonts faces */
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../fonts/hnltp-md-webfont.woff") format("woff");
+  font-style: normal; 
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Helvetica Neue 65";
+  src: url("../fonts/helveticaneueltpro-bd-webfont.woff") format("woff");
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: "Helvetica Neue 85";
+  src: url("../fonts/helveticaneueltpro-hv.woff") format("woff");
+  font-style: normal; 
+}

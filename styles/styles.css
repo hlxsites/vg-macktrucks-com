@@ -10,6 +10,27 @@
  * governing permissions and limitations under the License.
  */
 
+ /* fonts faces */
+
+@font-face {
+  font-family: "Helvetica Neue fallback";
+  src: url("../fonts/hnltp-md-webfont.woff") format("woff");
+  font-style: normal; 
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Helvetica Neue 65 fallback";
+  src: url("../fonts/helveticaneueltpro-bd-webfont.woff") format("woff");
+  font-style: normal; 
+}
+
+@font-face {
+  font-family: "Helvetica Neue 85 fallback";
+  src: url("../fonts/helveticaneueltpro-hv.woff") format("woff");
+  font-style: normal; 
+}
+
  :root {
   /* colors */
   --link-color: #035fe6;
@@ -18,11 +39,16 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: #000;
+  --text-color-hover: #999;
+  --hero-text-color: #fff;
 
   /* fonts */
-  --body-font-family: 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
-  --heading-font-family: var(--body-font-family);
+
+  /* --body-font-family: 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif; */
+  --body-font-family: 'Helvetica Neue', 'Helvetica Neue fallback', helvetica, monospace;
+  --heading-font-family: "Helvetica Neue 65", "Helvetica Neue 65 fallback", var(--body-font-family);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  --hero-heading-1-font-family: 'Helvetica Neue 85', 'Helvetica Neue 85 fallback', helvetica, monospace;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -162,9 +188,9 @@ main input:hover {
   border: 1px solid var(--text-color);
 }
 
-main .section {
+/* main .section {
   padding: 64px 16px;
-}
+} */
 
 main pre {
   background-color: var(--overlay-background-color);
@@ -221,7 +247,7 @@ main img {
   }
   
   .section > div {
-    max-width: 1200px;
+    max-width: 960px;
     margin: auto;
   }
 }
@@ -234,4 +260,30 @@ main .section[data-section-status='initialized'] {
 
 main .section.highlight {
   background-color: var(--highlight-background-color);
+}
+
+.default-content-wrapper a {
+  color: var(--text-color);
+}
+
+.default-content-wrapper p {
+  font-family: var(--body-font-family);
+  padding: 0 48px;
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+
+.section.columns-container {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .section.columns-container {
+    margin: 0 1vw 35px;
+  }
+
+  .default-content-wrapper p {
+    padding: 0;
+  }
 }

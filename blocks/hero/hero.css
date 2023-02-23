@@ -1,40 +1,96 @@
-/* block specific CSS goes here */
+.hero-container {
+    padding: 0;
+}
+
+.section.hero-container {
+    padding: 0;
+    color: var(--hero-text-color);
+}
+
+.hero-wrapper {
+    padding-bottom: 50px;
+}
+
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    height: 45vw;
+    min-height: 600px;
+}
 
 main .hero-container > div {
     max-width: unset;
 }
-  
-main .hero-container {
-    padding: 0;
-}
-  
-main .hero {
-    position: relative;
-    padding: 32px;
-    min-height: 300px;
+
+.hero div div {
+    background-color: rgb(0 0 0 / 50%);
+    padding: 20px;
+    width: 350px;
+    margin-right: 50vw;
 }
 
-main .hero h1 {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
-}
-
-
-main .hero picture {
+.hero picture {
     position: absolute;
     z-index: -1;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    object-fit: cover;
     box-sizing: border-box;
 }
 
-main .hero img {
+.hero img {
     object-fit: cover;
-    width: 100%;
+    width: 105%;
     height: 100%;
+}
+
+.hero h1 {
+    font-size: 52px;
+    font-family: var(--hero-heading-1-font-family);
+    line-height: 54px;
+    margin: 0 0 15px;
+}
+
+.hero p {
+    font-weight: 700;
+    line-height: 28px;
+    font-size: 22px;
+    font-family: var(--body-font-family);
+    margin: 0 0 25px;
+}
+
+@media (max-width: 767px) {
+    .hero {
+        margin-top: 15px;
+        height: fit-content;
+        display: block;
+        min-height: auto;
+    }
+
+    .hero picture {
+        display: none;
+    }
+
+    .hero div div {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        padding: 0 25px ;
+        max-width: 300px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+        margin-bottom: 11px;
+        line-height: 38px;
+    }
+    
+    .hero p {
+        font-size: 18px;
+        margin-bottom: 18px;
+        line-height: 22px;
+    }
 }
