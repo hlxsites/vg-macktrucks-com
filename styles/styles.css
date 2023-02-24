@@ -18,6 +18,8 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: #000;
+  --header-background-color: #000;
+  --header-color: #fff;
 
   /* fonts */
   --body-font-family: 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
@@ -37,9 +39,8 @@
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
 
-  /* nav height */
-  --nav-height: 64px;
-
+  /* nav sizes */
+  --nav-height: 60px;
 }
 
 body {
@@ -58,6 +59,11 @@ body.appear {
 
 header {
   height: var(--nav-height);
+  width: 100%;
+  background-color: var(--header-background-color);
+  color: var(--header-color);
+  position: fixed;
+  z-index: 1;
 }
 
 h1, h2, h3,

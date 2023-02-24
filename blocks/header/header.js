@@ -1,7 +1,7 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 
 // media query match that indicates mobile/tablet width
-const MQ = window.matchMedia('(min-width: 900px)');
+const MQ = window.matchMedia('(min-width: 1140px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -46,6 +46,35 @@ function toggleAllNavSections(sections, expanded = false) {
   });
 }
 
+function addLinkToLogo(navBrand) {
+  const picture = navBrand.querySelector('picture');
+  const link = navBrand.querySelector('a');
+  const pictureWrapper = picture.parentElement;
+  pictureWrapper.insertBefore(link ,picture);
+  link.textContent = '';
+  link.appendChild(picture);
+  if (navBrand.children[1].childNodes.length < 1) navBrand.removeChild(navBrand.children[1]);
+}
+
+function setupKeyboardAttributes(navDrops) {
+  if (!MQ.matches) {
+    navDrops.forEach((drop) => {
+      drop.removeAttribute('role');
+      drop.removeAttribute('tabindex');
+      drop.removeEventListener('focus', focusNavSection);
+    });
+    return;
+  }
+
+  navDrops.forEach((drop) => {
+    if (!drop.hasAttribute('tabindex')) {
+      drop.setAttribute('role', 'button');
+      drop.setAttribute('tabindex', 0);
+      drop.addEventListener('focus', focusNavSection);
+    }
+  });
+}
+
 /**
  * Toggles the entire nav
  * @param {Element} nav The container element
@@ -55,34 +84,28 @@ function toggleAllNavSections(sections, expanded = false) {
 function toggleMenu(nav, navSections, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || MQ.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
   toggleAllNavSections(navSections, expanded || MQ.matches ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   // enable nav dropdown keyboard accessibility
   const navDrops = navSections.querySelectorAll('.nav-drop');
-  if (MQ.matches) {
-    navDrops.forEach((drop) => {
-      if (!drop.hasAttribute('tabindex')) {
-        drop.setAttribute('role', 'button');
-        drop.setAttribute('tabindex', 0);
-        drop.addEventListener('focus', focusNavSection);
-      }
-    });
-  } else {
-    navDrops.forEach((drop) => {
-      drop.removeAttribute('role');
-      drop.removeAttribute('tabindex');
-      drop.removeEventListener('focus', focusNavSection);
-    });
-  }
+  setupKeyboardAttributes(navDrops);
   // enable menu collapse on escape keypress
-  if (!expanded || MQ.matches) {
-    // collapse menu on escape press
-    window.addEventListener('keydown', closeOnEscape);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-  }
+  const { addEventListener: add, removeEventListener: remove } = window;
+  const listener = (!expanded || MQ.matches ? add : remove).bind(window);
+  // collapse menu on escape press
+  listener('keydown', closeOnEscape);
+}
+
+function addMQListener(nav, navSection, navSections) {
+  navSection.addEventListener('click', () => {
+    if (!MQ.matches) {
+      const expanded = navSection.getAttribute('aria-expanded') === 'true';
+      toggleAllNavSections(navSections);
+      navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    }
+  });
 }
 
 /**
@@ -94,36 +117,37 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // fetch nav content
-  const navPath = config.nav || '/nav';
+  const navPath = config.nav || '/drafts/jlledo/nav';
+  // const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
 
-  if (resp.ok) {
-    const html = await resp.text();
+  if (!resp.ok) return;
+  const html = await resp.text();
 
-    // decorate nav DOM
-    const nav = document.createElement('nav');
-    nav.id = 'nav';
-    nav.innerHTML = html;
+  // decorate nav DOM
+  const nav = document.createElement('nav');
+  nav.id = 'nav';
+  nav.innerHTML = html;
 
-    const classes = ['brand', 'sections', 'tools'];
-    classes.forEach((c, i) => {
-      const section = nav.children[i];
-      if (section) section.classList.add(`nav-${c}`);
+  const classes = ['brand', 'sections', 'mobile', 'tools'];
+  classes.forEach((c, i) => {
+    const section = nav.children[i];
+    if (section) section.classList.add(`nav-${c}`);
+  });
+
+  // decorate Brand
+  const navBrand = nav.querySelector('.nav-brand');
+  if (navBrand) {
+    addLinkToLogo(navBrand);
+  }
+
+  const navSections = nav.querySelector('.nav-sections');
+  if (navSections) {
+    const navLis = navSections.querySelectorAll(':scope > ul > li');
+    navLis.forEach((navSection) => {
+      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
+      addMQListener(nav, navSection, navSections);
     });
-
-    const navSections = nav.querySelector('.nav-sections');
-    if (navSections) {
-      navSections.querySelectorAll(':scope > ul > li').forEach((navSection) => {
-        if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-        navSection.addEventListener('click', () => {
-          if (MQ.matches) {
-            const expanded = navSection.getAttribute('aria-expanded') === 'true';
-            toggleAllNavSections(navSections);
-            navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-          }
-        });
-      });
-    }
 
     // hamburger for mobile
     const hamburger = document.createElement('div');
@@ -137,8 +161,14 @@ export default async function decorate(block) {
     // prevent mobile nav behavior on window resize
     toggleMenu(nav, navSections, MQ.matches);
     MQ.addEventListener('change', () => toggleMenu(nav, navSections, MQ.matches));
-
-    decorateIcons(nav);
-    block.append(nav);
   }
+
+  // Decorate extra mobile sections
+  const mobile = nav.querySelector('.nav-mobile');
+  if (mobile) {
+    navSections.appendChild(mobile);
+  }
+
+  decorateIcons(nav);
+  block.append(nav);
 }
