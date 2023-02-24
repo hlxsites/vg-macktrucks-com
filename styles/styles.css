@@ -188,9 +188,9 @@ main input:hover {
   border: 1px solid var(--text-color);
 }
 
-/* main .section {
+main .section {
   padding: 64px 16px;
-} */
+}
 
 main pre {
   background-color: var(--overlay-background-color);

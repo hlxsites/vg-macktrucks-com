@@ -89,7 +89,7 @@ main .hero-container > div {
     }
     
     .hero p {
-        font-size: 18px;
+        font-size: var(--body-font-size-s);
         margin-bottom: 18px;
         line-height: 22px;
     }
