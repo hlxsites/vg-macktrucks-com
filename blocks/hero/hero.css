@@ -58,7 +58,7 @@ main .hero-container > div {
 .hero p {
     font-weight: 700;
     line-height: 28px;
-    font-size: 22px;
+    font-size: var(--body-font-size-m);
     font-family: var(--body-font-family);
     margin: 0 0 25px;
 }
