@@ -139,8 +139,7 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // fetch nav content
-  const navPath = config.nav || '/drafts/jlledo/nav';
-  // const navPath = config.nav || '/nav';
+  const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (!resp.ok) return;
