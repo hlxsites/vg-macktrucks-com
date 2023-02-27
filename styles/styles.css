@@ -40,7 +40,8 @@
   --heading-font-size-xs: 18px;
 
   /* nav sizes */
-  --nav-height: 60px;
+  --nav-height-m: 60px;
+  --nav-height-l: 85px;
 }
 
 body {
@@ -58,12 +59,18 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  height: var(--nav-height-m);
   width: 100%;
   background-color: var(--header-background-color);
   color: var(--header-color);
   position: fixed;
   z-index: 1;
+}
+
+@media (min-width: 1140px) {
+  header {
+    height: var(--nav-height-l);
+  }
 }
 
 h1, h2, h3,
@@ -73,7 +80,7 @@ h4, h5, h6 {
   line-height: 1.25;
   margin-top: 1em;
   margin-bottom: .5em;
-  scroll-margin: calc(var(--nav-height) + 1em);
+  scroll-margin: calc(var(--nav-height-m) + 1em);
 }
 
 h1 { font-size: var(--heading-font-size-xxl) }

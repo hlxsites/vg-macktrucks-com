@@ -49,11 +49,33 @@ function toggleAllNavSections(sections, expanded = false) {
 function addLinkToLogo(navBrand) {
   const picture = navBrand.querySelector('picture');
   const link = navBrand.querySelector('a');
+  if (!picture) return;
   const pictureWrapper = picture.parentElement;
-  pictureWrapper.insertBefore(link ,picture);
+  pictureWrapper.insertBefore(link, picture);
   link.textContent = '';
   link.appendChild(picture);
   if (navBrand.children[1].childNodes.length < 1) navBrand.removeChild(navBrand.children[1]);
+}
+
+function addLabelsToIcons(navTools) {
+  const pictures = navTools.querySelectorAll('picture');
+  const links = navTools.querySelectorAll('a');
+  if (!pictures) return;
+  const picturesWrappers = [...pictures].map((pic) => pic.parentElement);
+  picturesWrappers.forEach((p, i) => {
+    const span = document.createElement('span');
+    const br = document.createElement('br');
+    span.className = 'nav-label';
+    span.textContent = links[i].textContent;
+    links[i].textContent = '';
+    p.prepend(links[i]);
+    links[i].append(pictures[i], br, span);
+  });
+  // clean the empty wrappers
+  const pWrappers = navTools.querySelectorAll('p');
+  [...pWrappers].forEach((p) => {
+    if (p.childNodes.length < 1) p.parentElement.removeChild(p);
+  });
 }
 
 function setupKeyboardAttributes(navDrops) {
@@ -129,7 +151,7 @@ export default async function decorate(block) {
   nav.id = 'nav';
   nav.innerHTML = html;
 
-  const classes = ['brand', 'sections', 'mobile', 'tools'];
+  const classes = ['brand', 'sections', 'mobile', 'tools', 'search'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
@@ -161,12 +183,65 @@ export default async function decorate(block) {
     // prevent mobile nav behavior on window resize
     toggleMenu(nav, navSections, MQ.matches);
     MQ.addEventListener('change', () => toggleMenu(nav, navSections, MQ.matches));
+
+    // Decorate extra mobile sections
+    const navMobile = nav.querySelector('.nav-mobile');
+    if (navMobile) navSections.appendChild(navMobile);
   }
 
-  // Decorate extra mobile sections
-  const mobile = nav.querySelector('.nav-mobile');
-  if (mobile) {
-    navSections.appendChild(mobile);
+  // Decorate tools
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) addLabelsToIcons(navTools);
+
+  // decorate & setup search
+  const navSearch = nav.querySelector('.nav-search');
+  if (navTools && navSearch) {
+    const navSearchBtn = [...navTools.children].at(-1);
+    const navSearchLinkHref = navSearchBtn.children[0].href;
+    const searchIcon = navSearch.querySelector('.icon-search');
+    const searchIconWrapper = searchIcon.parentElement;
+    const navSearchWrapper = document.createElement('div');
+    const searchIconLink = document.createElement('a');
+    const input = document.createElement('input');
+    const closeBtnWrapper = document.createElement('div');
+    const closeBtn = document.createElement('button');
+    const closeBtnIcon = document.createElement('span');
+    let isShown = false;
+
+    navSearchWrapper.className = 'nav-search-wrapper';
+    searchIconLink.href = navSearchLinkHref;
+    input.type = 'search';
+    input.placeholder = 'Search Mack Trucks';
+    closeBtnWrapper.className = 'search-close';
+    closeBtn.type = 'button';
+    closeBtnIcon.className = 'search-close-icon';
+
+    navSearch.prepend(navSearchWrapper);
+    navSearchWrapper.appendChild(searchIconLink);
+    navSearchWrapper.appendChild(input);
+    navSearchWrapper.appendChild(closeBtnWrapper);
+    searchIconLink.appendChild(searchIconWrapper);
+    closeBtnWrapper.appendChild(closeBtn);
+    closeBtn.appendChild(closeBtnIcon);
+
+    searchIconLink.onclick = (e) => {
+      e.preventDefault();
+      const newSearchUrl = new URL(searchIconLink);
+      newSearchUrl.searchParams.append('t', input.value);
+      newSearchUrl.searchParams.append('r', 'us');
+      window.location.assign(newSearchUrl.href);
+    };
+
+    navSearchBtn.onclick = (e) => {
+      e.preventDefault();
+      isShown = !isShown;
+      navSearch.classList.toggle('show', isShown);
+    };
+
+    closeBtn.onclick = () => {
+      isShown = false;
+      navSearch.classList.remove('show');
+    };
   }
 
   decorateIcons(nav);
