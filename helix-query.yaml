@@ -29,6 +29,9 @@ indices:
       - '/mack-news/'
     target: /mack-news.json
     properties:
+      heading:
+        select: main div h1
+        value: textContent(el)
       template:
         select: head > meta[name="template"]
         value: attribute(el, "content")
