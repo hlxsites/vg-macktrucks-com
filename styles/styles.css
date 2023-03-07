@@ -59,18 +59,12 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height-m);
   width: 100%;
   background-color: var(--header-background-color);
   color: var(--header-color);
-  position: fixed;
+  position: sticky;
+  top: 0;
   z-index: 1;
-}
-
-@media (min-width: 1140px) {
-  header {
-    height: var(--nav-height-l);
-  }
 }
 
 h1, h2, h3,
