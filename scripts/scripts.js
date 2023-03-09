@@ -8,6 +8,7 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  getMetadata,
   waitForLCP,
   loadBlocks,
   loadCSS,
@@ -15,6 +16,34 @@ import {
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
+window.mack = window.keysight || {};
+window.mack.newsData = window.mack.newsData || {
+  news: [],
+  offset: 0,
+  allLoaded: false,
+};
+
+/**
+ * Create an element with the given id and classes.
+ * @param {string} tagName the tag
+ * @param {string[]|string} classes the class or classes to add
+ * @param {object} props any other attributes to add to the element
+ * @returns the element
+ */
+export function createElement(tagName, classes, props) {
+  const elem = document.createElement(tagName);
+  if (classes) {
+    const classesArr = (typeof classes === 'string') ? [classes] : classes;
+    elem.classList.add(...classesArr);
+  }
+  if (props) {
+    Object.keys(props).forEach((propName) => {
+      elem.setAttribute(propName, props[propName]);
+    });
+  }
+
+  return elem;
+}
 
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
@@ -25,6 +54,83 @@ function buildHeroBlock(main) {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
+}
+
+/**
+ * loads more data from the query index
+ * */
+async function loadMoreNews() {
+  if (!window.mack.newsData.allLoaded) {
+    const queryLimit = 200;
+    /*
+      console.trace();
+      console
+      .log(`loading posts with offset ${window.mack.newsData.offset} and limit ${queryLimit}`);
+    */
+    const resp = await fetch(`/mack-news.json?limit=${queryLimit}&offset=${window.mack.newsData.offset}`);
+    const json = await resp.json();
+    const { total, data } = json;
+    window.mack.newsData.news.push(...data);
+    window.mack.newsData.allLoaded = total <= (window.mack.newsData.offset + queryLimit);
+    window.mack.newsData.offset += queryLimit;
+  }
+}
+
+/**
+ * @param {boolean} more indicates to force loading additional data from query index
+ * @returns the currently loaded listed of posts from the query index pages
+ */
+export async function loadNews(more) {
+  if (window.mack.newsData.news.length === 0 || more) {
+    await loadMoreNews();
+  }
+  return window.mack.newsData.news;
+}
+
+/**
+ * A function for sorting an array of posts by date
+ */
+function sortNewsByDate(newsA, newsB) {
+  const aDate = Number(newsA.date || newsA.lastModified);
+  const bDate = Number(newsB.date || newsB.lastModified);
+  return bDate - aDate;
+}
+
+/**
+ * Get the list of news from the query index. News are auto-filtered based on page context
+ * e.g tags, etc. and sorted by date
+ *
+ * @param {string} filter the name of the filter to apply
+ * one of: topic, subtopic, author, tag, post, auto, none
+ * @param {number} limit the number of posts to return, or -1 for no limit
+ * @returns the posts as an array
+ */
+export async function getNews(filter, limit) {
+  const pages = await loadNews();
+  // filter out anything that isn't a mack news (eg. must have an author)
+  let finalNews;
+  const allNews = pages.filter((page) => page.template === 'mack-news');
+  const url = new URL(window.location);
+  const params = url.searchParams;
+  const tag = params.get('tag');
+  const template = getMetadata('template');
+  let applicableFilter = filter ? filter.toLowerCase() : 'none';
+  if (applicableFilter === 'auto') {
+    if (tag) {
+      applicableFilter = 'tag';
+    } else if (template === 'mack-news') {
+      applicableFilter = 'mack-news';
+    } else {
+      applicableFilter = 'none';
+    }
+  }
+
+  if (applicableFilter === 'mack-news') {
+    finalNews = allNews
+      .filter((news) => news.path !== window.location.pathname)
+      .sort(sortNewsByDate);
+  }
+  return limit < 0 ? finalNews : finalNews.slice(0, limit);
 }
 
 /**
@@ -52,6 +158,32 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+}
+
+async function loadTemplate(doc, templateName) {
+  try {
+    const cssLoaded = new Promise((resolve) => {
+      loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`, resolve);
+    });
+    const decorationComplete = new Promise((resolve) => {
+      (async () => {
+        try {
+          const mod = await import(`../templates/${templateName}/${templateName}.js`);
+          if (mod.default) {
+            await mod.default(doc);
+          }
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(`failed to load module for ${templateName}`, error);
+        }
+        resolve();
+      })();
+    });
+    await Promise.all([cssLoaded, decorationComplete]);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(`failed to load block ${templateName}`, error);
+  }
 }
 
 /**
@@ -88,6 +220,11 @@ export function addFavIcon(href) {
  * loads everything that doesn't need to be delayed.
  */
 async function loadLazy(doc) {
+  const templateName = getMetadata('template');
+  if (templateName) {
+    await loadTemplate(doc, templateName);
+  }
+
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
