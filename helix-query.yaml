@@ -32,11 +32,17 @@ indices:
       heading:
         select: main div h1
         value: textContent(el)
+      summary:
+        select: head > meta[property="summary"]
+        value: attribute(el, "content")
       template:
         select: head > meta[name="template"]
         value: attribute(el, "content")
       title:
         select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      date:
+        select: head > meta[property="date"]
         value: attribute(el, "content")
       image:
         select: head > meta[property="og:image"]
