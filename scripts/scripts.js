@@ -16,7 +16,7 @@ import {
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
-window.mack = window.keysight || {};
+window.mack = window.mack || {};
 window.mack.newsData = window.mack.newsData || {
   news: [],
   offset: 0,
@@ -110,15 +110,10 @@ export async function getNews(filter, limit) {
   // filter out anything that isn't a mack news (eg. must have an author)
   let finalNews;
   const allNews = pages.filter((page) => page.template === 'mack-news');
-  const url = new URL(window.location);
-  const params = url.searchParams;
-  const tag = params.get('tag');
   const template = getMetadata('template');
   let applicableFilter = filter ? filter.toLowerCase() : 'none';
   if (applicableFilter === 'auto') {
-    if (tag) {
-      applicableFilter = 'tag';
-    } else if (template === 'mack-news') {
+    if (template === 'mack-news') {
       applicableFilter = 'mack-news';
     } else {
       applicableFilter = 'none';
