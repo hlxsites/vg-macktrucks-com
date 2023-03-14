@@ -1,1 +1,44 @@
-/* below the fold CSS goes here */
+@font-face {
+  font-family: fontawesome;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/fontawesome-webfont.woff') format('woff');
+}
+
+/*!
+ *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+ .fa {
+  font: normal normal normal 14px/1 var(--ff-fontawesome);
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0,0)
+}
+
+.fa-facebook-f::before,.fa-facebook::before {
+  content: "\f09a"
+}
+
+.fa-play::before {
+  content: "\f04b"
+}
+
+.fa-youtube::before {
+  content: "\f167"
+}
+
+.fa-linkedin::before {
+  content: "\f0e1"
+}
+
+.fa-instagram::before {
+  content: "\f16d"
+}
+
+.fa-twitter::before {
+  content: "\f099"
+}
