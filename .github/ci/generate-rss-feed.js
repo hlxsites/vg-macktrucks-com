@@ -4,7 +4,8 @@ import fs from "fs";
 const limit = 1000;
 const endpoint = `https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed.json`;
 const feedInfoEndpoint = `https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed-info.json`;
-const targetFile = '../../mack-news/feed.xml';
+const targetDirectory = '../../mack-news';
+const targetFile = targetDirectory + "/feed.xml";
 
 async function main() {
     let offset = 0;
@@ -39,7 +40,7 @@ async function main() {
         description: feedInfo.description,
         id: feedInfo.link,
         link: feedInfo.link,
-        generator: "Mack Trucks RSS generator (Github action)",
+        generator: "Mack Trucks RSS generator (GitHub action)",
         language: feedInfo.lang, // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
     });
 
@@ -55,6 +56,9 @@ async function main() {
         });
     });
 
+    if (!fs.existsSync(targetDirectory)){
+        fs.mkdirSync(targetDirectory);
+    }
     fs.writeFileSync(targetFile, feed.rss2());
     console.log("wrote file to ", targetFile)
 }
