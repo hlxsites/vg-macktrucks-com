@@ -34,12 +34,19 @@ async function main() {
     const feedInfoResult = await infoResponse.json();
     const feedInfo = feedInfoResult.data[0];
 
+    const newestPost = allPosts
+        .map(post => new Date(post.publicationDate * 1000))
+        .reduce((maxDate, date) => {
+            return date > maxDate ? date : maxDate;
+    }, new Date(0));
+
 
     const feed = new Feed({
         title: feedInfo.title,
         description: feedInfo.description,
         id: feedInfo.link,
         link: feedInfo.link,
+        updated: newestPost,
         generator: "Mack Trucks RSS generator (GitHub action)",
         language: feedInfo.lang, // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
     });
