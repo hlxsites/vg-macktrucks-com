@@ -1,0 +1,20 @@
+name: Generate RSS feed
+
+on:
+  schedule:
+    # Run 5min past every hour
+    - cron: '5 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install and run
+      working-directory: ./.github/ci
+      run: |
+        npm ci
+        node generate-rss-feed.js
