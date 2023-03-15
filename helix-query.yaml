@@ -3,7 +3,7 @@ indices:
   news-feed:
     include:
       - /mack-news/**
-    target: /mack-news/feed.json
+    target: /mack-news/feed.xlsx
     properties:
       lastModified:
         select: none
