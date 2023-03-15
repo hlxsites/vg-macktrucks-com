@@ -2,7 +2,7 @@ version: 1
 indices:
   news-feed:
     include:
-      - /mack-news/**
+      - '/**'
     target: /mack-news/feed.xlsx
     properties:
       lastModified:
