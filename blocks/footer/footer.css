@@ -10,12 +10,47 @@
   max-width: 1376px;
 }
 
-.footer input {
+.footer .footer-form-input-wrapper {
+  position: relative;
+}
+
+.footer form input {
   background-color: #212121;
   padding: 15px 10px;
   border: none;
   width: 100%;
   color: #fff;
+}
+
+.footer form button {
+  position: absolute;
+  background: transparent;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  right: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #bbb;
+  border-radius: 0;
+}
+
+.footer form label {
+  position: relative;
+  cursor: pointer;
+}
+
+.footer input:checked ~ label .check-icon {
+  display: block;
+}
+
+.footer .check-icon {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  color: #87754e;
+  display: none;
 }
 
 .footer-form-section p {
@@ -72,6 +107,10 @@
 
 .footer .footer-social-media {
   font-size: 20px;
+}
+
+.footer .footer-social-media::before {
+  width: 17px;
 }
 
 .footer h1,
