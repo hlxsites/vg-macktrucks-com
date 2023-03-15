@@ -1,9 +1,14 @@
+import { Feed } from "feed";
+import fs from "fs";
+
 const limit = 1000;
-const endpoint = `https://main--vg-macktrucks-com--hlxsites.hlx.page/mack-news/feed.json`;
+const endpoint = `https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed.json`;
+const feedInfoEndpoint = `https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed-info.json`;
+const targetFile = '../../mack-news/feed.xml';
 
 async function main() {
     let offset = 0;
-    let allPages = [];
+    let allPosts = [];
 
     while (true) {
         const api = new URL(endpoint);
@@ -12,7 +17,7 @@ async function main() {
         const response = await fetch(api, {});
         const result = await response.json()
 
-        allPages.push(...result.data)
+        allPosts.push(...result.data)
 
         if (result.offset + result.limit < result.total){
             // there are more pages
@@ -22,7 +27,36 @@ async function main() {
         }
     }
 
-    console.log(`found ${allPages.length} pages`);
+    console.log(`found ${allPosts.length} posts`);
+
+    const infoResponse = await fetch(feedInfoEndpoint, {});
+    const feedInfoResult = await infoResponse.json();
+    const feedInfo = feedInfoResult.data[0];
+
+
+    const feed = new Feed({
+        title: feedInfo.title,
+        description: feedInfo.description,
+        id: feedInfo.link,
+        link: feedInfo.link,
+        generator: "Mack Trucks RSS generator (Github action)",
+        language: feedInfo.lang, // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+    });
+
+    allPosts.forEach(post => {
+
+        const link = "https://www.macktrucks.com"+post.path;
+        feed.addItem({
+            title: post.title,
+            id: link,
+            link: link,
+            content: post.summary,
+            date:  new Date(post.publicationDate * 1000),
+        });
+    });
+
+    fs.writeFileSync(targetFile, feed.rss2());
+    console.log("wrote file to ", targetFile)
 }
 
 main()
