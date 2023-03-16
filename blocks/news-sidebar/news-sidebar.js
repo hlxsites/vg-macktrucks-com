@@ -23,7 +23,7 @@ export default async function decorate(block) {
 
   // creating the year link
   const yearLink = document.createElement('a');
-  const currentLink = newsPage && newsPage.find(item => item.path === window.location.pathname);
+  const currentLink = newsPage && newsPage.find((item) => item.path === window.location.pathname);
   const newsYear = (new Date(currentLink?.date)).getFullYear();
   yearLink.setAttribute('href', `/mack-news/${newsYear}`);
   yearLink.textContent = newsYear;
@@ -57,20 +57,20 @@ export default async function decorate(block) {
       </div>
       <select>
         <option>Choose...</option>
-        ${(newsPage.map(item => `<option value="${item.path}">${item.heading}</option>`)).join('')}
+        ${(newsPage.map((item) => `<option value="${item.path}">${item.heading}</option>`)).join('')}
       </select>
     </div>
   `;
 
   const div = document.createElement('div');
-  div.innerHTML = selectTemplate
+  div.innerHTML = selectTemplate;
   const selectEl = div.firstElementChild;
   newsContainer.append(selectEl);
 
   block.innerHTML = newsContainer.innerHTML;
 
   block.querySelector('select').addEventListener('change', (event) => {
-    const selectedNews = newsPage.find(item => item.path === event.target.value);
+    const selectedNews = newsPage.find((item) => item.path === event.target.value);
 
     block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.heading;
     window.location = event.target.value;
