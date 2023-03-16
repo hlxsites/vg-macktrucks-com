@@ -66,7 +66,7 @@ async function main() {
     if (!fs.existsSync(targetDirectory)){
         fs.mkdirSync(targetDirectory);
     }
-    fs.writeFileSync(targetFile, feed.rss2());
+    fs.writeFileSync(targetFile, feed.atom1());
     console.log("wrote file to ", targetFile)
 }
 

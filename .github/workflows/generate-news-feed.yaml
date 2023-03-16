@@ -7,7 +7,7 @@ on:
   pull_request:
     paths:
       - '.github/ci/**'
-      - '.github/workflows/generate-rss-feed.yaml'
+      - '.github/workflows/generate-news-feed.yaml'
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
 
     - name: Generate Feed
       working-directory: ./.github/ci
-      run:  node generate-rss-feed.js
+      run:  node generate-news-feed.js
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v4
