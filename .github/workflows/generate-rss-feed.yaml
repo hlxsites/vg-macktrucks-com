@@ -4,14 +4,19 @@ on:
   schedule:
     # Run 5min past every hour
     - cron: '5 * * * *'
+  pull_request:
+    paths:
+      - '.github/ci/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0
-        ref: main
+        ref: ${{ github.head_ref }}
+#        fetch-depth: 0
+      #        ref: main
     - uses: actions/setup-node@v3
       with:
         node-version: '18'
@@ -24,7 +29,7 @@ jobs:
       run:  node generate-rss-feed.js
 
     - name: Commit and push changes
-      uses: EndBug/add-and-commit@v9.1.1
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        add: 'mack-news/feed.xml'
-        message: "Update feed.xml"
+        file_pattern: 'mack-news/feed.xml'
+        commit_message: "Update feed.xml"
