@@ -80,6 +80,10 @@
   justify-content: center;
 }
 
+.news-sidebar .news-sidebar-select-icon span {
+  transform: rotate(180deg);
+}
+
 .news-sidebar select {
   position: absolute;
   width: 100%;
