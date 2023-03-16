@@ -12,14 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref }}
     - uses: actions/setup-node@v3
       with:
         node-version: '18'
-    - name: Install and run
+    - name: Install dependencies
       working-directory: ./.github/ci
-      run: |
-        npm ci
-        node generate-rss-feed.js
+      run: npm install
+
+    - name: Generate Feed
+      working-directory: ./.github/ci
+      run:  node generate-rss-feed.js
+
     - name: Commit and push changes
       uses: EndBug/add-and-commit@v9.1.1
       with:
