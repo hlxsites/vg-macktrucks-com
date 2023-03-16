@@ -1,11 +1,11 @@
 import { Feed } from 'feed';
 import fs from 'fs';
 
-const limit = 1000;
 const endpoint = 'https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed.json';
 const feedInfoEndpoint = 'https://main--vg-macktrucks-com--hlxsites.hlx.live/mack-news/feed-info.json';
 const targetDirectory = '../../mack-news';
 const targetFile = `${targetDirectory}/feed.xml`;
+const limit = 1000;
 
 async function main() {
   const allPosts = await fetchBlogPosts();
@@ -23,12 +23,12 @@ async function main() {
     id: feedMetadata.link,
     link: feedMetadata.link,
     updated: newestPost,
-    generator: 'Mack Trucks RSS generator (GitHub action)',
+    generator: 'AEM RSS generator (GitHub action)',
     language: feedMetadata.lang,
   });
 
   allPosts.forEach((post) => {
-    const link = `https://www.macktrucks.com${post.path}`;
+    const link = feedMetadata["site-root"] + post.path;
     feed.addItem({
       title: post.title,
       id: link,
