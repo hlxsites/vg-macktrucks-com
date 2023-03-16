@@ -122,10 +122,16 @@ export async function getNews(filter, limit) {
 
   if (applicableFilter === 'mack-news') {
     finalNews = allNews
-      // .filter((news) => news.path !== window.location.pathname)
       .sort(sortNewsByDate);
   }
   return limit < 0 ? finalNews : finalNews.slice(0, limit);
+}
+
+export async function getFragment(fragmentUrl) {
+  const resp = await fetch(fragmentUrl);
+  const htmlDoc = await resp.text();
+
+  return htmlDoc;
 }
 
 /**
