@@ -29,21 +29,21 @@ export default async function decorate(doc) {
   const sidebarContainer = createElement('div');
   sidebarSection.append(sidebarContainer);
 
-  let sidebarPreviousSection;
-  let sectionFound = false;
-  const sections = [...doc.querySelectorAll('.section')];
-  while (!sectionFound && sections.length > 0) {
-    const section = sections.pop();
-    if (!sidebarPreviousSection) {
-      sidebarPreviousSection = section;
-    } else if (section.classList.contains('related-content-container') || section.classList.contains('news-cards-container')) {
-      sidebarPreviousSection = section;
-    } else {
-      sectionFound = true;
+  const mackNewsContent = doc.querySelector('main .section:not(.related-content-container, .news-cards-container)');
+  mackNewsContent.classList.add('mack-news-content');
+
+  // finding picture wrappers
+  [...mackNewsContent.querySelectorAll('picture')].forEach(pic => {
+    const parent = pic.parentElement;
+    const isParentPicturesWrapper = [...parent.children].every(el => el.tagName.toLowerCase() === 'picture');
+
+    if (isParentPicturesWrapper) {
+      parent.classList.add('mack-news-picture-wrapper');
     }
-  }
+  });
+
   const newsSidebar = buildBlock('news-sidebar', '');
   sidebarContainer.append(newsSidebar);
-  sidebarPreviousSection.insertAdjacentElement('beforebegin', sidebarSection);
+  mackNewsContent.insertAdjacentElement('beforebegin', sidebarSection);
   decorateBlock(newsSidebar);
 }

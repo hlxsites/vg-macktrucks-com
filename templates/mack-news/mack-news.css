@@ -13,7 +13,7 @@
   padding: 6px 0 0;
 }
 
-.mack-news main .section:not(.news-sidebar-container, .hero-container) {
+.mack-news main .section.mack-news-content {
   padding: 0 1%;
 }
 
@@ -45,14 +45,47 @@
   color: #000;
 }
 
-.mack-news main p a:any-link {
+.mack-news main img {
+  display: block;
+  margin: auto;
+}
+
+.mack-news .mack-news-content main ol,
+.mack-news .mack-news-content main ul {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.mack-news .mack-news-content main ul {
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mack-news .mack-news-content main ul li {
+  border-bottom: 1px solid #ccc;
+}
+
+.mack-news .mack-news-content main ul li:first-child,
+.mack-news .mack-news-content main ul ul li {
+  padding: 5px 0;
+}
+
+.mack-news .mack-news-content a:any-link {
   color: #000;
   text-decoration: underline;
 }
 
-.mack-news main p a:any-link:hover {
+.mack-news .mack-news-content a:any-link:hover {
   color: #999;
   margin: 0 0 22px;
+}
+
+.mack-news .mack-news-content .mack-news-picture-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
