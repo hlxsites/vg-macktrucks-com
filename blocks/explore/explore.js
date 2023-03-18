@@ -1,22 +1,22 @@
-function prependTabTitle(tab) {
-  const tabTitle = tab.querySelector('h4');
-  tabTitle.className = 'tab-title';
-  tabTitle.setAttribute('tabindex', 0);
-  tab.prepend(tabTitle);
-}
+// media query match that indicates mobile/tablet width
+const MQ = window.matchMedia('(min-width: 768px)');
 
-function addTitlesListener(block) {
-  const tabTitles = block.querySelectorAll('h4');
-  block.onclick = (e) => {
+function addTitlesListener(container) {
+  const tabTitles = container.querySelectorAll('h4');
+  container.onclick = (e) => {
     const { target } = e;
     if (target.localName !== 'h4') return;
-    const tabContainer = target.parentElement;
-    const tabContent = tabContainer.querySelector('.tab-content');
-    const contentWrapper = tabContainer.querySelector('.content-wrapper');
-    const isActive = tabContainer.classList.contains('active');
-    [...tabTitles].forEach((tabTitle) => tabTitle.parentElement.classList.remove('active'));
-    tabContainer.classList.toggle('active', !isActive);
+    const tabContent = target.nextElementSibling;
+    const contentWrapper = tabContent.querySelector('.content-wrapper');
+    const isActive = target.classList.contains('active');
+    [...tabTitles].forEach((tabTitle) => tabTitle.classList.remove('active'));
+    if (MQ.matches) {
+      target.classList.add('active');
+    } else {
+      target.classList.toggle('active', !isActive);
+    }
     // tab fold/unfold animation
+    if (MQ.matches && isActive) return;
     tabContent.style.height = tabContent.clientHeight ? 0 : `${contentWrapper.clientHeight}px`;
     const otherTitles = [...tabTitles].filter((title) => title !== target);
     otherTitles.forEach((title) => {
@@ -31,9 +31,9 @@ function isOutOfRange(isNext, movement, lastSlide) {
   return isFirstSlide || isLastSlide;
 }
 
-function addClickListener(block) {
-  const slideControls = block.querySelector('.slide-controls');
-  const slidesContainer = block.querySelector('.slides-container');
+function addClickListener(container) {
+  const slideControls = container.querySelector('.slide-controls');
+  const slidesContainer = container.querySelector('.slides-container');
   const arrows = slideControls.querySelectorAll('.slide-control');
   const previousBtn = slideControls.querySelector('.btn-previous');
   const nextBtn = slideControls.querySelector('.btn-next');
@@ -72,8 +72,8 @@ function addClickListener(block) {
   };
 }
 
-function addSliderControls(tabContent, slidesLength) {
-  const tabBody = tabContent.querySelector('.description');
+function addSliderControls(contentWrapper, slidesLength) {
+  const tabBody = contentWrapper.querySelector('.description');
   const slideControls = document.createElement('div');
   const previousBtn = document.createElement('a');
   const nextBtn = document.createElement('a');
@@ -100,13 +100,14 @@ function addSliderControls(tabContent, slidesLength) {
   nextBtn.textContent = 'NEXT';
   pagination.appendChild(navList);
   slideControls.append(pagination, previousBtn, nextBtn);
-  tabContent.insertBefore(slideControls, tabBody);
+  contentWrapper.insertBefore(slideControls, tabBody);
 }
 
-function decorateSlider(block) {
-  const sliderTabContainer = block.querySelector('.tab-container:has(#explore-trucks)');
-  const sliderWrapper = sliderTabContainer.querySelector('.content-wrapper > div'); // div with data-align center
-  const tabContent = sliderWrapper.parentElement;
+function decorateSlider(container) {
+  const tabContent = container.querySelector('#explore-trucks + .tab-content');
+  const contentWrapper = tabContent.querySelector('.content-wrapper');
+  const sliderWrapper = contentWrapper.children[0]; // div with data-align center
+
   const imageContainers = sliderWrapper.querySelectorAll('p');
   const titles = sliderWrapper.querySelectorAll('h2');
   const newSliderWrapper = document.createElement('div');
@@ -128,37 +129,40 @@ function decorateSlider(block) {
   });
 
   newSliderWrapper.appendChild(slidesContainer);
-  tabContent.prepend(newSliderWrapper);
+  contentWrapper.prepend(newSliderWrapper);
   sliderWrapper.remove();
 
   // add slider controls
-  addSliderControls(tabContent, titles.length);
-  addClickListener(block);
+  addSliderControls(contentWrapper, titles.length);
+  addClickListener(container);
 }
 
-function setupInitialStyles(block) {
-  const tabContainer = block.children[0];
-  const tabContent = tabContainer.children[1];
+function setupInitialStyles(container) {
+  const tabTitle = container.children[0];
+  const tabContent = container.children[1];
   const contentWrapper = tabContent.children[0];
+  let resizeTimer = null;
   const resizeObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
-      const { target } = entry;
       if (entry.contentRect.height > 0) {
-        tabContent.style.height = `${target.clientHeight}px`;
-        resizeObserver.disconnect();
+        tabContent.style.height = `${entry.target.clientHeight}px`;
       }
     });
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => resizeObserver.disconnect(), 5000);
   });
   resizeObserver.observe(contentWrapper);
-  tabContainer.classList.add('active');
+  tabTitle.classList.add('active');
 }
 
 export default function decorate(block) {
   const tabContainers = block.children;
+  const exploreContainer = document.createElement('div');
   [...tabContainers].forEach((tab) => {
     const tabContent = document.createElement('div');
     const contentWrapper = document.createElement('div');
     const content = [...tab.children];
+    const tabTitle = tab.querySelector('h4');
     const ctas = tab.querySelector('.button-container');
     // relocate content to the new container
     content.forEach((node) => {
@@ -166,19 +170,23 @@ export default function decorate(block) {
     });
     // add again the content and the title
     tabContent.appendChild(contentWrapper);
-    tab.append(tabContent);
-    prependTabTitle(tab);
+    exploreContainer.append(tabTitle, tabContent);
     // add proper class names for styling
     tabContent.style.height = 0;
     ctas.classList.add('cta');
     tabContent.className = 'tab-content';
     contentWrapper.className = 'content-wrapper';
     tab.className = 'tab-container';
+    tabTitle.className = 'tab-title';
+    tabTitle.setAttribute('tabindex', 0);
     contentWrapper.children[0].className = 'tab-image';
     contentWrapper.children[1].className = 'description';
+    tab.remove();
   });
 
-  addTitlesListener(block);
-  decorateSlider(block);
-  setupInitialStyles(block);
+  exploreContainer.className = 'tab-container';
+  block.appendChild(exploreContainer);
+  addTitlesListener(exploreContainer);
+  decorateSlider(exploreContainer);
+  setupInitialStyles(exploreContainer);
 }

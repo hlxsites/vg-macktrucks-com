@@ -27,7 +27,6 @@
 
 .block.explore h2 sup {
   font-size: 6px;
-  vertical-align: text-top;
 }
 
 .block.explore h2 a {
@@ -50,7 +49,7 @@
   position: relative;
 }
 
-.block.explore .active .tab-title::after {
+.block.explore .active.tab-title::after {
   content: '';
   position:absolute;
   bottom:-9px;
@@ -61,12 +60,12 @@
   background: url('../../media/sprite.png') -300px 0 no-repeat;
 }
 
-.block.explore .active .tab-title {
+.block.explore .active.tab-title {
   background-color: black;
   color: white;
 }
 
-.block.explore :not(.tab-container:last-child) .tab-title {
+.block.explore .tab-title:has(+ .tab-content):not(:last-of-type) {
   border-block-end: 1px solid var(--tab-border);
 }
 
@@ -77,13 +76,13 @@
   transition: height 500ms;
 }
 
-.block.explore .active .tab-content {
+.block.explore .active + .tab-content {
   display: flex;
   flex-direction: column;
   height: auto;
 }
 
-.block.explore .active:not(:last-of-type) .tab-content{
+.block.explore .active:not(:last-of-type) + .tab-content{
   border-block-end: 1px solid var(--tab-border);
 }
 
@@ -97,10 +96,6 @@
 }
 
 /* content slider */
-.tab-container:has(#explore-trucks) {
-  position: relative;
-}
-
 .block.explore .slider-wrapper {
   overflow: hidden;
 }
@@ -128,7 +123,7 @@
 }
 
 /* controls */
-.block.explore .active .slide-control {
+.block.explore .active + .tab-content .slide-control {
   position: absolute;
   top: 41.5%;
   width: 41px;
@@ -138,22 +133,22 @@
   background: url('../../media/sprite-mobile.png') no-repeat;
 }
 
-.block.explore .active .btn-previous.disabled {
+.block.explore .active + .tab-content .btn-previous.disabled {
   background-position: -100px -100px;
 }
 
-.block.explore .active .btn-next.disabled {
+.block.explore .active + .tab-content .btn-next.disabled {
   background-position: -150px -100px;
 }
 
-.block.explore .active .btn-previous,
-.block.explore .active .slide-control.btn-previous:hover {
+.block.explore .active + .tab-content .btn-previous,
+.block.explore .active + .tab-content .slide-control.btn-previous:hover {
   background-position: 0 -100px;
   left: 0;
 }
 
-.block.explore .active .btn-next,
-.block.explore .active .slide-control.btn-next:hover {
+.block.explore .active + .tab-content .btn-next,
+.block.explore .active + .tab-content .slide-control.btn-next:hover {
   background-position: -50px -100px;
   right: 0;
 }
@@ -222,6 +217,88 @@
   display: none;
 }
 
-/* @media (min-width: 768px) {
-  desktop version in development...
-} */
+@media (min-width: 768px) {
+  .explore-wrapper {
+    background: url('../../media/bg-explore.jpeg');
+  }
+
+  .block.explore {
+    max-width: 960px;
+    margin: 0 auto;
+    border: initial;
+  }
+
+  .block.explore .tab-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-block-end: 1rem;
+  }
+
+  .block.explore .tab-content {
+    order: 5;
+    flex: 0 0 100%;
+  }
+
+  .block.explore .tab-content .tab-image {
+    margin: 0;
+    padding: 1rem 0 0;
+  }
+
+  .block.explore .tab-title.active + .tab-content {
+    border: unset;
+  }
+
+  .block.explore .tab-title {
+    flex: 1 0 auto;
+    border-style: solid;
+    border-color: var(--tab-border);
+    padding: 14px 12px 13px;
+  }
+
+  .block.explore .tab-title:not(:last-of-type) {
+    border-width: 1px 0 1px 1px;
+  }
+
+  .block.explore .tab-title:last-of-type {
+    border-width: 1px;
+  }
+
+  .block.explore .slide {
+    flex: unset;
+  }
+
+  .block.explore .slide p {
+    width: auto;
+  }
+
+  .block.explore .slide img:hover {
+    border: 1px solid var(--btn-color-hover);
+    margin: -1px;
+  }
+
+  .block.explore h2 {
+    text-transform: initial;
+    font-size: 26px;
+  }
+
+  .block.explore h2 sup {
+    font-size: 6px;
+  }
+
+  .block.explore .slide-controls {
+    display: none;
+  }
+
+  .block.explore .description .cta {
+    text-align: initial;
+    margin: 7px 0;
+  }
+
+  .block.explore .description .cta a {
+    background-color: unset;
+    color: var(--text-color);
+    width: initial;
+    margin: 0;
+    border: unset;
+  }
+}
