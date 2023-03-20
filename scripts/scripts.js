@@ -146,13 +146,6 @@ export async function getNews(filter, limit) {
   return limit < 0 ? finalNews : finalNews.slice(0, limit);
 }
 
-export async function getFragment(fragmentUrl) {
-  const resp = await fetch(fragmentUrl);
-  const htmlDoc = await resp.text();
-
-  return htmlDoc;
-}
-
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
