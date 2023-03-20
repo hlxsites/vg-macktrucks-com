@@ -26,7 +26,7 @@ window.mack.newsData = window.mack.newsData || {
 export function findAndCreateImageLink(node) {
   const links = node.querySelectorAll('picture ~ a');
 
-  [...links].forEach(link => {
+  [...links].forEach((link) => {
     let prevEl = link.previousElementSibling;
 
     if (prevEl.tagName.toLowerCase() === 'br') {
@@ -40,7 +40,7 @@ export function findAndCreateImageLink(node) {
       link.classList.add('image-link');
     }
   });
-};
+}
 
 /**
  * Create an element with the given id and classes.

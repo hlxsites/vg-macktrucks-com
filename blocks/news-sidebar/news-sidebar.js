@@ -26,12 +26,11 @@ export default async function decorate(block) {
   const currentLink = newsPage && newsPage.find((item) => item.path === window.location.pathname);
   const newsYear = (new Date(currentLink?.date)).getFullYear();
 
-  if (!isNaN(newsYear)) {
+  if (!Number.isNaN(Number(newsYear))) {
     yearLink.setAttribute('href', `/mack-news/${newsYear}`);
     yearLink.textContent = newsYear;
     list.appendChild(yearLink);
   }
-
 
   if (newsPage) {
     newsPage.forEach((newsData) => {
