@@ -1,10 +1,12 @@
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 768px)');
+let isInitialPainting = true;
 
 function addTitlesListener(container) {
   const tabTitles = container.querySelectorAll('h4');
   container.onclick = (e) => {
     const { target } = e;
+    if (isInitialPainting) return;
     if (target.localName !== 'h4') return;
     const tabContent = target.nextElementSibling;
     const contentWrapper = tabContent.querySelector('.content-wrapper');
@@ -17,11 +19,10 @@ function addTitlesListener(container) {
     }
     // tab fold/unfold animation
     if (MQ.matches && isActive) return;
-    tabContent.style.height = tabContent.clientHeight ? 0 : `${contentWrapper.clientHeight}px`;
-    const otherTitles = [...tabTitles].filter((title) => title !== target);
-    otherTitles.forEach((title) => {
+    [...tabTitles].forEach((title) => {
       title.nextElementSibling.style.height = 0;
     });
+    tabContent.style.height = tabContent.clientHeight ? 0 : `${contentWrapper.clientHeight}px`;
   };
 }
 
@@ -149,7 +150,10 @@ function setupInitialStyles(container) {
       }
     });
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => resizeObserver.disconnect(), 5000);
+    resizeTimer = setTimeout(() => {
+      isInitialPainting = false;
+      resizeObserver.disconnect();
+    }, 3000);
   });
   resizeObserver.observe(contentWrapper);
   tabTitle.classList.add('active');
