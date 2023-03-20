@@ -79,13 +79,17 @@
 
 .mack-news .mack-news-content a:any-link:hover {
   color: #999;
-  margin: 0 0 22px;
 }
 
-.mack-news .mack-news-content .mack-news-picture-wrapper {
+.mack-news .mack-news-content .mack-news-pictures-wrapper {
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+
+.mack-news .mack-news-pictures-wrapper picture > img {
+  object-fit: cover;
+  height: 100%;
 }
 
 @media (min-width: 768px) {

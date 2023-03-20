@@ -4,7 +4,7 @@ import {
   buildBlock,
   decorateBlock,
 } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, findAndCreateImageLink } from '../../scripts/scripts.js';
 
 async function buildNewsData(h1) {
   const pubdate = getMetadata('date');
@@ -32,13 +32,20 @@ export default async function decorate(doc) {
   const mackNewsContent = doc.querySelector('main .section:not(.related-content-container, .news-cards-container)');
   mackNewsContent.classList.add('mack-news-content');
 
-  // finding picture wrappers
-  [...mackNewsContent.querySelectorAll('picture')].forEach(pic => {
+  findAndCreateImageLink(mackNewsContent);
+
+  // finding picture/video wrappers
+  [...mackNewsContent.querySelectorAll('picture, a.image-link')].forEach(pic => {
     const parent = pic.parentElement;
-    const isParentPicturesWrapper = [...parent.children].every(el => el.tagName.toLowerCase() === 'picture');
+    const isParentPicturesWrapper = [...parent.children].every(el =>
+      el.tagName.toLowerCase() === 'picture'
+      || el.classList.contains('image-link')
+      || el.tagName.toLowerCase() === 'br');
 
     if (isParentPicturesWrapper) {
-      parent.classList.add('mack-news-picture-wrapper');
+      parent.classList.add('mack-news-pictures-wrapper');
+      // removing break lines - they aren't needed for images dispalyed in one row
+      parent.querySelectorAll('br').forEach(br => br.remove())
     }
   });
 

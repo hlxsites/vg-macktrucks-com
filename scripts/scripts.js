@@ -23,6 +23,25 @@ window.mack.newsData = window.mack.newsData || {
   allLoaded: false,
 };
 
+export function findAndCreateImageLink(node) {
+  const links = node.querySelectorAll('picture ~ a');
+
+  [...links].forEach(link => {
+    let prevEl = link.previousElementSibling;
+
+    if (prevEl.tagName.toLowerCase() === 'br') {
+      prevEl = prevEl.previousElementSibling;
+    }
+
+    if (prevEl.tagName.toLowerCase() === 'picture') {
+      link.innerHTML = '';
+      link.appendChild(prevEl);
+      link.setAttribute('target', '_blank');
+      link.classList.add('image-link');
+    }
+  });
+};
+
 /**
  * Create an element with the given id and classes.
  * @param {string} tagName the tag
