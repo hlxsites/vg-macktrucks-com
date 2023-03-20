@@ -65,7 +65,7 @@
   color: white;
 }
 
-.block.explore .tab-title:has(+ .tab-content):not(:last-of-type) {
+.block.explore .tab-title:not(:last-of-type) {
   border-block-end: 1px solid var(--tab-border);
 }
 

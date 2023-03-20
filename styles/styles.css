@@ -22,8 +22,10 @@
   --header-color: #fff;
 
   /* fonts */
-  --body-font-family: 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
-  --heading-font-family: var(--body-font-family);
+  --body-font-family: 'Helvetica Neue 65 Medium', 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
+  --heading-font-family-heavy: 'Helvetica Neue 85 Heavy', 'helvetica neue', helvetica, sans-serif;
+  --heading-font-family-bold: 'Helvetica Neue 75 Bold', 'helvetica neue', helvetica, sans-serif;
+  --heading-font-family: var(--heading-font-family-bold);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
@@ -69,12 +71,16 @@ header {
 
 h1, h2, h3,
 h4, h5, h6 {
-  font-family: var(--heading-font-family);
+  font-family: var(--heading-font-family-bold);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 1em;
   margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height-m) + 1em);
+}
+
+h1, h2 {
+  font-family: var(--heading-font-family-heavy);
 }
 
 h1 { font-size: var(--heading-font-size-xxl) }
