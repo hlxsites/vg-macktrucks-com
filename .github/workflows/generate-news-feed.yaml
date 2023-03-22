@@ -19,6 +19,10 @@ jobs:
 #        fetch-depth: 0
       #        ref: main
         token: ${{ secrets.BOT_ACCESS_TOKEN }}
+    - name: Configure git
+      run: |
+        git config user.name "GitHubActions"
+        git config user.email "<>"
     - uses: actions/setup-node@v3
       with:
         node-version: '18'
