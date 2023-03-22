@@ -1,0 +1,36 @@
+name: Generate News feed
+
+on:
+#  schedule:
+    # Run 5min past every hour
+   # - cron: '5 * * * *'
+  pull_request:
+    paths:
+      - '.github/ci/**'
+      - '.github/workflows/generate-news-feed.yaml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+#        fetch-depth: 0
+      #        ref: main
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      working-directory: ./.github/ci
+      run: npm install
+
+    - name: Generate Feed
+      working-directory: ./.github/ci
+      run:  node generate-news-feed.js
+
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        file_pattern: 'mack-news/feed.xml'
+        commit_message: "Update feed.xml"
