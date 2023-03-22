@@ -3,7 +3,7 @@ name: Generate News feed
 on:
   schedule:
     # Runs at 5 minutes past the hour.
-    - cron: '*/5 * * * *'
+    - cron: '*/2 * * * *'
 
 jobs:
   build:
