@@ -2,8 +2,8 @@ name: Generate Atom news feed
 
 on:
   schedule:
-    # Runs at 5 minutes past the hour.
-    - cron: '* * * * *'
+    # Runs at 5 minutes before the hour.
+    - cron: '55 * * * *'
   pull_request:
     paths:
       - '.github/ci/**'
