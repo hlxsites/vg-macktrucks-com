@@ -4,6 +4,10 @@ on:
   schedule:
     # Runs at 5 minutes past the hour.
     - cron: '* * * * *'
+  pull_request:
+    paths:
+      - '.github/ci/**'
+      - '.github/workflows/generate-news-feed.yaml'
 
 jobs:
   build:
