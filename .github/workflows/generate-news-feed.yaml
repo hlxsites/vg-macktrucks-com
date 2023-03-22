@@ -1,9 +1,9 @@
 name: Generate News feed
 
 on:
-#  schedule:
-    # Run 5min past every hour
-   # - cron: '5 * * * *'
+  schedule:
+    # Runs at 5 minutes past the hour.
+    - cron: '5 * * * *'
   pull_request:
     paths:
       - '.github/ci/**'
