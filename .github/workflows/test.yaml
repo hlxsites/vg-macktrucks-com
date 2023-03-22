@@ -1,0 +1,14 @@
+name: Wingeier-test
+
+on:
+  schedule:
+    # Runs at 5 minutes past the hour.
+    - cron: '*/2 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo Hello world
+    
