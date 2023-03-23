@@ -3,7 +3,7 @@
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
     <updated>2023-02-28T00:00:00.000Z</updated>
-    <generator>AEM RSS generator (GitHub action)</generator>
+    <generator>AEM News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
     <entry>
