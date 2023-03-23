@@ -23,7 +23,7 @@ async function main() {
     id: feedMetadata.link,
     link: feedMetadata.link,
     updated: newestPost,
-    generator: 'AEM RSS generator (GitHub action)',
+    generator: 'AEM News feed generator (GitHub action)',
     language: feedMetadata.lang,
   });
 
