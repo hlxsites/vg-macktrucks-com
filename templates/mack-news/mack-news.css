@@ -118,3 +118,13 @@
     min-width: 23%;
   }
 }
+
+.mack-news .fragment {
+  margin: 25px 0 0;
+  padding: 25px 0 0;
+  border-top: 1px solid #9a9a9a;
+}
+
+.mack-news .fragment p:first-child {
+  margin-top: 0;
+}

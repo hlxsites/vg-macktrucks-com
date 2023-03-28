@@ -35,14 +35,13 @@ export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();
   const fragment = await loadFragment(path);
+
   if (fragment) {
     const fragmentSection = fragment.querySelector(':scope .section');
-    const hr = document.createElement('hr');
 
     if (fragmentSection) {
-      fragmentSection.prepend(hr);
-      block.closest('.section').classList.add(...fragmentSection.classList);
-      block.closest('.fragment-wrapper').replaceWith(...fragmentSection.childNodes);
+      block.classList.add(...fragmentSection.classList, 'fragment');
+      block.replaceChildren(...fragmentSection.childNodes);
     }
   }
 }
