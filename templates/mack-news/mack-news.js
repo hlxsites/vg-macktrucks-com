@@ -50,6 +50,8 @@ export default async function decorate(doc) {
 
   const newsSidebar = buildBlock('news-sidebar', '');
   sidebarContainer.append(newsSidebar);
-  mackNewsContent.insertAdjacentElement('beforebegin', sidebarSection);
+  // for performance (Speed Index) the sidebar is added after the mack news
+  // and displayed before mack news content thanks to CSS rule
+  mackNewsContent.insertAdjacentElement('afterend', sidebarSection);
   decorateBlock(newsSidebar);
 }
