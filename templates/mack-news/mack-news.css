@@ -1,0 +1,130 @@
+/* main news styling */
+.mack-news main {
+  background-color: var(--color-white);
+  display: flex;
+  max-width: 960px;
+  margin: auto;
+  flex-direction: column;
+  padding: 20px 20px 0;
+}
+
+.mack-news .section.news-sidebar-container {
+  margin: 0 1%;
+  padding: 6px 0 0;
+}
+
+.mack-news main .section.mack-news-content {
+  padding: 0 1%;
+}
+
+.mack-news main .section > div {
+  padding: 0;
+  margin: 0;
+}
+
+.mack-news main .section h1 {
+  margin: 0 0 36px;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 28px;
+}
+
+.mack-news main .pubdate {
+  display: none;
+  font-size: 12px;
+  line-height: 14px;
+  color: #333;
+  margin: 0 0 31px;
+  font-weight: 400;
+}
+
+.mack-news main p {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #000;
+}
+
+.mack-news main img {
+  display: block;
+  margin: auto;
+}
+
+.mack-news .mack-news-content main ol,
+.mack-news .mack-news-content main ul {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.mack-news .mack-news-content main ul {
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mack-news .mack-news-content main ul li {
+  border-bottom: 1px solid #ccc;
+}
+
+.mack-news .mack-news-content main ul li:first-child,
+.mack-news .mack-news-content main ul ul li {
+  padding: 5px 0;
+}
+
+.mack-news .mack-news-content a:any-link {
+  color: #000;
+  text-decoration: underline;
+}
+
+.mack-news .mack-news-content a:any-link:hover {
+  color: #999;
+}
+
+.mack-news .mack-news-content .mack-news-pictures-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mack-news .mack-news-pictures-wrapper picture > img {
+  object-fit: cover;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .mack-news main {
+    padding: 94px 0 29px;
+  }
+
+  .mack-news main .section h1 {
+    font-size: 45px;
+    line-height: 46px;
+    margin: 0 0 5px;
+  }
+
+  .mack-news main .pubdate {
+    display: block;
+  }
+}
+
+@media (min-width: 1141px) {
+  .mack-news main {
+    flex-direction: row-reverse;
+  }
+
+  .mack-news .section.news-sidebar-container {
+    width: 23%;
+    min-width: 23%;
+  }
+}
+
+.mack-news .fragment {
+  margin: 25px 0 0;
+  padding: 25px 0 0;
+  border-top: 1px solid #9a9a9a;
+}
+
+.mack-news .fragment p:first-child {
+  margin-top: 0;
+}

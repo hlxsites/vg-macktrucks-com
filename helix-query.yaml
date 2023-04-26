@@ -1,0 +1,16 @@
+version: 1
+indices:
+  news-feed:
+    include:
+      - '/mack-news/*/**'
+    target: /mack-news/feed.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      summary:
+        select: head > meta[name="summary"]
+        value: attribute(el, "content")
+      publicationDate:
+        select: head > meta[name="date"]
+        value: parseTimestamp(attribute(el, "content"), MM/DD/YYYY)
