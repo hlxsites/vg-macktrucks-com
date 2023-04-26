@@ -10,79 +10,6 @@
   max-width: 1376px;
 }
 
-.footer .footer-form-input-wrapper {
-  position: relative;
-}
-
-.footer form input {
-  background-color: #212121;
-  padding: 15px 10px;
-  border: none;
-  width: 100%;
-  color: #fff;
-}
-
-.footer form button {
-  position: absolute;
-  background: transparent;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  right: 10px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  color: #bbb;
-  border-radius: 0;
-}
-
-.footer form label {
-  position: relative;
-  cursor: pointer;
-}
-
-.footer input:checked ~ label .check-icon {
-  display: block;
-}
-
-.footer .check-icon {
-  position: absolute;
-  top: 2px;
-  left: 3px;
-  color: #87754e;
-  display: none;
-}
-
-.footer-form-section p {
-  margin-bottom: 10px;
-  margin-top: 0;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.footer .footer-from-confirm-wrapper {
-  margin-top: 5px;
-}
-
-.footer #footer-form-confirm {
-  display: none;
-}
-
-.footer .footer-form-checkbox {
-  height: 20px;
-  width: 20px;
-  min-width: 20px;
-  border: 2px solid #87754e;
-  float: left;
-  display: block;
-  position: relative;
-  margin-right: 10px;
-}
-
-.footer .footer-form-label {
-  display: flex;
-}
-
 .footer ul {
   list-style: none;
   padding: 0;
@@ -103,9 +30,6 @@
   height: 35px;
   align-items: center;
   justify-content: center;
-}
-
-.footer .footer-social-media {
   font-size: 20px;
 }
 
@@ -137,8 +61,7 @@
 .footer h2 ~ ul,
 .footer h3 ~ ul {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 }
 
 .footer h1 ~ ul li,
@@ -167,10 +90,6 @@
   padding: 10px 0;
 }
 
-.footer .footer-bottom-section li a {
-  color: #999;
-}
-
 .footer .footer-bottom-section li a:hover {
   color: white;
 }
@@ -188,8 +107,7 @@
 
   .footer .footer-content {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-flow: row wrap;
   }
 
   .footer .footer-main-content {
@@ -229,10 +147,6 @@
   }
 
   .footer .footer-bottom-section ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
