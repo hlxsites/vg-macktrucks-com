@@ -14,13 +14,13 @@ export default async function decorate(block) {
   const html = await resp.text();
   const footer = document.createElement('div');
 
-  footer.classList.add("footer-content");
+  footer.classList.add('footer-content');
   footer.innerHTML = html;
   await decorateIcons(footer);
 
   // transforming icons into font-awesome
-  footer.querySelectorAll('span.icon').forEach(icon => {
-    const iconClass = icon.getAttribute('class').split(' ').find(el => el.startsWith('icon-'));
+  footer.querySelectorAll('span.icon').forEach((icon) => {
+    const iconClass = icon.getAttribute('class').split(' ').find((el) => el.startsWith('icon-'));
 
     if (iconClass) {
       const iconName = iconClass.split('icon-')[1];
