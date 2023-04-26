@@ -33,22 +33,7 @@ export default async function decorate(block) {
   const formSection = footer.querySelector('.eloqua-form').parentElement;
   formSection.classList.add('footer-form-section');
 
-  const form = `
-    <form>
-      <div class="footer-form-input-wrapper">
-        <input type="text" placeholder="Email">
-        <button>→</button>
-      </div>
-      <div class="footer-from-confirm-wrapper">
-        <input type="checkbox" name="confirm" id="footer-form-confirm">
-        <label for="footer-form-confirm" class="footer-form-label">
-          <span class="footer-form-checkbox"></span>
-          <i class="fa fa-check check-icon"></i>
-          Yes, please subscribe me to email and newsletter updates.
-        </label>
-      </div>
-    </from>
-  `;
+  const form = 'ELOUQUA FORM SHOULD BE HERE';
 
   const socialMediaSection = footer.querySelector('.fa-twitter, .fa-facebook, .fa-twitter, .fa-linkedin, .fa-instagram, .fa-youtube').closest('ul');
   socialMediaSection.classList.add('footer-social-media-section');
