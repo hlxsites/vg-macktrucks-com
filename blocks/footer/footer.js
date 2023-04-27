@@ -12,7 +12,7 @@ export default async function decorate(block) {
   const footerPath = cfg.footer || '/footer';
   const resp = await fetch(`${footerPath}.plain.html`);
   const html = await resp.text();
-  const footer = document.createElement('div');
+  const footer = document.createElement('footer');
 
   footer.classList.add('footer-content');
   footer.innerHTML = html;
@@ -30,25 +30,29 @@ export default async function decorate(block) {
     }
   });
 
-  const formSection = footer.querySelector('.eloqua-form').parentElement;
-  formSection.classList.add('footer-form-section');
+  const formSection = footer.querySelector('.eloqua-form')?.parentElement;
+  formSection?.classList.add('footer-form-section');
 
   const form = 'ELOUQUA FORM SHOULD BE HERE';
 
-  const socialMediaSection = footer.querySelector('.fa-twitter, .fa-facebook, .fa-twitter, .fa-linkedin, .fa-instagram, .fa-youtube').closest('ul');
-  socialMediaSection.classList.add('footer-social-media-section');
+  const socialMediaSection = footer.querySelector('.fa-twitter, .fa-facebook, .fa-twitter, .fa-linkedin, .fa-instagram, .fa-youtube')?.closest('ul');
+  socialMediaSection?.classList.add('footer-social-media-section');
 
   const [firstHeader, secondHeader] = [...footer.querySelectorAll('h1')];
   const [firstLinks, secondLinks] = [...footer.querySelectorAll('h1 ~ ul')];
 
   // creating the  logo link
   const picture = footer.querySelector('picture');
-  const logoLink = picture.closest('div').querySelector('a');
-  logoLink.classList.add('footer-logo-link');
-  picture.parentElement.remove();
+  let logoLink = null;
 
-  logoLink.innerHTML = '';
-  logoLink.append(picture);
+  if (picture) {
+    logoLink = picture.closest('div').querySelector('a');
+    logoLink?.classList.add('footer-logo-link');
+    picture.parentElement.remove();
+
+    logoLink.innerHTML = '';
+    logoLink.append(picture);
+  }
 
   const bottomLinksList = [...footer.querySelectorAll('ul')].at(-1);
 
@@ -62,23 +66,23 @@ export default async function decorate(block) {
               ${form}
             </div>
           </div>
-          ${socialMediaSection.outerHTML}
+          ${socialMediaSection?.outerHTML}
         </div>
         <div class="footer-links-section">
           <div class="footer-links-col-1">
-            ${firstHeader.outerHTML}
-            ${firstLinks.outerHTML}
+            ${firstHeader?.outerHTML}
+            ${firstLinks?.outerHTML}
           </div>
           <div class="footer-links-col-2">
-            ${secondHeader.outerHTML}
-            ${secondLinks.outerHTML}
+            ${secondHeader?.outerHTML}
+            ${secondLinks?.outerHTML}
           </div>
         </div>
       </div>
       <hr />
       <div class="footer-bottom-section">
-        ${bottomLinksList.outerHTML}
-        ${logoLink.outerHTML}
+        ${bottomLinksList?.outerHTML}
+        ${logoLink?.outerHTML}
       </div>
     </div>
   `;
