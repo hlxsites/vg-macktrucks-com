@@ -33,6 +33,11 @@
   font-size: 20px;
 }
 
+.footer .footer-social-media:hover {
+  color: #af9866;
+  border-color: #af9866;
+}
+
 .footer .footer-social-media::before {
   width: 17px;
 }
