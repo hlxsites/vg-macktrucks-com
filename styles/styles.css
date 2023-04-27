@@ -12,15 +12,18 @@
 
  :root {
   /* BASE COLORS */
+  
   /* primary colors */
-  --primary-black: #000000;
-  --primary-white: #ffffff;
+  --primary-black: #000;
+  --primary-white: #fff;
   --primary-gold: #b3976b;
+
   /* secondary colors */
   --secondary-graphite: #1d1d1d;
   --secondary-steel: #a7abaf;
   --secondary-silver: #dfdfdf;
   --secondary-dark-gold: #87754e;
+
   /* accent colors */
   --primary-accent-red: #cd1a0a;
   --secondary-accent-copper: #8f654d;
@@ -30,17 +33,19 @@
   --text-color: var(--primary-black);
   --link-color: var(--primary-accent-red);
   --link-hover-color: var(--primary-black);
-  
   --header-color: var(--primary-white);
   --header-background-color: var(--primary-black);
   --overlay-background-color: var(--secondary-silver);  
   
   /* NEW fonts */
+
   /* Headline */
   --headline-ff-medium: 'GT America Extended Medium', var(--fallback-ff-headlines);
   --headline-ff-medium-italic: 'GT America Extended Medium Italic', var(--fallback-ff-headlines);
+
   /* Body */
   --body-ff: 'Helvetica Neue LT Pro 55 Roman', var(--fallback-ff-texts);
+
   /* Subheadings, Emphasis & Legal Copy */
   --subheadings-ff-roman: var(--body-ff), var(--fallback-ff-texts);
   --subheadings-ff-medium: 'Helvetica Neue LT Pro 65 Medium', var(--fallback-ff-texts);
@@ -49,6 +54,7 @@
   --emphasis-ff-roman-italic: 'Helvetica Neue LT Pro 56 Roman Italic', var(--fallback-ff-texts);
   --emphasis-ff-medium-italic: 'Helvetica Neue LT Pro 66 Medium Italic', var(--fallback-ff-texts);
   --emphasis-ff-bold-italic: 'Helvetica Neue LT Pro 76 Bold Italic', var(--fallback-ff-texts);
+
   /* Accent elements */
   --accents-ff-regular: 'GT America Mono Regular', var(--fallback-ff-accents);
   --accents-ff-medium: 'GT America Mono Medium', var(--fallback-ff-accents);
@@ -56,6 +62,7 @@
   --accents-ff-regular-italic: 'GT America Mono Regular Italic', var(--fallback-ff-accents);
   --accents-ff-medium-italic: 'GT America Mono Medium Italic', var(--fallback-ff-accents);
   --accents-ff-bold-italic: 'GT America Mono Bold Italic', var(--fallback-ff-accents);
+
   /* Alternate fonts */
   --fallback-ff-texts: 'Arial Regular Text Fallback', helvetica, sans-serif;
   --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
