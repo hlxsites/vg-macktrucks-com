@@ -13,22 +13,28 @@
  :root {
   /* BASE COLORS */
   
-  /* primary colors */
+  /* Primary colors */
   --primary-black: #000;
   --primary-white: #fff;
   --primary-gold: #b3976b;
 
-  /* secondary colors */
+  /* Secondary colors */
   --secondary-graphite: #1d1d1d;
   --secondary-steel: #a7abaf;
   --secondary-silver: #dfdfdf;
   --secondary-dark-gold: #87754e;
 
-  /* accent colors */
+  /* Tertiary colors */
+  --tertiary-cool-gray: #555;
+  --tertiary-light-cool-gray: #e9eaec;
+  --tertiary-warm-gray: #eeece7;
+  --tertiary-light-warm-gray: #f7f6f3;
+
+  /* Accent colors */
   --primary-accent-red: #cd1a0a;
   --secondary-accent-copper: #8f654d;
 
-  /* applied colors */
+  /* Applied colors */
   --background-color: var(--primary-white);
   --text-color: var(--primary-black);
   --link-color: var(--primary-accent-red);
@@ -36,6 +42,26 @@
   --header-color: var(--primary-white);
   --header-background-color: var(--primary-black);
   --overlay-background-color: var(--secondary-silver);  
+
+  /* BUTTONS */
+
+  /* Primary */
+  --button-primary-red-enabled: var(--primary-accent-red);
+  --button-primary-red-hover: #E11D0B;
+  --button-primary-red-pressed: #B91709;
+  --button-primary-red-disabled: #E1DFDD;
+
+  /* Secondary */
+  --button-secondary-gold-enabled: var(--secondary-accent-copper);
+  --button-secondary-gold-hover: #D9B781;
+  --button-secondary-gold-pressed: #A18860;
+  --button-secondary-gold-disabled: #E1DFDD;
+
+  /* Tertiary */
+  --button-tertiary-white-enabled: var(--primary-white);
+  --button-tertiary-white-hover: #a7a8a9;
+  --button-tertiary-white-pressed: #E1DFDD;
+  --button-tertiary-white-disabled: var(--primary-white);
   
   /* NEW fonts */
 
@@ -68,16 +94,44 @@
   --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
   --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
 
-  /* body font sizes */
+  /* Body font sizes */
   --body-font-size-xxl: 2.4rem; /* 24px */
   --body-font-size-xl: 2.2rem; /* 22px */
   --body-font-size-l: 2rem; /* 2px */
   --body-font-size-m: 1.8rem; /* 18px */
   --body-font-size-s: 1.6rem; /* 16px */ 
   --body-font-size-xs: 1.4rem; /* 14px */
-  --body-font-size-xxs: 1.2rem; /* 12px */
+  --body-font-size-xxs: 1.3rem; /* 13px */
+  
+  /* Body font sizes DESKTOP */
+  --body-desktop-font-size-1: var(--body-font-size-s); /* 16px */ 
+  --body-desktop-font-size-2: var(--body-font-size-xxs); /* 13px */ 
 
-  /* heading font sizes */
+  /* Body font sizes MOBILE */
+  --body-mobile-font-size-1: var(--body-font-size-s); /* 16px */ 
+  --body-mobile-font-size-2: var(--body-font-size-xxs); /* 13px */ 
+
+  /* Accents font sizes DESKTOP */
+  --accent-desktop-font-size-1: var(--body-font-size-m); /* 18px */ 
+  --accent-desktop-font-size-2: var(--body-font-size-xs); /* 14px */ 
+
+  /* Accents font sizes MOBILE */
+  --accent-mobile-font-size-1: var(--body-font-size-m); /* 18px */ 
+  --accent-mobile-font-size-2: var(--body-font-size-xs); /* 14px */ 
+
+  /* Label font sizes DESKTOP */
+  --label-desktop-font-size: var(--body-font-size-xs); /* 14px */ 
+
+  /* Label font sizes MOBILE */
+  --label-mobile-font-size: var(--body-font-size-xs); /* 14px */ 
+
+  /* Button font sizes DESKTOP */
+  --button-desktop-font-size: var(--body-font-size-xs); /* 14px */ 
+
+  /* Button font sizes MOBILE */
+  --button-mobile-font-size: var(--body-font-size-xs); /* 14px */ 
+
+  /* Heading font sizes */
   --heading-font-size-scale: 0.5;
   --heading-font-size-xxl: calc(10rem * var(--heading-font-size-scale)); /* 50px */
   --heading-font-size-xl: calc(8rem * var(--heading-font-size-scale)); /* 40px */
@@ -87,6 +141,22 @@
   --heading-font-size-s: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
   --heading-font-size-xs: calc(3.2rem * var(--heading-font-size-scale)); /* 16px */
   --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale));  /* 10px */
+
+  /* Heading font sizes DESKTOP */
+  --heading-desktop-font-size-scale: 0.5;
+  --heading-1-desktop-size-xl: calc(9rem * var(--heading-font-size-scale)); /* 45px */
+  --heading-2-desktop-size-l: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-3-desktop-size-m: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-4-desktop-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
+  --heading-5-desktop-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
+
+  /* Heading font sizes MOBILE */
+  --heading-mobile-font-size-scale: 0.5;
+  --heading-1-mobile-size-xl: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-2-mobile-size-l: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
+  --heading-3-mobile-size-m: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
+  --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
+  --heading-5-mobile-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
 
   /* nav sizes */
   --nav-height-m: 60px;
