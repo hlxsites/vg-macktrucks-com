@@ -10,6 +10,17 @@
  * governing permissions and limitations under the License.
  */
 
+ @font-face {
+  font-family: 'fontawesome Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 93.75%;
+  descent-override: 6.25%;
+  line-gap-override: 0.00%;
+  size-adjust: 100.00%;
+}
+
  :root {
   /* colors */
   --link-color: #035fe6;
@@ -27,6 +38,7 @@
   --heading-font-family-bold: 'Helvetica Neue 75 Bold', 'helvetica neue', helvetica, sans-serif;
   --heading-font-family: var(--heading-font-family-bold);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
 
   /* body sizes */
   --body-font-size-m: 22px;
