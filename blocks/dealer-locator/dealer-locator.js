@@ -112,7 +112,7 @@ export default async function decorate(block) {
                  <span id="dealer-tag">
                  <div class="dealer" id="filterDealer">
                      <div>
-                     <img src="/blocks/dealer-locator/images/volvo-pin-dealer.svg" class="legend-icon"/> 
+                     <img src="/blocks/dealer-locator/images/dealer.svg" class="legend-icon"/>
                      <span>Dealer</span>
                       </div>
                  </div>
@@ -120,7 +120,7 @@ export default async function decorate(block) {
                 <span id="uptime-tag">
                  <div class="uptime-dealer" id="filterUptime">
                      <div>
-                     <img src="/blocks/dealer-locator/images/volvo-pin-uptime.svg" class="legend-icon"/> <span>Certified Uptime Dealer</span>
+                     <img src="/blocks/dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime Dealer</span>
                 </div>
                          </div>
                      </span>
@@ -133,13 +133,13 @@ export default async function decorate(block) {
                       </span>
                 <div class="mobile-dealer" id="filterDealerMobile">
                     <div>
-                        <img src="/blocks/dealer-locator/images/volvo-pin-dealer.svg" class="legend-icon"/>
+                        <img src="/blocks/dealer-locator/images/dealer.svg" class="legend-icon"/>
                         <span>Dealer</span>
                     </div>
                 </div>
                 <div class="mobile-uptime-dealer" id="filterUptimeMobile">
                     <div>
-                        <img src="/blocks/dealer-locator/images/volvo-pin-uptime.svg" class="legend-icon"/> <span>Certified Uptime</span>
+                        <img src="/blocks/dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime</span>
                     </div>
                 </div>
                 <div class="mobile-electric-dealer" id="filterElectricDealerMobile">
@@ -212,12 +212,12 @@ export default async function decorate(block) {
         <div class="dealer-deatils-header">
             <div class="detail-website">
                 <a target="_blank">
-                    <img src="/blocks/dealer-locator/images/Globe-4.png"/>
+                    <img src="/blocks/dealer-locator/images/Globe.svg"/>
                     Website</a>
             </div>
             <div class="detail-direction">
                 <a id="directions" data-id="" onclick="$.fn.switchSidebarPane('sidebar-directions', this);">
-                    <img src="/blocks/dealer-locator/images/GPS-2.png"/>
+                    <img src="/blocks/dealer-locator/images/GPS.svg"/>
                     Directions</a>
             </div>
             <div class="detail-call">
@@ -226,14 +226,12 @@ export default async function decorate(block) {
             <div class="detail-share">
 
                 <button type="button" class="accordion"><img
-                        src="/blocks/dealer-locator/images/Share-2.png"/><span>SHARE</span></button>
+                        src="/blocks/dealer-locator/images/Share.svg"/><span>SHARE</span></button>
                 <div class="accordion-panel">
                     <input type="text" id="share-link" value="" onclick="this.select();"/>
                 </div>
             </div>
-            <div class="detail-email">
 
-            </div>
         </div>
     </div>
     <div class="row pin-content">
@@ -243,7 +241,7 @@ export default async function decorate(block) {
 
                 <ul class="pin-details">
                     <li>
-                        <img src="/blocks/dealer-locator/images/Map.png"/>
+                        <img src="/blocks/dealer-locator/images/map-detail.svg"/>
                         <div id="title2"></div>
                         <br/>
                         <div id="address1">
@@ -262,11 +260,11 @@ export default async function decorate(block) {
                         </div>
                     </li>
                     <li id="hours">
-                        <img src="/blocks/dealer-locator/images/Clock.png"/>
+                        <img src="/blocks/dealer-locator/images/Clock.svg"/>
                         <div></div>
                     </li>
                     <li>
-                        <img src="/blocks/dealer-locator/images/Globe.png"/>
+                        <img src="/blocks/dealer-locator/images/Globe-detail.svg"/>
                         <div id="website">No website available</div>
                         <div class="controls">
                             <i class="tooltip fa fa-external-link" id="open-website" onclick=""><span
@@ -400,7 +398,7 @@ export default async function decorate(block) {
                     <button type="button" id="print"><img
                             src="/blocks/dealer-locator/images/Print.svg"/><span>Print</span></button>
                     <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                        <img src="/blocks/dealer-locator/images/MacOS-Maximize.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                        <img src="/blocks/dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                     </button>
                 </div>
                 <div id="directions-container"></div>
@@ -421,7 +419,7 @@ export default async function decorate(block) {
                     <button type="button" id="print"><img
                             src="/blocks/dealer-locator/images/Print.svg"/><span>Print</span></button>
                     <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                        <img src="/blocks/dealer-locator/images/MacOS-Maximize.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                        <img src="/blocks/dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                     </button>
                 </div>
                 <div id="directions-container"></div>

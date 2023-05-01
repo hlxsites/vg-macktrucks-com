@@ -59,7 +59,6 @@ $filters = $('.sidebar-content #filter-options input[type="checkbox"]');        
 $consolidateFilters = window.locatorConfig.consolidateFilters;                                  // Shows "All Dealers" and "Rental & Leasing" filter options
 $viewingPin = null;                                                                             // tracks current pin in view
 $pinIcon = 'pin.svg';                                                                           // sets basic marker pin icon
-//$pinIconHover = 'pin_hover.svg';                                                              // sets hover marker pin icon
 $meIcon = '/blocks/dealer-locator/images/me-marker.png';                                        // sets the icon of the ME marker
 $panes = [];                                                                                    // cache all panes created
 $lastPane = "";                                                                                 // track the last pane in view
@@ -234,12 +233,6 @@ $hoverText = $('#hoverText').val();
     google.maps.event.addListener(
         $directionsDisplay,
         'routeindex_changed',
-        function () {
-
-          //$.fn.directionsMessage();
-
-          //$.fn.willDealerBeOpen();
-        }
     );
 
     if ($isAsist) {
@@ -289,7 +282,6 @@ $.fn.initGoogleMaps = function () {
       initMap();
     }
   });
-  // $('.legend-icon').attr('src', $.fn.drawPin('', 38, 38, '3F62A5'));
 };
 
 $.fn.loadPins = function () {
@@ -361,10 +353,8 @@ $.fn.loadPins = function () {
                       }
 
                     }
-                    if (Object.values($dealer.services).includes('Volvo Certified EV Dealer')) {
+                    if (Object.values($dealer.services).includes('Mack Certified EV Dealer')) {
                       $electricDealer = true;
-                      // $dealer.services == "Volvo Certified EV Dealer"
-                      // $dealer.services[service] = 'Volvo Certified EV Dealer';
                     }
 
                   }
@@ -375,7 +365,7 @@ $.fn.loadPins = function () {
                       origin: new google.maps.Point(0, 0), // origin
                       anchor: new google.maps.Point(0, 0)
                     }
-                    if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Volvo Certified EV Dealer'))) {
+                    if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Mack Certified EV Dealer'))) {
                       var pinIcon = {
                         url: "/blocks/dealer-locator/images/uptime-electric.svg",
                         scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -384,7 +374,7 @@ $.fn.loadPins = function () {
                       }
                     }
                   }
-                  else if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Volvo Certified EV Dealer'))) {
+                  else if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Mack Certified EV Dealer'))) {
                     var pinIcon = {
                       url: "/blocks/dealer-locator/images/dealer-electric.svg",
                       scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -456,7 +446,7 @@ $.fn.loadPins = function () {
                           origin: new google.maps.Point(0, 0), // origin
                           anchor: new google.maps.Point(0, 0)
                         }
-                        if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+                        if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
                           var pinIcon = {
                             url: "/blocks/dealer-locator/images/uptime-electric.svg",
                             scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -465,7 +455,7 @@ $.fn.loadPins = function () {
                           }
                         }
                       }
-                      else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+                      else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
                         var pinIcon = {
                           url: "/blocks/dealer-locator/images/dealer-electric.svg",
                           scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -494,7 +484,7 @@ $.fn.loadPins = function () {
                         origin: new google.maps.Point(0, 0), // origin
                         anchor: new google.maps.Point(0, 0)
                       }
-                      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+                      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
                         var pinIcon = {
                           url: "/blocks/dealer-locator/images/uptime-electric.svg",
                           scaledSize: new google.maps.Size(58, 80), // scaled size
@@ -503,7 +493,7 @@ $.fn.loadPins = function () {
                         }
                       }
                     }
-                    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+                    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
                       var pinIcon = {
                         url: "/blocks/dealer-locator/images/dealer-electric.svg",
                         scaledSize: new google.maps.Size(58, 80), // scaled size
@@ -871,15 +861,12 @@ $.fn.renderPinDetails = function (markerId) {
 
   }
   templateClone.find('.detail-website a').attr('href', $.fn.formatWebAddress(markerDetails.WEB_ADDRESS));
-  templateClone.find('.detail-email').html('<a href="mailto:' + markerDetails.EMAIL_ADDRESS.toLowerCase() + '">' + '<img src="/blocks/dealer-locator/images/Mail-2.png" />' + "Email" + '</a>');
   templateClone.find('#phone div').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + $.fn.formatPhoneNumber(markerDetails.REG_PHONE_NUMBER) + '</a>');
   templateClone.find('#directions').attr('data-id', markerDetails.IDENTIFIER_VALUE);
   templateClone.find('#clipboard-address').attr('data-clipboard', markerDetails.MAIN_ADDRESS_LINE_1_TXT + ' ' + markerDetails.MAIN_ADDRESS_LINE_2_TXT + ' ' + markerDetails.MAIN_CITY_NM + ', ' + markerDetails.MAIN_STATE_PROV_CD + ' ' + markerDetails.MAIN_POSTAL_CD);
   templateClone.find('#open-website').attr('onclick', "window.open('" + $.fn.formatWebAddress(markerDetails.WEB_ADDRESS) + "', '_blank')");
-  //templateClone.find('.detail-share a').attr("href",window.location.href.split('?')[0] + '?view=' + markerDetails.IDENTIFIER_VALUE);
-  // templateClone.find('.detail-share').val(window.location.href.split('?')[0] + '?view=' + markerDetails.IDENTIFIER_VALUE);
   templateClone.find('#share-link').val(window.location.href.split('?')[0] + '?view=' + markerDetails.IDENTIFIER_VALUE);
-  templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+  templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
   templateClone.find('#head-marker').attr('src', $viewingPin.icon.url);
   templateClone.find('#head-marker').css('width', '31px');
   templateClone.find('#head-marker').css('height', '43px');
@@ -887,12 +874,10 @@ $.fn.renderPinDetails = function (markerId) {
   var myDealer = $.fn.getCookie('my-dealer');
 
   if (myDealer == markerDetails.IDENTIFIER_VALUE) {
-    //  templateClone.find('#set-dealer span').text('Preferred Dealer');
     templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/Vector-3.svg" />');
     templateClone.find('#head-marker').attr('src', $viewingPin.icon);
   }
   else {
-    // templateClone.find('#set-dealer span').text('Set As Your Dealer');
     templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/Star-1.svg" />');
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
@@ -1099,34 +1084,13 @@ $.fn.renderPinDetails = function (markerId) {
 
   templateClone.find('#hours div').html(isOpenHtml + ' <span class="toggle-arrow"></span>');
 
-
-  /*
-  var hours = $.fn.getHours(markerDetails);
-  var hoursHtml = templateClone.find('#details');
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  $.each(hours, function (i, item) {
-
-      if (hours[i].Start.toLowerCase().indexOf('24 hours') >= 0 || hours[i].Start.toLowerCase().indexOf('closed') >= 0) {
-          hours[i].Start = '';
-      }
-
-      $("<div/>", {
-          'html': '<span id=day>' + days[i] + '</span> <span id=time>' + hours[i].Start + ((!hours[i].Start) ? '' : ' - ') + hours[i].End + '</span>'
-      }).appendTo(hoursHtml);
-
-  });
-  */
-
-
   if ($.isEmptyObject(hours)) {
     templateClone.find('.toggle-arrow').css('display', 'none');
   }
 
-
   $.fn.isOpen(markerDetails);
 
   $map.panTo(marker.position);
-
 
   return templateClone;
 };
@@ -1156,7 +1120,7 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   templateClone.find('.city').text(details.MAIN_CITY_NM + ', ' + details.MAIN_STATE_PROV_CD + ' ' + details.MAIN_POSTAL_CD);
   templateClone.find('.phone').text(details.REG_PHONE_NUMBER);
   templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-  templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+  templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
 
 
   $("<div/>", {
@@ -1232,10 +1196,8 @@ $.fn.switchSidebarPane = function (id, e) {
     $.fn.clearDirections();
     $map.setZoom(8);
   }
-  // $('.go-back').css('display', 'none');
   if ($lastPane) {
     $('#d-' + $lastPane).css('display', 'none');
-    //   $('.go-back').css('background', '#202A44');
   }
   if (id == 'sidebar-directions' || id == 'sidebar-direction-list') {
     $('.go-back').css('display', 'none');
@@ -1250,7 +1212,6 @@ $.fn.switchSidebarPane = function (id, e) {
     $('.go-back').css('display', 'none');
   }
   document.body.scrollTop = 0; // For Safari
-  // document.documentElement.scrollTop = 0;
   $('.sidebar').scrollTop(0);
   id = id + ((e != null) ? '-' + markerId : '');
 
@@ -1264,7 +1225,6 @@ $.fn.switchSidebarPane = function (id, e) {
         $('.go-back').css('display', 'none');
       } else if (id.indexOf('sidebar-pin') >= 0 && id.indexOf('sidebar-pin-' + markerId) >= 0) {
         $('#d-' + id).remove();
-        //  $('.go-back').css('display', 'none');
       } else {
         $('#d-' + id).css('display', 'block');
         foundPane = true;
@@ -1281,7 +1241,6 @@ $.fn.switchSidebarPane = function (id, e) {
     }).appendTo('.sidebar-content');
 
     $panes.push(id);
-    //  $('.go-back').css('background', '#202A44');
   }
 
   if (forceRefresh) {
@@ -1409,7 +1368,6 @@ $.fn.filterRadius = function () {
       }
 
     } else {
-      //$markers[i].setMap(null);
 
       var pin = $.grep($pins, function (v, b) {
         return v['IDENTIFIER_VALUE'] === $markers[i].ID;
@@ -1431,7 +1389,7 @@ $.fn.filterRadius = function () {
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0)
           }
-          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/uptime-electric.svg",
               scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -1440,7 +1398,7 @@ $.fn.filterRadius = function () {
             }
           }
         }
-        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/dealer-electric.svg",
             scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -1656,11 +1614,9 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.call a').text('Call');
     templateClone.find('.direction a').text('Direction');
     templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-    //  templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-    templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
     templateClone.find('.call a').attr("href", $.fn.formatPhoneNumber(pin.REG_PHONE_NUMBER));
     templateClone.find('.call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + "Call" + '</a>');
-    // html('<a href="' + markerDetails.REG_PHONE_NUMBER + '">' + $.fn.formatPhoneNumber(markerDetails.REG_PHONE_NUMBER) + '</a>');
     templateClone.find('.direction a').attr('data-id', pin.IDENTIFIER_VALUE);
 
     var marker;
@@ -1690,7 +1646,7 @@ $.fn.tmpPins = function (tmpPinList) {
               origin: new google.maps.Point(0, 0), // origin
               anchor: new google.maps.Point(0, 0)
             }
-            if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Volvo Certified EV Dealer'))) {
+            if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
               var pinIcon = "/blocks/dealer-locator/images/uptime-electric.svg";
               var pinIcon2 = {
                 url: "/blocks/dealer-locator/images/uptime-electric.svg",
@@ -1700,7 +1656,7 @@ $.fn.tmpPins = function (tmpPinList) {
               }
             }
           }
-          else if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Volvo Certified EV Dealer'))) {
+          else if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = "/blocks/dealer-locator/images/dealer-electric.svg";
             var pinIcon2 = {
               url: "/blocks/dealer-locator/images/dealer-electric.svg",
@@ -1752,7 +1708,7 @@ $.fn.tmpPins = function (tmpPinList) {
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0)
           }
-          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/uptime-electric.svg",
               scaledSize: new google.maps.Size(58, 80), // scaled size
@@ -1761,7 +1717,7 @@ $.fn.tmpPins = function (tmpPinList) {
             }
           }
         }
-        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/dealer-electric.svg",
             scaledSize: new google.maps.Size(58, 80), // scaled size
@@ -1796,7 +1752,7 @@ $.fn.tmpPins = function (tmpPinList) {
               origin: new google.maps.Point(0, 0), // origin
               anchor: new google.maps.Point(0, 0)
             }
-            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
               var pinIcon = {
                 url: "/blocks/dealer-locator/images/uptime-electric.svg",
                 scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -1805,7 +1761,7 @@ $.fn.tmpPins = function (tmpPinList) {
               }
             }
           }
-          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/dealer-electric.svg",
               scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -1860,8 +1816,8 @@ $.fn.filterNearbyPins = function () {
   });
   $("#filterUptime,#filterElectricDealer,#filterDealer").css("cursor", "pointer");
   $('.no-dealer-text').hide();
-  $("#filterUptime,#filterElectricDealer,#filterDealer").css('background', '#484A4E');
-  $("#filterElectricDealerMobile,#filterDealerMobile,#filterUptimeMobile").css('background', '#484A4E');
+  $("#filterUptime,#filterElectricDealer,#filterDealer").css('background', '#000');
+  $("#filterElectricDealerMobile,#filterDealerMobile,#filterUptimeMobile").css('background', '#000');
   $("#filterUptime,#filterElectricDealer,#filterDealer").removeData("toggled");
   $("#filterElectricDealerMobile,#filterDealerMobile,#filterUptimeMobile").removeData("toggled");
   document.getElementById('filterElectricDealer').style.pointerEvents = 'auto';
@@ -1879,7 +1835,7 @@ $.fn.filterNearbyPins = function () {
     $('.nearby-pins').empty();
     $('.no-dealer-text').hide();
     var filteredArray = tmpPinList.filter(function (item) {
-      return item.isCertifiedUptimeCenter == true || (item.isCertifiedUptimeCenter == true && (item.services && Object.values(item.services).includes('Volvo Certified EV Dealer')));
+      return item.isCertifiedUptimeCenter == true || (item.isCertifiedUptimeCenter == true && (item.services && Object.values(item.services).includes('Mack Certified EV Dealer')));
     });
     if (filteredArray.length == 0) {
       $('.nearby-pins').empty();
@@ -1894,7 +1850,7 @@ $.fn.filterNearbyPins = function () {
       });
     }
     if (!toggled) {
-      $(this).css('background', '#808080');
+      $(this).css('background', '#484a4e');
       tmpPinList2 = filteredArray;
       $.fn.tmpPins(tmpPinList2);
 
@@ -1916,7 +1872,7 @@ $.fn.filterNearbyPins = function () {
       document.getElementById('electric-tag').setAttribute("title", $hoverText);
     }
     else {
-      $(this).css('background', '#484A4E');
+      $(this).css('background', '#000');
       $('.no-dealer-text').hide();
       $.fn.tmpPins(tmpPinList);
       newList.forEach(function (pin) {
@@ -1950,7 +1906,7 @@ $.fn.filterNearbyPins = function () {
     $('.nearby-pins').empty();
     $('.no-dealer-text').hide();
     var filteredDealerArray = tmpPinList.filter(function (item) {
-      return (item.services && Object.values(item.services).includes('Volvo Certified EV Dealer'));
+      return (item.services && Object.values(item.services).includes('Mack Certified EV Dealer'));
 
     });
     if (filteredDealerArray.length == 0) {
@@ -1966,7 +1922,7 @@ $.fn.filterNearbyPins = function () {
       });
     }
     if (!toggled) {
-      $(this).css('background', '#808080');
+      $(this).css('background', '#484a4e');
       tmpPinList3 = filteredDealerArray;
       $.fn.tmpPins(tmpPinList3);
       newList.forEach(function (pin) {
@@ -1987,7 +1943,7 @@ $.fn.filterNearbyPins = function () {
       document.getElementById('uptime-tag').setAttribute("title", $hoverText);
     }
     else {
-      $(this).css('background', '#484A4E');
+      $(this).css('background', '#000');
       $('.no-dealer-text').hide();
       $.fn.tmpPins(tmpPinList);
       newList.forEach(function (pin) {
@@ -2022,9 +1978,7 @@ $.fn.filterNearbyPins = function () {
     $('.nearby-pins').empty();
     $('.no-dealer-text').hide();
     var filteredDealerArray = tmpPinList.filter(function (item) {
-      return ((item.services == undefined) || (item.isCertifiedUptimeCenter == undefined && (item.services && Object.values(item.services).includes('Volvo Certified EV Dealer'))) || (item.isCertifiedUptimeCenter == undefined && (item.services && !Object.values(item.services).includes('Volvo Certified EV Dealer'))));
-      // }
-
+      return ((item.services == undefined) || (item.isCertifiedUptimeCenter == undefined && (item.services && Object.values(item.services).includes('Mack Certified EV Dealer'))) || (item.isCertifiedUptimeCenter == undefined && (item.services && !Object.values(item.services).includes('Mack Certified EV Dealer'))));
     });
     if (filteredDealerArray.length == 0) {
       $('.nearby-pins').empty();
@@ -2039,7 +1993,7 @@ $.fn.filterNearbyPins = function () {
       });
     }
     if (!toggled) {
-      $(this).css('background', '#808080');
+      $(this).css('background', '#484a4e');
       tmpPinList4 = filteredDealerArray;
       $.fn.tmpPins(tmpPinList4);
 
@@ -2061,7 +2015,7 @@ $.fn.filterNearbyPins = function () {
       document.getElementById('uptime-tag').setAttribute("title", $hoverText);
     }
     else {
-      $(this).css('background', '#484A4E');
+      $(this).css('background', '#000');
       $('.no-dealer-text').hide();
       $.fn.tmpPins(tmpPinList);
       newList.forEach(function (pin) {
@@ -2089,9 +2043,8 @@ $.fn.filterNearbyPins = function () {
   });
 
 
-  //  else {
   $.fn.tmpPins(tmpPinList);
-  // }
+
   if ($(window).width() <= 768) {
     $('.panel-footer').html('<img src="' + $.fn.drawPin('', 38, 38, '3F62A5') + '" /> Certified Uptime Dealer');
   } else {
@@ -2157,7 +2110,7 @@ $.fn.selectNearbyPins = function () {
     templateClone.find('.website a').text('Dealer Site');
     templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
     templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-    templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
 
     var marker;
     for (i = 0; i < $markers.length; i++) {
@@ -2177,11 +2130,11 @@ $.fn.selectNearbyPins = function () {
           var details = $.fn.getPinById(pin.ID);
           if (details.isCertifiedUptimeCenter) {
             var pinIcon = "/blocks/dealer-locator/images/uptime.svg";
-            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
               pinIcon = "/blocks/dealer-locator/images/uptime-electric.svg";
             }
           }
-          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = "/blocks/dealer-locator/images/dealer-electric.svg";
           }
           else {
@@ -2223,7 +2176,7 @@ $.fn.selectNearbyPins = function () {
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0)
           }
-          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/uptime-electric.svg",
               scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -2232,7 +2185,7 @@ $.fn.selectNearbyPins = function () {
             }
           }
         }
-        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/dealer-electric.svg",
             scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -2266,7 +2219,7 @@ $.fn.selectNearbyPins = function () {
               origin: new google.maps.Point(0, 0), // origin
               anchor: new google.maps.Point(0, 0)
             }
-            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+            if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
               var pinIcon = {
                 url: "/blocks/dealer-locator/images/uptime-electric.svg",
                 scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -2275,7 +2228,7 @@ $.fn.selectNearbyPins = function () {
               }
             }
           }
-          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+          else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/dealer-electric.svg",
               scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -2474,8 +2427,6 @@ $.fn.setAddress2 = function () {
 
     }
   });
-  // $.fn.filterNearbyPins();
-  // $.fn.filterRadius();
 };
 $.fn.setAddress = function () {
 
@@ -2584,8 +2535,6 @@ $.fn.setAddress = function () {
 
     }
   });
-  // $.fn.filterNearbyPins();
-  // $.fn.filterRadius();
 };
 
 // Handles geolocation
@@ -2676,7 +2625,6 @@ $.fn.setLocation = function () {
 
     }, function () {
 
-      //this.setMap(null);
       console.log('error with navigator');
       $.fn.handleLocationError(true);
 
@@ -2685,7 +2633,6 @@ $.fn.setLocation = function () {
 
   } else {
     // Browser doesn't support Geolocation
-    //this.setMap(null);
 
     console.log('could not determine location');
 
@@ -2808,8 +2755,6 @@ $.fn.setMyDealer = function (dealer) {
   $dealerEvent = new CustomEvent('my-dealer', { detail: $eventData });
   window.dispatchEvent($dealerEvent);
 
-  //$.fn.myDealer();
-
 };
 
 $.fn.myDealer = function () {
@@ -2889,29 +2834,6 @@ $.fn.clearDirections = function () {
 
   $directionsObject = null;
   $wayPoints = [];
-};
-
-$.fn.mapDirections = function () {
-  /*
-    $.fn.directionsMessage();
-
-    $directionsService.route(
-        $directionsObject,
-        function (result, status) {
-            if (status == 'OK') {
-
-                $directionsDisplay.setMap($map);
-                $directionsDisplay.setPanel($('#directions-container').get(0));
-                $directionsDisplay.setDirections(result);
-                $directionResults = result;
-
-                //$directionsPanel.html('irections here');
-
-                //$.fn.willDealerBeOpen();
-            }
-        }
-    );
-    */
 };
 
 $.fn.getCurrentRouteTimeInHours = function () {
@@ -3142,7 +3064,6 @@ $.fn.resetRegistration = function (evt) {
 $('.go-back').on('click', function () {
   $.fn.switchSidebarPane('sidebar-pins');
 
-  //  $("#filterUptime,#filterElectricDealer,#filterDealer").bind('click');
   $wayPoints = [];
   $('.nearby-select').empty();
   $('.sidebar-content').removeClass("direction-content");
@@ -3152,7 +3073,6 @@ $('.go-back').on('click', function () {
 });
 $('.go-back-direction').on('click', function () {
   $.fn.switchSidebarPane('sidebar-pins');
-//$("#filterUptime,#filterElectricDealer,#filterDealer").bind('click');
   $wayPoints = [];
   $('.nearby-select').empty();
   $('.sidebar-content').removeClass("direction-content");
@@ -3184,7 +3104,7 @@ $('#cancel').on('click', function () {
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0)
       }
-      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
         var pinIcon = {
           url: "/blocks/dealer-locator/images/uptime-electric.svg",
           scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -3193,7 +3113,7 @@ $('#cancel').on('click', function () {
         }
       }
     }
-    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
       var pinIcon = {
         url: "/blocks/dealer-locator/images/dealer-electric.svg",
         scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -3232,7 +3152,7 @@ $('#cancel2').on('click', function () {
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0)
       }
-      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
         var pinIcon = {
           url: "/blocks/dealer-locator/images/uptime-electric.svg",
           scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -3241,7 +3161,7 @@ $('#cancel2').on('click', function () {
         }
       }
     }
-    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Volvo Certified EV Dealer'))) {
+    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
       var pinIcon = {
         url: "/blocks/dealer-locator/images/dealer-electric.svg",
         scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -3332,9 +3252,6 @@ $(document).on('click', '#set-dealer', function (eventObject) {
 
   $.fn.setMyDealer(pin);
 
-  //$(this).find('span').text('Remove As Dealer');
-  // $(this).find('span').text('Preferred Dealer');
-  //  $(this).find('i').removeClass('fa-star-o').addClass('fa-star');
   $(this).find('#set-dealer').html('<img src="/blocks/dealer-locator/images/Vector-3.svg" />');
 
 });
