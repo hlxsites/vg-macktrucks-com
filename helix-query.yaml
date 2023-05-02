@@ -1,5 +1,34 @@
 version: 1
 indices:
+  default:
+    include:
+      - '/**'
+    exclude:
+      - '/drafts/**'
+      - 'images/**'
+      - '/**/footer'
+      - '/footer'
+      - '/**/nav'
+      - '/nav'
+      - '/fragments/**'
+      - '/**/sub-nav'
+      - '/news-and-stories/tags'
+      - '/block-library/**'
+    target: /query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+
   news-feed:
     include:
       - '/mack-news/*/**'
