@@ -94,6 +94,9 @@
   --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
   --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
 
+  /* Fontawesome */
+  --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
+
   /* Body font sizes */
   --body-font-size-xxl: 2.4rem; /* 24px */
   --body-font-size-xl: 2.2rem; /* 22px */
