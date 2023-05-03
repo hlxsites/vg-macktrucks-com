@@ -19,7 +19,7 @@ header nav {
   max-width: var(--nav-width);
   margin-inline: auto;
   height: var(--nav-height);
-  font-family: var(--body-font-family);
+  font-family: var(--body-ff);
 }
 
 header nav p {
