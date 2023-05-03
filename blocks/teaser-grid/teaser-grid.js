@@ -8,8 +8,10 @@ export default function decorate(block) {
     const teaserGridItem = document.createElement('li');
     teaserGridItem.classList.add('teaser-grid-item', `teaser-grid-item-${idx + 1}`);
 
-    const image = e.querySelector('picture').innerHTML;
-    const link = e.querySelector('u').innerText;
+    // const image = e.querySelector('picture').innerHTML;
+    const imageUrl = e.querySelector('picture img').getAttribute('src')
+
+    const linkUrl = e.querySelector('u').innerText;
     const texts = e.querySelectorAll('li');
 
     const buttonText = texts[0].innerText;
@@ -17,28 +19,26 @@ export default function decorate(block) {
     let subtitle = texts[2].innerText;
     subtitle = `${subtitle} >`;
 
-    let url = buttonText.replaceAll(' ', '-').toLowerCase();
-    url = `${window.location.href}/categories/${url}`;
+    let categoriesUrl = buttonText.replaceAll(' ', '-').toLowerCase();
+    categoriesUrl = `${window.location.href}/categories/${categoriesUrl}`;
+
+    console.error(categoriesUrl)
+    console.warn(linkUrl)
 
     teaserGridItem.innerHTML = `
-      <div class='teaser-card teaser-card-${idx + 1}'>
-        <a class='teaser-button teaser-button-${idx + 1}' href=${url}>
-          ${buttonText}
-        </a>
-        <div class='teaser-image'>
-          <picture>
-            ${image}
-          </picture>
-        </div>
-        <a class='teaser-link' href="${link}">
-          <h3 class='teaser-title'>
-            ${title}
-          </h3>
-          <h4 class='teaser-subtitle'>
-            ${subtitle}
-          </h4>
-        </a>
-      </div>`;
+        <div class='teaser-card' style="background-image: url('${imageUrl}');">
+          <a class='teaser-button teaser-button-${idx + 1}' href=${categoriesUrl}>
+            ${buttonText}
+          </a>
+          <a class='teaser-link' href=${linkUrl}>
+            <h3 class='teaser-title'>
+              ${title}
+            </h3>
+            <h4 class='teaser-subtitle'>
+              ${subtitle}
+            </h4>
+          </a>
+        </div>`;
     teaserGridList.append(teaserGridItem);
   });
 
