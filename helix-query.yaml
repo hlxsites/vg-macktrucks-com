@@ -12,7 +12,6 @@ indices:
       - '/nav'
       - '/fragments/**'
       - '/**/sub-nav'
-      - '/news-and-stories/tags'
       - '/block-library/**'
     target: /query-index.json
     properties:
