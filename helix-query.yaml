@@ -4,7 +4,7 @@ indices:
     include:
       - '/mack-news/*/**'
     exclude:
-      - '/mack-news/fragments/closing-paragraphs'
+      - '/mack-news/fragments/**'
     target: /mack-news/feed.json
     properties:
       title:
