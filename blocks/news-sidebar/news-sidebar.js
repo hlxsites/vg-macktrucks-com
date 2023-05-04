@@ -1,6 +1,8 @@
 import { getMetadata } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
+// TODO: make index configurable in block
+
 /**
  * loads more data from the query index
  * */
@@ -71,14 +73,14 @@ export async function getNews(filter, limit) {
 }
 
 export default async function decorate(block) {
-  const navPages = await getNews('mack-news');
-  const newsPage = navPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
+  const newsPages = await getNews('mack-news');
+  // TODO: what does this do? getMetadata('title') is always undefined. maybe use path instead?
+  const newsPage = newsPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
     ?.toLowerCase());
-  const newsContainer = createElement('div');
-  const list = createElement('ul');
 
-  newsContainer.classList.add('news-sidebar-container');
-  list.classList.add('news-sidebar-list');
+  block.textContent = '';
+
+  const list = createElement('ul', ['news-sidebar-list']);
 
   // creating RSS link
   const rssLink = document.createElement('a');
@@ -112,7 +114,7 @@ export default async function decorate(block) {
       li.append(newsItem);
       list.append(li);
     });
-    newsContainer.append(list);
+    block.append(list);
   }
 
   // creating select - for mobile only
@@ -134,9 +136,7 @@ export default async function decorate(block) {
   const div = document.createElement('div');
   div.innerHTML = selectTemplate;
   const selectEl = div.firstElementChild;
-  newsContainer.append(selectEl);
-
-  block.innerHTML = newsContainer.innerHTML;
+  block.append(selectEl);
 
   block.querySelector('select')
     .addEventListener('change', (event) => {

@@ -49,13 +49,13 @@ export function findAndCreateImageLink(node) {
  * @param {object} props any other attributes to add to the element
  * @returns the element
  */
-export function createElement(tagName, classes, props) {
+export function createElement(tagName, classes, props = {}) {
   const elem = document.createElement(tagName);
   if (classes) {
     const classesArr = (typeof classes === 'string') ? [classes] : classes;
     elem.classList.add(...classesArr);
   }
-  if (props) {
+  if (props && props.length > 0) {
     Object.keys(props).forEach((propName) => {
       elem.setAttribute(propName, props[propName]);
     });
