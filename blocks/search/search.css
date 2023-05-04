@@ -4,6 +4,10 @@
 
 @import url('https://static.searchstax.com/studio-js/v3.20/css/studio-app.css');
 
+.search-container {
+  --background-search: #f2f2f2;
+}
+
 #sf-widget-custom .sf-btn,
 .search-box-container .btn {
   line-height: 1.5;
@@ -183,7 +187,7 @@
 
   .facet-template-container-custom .pill-container .pill {
     font-size: 16px;
-    background-color: #000;
+    background-color: var(--primary-black);
     color: #fff;
     margin-left: 10px !important;
     border-radius: 0 !important;
@@ -245,8 +249,8 @@
   .search-wrapper
   .studio-widget-autosuggest-results
   .result-row:hover {
-  background: #f2f2f2 !important;
-  color: #000 !important;
+  background: var(--background-search) !important;
+  color: var(--text-color) !important;
 }
 
 .studio-search-widget
@@ -255,7 +259,7 @@
   .result-row.searchstudio-active-row {
   color: #53565a;
   cursor: pointer;
-  background: #f2f2f2;
+  background: var(--background-color);
 }
 
 .studio-search-widget .search-wrapper input {
@@ -439,7 +443,7 @@
   color: #33475a;
   border: none;
   border-top: 1px solid #f1f0ef;
-  background-color: #f2f2f2;
+  background-color: var(--background-search);
 }
 
 .card-searchstudio-js-custom.has-thumbnail {
@@ -768,7 +772,7 @@
   right: 0;
   width: 405px;
   text-align: left;
-  background-color: #f2f2f2;
+  background-color: var(--background-search);
   box-shadow: 2px 2px 3px rgb(0 0 0 / 30%);
 }
 
@@ -1038,7 +1042,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #f2f2f2;
+  background-color: var(--background-color);
 }
 
 .sf-filter-actions-custom .view-card-searchstudio-js-style a span {
@@ -1074,7 +1078,7 @@
   width: auto;
   min-width: 195px;
   font-size: 13px;
-  background-color: #f2f2f2;
+  background-color: var(--background-search);
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -1285,7 +1289,7 @@
   top: 0;
   right: 0;
   height: 64px;
-  background: #000;
+  background: var(--primary-black);
 }
 
 .input-container-custom
@@ -1933,7 +1937,7 @@
 
 .rl-search .pagination-wrap .pagination .page-item .page-link-searchstudio-js {
   padding: 0.5rem;
-  color: #000;
+  color: var(--text-color);
   border: 0 !important;
   font-weight: 400;
 }
@@ -2007,7 +2011,7 @@
 }
 
 .search-results .autosuggest__results-container .autosuggest__results ul li.autosuggest__results-item--highlighted {
-  background: #f2f2f2;
+  background: var(--background-search);
 }
 
 .search-results .card-searchstudio-js-title em {
@@ -2032,7 +2036,7 @@
 }
 
 a:any-link {
-  color: #000;
+  color: var(--text-color)
 }
 
 .paging-container .pagination-wrap {
@@ -2050,10 +2054,6 @@ a:any-link {
 
 .autosuggest__results-container
 .autosuggest__results ul li:hover {
-  color: #000;
-  background-color: #f2f2f2;
-}
-
-.card-searchstudio-js-custom .card-searchstudio-js-body .card-searchstudio-js-title a:hover {
-
+  color: var(--text-color);
+  background-color: var(--background-search);
 }

@@ -228,6 +228,8 @@ export default async function decorate(block) {
     searchWidgetDiv.id = 'div-widget-id';
     searchWidgetDiv.className = 'studio-search-widget';
 
+    searchIconLink.className = 'search-icon';
+
     navSearchWrapper.className = 'nav-search-wrapper';
     closeBtnWrapper.className = 'search-close';
     closeBtn.type = 'button';
@@ -256,7 +258,7 @@ export default async function decorate(block) {
       e.preventDefault();
       const searchTerm = document.getElementById('div-widget-id-search-input').value;
       if (searchTerm) {
-        window.location.href = `${window.location.origin}/search?q=${searchTerm}`;
+        window.location.href = `${window.location.origin}/search?searchStudioQuery=${searchTerm}`;
       }
     };
   }

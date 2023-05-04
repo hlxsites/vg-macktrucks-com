@@ -142,7 +142,7 @@ header nav[aria-expanded=true] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
-  background-color: #000;
+  background-color: var(--primary-black);
 }
 
 header :where(nav[aria-expanded=true]) .nav-sections .nav-mobile {
@@ -159,7 +159,7 @@ header nav .nav-sections ul  {
 }
 
 header nav .nav-sections ul > li {
-  border-block-end: 1px solid #fff;
+  border-block-end: 1px solid var(--background-color);
 }
 
 header nav .nav-sections ul > li a {
@@ -189,7 +189,7 @@ header nav .nav-search {
   position: absolute;
   top: var(--nav-height);
   left: 0;
-  background-color: #fff;
+  background-color: var(--background-color);
   width: inherit;
   height: 0;
   opacity: 0;
@@ -234,6 +234,10 @@ header .show .nav-search-wrapper input {
   height: 40px;
 }
 
+header .nav-search .search-close {
+  margin: 0 auto;
+}
+
 header .nav-search .search-close button {
   background-color: unset;
   color: unset;
@@ -249,7 +253,7 @@ header .search-close-icon::after {
   display: block;
   position: relative;
   width: 31px;
-  color: #000;
+  color: var(--text-color);
 }
 
 header .search-close-icon::before,
@@ -264,6 +268,10 @@ header .search-close-icon::after {
   width: 30px;
   height: 3px;
   border-radius: 2px;
+}
+
+header .show .nav-search-wrapper .search-icon {
+  cursor: pointer;
 }
 
 header .search-close-icon::after {
@@ -429,7 +437,7 @@ header .studio-search-widget {
   border-top: none;
   font-size: 16px;
   top: 20px;
-  background-color: #fff;
+  background-color: var(--background-color);
   width: 100%;
 }
 
@@ -437,13 +445,13 @@ header .studio-search-widget {
   padding: 10px 10px 10px 30px;
   text-align: left;
   text-transform: capitalize;
-  height: 20px;
+  height: 40px;
   line-height: 20px;
 }
 
 .studio-widget-autosuggest-results .result-row.searchstudio-active-row {
   color: #53565A;
   cursor: pointer;
-  height: 20px;
+  height: 40px;
   background: #f2f2f2;
 }

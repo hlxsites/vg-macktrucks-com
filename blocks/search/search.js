@@ -87,7 +87,7 @@ export default async function decorate(block) {
       suggester: 'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
       searchAPIKey: '66ce3ff806300bc0b461d3da0629714a9c295cfd',
       language: 'en',
-      fieldFormatters: { date: formatDate, },
+      fieldFormatters: { date: formatDate },
       searchAdditionalArgs: 'hl.fragsize=200',
       hideUniqueKey: true,
     },
