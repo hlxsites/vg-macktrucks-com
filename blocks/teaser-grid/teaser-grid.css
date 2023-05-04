@@ -1,113 +1,153 @@
 .teaser-grid-container {
-  padding: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-}
-.teaser-grid-container {
-  /* todo - change to backgound image */
-  background-color: black;
-  height: 750px;
-}
-
-.teaser-grid-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  height: inherit;
-}
-
-.teaser-grid {
-  display: flex;
-  align-items: center;
-  height: 100%;
+  padding: 40px 0 30px !important;
+  background-image: url('../../media/Home_hero_bg.jpg');
+  background-size: cover;
+  margin-top: -5px;
 }
 
 .teaser-grid-list {
   list-style-type: none;
   padding: 0;
+  margin: 0 16px;
+}
+
+.teaser-grid-item  {
+  margin-bottom: 5px;
 }
 
 .teaser-grid-item * {
-  color: white;
+  color: var(--primary-white);
 }
 
 .teaser-grid-item:hover * {
   text-decoration: none;
 }
 
-.teaser-card {
+.teaser-card-background {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: -webkit-fill-available;
+  width: 100%;
+}
+
+.teaser-card-content {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-}
-
-.teaser-link {
-  padding: 16px 0 16px 16px;
   background: linear-gradient(0deg, #00000050 0%, transparent 100%);
 }
 
-.teaser-grid-item .teaser-button {
-  color: white;
-  width: fit-content;
-  font-size: 10px;
-  border: none;
-  background-color: #87754e;
-  padding: 6px 10px;
-  margin: 0 0 0 16px;
-}
-.teaser-grid-item .teaser-button:hover {
-  color: #999;
+.teaser-link {
+  margin: 0 0 16px 16px;
 }
 
-.teaser-grid-item .teaser-title {
-  font-size: 18px;
+.teaser-link:hover * {
+  opacity: 0.8;
+}
+
+.teaser-grid-item .teaser-button {
+  color: var(--primary-white);
+  width: fit-content;
+  font-size: var(--heading-font-size-xxs);
+  border: none;
+  background-color: var(--primary-gold);
+  padding: 6px 10px;
+  margin: 0 0 10px 16px;
+}
+
+.teaser-grid-item .teaser-button:hover {
+  color: var(--secondary-dark-gold);
+}
+
+.teaser-link h3.teaser-title {
   margin: 0;
   max-width: 90%;
-  font-family: "Helvetica Neue 85 Heavy"!important;
-  line-height: 1em;
-  letter-spacing: normal;
+  font-size: var(--heading-font-size-s);
+  font-family: var(--emphasis-ff-bold);
 }
 
-.teaser-grid-item .teaser-subtitle {
-  margin-top: 8px;
-  margin-bottom: 0;
-  font-size: 12px;
-  font-family: "Helvetica Neue Regular 55",Helvetica,Arial,sans-serif!important;
-  line-height: 1.24em;
-  letter-spacing: normal;
+.teaser-link h4.teaser-subtitle {
+  margin: 8px 0 0;
+  max-width: 90%;
+  font-size: var(--heading-font-size-xxs);
+  font-family: var(--subheadings-ff-medium);
 }
 
+@media (min-width: 768px) {
+  .teaser-grid-container {
+    padding: 70px 0 !important;
+  }
 
-.teaser-grid-item-1 {
-  grid-area: first;
+  .teaser-grid-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    height: inherit;
+    margin: 0 10vw;
+  }
+
+  .teaser-grid-item  {
+    margin-bottom: 0;
+  }
+
+  .teaser-card-background {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 0;
+  }
+
+  .teaser-grid-item-1 {
+    grid-area: first;
+  }
+
+  .teaser-grid-item-2 {
+    grid-area: second;
+  }
+
+  .teaser-grid-item-3 {
+    grid-area: third;
+  }
+
+  .teaser-grid-item-4 {
+    grid-area: fourth;
+  }
+
+  .teaser-grid-item-5 {
+    grid-area: fifth;
+  }
+
+  .teaser-grid-item-6 {
+    grid-area: sixth;
+  }
+
+  .teaser-grid-list {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-rows: 150px 150px 150px 150px;
+    grid-template-areas: 
+      'first second third'
+      'first second fourth'
+      'fifth fifth sixth'
+      'fifth fifth sixth';
+    column-gap: 5px;
+    row-gap: 5px;
+  }
 }
-.teaser-grid-item-2 {
-  grid-area: second;
+
+@media (min-width: 900px) {
+  .teaser-grid-wrapper {
+    margin: 0 5vw !important;
+  }
 }
-.teaser-grid-item-3 {
-  grid-area: third;
-}
-.teaser-grid-item-4 {
-  grid-area: fourth;
-}
-.teaser-grid-item-5 {
-  grid-area: fifth;
-}
-.teaser-grid-item-6 {
-  grid-area: sixth;
-}
-.teaser-grid-list {
-  display: grid;
-  grid-template-rows: 150px 150px 150px 150px;
-  grid-template-areas: 
-    'first second third'
-    'first second fourth'
-    'fifth fifth sixth'
-    'fifth fifth sixth';
-  column-gap: 5px;
-  row-gap: 5px;
+
+@media (min-width: 1240px) {
+  .teaser-grid-wrapper {
+    margin: 0 auto !important;
+  }
 }
