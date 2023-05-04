@@ -129,7 +129,7 @@
     list-style-type: none;
     padding: 0;
     display: grid;
-    grid-template-rows: 150px 150px 150px 150px;
+    grid-template-rows: 120px 120px 120px 120px;
     grid-template-areas: 
       'first second third'
       'first second fourth'
@@ -144,10 +144,25 @@
   .teaser-grid-wrapper {
     margin: 0 5vw !important;
   }
+  .teaser-grid-list {
+    grid-template-rows: 15vw 15vw 15vw 15vw;
+  }
+}
+
+@media (min-width: 900px) {
+  .teaser-grid-wrapper {
+    margin: 0 5vw !important;
+  }
+  .teaser-grid-list {
+    grid-template-rows: 12vw 12vw 12vw 12vw;
+  }
 }
 
 @media (min-width: 1240px) {
   .teaser-grid-wrapper {
     margin: 0 auto !important;
+  }
+  .teaser-grid-list {
+    grid-template-rows: 150px 150px 150px 150px;
   }
 }
