@@ -102,10 +102,20 @@ export default async function decorate(block) {
     newsPage.forEach((newsData) => {
       const li = createElement('li');
       const newsItem = createElement('a', [], { href: newsData.path });
+
       if (window.location.pathname === newsData.path) {
         newsItem.classList.add('new-sidebar-active-link');
       }
-      newsItem.textContent = (newsData.heading && newsData.heading !== '0') ? newsData.heading : '';
+      const heading = createElement('h3');
+      heading.textContent = (newsData.heading && newsData.heading !== '0') ? newsData.heading : '';
+      newsItem.append(heading);
+
+      if (!isSidebar) {
+        const summary = createElement('p');
+        summary.textContent = newsData.summary;
+        newsItem.append(summary);
+      }
+
       li.append(newsItem);
       list.append(li);
     });

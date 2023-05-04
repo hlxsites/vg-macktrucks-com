@@ -1,14 +1,47 @@
 .news-sidebar .news-sidebar-list {
-  display: none;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.news-sidebar:not(.large) .news-sidebar-list {
+  display: none;
 }
 
 .news-sidebar a.news-sidebar-rss-icon {
   text-decoration: none;
   color: var(--text-color);
   text-transform: uppercase;
+}
+
+/* only for large variant: */
+.news-sidebar.large li {
+  background-color: #f2f2f2;
+  font-size: 18px;
+  padding: 0 30px;
+  vertical-align: middle;
+  min-height: 0;
+  margin: 15px 0;
+  font-family: var(--emphasis-ff-bold);
+}
+
+.news-sidebar.large a h3 {
+  font-size: 26px;
+  font-family: inherit;
+}
+
+.news-sidebar.large a p {
+  font-size: 26px;
+  font-family: inherit;
+}
+
+/* only for sidebar */
+.news-sidebar:not(.large) a h3 {
+  font-size: inherit;
+  font-weight: inherit;
+  text-decoration: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 .news-sidebar a.news-sidebar-rss-icon:hover {
@@ -36,6 +69,12 @@
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
+}
+
+
+
+.news-sidebar a p {
+
 }
 
 .news-sidebar .news-sidebar-list a {
@@ -98,7 +137,7 @@
 }
 
 @media (min-width: 1141px) {
-  .news-sidebar .news-sidebar-list {
+  .news-sidebar:not(.large) .news-sidebar-list {
     display: block;
   }
 
