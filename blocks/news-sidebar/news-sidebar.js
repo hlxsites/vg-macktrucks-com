@@ -73,6 +73,8 @@ export async function getNews(filter, limit) {
 }
 
 export default async function decorate(block) {
+  const isSidebar = !block.classList.contains('large');
+
   const newsPages = await getNews('mack-news');
   // TODO: what does this do? getMetadata('title') is always undefined. maybe use path instead?
   const newsPage = newsPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
@@ -110,8 +112,10 @@ export default async function decorate(block) {
     block.append(list);
   }
 
-  // creating select - for mobile only
-  const selectTemplate = `
+  if (isSidebar) {
+    // creating select - for mobile only
+    const div = document.createElement('div');
+    div.innerHTML = `
     <div class="news-sidebar-select">
       <div class="news-sidebar-select-label">
         <div class="news-sidebar-select-text">Choose...</div>
@@ -121,21 +125,21 @@ export default async function decorate(block) {
       </div>
       <select>
         <option>Choose...</option>
-        ${(newsPage.map((item) => `<option value="${item.path}">${item.heading}</option>`)).join('')}
       </select>
     </div>
-  `;
-
-  const div = document.createElement('div');
-  div.innerHTML = selectTemplate;
-  const selectEl = div.firstElementChild;
-  block.append(selectEl);
-
-  block.querySelector('select')
-    .addEventListener('change', (event) => {
+    `;
+    const select = div.querySelector('select');
+    newsPage.forEach((item) => {
+      const option = createElement('option', [], { value: item.path });
+      option.textContent = item.heading;
+      select.append(option);
+    });
+    const selectEl = div.firstElementChild;
+    block.append(selectEl);
+    select.addEventListener('change', (event) => {
       const selectedNews = newsPage.find((item) => item.path === event.target.value);
-
       block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.heading;
       window.location = event.target.value;
     });
+  }
 }
