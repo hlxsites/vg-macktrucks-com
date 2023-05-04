@@ -134,6 +134,15 @@
     margin-right: 20px;
   }
 
+  .footer .footer-bottom-section li {
+    padding: 10px;
+    width: auto;
+  }
+
+  .footer .footer-social-media-section li {
+    margin-right: 20px;
+  }
+
   .footer .footer-links-col-1 ul li {
     width: 100%;
   }
@@ -147,10 +156,6 @@
     justify-content: left;
   }
 
-  .footer .footer-social-media-section li {
-    margin-right: 20px;
-  }
-
   .footer .footer-bottom-section {
     width: 100%;
   }
@@ -162,11 +167,6 @@
     max-width: unset;
     align-items: flex-start;
     justify-content: left;
-  }
-
-  .footer .footer-bottom-section li {
-    padding: 10px;
-    width: auto;
   }
 
   hr {
