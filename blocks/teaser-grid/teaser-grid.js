@@ -8,26 +8,23 @@ export default function decorate(block) {
     const teaserGridItem = document.createElement('li');
     teaserGridItem.classList.add('teaser-grid-item', `teaser-grid-item-${idx + 1}`);
 
-    const imageUrl = e.querySelector('picture img').getAttribute('src');
-    const imageHeight = e.querySelector('picture img').getAttribute('height');
-    const imageWidth = e.querySelector('picture img').getAttribute('width');
-
+    const image = e.querySelector('picture').innerHTML;
     const linkUrl = e.querySelector('u').innerText;
     const texts = e.querySelectorAll('li');
 
     const buttonText = texts[0].innerText;
     const title = texts[1].innerText;
-    let subtitle = texts[2].innerText;
-    subtitle = `${subtitle} >`;
+    const subtitle = `${texts[2].innerText} >`;
 
     let categoriesUrl = buttonText.replaceAll(' ', '-').toLowerCase();
     categoriesUrl = `${window.location.href}/categories/${categoriesUrl}`;
 
-    const cardSize = `height: calc(${imageHeight} / ${imageWidth} * (100vw - 10px));`;
-
     teaserGridItem.innerHTML = `
-        <div class='teaser-card-background' style="background-image: url('${imageUrl}')">
-          <div class='teaser-card-content' style="${cardSize}">
+        <div class='teaser-card'>
+          <picture class='teaser-image'>
+            ${image}
+          </picture>
+          <div class='teaser-card-content'>
             <a class='teaser-button teaser-button-${idx + 1}' href=${categoriesUrl}>
               ${buttonText}
             </a>
@@ -40,7 +37,8 @@ export default function decorate(block) {
               </h4>
             </a>
           </div>
-        </div>`;
+        </div>
+        `;
     teaserGridList.append(teaserGridItem);
   });
 
