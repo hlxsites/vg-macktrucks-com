@@ -8,7 +8,8 @@ export default function decorate(block) {
     const teaserGridItem = document.createElement('li');
     teaserGridItem.classList.add('teaser-grid-item', `teaser-grid-item-${idx + 1}`);
 
-    const imageUrl = e.querySelector('picture source').getAttribute('srcset');
+    const images = [...e.querySelectorAll('picture source')];
+    const imageUrl = images.pop().getAttribute('srcset')
     const imageHeight = e.querySelector('picture img').getAttribute('height');
     const imageWidth = e.querySelector('picture img').getAttribute('width');
 
