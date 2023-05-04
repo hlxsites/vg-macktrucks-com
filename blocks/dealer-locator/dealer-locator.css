@@ -2,8 +2,7 @@
 
 .dealer-locator {
     font-size: 16px;
-    font-family: VolvoNovumRegular,sans-serif,sans-serif;
-    /* TODO change font family */
+    font-family: var(--body-ff);
 }
 
 main .section.dealer-locator-container > div {
@@ -73,7 +72,7 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator button {
-    font-family: var(--ff-volvo-novum); /* TODO change font family */
+    font-family: var(--body-ff);
     display: unset;
     box-sizing: unset;
     text-decoration: unset;
@@ -459,7 +458,6 @@ main .section.dealer-locator-container > div {
 
 .dealer-locator .nearby-pins article.teaser .teaser-bottom .left,.dealer-locator .nearby-pins article.teaser .teaser-bottom .right {
     border: 0;
-    /* color: #323232; */
     font: inherit;
     font-size: 10px;
     margin: 0;
@@ -470,7 +468,6 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .nearby-pins article.teaser .teaser-bottom .left .call,.dealer-locator .nearby-pins article.teaser .teaser-bottom .left .direction,.dealer-locator .nearby-pins article.teaser .teaser-bottom .left .more,.dealer-locator .nearby-pins article.teaser .teaser-bottom .right .call,.dealer-locator .nearby-pins article.teaser .teaser-bottom .right .direction,.dealer-locator .nearby-pins article.teaser .teaser-bottom .right .more {
-    /* border: 1px solid #A7A8A9; */
     border: 1px solid #000;
     padding: 3px 0 0;
     margin-left: 10px;
@@ -496,7 +493,6 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .nearby-pins article.teaser .teaser-bottom .left .website,.dealer-locator .nearby-pins article.teaser .teaser-bottom .right .website {
-    /* border: 1px solid #A7A8A9; */
     border: 1px solid #000;
     padding: 3px 0 0;
     border-radius: 4px;
@@ -846,7 +842,7 @@ main .section.dealer-locator-container > div {
         width: 24px;
         height: 24px;
         background-size: 72px 24px;
-        font-family: FontAwesome
+        font-family: var(--ff-fontawesome)
     }
 
     .dealer-locator .mobile-main-header .panel-header .search-container::after {
@@ -885,7 +881,7 @@ main .section.dealer-locator-container > div {
         width: 24px;
         height: 24px;
         background-size: 72px 24px;
-        font-family: FontAwesome
+        font-family: var(--ff-fontawesome)
     }
 
     .dealer-locator .mobile-main-header .panel-header .geo-container button,.dealer-locator .mobile-main-header .panel-header .go-back button {
@@ -929,7 +925,7 @@ main .section.dealer-locator-container > div {
     }
 
     .dealer-locator .mobile-main-header .panel-header .geo-container button::before {
-        font-family: FontAwesome;
+        font-family: var(--ff-fontawesome);
         content: "\f05b";
         display: none;
         height: 22px;
@@ -962,7 +958,7 @@ main .section.dealer-locator-container > div {
     }
 
     .dealer-locator .mobile-main-header .panel-header .go-back button::before {
-        font-family: FontAwesome;
+        font-family: var(--ff-fontawesome);
         content: "\f00d";
         display: none;
         margin: 0 auto;
@@ -989,14 +985,12 @@ main .section.dealer-locator-container > div {
     height: 27px;
     background: #FFF;
     border-radius: 4px;
-    float: right;
     border: 1px solid #A7A8A9;
     right: 0;
     left: 0;
     padding: 1px 6px;
-    /* font-family: var(--ff-volvo-novum); */
+    font-family: var(--body-ff);
     margin: 0;
-    /* TODO change font family */
 }
 
 .dealer-locator .sidebar {
@@ -1067,7 +1061,6 @@ main .section.dealer-locator-container > div {
     font-weight: 700;
     padding: 10px;
     font-size: 14px;
-    /* color: #000 */
 }
 
 .dealer-locator .sidebar .sidebar-content .pin-details-header {
@@ -1076,12 +1069,10 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .sidebar .sidebar-content .pin-header {
-    /* background-color: #202A44; */
     background-color: #fff;
     padding: 10px;
     height: 160px;
     position: relative;
-    /* color: #fff */
     color: #000
 }
 
@@ -1519,7 +1510,7 @@ main .section.dealer-locator-container > div {
     width: 24px;
     height: 24px;
     background-size: 72px 24px;
-    font-family: FontAwesome;
+    font-family: var(--ff-fontawesome);
     float: left;
     font-size: 20px
 }
@@ -1706,7 +1697,7 @@ main .section.dealer-locator-container > div {
     width: 24px;
     height: 24px;
     background-size: 72px 24px;
-    font-family: FontAwesome
+    font-family: var(--ff-fontawesome)
 }
 
 .dealer-locator .sidebar .panel-header .search-container::after {
@@ -1745,7 +1736,7 @@ main .section.dealer-locator-container > div {
     width: 24px;
     height: 24px;
     background-size: 72px 24px;
-    font-family: FontAwesome
+    font-family: var(--ff-fontawesome)
 }
 
 .dealer-locator .sidebar .panel-header .geo-container button,.dealer-locator .sidebar .panel-header .go-back button {
@@ -1787,7 +1778,7 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .sidebar .panel-header .geo-container button::before {
-    font-family: FontAwesome;
+    font-family: var(--ff-fontawesome);
     content: "\f05b";
     display: none;
     height: 22px;
@@ -1821,7 +1812,7 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .sidebar .panel-header .go-back button::before {
-    font-family: FontAwesome;
+    font-family: var(--ff-fontawesome);
     content: "\f00d";
     display: none;
     margin: 0 auto;
