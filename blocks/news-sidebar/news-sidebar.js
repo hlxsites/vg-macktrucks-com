@@ -80,36 +80,29 @@ export default async function decorate(block) {
 
   block.textContent = '';
 
+  // creating RSS link
+  const rssLink = createElement('a', ['news-sidebar-rss-icon'], { href: '/mack-news/rss/' });
+  rssLink.textContent = 'News RSS';
+  block.append(rssLink);
+
   const list = createElement('ul', ['news-sidebar-list']);
 
-  // creating RSS link
-  const rssLink = document.createElement('a');
-  rssLink.setAttribute('href', '/mack-news/rss/');
-  rssLink.textContent = 'News RSS';
-  rssLink.classList.add('news-sidebar-rss-icon');
-  list.appendChild(rssLink);
-
   // creating the year link
-  const yearLink = document.createElement('a');
   const currentLink = newsPage && newsPage.find((item) => item.path === window.location.pathname);
   const newsYear = (new Date(currentLink?.date)).getFullYear();
-
-  if (!Number.isNaN(Number(newsYear))) {
-    yearLink.setAttribute('href', `/mack-news/${newsYear}`);
+  if (!Number.isNaN(Number(newsYear)) && newsYear < 2200) {
+    const yearLink = createElement('a', [], { href: `/mack-news/${newsYear}` });
     yearLink.textContent = newsYear;
-    list.appendChild(yearLink);
+    list.append(yearLink);
   }
 
   if (newsPage) {
     newsPage.forEach((newsData) => {
       const li = createElement('li');
-      const newsItem = document.createElement('a');
-
+      const newsItem = createElement('a', [], { href: newsData.path });
       if (window.location.pathname === newsData.path) {
         newsItem.classList.add('new-sidebar-active-link');
       }
-
-      newsItem.href = newsData.path;
       newsItem.textContent = (newsData.heading && newsData.heading !== '0') ? newsData.heading : '';
       li.append(newsItem);
       list.append(li);

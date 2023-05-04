@@ -55,7 +55,7 @@ export function createElement(tagName, classes, props = {}) {
     const classesArr = (typeof classes === 'string') ? [classes] : classes;
     elem.classList.add(...classesArr);
   }
-  if (props && props.length > 0) {
+  if (props) {
     Object.keys(props).forEach((propName) => {
       elem.setAttribute(propName, props[propName]);
     });
