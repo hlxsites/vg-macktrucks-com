@@ -204,14 +204,14 @@ header nav .nav-search.show {
 }
 
 header .nav-search-wrapper {
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
   max-width: var(--nav-width);
   margin-inline: auto;
   height: 100%;
   padding-inline: 1rem;
   box-sizing: border-box;
+  display: flex;
+  gap: 0.5rem;
 }
 
 header .nav-search-wrapper p:has(.icon-search) {
@@ -221,12 +221,13 @@ header .nav-search-wrapper p:has(.icon-search) {
 header .nav-search-wrapper input {
   display: inline-block;
   height: 0;
-  width: calc(100% - 110px);
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 30px;
   border: 0;
   font-size: var(--body-font-size-xs);
   transition: all 1s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 header .show .nav-search-wrapper input {
@@ -269,6 +270,10 @@ header .search-close-icon::after {
   top: unset;
   bottom: 3px;
   transform: rotate(-45deg);
+}
+
+header .studio-search-widget {
+  width: 100%;
 }
 
 @media (max-width: 319px) {
@@ -405,7 +410,40 @@ header .search-close-icon::after {
     padding-inline: 2rem;
   }
 
-  header .nav-search-wrapper input {
+  header .studio-search-widget {
     width: calc(100% - 130px);
   }
+}
+
+/* serach studo css */
+.search-wrapper {
+  position: relative;
+}
+
+.studio-widget-autosuggest-results {
+  position: absolute;
+  color: #53565A;
+  cursor: pointer;
+  margin-top: 16px;
+  border: 1px solid;
+  border-top: none;
+  font-size: 16px;
+  top: 20px;
+  background-color: #fff;
+  width: 100%;
+}
+
+.studio-widget-autosuggest-results .result-row {
+  padding: 10px 10px 10px 30px;
+  text-align: left;
+  text-transform: capitalize;
+  height: 20px;
+  line-height: 20px;
+}
+
+.studio-widget-autosuggest-results .result-row.searchstudio-active-row {
+  color: #53565A;
+  cursor: pointer;
+  height: 20px;
+  background: #f2f2f2;
 }

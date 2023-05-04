@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, loadScript } from '../../scripts/lib-franklin.js';
 
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
@@ -33,6 +33,25 @@ function openOnKeydown(e) {
 
 function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
+}
+
+function loadSearchWidget() {
+  loadScript('https://static.searchstax.com/studio-js/v3/js/search-widget.min.js', { type: 'text/javascript', charset: 'UTF-8' })
+    .then(() => {
+      function initiateSearchWidget() {
+        // eslint-disable-next-line no-new, no-undef
+        new SearchstudioWidget(
+          'c2ltYWNrdm9sdm86V2VsY29tZUAxMjM=',
+          'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
+          `${window.location.origin}/search`,
+          3,
+          'searchStudioQuery',
+          'div-widget-id',
+          'en',
+        );
+      }
+      setTimeout(() => initiateSearchWidget(), 3000);
+    });
 }
 
 /**
@@ -196,40 +215,31 @@ export default async function decorate(block) {
   const navSearch = nav.querySelector('.nav-search');
   if (navTools && navSearch) {
     const navSearchBtn = [...navTools.children].at(-1);
-    const navSearchLinkHref = navSearchBtn.children[0].href;
     const searchIcon = navSearch.querySelector('.icon-search');
     const searchIconWrapper = searchIcon.parentElement;
     const navSearchWrapper = document.createElement('div');
+    const searchWidgetDiv = document.createElement('div');
     const searchIconLink = document.createElement('a');
-    const input = document.createElement('input');
     const closeBtnWrapper = document.createElement('div');
     const closeBtn = document.createElement('button');
     const closeBtnIcon = document.createElement('span');
     let isShown = false;
 
+    searchWidgetDiv.id = 'div-widget-id';
+    searchWidgetDiv.className = 'studio-search-widget';
+
     navSearchWrapper.className = 'nav-search-wrapper';
-    searchIconLink.href = navSearchLinkHref;
-    input.type = 'search';
-    input.placeholder = 'Search Mack Trucks';
     closeBtnWrapper.className = 'search-close';
     closeBtn.type = 'button';
     closeBtnIcon.className = 'search-close-icon';
 
     navSearch.prepend(navSearchWrapper);
     navSearchWrapper.appendChild(searchIconLink);
-    navSearchWrapper.appendChild(input);
+    navSearchWrapper.appendChild(searchWidgetDiv);
     navSearchWrapper.appendChild(closeBtnWrapper);
     searchIconLink.appendChild(searchIconWrapper);
     closeBtnWrapper.appendChild(closeBtn);
     closeBtn.appendChild(closeBtnIcon);
-
-    searchIconLink.onclick = (e) => {
-      e.preventDefault();
-      const newSearchUrl = new URL(searchIconLink);
-      newSearchUrl.searchParams.append('t', input.value);
-      newSearchUrl.searchParams.append('r', 'us');
-      window.location.assign(newSearchUrl.href);
-    };
 
     navSearchBtn.onclick = (e) => {
       e.preventDefault();
@@ -241,8 +251,17 @@ export default async function decorate(block) {
       isShown = false;
       navSearch.classList.remove('show');
     };
+
+    searchIconLink.onclick = (e) => {
+      e.preventDefault();
+      const searchTerm = document.getElementById('div-widget-id-search-input').value;
+      if (searchTerm) {
+        window.location.href = `${window.location.origin}/search?q=${searchTerm}`;
+      }
+    };
   }
 
   decorateIcons(nav);
   block.append(nav);
+  loadSearchWidget();
 }

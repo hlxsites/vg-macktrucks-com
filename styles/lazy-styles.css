@@ -38,3 +38,21 @@
   font-style: normal;
   font-display: swap
 }
+
+
+/*!
+ *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+.fa {
+  font: normal normal normal 14px/1 var(--ff-fontawesome);
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0,0)
+}
+
+.fa-search::before {
+  content: "\f002"
+}
