@@ -22,46 +22,175 @@
 }
 
  :root {
-  /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
-  --overlay-background-color: #eee;
-  --highlight-background-color: #ccc;
-  --text-color: #000;
-  --header-background-color: #000;
-  --header-color: #fff;
+  /* BASE COLORS */
 
-  /* fonts */
-  --body-font-family: 'Helvetica Neue 65 Medium', 'helvetica neue', helvetica, ubuntu, roboto, noto, sans-serif;
-  --heading-font-family-heavy: 'Helvetica Neue 85 Heavy', 'helvetica neue', helvetica, sans-serif;
-  --heading-font-family-bold: 'Helvetica Neue 75 Bold', 'helvetica neue', helvetica, sans-serif;
-  --heading-font-family: var(--heading-font-family-bold);
-  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  /* Primary colors */
+  --primary-black: #000;
+  --primary-white: #fff;
+  --primary-gold: #b3976b;
+
+  /* Secondary colors */
+  --secondary-graphite: #1d1d1d;
+  --secondary-steel: #a7abaf;
+  --secondary-silver: #dfdfdf;
+  --secondary-dark-gold: #87754e;
+
+  /* Tertiary colors */
+  --tertiary-cool-gray: #555;
+  --tertiary-light-cool-gray: #e9eaec;
+  --tertiary-warm-gray: #eeece7;
+  --tertiary-light-warm-gray: #f7f6f3;
+
+  /* Accent colors */
+  --primary-accent-red: #cd1a0a;
+  --secondary-accent-copper: #8f654d;
+
+  /* Applied colors */
+  --background-color: var(--primary-white);
+  --text-color: var(--primary-black);
+  --link-color: var(--primary-accent-red);
+  --link-hover-color: var(--primary-black);
+  --header-color: var(--primary-white);
+  --header-background-color: var(--primary-black);
+  --overlay-background-color: var(--secondary-silver);
+
+  /* BUTTONS */
+
+  /* Primary */
+  --button-primary-red-enabled: var(--primary-accent-red);
+  --button-primary-red-hover: #E11D0B;
+  --button-primary-red-pressed: #B91709;
+  --button-primary-red-disabled: #E1DFDD;
+
+  /* Secondary */
+  --button-secondary-gold-enabled: var(--secondary-accent-copper);
+  --button-secondary-gold-hover: #D9B781;
+  --button-secondary-gold-pressed: #A18860;
+  --button-secondary-gold-disabled: #E1DFDD;
+
+  /* Tertiary */
+  --button-tertiary-white-enabled: var(--primary-white);
+  --button-tertiary-white-hover: #a7a8a9;
+  --button-tertiary-white-pressed: #E1DFDD;
+  --button-tertiary-white-disabled: var(--primary-white);
+
+  /* NEW fonts */
+
+  /* Headline */
+  --headline-ff-medium: 'GT America Extended Medium', var(--fallback-ff-headlines);
+  --headline-ff-medium-italic: 'GT America Extended Medium Italic', var(--fallback-ff-headlines);
+
+  /* Body */
+  --body-ff: 'Helvetica Neue LT Pro 55 Roman', var(--fallback-ff-texts);
+
+  /* Subheadings, Emphasis & Legal Copy */
+  --subheadings-ff-roman: var(--body-ff), var(--fallback-ff-texts);
+  --subheadings-ff-medium: 'Helvetica Neue LT Pro 65 Medium', var(--fallback-ff-texts);
+  --legal-ff: var(--body-ff), var(--fallback-ff-texts);
+  --emphasis-ff-bold: 'Helvetica Neue LT Pro 75 Bold', var(--fallback-ff-texts);
+  --emphasis-ff-roman-italic: 'Helvetica Neue LT Pro 56 Roman Italic', var(--fallback-ff-texts);
+  --emphasis-ff-medium-italic: 'Helvetica Neue LT Pro 66 Medium Italic', var(--fallback-ff-texts);
+  --emphasis-ff-bold-italic: 'Helvetica Neue LT Pro 76 Bold Italic', var(--fallback-ff-texts);
+
+  /* Accent elements */
+  --accents-ff-regular: 'GT America Mono Regular', var(--fallback-ff-accents);
+  --accents-ff-medium: 'GT America Mono Medium', var(--fallback-ff-accents);
+  --accents-ff-bold: 'GT America Mono Bold', var(--fallback-ff-accents);
+  --accents-ff-regular-italic: 'GT America Mono Regular Italic', var(--fallback-ff-accents);
+  --accents-ff-medium-italic: 'GT America Mono Medium Italic', var(--fallback-ff-accents);
+  --accents-ff-bold-italic: 'GT America Mono Bold Italic', var(--fallback-ff-accents);
+
+  /* Alternate fonts */
+  --fallback-ff-texts: 'Arial Regular Text Fallback', helvetica, sans-serif;
+  --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
+  --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
+
+  /* Fontawesome */
   --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
+  /* Body font sizes */
+  --body-font-size-xxl: 2.4rem; /* 24px */
+  --body-font-size-xl: 2.2rem; /* 22px */
+  --body-font-size-l: 2rem; /* 2px */
+  --body-font-size-m: 1.8rem; /* 18px */
+  --body-font-size-s: 1.6rem; /* 16px */
+  --body-font-size-xs: 1.4rem; /* 14px */
+  --body-font-size-xxs: 1.3rem; /* 13px */
 
-  /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+  /* Body font sizes DESKTOP */
+  --body-desktop-font-size-1: var(--body-font-size-s); /* 16px */
+  --body-desktop-font-size-2: var(--body-font-size-xxs); /* 13px */
+
+  /* Body font sizes MOBILE */
+  --body-mobile-font-size-1: var(--body-font-size-s); /* 16px */
+  --body-mobile-font-size-2: var(--body-font-size-xxs); /* 13px */
+
+  /* Accents font sizes DESKTOP */
+  --accent-desktop-font-size-1: var(--body-font-size-m); /* 18px */
+  --accent-desktop-font-size-2: var(--body-font-size-xs); /* 14px */
+
+  /* Accents font sizes MOBILE */
+  --accent-mobile-font-size-1: var(--body-font-size-m); /* 18px */
+  --accent-mobile-font-size-2: var(--body-font-size-xs); /* 14px */
+
+  /* Label font sizes DESKTOP */
+  --label-desktop-font-size: var(--body-font-size-xs); /* 14px */
+
+  /* Label font sizes MOBILE */
+  --label-mobile-font-size: var(--body-font-size-xs); /* 14px */
+
+  /* Button font sizes DESKTOP */
+  --button-desktop-font-size: var(--body-font-size-xs); /* 14px */
+
+  /* Button font sizes MOBILE */
+  --button-mobile-font-size: var(--body-font-size-xs); /* 14px */
+
+  /* Heading font sizes */
+  --heading-font-size-scale: 0.5;
+  --heading-font-size-xxl: calc(10rem * var(--heading-font-size-scale)); /* 50px */
+  --heading-font-size-xl: calc(8rem * var(--heading-font-size-scale)); /* 40px */
+  --heading-font-size-l: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-font-size-ml: calc(6rem * var(--heading-font-size-scale)); /* 30px */
+  --heading-font-size-m: calc(4rem * var(--heading-font-size-scale)); /* 20px */
+  --heading-font-size-s: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
+  --heading-font-size-xs: calc(3.2rem * var(--heading-font-size-scale)); /* 16px */
+  --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale));  /* 10px */
+
+  /* Heading font sizes DESKTOP */
+  --heading-desktop-font-size-scale: 0.5;
+  --heading-1-desktop-size-xl: calc(9rem * var(--heading-font-size-scale)); /* 45px */
+  --heading-2-desktop-size-l: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-3-desktop-size-m: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-4-desktop-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
+  --heading-5-desktop-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
+
+  /* Heading font sizes MOBILE */
+  --heading-mobile-font-size-scale: 0.5;
+  --heading-1-mobile-size-xl: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
+  --heading-2-mobile-size-l: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
+  --heading-3-mobile-size-m: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
+  --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
+  --heading-5-mobile-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
 
   /* nav sizes */
   --nav-height-m: 60px;
   --nav-height-l: 85px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
 body {
   font-size: var(--body-font-size-m);
   margin: 0;
-  font-family: var(--body-font-family);
+  font-family: var(--body-ff);
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -83,7 +212,7 @@ header {
 
 h1, h2, h3,
 h4, h5, h6 {
-  font-family: var(--heading-font-family-bold);
+  font-family: var(--headline-ff-medium);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 1em;
@@ -92,7 +221,7 @@ h4, h5, h6 {
 }
 
 h1, h2 {
-  font-family: var(--heading-font-family-heavy);
+  font-family: var(--headline-ff-medium);
 }
 
 h1 { font-size: var(--heading-font-size-xxl) }
@@ -118,7 +247,7 @@ a:hover {
 }
 
 code, pre, samp {
-  font-family: var(--fixed-font-family);
+  font-family: var(--accents-ff-medium);
   font-size: var(--body-font-size-s);
 }
 
@@ -133,7 +262,7 @@ pre {
 /* buttons */
 
 a.button:any-link, button {
-  font-family: var(--body-font-family);
+  font-family: var(--body-ff);
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
