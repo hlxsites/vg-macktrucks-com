@@ -10,18 +10,17 @@ export default async function decorate(block) {
   rssLink.textContent = 'News RSS';
   block.append(rssLink);
 
-  const articles = await getNews('mack-news');
-
+  const posts = await getNews('mack-news');
   const list = createElement('ul', ['news-sidebar-list']);
-  list.append(...articles.map((article) => {
-    const articleLink = createElement('a', [], { href: article.path });
+  list.append(...posts.map((post) => {
+    const articleLink = createElement('a', [], { href: post.path });
 
     const heading = createElement('h3');
-    heading.textContent = (article.heading && article.heading !== '0') ? article.heading : '';
+    heading.textContent = (post.heading && post.heading !== '0') ? post.heading : '';
     articleLink.append(heading);
 
     const summary = createElement('p');
-    summary.textContent = article.summary;
+    summary.textContent = post.summary;
     articleLink.append(summary);
 
     const li = createElement('li');

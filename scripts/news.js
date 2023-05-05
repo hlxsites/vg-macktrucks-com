@@ -56,12 +56,12 @@ export async function getNews(filter, limit) {
       applicableFilter = 'mack-news';
     } else {
       applicableFilter = 'none';
+      // TODO: finalNews might be undefined below. handle this case
     }
   }
 
   if (applicableFilter === 'mack-news') {
-    finalNews = allNews
-      .sort(sortNewsByDate);
+    finalNews = allNews.sort(sortNewsByDate);
   }
   return limit < 0 ? finalNews : finalNews.slice(0, limit);
 }
