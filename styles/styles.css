@@ -207,7 +207,7 @@ header {
   color: var(--header-color);
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
 h1, h2, h3,
@@ -276,6 +276,7 @@ a.button:any-link, button {
   background-color: var(--link-color);
   margin: 16px 0;
   overflow: hidden;
+  transition: all 500ms;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
@@ -294,6 +295,12 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+a.button.secondary:hover, button.secondary:hover,
+a.button.secondary:focus, button.secondary:focus {
+  background-color: var(--button-secondary-gold-pressed);
+  color: #fff;
+  border-color: var(--button-secondary-gold-hover);
+}
 
 main input {
   font-size: 1.25rem;
