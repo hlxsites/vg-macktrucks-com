@@ -542,7 +542,7 @@
   .card-searchstudio-js-body
   .card-searchstudio-js-title {
   font-size: 26px;
-  font-family: var(--ff-volvo-novum);
+  font-family: var(--headline-ff-medium);
   font-weight: 700;
   line-height: 26px;
   margin-bottom: 0;
@@ -602,6 +602,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  font-family: var(--accents-ff-medium);
 }
 
 .card-searchstudio-js-custom
@@ -2056,4 +2057,37 @@ a:any-link {
 .autosuggest__results ul li:hover {
   color: var(--text-color);
   background-color: var(--background-search);
+}
+
+.search-results-wrapper .card-searchstudio-js-title em {
+  font-style: normal;
+}
+
+/* styles for popular seraches */
+
+.search-container .popular-search {
+  max-width: 960px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.search-container .popular-search h3 {
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+  font-family: var(--headline-ff-medium);
+}
+
+.search-container .popular-search ul {
+  padding-left: 16px;
+}
+
+.search-container .popular-search a {
+  text-decoration: underline;
+  font-size: 14px;
+  font-family: var(--accents-ff-medium);
+}
+
+.search-container .popular-search a:hover { 
+  color: #999; 
 }

@@ -2,7 +2,10 @@ import templates from './templates.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
-export default async function decorate(block) {
+export default function decorate(block) {
+  const popularSearchWrapper = block.parentElement.nextElementSibling;
+  popularSearchWrapper.classList.add('popular-search');
+
   block.innerHTML = `
   <div class="search-input-wrapper">
     <div id="searchInput"></div>
