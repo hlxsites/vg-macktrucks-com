@@ -31,6 +31,8 @@ indices:
   news-feed:
     include:
       - '/mack-news/*/**'
+    exclude:
+      - '/mack-news/fragments/**'
     target: /mack-news/feed.json
     properties:
       title:
