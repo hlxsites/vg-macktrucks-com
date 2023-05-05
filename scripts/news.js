@@ -1,5 +1,6 @@
 import { getMetadata } from './lib-franklin.js';
 
+
 /**
  * loads more data from the query index
  * */
@@ -47,7 +48,7 @@ function sortNewsByDate(newsA, newsB) {
 export async function getNews(filter, limit) {
   const pages = await loadNews();
   // filter out anything that isn't a mack news (eg. must have an author)
-  let finalNews;
+  let finalNews = [];
   const allNews = pages.filter((page) => page.template === 'mack-news');
   const template = getMetadata('template');
   let applicableFilter = filter ? filter.toLowerCase() : 'none';
@@ -56,7 +57,6 @@ export async function getNews(filter, limit) {
       applicableFilter = 'mack-news';
     } else {
       applicableFilter = 'none';
-      // TODO: finalNews might be undefined below. handle this case
     }
   }
 
