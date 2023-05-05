@@ -1,0 +1,120 @@
+.eloqua-form {
+  font-size: 16px;
+  max-width: 960px;
+  margin: auto;
+}
+
+.eloqua-form .elq-form .container-fluid {
+  padding: 0;
+}
+
+.eloqua-form .elq-form .elq-item-input,
+.eloqua-form .elq-form .elq-item-select,
+.eloqua-form .elq-form .elq-item-textarea {
+  display: block;
+  border-radius: 0;
+  appearance: none;
+  max-width: none;
+  background-color: var(--primary-white);
+  border: 1px solid #666;
+  color: var(--primary-black);
+  padding: 11px 18px;
+  font-size: 14px;
+  line-height: 18px;
+  height: 40px;
+}
+
+.eloqua-form .elq-form .elq-item-input::placeholder,
+.eloqua-form .elq-form .elq-item-select::placeholder,
+.eloqua-form .elq-form .elq-item-textarea ::placeholder {
+  color: var(--primary-black);
+}
+
+.eloqua-form .elq-form .submit-button-style {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  padding: 12px 32px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: var(--secondary-dark-gold);
+  color: var(--primary-white);
+  border: none;
+  margin-bottom: 30px;
+  width: auto;
+  border-radius: 0;
+}
+
+.eloqua-form .elq-form input[type="checkbox"] {
+  width: auto;
+}
+
+.eloqua-form .elq-form .single-checkbox-row.row {
+  display: flex;
+}
+
+.eloqua-form .elq-form .eloqua-select-wrapper {
+  position: relative;
+}
+
+.eloqua-form .single-checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 20px;
+}
+
+.eloqua-form
+  .single-checkbox-row
+  input
+  ~ label.checkbox-aligned.elq-item-label {
+  position: relative;
+}
+
+.eloqua-form
+  .single-checkbox-row
+  input
+  ~ label.checkbox-aligned.elq-item-label::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border: solid 2px var(--secondary-dark-gold);
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+  background: var(--primary-white);
+}
+
+.eloqua-form
+  .single-checkbox-row
+  input:checked
+  ~ label.checkbox-aligned.elq-item-label::after {
+  content: "\f00c";
+  font-family: var(--ff-fontawesome);
+  color: var(--secondary-dark-gold);
+  position: absolute;
+  font-size: 18px;
+  left: 1px;
+  top: 1px;
+}
+
+.eloqua-form .elq-form .eloqua-select-wrapper::after {
+  position: absolute;
+  font-family: var(--ff-fontawesome);
+  font-size: 24px;
+  line-height: 24px;
+  content: "\f0d7";
+  color: #666;
+  pointer-events: none;
+  right: 0;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  border-left: solid 1px var(--primary-black);
+  height: 40px;
+  align-items: center;
+  top: 0;
+}
