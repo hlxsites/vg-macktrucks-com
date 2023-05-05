@@ -47,7 +47,7 @@ function sortNewsByDate(newsA, newsB) {
 export async function getNews(filter, limit) {
   const pages = await loadNews();
   // filter out anything that isn't a mack news (eg. must have an author)
-  let finalNews = [];
+  let finalNews;
   const allNews = pages.filter((page) => page.template === 'mack-news');
   const template = getMetadata('template');
   let applicableFilter = filter ? filter.toLowerCase() : 'none';
@@ -61,6 +61,8 @@ export async function getNews(filter, limit) {
 
   if (applicableFilter === 'mack-news') {
     finalNews = allNews.sort(sortNewsByDate);
+  } else {
+    finalNews = [];
   }
   return limit < 0 ? finalNews : finalNews.slice(0, limit);
 }
