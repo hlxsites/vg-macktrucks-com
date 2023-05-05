@@ -6,7 +6,7 @@ export default async function decorate(block) {
   const rssFeedUrl = block.querySelector('a').href;
   block.textContent = '';
 
-  const rssLink = createElement('a', ['title-with-icon'], { href: rssFeedUrl });
+  const rssLink = createElement('a', ['title-with-icon'], { href: rssFeedUrl, target: '_blank' });
   rssLink.textContent = 'News RSS';
   block.append(rssLink);
 
