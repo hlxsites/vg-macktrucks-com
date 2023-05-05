@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 const setClickableCard = (ul) => {
   const lis = [...ul.children];
@@ -7,9 +8,7 @@ const setClickableCard = (ul) => {
     const { length } = buttons;
     if (length === 0) return;
     const tempLink = [...buttons].at(-1).firstChild;
-    const newLink = document.createElement('a');
-    newLink.href = tempLink.href;
-    newLink.title = tempLink.title;
+    const newLink = createElement('a', '', { href: tempLink.href, title: tempLink.title });
     buttons[length - 1].remove();
     newLink.innerHTML = li.innerHTML;
     li.textContent = '';

@@ -6,7 +6,7 @@
 }
 
 .cards-wrapper {
-    background-color: #000;
+    background-color: var(--primary-black);
 }
 
 .cards.cta {
