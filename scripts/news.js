@@ -1,6 +1,5 @@
 import { getMetadata } from './lib-franklin.js';
 
-
 /**
  * loads more data from the query index
  * */

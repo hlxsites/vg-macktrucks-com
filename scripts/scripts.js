@@ -75,9 +75,6 @@ function buildHeroBlock(main) {
   }
 }
 
-
-
-
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
