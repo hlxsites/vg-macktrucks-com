@@ -2,7 +2,6 @@ import { createElement } from '../../scripts/scripts.js';
 import { getNews } from '../../scripts/news.js';
 import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
-// TODO: make index configurable in block
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   const rssFeedUrl = config.feed;
