@@ -47,7 +47,7 @@ indices:
       - '/parts-and-services/support/body-builders/news-and-events/**'
     exclude:
       - '/parts-and-services/support/body-builders/news-and-events/'
-    target: /body-builder.json
+    target: /body-builder-news.json
     properties:
       template:
         select: head > meta[name="template"]
