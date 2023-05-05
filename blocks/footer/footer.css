@@ -1,9 +1,9 @@
 .footer-wrapper {
-  background: #000;
+  background: var(--primary-black);
 }
 
 .footer {
-  color: white;
+  color: var(--primary-white);
   padding: 60px 32px 10px;
   font-size: 14px;
   margin: auto;
@@ -22,8 +22,8 @@
 
 .footer .footer-social-media {
   border-radius: 17.5px;
-  border: 2px solid #87754e;
-  color: #87754e;
+  border: 2px solid var(--secondary-dark-gold);
+  color: var(--secondary-dark-gold);
   text-decoration: none;
   display: flex;
   width: 35px;
@@ -54,7 +54,11 @@
 }
 
 .footer ul li a {
-  color: white;
+  color: var(--primary-white);
+}
+
+.footer .footer-bottom-section li a {
+  color: #999;
 }
 
 .footer ul li a:hover {
@@ -96,7 +100,7 @@
 }
 
 .footer .footer-bottom-section li a:hover {
-  color: white;
+  color: var(--primary-white);
 }
 
 @media (min-width: 495px) {
