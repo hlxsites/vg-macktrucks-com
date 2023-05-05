@@ -1,15 +1,15 @@
+import { createElement } from '../../scripts/scripts.js'
+
 export default function decorate(block) {
   const children = [...block.children];
 
-  const teaserGridList = document.createElement('ul');
-  teaserGridList.classList.add('teaser-grid-list');
+  const teaserGridList = createElement('ul', 'teaser-grid-list');
 
   children.forEach((e, idx) => {
-    const teaserGridItem = document.createElement('li');
-    teaserGridItem.classList.add('teaser-grid-item', `teaser-grid-item-${idx + 1}`);
+    const teaserGridItem = createElement('li', ['teaser-grid-item', `teaser-grid-item-${idx + 1}`]);
 
     const image = e.querySelector('picture').innerHTML;
-    const linkUrl = e.querySelector('u').innerText;
+    const linkUrl = e.querySelector('a').innerText;
     const texts = e.querySelectorAll('li');
 
     const buttonText = texts[0].innerText;
