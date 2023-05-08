@@ -1,18 +1,15 @@
-import {
-  getMetadata,
-} from '../../scripts/lib-franklin.js';
-import {
-  getNews, createElement,
-} from '../../scripts/scripts.js';
+import { getMetadata } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
+import { getNews } from '../../scripts/news.js';
 
 export default async function decorate(block) {
   const navPages = await getNews('mack-news');
-  const newsPage = navPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')?.toLowerCase());
-  const newsContainer = createElement('div');
-  const list = createElement('ul');
+  const newsPage = navPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
+    ?.toLowerCase());
 
-  newsContainer.classList.add('news-sidebar-container');
-  list.classList.add('news-sidebar-list');
+  block.textContent = '';
+
+  const list = createElement('ul', ['news-sidebar-list']);
 
   // creating RSS link
   const rssLink = document.createElement('a');
@@ -46,11 +43,12 @@ export default async function decorate(block) {
       li.append(newsItem);
       list.append(li);
     });
-    newsContainer.append(list);
+    block.append(list);
   }
 
   // creating select - for mobile only
-  const selectTemplate = `
+  const div = document.createElement('div');
+  div.innerHTML = `
     <div class="news-sidebar-select">
       <div class="news-sidebar-select-label">
         <div class="news-sidebar-select-text">Choose...</div>
@@ -60,21 +58,20 @@ export default async function decorate(block) {
       </div>
       <select>
         <option>Choose...</option>
-        ${(newsPage.map((item) => `<option value="${item.path}">${item.heading}</option>`)).join('')}
       </select>
     </div>
   `;
 
-  const div = document.createElement('div');
-  div.innerHTML = selectTemplate;
+  const select = div.querySelector('select');
+  newsPage.forEach((item) => {
+    const option = createElement('option', [], { value: item.path });
+    option.textContent = item.heading;
+    select.append(option);
+  });
   const selectEl = div.firstElementChild;
-  newsContainer.append(selectEl);
-
-  block.innerHTML = newsContainer.innerHTML;
-
-  block.querySelector('select').addEventListener('change', (event) => {
+  block.append(selectEl);
+  select.addEventListener('change', (event) => {
     const selectedNews = newsPage.find((item) => item.path === event.target.value);
-
     block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.heading;
     window.location = event.target.value;
   });
