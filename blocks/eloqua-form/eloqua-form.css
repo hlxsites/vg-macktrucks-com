@@ -24,6 +24,10 @@
   height: 40px;
 }
 
+.eloqua-form .elq-form .elq-item-textarea {
+  height: 100px;
+}
+
 .eloqua-form .elq-form .elq-item-input::placeholder,
 .eloqua-form .elq-form .elq-item-select::placeholder,
 .eloqua-form .elq-form .elq-item-textarea ::placeholder {
