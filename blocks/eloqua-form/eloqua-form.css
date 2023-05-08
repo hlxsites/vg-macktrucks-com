@@ -52,6 +52,7 @@
 
 .eloqua-form .elq-form .single-checkbox-row.row {
   display: flex;
+  position: relative;
 }
 
 .eloqua-form .elq-form .eloqua-select-wrapper {
@@ -63,7 +64,7 @@
   height: 20px;
   position: absolute;
   top: 4px;
-  left: 20px;
+  left: 0;
 }
 
 .eloqua-form
@@ -71,6 +72,7 @@
   input
   ~ label.checkbox-aligned.elq-item-label {
   position: relative;
+  margin-left: 0;
 }
 
 .eloqua-form
@@ -117,4 +119,9 @@
   height: 40px;
   align-items: center;
   top: 0;
+}
+
+.eloqua-form .elq-form input, .eloqua-form .elq-form textarea {
+  box-sizing: border-box;
+  height: auto;
 }
