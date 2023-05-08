@@ -1,12 +1,19 @@
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 export default async function decorate(block) {
+  const location = new URL(window.location.href);
+  const { searchParams } = location;
+  const hasZipLocation = searchParams.size > 0 && searchParams.has('l');
+  const MQ = window.matchMedia('(max-width: 992px)');
+  const isMobile = MQ.matches;
+  // add the zip code to the input search, if it is present
+  const zipCode = hasZipLocation ? searchParams.get('l') : null;
   const datasource = block.textContent.trim();
   window.locatorConfig = {
     asist: false,
     showAsistDialog: true,
     consolidateFilters: true,
-    selectedBrand: 'volvo',
+    selectedBrand: 'mack',
     dataSource: datasource,
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
@@ -57,7 +64,9 @@ export default async function decorate(block) {
 <div class="wrapper">
     <div class="mobile-main-header">
         <div class="panel-header">
-            <input type="text" id="location2" placeholder="Enter City, State, or Zip Code"/>
+            <input type="text" id="location2"
+              ${zipCode && isMobile ? `value="${zipCode}"` : ''}
+              placeholder="Enter City, State, or Zip Code"/>
             <div class="search-container">
                 <button type="button" id="search" onclick="$.fn.setAddress2();">
                     <img src="/blocks/dealer-locator/images/search.svg"/>
@@ -85,7 +94,9 @@ export default async function decorate(block) {
     <div class="sidebar" style="left:0px;">
         <div class="row main-header">
             <div class="panel-header">
-                <input type="text" id="location" placeholder="Enter City, State, or Zip Code"/>
+                <input type="text" id="location"
+                  ${zipCode && !isMobile ? `value="${zipCode}"` : ''}
+                  placeholder="Enter City, State, or Zip Code"/>
                 <div class="search-container">
                     <button type="button" id="search" onclick="$.fn.setAddress();">
                         <img src="/blocks/dealer-locator/images/search.svg"/>
