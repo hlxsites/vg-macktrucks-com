@@ -16,6 +16,7 @@
 }
 
 .footer .footer-social-media-section {
+  margin-top: 32px;
   display: flex;
   justify-content: space-between;
 }
@@ -103,6 +104,15 @@
   color: var(--primary-white);
 }
 
+.footer .footer-form-and-social-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer .footer-form-section p {
+  margin-top: 0;
+}
+
 @media (min-width: 495px) {
   .footer .footer-form-and-social-section {
     width: 255px;
@@ -177,3 +187,53 @@
     margin-top: 65px;
   }
 }
+
+/* eloqua footer form styles - START */
+.footer .elq-form .field-style {
+  margin: 0;
+}
+
+.footer .elq-form .item-padding {
+  padding: 6px 0 9px;
+}
+
+.footer .elq-form input[type="text"] {
+  background-color: #212121;
+  padding: 15px 10px;
+  border: none;
+  width: 100%;
+  font-family: var(--body-ff);
+  font-size: 16px;
+  line-height: 16px;
+  color: var(--primary-white);
+  margin-bottom: 10px;
+}
+
+.footer .elq-form .checkbox-label {
+  font-size: 13px;
+  font-family: var(--body-ff);
+}
+
+.footer .elq-form input.submit-button {
+  color: var(--secondary-dark-gold);
+  background: transparent;
+  border: solid 2px var(--secondary-dark-gold);
+  font-size: 20px !important;
+  line-height: 20px;
+  height: auto !important;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.footer .elq-form input.submit-button:hover {
+  color: #af9866;
+  border-color: #af9866;
+}
+
+.footer .eloqua-form p {
+  font-size: 11px;
+  font-family: var(--body-ff);
+}
+
+/* eloqua footer form styles - END */

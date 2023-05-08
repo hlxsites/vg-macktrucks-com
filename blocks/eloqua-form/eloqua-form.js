@@ -7,6 +7,7 @@ const addForm = async (block) => {
   const formName = block.firstElementChild.innerText.trim();
   const thankYou = block.firstElementChild.nextElementSibling;
   const data = await fetch(`${window.hlx.codeBasePath}/blocks/eloqua-form/forms/${formName}.html`);
+
   if (!data.ok) {
     console.error(`failed to load form: ${formName}`);
     block.innerHTML = '';
@@ -92,6 +93,11 @@ const addForm = async (block) => {
   // replacing eloqua default values
   block.querySelectorAll('[value^="~~"]').forEach((el) => {
     el.setAttribute('value', '');
+  });
+  block.querySelectorAll('input').forEach((el) => {
+    if (el.value.trim().startsWith('<eloqua')) {
+      el.value = '';
+    }
   });
 
   block.style.display = displayValue;
