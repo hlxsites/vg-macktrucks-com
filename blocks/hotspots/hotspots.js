@@ -1,10 +1,26 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-function handleClickHotspot(event, hotspotId, block) {
+function handleCloseLayover(event) {
+  console.log('handleCloseLayover');
+  // container.addEventListener('click', function () {
+  //   document.querySelectorAll('[spot]')
+  //     .forEach(function (spot) {
+  //       spot.classList.remove('active-spot');
+  //     });
+  //   content.classList.remove('is-active');
+  //   content.parentElement.classList.remove('is-active');
+  //   setTimeout(function () {
+  //     content.parentElement.style.display = 'none';
+  //   }, 300);
+  // });
+
+}
+
+function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
   console.log('clicked ', hotspotId);
 
-  event.target.classList.add('active-spot');
+  iconLink.classList.add('active-spot');
 
   const allLayovers = block.querySelector('.hotspot-layover');
   allLayovers.style.display = 'block';
@@ -14,7 +30,15 @@ function handleClickHotspot(event, hotspotId, block) {
   layover.classList.add('is-active');
 }
 
-function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description, hotspotLinks) {
+/**
+ *
+ * @param hotspotsBlock {HTMLDivElement}
+ * @param firstImage {HTMLPictureElement}
+ * @param title {HTMLElement}
+ * @param description {HTMLElement}
+ * @param layoverContents {LayoverContent[]}
+ */
+function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description, layoverContents) {
   // TODO: set data-hotspot="1" data-fade-object="true"  style="opacity: 1;"
   hotspotsBlock.innerHTML = `<div class="hotspot animated" data-hotspot="1" data-fade-object="true" style="opacity: 1;">
 
@@ -45,13 +69,14 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
   const iconSet = hotspotsBlock.querySelector('.hotspot-icon-set');
   const iconTemplate = iconSet.firstElementChild;
   iconTemplate.remove();
-  hotspotLinks.forEach((hotspot) => {
+  layoverContents.forEach((hotspot) => {
     const iconLink = iconTemplate.cloneNode(true);
-    iconLink.style.left = hotspot.left;
-    iconLink.style.top = hotspot.top;
-    iconLink.dataset.spot = hotspot.id;
-    iconLink.firstElementChild.alt = hotspot.alt;
-    iconLink.onclick = (event) => handleClickHotspot(event, hotspot.id, hotspotsBlock.parentNode);
+    iconLink.style.left = hotspot.positionLeft;
+    iconLink.style.top = hotspot.positionTop;
+    iconLink.dataset.spot = hotspot.id.toString();
+    // iconLink.firstElementChild.alt = hotspot.alt; TODO: alt
+    iconLink.onclick = (event) => handleClickHotspot(event, iconLink,
+      hotspot.id, hotspotsBlock.parentNode);
     iconSet.append(iconLink);
   });
 }
@@ -98,6 +123,11 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
     // eslint-disable-next-line max-len
     // box.querySelector('.hotspot-layover-button.next span').append(...nextButtonContent.childNodes);
 
+    // don't close if clicked on sidebar
+    box.addEventListener('click', (event) => {
+      event.stopPropagation(); // TODO: implement differently
+    });
+
     layoverBlock.append(...box.childNodes);
   });
 }
@@ -110,7 +140,7 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
  * @property {HTMLElement} title
  * @property {HTMLElement} text
  * @property {string} positionLeft
- * @property {string} positionRight
+ * @property {string} positionTop
  */
 
 /**
@@ -138,7 +168,7 @@ function parseLayoverContent(block) {
     const text = layoverContent.querySelector('p:not(:has(picture))');
 
     const positionLeft = layoverContent.querySelector(':scope > div:nth-child(2)').textContent;
-    const positionRight = layoverContent.querySelector(':scope > div:nth-child(3)').textContent;
+    const positionTop = layoverContent.querySelector(':scope > div:nth-child(3)').textContent;
 
     layovers.push({
       id,
@@ -147,7 +177,7 @@ function parseLayoverContent(block) {
       title,
       text,
       positionLeft,
-      positionRight,
+      positionTop,
     });
     id += 1;
   });
@@ -162,45 +192,7 @@ export default function decorate(block) {
 
   const description = firstBlockRow.querySelector('p');
 
-  const hotspotLinks = [
-
-    {
-      id: 1,
-      left: '72%',
-      top: '74%',
-      alt: 'Detail view of the Anthem air dam',
-    },
-
-    {
-      id: 2,
-      left: '75%',
-      top: '68%',
-      alt: 'Closeup shot of the Anthem bumper and covered tow loops',
-    },
-
-    {
-      id: 3,
-      left: '64%',
-      top: '73%',
-      alt: 'Detail view of the Anthem\'s close-out flange',
-    },
-
-    {
-      id: 4,
-      left: '51%',
-      top: '35%',
-      alt: 'Lineart illustration of the multiple roof offerings and fairings',
-    },
-
-    {
-      id: 5,
-      left: '70%',
-      top: '51%',
-      alt: 'Aerial view depiction of the Anthem\'s 3-piece hood and bumper',
-    },
-  ];
-
-  const layoverContent = parseLayoverContent(block);
+  const layoverContents = parseLayoverContent(block);
 
   block.innerHTML = `
     <div class="main"></div>
@@ -208,8 +200,9 @@ export default function decorate(block) {
     <div class="hotspot-layover" data-hotspot-target="1" style="display: none;"></div>
   `;
 
-  decorateImageWithHotspots(block.children[0], firstImage, title, description, hotspotLinks);
-  decorateLayoverBox(block.children[1], layoverContent);
+  decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
+  decorateLayoverBox(block.children[1], layoverContents);
+  block.children[1].addEventListener('click', (event) => handleCloseLayover(event, block.children[1]));
 
   decorateIcons(block);
 }
