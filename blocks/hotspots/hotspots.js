@@ -45,9 +45,10 @@ export default function decorate(block) {
       alt: 'Aerial view depiction of the Anthem\'s 3-piece hood and bumper',
     },
   ];
+  // TODO: set data-hotspot="1" data-fade-object="true"  style="opacity: 1;"
+  block.innerHTML = `<div class="hotspot animated" data-hotspot="1" data-fade-object="true" style="opacity: 1;">
 
-  block.innerHTML = `<div class="hotspot animated" hotspot="1" fade-object="true" style="opacity: 1;">
-
+<!-- TODO: set stand="" up="" sleeper="" -->
     <img class="hotspot-bg-img desktop" alt="Three-quarter view of a black Mack Anthem 70" stand="" up="" sleeper="" src="">
     <!--    TODO: mobile image-->
     <img class="hotspot-bg-img mobile" alt="Three-quarter view of a black Mack Anthem 70" stand="" up="" sleeper="" src="">
@@ -59,15 +60,15 @@ export default function decorate(block) {
 
     <div class="hotspot-icon-set">
         <a href="#" class="hotspot-icon" style="left: 0; top: 0;" data-spot="0">
-            <img src="/icons/hotspot.png" alt="Detail view of the Anthem air dam" />
+            <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" />
         </a>
        
     </div>
 </div>`;
 
   block.querySelector('.hotspot-bg-img.desktop').src = firstImage.src;
-  block.querySelector('.hotspot-header').append(title);
-  block.querySelector('.hotspot-text').append(description);
+  block.querySelector('.hotspot-header').append(...title.childNodes);
+  block.querySelector('.hotspot-text').append(...description.childNodes);
 
   const iconSet = block.querySelector('.hotspot-icon-set');
   const iconTemplate = iconSet.firstElementChild;

@@ -1,3 +1,12 @@
+.section.hotspots-container {
+    padding: unset;
+}
+
+.hotspots-container .hotspots-wrapper {
+    max-width: unset;
+    margin: 0
+}
+
 
 .hotspot-area.no-spots {
     background-size: 100%;
@@ -33,17 +42,25 @@
     color: #000
 }
 
+
 .hotspot .hotspot-content h1,.hotspot .hotspot-content p {
     max-width: 600px
 }
 
 .hotspot .hotspot-content h1 {
-    font: 80px/62px 'Helvetica Neue 85 Heavy';
-    letter-spacing: -.035em
+    font: 80px/62px var(--headline-ff-medium);
+    letter-spacing: -.035em;
+    margin-top: -20px;
+    margin-bottom: 0;
 }
 
 .hotspot .hotspot-content p {
-    font-size: 20px
+    font-size: var(--body-font-size-l);
+    font-family: var(--body-ff);
+    margin: 0;
+    width: 500px;
+    max-width: 500px;
+    line-height: 1em;
 }
 
 .hotspot .hotspot-content .hotspot-text {
@@ -62,14 +79,12 @@
 
 .hotspot .hotspot-icon-set a.hotspot-icon {
     position: absolute;
-    -ms-transform: rotate(0);
-    -webkit-transform: rotate(0);
+    transform: rotate(0);
     transform: rotate(0)
 }
 
 .hotspot .hotspot-icon-set a.hotspot-icon.active-spot img {
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
     transform: rotate(45deg)
 }
 
@@ -84,7 +99,7 @@
     overflow: hidden
 }
 
-.hotspot.no-spots:after {
+.hotspot.no-spots::after {
     content: "";
     position: absolute;
     left: 0;
@@ -105,7 +120,7 @@
 }
 
 .hotspot.truck .hotspot-content .hotspot-header {
-    font: 65px/72px "Helvetica Neue 85 Heavy"
+    font: 65px/72px "Helvetica Neue 85 Heavy";
 }
 
 .hotspot.truck .feature-block:first-child {
@@ -142,7 +157,7 @@
         overflow: hidden
     }
 
-    .hotspot.no-spots:after {
+    .hotspot.no-spots::after {
         content: "";
         position: absolute;
         left: 0;
@@ -150,7 +165,7 @@
         width: 100%;
         height: 100%;
         z-index: 2;
-        background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 80%,#000 100%)
+        background: linear-gradient(to bottom,rgb(0 0 0 / 0%) 0,rgb(0 0 0 / 0%) 80%,#000 100%)
     }
 
     .hotspot.no-spots~* {
@@ -226,7 +241,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0)
+    background-color: rgb(0 0 0 / 0%)
 }
 
 .hotspot-layover a:link {
@@ -322,7 +337,7 @@
 
 .hotspot-layover.is-active {
     transition: background-color .3s linear;
-    background-color: rgba(0,0,0,.5)
+    background-color: rgb(0 0 0 / 50%)
 }
 
 .hotspot-layover .hotspot-layover-box {
@@ -333,19 +348,16 @@
     width: 460px;
     height: 100%;
     background: #333;
-    -webkit-transform: translate3d(125%,0,0);
     transform: translate3d(125%,0,0)
 }
 
 .hotspot-layover .hotspot-layover-box.is-active {
-    -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0)
 }
 
 .hotspot-layover .hotspot-layover-box.no-animation {
-    -moz-transition: none!important;
-    -webkit-transition: none!important;
-    -o-transition: color 0 ease-in!important;
+    transition: none!important;
+    transition: color 0 ease-in!important;
     transition: none!important;
     transition-property: none!important
 }
