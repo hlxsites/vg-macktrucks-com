@@ -129,6 +129,10 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
 
     const layoverDialog = box.querySelector('dialog');
 
+    layoverDialog.addEventListener('close', (event) => {
+      handleCloseLayover(event, layoverDialog, block);
+    });
+
     box.querySelector('.hotspot-layover-close')
       .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
 
