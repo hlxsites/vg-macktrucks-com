@@ -1,0 +1,14 @@
+.section.hotspots-container {
+    padding: unset;
+}
+.hotspots-container .hotspots-wrapper {
+          max-width: unset;
+        margin: 0
+}
+
+.hotspots .hotspot-bg-img img {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
