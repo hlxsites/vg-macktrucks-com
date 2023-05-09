@@ -230,6 +230,18 @@
     }
 }
 
+.hotspot-layover {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    position: fixed;
+    z-index: 102;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(0 0 0 / 0%)
+}
+
 .hotspot-layover a:link {
     color: #fff
 }
@@ -322,58 +334,31 @@
     }
 }
 
-@keyframes layover-slide-in {
-    from {transform: translateX(125%)}
-    to{transform: translateX(0);}
+.hotspot-layover.is-active {
+    transition: background-color .3s linear;
+    background-color: rgb(0 0 0 / 50%)
 }
 
-@keyframes layover-slide-out {
-    to{transform: translateX(125%);}
-}
-
-
-.hotspot-layover dialog.hotspot-layover-box {
-    position: fixed;
+.hotspot-layover .hotspot-layover-box {
+    transition: transform .3s ease-out;
+    position: absolute;
     top: 0;
     right: 0;
-    left: unset;
-    max-height: 100%;
-    height: 100%;
     width: 460px;
+    height: 100%;
     background: #333;
+    transform: translateX(125%)
 }
 
-.hotspot-layover dialog.hotspot-layover-box[open] {
-    animation: layover-slide-in .3s  ease-out forwards;
+.hotspot-layover .hotspot-layover-box.is-active {
+    transform: translateX(0)
 }
 
-.hotspot-layover dialog.hotspot-layover-box[open].closing {
-    animation: layover-slide-out .3s ease-in forwards;
+.hotspot-layover .hotspot-layover-box.no-animation {
+    transition: color 0 ease-in!important;
+    transition: none!important;
+    transition-property: none!important
 }
-
-
-
-
-/* fade in backdrop https://stackoverflow.com/a/71984473/79461 */
-@keyframes backdrop-fade {
-    from {background: transparent;}
-    to{background: rgb(0 0 0 / 50%);}
-}
-
-.hotspot-layover dialog[open]::backdrop {
-    animation: backdrop-fade .3s  linear forwards;
-}
-
-.hotspot-layover dialog[open].no-animation::backdrop {
-    animation: unset;
-}
-
-.hotspot-layover dialog.closing::backdrop {
-    animation: backdrop-fade .3s linear backwards;
-    animation-direction: reverse;
-}
-
-
 
 .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
     position: relative;

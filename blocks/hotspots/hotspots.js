@@ -10,20 +10,13 @@ function handleCloseLayover(event, layoverDialog, block) {
   block.querySelectorAll('.hotspot-icon-set .active-spot')
     .forEach((spot) => spot.classList.remove('active-spot'));
 
-  // todo: handle when animation is disabled
+  layoverDialog.parentElement.classList.remove('is-active');
+  layoverDialog.classList.remove('is-active');
+  layoverDialog.classList.remove('closing');
 
-  // remove the dialog only one the animation is complete
-
-  function closeAfterAnimation() {
-    layoverDialog.close();
-    layoverDialog.parentElement.classList.remove('is-active');
-    layoverDialog.classList.remove('is-active');
-    layoverDialog.removeEventListener('animationend', closeAfterAnimation);
-    layoverDialog.classList.remove('closing');
-  }
-
-  layoverDialog.classList.add('closing'); // run animation here
-  layoverDialog.addEventListener('animationend', closeAfterAnimation, false);
+  setTimeout(() => {
+    layoverDialog.parentElement.style.display = 'none';
+  }, 300);
 }
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {
@@ -32,11 +25,14 @@ function handleClickHotspot(event, iconLink, hotspotId, block) {
   iconLink.classList.add('active-spot');
 
   const allLayovers = block.querySelector('.hotspot-layover');
+  allLayovers.style.display = 'block';
   allLayovers.classList.add('is-active');
 
-  const layoverDialog = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
-  layoverDialog.classList.add('is-active');
-  layoverDialog.showModal();
+  // Workaround: Delay adding the class, otherwise slide-in animation is not played.
+  setTimeout(() => {
+    const layoverDialog = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
+    layoverDialog.classList.add('is-active');
+  }, 0);
 }
 
 /**
@@ -104,7 +100,7 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
   layoverContents.forEach((layoverContent) => {
     const box = document.createElement('div');
     box.innerHTML = `
-<dialog class="hotspot-layover-box" data-hotspot-content="1">
+<div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
         <img src="../../icons/x.png">
@@ -124,36 +120,25 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
             <span>TODO</span>
         </a>
     </div>
-</dialog>`;
+</div>`;
 
-    box.querySelector('.hotspot-layover-box').dataset.hotspotContent = layoverContent.id.toString();
-    box.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
-    box.querySelector('.hotspot-layover-text h5').append(...layoverContent.category.childNodes);
-    box.querySelector('.hotspot-layover-text h3').append(...layoverContent.title.childNodes);
-    box.querySelector('.hotspot-layover-text p').append(...layoverContent.text.childNodes);
+    const layoverDialog = box.querySelector('.hotspot-layover-box');
+    layoverDialog.dataset.hotspotContent = layoverContent.id.toString();
+    layoverDialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
+    layoverDialog.querySelector('.hotspot-layover-text h5').append(...layoverContent.category.childNodes);
+    layoverDialog.querySelector('.hotspot-layover-text h3').append(...layoverContent.title.childNodes);
+    layoverDialog.querySelector('.hotspot-layover-text p').append(...layoverContent.text.childNodes);
     // TODO: link prev / next
     // eslint-disable-next-line max-len
-    // box.querySelector('.hotspot-layover-button.prev span').append(...prevButtonContent.childNodes);
+    // layoverDialog.querySelector('.hotspot-layover-button.prev span').append(...prevButtonContent.childNodes);
     // eslint-disable-next-line max-len
     // box.querySelector('.hotspot-layover-button.next span').append(...nextButtonContent.childNodes);
 
-    const layoverDialog = box.querySelector('dialog');
-
-    layoverDialog.addEventListener('close', (event) => {
-      handleCloseLayover(event, layoverDialog, block);
-    });
+    // don't close if clicked on sidebar
+    layoverDialog.addEventListener('click', (event) => event.stopPropagation());
 
     box.querySelector('.hotspot-layover-close')
       .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
-
-    layoverDialog.addEventListener('click', (event) => {
-      // only react to clicks outside the dialog. https://stackoverflow.com/a/70593278/79461
-      const dialogDimensions = layoverDialog.getBoundingClientRect();
-      if (event.clientX < dialogDimensions.left || event.clientX > dialogDimensions.right
-        || event.clientY < dialogDimensions.top || event.clientY > dialogDimensions.bottom) {
-        handleCloseLayover(event, layoverDialog, block);
-      }
-    });
 
     layoverBlock.append(...box.childNodes);
   });
@@ -224,11 +209,16 @@ export default function decorate(block) {
   block.innerHTML = `
     <div class="main"></div>
     <!--    TODO: data-hotspot-target="1" -->
-    <div class="hotspot-layover" data-hotspot-target="1"></div>
+    <div class="hotspot-layover" data-hotspot-target="1" style="display: none;"></div>
   `;
 
   decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
   decorateLayoverBox(block.children[1], layoverContents, block);
+
+  block.children[1].addEventListener('click', (event) => {
+    const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
+    handleCloseLayover(event, layoverDialog, block);
+  });
 
   decorateIcons(block);
 }
