@@ -3,17 +3,27 @@ import { decorateIcons } from '../../scripts/lib-franklin.js';
 /**
  *
  * @param event
- * @param layoverDialog {HtmlDialogElement}
+ * @param layoverDialog {HTMLDialogElement}
  * @param block {HTMLDivElement}
  */
 function handleCloseLayover(event, layoverDialog, block) {
-  layoverDialog.close();
-
   block.querySelectorAll('.hotspot-icon-set .active-spot')
     .forEach((spot) => spot.classList.remove('active-spot'));
 
-  layoverDialog.parentElement.classList.remove('is-active');
-  layoverDialog.classList.remove('is-active');
+  // todo: handle when animation is disabled
+
+  // remove the dialog only one the animation is complete
+
+  function closeAfterAnimation() {
+    layoverDialog.close();
+    layoverDialog.parentElement.classList.remove('is-active');
+    layoverDialog.classList.remove('is-active');
+    layoverDialog.removeEventListener('animationend', closeAfterAnimation);
+    layoverDialog.classList.remove('closing');
+  }
+
+  layoverDialog.classList.add('closing'); // run animation here
+  layoverDialog.addEventListener('animationend', closeAfterAnimation, false);
 }
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {

@@ -327,6 +327,10 @@
     to{transform: translateX(0);}
 }
 
+@keyframes layover-slide-out {
+    to{transform: translateX(125%);}
+}
+
 
 .hotspot-layover dialog.hotspot-layover-box {
     position: fixed;
@@ -343,6 +347,12 @@
     animation: layover-slide-in .3s  ease-out forwards;
 }
 
+.hotspot-layover dialog.hotspot-layover-box[open].closing {
+    animation: layover-slide-out .3s ease-in forwards;
+}
+
+
+
 
 /* fade in backdrop https://stackoverflow.com/a/71984473/79461 */
 @keyframes backdrop-fade {
@@ -350,13 +360,20 @@
     to{background: rgb(0 0 0 / 50%);}
 }
 
-.hotspot-layover.is-active dialog[open]::backdrop {
+.hotspot-layover dialog[open]::backdrop {
     animation: backdrop-fade .3s  linear forwards;
 }
 
-.hotspot-layover.is-active dialog[open].no-animation::backdrop {
+.hotspot-layover dialog[open].no-animation::backdrop {
     animation: unset;
 }
+
+.hotspot-layover dialog.closing::backdrop {
+    animation: backdrop-fade .3s linear backwards;
+    animation-direction: reverse;
+}
+
+
 
 .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
     position: relative;
