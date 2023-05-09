@@ -230,18 +230,6 @@
     }
 }
 
-.hotspot-layover {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    position: fixed;
-    z-index: 102;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgb(0 0 0 / 0%)
-}
-
 .hotspot-layover a:link {
     color: #fff
 }
@@ -355,15 +343,8 @@
 .hotspot-layover.is-active dialog[open]::backdrop {
     animation: backdrop-fade .3s  linear forwards;
 }
-
-.hotspot-layover .hotspot-layover-box.is-active {
-    transform: translate3d(0,0,0)
-}
-
-.hotspot-layover .hotspot-layover-box.no-animation {
-    transition: color 0 ease-in!important;
-    transition: none!important;
-    transition-property: none!important
+.hotspot-layover.is-active dialog[open].no-animation::backdrop {
+    animation: unset;
 }
 
 .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {

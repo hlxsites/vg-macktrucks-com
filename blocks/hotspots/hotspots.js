@@ -14,19 +14,14 @@ function handleCloseLayover(event, layoverDialog, block) {
 
   layoverDialog.parentElement.classList.remove('is-active');
   layoverDialog.classList.remove('is-active');
-  setTimeout(() => {
-    layoverDialog.style.display = 'none';
-  }, 300);
 }
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
-  console.log('clicked ', hotspotId);
 
   iconLink.classList.add('active-spot');
 
   const allLayovers = block.querySelector('.hotspot-layover');
-  allLayovers.style.display = 'block';
   allLayovers.classList.add('is-active');
 
   const layoverDialog = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
@@ -215,7 +210,7 @@ export default function decorate(block) {
   block.innerHTML = `
     <div class="main"></div>
     <!--    TODO: data-hotspot-target="1" -->
-    <div class="hotspot-layover" data-hotspot-target="1" style="display: none;"></div>
+    <div class="hotspot-layover" data-hotspot-target="1"></div>
   `;
 
   decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
