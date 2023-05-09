@@ -1,7 +1,13 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-function handleCloseLayover(event) {
+/**
+ *
+ * @param event
+ * @param layoverDialog {HtmlDialogElement}
+ */
+function handleCloseLayover(event, layoverDialog) {
   console.log('handleCloseLayover');
+  layoverDialog.close();
   // container.addEventListener('click', function () {
   //   document.querySelectorAll('[spot]')
   //     .forEach(function (spot) {
@@ -13,7 +19,6 @@ function handleCloseLayover(event) {
   //     content.parentElement.style.display = 'none';
   //   }, 300);
   // });
-
 }
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {
@@ -26,8 +31,9 @@ function handleClickHotspot(event, iconLink, hotspotId, block) {
   allLayovers.style.display = 'block';
   allLayovers.classList.add('is-active');
 
-  const layover = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
-  layover.classList.add('is-active');
+  const layoverDialog = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
+  layoverDialog.classList.add('is-active');
+  layoverDialog.showModal();
 }
 
 /**
@@ -75,8 +81,12 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
     iconLink.style.top = hotspot.positionTop;
     iconLink.dataset.spot = hotspot.id.toString();
     // iconLink.firstElementChild.alt = hotspot.alt; TODO: alt
-    iconLink.onclick = (event) => handleClickHotspot(event, iconLink,
-      hotspot.id, hotspotsBlock.parentNode);
+    iconLink.onclick = (event) => handleClickHotspot(
+      event,
+      iconLink,
+      hotspot.id,
+      hotspotsBlock.parentNode,
+    );
     iconSet.append(iconLink);
   });
 }
@@ -90,7 +100,7 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
   layoverContents.forEach((layoverContent) => {
     const box = document.createElement('div');
     box.innerHTML = `
-<div class="hotspot-layover-box" data-hotspot-content="1">
+<dialog class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
         <img src="../../icons/x.png">
@@ -103,14 +113,14 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
     <div class="hotspot-layover-controls">
         <a class="hotspot-layover-button prev">
             <img src="../../icons/left-arrow-small.png" alt="Left arrow">
-            <span></span>
+            <span>TODO</span>
         </a>
         <a class="hotspot-layover-button next">
             <img src="../../icons/right-arrow-small.png" alt="Right arrow">
-            <span></span>
+            <span>TODO</span>
         </a>
     </div>
-</div>`;
+</dialog>`;
 
     box.querySelector('.hotspot-layover-box').dataset.hotspotContent = layoverContent.id.toString();
     box.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
@@ -127,6 +137,13 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
     box.addEventListener('click', (event) => {
       event.stopPropagation(); // TODO: implement differently
     });
+
+    const layoverDialog = box.querySelector('dialog');
+
+    box.querySelector('.hotspot-layover-close')
+      .addEventListener('click', (event) => {
+        handleCloseLayover(event, layoverDialog);
+      });
 
     layoverBlock.append(...box.childNodes);
   });
@@ -202,7 +219,9 @@ export default function decorate(block) {
 
   decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
   decorateLayoverBox(block.children[1], layoverContents);
-  block.children[1].addEventListener('click', (event) => handleCloseLayover(event, block.children[1]));
+  // TODO: clean
+  // block.children[1].addEventListener('click', (event) =>
+  // handleCloseLayover(event, block.children[1]));
 
   decorateIcons(block);
 }

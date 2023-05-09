@@ -195,3 +195,15 @@
 .fa-check::before {
   content: "\f00c";
 }
+
+
+dialog {
+  font-size: var(--body-font-size-m);
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-ff);
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border: 0;
+}
