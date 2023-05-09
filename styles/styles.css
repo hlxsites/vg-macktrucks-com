@@ -35,8 +35,8 @@
   --secondary-accent-copper: #8f654d;
 
   /* Applied colors */
-  --background-color: var(--primary-white);
-  --text-color: var(--primary-black);
+  --background-color: var(--primary-black);
+  --text-color: var(--primary-white);
   --link-color: var(--primary-accent-red);
   --link-hover-color: var(--primary-black);
   --header-color: var(--primary-white);
