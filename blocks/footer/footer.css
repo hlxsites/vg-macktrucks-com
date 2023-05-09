@@ -17,7 +17,8 @@
 
 .footer .footer-social-media-section {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .footer .footer-social-media {
@@ -135,16 +136,11 @@
 
   .footer .footer-links-col-1 {
     width: 185px;
-    margin-right: 20px;
   }
 
   .footer .footer-bottom-section li {
     padding: 10px;
     width: auto;
-  }
-
-  .footer .footer-social-media-section li {
-    margin-right: 20px;
   }
 
   .footer .footer-links-col-1 ul li {
@@ -154,10 +150,6 @@
   .footer .footer-links-col-2 {
     width: 370px;
     margin-left: 20px;
-  }
-
-  .footer .footer-social-media-section {
-    justify-content: left;
   }
 
   .footer .footer-bottom-section {

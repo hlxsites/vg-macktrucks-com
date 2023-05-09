@@ -16,7 +16,6 @@ export default async function decorate(block) {
   const footer = createElement('footer', 'footer-content');
 
   footer.innerHTML = html;
-  await decorateIcons(footer);
 
   // transforming icons into font-awesome
   footer.querySelectorAll('span.icon').forEach((icon) => {
@@ -29,6 +28,8 @@ export default async function decorate(block) {
       icon.classList.add('fa', iconName, 'footer-social-media');
     }
   });
+
+  await decorateIcons(footer);
 
   const formSection = footer.querySelector('.eloqua-form')?.parentElement;
   formSection?.classList.add('footer-form-section');

@@ -177,7 +177,7 @@
 }
 
 .fa-youtube::before {
-  content: "\f167"
+  content: "\f16a"
 }
 
 .fa-linkedin::before {
@@ -194,4 +194,10 @@
 
 .fa-check::before {
   content: "\f00c";
+}
+
+.fa-facebook::before,
+.fa-youtube::before {
+  display: flex;
+  justify-content: center;
 }
