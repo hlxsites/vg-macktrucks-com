@@ -346,9 +346,14 @@
     background: #333;
 }
 
-.hotspot-layover.is-active dialog::backdrop {
-    transition: background-color .3s linear;
-    background-color: rgb(0 0 0 / 50%)
+/* fade in backdrop https://stackoverflow.com/a/71984473/79461 */
+@keyframes backdrop-fade {
+    from {background: transparent;}
+    to{background: rgb(0 0 0 / 50%);}
+}
+
+.hotspot-layover.is-active dialog[open]::backdrop {
+    animation: backdrop-fade .3s  linear forwards;
 }
 
 .hotspot-layover .hotspot-layover-box.is-active {

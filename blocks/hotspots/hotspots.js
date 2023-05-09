@@ -4,21 +4,19 @@ import { decorateIcons } from '../../scripts/lib-franklin.js';
  *
  * @param event
  * @param layoverDialog {HtmlDialogElement}
+ * @param block {HTMLDivElement}
  */
-function handleCloseLayover(event, layoverDialog) {
-  console.log('handleCloseLayover');
+function handleCloseLayover(event, layoverDialog, block) {
   layoverDialog.close();
-  // container.addEventListener('click', function () {
-  //   document.querySelectorAll('[spot]')
-  //     .forEach(function (spot) {
-  //       spot.classList.remove('active-spot');
-  //     });
-  //   content.classList.remove('is-active');
-  //   content.parentElement.classList.remove('is-active');
-  //   setTimeout(function () {
-  //     content.parentElement.style.display = 'none';
-  //   }, 300);
-  // });
+
+  block.querySelectorAll('.hotspot-icon-set .active-spot')
+    .forEach((spot) => spot.classList.remove('active-spot'));
+
+  layoverDialog.parentElement.classList.remove('is-active');
+  layoverDialog.classList.remove('is-active');
+  setTimeout(() => {
+    layoverDialog.style.display = 'none';
+  }, 300);
 }
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {
@@ -95,8 +93,9 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
  *
  * @param layoverBlock
  * @param layoverContents {LayoverContent[]}
+ * @param block {HTMLDivElement}
  */
-function decorateLayoverBox(layoverBlock, layoverContents) {
+function decorateLayoverBox(layoverBlock, layoverContents, block) {
   layoverContents.forEach((layoverContent) => {
     const box = document.createElement('div');
     box.innerHTML = `
@@ -133,17 +132,19 @@ function decorateLayoverBox(layoverBlock, layoverContents) {
     // eslint-disable-next-line max-len
     // box.querySelector('.hotspot-layover-button.next span').append(...nextButtonContent.childNodes);
 
-    // don't close if clicked on sidebar
-    box.addEventListener('click', (event) => {
-      event.stopPropagation(); // TODO: implement differently
-    });
-
     const layoverDialog = box.querySelector('dialog');
 
     box.querySelector('.hotspot-layover-close')
-      .addEventListener('click', (event) => {
-        handleCloseLayover(event, layoverDialog);
-      });
+      .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
+
+    layoverDialog.addEventListener('click', (event) => {
+      // only react to clicks outside the dialog. https://stackoverflow.com/a/70593278/79461
+      const dialogDimensions = layoverDialog.getBoundingClientRect();
+      if (event.clientX < dialogDimensions.left || event.clientX > dialogDimensions.right
+        || event.clientY < dialogDimensions.top || event.clientY > dialogDimensions.bottom) {
+        handleCloseLayover(event, layoverDialog, block);
+      }
+    });
 
     layoverBlock.append(...box.childNodes);
   });
@@ -218,10 +219,7 @@ export default function decorate(block) {
   `;
 
   decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
-  decorateLayoverBox(block.children[1], layoverContents);
-  // TODO: clean
-  // block.children[1].addEventListener('click', (event) =>
-  // handleCloseLayover(event, block.children[1]));
+  decorateLayoverBox(block.children[1], layoverContents, block);
 
   decorateIcons(block);
 }
