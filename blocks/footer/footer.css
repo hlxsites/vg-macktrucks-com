@@ -212,6 +212,8 @@
 .footer .elq-form .checkbox-label {
   font-size: 13px;
   font-family: var(--body-ff);
+  bottom: 0;
+  padding-left: 0;
 }
 
 .footer .elq-form input.submit-button {
@@ -221,9 +223,9 @@
   font-size: 20px !important;
   line-height: 20px;
   height: auto !important;
-  padding: 5px;
   cursor: pointer;
   margin-top: 10px;
+  padding: 5px 10px;
 }
 
 .footer .elq-form input.submit-button:hover {
@@ -234,6 +236,12 @@
 .footer .eloqua-form p {
   font-size: 11px;
   font-family: var(--body-ff);
+}
+
+.footer .checkbox-span input[type="checkbox"] {
+  position: relative;
+  display: inline-block;
+  appearance: auto;
 }
 
 /* eloqua footer form styles - END */

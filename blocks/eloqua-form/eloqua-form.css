@@ -8,9 +8,9 @@
   padding: 0;
 }
 
-.eloqua-form .elq-form .elq-item-input,
-.eloqua-form .elq-form .elq-item-select,
-.eloqua-form .elq-form .elq-item-textarea {
+.eloqua-form .elq-form input,
+.eloqua-form .elq-form select,
+.eloqua-form .elq-form textarea {
   display: block;
   border-radius: 0;
   appearance: none;
@@ -22,19 +22,21 @@
   font-size: 14px;
   line-height: 18px;
   height: 40px;
+  width: 100%;
 }
 
-.eloqua-form .elq-form .elq-item-textarea {
+.eloqua-form .elq-form textarea {
   height: 100px;
 }
 
-.eloqua-form .elq-form .elq-item-input::placeholder,
-.eloqua-form .elq-form .elq-item-select::placeholder,
-.eloqua-form .elq-form .elq-item-textarea ::placeholder {
+.eloqua-form .elq-form input::placeholder,
+.eloqua-form .elq-form select::placeholder,
+.eloqua-form .elq-form textarea ::placeholder {
   color: var(--primary-black);
 }
 
-.eloqua-form .elq-form .submit-button-style {
+.eloqua-form .elq-form .submit-button-style,
+.eloqua-form .elq-form input.submit-button {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
@@ -46,8 +48,9 @@
   color: var(--primary-white);
   border: none;
   margin-bottom: 30px;
-  width: auto;
   border-radius: 0;
+  height: 100% !important;
+  width: auto !important;
 }
 
 .eloqua-form .elq-form input[type="checkbox"] {
@@ -63,12 +66,14 @@
   position: relative;
 }
 
-.eloqua-form .single-checkbox-row input[type="checkbox"] {
+.eloqua-form .single-checkbox-row input[type="checkbox"],
+.eloqua-form .checkbox-span input[type="checkbox"] {
   width: 20px;
   height: 20px;
   position: absolute;
   top: 4px;
   left: 0;
+  padding: 0;
 }
 
 .eloqua-form
@@ -122,10 +127,14 @@
   border-left: solid 1px var(--primary-black);
   height: 40px;
   align-items: center;
-  top: 0;
+  bottom: 0;
 }
 
 .eloqua-form .elq-form input, .eloqua-form .elq-form textarea {
   box-sizing: border-box;
   height: auto;
+}
+
+.eloqua-form .elq-form .field-wrapper.individual {
+  float: none;
 }
