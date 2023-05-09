@@ -1,24 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-/**
- *
- * @param event
- * @param layoverDialog {HTMLDialogElement}
- * @param block {HTMLDivElement}
- */
-function handleCloseLayover(event, layoverDialog, block) {
-  block.querySelectorAll('.hotspot-icon-set .active-spot')
-    .forEach((spot) => spot.classList.remove('active-spot'));
-
-  layoverDialog.parentElement.classList.remove('is-active');
-  layoverDialog.classList.remove('is-active');
-  layoverDialog.classList.remove('closing');
-
-  setTimeout(() => {
-    layoverDialog.parentElement.style.display = 'none';
-  }, 300);
-}
-
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
 
@@ -32,6 +13,66 @@ function handleClickHotspot(event, iconLink, hotspotId, block) {
   setTimeout(() => {
     const layoverDialog = allLayovers.querySelector(`.hotspot-layover-box[data-hotspot-content="${hotspotId}"]`);
     layoverDialog.classList.add('is-active');
+  }, 0);
+}
+
+/**
+ *
+ * @param event
+ * @param layoverDialog {HTMLDialogElement}
+ * @param block {HTMLDivElement}
+ */
+function handleCloseLayover(event, layoverDialog, block) {
+  block.querySelectorAll('.hotspot-icon-set .active-spot')
+    .forEach((spot) => spot.classList.remove('active-spot'));
+
+  layoverDialog.parentElement.classList.remove('is-active');
+  layoverDialog.classList.remove('is-active');
+
+  setTimeout(() => {
+    layoverDialog.parentElement.style.display = 'none';
+  }, 300);
+}
+
+/**
+ *
+ * @param event
+ * @param layoverDialog
+ * @param block
+ * @param direction {'prev'|'next'}
+ */
+function switchToOtherLayover(event, layoverDialog, block, direction) {
+  block.querySelectorAll('.hotspot-layover-box').forEach((box) => {
+    box.classList.add('no-animation');
+  });
+  block.querySelectorAll('.hotspot-layover-box').forEach((box) => {
+    box.classList.remove('is-active');
+  });
+  block.querySelectorAll('.hotspot-icon-set .active-spot').forEach((spot) => spot.classList.remove('active-spot'));
+
+  let switchTo;
+  if (direction === 'next') {
+    switchTo = layoverDialog.nextElementSibling;
+    if (!switchTo) {
+      switchTo = layoverDialog.parentElement.firstElementChild;
+    }
+  } else {
+    switchTo = layoverDialog.previousElementSibling;
+    if (!switchTo) {
+      switchTo = layoverDialog.parentElement.lastElementChild;
+    }
+  }
+  switchTo.classList.add('is-active');
+
+  // activate hotspot link
+  block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`).classList.add('active-spot');
+
+  setTimeout(() => {
+    // workaround: for some reason the animation is still played when the class is added immediately
+    block.querySelectorAll('.hotspot-layover-box')
+      .forEach((box) => {
+        box.classList.remove('no-animation');
+      });
   }, 0);
 }
 
@@ -66,10 +107,8 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
 </div>`;
 
   hotspotsBlock.querySelector('.hotspot-bg-img.desktop').src = firstImage.src;
-  hotspotsBlock.querySelector('.hotspot-header')
-    .append(...title.childNodes);
-  hotspotsBlock.querySelector('.hotspot-text')
-    .append(...description.childNodes);
+  hotspotsBlock.querySelector('.hotspot-header').innerHTML = title.innerHTML;
+  hotspotsBlock.querySelector('.hotspot-text').innerHTML = description.innerHTML;
 
   const iconSet = hotspotsBlock.querySelector('.hotspot-icon-set');
   const iconTemplate = iconSet.firstElementChild;
@@ -90,6 +129,11 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
   });
 }
 
+function getLayoverContentWithOffset(layoverContents, index, offset) {
+  // JS does not support negative modulo, therefore we need to add length of the array
+  return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
+}
+
 /**
  *
  * @param layoverBlock
@@ -97,7 +141,7 @@ function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description
  * @param block {HTMLDivElement}
  */
 function decorateLayoverBox(layoverBlock, layoverContents, block) {
-  layoverContents.forEach((layoverContent) => {
+  layoverContents.forEach((layoverContent, index) => {
     const box = document.createElement('div');
     box.innerHTML = `
 <div class="hotspot-layover-box" data-hotspot-content="1">
@@ -113,11 +157,11 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
     <div class="hotspot-layover-controls">
         <a class="hotspot-layover-button prev">
             <img src="../../icons/left-arrow-small.png" alt="Left arrow">
-            <span>TODO</span>
+            <span></span>
         </a>
         <a class="hotspot-layover-button next">
             <img src="../../icons/right-arrow-small.png" alt="Right arrow">
-            <span>TODO</span>
+            <span></span>
         </a>
     </div>
 </div>`;
@@ -125,19 +169,23 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
     const layoverDialog = box.querySelector('.hotspot-layover-box');
     layoverDialog.dataset.hotspotContent = layoverContent.id.toString();
     layoverDialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
-    layoverDialog.querySelector('.hotspot-layover-text h5').append(...layoverContent.category.childNodes);
-    layoverDialog.querySelector('.hotspot-layover-text h3').append(...layoverContent.title.childNodes);
-    layoverDialog.querySelector('.hotspot-layover-text p').append(...layoverContent.text.childNodes);
-    // TODO: link prev / next
-    // eslint-disable-next-line max-len
-    // layoverDialog.querySelector('.hotspot-layover-button.prev span').append(...prevButtonContent.childNodes);
-    // eslint-disable-next-line max-len
-    // box.querySelector('.hotspot-layover-button.next span').append(...nextButtonContent.childNodes);
+    layoverDialog.querySelector('.hotspot-layover-text h5').innerHTML = layoverContent.category.innerHTML;
+    layoverDialog.querySelector('.hotspot-layover-text h3').innerHTML = layoverContent.title.innerHTML;
+    layoverDialog.querySelector('.hotspot-layover-text p').innerHTML = layoverContent.text.innerHTML;
+
+    const prevContent = getLayoverContentWithOffset(layoverContents, index, -1);
+    const nextContent = getLayoverContentWithOffset(layoverContents, index, +1);
+    layoverDialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
+    layoverDialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
+    layoverDialog.querySelector('.hotspot-layover-button.prev')
+      .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'prev'));
+    layoverDialog.querySelector('.hotspot-layover-button.next')
+      .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'next'));
 
     // don't close if clicked on sidebar
     layoverDialog.addEventListener('click', (event) => event.stopPropagation());
 
-    box.querySelector('.hotspot-layover-close')
+    layoverDialog.querySelector('.hotspot-layover-close')
       .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
 
     layoverBlock.append(...box.childNodes);
