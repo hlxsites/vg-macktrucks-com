@@ -301,11 +301,11 @@
 
 @media (max-width: 896px) {
     .hotspot-layover h1,.hotspot-layover h2 {
-        font:40px/40px var(--headline-ff-medium)
+        font:40px/40px var(--headline-ff-medium);
     }
 
     .hotspot-layover h3 {
-        font: 28px/28px 'Helvetica Neue 75 Bold'
+        font: 28px/28px 'Helvetica Neue 75 Bold';
     }
 
     .hotspot-layover h4,.hotspot-layover h5 {
@@ -313,17 +313,22 @@
     }
 
     .hotspot-layover p {
-        font: 16px/16px 'Helvetica Neue Regular 55'
+        font: 16px/16px 'Helvetica Neue Regular 55';
     }
 
     .hotspot-layover p.large {
-        font: 16px/16px 'Helvetica Neue 65 Medium'
+        /*TODO: fonts*/
+        font: 16px/16px 'Helvetica Neue 65 Medium';
     }
+}
+
+@keyframes layover-slide-in {
+    from {transform: translateX(125%)}
+    to{transform: translateX(0);}
 }
 
 
 .hotspot-layover dialog.hotspot-layover-box {
-    transition: transform .3s ease-out;
     position: fixed;
     top: 0;
     right: 0;
@@ -334,6 +339,11 @@
     background: #333;
 }
 
+.hotspot-layover dialog.hotspot-layover-box[open] {
+    animation: layover-slide-in .3s  ease-out forwards;
+}
+
+
 /* fade in backdrop https://stackoverflow.com/a/71984473/79461 */
 @keyframes backdrop-fade {
     from {background: transparent;}
@@ -343,6 +353,7 @@
 .hotspot-layover.is-active dialog[open]::backdrop {
     animation: backdrop-fade .3s  linear forwards;
 }
+
 .hotspot-layover.is-active dialog[open].no-animation::backdrop {
     animation: unset;
 }
