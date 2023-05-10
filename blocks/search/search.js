@@ -1,6 +1,7 @@
 import templates from './templates.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
+import config from '../../config.js';
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
@@ -77,8 +78,8 @@ export default function decorate(block) {
   window.studioConfig = {
     connector: {
       url: 'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158/emselect',
-      authentication: 'YXBwMTE1OC1hcGk6TWFja3RydWNrc0AyMDIz',
-      apikey: 'zfGguNvhbqnDbWGO3UAnZuYTfx5EzYjYy5hTqS2apeg',
+      authentication: config.authKey,
+      apikey: config.apiKey,
       select_auth_token: 'None',
       suggester_auth_token: 'None',
       search_auth_type: 'basic',
@@ -89,7 +90,7 @@ export default function decorate(block) {
         url: 'result_url_creation_s',
       },
       suggester: 'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
-      searchAPIKey: '66ce3ff806300bc0b461d3da0629714a9c295cfd',
+      searchAPIKey: config.searchAPIKey,
       language: 'en',
       fieldFormatters: { date: formatDate },
       searchAdditionalArgs: 'hl.fragsize=200',
