@@ -38,10 +38,6 @@
   height: 0;
 }
 
-.modal-content.modal-content-fade-in {
-  opacity: 1;
-}
-
 .modal-content {
   aspect-ratio: 16/9;
   width: 100%;
@@ -50,7 +46,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0;
+  opacity: 1;
   top: 50vh;
 }
 

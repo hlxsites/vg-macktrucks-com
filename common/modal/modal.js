@@ -42,12 +42,17 @@ const createModal = () => {
   // eslint-disable-next-line no-use-before-define
   closeButton.addEventListener('click', () => hideModal());
 
+  const clearModalContent = () => {
+    modalContent.innerHTML = '';
+  };
+
   async function showModal(newUrl, beforeBanner, beforeIframe) {
     await styles$;
     modalBackground.style.display = '';
     window.addEventListener('keydown', keyDownAction);
 
     if (newUrl) {
+      clearModalContent();
       const iframe = createIframe(newUrl, { parentEl: modalContent, classes: 'modal-video' });
 
       if (beforeBanner) {
@@ -66,7 +71,6 @@ const createModal = () => {
     }
 
     modalBackground.classList.remove(HIDE_MODAL_CLASS);
-    modalContent.classList.add('modal-content-fade-in');
 
     // disable page scrolling
     document.body.classList.add('disable-scroll');
@@ -78,12 +82,8 @@ const createModal = () => {
     document.body.classList.remove('disable-scroll');
 
     modalContent.addEventListener('transitionend', () => {
-      modalContent.querySelector('iframe')?.remove();
-      modalContent.querySelector('.modal-before-banner')?.remove();
-      modalContent.querySelector('.modal-before-iframe')?.remove();
+      clearModalContent();
     }, { once: true });
-
-    modalContent.classList.remove('modal-content-fade-in');
   }
 
   return {
