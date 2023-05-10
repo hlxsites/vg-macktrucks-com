@@ -246,7 +246,9 @@ export default async function decorate(block) {
       e.preventDefault();
       const searchTerm = document.getElementById('div-widget-id-search-input').value;
       if (searchTerm) {
-        window.location.href = `${window.location.origin}/search?searchStudioQuery=${searchTerm}`;
+        const searchUrl = new URL('/search', window.location.origin);
+        searchUrl.searchParams.set('searchStudioQuery', searchTerm);
+        window.location.href = searchUrl;
       }
     };
   }
