@@ -180,9 +180,8 @@ function addSpot(block, hotspot, prevContent, nextContent) {
  * @param firstImage {HTMLPictureElement}
  * @param title {HTMLElement}
  * @param description {HTMLElement}
- * @param hotspots {HotspotContent[]}
  */
-function decorateImageAndTitle(hotspotsBlock, firstImage, title, description, hotspots) {
+function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
   // TODO: set data-hotspot="1" data-fade-object="true"
   const hotspot = document.createElement('div');
   hotspot.classList.add('hotspot');
@@ -214,7 +213,6 @@ function getHotspotContentByOffset(layoverContents, index, offset) {
   // JS does not support negative modulo, therefore we need to add length of the array
   return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
 }
-
 
 /**
  * @typedef {Object} HotspotContent
@@ -273,13 +271,11 @@ export default function decorate(block) {
   const firstBlockRow = block.querySelector(':scope > div');
   const firstImage = firstBlockRow.querySelector('img');
   const title = firstBlockRow.querySelector('h1, h2');
-
   const description = firstBlockRow.querySelector('p');
 
   const hotspots = parseHotspotContent(block);
 
   hotspotBlockCounter += 1;
-
   block.innerHTML = `
     <div class="main">
         <div class="hotspot-mobile"></div>
@@ -287,7 +283,7 @@ export default function decorate(block) {
     <div class="hotspot-layover" data-hotspot-target="${hotspotBlockCounter}" style="display: none;"></div>
   `;
 
-  decorateImageAndTitle(block.children[0], firstImage, title, description, hotspots);
+  decorateImageAndTitle(block.children[0], firstImage, title, description);
 
   hotspots.forEach((hotspot, index) => {
     const prevContent = getHotspotContentByOffset(hotspots, index, -1);
