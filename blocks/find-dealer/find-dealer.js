@@ -11,8 +11,7 @@ export default function decorate(block) {
   container.className = 'find-dealer-form-container';
   input.onkeydown = (e) => {
     if (e.key === 'Enter') {
-      const url = new URL(window.location.href);
-      url.pathname = '/buy-mack/find-a-dealer/';
+      const url = new URL('/buy-mack/find-a-dealer/', window.location.href);
       url.searchParams.set('l', e.target.value);
       window.location.href = url.toString();
     }
