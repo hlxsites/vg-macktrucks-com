@@ -1,12 +1,21 @@
 .section.hotspots-container {
     padding: unset;
+    background-color: var(--primary-black);
 }
+
+/* TODO: fix all prefixes */
 
 .hotspots-container .hotspots-wrapper {
     max-width: unset;
     margin: 0
 }
 
+
+.hotspots-container .main p.reduced-width {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto
+}
 
 .hotspot-area.no-spots {
     background-size: 100%;
@@ -50,8 +59,9 @@
 .hotspot .hotspot-content h1 {
     font: 80px/62px var(--headline-ff-medium);
     letter-spacing: -.035em;
-    margin-top: -20px;
-    margin-bottom: 0;
+    margin: -20px auto 0;
+    text-align: center
+
 }
 
 .hotspot .hotspot-content p {
@@ -303,7 +313,6 @@
 .hotspot-layover p.reduced-width {
     width: 100%;
     max-width: 500px;
-    margin: 0 auto
 }
 
 .hotspot-layover a {
@@ -446,5 +455,84 @@
 @media (max-width: 896px) {
     .hotspot.truck {
         margin-bottom:0
+    }
+}
+
+
+
+.feature-block {
+    position: relative
+}
+
+.feature-block .content-wrapper {
+    overflow: auto
+}
+
+
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1376px;
+    margin: 0 auto;
+    padding: 0 48px
+}
+
+@media (max-width: 1280px) {
+    .content-wrapper {
+        width:100%;
+        padding: 0 48px
+    }
+}
+
+.feature-block .feature {
+    width: 100%;
+    margin-bottom: 100px
+}
+
+.feature-block .feature.two-col {
+    width: 50%;
+    float: left
+}
+
+.feature-block .feature.two-col:first-child {
+    padding-right: 10px
+}
+
+.feature-block .feature.two-col:last-child {
+    padding-left: 10px
+}
+
+.feature-block .feature .feature-thumb {
+    width: 100%;
+    padding-bottom: 60%;
+    background-size: cover;
+    background-position: center
+}
+
+.feature-block .feature h4.feature-title {
+    margin: 20px 0 0;
+    font: 14px/14px 'Helvetica Neue 75 Bold'
+}
+
+.feature-block .feature p {
+    max-width: 300px;
+    margin-top: 5px;
+    color: #999;
+    font-size: 16px;
+    line-height: 20px
+}
+
+@media (max-width: 896px) {
+    .feature-block .feature.two-col:last-child {
+        padding-left:0
+    }
+
+    .feature-block .feature.two-col {
+        width: 100%;
+        float: none
+    }
+
+    .feature-block .feature p {
+        max-width: none
     }
 }

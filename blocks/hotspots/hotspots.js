@@ -1,5 +1,7 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
+let hotspotBlockCounter = 0;
+
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
 
@@ -84,29 +86,31 @@ function switchToOtherLayover(event, layoverDialog, block, direction) {
  * @param description {HTMLElement}
  * @param layoverContents {LayoverContent[]}
  */
-function decorateImageWithHotspots(hotspotsBlock, firstImage, title, description, layoverContents) {
-  // TODO: set data-hotspot="1" data-fade-object="true"  style="opacity: 1;"
-  hotspotsBlock.innerHTML = `<div class="hotspot animated" data-hotspot="1" data-fade-object="true" style="opacity: 1;">
-
-<!-- TODO: set stand="" up="" sleeper="" -->
-    <img class="hotspot-bg-img desktop" alt="Three-quarter view of a black Mack Anthem 70" stand="" up="" sleeper="" src="">
-    <!--    TODO: mobile image-->
-    <img class="hotspot-bg-img mobile" alt="Three-quarter view of a black Mack Anthem 70" stand="" up="" sleeper="" src="">
-
-    <div class="hotspot-content content-wrapper ">
-        <h1 class="hotspot-header"></h1>
-        <p class="hotspot-text reduced-width"></p>
-    </div>
-
-    <div class="hotspot-icon-set">
-        <a href="#" class="hotspot-icon" style="left: 0; top: 0;" data-spot="0">
-            <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" />
-        </a>
-       
-    </div>
-</div>`;
+function decorateDesktopImageWithHotspots(hotspotsBlock, firstImage, title, description, layoverContents) {
+  // TODO: set data-hotspot="1" data-fade-object="true"
+  hotspotsBlock.innerHTML = `
+  <div class="hotspot animated" data-hotspot="1" data-fade-object="true">
+  
+  <!-- TODO: set stand="" up="" sleeper=""  alt-->
+      <!--    TODO: dynamic image size-->
+      <img class="hotspot-bg-img desktop"  src="">
+      <img class="hotspot-bg-img mobile"  src="">
+  
+      <div class="hotspot-content content-wrapper ">
+          <h1 class="hotspot-header"></h1>
+          <p class="hotspot-text reduced-width"></p>
+      </div>
+  
+      <div class="hotspot-icon-set">
+          <a href="#" class="hotspot-icon" style="left: 0; top: 0;" data-spot="0">
+              <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" />
+          </a>
+         
+      </div>
+  </div>`;
 
   hotspotsBlock.querySelector('.hotspot-bg-img.desktop').src = firstImage.src;
+  hotspotsBlock.querySelector('.hotspot-bg-img.mobile').src = firstImage.src;
   hotspotsBlock.querySelector('.hotspot-header').innerHTML = title.innerHTML;
   hotspotsBlock.querySelector('.hotspot-text').innerHTML = description.innerHTML;
 
@@ -140,11 +144,10 @@ function getLayoverContentWithOffset(layoverContents, index, offset) {
  * @param layoverContents {LayoverContent[]}
  * @param block {HTMLDivElement}
  */
-function decorateLayoverBox(layoverBlock, layoverContents, block) {
+function decorateDesktopLayoverBox(layoverBlock, layoverContents, block) {
   layoverContents.forEach((layoverContent, index) => {
     const box = document.createElement('div');
-    box.innerHTML = `
-<div class="hotspot-layover-box" data-hotspot-content="1">
+    box.innerHTML = `<div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
         <img src="../../icons/x.png">
@@ -189,6 +192,37 @@ function decorateLayoverBox(layoverBlock, layoverContents, block) {
       .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
 
     layoverBlock.append(...box.childNodes);
+  });
+}
+
+/**
+ *
+ * @param layoverBlock
+ * @param layoverContents {LayoverContent[]}
+ * @param block {HTMLDivElement}
+ */
+function decorateMobileFeatureImages(layoverBlock, layoverContents, block) {
+  const mobileDiv = document.createElement('div');
+  mobileDiv.classList.add('hotspot-mobile');
+
+  layoverContents.forEach((layoverContent) => {
+    const featureBlock = document.createElement('div');
+    featureBlock.innerHTML = `
+    <div class="feature-block animated" fade-object="true">
+        <div class="content-wrapper">
+            <div class="feature">
+                <div class="feature-thumb" style="background-image: url();"></div>
+                <h4 class="feature-title"></h4>
+                <p></p></div>
+        </div>
+    </div>`;
+
+    featureBlock.querySelector('.feature-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
+    featureBlock.querySelector('.feature-title').innerHTML = layoverContent.title.innerHTML;
+    featureBlock.querySelector('.feature p').innerHTML = layoverContent.text.innerHTML;
+
+    mobileDiv.append(...featureBlock.childNodes);
+    layoverBlock.append(mobileDiv);
   });
 }
 
@@ -254,14 +288,18 @@ export default function decorate(block) {
 
   const layoverContents = parseLayoverContent(block);
 
+  hotspotBlockCounter += 1;
+
   block.innerHTML = `
     <div class="main"></div>
     <!--    TODO: data-hotspot-target="1" -->
-    <div class="hotspot-layover" data-hotspot-target="1" style="display: none;"></div>
+    <div class="hotspot-layover" data-hotspot-target="${hotspotBlockCounter}" style="display: none;"></div>
   `;
 
-  decorateImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
-  decorateLayoverBox(block.children[1], layoverContents, block);
+  decorateDesktopImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
+
+  decorateMobileFeatureImages(block.children[0], layoverContents, block);
+  decorateDesktopLayoverBox(block.children[1], layoverContents, block);
 
   block.children[1].addEventListener('click', (event) => {
     const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
@@ -270,3 +308,41 @@ export default function decorate(block) {
 
   decorateIcons(block);
 }
+
+// TODO: add support for multiple hotspots
+// Get all elements with the attribute 'hotspot-target-id'
+// const hotspotTargetIdElements = document.querySelectorAll('[hotspot-target-id]');
+//
+// // Iterate through each hotspot target ID element
+// hotspotTargetIdElements.forEach((hotspotTargetId) => {
+//   // Add a click event listener for the hotspot target ID element
+//   hotspotTargetId.addEventListener('click', function () {
+//     // Check if the element is not active
+//     if (!hotspotTargetId.classList.contains('active')) {
+//       // Remove the active class from other active elements
+//       const activeElements = document.querySelectorAll('[hotspot-target-id].active');
+//       activeElements.forEach((activeElement) => {
+//         activeElement.classList.remove('active');
+//       });
+//
+//       // Scroll to the top of the page
+//       window.scrollTo(0, 0);
+//
+//       // Add the active class to the current element
+//       this.classList.add('active');
+//
+//       // Get the target ID
+//       const id = hotspotTargetId.getAttribute('hotspot-target-id');
+//
+//       // Remove the active class from other active hotspot areas
+//       const activeHotspotAreas = document.querySelectorAll('.hotspot-area.active');
+//       activeHotspotAreas.forEach((activeHotspotArea) => {
+//         activeHotspotArea.classList.remove('active');
+//       });
+//
+//       // Add the active class to the target hotspot area
+//       const targetHotspotArea = document.querySelector(`[hotspot-id="${id}"]`);
+//       targetHotspotArea.classList.add('active');
+//     }
+//   });
+// });
