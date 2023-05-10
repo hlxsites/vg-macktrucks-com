@@ -1,5 +1,6 @@
 import templates from './templates.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
@@ -151,16 +152,14 @@ export default function decorate(block) {
   }];
 
   // adding templates
-  const temps = document.createElement('div');
+  const temps = createElement('div');
   temps.innerHTML = templates.join('');
   document.body.appendChild(temps);
 
   // loading scripts one by one to prevent inappropriate script execution order.
   // eslint-disable-next-line no-restricted-syntax
   for (const script of scripts) {
-    const newScript = document.createElement('script');
-
-    newScript.setAttribute('type', 'text/javascript');
+    const newScript = createElement('script', '', { type: 'text/javascript' });
 
     if (script.inline) {
       newScript.innerHTML = script.inline;

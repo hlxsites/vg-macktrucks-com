@@ -1,4 +1,5 @@
 import { readBlockConfig, decorateIcons, loadScript } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
@@ -82,9 +83,8 @@ function addLabelsToIcons(navTools) {
   if (!pictures) return;
   const picturesWrappers = [...pictures].map((pic) => pic.parentElement);
   picturesWrappers.forEach((p, i) => {
-    const span = document.createElement('span');
-    const br = document.createElement('br');
-    span.className = 'nav-label';
+    const span = createElement('span', 'nav-label');
+    const br = createElement('br');
     span.textContent = links[i].textContent;
     links[i].textContent = '';
     p.prepend(links[i]);
@@ -165,8 +165,7 @@ export default async function decorate(block) {
   const html = await resp.text();
 
   // decorate nav DOM
-  const nav = document.createElement('nav');
-  nav.id = 'nav';
+  const nav = createElement('nav', '', { id: 'nav' });
   nav.innerHTML = html;
 
   const classes = ['brand', 'sections', 'mobile', 'tools', 'search'];
@@ -190,8 +189,7 @@ export default async function decorate(block) {
     });
 
     // hamburger for mobile
-    const hamburger = document.createElement('div');
-    hamburger.classList.add('nav-hamburger');
+    const hamburger = createElement('div', 'nav-hamburger');
     hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
@@ -217,23 +215,13 @@ export default async function decorate(block) {
     const navSearchBtn = [...navTools.children].at(-1);
     const searchIcon = navSearch.querySelector('.icon-search');
     const searchIconWrapper = searchIcon.parentElement;
-    const navSearchWrapper = document.createElement('div');
-    const searchWidgetDiv = document.createElement('div');
-    const searchIconLink = document.createElement('a');
-    const closeBtnWrapper = document.createElement('div');
-    const closeBtn = document.createElement('button');
-    const closeBtnIcon = document.createElement('span');
+    const navSearchWrapper = createElement('div', 'nav-search-wrapper');
+    const searchWidgetDiv = createElement('div', 'studio-search-widget', { id: 'div-widget-id' });
+    const searchIconLink = createElement('a', 'search-icon');
+    const closeBtnWrapper = createElement('div', 'search-close');
+    const closeBtn = createElement('button', '', { type: 'button' });
+    const closeBtnIcon = createElement('span', 'search-close-icon');
     let isShown = false;
-
-    searchWidgetDiv.id = 'div-widget-id';
-    searchWidgetDiv.className = 'studio-search-widget';
-
-    searchIconLink.className = 'search-icon';
-
-    navSearchWrapper.className = 'nav-search-wrapper';
-    closeBtnWrapper.className = 'search-close';
-    closeBtn.type = 'button';
-    closeBtnIcon.className = 'search-close-icon';
 
     navSearch.prepend(navSearchWrapper);
     navSearchWrapper.appendChild(searchIconLink);
