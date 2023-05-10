@@ -79,7 +79,7 @@ function switchToOtherLayover(event, layoverDialog, block, direction) {
 }
 
 function addSpot(hotspotsBlock, hotspot) {
-  const iconSet = hotspotsBlock.querySelector('.hotspot-icon-set');
+  // desktop
   const iconLink = document.createElement('a');
   iconLink.classList.add('hotspot-icon');
   iconLink.innerHTML = ' <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" /> ';
@@ -94,7 +94,27 @@ function addSpot(hotspotsBlock, hotspot) {
     hotspot.id,
     hotspotsBlock.parentNode,
   );
+  const iconSet = hotspotsBlock.querySelector('.hotspot-icon-set');
   iconSet.append(iconLink);
+
+  // mobile
+  const featureBlock = document.createElement('div');
+  featureBlock.innerHTML = `
+    <div class="feature-block animated" data-fade-object="true">
+        <div class="content-wrapper">
+            <div class="feature">
+                <div class="feature-thumb" style="background-image: url();"></div>
+                <h4 class="feature-title"></h4>
+                <p></p></div>
+        </div>
+    </div>`;
+
+  featureBlock.querySelector('.feature-thumb').style.backgroundImage = `url(${hotspot.picture.querySelector('img').src})`;
+  featureBlock.querySelector('.feature-title').innerHTML = hotspot.title.innerHTML;
+  featureBlock.querySelector('.feature p').innerHTML = hotspot.text.innerHTML;
+
+  const mobileDiv = hotspotsBlock.querySelector('.hotspot-mobile');
+  mobileDiv.append(...featureBlock.childNodes);
 }
 
 /**
@@ -103,9 +123,9 @@ function addSpot(hotspotsBlock, hotspot) {
  * @param firstImage {HTMLPictureElement}
  * @param title {HTMLElement}
  * @param description {HTMLElement}
- * @param layoverContents {LayoverContent[]}
+ * @param hotspots {Hotspot[]}
  */
-function decorateDesktopImageWithHotspots(hotspotsBlock, firstImage, title, description, layoverContents) {
+function decorateImageAndTitle(hotspotsBlock, firstImage, title, description, hotspots) {
   // TODO: set data-hotspot="1" data-fade-object="true"
   const hotspot = document.createElement('div');
   hotspot.classList.add('hotspot');
@@ -141,13 +161,14 @@ function getLayoverContentWithOffset(layoverContents, index, offset) {
 /**
  *
  * @param layoverBlock
- * @param layoverContents {LayoverContent[]}
+ * @param layoverContents {Hotspot[]}
  * @param block {HTMLDivElement}
  */
 function decorateDesktopLayoverBox(layoverBlock, layoverContents, block) {
   layoverContents.forEach((layoverContent, index) => {
     const box = document.createElement('div');
-    box.innerHTML = `<div class="hotspot-layover-box" data-hotspot-content="1">
+    box.innerHTML = `
+<div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
         <img src="../../icons/x.png">
@@ -194,38 +215,8 @@ function decorateDesktopLayoverBox(layoverBlock, layoverContents, block) {
     layoverBlock.append(...box.childNodes);
   });
 }
-
 /**
- *
- * @param layoverBlock
- * @param layoverContents {LayoverContent[]}
- * @param block {HTMLDivElement}
- */
-function decorateMobileFeatureImages(layoverBlock, layoverContents, block) {
-  const mobileDiv = layoverBlock.querySelector('.hotspot-mobile');
-
-  layoverContents.forEach((layoverContent) => {
-    const featureBlock = document.createElement('div');
-    featureBlock.innerHTML = `
-    <div class="feature-block animated" fade-object="true">
-        <div class="content-wrapper">
-            <div class="feature">
-                <div class="feature-thumb" style="background-image: url();"></div>
-                <h4 class="feature-title"></h4>
-                <p></p></div>
-        </div>
-    </div>`;
-
-    featureBlock.querySelector('.feature-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
-    featureBlock.querySelector('.feature-title').innerHTML = layoverContent.title.innerHTML;
-    featureBlock.querySelector('.feature p').innerHTML = layoverContent.text.innerHTML;
-
-    mobileDiv.append(...featureBlock.childNodes);
-  });
-}
-
-/**
- * @typedef {Object} LayoverContent
+ * @typedef {Object} Hotspot
  * @property {number} id
  * @property {HTMLElement} picture
  * @property {HTMLElement} category
@@ -238,29 +229,29 @@ function decorateMobileFeatureImages(layoverBlock, layoverContents, block) {
 /**
  *
  * @param block {HTMLDivElement} raw block with content
- * @return {LayoverContent[]}
+ * @return {Hotspot[]}
  */
 function parseLayoverContent(block) {
-  const layoverContents = block.querySelectorAll(':scope > div:not(:first-child)');
+  const hotspots = block.querySelectorAll(':scope > div:not(:first-child)');
 
   const layovers = [];
 
   let id = 1;
 
-  layoverContents.forEach((layoverContent) => {
-    const picture = layoverContent.querySelector('picture');
+  hotspots.forEach((hotspot) => {
+    const picture = hotspot.querySelector('picture');
 
     // this is based on order, not header level
-    const category = layoverContent.querySelector('h2, h3, h4, h5, h6');
+    const category = hotspot.querySelector('h2, h3, h4, h5, h6');
     category.remove();
 
-    const title = layoverContent.querySelector('h2, h3, h4, h5, h6');
+    const title = hotspot.querySelector('h2, h3, h4, h5, h6');
     title.remove();
 
-    const text = layoverContent.querySelector('p:not(:has(picture))');
+    const text = hotspot.querySelector('p:not(:has(picture))');
 
-    const positionLeft = layoverContent.querySelector(':scope > div:nth-child(2)').textContent;
-    const positionTop = layoverContent.querySelector(':scope > div:nth-child(3)').textContent;
+    const positionLeft = hotspot.querySelector(':scope > div:nth-child(2)').textContent;
+    const positionTop = hotspot.querySelector(':scope > div:nth-child(3)').textContent;
 
     layovers.push({
       id,
@@ -284,7 +275,7 @@ export default function decorate(block) {
 
   const description = firstBlockRow.querySelector('p');
 
-  const layoverContents = parseLayoverContent(block);
+  const hotspots = parseLayoverContent(block);
 
   hotspotBlockCounter += 1;
 
@@ -292,18 +283,16 @@ export default function decorate(block) {
     <div class="main">
         <div class="hotspot-mobile"></div>
     </div>
-    <!--    TODO: data-hotspot-target="1" -->
     <div class="hotspot-layover" data-hotspot-target="${hotspotBlockCounter}" style="display: none;"></div>
   `;
 
-  decorateDesktopImageWithHotspots(block.children[0], firstImage, title, description, layoverContents);
+  decorateImageAndTitle(block.children[0], firstImage, title, description, hotspots);
 
-  layoverContents.forEach((hotspot) => {
+  hotspots.forEach((hotspot) => {
     addSpot(block.children[0], hotspot);
   });
 
-  decorateMobileFeatureImages(block.children[0], layoverContents, block);
-  decorateDesktopLayoverBox(block.children[1], layoverContents, block);
+  decorateDesktopLayoverBox(block.children[1], hotspots, block);
 
   block.children[1].addEventListener('click', (event) => {
     const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
