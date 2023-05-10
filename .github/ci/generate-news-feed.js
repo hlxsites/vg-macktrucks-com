@@ -35,6 +35,7 @@ async function main() {
       link,
       content: post.summary,
       date: new Date(post.publicationDate * 1000),
+      published: new Date(post.publishDate * 1000),
     });
   });
 
