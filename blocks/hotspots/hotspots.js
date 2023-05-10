@@ -158,16 +158,9 @@ function getLayoverContentWithOffset(layoverContents, index, offset) {
   return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
 }
 
-/**
- *
- * @param layoverBlock
- * @param layoverContents {Hotspot[]}
- * @param block {HTMLDivElement}
- */
-function decorateDesktopLayoverBox(layoverBlock, layoverContents, block) {
-  layoverContents.forEach((layoverContent, index) => {
-    const box = document.createElement('div');
-    box.innerHTML = `
+function addLayover(layoverContent, layoverContents, index, block, layoverBlock) {
+  const box = document.createElement('div');
+  box.innerHTML = `
 <div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
@@ -190,31 +183,31 @@ function decorateDesktopLayoverBox(layoverBlock, layoverContents, block) {
     </div>
 </div>`;
 
-    const layoverDialog = box.querySelector('.hotspot-layover-box');
-    layoverDialog.dataset.hotspotContent = layoverContent.id.toString();
-    layoverDialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
-    layoverDialog.querySelector('.hotspot-layover-text h5').innerHTML = layoverContent.category.innerHTML;
-    layoverDialog.querySelector('.hotspot-layover-text h3').innerHTML = layoverContent.title.innerHTML;
-    layoverDialog.querySelector('.hotspot-layover-text p').innerHTML = layoverContent.text.innerHTML;
+  const layoverDialog = box.querySelector('.hotspot-layover-box');
+  layoverDialog.dataset.hotspotContent = layoverContent.id.toString();
+  layoverDialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
+  layoverDialog.querySelector('.hotspot-layover-text h5').innerHTML = layoverContent.category.innerHTML;
+  layoverDialog.querySelector('.hotspot-layover-text h3').innerHTML = layoverContent.title.innerHTML;
+  layoverDialog.querySelector('.hotspot-layover-text p').innerHTML = layoverContent.text.innerHTML;
 
-    const prevContent = getLayoverContentWithOffset(layoverContents, index, -1);
-    const nextContent = getLayoverContentWithOffset(layoverContents, index, +1);
-    layoverDialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
-    layoverDialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
-    layoverDialog.querySelector('.hotspot-layover-button.prev')
-      .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'prev'));
-    layoverDialog.querySelector('.hotspot-layover-button.next')
-      .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'next'));
+  const prevContent = getLayoverContentWithOffset(layoverContents, index, -1);
+  const nextContent = getLayoverContentWithOffset(layoverContents, index, +1);
+  layoverDialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
+  layoverDialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
+  layoverDialog.querySelector('.hotspot-layover-button.prev')
+    .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'prev'));
+  layoverDialog.querySelector('.hotspot-layover-button.next')
+    .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'next'));
 
-    // don't close if clicked on sidebar
-    layoverDialog.addEventListener('click', (event) => event.stopPropagation());
+  // don't close if clicked on sidebar
+  layoverDialog.addEventListener('click', (event) => event.stopPropagation());
 
-    layoverDialog.querySelector('.hotspot-layover-close')
-      .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
+  layoverDialog.querySelector('.hotspot-layover-close')
+    .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
 
-    layoverBlock.append(...box.childNodes);
-  });
+  block.querySelector('.hotspot-layover').append(...box.childNodes);
 }
+
 /**
  * @typedef {Object} Hotspot
  * @property {number} id
@@ -292,7 +285,9 @@ export default function decorate(block) {
     addSpot(block.children[0], hotspot);
   });
 
-  decorateDesktopLayoverBox(block.children[1], hotspots, block);
+  hotspots.forEach((layoverContent, index) => {
+    addLayover(layoverContent, hotspots, index, block, block.children[1]);
+  });
 
   block.children[1].addEventListener('click', (event) => {
     const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
