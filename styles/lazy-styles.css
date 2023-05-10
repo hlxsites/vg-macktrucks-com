@@ -195,3 +195,7 @@
 .fa-check::before {
   content: "\f00c";
 }
+
+.fa-close::before {
+  content: "\f00d";
+}
