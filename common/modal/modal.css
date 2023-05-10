@@ -10,6 +10,8 @@
   opacity: 1;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .modal-background button.modal-close-button {
@@ -45,7 +47,7 @@
   width: 100%;
   transition: 1s all;
   background-color: transparent;
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;

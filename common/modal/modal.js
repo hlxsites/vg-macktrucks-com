@@ -74,16 +74,16 @@ const createModal = () => {
 
   function hideModal() {
     modalBackground.classList.add(HIDE_MODAL_CLASS);
-    modalContent.classList.remove('modal-content-fade-in');
     window.removeEventListener('keydown', keyDownAction);
     document.body.classList.remove('disable-scroll');
 
-    setTimeout(() => {
-      // removing the elements after the hiding animation
+    modalContent.addEventListener('transitionend', () => {
       modalContent.querySelector('iframe')?.remove();
       modalContent.querySelector('.modal-before-banner')?.remove();
       modalContent.querySelector('.modal-before-iframe')?.remove();
-    }, 1000);
+    }, { once: true });
+
+    modalContent.classList.remove('modal-content-fade-in');
   }
 
   return {
