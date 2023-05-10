@@ -38,12 +38,11 @@ function handleCloseLayover(event, layoverDialog, block) {
 
 /**
  *
- * @param event
- * @param layoverDialog
+ * @param dialog
  * @param block
  * @param direction {'prev'|'next'}
  */
-function switchToOtherLayover(event, layoverDialog, block, direction) {
+function switchToOtherHotspot(dialog, block, direction) {
   block.querySelectorAll('.hotspot-layover-box').forEach((box) => {
     box.classList.add('no-animation');
   });
@@ -54,14 +53,14 @@ function switchToOtherLayover(event, layoverDialog, block, direction) {
 
   let switchTo;
   if (direction === 'next') {
-    switchTo = layoverDialog.nextElementSibling;
+    switchTo = dialog.nextElementSibling;
     if (!switchTo) {
-      switchTo = layoverDialog.parentElement.firstElementChild;
+      switchTo = dialog.parentElement.firstElementChild;
     }
   } else {
-    switchTo = layoverDialog.previousElementSibling;
+    switchTo = dialog.previousElementSibling;
     if (!switchTo) {
-      switchTo = layoverDialog.parentElement.lastElementChild;
+      switchTo = dialog.parentElement.lastElementChild;
     }
   }
   switchTo.classList.add('is-active');
@@ -78,8 +77,7 @@ function switchToOtherLayover(event, layoverDialog, block, direction) {
   }, 0);
 }
 
-function addSpot(hotspotsBlock, hotspot) {
-  // desktop
+function addDesktopHotspotIcon(hotspot, block, main) {
   const iconLink = document.createElement('a');
   iconLink.classList.add('hotspot-icon');
   iconLink.innerHTML = ' <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" /> ';
@@ -92,12 +90,61 @@ function addSpot(hotspotsBlock, hotspot) {
     event,
     iconLink,
     hotspot.id,
-    hotspotsBlock.parentNode,
+    block,
   );
-  const iconSet = hotspotsBlock.querySelector('.hotspot-icon-set');
+  const iconSet = main.querySelector('.hotspot-icon-set');
   iconSet.append(iconLink);
+}
 
-  // mobile
+function addDesktopLayover(hotspot, block, prevContent, nextContent) {
+  const container = document.createElement('div');
+  container.innerHTML = `
+<div class="hotspot-layover-box" data-hotspot-content="1">
+    <div class="hotspot-layover-thumb" style="background-image: url();"></div>
+    <div class="hotspot-layover-close">
+        <img src="../../icons/x.png">
+    </div>
+    <div class="hotspot-layover-text">
+        <h5></h5>
+        <h3></h3>
+        <p class="large"></p>
+    </div>
+    <div class="hotspot-layover-controls">
+        <a class="hotspot-layover-button prev">
+            <img src="../../icons/left-arrow-small.png" alt="Left arrow">
+            <span></span>
+        </a>
+        <a class="hotspot-layover-button next">
+            <img src="../../icons/right-arrow-small.png" alt="Right arrow">
+            <span></span>
+        </a>
+    </div>
+</div>`;
+
+  const dialog = container.querySelector('.hotspot-layover-box');
+  dialog.dataset.hotspotContent = hotspot.id.toString();
+  dialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${hotspot.picture.querySelector('img').src})`;
+  dialog.querySelector('.hotspot-layover-text h5').innerHTML = hotspot.category.innerHTML;
+  dialog.querySelector('.hotspot-layover-text h3').innerHTML = hotspot.title.innerHTML;
+  dialog.querySelector('.hotspot-layover-text p').innerHTML = hotspot.text.innerHTML;
+
+  dialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
+  dialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
+  dialog.querySelector('.hotspot-layover-button.prev')
+    .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'prev'));
+  dialog.querySelector('.hotspot-layover-button.next')
+    .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'next'));
+
+  // don't close if clicked on sidebar
+  dialog.addEventListener('click', (event) => event.stopPropagation());
+
+  dialog.querySelector('.hotspot-layover-close')
+    .addEventListener('click', (event) => handleCloseLayover(event, dialog, block));
+
+  block.querySelector('.hotspot-layover').append(...container.childNodes);
+}
+
+function addMobileAlternativeCards(hotspot, main) {
   const featureBlock = document.createElement('div');
   featureBlock.innerHTML = `
     <div class="feature-block animated" data-fade-object="true">
@@ -113,8 +160,18 @@ function addSpot(hotspotsBlock, hotspot) {
   featureBlock.querySelector('.feature-title').innerHTML = hotspot.title.innerHTML;
   featureBlock.querySelector('.feature p').innerHTML = hotspot.text.innerHTML;
 
-  const mobileDiv = hotspotsBlock.querySelector('.hotspot-mobile');
+  const mobileDiv = main.querySelector('.hotspot-mobile');
   mobileDiv.append(...featureBlock.childNodes);
+}
+
+function addSpot(block, hotspot, prevContent, nextContent) {
+  // desktop hotspot icon
+  const main = block.querySelector('.main');
+
+  addDesktopHotspotIcon(hotspot, block, main);
+  addDesktopLayover(hotspot, block, prevContent, nextContent);
+
+  addMobileAlternativeCards(hotspot, main);
 }
 
 /**
@@ -123,7 +180,7 @@ function addSpot(hotspotsBlock, hotspot) {
  * @param firstImage {HTMLPictureElement}
  * @param title {HTMLElement}
  * @param description {HTMLElement}
- * @param hotspots {Hotspot[]}
+ * @param hotspots {HotspotContent[]}
  */
 function decorateImageAndTitle(hotspotsBlock, firstImage, title, description, hotspots) {
   // TODO: set data-hotspot="1" data-fade-object="true"
@@ -153,63 +210,14 @@ function decorateImageAndTitle(hotspotsBlock, firstImage, title, description, ho
   hotspotsBlock.prepend(hotspot);
 }
 
-function getLayoverContentWithOffset(layoverContents, index, offset) {
+function getHotspotContentByOffset(layoverContents, index, offset) {
   // JS does not support negative modulo, therefore we need to add length of the array
   return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
 }
 
-function addLayover(layoverContent, layoverContents, index, block, layoverBlock) {
-  const box = document.createElement('div');
-  box.innerHTML = `
-<div class="hotspot-layover-box" data-hotspot-content="1">
-    <div class="hotspot-layover-thumb" style="background-image: url();"></div>
-    <div class="hotspot-layover-close">
-        <img src="../../icons/x.png">
-    </div>
-    <div class="hotspot-layover-text">
-        <h5></h5>
-        <h3></h3>
-        <p class="large"></p>
-    </div>
-    <div class="hotspot-layover-controls">
-        <a class="hotspot-layover-button prev">
-            <img src="../../icons/left-arrow-small.png" alt="Left arrow">
-            <span></span>
-        </a>
-        <a class="hotspot-layover-button next">
-            <img src="../../icons/right-arrow-small.png" alt="Right arrow">
-            <span></span>
-        </a>
-    </div>
-</div>`;
-
-  const layoverDialog = box.querySelector('.hotspot-layover-box');
-  layoverDialog.dataset.hotspotContent = layoverContent.id.toString();
-  layoverDialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${layoverContent.picture.querySelector('img').src})`;
-  layoverDialog.querySelector('.hotspot-layover-text h5').innerHTML = layoverContent.category.innerHTML;
-  layoverDialog.querySelector('.hotspot-layover-text h3').innerHTML = layoverContent.title.innerHTML;
-  layoverDialog.querySelector('.hotspot-layover-text p').innerHTML = layoverContent.text.innerHTML;
-
-  const prevContent = getLayoverContentWithOffset(layoverContents, index, -1);
-  const nextContent = getLayoverContentWithOffset(layoverContents, index, +1);
-  layoverDialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
-  layoverDialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
-  layoverDialog.querySelector('.hotspot-layover-button.prev')
-    .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'prev'));
-  layoverDialog.querySelector('.hotspot-layover-button.next')
-    .addEventListener('click', (event) => switchToOtherLayover(event, layoverDialog, block, 'next'));
-
-  // don't close if clicked on sidebar
-  layoverDialog.addEventListener('click', (event) => event.stopPropagation());
-
-  layoverDialog.querySelector('.hotspot-layover-close')
-    .addEventListener('click', (event) => handleCloseLayover(event, layoverDialog, block));
-
-  block.querySelector('.hotspot-layover').append(...box.childNodes);
-}
 
 /**
- * @typedef {Object} Hotspot
+ * @typedef {Object} HotspotContent
  * @property {number} id
  * @property {HTMLElement} picture
  * @property {HTMLElement} category
@@ -222,9 +230,9 @@ function addLayover(layoverContent, layoverContents, index, block, layoverBlock)
 /**
  *
  * @param block {HTMLDivElement} raw block with content
- * @return {Hotspot[]}
+ * @return {HotspotContent[]}
  */
-function parseLayoverContent(block) {
+function parseHotspotContent(block) {
   const hotspots = block.querySelectorAll(':scope > div:not(:first-child)');
 
   const layovers = [];
@@ -268,7 +276,7 @@ export default function decorate(block) {
 
   const description = firstBlockRow.querySelector('p');
 
-  const hotspots = parseLayoverContent(block);
+  const hotspots = parseHotspotContent(block);
 
   hotspotBlockCounter += 1;
 
@@ -281,15 +289,13 @@ export default function decorate(block) {
 
   decorateImageAndTitle(block.children[0], firstImage, title, description, hotspots);
 
-  hotspots.forEach((hotspot) => {
-    addSpot(block.children[0], hotspot);
+  hotspots.forEach((hotspot, index) => {
+    const prevContent = getHotspotContentByOffset(hotspots, index, -1);
+    const nextContent = getHotspotContentByOffset(hotspots, index, +1);
+    addSpot(block, hotspot, prevContent, nextContent);
   });
 
-  hotspots.forEach((layoverContent, index) => {
-    addLayover(layoverContent, hotspots, index, block, block.children[1]);
-  });
-
-  block.children[1].addEventListener('click', (event) => {
+  block.querySelector('.hotspot-layover').addEventListener('click', (event) => {
     const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
     handleCloseLayover(event, layoverDialog, block);
   });
@@ -297,7 +303,7 @@ export default function decorate(block) {
   decorateIcons(block);
 }
 
-// TODO: add support for multiple hotspots
+// TODO: add support for multiple hotspot groups
 // Get all elements with the attribute 'hotspot-target-id'
 // const hotspotTargetIdElements = document.querySelectorAll('[hotspot-target-id]');
 //
