@@ -35,9 +35,9 @@ const createModal = () => {
   });
 
   // adding close modal button
-  const closeButton = document.createElement('button');
-  closeButton.classList.add('modal-close-button');
-  closeButton.innerHTML = '<i class="fa fa-close"></i>';
+  const closeButton = createElement('button', ['modal-close-button']);
+  const closeIcon = createElement('i', ['fa', 'fa-close']);
+  closeButton.append(closeIcon);
   modalBackground.appendChild(closeButton);
   // eslint-disable-next-line no-use-before-define
   closeButton.addEventListener('click', () => hideModal());
