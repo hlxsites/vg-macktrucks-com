@@ -26,7 +26,7 @@ const createModal = () => {
   const modalContent = createElement('div', ['modal-content']);
   modalBackground.appendChild(modalContent);
   // preventing initial animation when added to DOM
-  modalBackground.style = 'display:none';
+  modalBackground.style = 'height: 0; opacity: 0;';
   document.body.appendChild(modalBackground);
 
   // don't close modal when clicking on modal content
@@ -48,7 +48,22 @@ const createModal = () => {
 
   async function showModal(newUrl, beforeBanner, beforeIframe) {
     await styles$;
-    modalBackground.style.display = '';
+    await new Promise((resolve) => {
+      // beacues the styels$ is based on the on load event it's waiting for the file to be loaded
+      // but it is not waiting for the style to be applied
+      // (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#stylesheet_load_events)
+      // here were check if the styles are already applied by checking the calculated styles
+      // for one of the element
+      const inverval = setInterval(() => {
+        const modalBackgroundStyles = window.getComputedStyle(modalBackground);
+        // the position should be set to 'fixed' by modal css file
+        if (modalBackgroundStyles.getPropertyValue('position') === 'fixed') {
+          clearInterval(inverval);
+          resolve();
+        }
+      }, 100);
+    });
+    modalBackground.style = '';
     window.addEventListener('keydown', keyDownAction);
 
     if (newUrl) {

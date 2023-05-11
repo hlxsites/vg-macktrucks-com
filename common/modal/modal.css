@@ -6,7 +6,7 @@
   height: 100vh;
   background-color: rgb(0 0 0 / 60%);
   z-index: 1051;
-  transition: opacity 1s linear, visibility 1s linear, height 1s linear;
+  transition: opacity 1s linear, height 1s linear;
   opacity: 1;
   display: flex;
   align-items: center;
