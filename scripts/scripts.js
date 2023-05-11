@@ -261,8 +261,7 @@ export function createLowResolutionBanner() {
   const lowResolutionMessage = getTextLabel('Low resolution video message');
   const changeCookieSettings = getTextLabel('Change cookie settings');
 
-  const banner = document.createElement('div');
-  banner.classList.add('low-resolution-banner');
+  const banner = createElement('div', ['low-resolution-banner']);
   banner.innerHTML = `${lowResolutionMessage} <button class="low-resolution-banner-cookie-settings">${changeCookieSettings}</button>`;
   banner.querySelector('button').addEventListener('click', () => {
     window.OneTrust.ToggleInfoDisplay();
@@ -295,10 +294,8 @@ export function addVideoShowHandler(link) {
 }
 
 export function addPlayIcon(parent) {
-  const iconWrapper = document.createElement('div');
-  iconWrapper.classList.add('video-icon-wrapper');
-  const icon = document.createElement('i');
-  icon.classList.add('fa', 'fa-play', 'video-icon');
+  const iconWrapper = createElement('div', ['video-icon-wrapper']);
+  const icon = createElement('i', ['fa', 'fa-play', 'video-icon']);
   iconWrapper.appendChild(icon);
   parent.appendChild(iconWrapper);
 }
@@ -314,13 +311,11 @@ export function wrapImageWithVideoLink(videoLink, image) {
 
 export function createIframe(url, { parentEl, classes = [] }) {
   // iframe must be recreated every time otherwise the new history record would be created
-  const iframe = document.createElement('iframe');
-  const iframeClasses = Array.isArray(classes) ? classes : [classes];
+  const iframe = createElement('iframe', classes);
 
   iframe.setAttribute('frameborder', '0');
   iframe.setAttribute('allowfullscreen', 'allowfullscreen');
   iframe.setAttribute('src', url);
-  iframe.classList.add(...iframeClasses);
 
   if (parentEl) {
     parentEl.appendChild(iframe);
