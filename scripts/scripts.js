@@ -311,11 +311,11 @@ export function wrapImageWithVideoLink(videoLink, image) {
 
 export function createIframe(url, { parentEl, classes = [] }) {
   // iframe must be recreated every time otherwise the new history record would be created
-  const iframe = createElement('iframe', classes);
-
-  iframe.setAttribute('frameborder', '0');
-  iframe.setAttribute('allowfullscreen', 'allowfullscreen');
-  iframe.setAttribute('src', url);
+  const iframe = createElement('iframe', classes, {
+    frameborder: '0',
+    allowfullscreen: 'allowfullscreen',
+    src: url,
+  });
 
   if (parentEl) {
     parentEl.appendChild(iframe);
