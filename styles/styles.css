@@ -10,6 +10,17 @@
  * governing permissions and limitations under the License.
  */
 
+ @font-face {
+  font-family: 'fontawesome Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 93.75%;
+  descent-override: 6.25%;
+  line-gap-override: 0.00%;
+  size-adjust: 100.00%;
+}
+
  :root {
   /* BASE COLORS */
 
