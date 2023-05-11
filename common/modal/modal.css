@@ -32,8 +32,7 @@
   color: #aaa;
 }
 
-.modal-hidden {
-  visibility: hidden;
+.modal-background.modal-hidden {
   opacity: 0;
   height: 0;
 }
@@ -41,7 +40,6 @@
 .modal-content {
   aspect-ratio: 16/9;
   width: 100%;
-  transition: 1s all;
   background-color: transparent;
   position: absolute;
   left: 50%;
@@ -63,6 +61,7 @@
   color: white;
   font-size: 16px;
   text-align: center;
+  cursor: default;
 }
 
 @media (min-width: 768px) {
