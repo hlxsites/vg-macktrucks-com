@@ -57,7 +57,8 @@ export function createElement(tagName, classes, props = {}) {
   }
   if (props) {
     Object.keys(props).forEach((propName) => {
-      elem.setAttribute(propName, props[propName]);
+      const value = propName === props[propName] ? '' : props[propName];
+      elem.setAttribute(propName, value);
     });
   }
 

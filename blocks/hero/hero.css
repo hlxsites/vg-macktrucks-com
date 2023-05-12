@@ -56,15 +56,42 @@ main .hero:not(.auto-block) > div {
 
 .hero .hero-content-wrapper {
     height: 100vh;
-  transform: translateY(-20px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 1376px;
-  margin: 0 auto;
-  gap: 1rem;
+    transform: translateY(-20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1376px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+@media (min-width: 480px) {
+    .hero .hero-content-wrapper {
+        position: absolute;
+        left: 15%;
+    }
 }
 
 .hero .hero-content-wrapper > * {
     margin: 0;
+}
+
+/* video included */
+.hero .hero-video {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: 100%;
+}
+
+.hero .hero-video.hide {
+    display: none;
+}
+
+.hero .hero-content-container:has(.hero-video) {
+    background-color: var(--primary-black);
+}
+
+.hero .hero-content-media:has(.hero-video.hide) picture {
+    z-index: 0;
 }
