@@ -304,6 +304,10 @@
   content: "\f00c"
 }
 
+.fa-close::before {
+  content: "\f00d";
+}
+
 .body-dealer-locator footer.footer-wrapper{
   display: none;
 }
