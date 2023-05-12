@@ -1,6 +1,6 @@
 .eloqua-form {
   font-size: 16px;
-  max-width: 960px;
+  max-width: 950px;
   margin: auto;
 }
 
@@ -9,6 +9,7 @@
 }
 
 .eloqua-form .elq-form input,
+.eloqua-form .elq-form input[type=text],
 .eloqua-form .elq-form select,
 .eloqua-form .elq-form textarea {
   display: block;
@@ -35,8 +36,7 @@
   color: var(--primary-black);
 }
 
-.eloqua-form .elq-form .submit-button-style,
-.eloqua-form .elq-form input.submit-button {
+.eloqua-form input[type="submit"] {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
@@ -51,6 +51,11 @@
   border-radius: 0;
   height: 100% !important;
   width: auto !important;
+  cursor: pointer;
+}
+
+.eloqua-form input[type="submit"]:hover {
+  color: #999;
 }
 
 .eloqua-form .elq-form input[type="checkbox"] {
@@ -66,14 +71,22 @@
   position: relative;
 }
 
-.eloqua-form .single-checkbox-row input[type="checkbox"],
-.eloqua-form .checkbox-span input[type="checkbox"] {
+.eloqua-form .single-checkbox-row input[type="checkbox"] {
   width: 20px;
   height: 20px;
   position: absolute;
   top: 4px;
   left: 0;
   padding: 0;
+}
+
+.eloqua-form .checkbox-span input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  position: static;
+  display: inline-block;
+  padding: 0;
+  appearance: auto;
 }
 
 .eloqua-form
@@ -124,7 +137,7 @@
   width: 40px;
   display: flex;
   justify-content: center;
-  border-left: solid 1px var(--primary-black);
+  border-left: solid 1px #666;
   height: 40px;
   align-items: center;
   bottom: 0;

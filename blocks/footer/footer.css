@@ -239,9 +239,8 @@
 }
 
 .footer .checkbox-span input[type="checkbox"] {
-  position: relative;
-  display: inline-block;
-  appearance: auto;
+  width: 13px;
+  height: 13px;
 }
 
 /* eloqua footer form styles - END */
