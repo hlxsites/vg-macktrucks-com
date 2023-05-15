@@ -13,7 +13,7 @@ const decorateVideo = (link) => {
   link.remove();
   setTimeout(() => {
     video.classList.remove('hide');
-    video.play();
+    video.onloadedmetadata = () => video.play();
   }, 3000);
 };
 
