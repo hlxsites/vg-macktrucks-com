@@ -239,55 +239,11 @@ function getHotspotContentByOffset(layoverContents, index, offset) {
  * @property {string} positionTop
  */
 
-/**
- *
- * @param block {HTMLDivElement} raw block with content
- * @return {HotspotContent[]}
- */
-function parseHotspotContent(block) {
-  const hotspots = block.querySelectorAll(':scope > div:not(:first-child)');
-
-  const layovers = [];
-
-  let id = 1;
-
-  hotspots.forEach((hotspot) => {
-    const picture = hotspot.querySelector('picture');
-
-    // this is based on order, not header level
-    const category = hotspot.querySelector('h2, h3, h4, h5, h6');
-    category.remove();
-
-    const title = hotspot.querySelector('h2, h3, h4, h5, h6');
-    title.remove();
-
-    const text = hotspot.querySelector('p:not(:has(picture))');
-
-    const positionLeft = hotspot.querySelector(':scope > div:nth-child(2)').textContent;
-    const positionTop = hotspot.querySelector(':scope > div:nth-child(3)').textContent;
-
-    layovers.push({
-      id,
-      picture,
-      category,
-      title,
-      text,
-      positionLeft,
-      positionTop,
-    });
-    id += 1;
-  });
-
-  return layovers;
-}
-
 export default function decorate(block) {
   const firstBlockRow = block.querySelector(':scope > div');
   const firstImage = firstBlockRow.querySelector('img');
   const title = firstBlockRow.querySelector('h1, h2');
   const description = firstBlockRow.querySelector('p');
-
-  // const hotspots = parseHotspotContent(block);
 
   hotspotBlockCounter += 1;
   block.innerHTML = `
