@@ -1,5 +1,4 @@
 import { addSpot } from '../hotspots/hotspots.js';
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
 /**
  *
