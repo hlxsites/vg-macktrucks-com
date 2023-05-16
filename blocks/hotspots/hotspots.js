@@ -138,10 +138,11 @@ function addDesktopLayover(hotspot, block) {
 }
 
 function addMobileAlternativeCards(hotspot, main) {
+  // using styles from "hotspots-features.css"
   const featureBlock = document.createElement('div');
   featureBlock.innerHTML = `
-    <div class="feature-block animated" data-fade-object="true">
-        <div class="content-wrapper">
+    <div class="features animated" data-fade-object="true">
+        <div class="row">
             <div class="feature">
                 <picture></picture>
                 <h4 class="feature-title"></h4>
