@@ -1,0 +1,66 @@
+import { createElement } from '../../scripts/scripts.js';
+import {
+  getMetadata,
+  createOptimizedPicture,
+} from '../../scripts/lib-franklin.js';
+
+const getAllArticles = async () => {
+  // TODO change route to main folder
+  const response = await fetch('/drafts/shomps/magazine/article-list.json');
+  const json = await response.json();
+  return json.data;
+};
+
+const getLimit = (block) => {
+  const children = [...block.children];
+  const number = [...children[0].children][1].innerText;
+  return number;
+};
+
+export default async function decorate(block) {
+  const limit = Number(getLimit(block));
+  const category = getMetadata('category');
+
+  const allArticles = await getAllArticles();
+  const recommendedArticles = allArticles.filter((e) => e.category === category);
+  const selectedArticles = recommendedArticles.slice(0, limit);
+
+  const recommendationsSection = createElement('div', 'recommendations-section');
+  const recommendationsTitle = createElement('h3', 'recommendations-title');
+  recommendationsTitle.innerText = 'Based on your reading, you might like this...';
+
+  const recommendationsList = createElement('ul', 'recommendations-list');
+
+  selectedArticles.forEach((e, idx) => {
+    const item = createElement('li', ['recommendations-item', `recommendations-item-${idx}`]);
+
+    const link = createElement('a', 'recommendations-link');
+    const linkUrl = new URL(e.url, window.location.origin);
+    link.href = linkUrl;
+    link.innerText = e.title;
+
+    const categoryLink = createElement('a', 'recommendations-category');
+    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
+    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
+    categoryLink.href = categoryUrl;
+    categoryLink.innerText = e.category;
+
+    const image = createElement('div', 'recommendations-image');
+    const picture = createOptimizedPicture(e.image, e.title);
+    const pictureTag = picture.outerHTML;
+    image.innerHTML = `<a href="${linkUrl}" class="image-link">
+      ${pictureTag}
+    </a>`;
+
+    item.append(link);
+    item.append(image);
+    item.append(categoryLink);
+    recommendationsList.append(item);
+  });
+
+  recommendationsSection.append(recommendationsTitle);
+  recommendationsSection.append(recommendationsList);
+
+  block.textContent = '';
+  block.append(recommendationsSection);
+}
