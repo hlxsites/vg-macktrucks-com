@@ -7,7 +7,7 @@ import { addSpot } from '../hotspots/hotspots.js';
  */
 function parseHotspotContent(block) {
   const picture = block.querySelector('picture img').src;
-  // remove the paragraph that contains the picture to avoid finding it below when looking for text
+  // remove the paragraph that contains the picture to avoid finding it when looking for text
   block.querySelector('picture').closest('p').remove();
 
   // this is based on order, not header level
@@ -40,7 +40,7 @@ export default function decorate(block) {
   const hotspotsBlock = block.closest('.hotspots-container').querySelector('.hotspots.block');
 
   const hotspot = parseHotspotContent(block);
-  addSpot(hotspotsBlock, hotspot, null, null);
+  addSpot(hotspotsBlock, hotspot);
 
   // Content was added to ther block, therefore we can remove it
   block.remove();

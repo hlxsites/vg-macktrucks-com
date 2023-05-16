@@ -96,7 +96,7 @@ function addDesktopHotspotIcon(hotspot, block, main) {
   iconSet.append(iconLink);
 }
 
-function addDesktopLayover(hotspot, block, prevContent, nextContent) {
+function addDesktopLayover(hotspot, block) {
   const container = document.createElement('div');
   container.innerHTML = `
 <div class="hotspot-layover-box" data-hotspot-content="1">
@@ -157,14 +157,29 @@ function addMobileAlternativeCards(hotspot, main) {
   mobileDiv.append(...featureBlock.childNodes);
 }
 
+function updateDesktopLayoverBeforeAndNextButtons(block) {
+  const dialogs = block.querySelectorAll('.hotspot-layover-box');
+  dialogs.forEach((dialog, index) => {
+    const prevIndex = index === 0 ? dialogs.length - 1 : index - 1;
+    const prevTextHtml = dialogs[prevIndex].querySelector('h3').innerHTML;
+    dialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevTextHtml;
+    dialog.querySelector('.hotspot-layover-button.prev')
+      .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'prev'));
+
+    const nextIndex = index === dialogs.length - 1 ? 0 : index + 1;
+    const nextTextHtml = dialogs[nextIndex].querySelector('h3').innerHTML;
+    dialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextTextHtml;
+    dialog.querySelector('.hotspot-layover-button.next')
+      .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'next'));
+  });
+}
+
 /**
  *
  * @param block
  * @param hotspot {HotspotContent}
- * @param prevContent
- * @param nextContent
  */
-export function addSpot(block, hotspot, prevContent, nextContent) {
+export function addSpot(block, hotspot) {
   // desktop hotspot icon
   const main = block.querySelector('.main');
 
@@ -174,16 +189,8 @@ export function addSpot(block, hotspot, prevContent, nextContent) {
 
   hotspot.id = parseInt(main.dataset.hotspotCounter, 10);
   addDesktopHotspotIcon(hotspot, block, main);
-  addDesktopLayover(hotspot, block, prevContent, nextContent);
-
-  // update prev/next for all hotspots
-  // TODO:
-  //   dialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevContent.title.innerHTML;
-  //   dialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextContent.title.innerHTML;
-  //   dialog.querySelector('.hotspot-layover-button.prev')
-  //     .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'prev'));
-  //   dialog.querySelector('.hotspot-layover-button.next')
-  //     .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'next'));
+  addDesktopLayover(hotspot, block);
+  updateDesktopLayoverBeforeAndNextButtons(block);
 
   addMobileAlternativeCards(hotspot, main);
 }
