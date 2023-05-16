@@ -1,0 +1,51 @@
+
+.hotspots-features.block {
+    position: relative;
+}
+
+.hotspots-features.block > div {
+    display: flex;
+    gap: 20px;
+}
+
+.hotspots-features.block .hotspots-features-wrapper {
+    overflow: auto
+}
+
+
+.hotspots-features.block > div > div {
+    width: 100%;
+    margin-bottom: 100px
+}
+
+
+.hotspots-features.block img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 100/60;
+}
+
+.hotspots-features.block h4.feature-title {
+    margin: 20px 0 0;
+    font: 14px/14px 'Helvetica Neue 75 Bold'
+}
+
+.hotspots-features.block p {
+    max-width: 300px;
+    margin-top: 5px;
+    color: #999;
+    font-size: 16px;
+    line-height: 20px
+}
+
+@media (max-width: 896px) {
+
+    .hotspots-features.block > div {
+        display: block;
+        gap: unset;
+    }
+
+    .hotspots-features.block p {
+        max-width: none
+    }
+}
