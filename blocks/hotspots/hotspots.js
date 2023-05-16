@@ -123,7 +123,7 @@ function addDesktopLayover(hotspot, block) {
 
   const dialog = container.querySelector('.hotspot-layover-box');
   dialog.dataset.hotspotContent = hotspot.id.toString();
-  dialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${hotspot.picture})`;
+  dialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${hotspot.picture.querySelector('img').src})`;
   dialog.querySelector('.hotspot-layover-text h5').innerHTML = hotspot.category.innerHTML;
   dialog.querySelector('.hotspot-layover-text h3').innerHTML = hotspot.title.innerHTML;
   dialog.querySelector('.hotspot-layover-text p').innerHTML = hotspot.text.innerHTML;
@@ -143,13 +143,13 @@ function addMobileAlternativeCards(hotspot, main) {
     <div class="feature-block animated" data-fade-object="true">
         <div class="content-wrapper">
             <div class="feature">
-                <div class="feature-thumb" style="background-image: url();"></div>
+                <picture></picture>
                 <h4 class="feature-title"></h4>
                 <p></p></div>
         </div>
     </div>`;
 
-  featureBlock.querySelector('.feature-thumb').style.backgroundImage = `url(${hotspot.picture})`;
+  featureBlock.querySelector('picture').innerHTML = hotspot.picture.innerHTML;
   featureBlock.querySelector('.feature-title').innerHTML = hotspot.title.innerHTML;
   featureBlock.querySelector('.feature p').innerHTML = hotspot.text.innerHTML;
 
@@ -238,7 +238,7 @@ function getHotspotContentByOffset(layoverContents, index, offset) {
 /**
  * @typedef {Object} HotspotContent
  * @property {number} id
- * @property {string} picture
+ * @property {HTMLPictureElement} picture
  * @property {HTMLElement} category
  * @property {HTMLElement} title
  * @property {HTMLElement} text

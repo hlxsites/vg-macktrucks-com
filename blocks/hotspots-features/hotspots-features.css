@@ -1,23 +1,13 @@
 
-.hotspots-features.block {
-    position: relative;
-}
-
-.hotspots-features.block > div {
+.hotspots-features.block > .row {
     display: flex;
     gap: 20px;
 }
 
-.hotspots-features.block .hotspots-features-wrapper {
-    overflow: auto
-}
-
-
-.hotspots-features.block > div > div {
+.hotspots-features.block > .row > .feature {
     width: 100%;
     margin-bottom: 100px
 }
-
 
 .hotspots-features.block img {
     width: 100%;
@@ -43,9 +33,5 @@
     .hotspots-features.block > div {
         display: block;
         gap: unset;
-    }
-
-    .hotspots-features.block p {
-        max-width: none
     }
 }
