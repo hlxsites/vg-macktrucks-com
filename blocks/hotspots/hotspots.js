@@ -1,4 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 /**
  * @typedef {Object} HotspotContent
@@ -110,9 +111,8 @@ function switchToOtherHotspot(dialog, block, index) {
 }
 
 function addDesktopHotspotIcon(hotspot, block, main) {
-  const iconLink = document.createElement('a');
-  iconLink.classList.add('hotspot-icon');
-  iconLink.innerHTML = ' <img src="../../icons/hotspot.png" alt="" /> ';
+  const iconLink = createElement('a', 'hotspot-icon');
+  iconLink.innerHTML = '<img src="../../icons/hotspot.png" alt="" />';
   iconLink.href = '#';
   iconLink.style.left = hotspot.positionLeft;
   iconLink.style.top = hotspot.positionTop;
@@ -236,9 +236,7 @@ export function addSpot(block, hotspot) {
  * @param description {HTMLElement}
  */
 function decorateImageAndTitle(mainDiv, firstPicture, title, description) {
-  const hotspot = document.createElement('div');
-  hotspot.classList.add('hotspot');
-  hotspot.classList.add('animated');
+  const hotspot = createElement('div', ['hotspot', 'animated']);
   hotspot.innerHTML = `
       <picture class="hotspot-bg-img desktop"></picture>
       <picture class="hotspot-bg-img mobile"></picture>
@@ -262,25 +260,21 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
   // only one tab navigation is needed for the entire page
   let mobileNav = document.querySelector('main > div#hotspots-mobile-nav');
   if (!mobileNav) {
-    mobileNav = document.createElement('div');
-    mobileNav.id = 'hotspots-mobile-nav';
+    mobileNav = createElement('div', null, { id: 'hotspots-mobile-nav' });
 
-    const ul = document.createElement('ul');
-    ul.classList.add('featurenav-list');
+    const ul = createElement('ul', 'featurenav-list');
     mobileNav.append(ul);
 
     document.querySelector('main').append(mobileNav);
   }
 
-  const li = document.createElement('li');
-  li.classList.add('featurenav-list-item');
+  const li = createElement('li', 'featurenav-list-item');
   li.dataset.hotspotTargetId = hotspotAreaId;
   if (mobileNav.firstElementChild.childElementCount === 0) {
     li.classList.add('active');
   }
 
-  const link = document.createElement('a');
-  link.href = `#${title.textContent}`;
+  const link = createElement('a', null, { href: `#${title.textContent}` });
   link.textContent = title.innerHTML;
   li.append(link);
   mobileNav.firstElementChild.append(li);
