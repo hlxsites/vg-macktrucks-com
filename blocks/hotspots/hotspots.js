@@ -2,6 +2,51 @@ import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 let hotspotBlockCounter = 0;
 
+/**
+ * @typedef {Object} HotspotContent
+ * @property {number} id
+ * @property {HTMLPictureElement} picture
+ * @property {HTMLElement} category
+ * @property {HTMLElement} title
+ * @property {HTMLElement} text
+ * @property {string} positionLeft
+ * @property {string} positionTop
+ */
+
+export default function decorate(block) {
+  const firstBlockRow = block.querySelector(':scope > div');
+  const firstPicture = firstBlockRow.querySelector('picture');
+  const title = firstBlockRow.querySelector('h1, h2');
+  const description = firstBlockRow.querySelector('p');
+
+  // every instance of this block needs a unique id.
+  hotspotBlockCounter += 1;
+  block.closest('.section.hotspots-container').dataset.hotspotAreaId = hotspotBlockCounter;
+  // first hotspots group is active by default (used for mobile view)
+  if (hotspotBlockCounter === 1) {
+    block.closest('.section.hotspots-container').classList.add('active');
+  }
+
+  block.innerHTML = `
+    <div class="main">
+        <div class="hotspot-mobile"></div>
+    </div>
+    <div class="hotspot-layover" style="display: none;"></div>
+  `;
+
+  decorateImageAndTitle(block.children[0], firstPicture, title, description);
+
+  addMobileTabNavigation(block, title, hotspotBlockCounter);
+
+  block.querySelector('.hotspot-layover').addEventListener('click', (event) => {
+    const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
+    handleCloseLayover(event, layoverDialog, block);
+  });
+
+  decorateIcons(block);
+}
+
+
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
 
@@ -266,45 +311,3 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
   });
 }
 
-/**
- * @typedef {Object} HotspotContent
- * @property {number} id
- * @property {HTMLPictureElement} picture
- * @property {HTMLElement} category
- * @property {HTMLElement} title
- * @property {HTMLElement} text
- * @property {string} positionLeft
- * @property {string} positionTop
- */
-
-export default function decorate(block) {
-  const firstBlockRow = block.querySelector(':scope > div');
-  const firstPicture = firstBlockRow.querySelector('picture');
-  const title = firstBlockRow.querySelector('h1, h2');
-  const description = firstBlockRow.querySelector('p');
-
-  hotspotBlockCounter += 1;
-  block.closest('.section.hotspots-container').dataset.hotspotAreaId = hotspotBlockCounter;
-  // first hotspots group is active by default (used for mobile view)
-  if (hotspotBlockCounter === 1) {
-    block.closest('.section.hotspots-container').classList.add('active');
-  }
-
-  block.innerHTML = `
-    <div class="main">
-        <div class="hotspot-mobile"></div>
-    </div>
-    <div class="hotspot-layover" style="display: none;"></div>
-  `;
-
-  decorateImageAndTitle(block.children[0], firstPicture, title, description);
-
-  addMobileTabNavigation(block, title, hotspotBlockCounter);
-
-  block.querySelector('.hotspot-layover').addEventListener('click', (event) => {
-    const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
-    handleCloseLayover(event, layoverDialog, block);
-  });
-
-  decorateIcons(block);
-}
