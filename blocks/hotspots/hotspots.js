@@ -80,12 +80,12 @@ function switchToOtherHotspot(dialog, block, direction) {
 function addDesktopHotspotIcon(hotspot, block, main) {
   const iconLink = document.createElement('a');
   iconLink.classList.add('hotspot-icon');
-  iconLink.innerHTML = ' <img src="../../icons/hotspot.png" alt="Detail view of the Anthem air dam" /> ';
+  iconLink.innerHTML = ' <img src="../../icons/hotspot.png" alt="" /> ';
   iconLink.href = '#';
   iconLink.style.left = hotspot.positionLeft;
   iconLink.style.top = hotspot.positionTop;
   iconLink.dataset.spot = hotspot.id.toString();
-  // iconLink.firstElementChild.alt = hotspot.alt; TODO: alt
+  iconLink.firstElementChild.alt = hotspot.title.textContent;
   iconLink.onclick = (event) => handleClickHotspot(
     event,
     iconLink,
@@ -211,7 +211,6 @@ function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
   hotspot.dataset.hotspot = '1'; // TODO
   hotspot.dataset.fadeObject = 'true'; // TODO
   hotspot.innerHTML = `
-      <!-- TODO: set stand="" up="" sleeper=""  alt-->
       <!--    TODO: dynamic image size-->
       <img class="hotspot-bg-img desktop"  src="">
       <img class="hotspot-bg-img mobile"  src="">
@@ -229,12 +228,6 @@ function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
   hotspot.querySelector('.hotspot-text').innerHTML = description.innerHTML;
 
   hotspotsBlock.prepend(hotspot);
-}
-
-// TODO: cleanup
-function getHotspotContentByOffset(layoverContents, index, offset) {
-  // JS does not support negative modulo, therefore we need to add length of the array
-  return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
 }
 
 function addMobileTabNavigation(block, title, hotspotAreaId) {
@@ -265,26 +258,27 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
     event.preventDefault();
 
     const clickedButton = event.target.closest('li');
-    if (!clickedButton.classList.contains('active')) {
-
-      const id = clickedButton.dataset.hotspotTargetId;
-      // Remove the active class from other active elements and add to current
-      const activeElements = mobileNav.querySelectorAll('li.active');
-      activeElements.forEach((el) => el.classList.remove('active'));
-      clickedButton.classList.add('active');
-
-      // Scroll to the top of the page
-      window.scrollTo(0, 0);
-
-      // Remove the active class from other active hotspot areas
-      document.querySelectorAll('.section.hotspots-container.active').forEach(
-        (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
-      );
-
-      // activate the new hotspot area
-      const targetHotspotArea = document.querySelector(`.section.hotspots-container[data-hotspot-area-id="${id}"]`);
-      targetHotspotArea.classList.add('active');
+    if (clickedButton.classList.contains('active')) {
+      return;
     }
+
+    const id = clickedButton.dataset.hotspotTargetId;
+    // Remove the active class from other active elements and add to current
+    const activeElements = mobileNav.querySelectorAll('li.active');
+    activeElements.forEach((el) => el.classList.remove('active'));
+    clickedButton.classList.add('active');
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+
+    // Remove the active class from other active hotspot areas
+    document.querySelectorAll('.section.hotspots-container.active').forEach(
+      (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
+    );
+
+    // activate the new hotspot area
+    const targetHotspotArea = document.querySelector(`.section.hotspots-container[data-hotspot-area-id="${id}"]`);
+    targetHotspotArea.classList.add('active');
   });
 }
 
