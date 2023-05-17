@@ -228,10 +228,10 @@ function decorateImageAndTitle(hotspotsBlock, firstPicture, title, description) 
 
 function addMobileTabNavigation(block, title, hotspotAreaId) {
   // only one tab navigation is needed per page
-  let mobileNav = document.querySelector('main > div.featurenav');
+  let mobileNav = document.querySelector('main > div#hotspots-mobile-nav');
   if (!mobileNav) {
     mobileNav = document.createElement('div');
-    mobileNav.classList.add('featurenav');
+    mobileNav.id = 'hotspots-mobile-nav';
 
     mobileNav.innerHTML = '<ul class="featurenav-list"></ul>';
     document.querySelector('main').append(mobileNav);
