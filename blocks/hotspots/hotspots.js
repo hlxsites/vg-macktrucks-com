@@ -25,9 +25,7 @@ export default function decorate(block) {
   block.closest('.section.hotspots-container').dataset.hotspotAreaId = hotspotBlockCounter;
   // first hotspots group is active by default (used for mobile view)
   if (hotspotBlockCounter === 1) {
-    block.closest('.section.hotspots-container')
-      .classList
-      .add('active');
+    block.closest('.section.hotspots-container').classList.add('active');
   }
 
   block.innerHTML = `
@@ -102,25 +100,19 @@ function switchToOtherHotspot(dialog, block, index) {
   switchTo.classList.add('is-active');
 
   // activate the hotspot icon that links to the dialog
-  block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`)
-    .classList
-    .add('active-spot');
+  block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`).classList.add('active-spot');
 
   // open the new dialog
   setTimeout(() => {
     // workaround: for some reason the animation is still played when the class is added immediately
     block.querySelectorAll('.hotspot-layover-box')
-      .forEach((box) => {
-        box.classList.remove('no-animation');
-      });
+      .forEach((box) => box.classList.remove('no-animation'));
   }, 0);
 }
 
 function addDesktopHotspotIcon(hotspot, block, main) {
-  const iconLink = createElement('a', 'hotspot-icon', {
-    href: '#',
-    dataset: hotspot.id.toString(),
-  });
+  const iconLink = createElement('a', 'hotspot-icon', { href: '#' });
+  iconLink.dataset.spot = hotspot.id;
   iconLink.style.left = hotspot.positionLeft;
   iconLink.style.top = hotspot.positionTop;
 
@@ -177,8 +169,7 @@ function addDesktopLayover(hotspot, block) {
   dialog.querySelector('.hotspot-layover-close')
     .addEventListener('click', (event) => handleCloseLayover(event, dialog, block));
 
-  block.querySelector('.hotspot-layover')
-    .append(...container.childNodes);
+  block.querySelector('.hotspot-layover').append(...container.childNodes);
 }
 
 function addMobileAlternativeCards(hotspot, main) {
@@ -229,10 +220,9 @@ export function addSpot(block, hotspot) {
   const main = block.querySelector('.main');
 
   // keep track of the number of hotspots in the DOM
-  if (!main.dataset.hotspotCounter) main.dataset.hotspotCounter = '0';
-  main.dataset.hotspotCounter = parseInt(main.dataset.hotspotCounter, 10) + 1;
+  main.dataset.hotspotCounter = (+main.dataset.hotspotCounter || 0) + 1;
+  hotspot.id = main.dataset.hotspotCounter;
 
-  hotspot.id = parseInt(main.dataset.hotspotCounter, 10);
   addDesktopHotspotIcon(hotspot, block, main);
   addDesktopLayover(hotspot, block);
   updateDesktopLayoverBeforeAndNextButtons(block);
@@ -277,8 +267,7 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
     const ul = createElement('ul', 'featurenav-list');
     mobileNav.append(ul);
 
-    document.querySelector('main')
-      .append(mobileNav);
+    document.querySelector('main').append(mobileNav);
   }
 
   const li = createElement('li', 'featurenav-list-item');
@@ -311,9 +300,7 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
 
     // Remove the active class from other active hotspot areas
     document.querySelectorAll('.section.hotspots-container.active')
-      .forEach(
-        (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
-      );
+      .forEach((activeHotspotArea) => activeHotspotArea.classList.remove('active'));
 
     // activate the new hotspot area
     const targetHotspotArea = document.querySelector(`.section.hotspots-container[data-hotspot-area-id="${id}"]`);
