@@ -3,11 +3,9 @@
     background-color: var(--primary-black);
 }
 
-/* TODO: fix all prefixes */
-
 .hotspots-container .hotspots-wrapper {
     max-width: unset;
-    margin: 0
+    margin: 0;
 }
 
 
@@ -17,28 +15,24 @@
     margin: 0 auto
 }
 
-.hotspot-area.no-spots {
-    background-size: 100%;
-    background-repeat: no-repeat
-}
 
-.hotspot {
+.hotspots-container .hotspot {
     position: relative;
     width: 100%;
     z-index: 1
 }
 
-.hotspot .hotspot-bg-img img {
+.hotspots-container .hotspot .hotspot-bg-img img {
     width: 100%;
     margin: 0 auto;
     display: block
 }
 
-.hotspot .hotspot-bg-img.mobile img {
+.hotspots-container .hotspot .hotspot-bg-img.mobile img {
     display: none
 }
 
-.hotspot .hotspot-content {
+.hotspots-container .hotspot .hotspot-content {
     position: absolute;
     z-index: 2;
     top: 120px;
@@ -47,16 +41,16 @@
     text-align: center
 }
 
-.hotspot .hotspot-content.invert {
+.hotspots-container .hotspot .hotspot-content.invert {
     color: #000
 }
 
 
-.hotspot .hotspot-content h1,.hotspot .hotspot-content p {
+.hotspots-container .hotspot .hotspot-content h1, .hotspot .hotspot-content p {
     max-width: 600px
 }
 
-.hotspot .hotspot-content h1 {
+.hotspots-container .hotspot .hotspot-content h1 {
     font: 80px/62px var(--headline-ff-medium);
     letter-spacing: -.035em;
     margin: -20px auto 0;
@@ -64,20 +58,19 @@
 
 }
 
-.hotspot .hotspot-content p {
+.hotspots-container .hotspot .hotspot-content p {
     font-size: var(--body-font-size-l);
     font-family: var(--body-ff);
-    margin: 0;
     width: 500px;
     max-width: 500px;
     line-height: 1em;
 }
 
-.hotspot .hotspot-content .hotspot-text {
+.hotspots-container .hotspot .hotspot-content .hotspot-text {
     padding-top: 16px
 }
 
-.hotspot .hotspot-icon-set {
+.hotspots-container .hotspot .hotspot-icon-set {
     position: absolute;
     top: 0;
     left: 50%;
@@ -87,137 +80,78 @@
     overflow: hidden
 }
 
-.hotspot .hotspot-icon-set a.hotspot-icon {
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon {
     position: absolute;
     transform: rotate(0)
 }
 
-.hotspot .hotspot-icon-set a.hotspot-icon.active-spot img {
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot img {
     transform: rotate(45deg)
 }
 
-.hotspot .hotspot-icon-set a.hotspot-icon img {
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon img {
     transition: .3s
 }
 
-.hotspot.no-spots {
-    height: 500px;
-    padding: 0 0 75px;
-    margin-bottom: 0;
-    overflow: hidden
-}
-
-.hotspot.no-spots::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2
-}
-
-.hotspot.no-spots~* {
-    z-index: 2
-}
-
-.hotspot.no-spots .hotspot-content {
-    top: initial;
-    bottom: 75px;
-    z-index: 3
-}
-
-.hotspot.truck .hotspot-content .hotspot-header {
+.hotspots-container .hotspot.truck .hotspot-content .hotspot-header {
     font: 65px/72px var(--headline-ff-medium);
 }
 
-.hotspot.truck .feature-block:first-child {
+.hotspots-container .hotspot.truck .feature-block:first-child {
     margin-top: -340px;
     z-index: 2
 }
 
 @media (max-width: 896px) {
-    .hotspot .hotspot-bg-img.desktop img {
-        display:none
+    .hotspots-container .hotspot .hotspot-bg-img.desktop img {
+        display: none
     }
 
-    .hotspot .hotspot-bg-img.mobile img {
+    .hotspots-container .hotspot .hotspot-bg-img.mobile img {
         display: block
     }
 
-    .hotspot {
+    .hotspots-container .hotspot {
         padding-bottom: 18vw
     }
 
-    .hotspot.truck {
+    .hotspots-container .hotspot.truck {
         margin-bottom: 0
     }
 
-    .hotspot.truck+.feature-block {
+    .hotspots-container .hotspot.truck + .feature-block {
         margin-top: 0;
         z-index: 2
     }
 
-    .hotspot.no-spots {
-        height: 400px;
-        padding: 0 0 75px;
-        margin-bottom: 0;
-        overflow: hidden
-    }
 
-    .hotspot.no-spots::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        background: linear-gradient(to bottom,rgb(0 0 0 / 0%) 0,rgb(0 0 0 / 0%) 80%,#000 100%)
-    }
-
-    .hotspot.no-spots~* {
-        z-index: 2
-    }
-
-    .hotspot.no-spots .hotspot-content {
-        top: initial;
-        bottom: -20vw;
-        z-index: 3
-    }
-
-    .hotspot.no-spots+.hotspot-mobile+.three-column-info-container {
-        margin-bottom: 0;
-        margin-top: 0
-    }
-
-    .hotspot .hotspot-content {
+    .hotspots-container .hotspot .hotspot-content {
         top: -10vw;
         position: relative
     }
 
-    .hotspot .hotspot-content .hotspot-header {
+    .hotspots-container .hotspot .hotspot-content .hotspot-header {
         font: 8vw/12vw var(--headline-ff-medium);
-        color: #fff!important
+        color: #fff !important
     }
 
-    .hotspot .hotspot-content p.hotspot-text {
+    .hotspots-container .hotspot .hotspot-content p.hotspot-text {
         font-size: 20px;
         line-height: 1.1;
-        color: #fff!important
+        color: #fff !important
     }
 
-    .hotspot .hotspot-icon-set {
+    .hotspots-container .hotspot .hotspot-icon-set {
         display: none
     }
 
-    .hotspot-mobile .feature-block .feature .feature-title {
+    .hotspots-container .hotspot-mobile .feature-block .feature .feature-title {
         font-size: 16px;
         line-height: 20px;
         margin-bottom: 10px
     }
 
-    .hotspot-mobile .feature-block .feature p {
+    .hotspots-container .hotspot-mobile .feature-block .feature p {
         max-width: none;
         font-size: 16px;
         line-height: 20px
@@ -225,22 +159,22 @@
 }
 
 @media (max-width: 640px) {
-    .hotspot .hotspot-content {
-        top:-8vw
+    .hotspots-container .hotspot .hotspot-content {
+        top: -8vw
     }
 }
 
-.hotspot-mobile {
+.hotspots-container .hotspot-mobile {
     width: 100%
 }
 
 @media (min-width: 897px) {
-    .hotspot-mobile {
-        display:none
+    .hotspots-container .hotspot-mobile {
+        display: none
     }
 }
 
-.hotspot-layover {
+.hotspots-container .hotspot-layover {
     margin-bottom: 0;
     padding-bottom: 0;
     position: fixed;
@@ -252,19 +186,19 @@
     background-color: rgb(0 0 0 / 0%)
 }
 
-.hotspot-layover a:link {
+.hotspots-container .hotspot-layover a:link {
     color: #fff
 }
 
-.hotspot-layover a:hover {
+.hotspots-container .hotspot-layover a:hover {
     color: #5d5d5d
 }
 
-.hotspot-layover a:visited {
+.hotspots-container .hotspot-layover a:visited {
     color: #fff
 }
 
-.hotspot-layover h1 {
+.hotspots-container .hotspot-layover h1 {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -272,83 +206,83 @@
     text-align: center
 }
 
-.hotspot-layover h2 {
+.hotspots-container .hotspot-layover h2 {
     font: 44px/44px var(--headline-ff-medium)
 }
 
-.hotspot-layover h3 {
+.hotspots-container .hotspot-layover h3 {
     font: 20px/18px var(--headline-ff-medium);
     margin-bottom: 8px
 }
 
-.hotspot-layover h4 {
+.hotspots-container .hotspot-layover h4 {
     font: 18px/18px var(--headline-ff-medium);
 }
 
-.hotspot-layover h5 {
+.hotspots-container .hotspot-layover h5 {
     margin: 10px 0 8px;
     font: 12px/12px 'Helvetica Neue 75 Bold';
     text-transform: uppercase
 }
 
-.hotspot-layover h6 {
+.hotspots-container .hotspot-layover h6 {
     font-family: 'Helvetica Neue 75 Bold';
 }
 
-.hotspot-layover p,.hotspot-layover p.large {
+.hotspots-container .hotspot-layover p, .hotspots-container .hotspot-layover p.large {
     font: 16px/1.1 'Helvetica Neue Regular 55'
 }
 
-.hotspot-layover p {
+.hotspots-container .hotspot-layover p {
     margin-top: 12px;
     margin-bottom: 12px
 }
 
-.hotspot-layover p.fine-print {
+.hotspots-container .hotspot-layover p.fine-print {
     margin: 5px 0;
     font-size: 10px;
     color: #5b5b5b
 }
 
-.hotspot-layover p.reduced-width {
+.hotspots-container .hotspot-layover p.reduced-width {
     width: 100%;
     max-width: 500px;
 }
 
-.hotspot-layover a {
+.hotspots-container .hotspot-layover a {
     font: 16px/16px 'Helvetica Neue 75 Bold';
     color: #fff
 }
 
 @media (max-width: 896px) {
-    .hotspot-layover h1,.hotspot-layover h2 {
-        font:40px/40px var(--headline-ff-medium);
+    .hotspots-container .hotspot-layover h1, .hotspots-container .hotspot-layover h2 {
+        font: 40px/40px var(--headline-ff-medium);
     }
 
-    .hotspot-layover h3 {
+    .hotspots-container .hotspot-layover h3 {
         font: 28px/28px 'Helvetica Neue 75 Bold';
     }
 
-    .hotspot-layover h4,.hotspot-layover h5 {
+    .hotspots-container .hotspot-layover h4, .hotspots-container .hotspot-layover h5 {
         font: 14px/14px var(--headline-ff-medium)
     }
 
-    .hotspot-layover p {
+    .hotspots-container .hotspot-layover p {
         font: 16px/16px 'Helvetica Neue Regular 55';
     }
 
-    .hotspot-layover p.large {
+    .hotspots-container .hotspot-layover p.large {
         /* TODO: fonts */
         font: 16px/16px 'Helvetica Neue 65 Medium';
     }
 }
 
-.hotspot-layover.is-active {
+.hotspots-container .hotspot-layover.is-active {
     transition: background-color .3s linear;
     background-color: rgb(0 0 0 / 50%)
 }
 
-.hotspot-layover .hotspot-layover-box {
+.hotspots-container .hotspot-layover .hotspot-layover-box {
     transition: transform .3s ease-out;
     position: absolute;
     top: 0;
@@ -359,17 +293,17 @@
     transform: translateX(125%)
 }
 
-.hotspot-layover .hotspot-layover-box.is-active {
+.hotspots-container .hotspot-layover .hotspot-layover-box.is-active {
     transform: translateX(0)
 }
 
-.hotspot-layover .hotspot-layover-box.no-animation {
-    transition: color 0 ease-in!important;
-    transition: none!important;
-    transition-property: none!important
+.hotspots-container .hotspot-layover .hotspot-layover-box.no-animation {
+    transition: color 0 ease-in !important;
+    transition: none !important;
+    transition-property: none !important
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -378,7 +312,7 @@
     background-size: cover
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-close {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close {
     width: 22px;
     cursor: pointer;
     position: absolute;
@@ -387,7 +321,7 @@
     z-index: 3
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-text {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-text {
     position: relative;
     z-index: 2;
     padding: 48px;
@@ -395,7 +329,7 @@
     overflow-y: auto
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls {
     position: absolute;
     z-index: 2;
     bottom: 0;
@@ -405,7 +339,7 @@
     background-color: #111
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button {
     display: table-cell;
     width: 50%;
     height: 100px;
@@ -416,52 +350,49 @@
     cursor: pointer
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button img {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%)
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev {
     text-align: left;
     padding: 0 15px 0 65px
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev img {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev img {
     left: 30px
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next {
     text-align: right;
     padding: 0 65px 0 15px
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next img {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next img {
     right: 30px
 }
 
-.hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:first-child {
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:first-child {
     border-right: 1px solid #222
 }
 
-.hotspot.truck {
+.hotspots-container .hotspot.truck {
     margin-bottom: -160px
 }
 
-.hotspot.truck~.feature-block {
+.hotspots-container .hotspot.truck ~ .feature-block {
     z-index: 2
 }
 
 @media (max-width: 896px) {
-    .hotspot.truck {
-        margin-bottom:0
+    .hotspots-container .hotspot.truck {
+        margin-bottom: 0
     }
 }
 
-
-
-
-.content-wrapper {
+.hotspots-container .content-wrapper {
     position: relative;
     width: 100%;
     max-width: 1376px;
@@ -470,8 +401,8 @@
 }
 
 @media (max-width: 1280px) {
-    .content-wrapper {
-        width:100%;
+    .hotspots-container .content-wrapper {
+        width: 100%;
         padding: 0 48px
     }
 }
@@ -504,7 +435,7 @@
     border-right: 1px solid #1d1d1d
 }
 
-.featurenav .featurenav-list .featurenav-list-item.active::before,.featurenav .featurenav-list .featurenav-list-item:hover::before {
+.featurenav .featurenav-list .featurenav-list-item.active::before, .featurenav .featurenav-list .featurenav-list-item:hover::before {
     display: none
 }
 
@@ -527,17 +458,16 @@
     text-align: center;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    font-family: 'Helvetica Neue 75 Bold',serif;
+    transform: translate(-50%, -50%);
+    font-family: 'Helvetica Neue 75 Bold', serif;
     font-size: .85em
 }
 
 @media (min-width: 897px) {
     .featurenav {
-        display:none
+        display: none
     }
 }
-
 
 
 .section.hotspots-container {
@@ -546,7 +476,7 @@
 
 @media (max-width: 896px) {
     .section.hotspots-container {
-        display:none
+        display: none
     }
 
     .section.hotspots-container.active {
@@ -554,7 +484,4 @@
     }
 }
 
-.section.hotspots-container.no-spots {
-    background-size: 100%;
-    background-repeat: no-repeat
-}
+

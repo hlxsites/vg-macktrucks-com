@@ -2,6 +2,7 @@
 .hotspots-container .features .row {
     display: flex;
     gap: 20px;
+    padding: 0 32px;
 }
 
 .hotspots-container .features .row > .feature {
