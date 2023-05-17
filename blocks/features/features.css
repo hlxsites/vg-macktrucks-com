@@ -30,7 +30,7 @@
 }
 
 @media (max-width: 896px) {
-    .features .row > div {
+    .features .row {
         display: block;
         gap: unset;
     }
