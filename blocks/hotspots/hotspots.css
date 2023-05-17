@@ -28,13 +28,13 @@
     z-index: 1
 }
 
-.hotspot .hotspot-bg-img {
+.hotspot .hotspot-bg-img img {
     width: 100%;
     margin: 0 auto;
     display: block
 }
 
-.hotspot .hotspot-bg-img.mobile {
+.hotspot .hotspot-bg-img.mobile img {
     display: none
 }
 
@@ -137,11 +137,11 @@
 }
 
 @media (max-width: 896px) {
-    .hotspot .hotspot-bg-img.desktop {
+    .hotspot .hotspot-bg-img.desktop img {
         display:none
     }
 
-    .hotspot .hotspot-bg-img.mobile {
+    .hotspot .hotspot-bg-img.mobile img {
         display: block
     }
 

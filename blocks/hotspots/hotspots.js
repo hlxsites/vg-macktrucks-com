@@ -102,7 +102,7 @@ function addDesktopLayover(hotspot, block) {
 <div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
-        <img src="../../icons/x.png">
+        <img src="../../icons/x.png" alt="close">
     </div>
     <div class="hotspot-layover-text">
         <h5></h5>
@@ -199,21 +199,17 @@ export function addSpot(block, hotspot) {
 /**
  *
  * @param hotspotsBlock {HTMLDivElement}
- * @param firstImage {HTMLPictureElement}
+ * @param firstPicture {HTMLPictureElement}
  * @param title {HTMLElement}
  * @param description {HTMLElement}
  */
-function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
-  // TODO: set data-hotspot="1" data-fade-object="true"
+function decorateImageAndTitle(hotspotsBlock, firstPicture, title, description) {
   const hotspot = document.createElement('div');
   hotspot.classList.add('hotspot');
   hotspot.classList.add('animated');
-  hotspot.dataset.hotspot = '1'; // TODO
-  hotspot.dataset.fadeObject = 'true'; // TODO
   hotspot.innerHTML = `
-      <!--    TODO: dynamic image size-->
-      <img class="hotspot-bg-img desktop"  src="">
-      <img class="hotspot-bg-img mobile"  src="">
+      <picture class="hotspot-bg-img desktop"></picture>
+      <picture class="hotspot-bg-img mobile"></picture>
   
       <div class="hotspot-content content-wrapper ">
           <h1 class="hotspot-header"></h1>
@@ -222,8 +218,8 @@ function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
   
       <div class="hotspot-icon-set"></div>`;
 
-  hotspot.querySelector('.hotspot-bg-img.desktop').src = firstImage.src;
-  hotspot.querySelector('.hotspot-bg-img.mobile').src = firstImage.src;
+  hotspot.querySelector('.hotspot-bg-img.desktop').innerHTML = firstPicture.innerHTML;
+  hotspot.querySelector('.hotspot-bg-img.mobile').innerHTML = firstPicture.innerHTML;
   hotspot.querySelector('.hotspot-header').innerHTML = title.innerHTML;
   hotspot.querySelector('.hotspot-text').innerHTML = description.innerHTML;
 
@@ -295,7 +291,7 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
 
 export default function decorate(block) {
   const firstBlockRow = block.querySelector(':scope > div');
-  const firstImage = firstBlockRow.querySelector('img');
+  const firstPicture = firstBlockRow.querySelector('picture');
   const title = firstBlockRow.querySelector('h1, h2');
   const description = firstBlockRow.querySelector('p');
 
@@ -313,7 +309,7 @@ export default function decorate(block) {
     <div class="hotspot-layover" style="display: none;"></div>
   `;
 
-  decorateImageAndTitle(block.children[0], firstImage, title, description);
+  decorateImageAndTitle(block.children[0], firstPicture, title, description);
 
   addMobileTabNavigation(block, title, hotspotBlockCounter);
 
