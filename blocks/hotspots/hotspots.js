@@ -3,6 +3,7 @@ import { createElement } from '../../scripts/scripts.js';
 
 /**
  * @typedef {Object} HotspotContent
+ *
  * @property {number} id
  * @property {HTMLPictureElement} picture
  * @property {HTMLElement} category
@@ -84,11 +85,10 @@ function handleCloseLayover(event, layoverDialog, block) {
 
 /**
  *
- * @param dialog
  * @param block
  * @param index {number} 0-based index of the linked dialog
  */
-function switchToOtherHotspot(dialog, block, index) {
+function switchToOtherHotspot(block, index) {
   const dialogs = block.querySelectorAll('.hotspot-layover-box');
   dialogs.forEach((box) => box.classList.add('no-animation'));
   dialogs.forEach((box) => box.classList.remove('is-active'));
@@ -200,13 +200,13 @@ function updateDesktopLayoverBeforeAndNextButtons(block) {
     const prevTextHtml = dialogs[prevIndex].querySelector('h3').innerHTML;
     dialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevTextHtml;
     dialog.querySelector('.hotspot-layover-button.prev')
-      .addEventListener('click', () => switchToOtherHotspot(dialog, block, prevIndex));
+      .addEventListener('click', () => switchToOtherHotspot(block, prevIndex));
 
     const nextIndex = index === dialogs.length - 1 ? 0 : index + 1;
     const nextTextHtml = dialogs[nextIndex].querySelector('h3').innerHTML;
     dialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextTextHtml;
     dialog.querySelector('.hotspot-layover-button.next')
-      .addEventListener('click', () => switchToOtherHotspot(dialog, block, nextIndex));
+      .addEventListener('click', () => switchToOtherHotspot(block, nextIndex));
   });
 }
 
