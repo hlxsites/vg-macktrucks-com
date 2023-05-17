@@ -25,7 +25,9 @@ export default function decorate(block) {
   block.closest('.section.hotspots-container').dataset.hotspotAreaId = hotspotBlockCounter;
   // first hotspots group is active by default (used for mobile view)
   if (hotspotBlockCounter === 1) {
-    block.closest('.section.hotspots-container').classList.add('active');
+    block.closest('.section.hotspots-container')
+      .classList
+      .add('active');
   }
 
   block.innerHTML = `
@@ -39,10 +41,11 @@ export default function decorate(block) {
 
   addMobileTabNavigation(block, title, hotspotBlockCounter);
 
-  block.querySelector('.hotspot-layover').addEventListener('click', (event) => {
-    const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
-    handleCloseLayover(event, layoverDialog, block);
-  });
+  block.querySelector('.hotspot-layover')
+    .addEventListener('click', (event) => {
+      const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
+      handleCloseLayover(event, layoverDialog, block);
+    });
 
   decorateIcons(block);
 }
@@ -92,13 +95,16 @@ function switchToOtherHotspot(dialog, block, index) {
   dialogs.forEach((box) => box.classList.add('no-animation'));
   dialogs.forEach((box) => box.classList.remove('is-active'));
 
-  block.querySelectorAll('.hotspot-icon-set .active-spot').forEach((spot) => spot.classList.remove('active-spot'));
+  block.querySelectorAll('.hotspot-icon-set .active-spot')
+    .forEach((spot) => spot.classList.remove('active-spot'));
 
   const switchTo = dialogs[index];
   switchTo.classList.add('is-active');
 
   // activate the hotspot icon that links to the dialog
-  block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`).classList.add('active-spot');
+  block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`)
+    .classList
+    .add('active-spot');
 
   // open the new dialog
   setTimeout(() => {
@@ -111,21 +117,26 @@ function switchToOtherHotspot(dialog, block, index) {
 }
 
 function addDesktopHotspotIcon(hotspot, block, main) {
-  const iconLink = createElement('a', 'hotspot-icon');
-  iconLink.innerHTML = '<img src="../../icons/hotspot.png" alt="" />';
-  iconLink.href = '#';
+  const iconLink = createElement('a', 'hotspot-icon', {
+    href: '#',
+    dataset: hotspot.id.toString(),
+  });
   iconLink.style.left = hotspot.positionLeft;
   iconLink.style.top = hotspot.positionTop;
-  iconLink.dataset.spot = hotspot.id.toString();
-  iconLink.firstElementChild.alt = hotspot.title.textContent;
+
+  const image = createElement('img', null, {
+    src: '../../icons/hotspot.png',
+    alt: hotspot.title.textContent,
+  });
+  iconLink.appendChild(image);
   iconLink.onclick = (event) => handleClickHotspot(
     event,
     iconLink,
     hotspot.id,
     block,
   );
-  const iconSet = main.querySelector('.hotspot-icon-set');
-  iconSet.append(iconLink);
+
+  main.querySelector('.hotspot-icon-set').append(iconLink);
 }
 
 function addDesktopLayover(hotspot, block) {
@@ -166,7 +177,8 @@ function addDesktopLayover(hotspot, block) {
   dialog.querySelector('.hotspot-layover-close')
     .addEventListener('click', (event) => handleCloseLayover(event, dialog, block));
 
-  block.querySelector('.hotspot-layover').append(...container.childNodes);
+  block.querySelector('.hotspot-layover')
+    .append(...container.childNodes);
 }
 
 function addMobileAlternativeCards(hotspot, main) {
@@ -265,7 +277,8 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
     const ul = createElement('ul', 'featurenav-list');
     mobileNav.append(ul);
 
-    document.querySelector('main').append(mobileNav);
+    document.querySelector('main')
+      .append(mobileNav);
   }
 
   const li = createElement('li', 'featurenav-list-item');
@@ -297,9 +310,10 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
     window.scrollTo(0, 0);
 
     // Remove the active class from other active hotspot areas
-    document.querySelectorAll('.section.hotspots-container.active').forEach(
-      (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
-    );
+    document.querySelectorAll('.section.hotspots-container.active')
+      .forEach(
+        (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
+      );
 
     // activate the new hotspot area
     const targetHotspotArea = document.querySelector(`.section.hotspots-container[data-hotspot-area-id="${id}"]`);
