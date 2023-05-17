@@ -1,0 +1,140 @@
+.section .carousel-wrapper {
+  padding: 0;
+  margin-left: -16px;
+  margin-right: -16px;
+  max-width: unset;
+}
+
+@media screen and (min-width: 481px) {
+  .section .carousel-wrapper {
+    margin-left: -32px;
+    margin-right: -32px;
+  }
+}
+
+.block.carousel {
+  position: relative;
+}
+
+.block.carousel ul.items {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 50%;
+  gap: 5px;
+  overflow: scroll hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.block.carousel .items::-webkit-scrollbar {
+  display: none;
+}
+
+.block.carousel .carousel-content-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.block.carousel .items p {
+  margin: 0;
+}
+
+.block.carousel .items li {
+  display: block;
+  scroll-snap-align: center;
+  text-align: center;
+  flex: 0 0 60vw;
+}
+
+.block.carousel .items img {
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  height: auto;
+  width: 100%;
+  object-position: center;
+  aspect-ratio: 10/7;
+}
+
+.block.carousel .items .carousel-item {
+  position: relative;
+}
+
+.block.carousel .items .carousel-item::after {
+  content: '';
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: rgb(0 0 0 / 62%);
+  width: 100%;
+  height: 100%;
+  transition: background .7s;
+}
+
+.block.carousel .items .carousel-item.active::after {
+  background: rgb(0 0 0 / 0%);
+}
+
+.block.carousel .desktop-controls,
+.block.carousel .mobile-controls.hidden,
+.block.carousel .desktop-controls.hidden {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .block.carousel .desktop-controls {
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    list-style: none;
+    padding: 0 9vw;
+    z-index: 1;
+  }
+
+  .block.carousel .desktop-controls button {
+    position: relative;
+    margin: 0;
+    background: rgb(0 0 0 / 60%);
+    font-size: 0;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: solid 1px #7d7d7d;
+  }
+
+  .block.carousel .desktop-controls button::after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "\f104";
+    font-family: var(--ff-fontawesome);
+    line-height: 1;
+    text-align: center;
+    color: white;
+    font-size: 5rem;
+    opacity: 0.7;
+  }
+
+  .block.carousel .desktop-controls li:last-child button::after {
+    content: "\f105";
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .block.carousel ul.items {
+    gap: 20px;
+  }
+}
