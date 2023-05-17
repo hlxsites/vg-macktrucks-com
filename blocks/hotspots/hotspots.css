@@ -50,7 +50,6 @@
 
 .hotspots-container .hotspot .hotspot-content {
     position: absolute;
-    z-index: 2;
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
