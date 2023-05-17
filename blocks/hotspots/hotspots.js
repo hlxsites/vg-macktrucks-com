@@ -40,34 +40,22 @@ function handleCloseLayover(event, layoverDialog, block) {
  *
  * @param dialog
  * @param block
- * @param direction {'prev'|'next'}
+ * @param index {number} 0-based index of the linked dialog
  */
-function switchToOtherHotspot(dialog, block, direction) {
-  block.querySelectorAll('.hotspot-layover-box').forEach((box) => {
-    box.classList.add('no-animation');
-  });
-  block.querySelectorAll('.hotspot-layover-box').forEach((box) => {
-    box.classList.remove('is-active');
-  });
+function switchToOtherHotspot(dialog, block, index) {
+  const dialogs = block.querySelectorAll('.hotspot-layover-box');
+  dialogs.forEach((box) => box.classList.add('no-animation'));
+  dialogs.forEach((box) => box.classList.remove('is-active'));
+
   block.querySelectorAll('.hotspot-icon-set .active-spot').forEach((spot) => spot.classList.remove('active-spot'));
 
-  let switchTo;
-  if (direction === 'next') {
-    switchTo = dialog.nextElementSibling;
-    if (!switchTo) {
-      switchTo = dialog.parentElement.firstElementChild;
-    }
-  } else {
-    switchTo = dialog.previousElementSibling;
-    if (!switchTo) {
-      switchTo = dialog.parentElement.lastElementChild;
-    }
-  }
+  const switchTo = dialogs[index];
   switchTo.classList.add('is-active');
 
-  // activate hotspot link
+  // activate the hotspot icon that links to the dialog
   block.querySelector(`[data-spot="${switchTo.dataset.hotspotContent}"]`).classList.add('active-spot');
 
+  // open the new dialog
   setTimeout(() => {
     // workaround: for some reason the animation is still played when the class is added immediately
     block.querySelectorAll('.hotspot-layover-box')
@@ -165,13 +153,13 @@ function updateDesktopLayoverBeforeAndNextButtons(block) {
     const prevTextHtml = dialogs[prevIndex].querySelector('h3').innerHTML;
     dialog.querySelector('.hotspot-layover-button.prev span').innerHTML = prevTextHtml;
     dialog.querySelector('.hotspot-layover-button.prev')
-      .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'prev'));
+      .addEventListener('click', () => switchToOtherHotspot(dialog, block, prevIndex));
 
     const nextIndex = index === dialogs.length - 1 ? 0 : index + 1;
     const nextTextHtml = dialogs[nextIndex].querySelector('h3').innerHTML;
     dialog.querySelector('.hotspot-layover-button.next span').innerHTML = nextTextHtml;
     dialog.querySelector('.hotspot-layover-button.next')
-      .addEventListener('click', () => switchToOtherHotspot(dialog, block, 'next'));
+      .addEventListener('click', () => switchToOtherHotspot(dialog, block, nextIndex));
   });
 }
 
