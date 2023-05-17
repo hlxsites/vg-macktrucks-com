@@ -1,6 +1,20 @@
 import { addSpot } from '../hotspots/hotspots.js';
 
 /**
+ * This is a synthetic block that is only used to structure the content.
+ * All content is then added to the closest 'hotspots' block.
+ */
+export default function decorate(block) {
+  const hotspotsBlock = block.closest('.hotspots-container').querySelector('.hotspots.block');
+
+  const hotspot = parseHotspotContent(block);
+  addSpot(hotspotsBlock, hotspot);
+
+  // Content was added to other block, therefore we can remove it
+  block.remove();
+}
+
+/**
  *
  * @param block {HTMLDivElement} raw block with content
  * @return {HotspotContent}
@@ -34,14 +48,4 @@ function parseHotspotContent(block) {
     positionLeft,
     positionTop,
   };
-}
-
-export default function decorate(block) {
-  const hotspotsBlock = block.closest('.hotspots-container').querySelector('.hotspots.block');
-
-  const hotspot = parseHotspotContent(block);
-  addSpot(hotspotsBlock, hotspot);
-
-  // Content was added to other block, therefore we can remove it
-  block.remove();
 }
