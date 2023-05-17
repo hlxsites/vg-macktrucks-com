@@ -221,16 +221,16 @@
 
 .hotspots-container .hotspot-layover h5 {
     margin: 10px 0 8px;
-    font: 12px/12px 'Helvetica Neue 75 Bold';
+    font: 12px/12px var(--emphasis-ff-bold);
     text-transform: uppercase
 }
 
 .hotspots-container .hotspot-layover h6 {
-    font-family: 'Helvetica Neue 75 Bold';
+    font-family: var(--emphasis-ff-bold);
 }
 
 .hotspots-container .hotspot-layover p, .hotspots-container .hotspot-layover p.large {
-    font: 16px/1.1 'Helvetica Neue Regular 55'
+    font: 16px/1.1 var(--body-ff)
 }
 
 .hotspots-container .hotspot-layover p {
@@ -250,7 +250,7 @@
 }
 
 .hotspots-container .hotspot-layover a {
-    font: 16px/16px 'Helvetica Neue 75 Bold';
+    font: 16px/16px var(--emphasis-ff-bold);
     color: #fff
 }
 
@@ -260,7 +260,7 @@
     }
 
     .hotspots-container .hotspot-layover h3 {
-        font: 28px/28px 'Helvetica Neue 75 Bold';
+        font: 28px/28px var(--emphasis-ff-bold);
     }
 
     .hotspots-container .hotspot-layover h4, .hotspots-container .hotspot-layover h5 {
@@ -268,12 +268,12 @@
     }
 
     .hotspots-container .hotspot-layover p {
-        font: 16px/16px 'Helvetica Neue Regular 55';
+        font: 16px/16px var(--body-ff);
     }
 
     .hotspots-container .hotspot-layover p.large {
         /* TODO: fonts */
-        font: 16px/16px 'Helvetica Neue 65 Medium';
+        font: 16px/16px var(--subheadings-ff-medium);
     }
 }
 
@@ -459,7 +459,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Helvetica Neue 75 Bold', serif;
+    font-family: var(--emphasis-ff-bold), serif;
     font-size: .85em
 }
 

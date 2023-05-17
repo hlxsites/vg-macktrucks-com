@@ -18,7 +18,7 @@
 
 .hotspots-container .features .row h4.feature-title {
     margin: 20px 0 0;
-    font: 14px/14px 'Helvetica Neue 75 Bold'
+    font: 14px/14px var(--emphasis-ff-bold)
 }
 
 .hotspots-container .features .row p {
@@ -30,7 +30,6 @@
 }
 
 @media (max-width: 896px) {
-
     .hotspots-container .features .row > div {
         display: block;
         gap: unset;
