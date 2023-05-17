@@ -3,8 +3,9 @@
 .section.hotspots-container {
     padding: unset;
     background-color: var(--primary-black);
-     width: 100%
- }
+    width: 100%;
+    color: var(--primary-white);
+}
 
  /* on mobile, hide hotspots areas which are not active */
  @media (max-width: 896px) {
