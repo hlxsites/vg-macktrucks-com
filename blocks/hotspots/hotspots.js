@@ -231,9 +231,61 @@ function decorateImageAndTitle(hotspotsBlock, firstImage, title, description) {
   hotspotsBlock.prepend(hotspot);
 }
 
+// TODO: cleanup
 function getHotspotContentByOffset(layoverContents, index, offset) {
   // JS does not support negative modulo, therefore we need to add length of the array
   return layoverContents[(index + offset + layoverContents.length) % layoverContents.length];
+}
+
+function addMobileTabNavigation(block, title, hotspotAreaId) {
+  // only one tab navigation is needed per page
+  let mobileNav = document.querySelector('main > div.featurenav');
+  if (!mobileNav) {
+    mobileNav = document.createElement('div');
+    mobileNav.classList.add('featurenav');
+
+    mobileNav.innerHTML = '<ul class="featurenav-list"></ul>';
+    document.querySelector('main').append(mobileNav);
+  }
+
+  const li = document.createElement('li');
+  li.classList.add('featurenav-list-item');
+  li.dataset.hotspotTargetId = hotspotAreaId;
+  if (mobileNav.firstElementChild.childElementCount === 0) {
+    li.classList.add('active');
+  }
+
+  const link = document.createElement('a');
+  link.href = `#${title.textContent}`;
+  link.textContent = title.innerHTML;
+  li.append(link);
+  mobileNav.firstElementChild.append(li);
+
+  li.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const clickedButton = event.target.closest('li');
+    if (!clickedButton.classList.contains('active')) {
+
+      const id = clickedButton.dataset.hotspotTargetId;
+      // Remove the active class from other active elements and add to current
+      const activeElements = mobileNav.querySelectorAll('li.active');
+      activeElements.forEach((el) => el.classList.remove('active'));
+      clickedButton.classList.add('active');
+
+      // Scroll to the top of the page
+      window.scrollTo(0, 0);
+
+      // Remove the active class from other active hotspot areas
+      document.querySelectorAll('.section.hotspots-container.active').forEach(
+        (activeHotspotArea) => activeHotspotArea.classList.remove('active'),
+      );
+
+      // activate the new hotspot area
+      const targetHotspotArea = document.querySelector(`.section.hotspots-container[data-hotspot-area-id="${id}"]`);
+      targetHotspotArea.classList.add('active');
+    }
+  });
 }
 
 /**
@@ -254,20 +306,22 @@ export default function decorate(block) {
   const description = firstBlockRow.querySelector('p');
 
   hotspotBlockCounter += 1;
+  block.closest('.section.hotspots-container').dataset.hotspotAreaId = hotspotBlockCounter;
+  // first hotspots group is active by default (used for mobile view)
+  if (hotspotBlockCounter === 1) {
+    block.closest('.section.hotspots-container').classList.add('active');
+  }
+
   block.innerHTML = `
     <div class="main">
         <div class="hotspot-mobile"></div>
     </div>
-    <div class="hotspot-layover" data-hotspot-target="${hotspotBlockCounter}" style="display: none;"></div>
+    <div class="hotspot-layover" style="display: none;"></div>
   `;
 
   decorateImageAndTitle(block.children[0], firstImage, title, description);
 
-  // hotspots.forEach((hotspot, index) => {
-  //   const prevContent = getHotspotContentByOffset(hotspots, index, -1);
-  //   const nextContent = getHotspotContentByOffset(hotspots, index, +1);
-  //   addSpot(block, hotspot, prevContent, nextContent);
-  // });
+  addMobileTabNavigation(block, title, hotspotBlockCounter);
 
   block.querySelector('.hotspot-layover').addEventListener('click', (event) => {
     const layoverDialog = block.querySelector('.hotspot-layover-box.is-active');
@@ -276,41 +330,3 @@ export default function decorate(block) {
 
   decorateIcons(block);
 }
-
-// TODO: add support for multiple hotspot groups
-// Get all elements with the attribute 'hotspot-target-id'
-// const hotspotTargetIdElements = document.querySelectorAll('[hotspot-target-id]');
-//
-// // Iterate through each hotspot target ID element
-// hotspotTargetIdElements.forEach((hotspotTargetId) => {
-//   // Add a click event listener for the hotspot target ID element
-//   hotspotTargetId.addEventListener('click', function () {
-//     // Check if the element is not active
-//     if (!hotspotTargetId.classList.contains('active')) {
-//       // Remove the active class from other active elements
-//       const activeElements = document.querySelectorAll('[hotspot-target-id].active');
-//       activeElements.forEach((activeElement) => {
-//         activeElement.classList.remove('active');
-//       });
-//
-//       // Scroll to the top of the page
-//       window.scrollTo(0, 0);
-//
-//       // Add the active class to the current element
-//       this.classList.add('active');
-//
-//       // Get the target ID
-//       const id = hotspotTargetId.getAttribute('hotspot-target-id');
-//
-//       // Remove the active class from other active hotspot areas
-//       const activeHotspotAreas = document.querySelectorAll('.hotspot-area.active');
-//       activeHotspotAreas.forEach((activeHotspotArea) => {
-//         activeHotspotArea.classList.remove('active');
-//       });
-//
-//       // Add the active class to the target hotspot area
-//       const targetHotspotArea = document.querySelector(`[hotspot-id="${id}"]`);
-//       targetHotspotArea.classList.add('active');
-//     }
-//   });
-// });
