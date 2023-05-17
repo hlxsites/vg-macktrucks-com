@@ -1,7 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
-let hotspotBlockCounter = 0;
-
 /**
  * @typedef {Object} HotspotContent
  * @property {number} id
@@ -12,6 +10,8 @@ let hotspotBlockCounter = 0;
  * @property {string} positionLeft
  * @property {string} positionTop
  */
+
+let hotspotBlockCounter = 0;
 
 export default function decorate(block) {
   const firstBlockRow = block.querySelector(':scope > div');
@@ -34,7 +34,7 @@ export default function decorate(block) {
     <div class="hotspot-layover" style="display: none;"></div>
   `;
 
-  decorateImageAndTitle(block.children[0], firstPicture, title, description);
+  decorateImageAndTitle(block.querySelector('.main'), firstPicture, title, description);
 
   addMobileTabNavigation(block, title, hotspotBlockCounter);
 
@@ -45,7 +45,6 @@ export default function decorate(block) {
 
   decorateIcons(block);
 }
-
 
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
@@ -231,12 +230,12 @@ export function addSpot(block, hotspot) {
 
 /**
  *
- * @param hotspotsBlock {HTMLDivElement}
+ * @param mainDiv {HTMLDivElement}
  * @param firstPicture {HTMLPictureElement}
  * @param title {HTMLElement}
  * @param description {HTMLElement}
  */
-function decorateImageAndTitle(hotspotsBlock, firstPicture, title, description) {
+function decorateImageAndTitle(mainDiv, firstPicture, title, description) {
   const hotspot = document.createElement('div');
   hotspot.classList.add('hotspot');
   hotspot.classList.add('animated');
@@ -256,17 +255,20 @@ function decorateImageAndTitle(hotspotsBlock, firstPicture, title, description) 
   hotspot.querySelector('.hotspot-header').innerHTML = title.innerHTML;
   hotspot.querySelector('.hotspot-text').innerHTML = description.innerHTML;
 
-  hotspotsBlock.prepend(hotspot);
+  mainDiv.prepend(hotspot);
 }
 
 function addMobileTabNavigation(block, title, hotspotAreaId) {
-  // only one tab navigation is needed per page
+  // only one tab navigation is needed for the entire page
   let mobileNav = document.querySelector('main > div#hotspots-mobile-nav');
   if (!mobileNav) {
     mobileNav = document.createElement('div');
     mobileNav.id = 'hotspots-mobile-nav';
 
-    mobileNav.innerHTML = '<ul class="featurenav-list"></ul>';
+    const ul = document.createElement('ul');
+    ul.classList.add('featurenav-list');
+    mobileNav.append(ul);
+
     document.querySelector('main').append(mobileNav);
   }
 
@@ -310,4 +312,3 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
     targetHotspotArea.classList.add('active');
   });
 }
-
