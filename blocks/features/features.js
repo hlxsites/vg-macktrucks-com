@@ -1,6 +1,4 @@
 export default function decorate(block) {
-  block.classList.add('features');
-
   block.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((title) => {
     // convert to h4 because it might be any header level
     const h4 = document.createElement('h4');

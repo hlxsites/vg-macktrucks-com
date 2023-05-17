@@ -1,27 +1,27 @@
 
-.hotspots-container .features .row {
+.features .row {
     display: flex;
     gap: 20px;
     padding: 0 32px;
 }
 
-.hotspots-container .features .row > .feature {
+.features .row > .feature {
     width: 100%;
     margin-bottom: 100px
 }
 
-.hotspots-container .features .row img {
+.features .row img {
     width: 100%;
     object-fit: cover;
     aspect-ratio: 100/60;
 }
 
-.hotspots-container .features .row h4.feature-title {
+.features .row h4.feature-title {
     margin: 20px 0 0;
     font: 14px/14px var(--emphasis-ff-bold)
 }
 
-.hotspots-container .features .row p {
+.features .row p {
     max-width: 300px;
     margin-top: 5px;
     color: #999;
@@ -30,7 +30,7 @@
 }
 
 @media (max-width: 896px) {
-    .hotspots-container .features .row > div {
+    .features .row > div {
         display: block;
         gap: unset;
     }
