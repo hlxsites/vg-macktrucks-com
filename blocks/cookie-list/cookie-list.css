@@ -53,3 +53,8 @@ main .cookie-list-container a:hover {
 #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h5 {
   font-size: 26px;
 }
+
+#ot-sdk-btn-floating.ot-floating-button button {
+  margin: 3px 0;
+  padding: 6px;
+}
