@@ -1,4 +1,3 @@
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import {
   createElement, isVideoLink, selectVideoLink, wrapImageWithVideoLink, addVideoShowHandler,
 } from '../../scripts/scripts.js';
