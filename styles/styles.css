@@ -447,6 +447,14 @@ body.disable-scroll main {
   transition: all 0.5s ease-in-out;
 }
 
+@media (min-width: 480px) {
+  .video-icon-wrapper {
+    width: 90px;
+    height: 90px;
+    font-size: 30px;
+  }
+}
+
 @media (min-width: 768px) {
   .video-icon-wrapper {
     width: 120px;

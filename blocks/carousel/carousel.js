@@ -82,7 +82,8 @@ export default function decorate(block) {
   const rows = [...block.querySelectorAll(isList ? ':scope > div > div > ul > li' : ':scope > div')];
 
   rows.forEach((row) => {
-    row.querySelectorAll(':scope > div').forEach((column) => {
+    const columns = row.querySelectorAll(':scope > div, :scope > picture');
+    columns.forEach((column) => {
       column.classList.add('carousel-item-column');
     });
 
@@ -101,16 +102,9 @@ export default function decorate(block) {
 
     // for each column
     li.querySelectorAll('.carousel-item-column').forEach((column) => {
-      let picture = column.querySelector('picture');
+      const picture = column.querySelector('picture');
       const links = [...column.querySelectorAll('a')];
       const videoLinks = links.filter((link) => isVideoLink(link));
-
-      if (picture) {
-        const img = picture.lastElementChild;
-        const newPicture = createOptimizedPicture(img.src, img.alt, false, [{ width: '370' }]);
-        picture.replaceWith(newPicture);
-        picture = newPicture;
-      }
 
       // handling image with video link
       if (videoLinks.length && picture) {
@@ -123,6 +117,8 @@ export default function decorate(block) {
 
         wrapImageWithVideoLink(selectedVideoLink, picture);
         addVideoShowHandler(selectedVideoLink);
+        // remove the video wrapper paragraph
+        selectedVideoLink.parentElement.replaceWith(selectedVideoLink);
       } else if (links.length && picture) {
         // handling image with link
         const clone = links[0].cloneNode(false);
@@ -130,11 +126,41 @@ export default function decorate(block) {
         clone.append(picture);
         column.prepend(clone);
       }
-    });
 
-    // removing new lines from the text
-    container.innerHTML = container.innerHTML
-      .split('<br>').filter((text) => text.trim() !== '');
+      // handling heading and subheading
+      const [header, subheader] = [...column.querySelectorAll('h1, h2, h3, h4, h5, h6')].sort((h1, h2) => h1.tagName[1] - h2.tagName[1]);
+
+      if (header) {
+        const newHeader = createElement('h2', 'carousel-item-header');
+        newHeader.innerHTML = header.innerHTML;
+        header.replaceWith(newHeader);
+      }
+      if (subheader) {
+        const newSubheader = createElement('h3', 'carousel-item-subheader');
+        newSubheader.innerHTML = subheader.innerHTML;
+        subheader.replaceWith(newSubheader);
+      }
+
+      // removing new lines from content
+      container.querySelectorAll('br').forEach((el) => el.remove());
+      // removing empty paragraphs
+      container.querySelectorAll('p').forEach((p) => {
+        const paragraphHTML = p.innerHTML;
+        const isEmptyParagrph = !paragraphHTML.replaceAll('\n', '').trim();
+
+        if (isEmptyParagrph) {
+          p.remove();
+        }
+      });
+
+      // warpping all paragraphs and headers
+      const textElements = column.querySelectorAll('p, h2, h3');
+      if (textElements.length) {
+        const textWrapper = createElement('div', 'carousel-item-text');
+        textWrapper.append(...textElements);
+        column.append(textWrapper);
+      }
+    });
 
     const carouselLink = container.querySelector('a');
     if (carouselLink) {

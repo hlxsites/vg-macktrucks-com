@@ -20,12 +20,16 @@
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0 50%;
+  padding: 10px 50%;
   gap: 5px;
   overflow: scroll hidden;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+}
+
+.block.carousel .carousel-item-column {
+  position: relative;
 }
 
 .block.carousel .items::-webkit-scrollbar {
@@ -35,6 +39,9 @@
 .block.carousel .carousel-content-wrapper {
   display: flex;
   flex-direction: column-reverse;
+  height: 100%;
+  overflow: hidden;
+  max-width: 100vw;
 }
 
 .block.carousel .items p {
@@ -60,21 +67,23 @@
 
 .block.carousel .items .carousel-item {
   position: relative;
+  text-align: left;
 }
 
 .block.carousel .items .carousel-item::after {
-  content: '';
+  content: "";
   top: 0;
   left: 0;
   position: absolute;
   background: rgb(0 0 0 / 62%);
   width: 100%;
   height: 100%;
-  transition: background .7s;
+  transition: background 0.7s;
 }
 
 .block.carousel .items .carousel-item.active::after {
   background: rgb(0 0 0 / 0%);
+  pointer-events: none;
 }
 
 .block.carousel .desktop-controls,
@@ -94,7 +103,8 @@
     bottom: 0;
     list-style: none;
     padding: 0 9vw;
-    z-index: 1;
+    z-index: 2;
+    pointer-events: none;
   }
 
   .block.carousel .desktop-controls button {
@@ -108,6 +118,7 @@
     top: 50%;
     transform: translateY(-50%);
     border: solid 1px #7d7d7d;
+    pointer-events: all;
   }
 
   .block.carousel .desktop-controls button::after {
@@ -133,8 +144,149 @@
   }
 }
 
+.block.carousel .link-with-video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  background-color: var(--primary-black);
+  height: 100%;
+  z-index: 1;
+}
+
+.block.carousel .carousel-item-text {
+  padding: 32px;
+}
+
+.block.carousel .carousel-item-text p {
+  padding-bottom: 20px;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--primary-black);
+}
+
+.block.carousel .carousel-item-header {
+  font-size: 32px;
+  line-height: 32px;
+  padding: 8px 0 16px;
+  margin: 0;
+  font-family: var(--emphasis-ff-bold);
+  color: var(--primary-black);
+}
+
+.block.carousel .carousel-item-subheader {
+  font-size: 14px;
+  padding-top: 10px;
+  line-height: 14px;
+  margin: 0;
+  font-family: var(--emphasis-ff-bold);
+  color: var(--primary-black);
+}
+
 @media screen and (min-width: 992px) {
   .block.carousel ul.items {
+    padding: 20px 50%;
     gap: 20px;
+  }
+}
+
+/* columns version */
+.block.carousel.two-columns .carousel-content-wrapper {
+  height: auto;
+}
+
+.block.carousel.two-columns .carousel-content-wrapper > * {
+  min-width: 50%;
+}
+
+.block.carousel.two-columns .carousel-item {
+  flex-basis: 100vw;
+}
+
+.block.carousel.two-columns .items {
+  padding: 0 50%;
+  background-image: url('../../media/dark-background.jpeg');
+  background-color: black;
+}
+
+.block.carousel.two-columns .items img {
+  aspect-ratio: 1/1;
+  height: 100%;
+}
+
+.block.carousel.two-columns ul.items {
+  gap: 0;
+}
+
+.block.carousel.two-columns .carousel-item-text p,
+.block.carousel.two-columns .carousel-item-header,
+.block.carousel.two-columns .carousel-item-subheader {
+  color: var(--primary-white);
+}
+
+.block.carousel.two-columns .desktop-controls {
+  padding: 0;
+}
+
+.block.carousel.two-columns .desktop-controls button {
+  background: #85754D;
+  border-radius: 0;
+  height: 52px;
+  width: 52px;
+  padding: 0;
+}
+
+.block.carousel.two-columns .desktop-controls button::after {
+  content: "\f060";
+  font-size: 25px;
+}
+
+.block.carousel.two-columns .desktop-controls li:last-child button::after {
+  content: "\f061";
+}
+
+@media screen and (min-width: 640px) {
+  .block.carousel.two-columns .carousel-content-wrapper {
+    flex-direction: row;
+    height: 100%;
+  }
+
+  .block.carousel.two-columns .carousel-item {
+    height: 50vw;
+  }
+
+  .block.carousel.two-columns .carousel-item-column {
+    display: flex;
+    align-items: center;
+  }
+
+  .block.carousel.two-columns .carousel-item-column:first-child {
+    justify-content: right;
+  }
+
+  .block.carousel.two-columns .carousel-item-column:last-child {
+    justify-content: left;
+  }
+
+  .block.carousel.two-columns .carousel-item-column .carousel-item-text {
+    padding: 52px;
+  }
+
+  .block.carousel.two-columns .items picture {
+    height: 100%;
+  }
+
+  .block.carousel.two-columns .items img {
+    aspect-ratio: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .block.carousel.two-columns .carousel-item {
+    height: 648px;
+  }
+
+  .block.carousel.two-columns .carousel-item-column .carousel-item-text {
+    max-width: 600px;
   }
 }
