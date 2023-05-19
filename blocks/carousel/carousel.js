@@ -61,14 +61,48 @@ function createDesktopControls(ul) {
     ul.scrollBy({ top: 0, left, behavior: 'smooth' });
   }
 
-  const desktopControls = document.createElement('ul');
-  desktopControls.className = 'desktop-controls hidden';
+  const desktopControls = createElement('ul', ['desktop-controls', 'hidden']);
   desktopControls.innerHTML = '<li><button type="button">Left</button></li><li><button type="button">Right</button></li>';
   ul.insertAdjacentElement('beforebegin', desktopControls);
   const [prevButton, nextButton] = desktopControls.querySelectorAll(':scope button');
   prevButton.addEventListener('click', () => scroll('left'));
   nextButton.addEventListener('click', () => scroll('right'));
   return desktopControls;
+}
+
+function createMobileControls(ul) {
+  // create carousel controls for mobile
+  const mobileControls = createElement('ul', ['mobile-controls']);
+  [...ul.children].forEach((item, j) => {
+    const control = createElement('li');
+    if (!j) control.className = 'active';
+    control.innerHTML = `<button type="button">${j + 1}</button>`;
+    control.firstElementChild.addEventListener('click', () => {
+      mobileControls.querySelector('li.active').classList.remove('active');
+      control.classList.add('active');
+
+      const left = item.offsetLeft + item.offsetWidth / 2
+        - (item.parentNode.offsetLeft + item.parentNode.offsetWidth / 2);
+      ul.scrollTo({ top: 0, left, behavior: 'smooth' });
+    });
+
+    mobileControls.append(control);
+  });
+  ul.insertAdjacentElement('beforebegin', mobileControls);
+
+  let scrollTimeout;
+  ul.addEventListener('scroll', () => {
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const scrollOffset = calcCarouselItemsOffset(ul);
+      let index = 0;
+      // how many items have scrolled out?
+      while (ul.scrollLeft - scrollOffset * (index + 1) > 0) index += 1;
+      mobileControls.querySelector('li.active').classList.remove('active');
+      mobileControls.children[index].classList.add('active');
+    }, debounceDelay);
+  });
+  return mobileControls;
 }
 
 export default function decorate(block) {
@@ -171,6 +205,7 @@ export default function decorate(block) {
   });
 
   const desktopControls = createDesktopControls(ul);
+  const mobileControls = createMobileControls(ul);
 
   const slideNumber = ul.querySelectorAll('li').length;
   const onActiveItemChange = (newActiveItemIndex) => {
@@ -188,5 +223,5 @@ export default function decorate(block) {
   initScroll(ul, onActiveItemChange);
   onActiveItemChange(0);
 
-  adjustWidthAndControls(block, ul, desktopControls);
+  adjustWidthAndControls(block, ul, mobileControls, desktopControls);
 }

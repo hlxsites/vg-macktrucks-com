@@ -86,10 +86,64 @@
   pointer-events: none;
 }
 
+.block.carousel .mobile-controls {
+  display: none;
+  justify-content: center;
+  gap: 5px;
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, 0);
+  padding: 0;
+  bottom: 0;
+  list-style: none;
+}
+
+.block.carousel .mobile-controls button {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  background: 0 0;
+  font-size: 0;
+}
+
+.block.carousel .mobile-controls button::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "\f10c";
+  font-family: var(--ff-fontawesome);
+  font-size: 1.2rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--volvo-text-light-gray);
+}
+
+.block.carousel .mobile-controls .active button::after {
+  content: "\f192";
+}
+
 .block.carousel .desktop-controls,
 .block.carousel .mobile-controls.hidden,
 .block.carousel .desktop-controls.hidden {
   display: none;
+}
+
+@media screen and (min-width: 481px) {
+  .block.carousel .mobile-controls button::after {
+    font-size: 1.6rem;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -141,6 +195,10 @@
 
   .block.carousel .desktop-controls li:last-child button::after {
     content: "\f105";
+  }
+
+  .block.carousel .mobile-controls {
+    display: none;
   }
 }
 
@@ -205,7 +263,7 @@
 
 .block.carousel.two-columns .items {
   padding: 0 50%;
-  background-image: url('../../media/dark-background.jpeg');
+  background-image: url("../../media/dark-background.jpeg");
   background-color: black;
 }
 
@@ -228,8 +286,12 @@
   padding: 0;
 }
 
+.block.carousel.two-columns .mobile-controls {
+  display: flex;
+}
+
 .block.carousel.two-columns .desktop-controls button {
-  background: #85754D;
+  background: #85754d;
   border-radius: 0;
   height: 52px;
   width: 52px;
