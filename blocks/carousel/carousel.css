@@ -26,6 +26,7 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  flex-wrap: nowrap;
 }
 
 .block.carousel .carousel-item-column {
@@ -221,6 +222,12 @@
   font-size: 16px;
   line-height: 21px;
   color: var(--primary-black);
+}
+
+.block.carousel .items .carousel-item-text picture img {
+  height: auto;
+  width: 100%;
+  aspect-ratio: auto;
 }
 
 .block.carousel .carousel-item-header {

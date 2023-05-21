@@ -70,15 +70,15 @@ function createDesktopControls(ul) {
   return desktopControls;
 }
 
-function createMobileControls(ul) {
+function createDotControls(ul) {
   // create carousel controls for mobile
-  const mobileControls = createElement('ul', ['mobile-controls']);
+  const dotControls = createElement('ul', ['mobile-controls']);
   [...ul.children].forEach((item, j) => {
     const control = createElement('li');
     if (!j) control.className = 'active';
     control.innerHTML = `<button type="button">${j + 1}</button>`;
     control.firstElementChild.addEventListener('click', () => {
-      mobileControls.querySelector('li.active').classList.remove('active');
+      dotControls.querySelector('li.active').classList.remove('active');
       control.classList.add('active');
 
       const left = item.offsetLeft + item.offsetWidth / 2
@@ -86,9 +86,9 @@ function createMobileControls(ul) {
       ul.scrollTo({ top: 0, left, behavior: 'smooth' });
     });
 
-    mobileControls.append(control);
+    dotControls.append(control);
   });
-  ul.insertAdjacentElement('beforebegin', mobileControls);
+  ul.insertAdjacentElement('beforebegin', dotControls);
 
   let scrollTimeout;
   ul.addEventListener('scroll', () => {
@@ -98,11 +98,11 @@ function createMobileControls(ul) {
       let index = 0;
       // how many items have scrolled out?
       while (ul.scrollLeft - scrollOffset * (index + 1) > 0) index += 1;
-      mobileControls.querySelector('li.active').classList.remove('active');
-      mobileControls.children[index].classList.add('active');
+      dotControls.querySelector('li.active').classList.remove('active');
+      dotControls.children[index].classList.add('active');
     }, debounceDelay);
   });
-  return mobileControls;
+  return dotControls;
 }
 
 export default function decorate(block) {
@@ -205,12 +205,13 @@ export default function decorate(block) {
   });
 
   const desktopControls = createDesktopControls(ul);
-  const mobileControls = createMobileControls(ul);
+  const dotControls = createDotControls(ul);
 
   const slideNumber = ul.querySelectorAll('li').length;
   const onActiveItemChange = (newActiveItemIndex) => {
+    const newActiveEl = ul.querySelectorAll('li')[newActiveItemIndex];
     ul.querySelector('li.active')?.classList.remove('active');
-    ul.querySelectorAll('li')[newActiveItemIndex].classList.add('active');
+    newActiveEl.classList.add('active');
     const desktopControlsList = block.querySelectorAll('.desktop-controls li');
 
     if (desktopControlsList.length) {
@@ -223,5 +224,5 @@ export default function decorate(block) {
   initScroll(ul, onActiveItemChange);
   onActiveItemChange(0);
 
-  adjustWidthAndControls(block, ul, mobileControls, desktopControls);
+  adjustWidthAndControls(block, ul, dotControls, desktopControls);
 }
