@@ -97,6 +97,9 @@ main .hero:not(.auto-block) > div {
     inset: 0;
     margin: auto;
     height: 100%;
+    width: 100vw;
+    object-fit: cover;
+    object-position: center;
 }
 
 .hero .hero-video.hide {
