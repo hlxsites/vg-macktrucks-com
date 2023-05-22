@@ -26,7 +26,6 @@
 
 
 .hotspots-container .main p.reduced-width {
-    width: 100%;
     max-width: 500px;
     margin: 0 auto
 }
@@ -76,7 +75,6 @@
 .hotspots-container .hotspot .hotspot-content p {
     font-size: var(--body-font-size-l);
     font-family: var(--body-ff);
-    width: 500px;
     max-width: 500px;
     line-height: 1em;
 }
@@ -260,7 +258,6 @@
 }
 
 .hotspots-container .hotspot-layover p.reduced-width {
-    width: 100%;
     max-width: 500px;
 }
 
