@@ -360,7 +360,12 @@
     cursor: pointer
 }
 
-.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button img {
+ .hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:hover {
+     text-decoration: none;
+     color: unset;
+ }
+
+ .hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%)
