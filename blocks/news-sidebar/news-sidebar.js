@@ -21,7 +21,7 @@ export default async function decorate(block) {
   // creating the year link
   const yearLink = document.createElement('a');
   const currentLink = newsPage && newsPage.find((item) => item.path === window.location.pathname);
-  const newsYear = (new Date(currentLink?.date)).getFullYear();
+  const newsYear = new Date(currentLink.publicationDate * 1000).getFullYear();
 
   if (!Number.isNaN(Number(newsYear))) {
     yearLink.setAttribute('href', `/mack-news/${newsYear}`);
@@ -39,7 +39,7 @@ export default async function decorate(block) {
       }
 
       newsItem.href = newsData.path;
-      newsItem.textContent = (newsData.heading && newsData.heading !== '0') ? newsData.heading : '';
+      newsItem.textContent = (newsData.title && newsData.title !== '0') ? newsData.title.split('|')[0] : '';
       li.append(newsItem);
       list.append(li);
     });
@@ -65,14 +65,15 @@ export default async function decorate(block) {
   const select = div.querySelector('select');
   newsPage.forEach((item) => {
     const option = createElement('option', [], { value: item.path });
-    option.textContent = item.heading;
+    const optionText = item.title.split('|')[0];
+    option.textContent = optionText;
     select.append(option);
   });
   const selectEl = div.firstElementChild;
   block.append(selectEl);
   select.addEventListener('change', (event) => {
     const selectedNews = newsPage.find((item) => item.path === event.target.value);
-    block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.heading;
+    block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.title.split('|')[0];
     window.location = event.target.value;
   });
 }
