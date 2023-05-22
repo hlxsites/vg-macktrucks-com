@@ -274,6 +274,7 @@
   background-color: black;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .block.carousel.two-columns .items img {
   aspect-ratio: 1/1;
   height: 100%;
