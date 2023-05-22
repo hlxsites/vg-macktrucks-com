@@ -27,20 +27,20 @@
 
 .news-sidebar .news-sidebar-list a {
   display: block;
-  color: #999;
+  color: var(--secondary-steel);
   padding: 10px 0 9px;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
   line-height: 22px;
-  border-bottom: 1px solid var(--highlight-background-color);
+  border-bottom: 1px solid var(--secondary-steel);
   font-weight: 700;
 }
 
 .news-sidebar .news-sidebar-list a:hover,
 .news-sidebar a.new-sidebar-active-link {
   text-decoration: none;
-  color: var( --text-color);
+  color: var(--text-color);
 }
 
 .news-sidebar .news-sidebar-select {

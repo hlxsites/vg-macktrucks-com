@@ -1,3 +1,20 @@
+:root {
+    --card-width-s: 1fr;
+    --card-width-m: 50%;
+    --card-width-l: 33.3333%;
+    --card-width-size: var(--card-width-s);
+}
+
+.cards-wrapper {
+    background-color: var(--primary-black);
+}
+
+.cards.cta {
+    padding: 2rem;
+    max-width: calc(var(--nav-width) - 6rem);
+    margin: 0 auto;
+}
+
 .cards > ul {
     list-style: none;
     margin: 0;
@@ -7,9 +24,47 @@
     grid-gap: 16px;
 }
 
+.cards.cta > ul {
+    grid-gap: 0;
+    grid-template-columns: repeat(auto-fill, var(--card-width-size));
+}
+
+@media (min-width: 480px) {
+    .cards.cta{
+        padding: 4rem 3rem;
+    }
+
+    .cards.cta > ul {
+        --card-width-size: var(--card-width-m);
+    }
+}
+
+@media (min-width: 992px) {
+    .cards.cta > ul {
+        --card-width-size: var(--card-width-l);
+    }
+}
+
 .cards > ul > li {
-    border: 1px solid var(--highlight-background-color);
+    border: 1px solid var(--secondary-steel);
     background-color: var(--background-color)
+}
+
+.cards.cta > ul > li {
+    transition: scale 300ms;
+}
+
+.cards.cta > ul > li > a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    height: 100%;
+}
+
+.cards.cta > ul > li:hover,
+.cards.cta > ul > li:focus {
+    scale: 1.05;
+    z-index: 1;
 }
 
 .cards .cards-card-body {
@@ -20,12 +75,61 @@
     line-height: 0;
 }
 
+.cards.cta .cards-card-image {
+    position: relative;
+    line-height: initial;
+    transition: background-color 300ms;
+}
+
+.cards.cta > ul > li:hover .cards-card-image,
+.cards.cta > ul > li:focus .cards-card-image {
+    background-color: rgb(216 216 216 / 40%);
+}
+
+.cards.cta .cards-card-image p:has(picture) {
+    width: 85%;
+    margin: 0 auto;
+    max-height: 300px;
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 1 / 1;
+}
+
+.cards.cta .cards-card-image picture {
+    flex: 1 1 auto;
+}
+
+.cards.cta .cards-card-image .button-container {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    margin: 0;
+}
+
+.cta .cards-card-image .button {
+    margin: 0;
+    padding: 1rem 0.5rem;
+    font-size: 75%;
+}
+
 .cards .cards-card-body > *:first-child {
     margin-top: 0;
+}
+
+.cards.cta .cards-card-body p:not(:has(.button)) {
+    font-size: 80%;
+}
+
+.cards.cta .cards-card-body .button-container {
+    text-align: center;
 }
 
 .cards > ul > li img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+}
+
+.cards.cta > ul > li img {
+    aspect-ratio: unset;
 }
