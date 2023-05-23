@@ -1,4 +1,5 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, loadScript } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
@@ -35,6 +36,25 @@ function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
 }
 
+function loadSearchWidget() {
+  loadScript('https://static.searchstax.com/studio-js/v3/js/search-widget.min.js', { type: 'text/javascript', charset: 'UTF-8' })
+    .then(() => {
+      function initiateSearchWidget() {
+        // eslint-disable-next-line no-new, no-undef
+        new SearchstudioWidget(
+          'c2ltYWNrdm9sdm86V2VsY29tZUAxMjM=',
+          'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
+          `${window.location.origin}/search`,
+          3,
+          'searchStudioQuery',
+          'div-widget-id',
+          'en',
+        );
+      }
+      setTimeout(() => initiateSearchWidget(), 3000);
+    });
+}
+
 /**
  * Toggles all nav sections
  * @param {Element} sections The container element
@@ -63,9 +83,8 @@ function addLabelsToIcons(navTools) {
   if (!pictures) return;
   const picturesWrappers = [...pictures].map((pic) => pic.parentElement);
   picturesWrappers.forEach((p, i) => {
-    const span = document.createElement('span');
-    const br = document.createElement('br');
-    span.className = 'nav-label';
+    const span = createElement('span', 'nav-label');
+    const br = createElement('br');
     span.textContent = links[i].textContent;
     links[i].textContent = '';
     p.prepend(links[i]);
@@ -146,8 +165,7 @@ export default async function decorate(block) {
   const html = await resp.text();
 
   // decorate nav DOM
-  const nav = document.createElement('nav');
-  nav.id = 'nav';
+  const nav = createElement('nav', '', { id: 'nav' });
   nav.innerHTML = html;
 
   const classes = ['brand', 'sections', 'mobile', 'tools', 'search'];
@@ -171,8 +189,7 @@ export default async function decorate(block) {
     });
 
     // hamburger for mobile
-    const hamburger = document.createElement('div');
-    hamburger.classList.add('nav-hamburger');
+    const hamburger = createElement('div', 'nav-hamburger');
     hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
@@ -196,40 +213,23 @@ export default async function decorate(block) {
   const navSearch = nav.querySelector('.nav-search');
   if (navTools && navSearch) {
     const navSearchBtn = [...navTools.children].at(-1);
-    const navSearchLinkHref = navSearchBtn.children[0].href;
     const searchIcon = navSearch.querySelector('.icon-search');
     const searchIconWrapper = searchIcon.parentElement;
-    const navSearchWrapper = document.createElement('div');
-    const searchIconLink = document.createElement('a');
-    const input = document.createElement('input');
-    const closeBtnWrapper = document.createElement('div');
-    const closeBtn = document.createElement('button');
-    const closeBtnIcon = document.createElement('span');
+    const navSearchWrapper = createElement('div', 'nav-search-wrapper');
+    const searchWidgetDiv = createElement('div', 'studio-search-widget', { id: 'div-widget-id' });
+    const searchIconLink = createElement('a', 'search-icon');
+    const closeBtnWrapper = createElement('div', 'search-close');
+    const closeBtn = createElement('button', '', { type: 'button' });
+    const closeBtnIcon = createElement('span', 'search-close-icon');
     let isShown = false;
-
-    navSearchWrapper.className = 'nav-search-wrapper';
-    searchIconLink.href = navSearchLinkHref;
-    input.type = 'search';
-    input.placeholder = 'Search Mack Trucks';
-    closeBtnWrapper.className = 'search-close';
-    closeBtn.type = 'button';
-    closeBtnIcon.className = 'search-close-icon';
 
     navSearch.prepend(navSearchWrapper);
     navSearchWrapper.appendChild(searchIconLink);
-    navSearchWrapper.appendChild(input);
+    navSearchWrapper.appendChild(searchWidgetDiv);
     navSearchWrapper.appendChild(closeBtnWrapper);
     searchIconLink.appendChild(searchIconWrapper);
     closeBtnWrapper.appendChild(closeBtn);
     closeBtn.appendChild(closeBtnIcon);
-
-    searchIconLink.onclick = (e) => {
-      e.preventDefault();
-      const newSearchUrl = new URL(searchIconLink);
-      newSearchUrl.searchParams.append('t', input.value);
-      newSearchUrl.searchParams.append('r', 'us');
-      window.location.assign(newSearchUrl.href);
-    };
 
     navSearchBtn.onclick = (e) => {
       e.preventDefault();
@@ -241,8 +241,19 @@ export default async function decorate(block) {
       isShown = false;
       navSearch.classList.remove('show');
     };
+
+    searchIconLink.onclick = (e) => {
+      e.preventDefault();
+      const searchTerm = document.getElementById('div-widget-id-search-input').value;
+      if (searchTerm) {
+        const searchUrl = new URL('/search', window.location.origin);
+        searchUrl.searchParams.set('searchStudioQuery', searchTerm);
+        window.location.href = searchUrl;
+      }
+    };
   }
 
   decorateIcons(nav);
   block.append(nav);
+  loadSearchWidget();
 }

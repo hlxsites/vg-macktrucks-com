@@ -11,10 +11,10 @@ Franklin site for macktrucks.com
 npm i
 ```
 
-## Tests
+## Linting
 
 ```sh
-npm tst
+npm run lint
 ```
 
 ## Local development
