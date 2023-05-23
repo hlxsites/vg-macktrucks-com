@@ -31,7 +31,7 @@ main .template.section.article-hero-container {
   justify-content: flex-end;
   height: var(--image-height);
   text-justify: auto;
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .article-hero-content .article-hero-category {
@@ -133,9 +133,12 @@ main .template.section.article-hero-container {
     font-size: var(--heading-font-size-xl);
   }
 
+  .article-texts-container {
+    width: 90%;
+  }
+
   .article-texts-container .default-content-subtitle {
     font-size: var(--heading-font-size-m);
-    width: 90%;
   }
 }
 
@@ -168,13 +171,12 @@ main .template.section.article-hero-container {
 
   .template.article-template.article-texts-container {
     display: grid;
-    align-items: start;
     grid-template-columns: 60% 35%;
     grid-template-rows: auto;
     grid-template-areas: 
       "current recent"
       "recommended .";
     column-gap: 50px;
-    margin: 0 60px;
+    margin: 0 auto;
   }
 }
