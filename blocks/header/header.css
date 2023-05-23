@@ -297,12 +297,14 @@ header .search-close-icon::after {
 
 @media (min-width: 1140px) {
   /* header and nav layout */
+  :root {
+    --nav-height: var(--nav-height-l);
+  }
+
   header nav {
     display: flex;
     justify-content: space-between;
     padding-inline: 2rem;
-
-    --nav-height: var(--nav-height-l);
   }
 
   header nav[aria-expanded=true] {

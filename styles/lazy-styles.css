@@ -256,6 +256,10 @@
   content: "\f0c5"
 }
 
+.fa-bars::before {
+  content: "\f0c9"
+}
+
 .fa-external-link::before {
   content: "\f08e"
 }
