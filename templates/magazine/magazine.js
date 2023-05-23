@@ -127,13 +127,16 @@ export default async function decorate(doc) {
   parentSection.classList.add('default-content-container');
   parentSection.classList.remove('breadcrumb-container', 'recent-articles-container');
 
-  const firstHeading = defaultContent.querySelector('h5');
-  firstHeading.classList.add('default-content-subtitle');
+  const altSubtitle = createElement('h5', 'default-content-subtitle');
+  altSubtitle.innerText = getMetadata('og:title');
+
+  const firstHeading = defaultContent.querySelector('h5') ?? altSubtitle;
+  firstHeading?.classList.add('default-content-subtitle');
+
+  parentSection.insertAdjacentElement('afterbegin', firstHeading);
 
   defaultContent.insertAdjacentElement('beforebegin', shareSection);
   defaultContent.insertAdjacentElement('afterend', shareClone);
-
-  parentSection.insertAdjacentElement('afterbegin', firstHeading);
 
   currentArticle.append(firstHeading, author, shareSection, defaultContent, shareClone);
   articleTexts.append(currentArticle, recommendationsSection, recentSection);
