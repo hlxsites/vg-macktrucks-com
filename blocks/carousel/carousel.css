@@ -426,6 +426,14 @@
   .block.carousel.cards .carousel-item {
     flex-basis: calc((100% - 40px) / 3);
   }
+
+  .block.carousel.cards .carousel-item-text > * {
+    opacity: 1;
+  }
+
+  .block.carousel.cards .items .carousel-item::after {
+    display: none;
+  }
 }
 
 @media (min-width: 1025px) {

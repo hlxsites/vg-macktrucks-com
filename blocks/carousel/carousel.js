@@ -57,6 +57,20 @@ function adjustWidthAndControls(block, carousel, ...controls) {
 function createDesktopControls(ul) {
   function scroll(direction) {
     const scrollOffset = calcCarouselItemsOffset(ul);
+
+    // when no more items are on the left, scroll to the last item
+    if (ul.scrollLeft < scrollOffset && direction === 'left') {
+      ul.scrollTo(ul.scrollWidth, 0);
+      return;
+    }
+
+    // when no more items are on the right, scroll to the firs item
+    if (Math.abs(ul.scrollLeft) >= ul.scrollWidth - ul.clientWidth && direction === 'right') {
+      ul.scrollTo(0, 0);
+      return;
+    }
+
+    // otherwise scroll one item in selected direction
     const left = direction === 'left' ? -1 * scrollOffset : scrollOffset;
     ul.scrollBy({ top: 0, left, behavior: 'smooth' });
   }
@@ -207,18 +221,10 @@ export default function decorate(block) {
   const desktopControls = createDesktopControls(ul);
   const dotControls = createDotControls(ul);
 
-  const slideNumber = ul.querySelectorAll('li').length;
   const onActiveItemChange = (newActiveItemIndex) => {
     const newActiveEl = ul.querySelectorAll('li')[newActiveItemIndex];
     ul.querySelector('li.active')?.classList.remove('active');
     newActiveEl.classList.add('active');
-    const desktopControlsList = block.querySelectorAll('.desktop-controls li');
-
-    if (desktopControlsList.length) {
-      // hidding left/right arrow when there is no more slides in selected direction
-      desktopControlsList[0].style.visibility = newActiveItemIndex ? 'visible' : 'hidden';
-      desktopControlsList[1].style.visibility = newActiveItemIndex + 1 < slideNumber ? 'visible' : 'hidden';
-    }
   };
 
   initScroll(ul, onActiveItemChange);
