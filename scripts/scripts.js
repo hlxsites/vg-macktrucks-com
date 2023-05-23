@@ -25,6 +25,16 @@ window.mack.newsData = window.mack.newsData || {
   allLoaded: false,
 };
 
+let placeholders = null;
+
+async function getPlaceholders() {
+  placeholders = await fetch('/placeholder.json').then((resp) => resp.json());
+}
+
+export function getTextLabel(key) {
+  return placeholders?.data.find((el) => el.Key === key).Text || key;
+}
+
 export function findAndCreateImageLink(node) {
   const links = node.querySelectorAll('picture ~ a');
 
@@ -59,20 +69,28 @@ export function createElement(tagName, classes, props = {}) {
   }
   if (props) {
     Object.keys(props).forEach((propName) => {
-      elem.setAttribute(propName, props[propName]);
+      const value = propName === props[propName] ? '' : props[propName];
+      elem.setAttribute(propName, value);
     });
   }
 
   return elem;
 }
 
+/**
+ * Builds hero block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
+  const heroBlock = main.querySelector('.hero');
+  if (heroBlock) return;
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.querySelector('.hero').classList.add('auto-block');
     main.prepend(section);
   }
 }
@@ -100,6 +118,24 @@ function buildAutoBlocks(main, head) {
   }
 }
 
+export function decorateLinks(block) {
+  [...block.querySelectorAll('a')]
+    .filter(({ href }) => !!href)
+    .forEach((link) => {
+      /* eslint-disable no-use-before-define */
+      if (isVideoLink(link)) {
+        addVideoShowHandler(link);
+        return;
+      }
+
+      const url = new URL(link.href);
+      const external = !url.host.match('macktrucks.com') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
+      if (url.host.match('build.macktrucks.com') || url.pathname.endsWith('.pdf') || external) {
+        link.target = '_blank';
+      }
+    });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -112,6 +148,7 @@ export function decorateMain(main, head) {
   buildAutoBlocks(main, head);
   decorateSections(main);
   decorateBlocks(main);
+  decorateLinks(main);
 }
 
 async function loadTemplate(doc, templateName) {
@@ -141,7 +178,8 @@ async function loadTemplate(doc, templateName) {
 }
 
 /**
- * loads everything needed to get to LCP.
+ * Loads everything needed to get to LCP.
+ * @param {Element} doc The container element
  */
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
@@ -150,8 +188,11 @@ async function loadEager(doc) {
   const { head } = doc;
   if (main) {
     decorateMain(main, head);
+    document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
+
+  await getPlaceholders();
 }
 
 /**
@@ -172,7 +213,8 @@ export function addFavIcon(href) {
 }
 
 /**
- * loads everything that doesn't need to be delayed.
+ * Loads everything that doesn't need to be delayed.
+ * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
   const templateName = getMetadata('template');
@@ -203,8 +245,8 @@ async function loadLazy(doc) {
 }
 
 /**
- * loads everything that happens a lot later, without impacting
- * the user experience.
+ * Loads everything that happens a lot later,
+ * without impacting the user experience.
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
@@ -219,3 +261,94 @@ async function loadPage() {
 }
 
 loadPage();
+
+// video helpers
+export function isLowResolutionVideoUrl(url) {
+  return url.split('?')[0].endsWith('.mp4');
+}
+
+export function isVideoLink(link) {
+  const linkString = link.getAttribute('href');
+  return (linkString.includes('youtube.com/embed/')
+    || isLowResolutionVideoUrl(linkString))
+    && link.closest('.block.embed') === null;
+}
+
+export function selectVideoLink(links, preferredType) {
+  const linksList = [...links];
+  const shouldUseYouTubeLinks = document.cookie.split(';').some((cookie) => cookie.trim().startsWith('OptanonConsent=1')) && preferredType !== 'local';
+  const youTubeLink = linksList.find((link) => link.getAttribute('href').includes('youtube.com/embed/'));
+  const localMediaLink = linksList.find((link) => link.getAttribute('href').split('?')[0].endsWith('.mp4'));
+
+  if (shouldUseYouTubeLinks && youTubeLink) {
+    return youTubeLink;
+  }
+  return localMediaLink;
+}
+
+export function createLowResolutionBanner() {
+  const lowResolutionMessage = getTextLabel('Low resolution video message');
+  const changeCookieSettings = getTextLabel('Change cookie settings');
+
+  const banner = createElement('div', ['low-resolution-banner']);
+  banner.innerHTML = `${lowResolutionMessage} <button class="low-resolution-banner-cookie-settings">${changeCookieSettings}</button>`;
+  banner.querySelector('button').addEventListener('click', () => {
+    window.OneTrust.ToggleInfoDisplay();
+  });
+
+  return banner;
+}
+
+export function showVideoModal(linkUrl) {
+  // eslint-disable-next-line import/no-cycle
+  import('../common/modal/modal.js').then((modal) => {
+    let beforeBanner = null;
+
+    if (isLowResolutionVideoUrl(linkUrl)) {
+      beforeBanner = createLowResolutionBanner();
+    }
+
+    modal.showModal(linkUrl, beforeBanner);
+  });
+}
+
+export function addVideoShowHandler(link) {
+  link.classList.add('text-link-with-video');
+
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    showVideoModal(link.getAttribute('href'));
+  });
+}
+
+export function addPlayIcon(parent) {
+  const iconWrapper = createElement('div', ['video-icon-wrapper']);
+  const icon = createElement('i', ['fa', 'fa-play', 'video-icon']);
+  iconWrapper.appendChild(icon);
+  parent.appendChild(iconWrapper);
+}
+
+export function wrapImageWithVideoLink(videoLink, image) {
+  videoLink.innerText = '';
+  videoLink.appendChild(image);
+  videoLink.classList.add('link-with-video');
+  videoLink.classList.remove('button', 'primary', 'text-link-with-video');
+
+  addPlayIcon(videoLink);
+}
+
+export function createIframe(url, { parentEl, classes = [] }) {
+  // iframe must be recreated every time otherwise the new history record would be created
+  const iframe = createElement('iframe', classes, {
+    frameborder: '0',
+    allowfullscreen: 'allowfullscreen',
+    src: url,
+  });
+
+  if (parentEl) {
+    parentEl.appendChild(iframe);
+  }
+
+  return iframe;
+}

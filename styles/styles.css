@@ -384,3 +384,70 @@ main .section[data-section-status='initialized'] {
 main .section.highlight {
   background-color: var(--highlight-background-color);
 }
+
+body.disable-scroll,
+body.disable-scroll main {
+  overflow: hidden;
+}
+
+.low-resolution-banner {
+  margin-bottom: 20px;
+}
+
+.low-resolution-banner-cookie-settings {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.low-resolution-banner-cookie-settings:hover,
+.low-resolution-banner-cookie-settings:active {
+  background-color: transparent;
+}
+
+.link-with-video {
+  position: relative;
+  display: inline-flex;
+}
+
+.link-with-video::after {
+  content: "";
+  top: 0;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0%) 0, #000 100%);
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.link-with-video:hover::after {
+  opacity: 0.5;
+}
+
+.video-icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  background: #474747;
+  z-index: 1;
+  transition: all 0.5s ease-in-out;
+}
+
+.link-with-video:hover .video-icon-wrapper {
+  transform: translate(-50%, -50%) scale(0.95);
+  background: #7a7a7a;
+}

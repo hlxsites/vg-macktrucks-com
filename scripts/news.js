@@ -6,7 +6,7 @@ import { getMetadata } from './lib-franklin.js';
 async function loadMoreNews() {
   if (!window.mack.newsData.allLoaded) {
     const queryLimit = 200;
-    const resp = await fetch(`/mack-news.json?limit=${queryLimit}&offset=${window.mack.newsData.offset}`);
+    const resp = await fetch(`/mack-news/feed.json?limit=${queryLimit}&offset=${window.mack.newsData.offset}`);
     const json = await resp.json();
     const { total, data } = json;
     window.mack.newsData.news.push(...data);

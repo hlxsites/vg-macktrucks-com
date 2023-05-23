@@ -35,6 +35,9 @@ indices:
       - '/mack-news/fragments/**'
     target: /mack-news/feed.json
     properties:
+      template:
+        select: head > meta[name="template"]
+        value: attribute(el, "content")
       title:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
