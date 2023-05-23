@@ -1,7 +1,8 @@
 :root {
   --sub-nav-height-xl: 75px;
-  --sub-nav-height-l: 50px;
-  --sub-nav-height: var(--sub-nav-height-l);
+  --sub-nav-height-l: 60px;
+  --sub-nav-height-m: 50px;
+  --sub-nav-height: var(--sub-nav-height-m);
   --sn-btn-height: 30px;
   --sn-btn-border: 2px;
   --sn-btn-height-block: calc(var(--sn-btn-height) + (var(--sn-btn-border) * 2));
@@ -224,7 +225,7 @@
 
 @media (min-width: 1140px) {
   :root {
-    --sub-nav-height: var(--sub-nav-height-xl);
+    --sub-nav-height: var(--sub-nav-height-l);
   }
 
   .sub-nav-container {
@@ -247,7 +248,7 @@
 
   .sub-nav-container li.active,
   .sub-nav-container li:has(a:hover) {
-    box-shadow: 0 2px var(--primary-black);
+    box-shadow: inset 0 -2px var(--primary-black);
   }
 
   .sub-nav-container :is(.sub-nav-title, li) {
@@ -261,6 +262,10 @@
   }
 
   /* Magazine desktop */
+  .magazine {
+    --sub-nav-height: var(--sub-nav-height-xl);
+  }
+
   .magazine .sub-nav-container {
     justify-content: initial;
   }
