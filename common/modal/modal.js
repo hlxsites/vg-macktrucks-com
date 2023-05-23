@@ -96,6 +96,9 @@ const createModal = () => {
     window.removeEventListener('keydown', keyDownAction);
     document.body.classList.remove('disable-scroll');
 
+    // stop playing video if the modal contains one
+    document.querySelector('modal-content video')?.pause();
+
     modalContent.addEventListener('transitionend', () => {
       clearModalContent();
     }, { once: true });
