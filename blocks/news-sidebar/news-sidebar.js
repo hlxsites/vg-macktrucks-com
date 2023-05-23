@@ -3,7 +3,7 @@ import { createElement } from '../../scripts/scripts.js';
 import { getNews } from '../../scripts/news.js';
 
 export default async function decorate(block) {
-  const navPages = await getNews('mack-news');
+  const navPages = await getNews('mack-news', window.location.pathname);
   const newsPage = navPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
     ?.toLowerCase());
 
@@ -24,7 +24,7 @@ export default async function decorate(block) {
   const newsYear = new Date(currentLink.publicationDate * 1000).getFullYear();
 
   if (!Number.isNaN(Number(newsYear))) {
-    yearLink.setAttribute('href', `/mack-news/${newsYear}`);
+    yearLink.setAttribute('href', `/mack-news/${newsYear}/`);
     yearLink.textContent = newsYear;
     list.appendChild(yearLink);
   }
