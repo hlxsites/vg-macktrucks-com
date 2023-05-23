@@ -100,7 +100,7 @@
   /* Body font sizes */
   --body-font-size-xxl: 2.4rem; /* 24px */
   --body-font-size-xl: 2.2rem; /* 22px */
-  --body-font-size-l: 2rem; /* 2px */
+  --body-font-size-l: 2rem; /* 20px */
   --body-font-size-m: 1.8rem; /* 18px */
   --body-font-size-s: 1.6rem; /* 16px */
   --body-font-size-xs: 1.4rem; /* 14px */
@@ -157,7 +157,7 @@
   --heading-mobile-font-size-scale: 0.5;
   --heading-1-mobile-size-xl: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
   --heading-2-mobile-size-l: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
-  --heading-3-mobile-size-m: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
+  --heading-3-mobile-size-m: calc(5.2rem * var(--heading-font-size-scale)); /* 26px */
   --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
   --heading-5-mobile-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
 

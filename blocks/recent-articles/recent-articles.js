@@ -27,47 +27,65 @@ export default async function decorate(block) {
   const selectedArticles = sortedArticles.slice(0, limit);
 
   const recentArticlesSection = createElement('div', 'recent-articles-section');
-  const recentArticlesTitle = createElement('h3', 'recentArticles-title');
+  const recentArticlesTitle = createElement('h3', 'recent-articles-section-title');
   recentArticlesTitle.innerText = 'Recent Articles';
 
   const recentArticleList = createElement('ul', 'recent-articles-list');
 
   selectedArticles.forEach((e, idx) => {
-    const item = createElement('li', ['recent-articles-item', `recent-articles-item-${idx}`]);
     const linkUrl = new URL(e.url, window.location.origin);
-
-    const image = createElement('div', 'recent-articles-image');
-    const picture = createOptimizedPicture(e.image, e.title);
-    const pictureTag = picture.outerHTML;
-    image.innerHTML = `<a href="${linkUrl}" class="image-link">
-      ${pictureTag}
-    </a>`;
-    item.append(image);
-
-    const title = createElement('a', 'recent-articles-title');
-    title.href = linkUrl;
-    title.innerText = e.title;
-    item.append(title);
-
     if (idx === 0) {
-      const category = createElement('a', 'recent-articles-category');
+      const item = createElement('li', 'recent-articles-first-item');
+
+      const image = createElement('div', 'recent-articles-image');
+      const picture = createOptimizedPicture(e.image, e.title);
+      const pictureTag = picture.outerHTML;
+      image.innerHTML = `<a href="${linkUrl}">
+        ${pictureTag}
+      </a>`;
+      item.append(image);
+
+      const category = createElement('a', `recent-articles-first-category`);
       const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
       const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
       category.href = categoryUrl;
       category.innerText = e.category;
+      item.append(category);
 
-      const subtitle = createElement('p', 'recent-articles-subtitle');
+      const title = createElement('a', 'recent-articles-first-title');
+      title.href = linkUrl;
+      title.innerText = e.title;
+      item.append(title);
+      
+      const subtitle = createElement('p', 'recent-articles-first-subtitle');
       subtitle.innerText = e.subtitle;
-
-      const link = createElement('a', 'recent-articles-link');
+      item.append(subtitle);
+      
+      const link = createElement('a', 'recent-articles-first-link');
       link.innerText = 'READ NOW';
       link.href = linkUrl;
+      item.append(link);
 
-      image.insertAdjacentElement('afterend', category);
-      title.insertAdjacentElement('afterend', subtitle);
-      subtitle.insertAdjacentElement('afterend', link);
+      recentArticleList.append(item);
+    } else {
+      const item = createElement('li', 'recent-articles-rest-item');
+
+      const image = createElement('div', 'recent-articles-rest-image');
+      const picture = createOptimizedPicture(e.image, e.title);
+      const pictureTag = picture.outerHTML;
+      image.innerHTML = `<a href="${linkUrl}">
+        ${pictureTag}
+      </a>`;
+      item.append(image);
+
+
+      const title = createElement('a', 'recent-articles-rest-title');
+      title.href = linkUrl;
+      title.innerText = e.title;
+      item.append(title);
+
+      recentArticleList.append(item);
     }
-    recentArticleList.append(item);
   });
 
   recentArticlesSection.append(recentArticlesTitle);

@@ -26,24 +26,14 @@ export default async function decorate(block) {
   const selectedArticles = recommendedArticles.slice(0, limit);
 
   const recommendationsSection = createElement('div', 'recommendations-section');
-  const recommendationsTitle = createElement('h3', 'recommendations-title');
+  const recommendationsTitle = createElement('h3', 'recommendations-section-title');
   recommendationsTitle.innerText = 'Based on your reading, you might like this...';
 
   const recommendationsList = createElement('ul', 'recommendations-list');
 
   selectedArticles.forEach((e, idx) => {
     const item = createElement('li', ['recommendations-item', `recommendations-item-${idx}`]);
-
-    const link = createElement('a', 'recommendations-link');
     const linkUrl = new URL(e.url, window.location.origin);
-    link.href = linkUrl;
-    link.innerText = e.title;
-
-    const categoryLink = createElement('a', 'recommendations-category');
-    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
-    categoryLink.href = categoryUrl;
-    categoryLink.innerText = e.category;
 
     const image = createElement('div', 'recommendations-image');
     const picture = createOptimizedPicture(e.image, e.title);
@@ -51,10 +41,31 @@ export default async function decorate(block) {
     image.innerHTML = `<a href="${linkUrl}" class="image-link">
       ${pictureTag}
     </a>`;
+    
+    const content = createElement('div', 'recommendations-text-content');
+    
+    const categoryLink = createElement('a', 'recommendations-category');
+    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
+    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
+    categoryLink.href = categoryUrl;
+    categoryLink.innerText = e.category;
+    content.append(categoryLink);
 
-    item.append(link);
+    const title = createElement('a', 'recommendations-title');
+    title.href = linkUrl;
+    title.innerText = e.title;
+    content.append(title);
+    
+    const subtitle = createElement('a', 'recommendations-subtitle');
+    subtitle.href = linkUrl;
+    subtitle.innerText = e.subtitle;
+
+    if (e.subtitle.length != 0) {
+      content.append(subtitle);
+    }
+
     item.append(image);
-    item.append(categoryLink);
+    item.append(content);
     recommendationsList.append(item);
   });
 
