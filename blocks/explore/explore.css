@@ -11,6 +11,11 @@
   --line-separator: 6px solid var(--c-black);
 }
 
+main .explore-wrapper {
+  margin-block-start: 9rem;
+  margin-block-end: 2rem;
+}
+
 .block.explore {
   border: 1px solid var(--tab-border);
   margin: 10px 8px 30px;
