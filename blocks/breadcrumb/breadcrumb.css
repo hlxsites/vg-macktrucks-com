@@ -1,3 +1,7 @@
+main .section .breadcrumb-container {
+  padding: 0!important;
+} 
+
 .breadcrumb-wrapper {
   font-size: var(--body-font-size-xs);
   font-family: var(--subheadings-ff-medium);

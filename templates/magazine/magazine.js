@@ -12,7 +12,7 @@ async function buildArticleHero() {
   const truckModel = getMetadata('truck');
   const category = getMetadata('category');
 
-  const section = createElement('div', ['section', 'template', 'article-template', 'article-hero', 'hero']);
+  const section = createElement('div', ['section', 'template', 'article-template', 'article-hero-container']);
 
   const headImg = createOptimizedPicture(headPic, headAlt);
   const articleHeroImage = createElement('div', 'article-hero-image');
@@ -35,139 +35,110 @@ async function buildArticleHero() {
   truckIcon.src = '/icons/Truck_Key_icon.svg';
   truckIcon.alt = 'truck icon';
 
-  truck.append(truckIcon);
-  truck.append(truckText);
-
+  truck.append(truckIcon, truckText);
   articleHeroContent.append(truck);
+  section.append(articleHeroImage, articleHeroContent);
 
-  section.append(articleHeroImage);
-  section.append(articleHeroContent);
-
-  return section
-  // container.insertAdjacentElement('afterbegin', section);
+  return section;
 }
 
 async function buildBreadcrumb(container) {
   const breadcrumb = container.querySelector('.breadcrumb-container .breadcrumb-wrapper');
-  const breadcrumbContainer = createElement('div', ['section', 'breadcrumb-container', 'breadcrumb']);
-  breadcrumbContainer.append(breadcrumb)
+  const breadcrumbContainer = createElement('div', ['section', 'template', 'article-template', 'breadcrumb-container']);
+  breadcrumbContainer.append(breadcrumb);
 
-  return breadcrumbContainer
-  // container.insertAdjacentElement('afterbegin', breadcrumbContainer);
+  return breadcrumbContainer;
 }
 
 async function buildRecommendations(container) {
-
   const recommendations = container.querySelector('.recommendations-container .recommendations-wrapper');
-  const recommendationsContainer = createElement('div', ['section', 'recommendations-container', 'recent']);
+  const recommendationsContainer = createElement('div', 'recommendations-container');
+  recommendationsContainer.append(recommendations);
 
-  recommendationsContainer.append(recommendations)
-
-  return recommendationsContainer
-  // container.insertAdjacentElement('beforeend', recentArticlesContainer);
+  return recommendationsContainer;
 }
 
 async function buildRecentArticles(container) {
-
   const recentArticles = container.querySelector('.recent-articles-container .recent-articles-wrapper');
-  const recentArticlesContainer = createElement('div', ['section', 'recent-articles-container', 'recent']);
+  const recentArticlesContainer = createElement('div', 'recent-articles-container');
+  recentArticlesContainer.append(recentArticles);
 
-  recentArticlesContainer.append(recentArticles)
-
-  return recentArticlesContainer
-  // container.insertAdjacentElement('beforeend', recentArticlesContainer);
+  return recentArticlesContainer;
 }
 
 async function buildShareSection() {
   const shareSection = createElement('div', 'share-wrapper');
-
-
-
   const shareItems = [
-    ['envelope', 'Share via email', 'mailto:?body=', 'Email'],
-    ['twitter', 'Share on Twitter', 'https://twitter.com/intent/tweet?url=', 'Tweet'],
-    ['facebook', 'Share on Facebook', 'https://www.facebook.com/sharer/sharer.php?u=', 'Like'],
+    ['envelope', 'Share via email', 'mailto:?body=', 'Email', '#FD6D4B'],
+    ['twitter', 'Share on Twitter', 'https://twitter.com/intent/tweet?url=', 'Tweet', '#1C9BEF'],
+    ['facebook', 'Share on Facebook', 'https://www.facebook.com/sharer/sharer.php?u=', 'Like', '#1977F2'],
   ];
   const shareSidebar = createElement('div', 'share');
-  // const shareHeading = createElement('p');
-  // shareHeading.innerText = 'Share this article';
-  // shareSidebar.append(shareHeading);
   const shareList = createElement('div', 'share-icons');
   shareItems.forEach((share) => {
-    const icon = createElement('span', ['icon', `icon-fa-${share[0]}`]);
+    const icon = createElement('span', ['icon', `fa-${share[0]}`]);
     const shareItem = createElement('button', share[0], { title: share[1], type: 'button' });
     shareItem.addEventListener('click', () => {
       window.open(`${share[2]}${window.location.href}`, '_blank');
     });
-    shareItem.innerText = share[3];
+    const [, , , label, color] = share;
+    shareItem.innerText = label;
+    shareItem.style.backgroundColor = color;
+
     shareItem.append(icon);
     shareList.append(shareItem);
   });
   shareSidebar.append(shareList);
   shareSection.append(shareSidebar);
 
-  return shareSection
-
+  return shareSection;
 }
 
 export default async function decorate(doc) {
   const container = doc.querySelector('main');
 
   const article = createElement('div', 'article-content');
-  
-  const breadSection = await buildBreadcrumb(container);
-  const heroSection = await buildArticleHero();
-  const shareSection = await buildShareSection()
-  const recentSection = await buildRecentArticles(container);
-  const recommendationsSection = await buildRecommendations(container);
-  
+  const articleTexts = createElement('div', ['section', 'template', 'article-template', 'article-texts-container']);
+  const currentArticle = createElement('div', 'current-article-container');
+
+  const [
+    breadSection,
+    heroSection,
+    shareSection,
+    recentSection,
+    recommendationsSection,
+  ] = await Promise.all([
+    buildBreadcrumb(container),
+    buildArticleHero(),
+    buildShareSection(),
+    buildRecentArticles(container),
+    buildRecommendations(container),
+  ]);
+
+  const shareClone = shareSection.cloneNode(true);
+
   const authorName = getMetadata('author');
   const author = createElement('p', 'author-text');
   author.innerText = authorName;
-  
+
   const defaultContent = container.querySelector('.default-content-wrapper');
-  defaultContent.classList.add('default');
 
   const parentSection = defaultContent.parentNode;
   parentSection.classList.add('default-content-container');
-  parentSection.classList.remove('breadcrumb-container')
-  parentSection.classList.remove('recent-articles-container')
-  
-  const firstHeading = defaultContent.querySelector('h5');
-  firstHeading.classList.add('default-content-subtitle')
-  
-  // defaultContent.insertAdjacentElement('beforebegin', author);
-  
-  // TODO share section
-  const shareClone = await shareSection.cloneNode(true);
+  parentSection.classList.remove('breadcrumb-container', 'recent-articles-container');
 
+  const firstHeading = defaultContent.querySelector('h5');
+  firstHeading.classList.add('default-content-subtitle');
 
   defaultContent.insertAdjacentElement('beforebegin', shareSection);
   defaultContent.insertAdjacentElement('afterend', shareClone);
-  
+
   parentSection.insertAdjacentElement('afterbegin', firstHeading);
-  const articleTexts = createElement('div', 'article-texts');
 
-  const currentArticle = createElement('div', 'current-article');
+  currentArticle.append(firstHeading, author, shareSection, defaultContent, shareClone);
+  articleTexts.append(currentArticle, recommendationsSection, recentSection);
+  article.append(breadSection, heroSection, articleTexts);
 
-
-  console.log(shareSection)
-  console.log(shareClone)
-  
-  currentArticle.append(firstHeading)
-  currentArticle.append(authorName)
-  currentArticle.append(shareSection)
-  currentArticle.append(defaultContent)
-  currentArticle.append(shareClone)
-
-  articleTexts.append(currentArticle)
-  articleTexts.append(recommendationsSection)
-  articleTexts.append(recentSection)
-  
-  article.append(breadSection);
-  article.append(heroSection);
-  article.append(articleTexts);
-
-  container.innerText = ''
-  container.append(article)
+  container.innerText = '';
+  container.append(article);
 }

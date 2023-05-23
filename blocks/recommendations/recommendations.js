@@ -41,36 +41,33 @@ export default async function decorate(block) {
     image.innerHTML = `<a href="${linkUrl}" class="image-link">
       ${pictureTag}
     </a>`;
-    
+
     const content = createElement('div', 'recommendations-text-content');
-    
+
     const categoryLink = createElement('a', 'recommendations-category');
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
     categoryLink.href = categoryUrl;
     categoryLink.innerText = e.category;
-    content.append(categoryLink);
 
     const title = createElement('a', 'recommendations-title');
     title.href = linkUrl;
     title.innerText = e.title;
-    content.append(title);
-    
+
+    content.append(categoryLink, title);
+
     const subtitle = createElement('a', 'recommendations-subtitle');
     subtitle.href = linkUrl;
     subtitle.innerText = e.subtitle;
 
-    if (e.subtitle.length != 0) {
+    if (e.subtitle.length !== 0) {
       content.append(subtitle);
     }
-
-    item.append(image);
-    item.append(content);
+    item.append(image, content);
     recommendationsList.append(item);
   });
 
-  recommendationsSection.append(recommendationsTitle);
-  recommendationsSection.append(recommendationsList);
+  recommendationsSection.append(recommendationsTitle, recommendationsList);
 
   block.textContent = '';
   block.append(recommendationsSection);

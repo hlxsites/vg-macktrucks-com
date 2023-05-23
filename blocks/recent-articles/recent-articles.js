@@ -45,27 +45,24 @@ export default async function decorate(block) {
       </a>`;
       item.append(image);
 
-      const category = createElement('a', `recent-articles-first-category`);
+      const category = createElement('a', 'recent-articles-first-category');
       const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
       const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
       category.href = categoryUrl;
       category.innerText = e.category;
-      item.append(category);
 
       const title = createElement('a', 'recent-articles-first-title');
       title.href = linkUrl;
       title.innerText = e.title;
-      item.append(title);
-      
+
       const subtitle = createElement('p', 'recent-articles-first-subtitle');
       subtitle.innerText = e.subtitle;
-      item.append(subtitle);
-      
+
       const link = createElement('a', 'recent-articles-first-link');
       link.innerText = 'READ NOW';
       link.href = linkUrl;
-      item.append(link);
 
+      item.append(category, title, subtitle, link);
       recentArticleList.append(item);
     } else {
       const item = createElement('li', 'recent-articles-rest-item');
@@ -73,23 +70,19 @@ export default async function decorate(block) {
       const image = createElement('div', 'recent-articles-rest-image');
       const picture = createOptimizedPicture(e.image, e.title);
       const pictureTag = picture.outerHTML;
-      image.innerHTML = `<a href="${linkUrl}">
+      image.innerHTML = `<a href='${linkUrl}'>
         ${pictureTag}
       </a>`;
-      item.append(image);
-
 
       const title = createElement('a', 'recent-articles-rest-title');
       title.href = linkUrl;
       title.innerText = e.title;
-      item.append(title);
 
+      item.append(image, title);
       recentArticleList.append(item);
     }
   });
-
-  recentArticlesSection.append(recentArticlesTitle);
-  recentArticlesSection.append(recentArticleList);
+  recentArticlesSection.append(recentArticlesTitle, recentArticleList);
 
   block.textContent = '';
   block.append(recentArticlesSection);
