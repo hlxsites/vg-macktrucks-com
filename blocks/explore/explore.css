@@ -218,10 +218,6 @@
 }
 
 @media (min-width: 768px) {
-  .explore-wrapper {
-    background: url('../../media/bg-explore.jpeg');
-  }
-
   .block.explore {
     max-width: 960px;
     margin: 0 auto;
