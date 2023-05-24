@@ -22,6 +22,9 @@ const buildRegularDownloadBlock = (block) => {
     const linkText = linkElement.getAttribute('title');
     const linkUrl = linkElement.getAttribute('href');
 
+    const fileExtension = linkUrl.split('.').pop();
+    const fileRoute = fileExtension === 'xlsm' ? `${window.hlx.codeBasePath}/files/${linkUrl.slice(7)}` : linkUrl;
+
     downloadItem.innerHTML = `
     <div class='download-card'>
       <div class='download-image'>
@@ -36,7 +39,7 @@ const buildRegularDownloadBlock = (block) => {
         <p class='download-texts-text'>
           ${textContent}
         </p>
-        <a href='${linkUrl}' class='download-texts-link'>
+        <a href='${fileRoute}' class='download-texts-link' target='_blank' title='${linkText}'>
           ${linkText}
         </a>
       </div>
@@ -53,8 +56,11 @@ const buildNewDownloadBlock = (block) => {
 
   children.forEach((e, idx) => {
     const downloadItem = createElement('li', ['download-new-item', `download-new-item-${idx + 1}`]);
-    const linkUrl = e.querySelector('a').getAttribute('href');
     const allTexts = e.querySelectorAll('li');
+    const linkUrl = e.querySelector('a').getAttribute('href');
+
+    const fileExtension = linkUrl.split('.').pop();
+    const fileRoute = fileExtension === 'xlsm' ? `${window.hlx.codeBasePath}/files/${linkUrl.slice(7)}` : linkUrl;
 
     const newCondition = e.children[1].innerText.toUpperCase();
     const number = allTexts[1].innerText;
@@ -62,7 +68,7 @@ const buildNewDownloadBlock = (block) => {
     const subTitle = allTexts[3].innerText;
 
     downloadItem.innerHTML = `
-    <a href="${linkUrl}" target="_blank" rel="noopener" class='download-new-link'>
+    <a href="${fileRoute}" target="_blank" class='download-new-link' title='${title}'>
         <div class='download-new-texts'>
           <p>
             ${number}. ${title}
