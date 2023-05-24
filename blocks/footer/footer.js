@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
 /**
@@ -17,6 +17,12 @@ export default async function decorate(block) {
 
   footer.innerHTML = html;
 
+  // adding the 'block' class and 'data-block-name'
+  // needed to load blocks
+  const eloquaFormEl = footer.querySelector('.eloqua-form');
+  eloquaFormEl?.classList.add('block');
+  eloquaFormEl?.setAttribute('data-block-name', 'eloqua-form');
+
   // transforming icons into font-awesome
   footer.querySelectorAll('span.icon').forEach((icon) => {
     const iconClass = icon.getAttribute('class').split(' ').find((el) => el.startsWith('icon-'));
@@ -28,13 +34,6 @@ export default async function decorate(block) {
       icon.classList.add('fa', iconName, 'footer-social-media');
     }
   });
-
-  await decorateIcons(footer);
-
-  const formSection = footer.querySelector('.eloqua-form')?.parentElement;
-  formSection?.classList.add('footer-form-section');
-
-  const form = 'ELOUQUA FORM SHOULD BE HERE';
 
   const socialMediaSection = footer.querySelector('.fa-twitter, .fa-facebook, .fa-twitter, .fa-linkedin, .fa-instagram, .fa-youtube')?.closest('ul');
   socialMediaSection?.classList.add('footer-social-media-section');
@@ -57,14 +56,16 @@ export default async function decorate(block) {
 
   const bottomLinksList = [...footer.querySelectorAll('ul')].at(-1);
 
+  const formSection = footer.querySelector('.eloqua-form')?.parentElement;
+  formSection?.classList.add('footer-form-section');
+
   const footerTemplate = `
     <div class="footer-content">
       <div class="footer-main-content">
         <div class="footer-form-and-social-section">
           <div class="footer-form-section">
-            <p>Subscribe to Mack Email</p>
             <div class="form footer-form">
-              ${form}
+              ${formSection?.outerHTML}
             </div>
           </div>
           ${socialMediaSection?.outerHTML}
@@ -89,4 +90,7 @@ export default async function decorate(block) {
   `;
 
   block.innerHTML = footerTemplate;
+
+  await decorateIcons(block);
+  await loadBlocks(block);
 }
