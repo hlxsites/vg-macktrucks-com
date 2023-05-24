@@ -451,3 +451,9 @@ body.disable-scroll main {
   transform: translate(-50%, -50%) scale(0.95);
   background: #7a7a7a;
 }
+
+/* background classes */
+.bg-white-paper {
+  background: url('../../media/bg-explore.jpeg');
+  background-size: cover;
+}
