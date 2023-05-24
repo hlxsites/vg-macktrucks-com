@@ -4,6 +4,17 @@ import {
 
 const debounceDelay = 30;
 
+function isInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0
+      && rect.left >= 0
+      && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+
+  );
+}
+
 function calcCarouselItemsOffset(slidesEl) {
   const first = slidesEl.firstElementChild;
   const second = first.nextElementSibling;
@@ -59,13 +70,13 @@ function createDesktopControls(ul) {
     const scrollOffset = calcCarouselItemsOffset(ul);
 
     // when no more items are on the left, scroll to the last item
-    if (ul.scrollLeft < scrollOffset && direction === 'left') {
+    if (isInViewport(ul.firstChild) && direction === 'left') {
       ul.scrollTo(ul.scrollWidth, 0);
       return;
     }
 
     // when no more items are on the right, scroll to the firs item
-    if (Math.abs(ul.scrollLeft) >= ul.scrollWidth - ul.clientWidth && direction === 'right') {
+    if (isInViewport(ul.lastChild) && direction === 'right') {
       ul.scrollTo(0, 0);
       return;
     }
