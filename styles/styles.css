@@ -207,7 +207,7 @@ header {
   color: var(--header-color);
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 h1, h2, h3,
