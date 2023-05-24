@@ -75,6 +75,10 @@ export function createElement(tagName, classes, props = {}) {
   return elem;
 }
 
+/**
+ * Builds hero block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
@@ -162,7 +166,8 @@ async function loadTemplate(doc, templateName) {
 }
 
 /**
- * loads everything needed to get to LCP.
+ * Loads everything needed to get to LCP.
+ * @param {Element} doc The container element
  */
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
@@ -170,6 +175,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
 
@@ -194,7 +200,8 @@ export function addFavIcon(href) {
 }
 
 /**
- * loads everything that doesn't need to be delayed.
+ * Loads everything that doesn't need to be delayed.
+ * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
   const templateName = getMetadata('template');
@@ -220,8 +227,8 @@ async function loadLazy(doc) {
 }
 
 /**
- * loads everything that happens a lot later, without impacting
- * the user experience.
+ * Loads everything that happens a lot later,
+ * without impacting the user experience.
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle

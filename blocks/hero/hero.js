@@ -3,8 +3,6 @@ import { createElement } from '../../scripts/scripts.js';
 const decorateVideo = (link) => {
   const { parentElement } = link;
   const video = createElement('video', ['hero-video', 'hide'], {
-    autoplay: 'autoplay',
-    muted: 'muted',
     loop: 'loop',
   });
   const source = createElement('source', '', { src: link.href, type: 'video/mp4' });
@@ -13,7 +11,8 @@ const decorateVideo = (link) => {
   link.remove();
   setTimeout(() => {
     video.classList.remove('hide');
-    video.onloadedmetadata = () => video.play();
+    video.muted = true;
+    video.play();
   }, 3000);
 };
 

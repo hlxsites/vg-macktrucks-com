@@ -1,0 +1,493 @@
+ /* stylelint-disable no-descending-specificity */
+
+.section.hotspots-container {
+    padding: unset;
+    background-color: var(--primary-black);
+    width: 100%;
+    color: var(--primary-white);
+}
+
+ /* on mobile, hide hotspots areas which are not active */
+ @media (max-width: 896px) {
+     .section.hotspots-container {
+         display: none
+     }
+
+     .section.hotspots-container.active {
+         display: block
+     }
+ }
+
+
+ .hotspots-container .hotspots-wrapper {
+    max-width: unset;
+    margin: 0;
+}
+
+
+.hotspots-container .main p.reduced-width {
+    max-width: 500px;
+    margin: 0 auto
+}
+
+
+.hotspots-container .hotspot {
+    position: relative;
+    width: 100%;
+    z-index: 1
+}
+
+.hotspots-container .hotspot .hotspot-bg-img img {
+    width: 100%;
+    margin: 0 auto;
+    display: block
+}
+
+.hotspots-container .hotspot .hotspot-bg-img.mobile img {
+    display: none
+}
+
+.hotspots-container .hotspot .hotspot-content {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center
+}
+
+.hotspots-container .hotspot .hotspot-content.invert {
+    color: #000
+}
+
+
+.hotspots-container .hotspot .hotspot-content h1, .hotspot .hotspot-content p {
+    max-width: 600px
+}
+
+.hotspots-container .hotspot .hotspot-content h1 {
+    font: 80px/62px var(--headline-ff-medium);
+    letter-spacing: -.035em;
+    margin: -20px auto 0;
+    text-align: center
+
+}
+
+.hotspots-container .hotspot .hotspot-content p {
+    font-size: var(--body-font-size-l);
+    font-family: var(--body-ff);
+    max-width: 500px;
+    line-height: 1em;
+}
+
+.hotspots-container .hotspot .hotspot-content .hotspot-text {
+    padding-top: 16px
+}
+
+.hotspots-container .hotspot .hotspot-icon-set {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    overflow: hidden
+}
+
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon {
+    position: absolute;
+    transform: rotate(0)
+}
+
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon img {
+    transition: .3s
+}
+
+.hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot img {
+    transform: rotate(45deg)
+}
+
+.hotspots-container .hotspot.truck .hotspot-content .hotspot-header {
+    font: 65px/72px var(--headline-ff-medium);
+}
+
+.hotspots-container .hotspot.truck .feature-block:first-child {
+    margin-top: -340px;
+    z-index: 2
+}
+
+@media (max-width: 896px) {
+    .hotspots-container .hotspot .hotspot-bg-img.desktop img {
+        display: none
+    }
+
+    .hotspots-container .hotspot .hotspot-bg-img.mobile img {
+        display: block
+    }
+
+    .hotspots-container .hotspot {
+        padding-bottom: 18vw
+    }
+
+    .hotspots-container .hotspot.truck {
+        margin-bottom: 0
+    }
+
+    .hotspots-container .hotspot.truck + .feature-block {
+        margin-top: 0;
+        z-index: 2
+    }
+
+
+    .hotspots-container .hotspot .hotspot-content {
+        top: -10vw;
+        position: relative
+    }
+
+    .hotspots-container .hotspot .hotspot-content .hotspot-header {
+        font: 8vw/12vw var(--headline-ff-medium);
+        color: #fff !important
+    }
+
+    .hotspots-container .hotspot .hotspot-content p.hotspot-text {
+        font-size: 20px;
+        line-height: 1.1;
+        color: #fff !important
+    }
+
+    .hotspots-container .hotspot .hotspot-icon-set {
+        display: none
+    }
+
+    .hotspots-container .hotspot-mobile .feature-block .feature .feature-title {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 10px
+    }
+
+    .hotspots-container .hotspot-mobile .feature-block .feature p {
+        max-width: none;
+        font-size: 16px;
+        line-height: 20px
+    }
+}
+
+@media (max-width: 640px) {
+    .hotspots-container .hotspot .hotspot-content {
+        top: -8vw
+    }
+}
+
+.hotspots-container .hotspot-mobile {
+    width: 100%
+}
+
+@media (min-width: 897px) {
+    .hotspots-container .hotspot-mobile {
+        display: none
+    }
+}
+
+.hotspots-container .hotspot-layover {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    position: fixed;
+    z-index: 102;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(0 0 0 / 0%)
+}
+
+.hotspots-container .hotspot-layover a:link {
+    color: #fff
+}
+
+.hotspots-container .hotspot-layover a:hover {
+    color: #5d5d5d
+}
+
+.hotspots-container .hotspot-layover a:visited {
+    color: #fff
+}
+
+.hotspots-container .hotspot-layover h1 {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    font: 50px/50px var(--headline-ff-medium);
+    text-align: center
+}
+
+.hotspots-container .hotspot-layover h2 {
+    font: 44px/44px var(--headline-ff-medium)
+}
+
+.hotspots-container .hotspot-layover h3 {
+    font: 20px/18px var(--headline-ff-medium);
+    margin-bottom: 8px
+}
+
+.hotspots-container .hotspot-layover h4 {
+    font: 18px/18px var(--headline-ff-medium);
+}
+
+.hotspots-container .hotspot-layover h5 {
+    margin: 10px 0 8px;
+    font: 12px/12px var(--emphasis-ff-bold);
+    text-transform: uppercase
+}
+
+.hotspots-container .hotspot-layover h6 {
+    font-family: var(--emphasis-ff-bold);
+}
+
+.hotspots-container .hotspot-layover p, .hotspots-container .hotspot-layover p.large {
+    font: 16px/1.1 var(--body-ff)
+}
+
+.hotspots-container .hotspot-layover p {
+    margin-top: 12px;
+    margin-bottom: 12px
+}
+
+.hotspots-container .hotspot-layover p.fine-print {
+    margin: 5px 0;
+    font-size: 10px;
+    color: #5b5b5b
+}
+
+.hotspots-container .hotspot-layover p.reduced-width {
+    max-width: 500px;
+}
+
+.hotspots-container .hotspot-layover a {
+    font: 16px/16px var(--emphasis-ff-bold);
+    color: #fff
+}
+
+@media (max-width: 896px) {
+    .hotspots-container .hotspot-layover :is(h1, h2) {
+        font: 40px/40px var(--headline-ff-medium);
+    }
+
+    .hotspots-container .hotspot-layover h3 {
+        font: 28px/28px var(--emphasis-ff-bold);
+    }
+
+    .hotspots-container .hotspot-layover :is(h4, h5) {
+        font: 14px/14px var(--headline-ff-medium)
+    }
+
+    .hotspots-container .hotspot-layover p {
+        font: 16px/16px var(--body-ff);
+    }
+
+    .hotspots-container .hotspot-layover p.large {
+        font: 16px/16px var(--subheadings-ff-medium);
+    }
+}
+
+.hotspots-container .hotspot-layover.is-active {
+    transition: background-color .3s linear;
+    background-color: rgb(0 0 0 / 50%)
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box {
+    transition: transform .3s ease-out;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 460px;
+    height: 100%;
+    background: #333;
+    transform: translateX(125%)
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box.is-active {
+    transform: translateX(0)
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box.no-animation {
+    transition: none !important;
+    transition-property: none !important
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-bottom: 70%;
+    background-position: center;
+    background-size: cover
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close {
+    width: 22px;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 3
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-text {
+    position: relative;
+    z-index: 2;
+    padding: 48px;
+    height: calc(100% - 422px);
+    overflow-y: auto
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    display: table;
+    width: 100%;
+    background-color: #111
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button {
+    display: table-cell;
+    width: 50%;
+    height: 100px;
+    font-size: 16px;
+    line-height: 1.1;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer
+}
+
+ .hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:hover {
+     text-decoration: none;
+     color: unset;
+ }
+
+ .hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev {
+    text-align: left;
+    padding: 0 15px 0 65px
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev img {
+    left: 30px
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next {
+    text-align: right;
+    padding: 0 65px 0 15px
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.next img {
+    right: 30px
+}
+
+.hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:first-child {
+    border-right: 1px solid #222
+}
+
+.hotspots-container .hotspot.truck {
+    margin-bottom: -160px
+}
+
+.hotspots-container .hotspot.truck ~ .feature-block {
+    z-index: 2
+}
+
+@media (max-width: 896px) {
+    .hotspots-container .hotspot.truck {
+        margin-bottom: 0
+    }
+}
+
+.hotspots-container .content-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1376px;
+    margin: 0 auto;
+    padding: 0 48px
+}
+
+@media (max-width: 1280px) {
+    .hotspots-container .content-wrapper {
+        width: 100%;
+        padding: 0 48px
+    }
+}
+
+
+ #hotspots-mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #1b1b1b;
+    z-index: 10
+}
+
+ #hotspots-mobile-nav .featurenav-list {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+    display: inline
+}
+
+ #hotspots-mobile-nav .featurenav-list .featurenav-list-item {
+    width: 33.333%;
+    position: relative;
+    display: block;
+    float: left;
+    height: 100%;
+    border-right: 1px solid #1d1d1d;
+    cursor: pointer;
+}
+
+ #hotspots-mobile-nav .featurenav-list .featurenav-list-item.active::before,
+ #hotspots-mobile-nav .featurenav-list .featurenav-list-item:hover::before {
+    display: none
+}
+
+/* overlay a gray box over the non-active buttons */
+ #hotspots-mobile-nav .featurenav-list .featurenav-list-item::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 50%)
+}
+
+ #hotspots-mobile-nav .featurenav-list .featurenav-list-item a:any-link {
+    position: absolute;
+    padding: 0;
+    color: #fff;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--emphasis-ff-bold), serif;
+    font-size: .85em
+}
+
+@media (min-width: 897px) {
+    #hotspots-mobile-nav {
+        display: none
+    }
+}
+
+
+
+

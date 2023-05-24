@@ -318,7 +318,3 @@
     margin: 0;
   }
 }
-
-.fa-close::before {
-  content: "\f00d";
-}
