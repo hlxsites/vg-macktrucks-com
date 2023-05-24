@@ -193,10 +193,12 @@
     color: white;
     font-size: 5rem;
     opacity: 0.7;
+    margin-right: 5px;
   }
 
   .block.carousel .desktop-controls li:last-child button::after {
     content: "\f105";
+    margin: 0 0 0 5px;
   }
 
   .block.carousel .mobile-controls {
@@ -399,7 +401,7 @@
 
 .block.carousel.cards .carousel-item-text > * {
   opacity: 0;
-  transition: opacity .7s;
+  transition: opacity 0.7s;
 }
 
 .block.carousel.cards .carousel-item-text > *:first-child {
