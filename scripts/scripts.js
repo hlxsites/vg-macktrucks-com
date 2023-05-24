@@ -68,20 +68,28 @@ export function createElement(tagName, classes, props = {}) {
   }
   if (props) {
     Object.keys(props).forEach((propName) => {
-      elem.setAttribute(propName, props[propName]);
+      const value = propName === props[propName] ? '' : props[propName];
+      elem.setAttribute(propName, value);
     });
   }
 
   return elem;
 }
 
+/**
+ * Builds hero block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
+  const heroBlock = main.querySelector('.hero');
+  if (heroBlock) return;
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.querySelector('.hero').classList.add('auto-block');
     main.prepend(section);
   }
 }
@@ -159,7 +167,8 @@ async function loadTemplate(doc, templateName) {
 }
 
 /**
- * loads everything needed to get to LCP.
+ * Loads everything needed to get to LCP.
+ * @param {Element} doc The container element
  */
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
@@ -167,6 +176,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
 
@@ -191,7 +201,8 @@ export function addFavIcon(href) {
 }
 
 /**
- * loads everything that doesn't need to be delayed.
+ * Loads everything that doesn't need to be delayed.
+ * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
   const templateName = getMetadata('template');
@@ -217,8 +228,8 @@ async function loadLazy(doc) {
 }
 
 /**
- * loads everything that happens a lot later, without impacting
- * the user experience.
+ * Loads everything that happens a lot later,
+ * without impacting the user experience.
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
