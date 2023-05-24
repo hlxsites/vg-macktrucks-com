@@ -8,7 +8,7 @@
   --sn-btn-height-block: calc(var(--sn-btn-height) + (var(--sn-btn-border) * 2));
   --nav-full-height: calc(var(--nav-height) + var(--sub-nav-height));
   --magazine-sn-list-width: 325px;
-  --magazine-sn-list-height: 349.633px;
+  --magazine-sn-list-height: 350px;
 }
 
 .block.sub-nav {
@@ -56,7 +56,7 @@
   visibility: inherit;
 }
 
-.sub-nav-container:has(ul.open) .sub-nav-title {
+.sub-nav-container > .fa-caret-up ~ .sub-nav-title {
   box-shadow: 0 2px var(--secondary-steel);
   width: 100%;
 }
@@ -142,7 +142,7 @@
 }
 
 .magazine .sub-nav-list-wrapper .sub-nav-list-icon {
-  width: 37.55px;
+  width: 38px;
   height: 40px;
   margin: 0;
   position: relative;
@@ -211,15 +211,14 @@
   width: 100%;
 }
 
+header:has(nav[aria-expanded=true]) .sub-nav-container {
+  position: relative;
+  z-index: -1;
+}
+
 @media (min-width: 480px) {
   .magazine .sub-nav-content img {
     translate: -30px;
-  }
-}
-
-@media (max-width: 1139px) {
-  header:has(nav[aria-expanded=true]) .sub-nav-container {
-    z-index: -1;
   }
 }
 
@@ -285,5 +284,10 @@
 
   .magazine .button-container .subscribe-button {
     padding: 10px 30px;
+  }
+
+  header:has(nav[aria-expanded=true]) .sub-nav-container {
+    position: unset;
+    z-index: unset;
   }
 }

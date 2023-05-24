@@ -1,9 +1,9 @@
 import { decorateButtons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
-// TODO update the next line to not be hardcoded text
-const subscribeText = 'SUBSCRIBE TO BULLDOG';
+const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
+const overviewText = getTextLabel('Overview');
 let fullHeight = 0;
 
 function toggleHeightList(ul) {
@@ -47,7 +47,7 @@ async function createSubNav(block, ref) {
 
   title.className = 'sub-nav-title';
   activeLi.className = 'active';
-  overviewLink.textContent = 'Overview';
+  overviewLink.textContent = overviewText;
   overview.appendChild(overviewLink);
   ul.prepend(overview);
   if (ctasWrapper) {
