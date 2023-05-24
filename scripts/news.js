@@ -30,11 +30,37 @@ export async function loadNews(more) {
  * A function for sorting an array of posts by date
  */
 function sortNewsByDate(newsA, newsB) {
-  const aDate = Number(newsA.date || newsA.lastModified);
-  const bDate = Number(newsB.date || newsB.lastModified);
+  const aDate = Number(newsA.publicationDate || newsA.lastModified);
+  const bDate = Number(newsB.publicationDate || newsB.lastModified);
   return bDate - aDate;
 }
 
+/**
+ * A function for filter news results by date
+ */
+function filterNewsByDate(results, year) {
+  const filteredResults = results.filter((result) => {
+    const resultYear = new Date(result.publicationDate * 1000).getFullYear();
+    return resultYear === year;
+  });
+
+  return filteredResults;
+}
+
+/**
+ * A function for extract year from url pathname
+ */
+function extractYearFromPath(path) {
+  const yearRegex = /\/(\d{4})\//;
+  const matches = path.match(yearRegex);
+
+  if (matches && matches.length >= 2) {
+    const year = parseInt(matches[1], 10);
+    return year;
+  }
+
+  return null;
+}
 /**
  * Get the list of news from the query index. News are auto-filtered based on page context
  * e.g tags, etc. and sorted by date
@@ -44,11 +70,13 @@ function sortNewsByDate(newsA, newsB) {
  * @param {number} limit the number of posts to return, or -1 for no limit
  * @returns the posts as an array
  */
-export async function getNews(filter, limit) {
+export async function getNews(filter, path, limit) {
   const pages = await loadNews();
   // filter out anything that isn't a mack news (eg. must have an author)
   let finalNews;
   const allNews = pages.filter((page) => page.template === 'mack-news');
+  const year = path ? extractYearFromPath(path) : null;
+  const allYearsNews = year ? filterNewsByDate(allNews, year) : allNews;
   const template = getMetadata('template');
   let applicableFilter = filter ? filter.toLowerCase() : 'none';
   if (applicableFilter === 'auto') {
@@ -60,7 +88,7 @@ export async function getNews(filter, limit) {
   }
 
   if (applicableFilter === 'mack-news') {
-    finalNews = allNews.sort(sortNewsByDate);
+    finalNews = allYearsNews.sort(sortNewsByDate);
   } else {
     finalNews = [];
   }
