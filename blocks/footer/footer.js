@@ -89,7 +89,12 @@ export default async function decorate(block) {
     </div>
   `;
 
-  block.innerHTML = footerTemplate;
+  const fragment = document.createRange().createContextualFragment(footerTemplate);
+  block.appendChild(fragment);
+
+  // make links to open in another browser tab/window
+  const socialLinks = block.querySelectorAll('.footer-social-media-section a');
+  [...socialLinks].forEach((a) => { a.target = '_blank'; });
 
   await decorateIcons(block);
   await loadBlocks(block);
