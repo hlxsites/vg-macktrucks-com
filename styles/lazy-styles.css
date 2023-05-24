@@ -209,7 +209,7 @@
 }
 
 .fa-youtube::before {
-  content: "\f167"
+  content: "\f16a"
 }
 
 .fa-linkedin::before {
@@ -304,6 +304,10 @@
   content: "\f00c"
 }
 
+.fa-close::before {
+  content: "\f00d";
+}
+
 .body-dealer-locator footer.footer-wrapper{
   display: none;
 }
@@ -317,4 +321,10 @@
     padding: 0;
     margin: 0;
   }
+}
+
+.fa-facebook::before,
+.fa-youtube::before {
+  display: flex;
+  justify-content: center;
 }
