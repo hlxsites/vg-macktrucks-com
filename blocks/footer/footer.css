@@ -314,10 +314,12 @@
   cursor: pointer;
   opacity: 0;
   transition: opacity 1s;
+  visibility: hidden;
 }
 
 .confirm-checkbox.show {
   opacity: 1;
+  visibility: visible;
 }
 
 /* eloqua footer form styles - END */
