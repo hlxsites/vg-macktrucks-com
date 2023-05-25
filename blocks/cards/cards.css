@@ -144,6 +144,8 @@
 .block.cards.modest > ul {
     display: flex;
     gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .block.cards.modest > ul > li {
