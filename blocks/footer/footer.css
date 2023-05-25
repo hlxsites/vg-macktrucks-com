@@ -230,11 +230,6 @@
   font-family: var(--body-ff);
 }
 
-/* .footer .checkbox-span input[type="checkbox"] {
-  width: 13px;
-  height: 13px;
-} */
-
 .footer .eloqua-form .elq-form .email-and-submit-container {
   display: flex;
   align-items: stretch;
