@@ -101,9 +101,9 @@
   --accents-ff-bold-italic: 'GT America Mono Bold Italic', var(--fallback-ff-accents);
 
   /* Alternate fonts */
-  --fallback-ff-texts: helvetica, 'Arial Regular Text Fallback',  sans-serif;
-  --fallback-ff-headlines: helvetica, 'Arial Bold Headline Fallback', sans-serif;
-  --fallback-ff-accents: helvetica, 'Arial Regular Text Fallback', sans-serif;
+  --fallback-ff-texts: 'Arial Regular Text Fallback', helvetica, sans-serif;
+  --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
+  --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
 
   /* Fontawesome */
   --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
