@@ -207,7 +207,7 @@ header {
   color: var(--header-color);
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 h1, h2, h3,
@@ -450,4 +450,10 @@ body.disable-scroll main {
 .link-with-video:hover .video-icon-wrapper {
   transform: translate(-50%, -50%) scale(0.95);
   background: #7a7a7a;
+}
+
+/* background classes */
+.bg-white-paper {
+  background: url('../../media/bg-explore.jpeg');
+  background-size: cover;
 }
