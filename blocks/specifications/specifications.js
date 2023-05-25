@@ -8,17 +8,20 @@ export default function decorate(block) {
 
   const specsList = createElement('ul', 'specs-list');
 
+  const ulElements = block.querySelector('ul')
+
+  if (ulElements) {
+    const liElements = ulElements.querySelector('li')
+    console.log(liElements.innerHTML)
+
+  }
+
+
+
   children.forEach((e, idx) => {
-
-    console.log(e.children)
     const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
-
+  
     const pElements = [...e.querySelectorAll('p')]
-
-    // pElements.length === 0 ? e.querySelector('ul') : null
-    // const ulElement = e.querySelector('ul')
-    // console.log(ulElement)
-    // console.log(pElements)
 
     const picture = e.querySelector('picture')
     const [subtitle, content] = pElements
@@ -29,6 +32,9 @@ export default function decorate(block) {
     specsList.append(item);
   });
   specsSection.append(specsTitle, specsList);
+
+
+
 
   block.textContent = '';
   block.append(specsSection);
