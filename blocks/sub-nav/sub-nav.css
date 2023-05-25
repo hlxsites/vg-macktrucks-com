@@ -195,7 +195,7 @@
 }
 
 .magazine .sub-nav-container .sub-nav-list li {
-  box-shadow: unset;
+  box-shadow: unset !important;
 }
 
 .magazine .list-button-container {
