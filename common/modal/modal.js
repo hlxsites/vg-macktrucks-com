@@ -97,7 +97,8 @@ const createModal = () => {
     document.body.classList.remove('disable-scroll');
 
     // stop playing video if the modal contains one
-    document.querySelector('modal-content video')?.pause();
+    document.querySelector('.modal-content video')?.pause();
+    document.querySelector('.modal-content iframe')?.setAttribute('src', '');
 
     modalContent.addEventListener('transitionend', () => {
       clearModalContent();
