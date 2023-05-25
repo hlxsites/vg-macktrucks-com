@@ -190,7 +190,7 @@
   padding: 6px 0 9px;
 }
 
-.footer .elq-form input[type="text"] {
+.footer .eloqua-form .elq-form input[type="text"] {
   background-color: #212121;
   padding: 15px 10px;
   border: none;
@@ -199,7 +199,6 @@
   font-size: 16px;
   line-height: 16px;
   color: var(--primary-white);
-  margin-bottom: 10px;
 }
 
 .footer .elq-form .checkbox-label {
@@ -217,7 +216,7 @@
   line-height: 20px;
   height: auto !important;
   cursor: pointer;
-  margin-top: 10px;
+  margin: 0;
   padding: 5px 10px;
 }
 
@@ -231,9 +230,70 @@
   font-family: var(--body-ff);
 }
 
-.footer .checkbox-span input[type="checkbox"] {
+/* .footer .checkbox-span input[type="checkbox"] {
   width: 13px;
   height: 13px;
+} */
+
+.footer .eloqua-form .elq-form .email-and-submit-container {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+
+.footer .eloqua-form .elq-form .email-and-submit-container input[type="text"] {
+  padding-right: 40px;
+}
+
+.footer
+  .eloqua-form
+  .elq-form
+  .email-and-submit-container
+  input[type="submit"] {
+  position: absolute;
+  right: 0;
+  border: none;
+  background: transparent;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px 5px 5px;
+}
+
+.footer .checkbox-span input[type="checkbox"][id] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  padding: 0;
+}
+
+.footer .checkbox-span label[for] {
+  position: relative;
+  margin-left: 0;
+}
+
+.footer .checkbox-span label[for]::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border: solid 2px var(--secondary-dark-gold);
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+  background: var(--primary-black);
+}
+
+.footer .checkbox-span input:checked ~ label[for]::after {
+  content: "\f00c";
+  font-family: var(--ff-fontawesome);
+  color: var(--secondary-dark-gold);
+  position: absolute;
+  font-size: 18px;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* eloqua footer form styles - END */
