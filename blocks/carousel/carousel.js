@@ -87,7 +87,15 @@ function createDesktopControls(ul) {
   }
 
   const desktopControls = createElement('ul', ['desktop-controls', 'hidden']);
-  desktopControls.innerHTML = '<li><button type="button">Left</button></li><li><button type="button">Right</button></li>';
+  const leftButtonContainer = createElement('li');
+  const leftButton = createElement('button', [], { type: 'button' });
+  leftButton.textContent = 'Left';
+  const rightButtonContainer = createElement('li');
+  const rightButton = createElement('button', [], { type: 'button' });
+  rightButton.textContent = 'Right';
+  leftButtonContainer.append(leftButton);
+  rightButtonContainer.append(rightButton);
+  desktopControls.append(leftButtonContainer, rightButtonContainer);
   ul.insertAdjacentElement('beforebegin', desktopControls);
   const [prevButton, nextButton] = desktopControls.querySelectorAll(':scope button');
   prevButton.addEventListener('click', () => scroll('left'));
@@ -101,7 +109,9 @@ function createDotControls(ul) {
   [...ul.children].forEach((item, j) => {
     const control = createElement('li');
     if (!j) control.className = 'active';
-    control.innerHTML = `<button type="button">${j + 1}</button>`;
+    const button = createElement('button', '', { type: 'button' });
+    button.textContent = j + 1;
+    control.append(button);
     control.firstElementChild.addEventListener('click', () => {
       dotControls.querySelector('li.active').classList.remove('active');
       control.classList.add('active');
