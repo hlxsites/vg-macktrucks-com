@@ -113,3 +113,38 @@ main .hero:not(.auto-block) > div {
 .hero .hero-content-media:has(.hero-video.hide) picture {
     z-index: 0;
 }
+
+
+/* TODO add hero styling  */
+/* main .hero.specs {
+    padding: 50px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(198,199,201,1) 100%);
+    z-index: -1;
+    height: 70vw;
+}
+
+main .hero.specs img {
+    object-fit: cover;
+    width: 100%;
+    height: 50%;
+    margin-top: 10vw;
+    z-index: 1;
+}
+
+
+main .hero.specs .hero-content-container .hero-content-wrapper {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    max-height: 50vw;
+}
+
+main .hero.specs .hero-content-wrapper p {
+    display: none;
+}
+
+main .hero.specs .hero-content-wrapper h1 {
+    color: var(--primary-black);
+    font-family: var(--emphasis-ff-bold);
+    font-size: var(--nav-height-l);
+} */
