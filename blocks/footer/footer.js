@@ -119,6 +119,7 @@ export default async function decorate(block) {
       if (mutation.type === 'childList') {
         const submitButton = block.querySelector('input[type="submit"');
         const emailInput = block.querySelector('input[name="emailAddress"]');
+        const label = emailInput.parentElement.querySelector('label');
         const emailAndSubmitContainer = createElement('span', ['email-and-submit-container']);
 
         // change the submit button to arrow button
@@ -128,6 +129,12 @@ export default async function decorate(block) {
           submitButton.value = '→';
           emailAndSubmitContainer.append(emailInput, submitButton);
           parent.append(emailAndSubmitContainer);
+
+          if (label) {
+            emailInput.setAttribute('placeholder', label.innerText.replace('*', '').trim());
+            label.remove();
+          }
+
           submitButtonFixed = true;
         }
 
@@ -136,8 +143,16 @@ export default async function decorate(block) {
         // customization of the checkbox
         if (checkbox && checkboxLable) {
           const checkboxId = 'footer-subscribe-checkbox';
+          const checkboxParent = checkbox.parentElement;
           checkbox.setAttribute('id', checkboxId);
           checkboxLable.setAttribute('for', checkboxId);
+          checkboxParent.classList.add('confirm-checkbox');
+
+          if (emailInput) {
+            // showing the checkbox only when the user start typing
+            emailInput.addEventListener('input', () => { checkboxParent.classList.add('show'); }, { onece: true });
+          }
+
           checkboxFixed = true;
         }
       }

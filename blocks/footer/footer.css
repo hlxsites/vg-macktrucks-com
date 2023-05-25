@@ -187,7 +187,7 @@
 }
 
 .footer .elq-form .item-padding {
-  padding: 6px 0 9px;
+  padding: 0;
 }
 
 .footer .eloqua-form .elq-form input[type="text"] {
@@ -198,6 +198,10 @@
   font-family: var(--body-ff);
   font-size: 16px;
   line-height: 16px;
+  color: var(--primary-white);
+}
+
+.footer .eloqua-form .elq-form input[type="text"]::placeholder {
   color: var(--primary-white);
 }
 
@@ -240,6 +244,16 @@
   padding-right: 40px;
 }
 
+.footer .elq-form .loader {
+  position: absolute;
+  right: 10px;
+  bottom: 50%;
+  transform: translate(0, 50%);
+  border-top: 3px solid #212121;
+  margin-bottom: -12px;
+  background: #212121;
+}
+
 .footer
   .eloqua-form
   .elq-form
@@ -252,6 +266,10 @@
   top: 50%;
   transform: translateY(-50%);
   padding: 5px 10px 5px 5px;
+}
+
+.footer .checkbox-span {
+  position: relative;
 }
 
 .footer .checkbox-span input[type="checkbox"][id] {
@@ -289,6 +307,17 @@
   left: 1px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.confirm-checkbox {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.confirm-checkbox.show {
+  opacity: 1;
 }
 
 /* eloqua footer form styles - END */
