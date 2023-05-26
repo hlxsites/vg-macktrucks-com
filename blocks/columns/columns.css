@@ -58,4 +58,13 @@ hr.column-underline {
     .columns > div > div {
         flex: 1;
     }
+
+    .columns.promo .columns-promo-text-wrapper {
+        align-self: center;
+    }
+
+    .columns.promo .columns-promo-text-wrapper p {
+        font-size: 90%;
+        width: 75%;
+    }
 }

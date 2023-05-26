@@ -17,10 +17,17 @@ export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
   const isInfo = block.classList.contains('info');
+  const isPromo = block.classList.contains('promo');
   if (isInfo) {
     cols.forEach((col) => {
       col.className = 'columns-col-wrapper';
       decorateUnderline(col);
     });
+  }
+  if (isPromo) {
+    const textParent = block.querySelector('p')?.parentElement;
+    const pictureParent = block.querySelector('picture')?.parentElement;
+    textParent.className = 'columns-promo-text-wrapper';
+    pictureParent.className = 'columns-promo-picture-wrapper';
   }
 }
