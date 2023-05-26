@@ -62,6 +62,7 @@
 
 /* download block variation NEW */
 .download-new-list {
+  font-family: var(--emphasis-ff-bold);
   list-style: none;
   padding: 20px 8px;
   margin: 0;
