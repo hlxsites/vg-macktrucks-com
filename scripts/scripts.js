@@ -7,11 +7,14 @@ import {
   decorateIcons,
   decorateSections,
   decorateBlocks,
+  decorateBlock,
   decorateTemplateAndTheme,
   getMetadata,
   waitForLCP,
   loadBlocks,
+  loadBlock,
   loadCSS,
+  loadScript,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -93,13 +96,23 @@ function buildHeroBlock(main) {
   }
 }
 
+function buildSubNavigation(main, head) {
+  const subnav = head.querySelector('meta[name="sub-navigation"]');
+  if (subnav && subnav.content.startsWith('/')) {
+    const block = buildBlock('sub-nav', []);
+    main.previousElementSibling.prepend(block);
+    decorateBlock(block);
+  }
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+function buildAutoBlocks(main, head) {
   try {
     buildHeroBlock(main);
+    buildSubNavigation(main, head);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -129,11 +142,11 @@ export function decorateLinks(block) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export function decorateMain(main, head) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  buildAutoBlocks(main);
+  buildAutoBlocks(main, head);
   decorateSections(main);
   decorateBlocks(main);
   decorateLinks(main);
@@ -173,8 +186,9 @@ async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
+  const { head } = doc;
   if (main) {
-    decorateMain(main);
+    decorateMain(main, head);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
@@ -205,9 +219,7 @@ export function addFavIcon(href) {
  */
 async function loadLazy(doc) {
   const templateName = getMetadata('template');
-  if (templateName) {
-    await loadTemplate(doc, templateName);
-  }
+  if (templateName) await loadTemplate(doc, templateName);
 
   const main = doc.querySelector('main');
   await loadBlocks(main);
@@ -215,9 +227,16 @@ async function loadLazy(doc) {
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
+  const header = doc.querySelector('header');
+  const subnav = header.querySelector('.block.sub-nav');
 
-  loadHeader(doc.querySelector('header'));
+  loadHeader(header);
   loadFooter(doc.querySelector('footer'));
+
+  if (subnav) {
+    loadBlock(subnav);
+    header.appendChild(subnav);
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
@@ -236,10 +255,19 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
+function loadOneTrust() {
+  loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
+    type: 'text/javascript',
+    charset: 'UTF-8',
+    'data-domain-script': 'bf50d0a6-e209-4fd4-ad2c-17da5f9e66a5',
+  });
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+  loadOneTrust();
 }
 
 loadPage();

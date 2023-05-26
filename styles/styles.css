@@ -101,9 +101,9 @@
   --accents-ff-bold-italic: 'GT America Mono Bold Italic', var(--fallback-ff-accents);
 
   /* Alternate fonts */
-  --fallback-ff-texts: helvetica, 'Arial Regular Text Fallback',  sans-serif;
-  --fallback-ff-headlines: helvetica, 'Arial Bold Headline Fallback', sans-serif;
-  --fallback-ff-accents: helvetica, 'Arial Regular Text Fallback', sans-serif;
+  --fallback-ff-texts: 'Arial Regular Text Fallback', helvetica, sans-serif;
+  --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
+  --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
 
   /* Fontawesome */
   --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
@@ -207,7 +207,7 @@ header {
   color: var(--header-color);
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 h1, h2, h3,
@@ -434,9 +434,9 @@ body.disable-scroll main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 50px;
-  width: 120px;
-  height: 120px;
+  font-size: 20px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -445,6 +445,22 @@ body.disable-scroll main {
   background: #474747;
   z-index: 1;
   transition: all 0.5s ease-in-out;
+}
+
+@media (min-width: 480px) {
+  .video-icon-wrapper {
+    width: 90px;
+    height: 90px;
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 768px) {
+  .video-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    font-size: 50px;
+  }
 }
 
 .link-with-video:hover .video-icon-wrapper {
