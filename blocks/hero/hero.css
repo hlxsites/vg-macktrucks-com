@@ -114,29 +114,39 @@ main .hero:not(.auto-block) > div {
     z-index: 0;
 }
 
-
-/* TODO add hero styling  */
-/* main .hero.specs {
+/* SPECS hero styling  */
+main .hero.specs {
     padding: 50px;
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(198,199,201,1) 100%);
+    background: radial-gradient(circle, rgba(255 255 255 / 100%) 0%, rgba(198 199 201 / 100%) 100%);
+    border-bottom: 100px solid linear-gradient(90deg, rgba(255 255 255 / 100%) 0%, rgba(198 199 201 / 0%) 100%);;
     z-index: -1;
     height: 70vw;
 }
 
+main .hero.specs::after  {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 50px;
+    background: linear-gradient(0deg, rgba(255 255 255 / 100%) 0%, rgba(255 255 255 / 40%) 70%, rgba(198 199 201 / 0%) 100%);
+  }
+
 main .hero.specs img {
     object-fit: cover;
-    width: 100%;
-    height: 50%;
-    margin-top: 10vw;
+    height: 45vw;
+    margin-top: 15vw;
+    padding: 20px;
     z-index: 1;
 }
 
-
-main .hero.specs .hero-content-container .hero-content-wrapper {
-    display: flex;
-    justify-content: center;
+main .hero.specs .hero-content-wrapper {
+    max-width: unset;
+    height: unset;
+    display: contents;
     text-align: center;
-    max-height: 50vw;
 }
 
 main .hero.specs .hero-content-wrapper p {
@@ -146,5 +156,21 @@ main .hero.specs .hero-content-wrapper p {
 main .hero.specs .hero-content-wrapper h1 {
     color: var(--primary-black);
     font-family: var(--emphasis-ff-bold);
-    font-size: var(--nav-height-l);
-} */
+    font-size: var(--nav-height-m);
+    width: 100%;
+}
+
+@media (min-width: 500px) {
+    main .hero.specs::after  {
+        height: 80px;
+    }
+}
+@media (min-width: 992px) {
+    main .hero.specs .hero-content-wrapper h1 {
+        font-size: var(--nav-height-l);
+    }
+
+    main .hero.specs::after  {
+        height: 100px;
+      }
+}
