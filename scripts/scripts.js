@@ -255,19 +255,10 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
-function loadOneTrust() {
-  loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
-    type: 'text/javascript',
-    charset: 'UTF-8',
-    'data-domain-script': 'bf50d0a6-e209-4fd4-ad2c-17da5f9e66a5',
-  });
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
-  loadOneTrust();
 }
 
 loadPage();
