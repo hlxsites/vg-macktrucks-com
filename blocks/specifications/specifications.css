@@ -22,6 +22,7 @@ main .section.specifications-container {
 
 .specs-list-multiple {
   display: flex;
+  justify-content: space-between;
   flex-flow: wrap;
   margin: 0;
 }
@@ -98,6 +99,14 @@ main .section.specifications-container {
 }
 
 @media (min-width: 768px) {
+  .specs-list-multiple .feature-list {
+    column-gap: 60px;
+  }
+
+  .specs-list-multiple .feature-list .p-element {
+    width: calc(30% - 10px);
+  }
+
   .specs-item {
     width: calc(33% - 15px);
   }
