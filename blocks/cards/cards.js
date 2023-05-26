@@ -30,7 +30,6 @@ const getParentSection = (element) => {
 };
 
 const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
-  console.log(imgMaxHeight);
   changes.forEach((change) => {
     const isAttribute = change.type === 'attributes';
     const isStatus = isAttribute && change.attributeName === 'data-section-status';
@@ -83,6 +82,12 @@ export default function decorate(block) {
       img.closest('picture')
         .replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])); 
     });
+
+  // add background black
+  if (isDarkVar) {
+    const cardsContainer = block.parentElement.parentElement;
+    cardsContainer.classList.add('dark-card-conatiner');
+  }
   block.textContent = '';
   block.append(ul);
 
