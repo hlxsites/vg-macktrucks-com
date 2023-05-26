@@ -80,7 +80,7 @@ export default function decorate(block) {
         imgMaxHeight = img.height > imgMaxHeight ? img.height : imgMaxHeight;
       }
       img.closest('picture')
-        .replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])); 
+        .replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]));
     });
 
   // add background black

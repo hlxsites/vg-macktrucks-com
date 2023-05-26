@@ -55,6 +55,12 @@
   align-items: end;
 }
 
+.block.cards.modest > ul > li {
+  width: 270px;
+  background: transparent;
+  border: none;
+}
+
 .cards.cta:not(.dark) > ul > li:hover,
 .cards.cta:not(.dark) > ul > li:focus {
   scale: 1.05;
@@ -167,11 +173,6 @@
   justify-content: center;
 }
 
-.block.cards.modest > ul > li {
-  width: 270px;
-  background: transparent;
-  border: none;
-}
 
 .block.cards.modest .cards-card-body {
   margin: 16px 0;
