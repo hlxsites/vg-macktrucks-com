@@ -307,6 +307,16 @@ export function readBlockConfig(block) {
 }
 
 /**
+ * Add the image as background
+ * @param {Element} section the section container
+ * @param {string} picture the picture's link
+ */
+function addBackgroundImage(section, picture) {
+  section.classList.add('background');
+  section.style.backgroundImage = `url('${picture}')`;
+}
+
+/**
  * Decorates all sections in a container element.
  * @param {Element} main The container element
  */
@@ -336,6 +346,9 @@ export function decorateSections(main) {
         if (key === 'style') {
           const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
+        } if (key === 'background') {
+          const picture = sectionMeta.querySelector('picture');
+          if (picture) addBackgroundImage(section, meta[key]);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
         }
@@ -567,6 +580,14 @@ export function decorateButtons(element) {
           && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
           a.className = 'button secondary';
           twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
+          const arrow = document.createElement('span');
+          a.className = 'button arrowed';
+          twoup.parentElement.className = 'button-container';
+          arrow.className = 'fa fa-arrow-right';
+          a.appendChild(arrow);
         }
       }
     }

@@ -302,6 +302,27 @@ a.button.secondary:focus, button.secondary:focus {
   border-color: var(--button-secondary-gold-hover);
 }
 
+ul.button-container {
+  padding: 0;
+  list-style: none;
+}
+
+a.button.arrowed, button.arrowed {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+a.button.arrowed:hover, button.arrowed:hover,
+a.button.arrowed:focus, button.arrowed:focus {
+  color: #5d5d5d;
+}
+
 main input {
   font-size: 1.25rem;
   width: 100%;
@@ -322,6 +343,18 @@ main input:hover {
 
 main .section {
   padding: 64px 16px;
+}
+
+main .section.background {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+
+main .section.text-white {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
 }
 
 main pre {
@@ -372,6 +405,11 @@ main img {
   .section > div {
     max-width: 1200px;
     margin: auto;
+  }
+
+  main .section.background {
+    background-size: cover;
+    height: 100vh;
   }
 }
 

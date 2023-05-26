@@ -117,7 +117,7 @@ function addDesktopHotspotIcon(hotspot, block, main) {
   iconLink.style.top = hotspot.positionTop;
 
   const image = createElement('img', null, {
-    src: '../../icons/hotspot.png',
+    src: '/icons/hotspot.png',
     alt: hotspot.title.textContent,
   });
   iconLink.appendChild(image);

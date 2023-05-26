@@ -274,7 +274,7 @@
   content: "\f0d9"
 }
 
-.fa-caret-right::before {
+.fa-caret-right::before, .fa-arrow-right::after {
   content: "\f0da"
 }
 
