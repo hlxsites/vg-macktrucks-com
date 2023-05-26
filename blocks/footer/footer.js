@@ -117,7 +117,7 @@ export default async function decorate(block) {
       }
 
       if (mutation.type === 'childList') {
-        const submitButton = block.querySelector('input[type="submit"');
+        const submitButton = block.querySelector('input[type="submit"]');
         const emailInput = block.querySelector('input[name="emailAddress"]');
         const label = emailInput.parentElement.querySelector('label');
         const emailAndSubmitContainer = createElement('span', ['email-and-submit-container']);
