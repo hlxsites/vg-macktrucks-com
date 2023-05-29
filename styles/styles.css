@@ -353,8 +353,12 @@ main .section.background {
 }
 
 main .section.text-white {
-  background-color: var(--primary-black);
   color: var(--primary-white);
+}
+
+main .section.text-white,
+main .section.black-background {
+  background-color: var(--primary-black);
 }
 
 main pre {
