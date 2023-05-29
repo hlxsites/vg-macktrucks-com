@@ -1,0 +1,60 @@
+main .cookie-list-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+main .cookie-list-container p {
+  line-height: 22px;
+  font-size: var(--body-font-size-s);
+}
+
+main .cookie-list-container a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+main .cookie-list-container a:hover {
+  color: #5d5d5d;
+}
+
+.cookie-list#ot-sdk-cookie-policy  {
+  font-size: var(--body-font-size-s);
+  font-weight: normal;
+  -webkit-font-smoothing: unset;
+}
+
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy td {
+  font-size: 16px;
+  color: #53565A;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+#cookie-policy-description, .ot-sdk-cookie-policy-group-desc{
+  font-size: var(--body-font-size-s) !important;
+}
+
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy .ot-sdk-cookie-policy-group {
+  font-size: 1.5em !important;
+}
+  
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy section {
+  color: var(--primary-white) !important;
+  font-size: 16px;
+}
+
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy table {
+  font-size: var(--body-font-size-s);
+}
+
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h3, 
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h4,
+#ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy h5 {
+  font-size: 26px;
+}
+
+#ot-sdk-btn-floating.ot-floating-button button {
+  margin: 3px 0;
+  padding: 6px;
+}
