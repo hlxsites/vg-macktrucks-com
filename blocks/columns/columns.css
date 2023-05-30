@@ -74,9 +74,16 @@ hr.column-underline {
         background: linear-gradient(to bottom,rgba(0 0 0 / 0%) 70%,#000 100%);
     }
 
+    .section.columns-container .columns-wrapper:has(.info.absolute) {
+        position: initial;
+        display: flex;
+        justify-content: center;
+    }
+
     .columns.absolute {
         position: absolute;
         bottom: 3.2rem;
+        padding: 1rem;
     }
 
     .columns > div {
