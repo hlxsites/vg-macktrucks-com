@@ -9,6 +9,10 @@
     background-color: transparent;
 }
 
+.cards-container .cards-wrapper {
+    margin-block-start: 5rem;
+}
+
 .cards.cta {
     padding: 2rem;
     max-width: calc(var(--nav-width) - 6rem);

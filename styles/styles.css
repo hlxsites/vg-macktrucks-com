@@ -361,6 +361,10 @@ main .section.black-background {
   background-color: var(--primary-black);
 }
 
+main .section.center {
+  text-align: center;
+}
+
 main pre {
   background-color: var(--overlay-background-color);
   padding: 1em;

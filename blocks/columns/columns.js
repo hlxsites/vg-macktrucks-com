@@ -21,6 +21,13 @@ const decorateUnderline = (col) => {
   p.appendChild(hr);
 };
 
+const removeEmptyPs = (pictureWrapper) => {
+  const Ps = pictureWrapper.querySelectorAll('p');
+  [...Ps].forEach((p) => {
+    if (p.children.length === 0) p.remove();
+  });
+};
+
 export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
@@ -52,7 +59,7 @@ export default function decorate(block) {
       wrapImageWithVideoLink(selectedVideoLink, picture);
       addVideoShowHandler(selectedVideoLink);
       selectedVideoLink.parentElement.replaceWith(selectedVideoLink);
-      pictureWrapper.querySelector('.button-container').remove();
+      removeEmptyPs(pictureWrapper);
     }
   }
 }
