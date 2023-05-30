@@ -86,8 +86,8 @@ indices:
         select: head > meta[name="template"]
         value: attribute(el, "content")
       title:
-        select: h1
-        value: textContent(el)
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
       subtitle:
         select: body > main > div > div.default-content-wrapper > h5
         value: textContent(el)
