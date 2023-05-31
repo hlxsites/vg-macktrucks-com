@@ -24,7 +24,6 @@ main .hero h1 {
 
 main .hero picture {
     position: absolute;
-    z-index: -1;
     inset: 0;
     object-fit: cover;
     box-sizing: border-box;
@@ -112,4 +111,88 @@ main .hero:not(.auto-block) > div {
 
 .hero .hero-content-media:has(.hero-video.hide) picture {
     z-index: 0;
+}
+
+/* SPECS hero styling  */
+main .hero.specs {
+    padding: 50px;
+    background: radial-gradient(circle, rgba(255 255 255 / 100%) 0%, rgba(198 199 201 / 100%) 100%);
+    z-index: -1;
+    height: 60vh;
+}
+
+main .hero.specs::after  {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    z-index: -2;
+    bottom: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 400px;
+    background: linear-gradient(0deg, rgba(255 255 255 / 100%) 0%, rgba(255 255 255 / 40%) 70%, rgba(255 255 255 / 0%) 100%);
+  }
+
+main .hero.specs img {
+    object-fit: cover;
+    height: 45vw;
+    padding: 20px;
+    z-index: 1;
+    margin-top: 15vh;
+}
+
+main .hero.specs .hero-content-wrapper {
+    max-width: unset;
+    height: unset;
+    display: contents;
+    text-align: center;
+}
+
+main .hero.specs .hero-content-wrapper p {
+    display: none;
+}
+
+main .hero.specs .hero-content-wrapper h1 {
+    color: var(--primary-black);
+    font-family: var(--emphasis-ff-bold);
+    font-size: var(--nav-height-m);
+    width: 100%;
+    margin: 50px auto;
+}
+
+
+@media (min-width: 650px) {
+    main .hero.specs .hero-content-wrapper h1 {
+        font-size: var(--nav-height-l);
+    }
+
+    main .hero.specs {
+        height: 70vh;
+    }
+
+    main .hero.specs::after  {
+        height: 300px;
+    }
+
+    main .hero.specs img {
+        margin-top: 20vh;
+    } 
+}
+
+@media (min-width: 768px) {
+    main .hero.specs {
+        height: 70vh;
+    }
+
+    main .hero.specs img {
+        margin-top: 25vh;
+    } 
+
+}
+@media (min-width: 992px) {
+    main .hero.specs img {
+        height: unset;
+        width: 1000px;
+        margin: 20vh calc((100vw - 1000px) / 2) 0;
+    } 
 }
