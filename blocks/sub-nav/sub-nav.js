@@ -1,5 +1,4 @@
-import { decorateButtons } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, decorateButtons, getTextLabel } from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
