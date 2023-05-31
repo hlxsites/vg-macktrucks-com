@@ -62,6 +62,68 @@ hr.column-underline {
     border-block-start: 2px solid var(--tertiary-cool-gray);
 }
 
+.columns.options > div > div {
+    margin-bottom: 48px;
+}
+
+.columns.options h2 {
+    padding: 42px;
+    margin: 0;
+    background: var(--primary-black);
+    color: var(--primary-white);
+    font-size: var(--body-font-size-xs);
+    text-align: center;
+    font-family: var(--emphasis-ff-bold);
+    line-height: 14px;
+}
+
+.columns.options h3 {
+    padding: 7px 0;
+    margin: 0;
+    line-height: 14px;
+    font-size: var(--body-font-size-xs);
+    font-family: var(--emphasis-ff-bold);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.columns.options p {
+    margin: 0;
+    padding: 3px 0 15px;
+    font-size: var(--body-font-size-xxs);
+    font-family: var(--body-ff);
+    line-height: 15px;
+}
+
+@media (min-width: 496px) {
+    .columns > div {
+        flex-flow: row wrap;
+        gap: 16px;
+    }
+
+    .columns > div > div {
+        width: calc(50% - 8px);
+    }
+
+    .columns.options h2 {
+        padding: 48px;
+        font-size: var(--body-font-size-s);
+        line-height: 16px;
+    }
+
+    .columns.options h3 {
+        padding: 8px 0;
+        line-height: 16px;
+        font-size: var(--body-font-size-s);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .columns.options p {
+        padding: 3px 0 17px;
+        font-size: var(--body-font-size-xxs);
+        line-height: 15px;
+    }
+}
+
 @media (min-width: 900px) {
     .hero-container.columns-container .info picture::after,
     .section.background::before {
@@ -129,5 +191,23 @@ hr.column-underline {
 
     .columns.promo.underlined-text .columns-promo-text-wrapper {
         align-items: center;
+    }
+
+    .columns.options h2 {
+        padding: 60px;
+        font-size: var(--body-font-size-l);
+        line-height: 20px;
+    }
+
+    .columns.options h3 {
+        padding: 9px 0;
+        line-height: 18px;
+        font-size: var(--body-font-size-m);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .columns.options p {
+        padding-bottom: 19px;
+        font-size: var(--body-font-size-xs);
     }
 }
