@@ -96,7 +96,7 @@
     line-height: 20px;
   }
 
-  .accordion .accordion-content {
+  .accordion .accordion-content > p {
     width: 75%;
     font-size: 14px;
   }
