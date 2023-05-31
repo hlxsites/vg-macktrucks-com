@@ -177,16 +177,17 @@ export default function decorate(block) {
       // handling image with video link
       if (videoLinks.length && picture) {
         const selectedVideoLink = selectVideoLink(videoLinks);
+        if (selectedVideoLink) {
+          // removing unused video links
+          videoLinks
+            .filter((videoLink) => videoLink.getAttribute('href') !== selectedVideoLink.getAttribute('href'))
+            .forEach((link) => link.remove());
 
-        // removing unused video links
-        videoLinks
-          .filter((videoLink) => videoLink.getAttribute('href') !== selectedVideoLink.getAttribute('href'))
-          .forEach((link) => link.remove());
-
-        wrapImageWithVideoLink(selectedVideoLink, picture);
-        addVideoShowHandler(selectedVideoLink);
-        // remove the video wrapper paragraph
-        selectedVideoLink.parentElement.replaceWith(selectedVideoLink);
+          wrapImageWithVideoLink(selectedVideoLink, picture);
+          addVideoShowHandler(selectedVideoLink);
+          // remove the video wrapper paragraph
+          selectedVideoLink.parentElement.replaceWith(selectedVideoLink);
+        }
       } else if (links.length && picture) {
         // handling image with link
         const clone = links[0].cloneNode(false);

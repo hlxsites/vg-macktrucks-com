@@ -3,9 +3,7 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateButtons,
   decorateIcons,
-  decorateSections,
   decorateBlocks,
   decorateBlock,
   decorateTemplateAndTheme,
@@ -14,8 +12,100 @@ import {
   loadBlocks,
   loadBlock,
   loadCSS,
-  loadScript,
+  readBlockConfig,
+  toCamelCase,
+  toClassName,
 } from './lib-franklin.js';
+
+/**
+ * Add the image as background
+ * @param {Element} section the section container
+ * @param {string} picture the picture's link
+ */
+function addBackgroundImage(section, picture) {
+  section.classList.add('background');
+  section.style.backgroundImage = `url('${picture}')`;
+}
+
+/**
+ * Decorates all sections in a container element.
+ * @param {Element} main The container element
+ */
+export function decorateSections(main) {
+  main.querySelectorAll(':scope > div').forEach((section) => {
+    const wrappers = [];
+    let defaultContent = false;
+    [...section.children].forEach((e) => {
+      if (e.tagName === 'DIV' || !defaultContent) {
+        const wrapper = document.createElement('div');
+        wrappers.push(wrapper);
+        defaultContent = e.tagName !== 'DIV';
+        if (defaultContent) wrapper.classList.add('default-content-wrapper');
+      }
+      wrappers[wrappers.length - 1].append(e);
+    });
+    wrappers.forEach((wrapper) => section.append(wrapper));
+    section.classList.add('section');
+    section.dataset.sectionStatus = 'initialized';
+    section.style.display = 'none';
+
+    /* process section metadata */
+    const sectionMeta = section.querySelector('div.section-metadata');
+    if (sectionMeta) {
+      const meta = readBlockConfig(sectionMeta);
+      Object.keys(meta).forEach((key) => {
+        if (key === 'style') {
+          const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
+          styles.forEach((style) => section.classList.add(style));
+        } if (key === 'background') {
+          const picture = sectionMeta.querySelector('picture');
+          if (picture) addBackgroundImage(section, meta[key]);
+        } else {
+          section.dataset[toCamelCase(key)] = meta[key];
+        }
+      });
+      sectionMeta.parentNode.remove();
+    }
+  });
+}
+
+/**
+ * Decorates paragraphs containing a single link as buttons.
+ * @param {Element} element container element
+ */
+export function decorateButtons(element) {
+  element.querySelectorAll('a').forEach((a) => {
+    a.title = a.title || a.textContent;
+    if (a.href !== a.textContent) {
+      const up = a.parentElement;
+      const twoup = a.parentElement.parentElement;
+      if (!a.querySelector('img')) {
+        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+          a.className = 'button primary'; // default
+          up.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button primary';
+          twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'EM'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button secondary';
+          twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
+          const arrow = document.createElement('span');
+          a.className = 'button arrowed';
+          twoup.parentElement.className = 'button-container';
+          arrow.className = 'fa fa-arrow-right';
+          a.appendChild(arrow);
+        }
+      }
+    }
+  });
+}
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -255,19 +345,10 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
-function loadOneTrust() {
-  loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
-    type: 'text/javascript',
-    charset: 'UTF-8',
-    'data-domain-script': 'bf50d0a6-e209-4fd4-ad2c-17da5f9e66a5',
-  });
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
-  loadOneTrust();
 }
 
 loadPage();
