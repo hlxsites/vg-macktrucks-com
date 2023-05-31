@@ -14,6 +14,7 @@
 .columns.info {
     max-width: 1200px;
     margin-inline: auto;
+    padding-inline: 32px;
 }
 
 .columns.info .columns-col-wrapper p:not(:has(strong)) {
@@ -83,7 +84,7 @@ hr.column-underline {
     .columns.absolute {
         position: absolute;
         bottom: 3.2rem;
-        padding: 1rem;
+        padding-inline: 1rem;
     }
 
     .columns > div {
@@ -94,6 +95,14 @@ hr.column-underline {
 
     .columns > div > div {
         flex: 1;
+    }
+
+    .columns.info > div {
+        gap: 96px;
+    }
+
+    .columns.info .columns-col-wrapper :not(:first-child) {
+        font-size: 85%;
     }
 
     .columns.promo .columns-promo-text-wrapper {
