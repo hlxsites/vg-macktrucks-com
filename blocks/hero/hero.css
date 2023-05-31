@@ -131,10 +131,11 @@ main .hero.specs::after  {
     content: '';
     display: inline-block;
     position: absolute;
+    z-index: -2;
     bottom: 0%;
     left: 0%;
     width: 100vw;
-    height: 100px;
+    height: 400px;
     background: linear-gradient(0deg, rgba(255 255 255 / 100%) 0%, rgba(255 255 255 / 40%) 70%, rgba(255 255 255 / 0%) 100%);
 }
 
@@ -174,6 +175,10 @@ main .hero.specs .hero-content-wrapper h1 {
         height: 70vh;
     }
 
+    main .hero.specs::after  {
+        height: 300px;
+    }
+
     main .hero.specs img {
         margin-top: 20vh;
     } 
@@ -181,7 +186,7 @@ main .hero.specs .hero-content-wrapper h1 {
 
 @media (min-width: 768px) {
     main .hero.specs {
-        height: 90vh;
+        height: 70vh;
     }
 
     main .hero.specs img {
