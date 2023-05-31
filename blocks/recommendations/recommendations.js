@@ -5,8 +5,7 @@ import {
 } from '../../scripts/lib-franklin.js';
 
 const getAllArticles = async () => {
-  // TODO change route to main folder
-  const response = await fetch('/drafts/shomps/magazine/article-list.json');
+  const response = await fetch('/magazine-articles.json');
   const json = await response.json();
   return json.data;
 };

@@ -2,8 +2,7 @@ import { createElement } from '../../scripts/scripts.js';
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const getAllArticles = async () => {
-  // TODO change route to main folder
-  const response = await fetch('/drafts/shomps/magazine/article-list.json');
+  const response = await fetch('/magazine-articles.json');
   const json = await response.json();
   return json.data;
 };
@@ -24,7 +23,14 @@ export default async function decorate(block) {
     return a.date - b.date;
   });
 
-  const selectedArticles = sortedArticles.slice(0, limit);
+  const currentArticlePath = window.location.href.split('/').pop();
+  const filteredArticles = sortedArticles.filter((e) => {
+    const path = e.path.split('/').pop();
+    if (path !== currentArticlePath) return e;
+    return null;
+  });
+
+  const selectedArticles = filteredArticles.slice(0, limit);
 
   const recentArticlesSection = createElement('div', 'recent-articles-section');
   const recentArticlesTitle = createElement('h3', 'recent-articles-section-title');

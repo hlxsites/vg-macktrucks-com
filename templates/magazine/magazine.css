@@ -180,3 +180,7 @@ main .template.section.article-hero-container {
     margin: 0 auto;
   }
 }
+
+.current-article-container .share-icons .fa-facebook::before {
+  display: unset;
+}
