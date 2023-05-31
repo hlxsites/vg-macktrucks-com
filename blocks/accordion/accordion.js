@@ -31,6 +31,21 @@ export default async function decorate(block) {
       await fragmentBlock(accordionContent);
     }
 
+    if (accordionContent.textContent.startsWith('#id-') && accordionContent.innerHTML === accordionContent.textContent) {
+      const pointedContent = document.querySelector(`.${accordionContent.textContent.substring(1)}`);
+
+      if (pointedContent) {
+        // lets wait for loading of the content that we want to put inside the accordion
+        new MutationObserver((_, observer) => {
+          if (pointedContent.dataset.blockStatus === 'loaded') {
+            observer.disconnect();
+            contentEl.innerHTML = '';
+            contentEl.append(pointedContent.parentElement);
+          }
+        }).observe(pointedContent, { attributes: true });
+      }
+    }
+
     contentEl.innerHTML = accordionContent.innerHTML;
 
     const accordionEl = createElement('div', ['accordion-item', 'accordion-item-close']);
