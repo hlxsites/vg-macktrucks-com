@@ -1,0 +1,79 @@
+
+.teaser-columns .row {
+  display: flex;
+  gap: 20px;
+  padding: 0 32px;
+}
+
+.teaser-columns:not(.text-on-image) .row > .teaser-column {
+  width: 100%;
+  margin-bottom: 100px
+}
+
+.teaser-columns .row img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 100/60;
+}
+
+.teaser-columns .row h4.teaser-title {
+  margin: 20px 0 0;
+  font: 14px/14px var(--emphasis-ff-bold)
+}
+
+.teaser-columns .row p {
+  max-width: 300px;
+  margin-top: 5px;
+  color: #999;
+  font-size: 16px;
+  line-height: 20px
+}
+
+@media (max-width: 896px) {
+  .features .row {
+    display: block;
+    gap: unset;
+  }
+}
+
+/* text with row version */
+.teaser-columns.text-on-image .row {
+  padding: 0;
+}
+
+.teaser-columns.text-on-image .row > .teaser-column {
+  flex: 1
+}
+
+.teaser-columns.text-on-image .teaser-column:not(.text-on-image-column) h4 {
+  font-size: 20px;
+  padding-block-start: 10px;
+  border-block-start: 3px solid black;
+  text-transform: uppercase;
+}
+
+.teaser-columns.text-on-image .teaser-column p {
+  color: var(--text-color);
+  padding-top: 10px;
+  max-width: 100%;
+}
+
+.teaser-columns.text-on-image .text-on-image-column {
+  position: relative;
+}
+
+.teaser-columns.text-on-image .text-on-image-column img {
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 500px;
+}
+
+.teaser-columns.text-on-image .teaser-column.text-on-image-column h4 {
+  font-size: 30px;
+  color: var(--primary-white);
+  position: absolute;
+  bottom: 0;
+  padding: 3rem 25% 4rem 3rem;
+  line-height: 1em;
+}
