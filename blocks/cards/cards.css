@@ -140,7 +140,7 @@
   aspect-ratio: unset;
 }
 
-/* dark versiion */
+/* dark version */
 .cards-container.dark-card-conatiner {
   background-color: var(--primary-black);
   padding: 0;
@@ -155,7 +155,7 @@
 }
 
 .cards.dark .cards-card-body > h3 {
-  padding-right: 33.44px;
+  padding-right: 34px;
 }
 
 
