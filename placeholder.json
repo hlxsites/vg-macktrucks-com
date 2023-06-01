@@ -18,6 +18,14 @@
     {
       "Key": "Overview",
       "Text": "Overview"
+    },
+    {
+      "Key": "Recommendations text",
+      "Text": "Based on your reading, you might like this..."
+    },
+    {
+      "Key": "Recent article text",
+      "Text": "Recent Articles"
     }
   ],
   ":type": "sheet"

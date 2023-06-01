@@ -1,13 +1,13 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/scripts.js';
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
-const getAllArticles = async () => {
+export const getAllArticles = async () => {
   const response = await fetch('/magazine-articles.json');
   const json = await response.json();
   return json.data;
 };
 
-const getLimit = (block) => {
+export const getLimit = (block) => {
   const children = [...block.children];
   const number = [...children[0].children][1].innerText;
   return number;
@@ -16,10 +16,11 @@ const getLimit = (block) => {
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const allArticles = await getAllArticles();
+  const sectionTitle = getTextLabel('Recent article text');
 
   const sortedArticles = allArticles.sort((a, b) => {
-    a.date = Number(a.date);
-    b.date = Number(b.date);
+    a.date = +(a.date);
+    b.date = +(b.date);
     return a.date - b.date;
   });
 
@@ -34,59 +35,43 @@ export default async function decorate(block) {
 
   const recentArticlesSection = createElement('div', 'recent-articles-section');
   const recentArticlesTitle = createElement('h3', 'recent-articles-section-title');
-  recentArticlesTitle.innerText = 'Recent Articles';
+  recentArticlesTitle.innerText = sectionTitle;
 
   const recentArticleList = createElement('ul', 'recent-articles-list');
 
   selectedArticles.forEach((e, idx) => {
-    const linkUrl = new URL(e.url, window.location.origin);
+    const linkUrl = new URL(e.path, window.location.origin);
+    const firstOrRest = (idx === 0) ? 'first' : 'rest';
+
+    const item = createElement('li', `recent-articles-${firstOrRest}-item`);
+
+    const image = createElement('div', `recent-articles-${firstOrRest}-image`);
+    const picture = createOptimizedPicture(e.image, e.title);
+    const pictureTag = picture.outerHTML;
+    image.innerHTML = `<a href='${linkUrl}'>
+      ${pictureTag}
+    </a>`;
+
+    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
+    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
+    const category = createElement('a', `recent-articles-${firstOrRest}-category`, { href: categoryUrl });
+    category.innerText = e.category;
+
+    const title = createElement('a', `recent-articles-${firstOrRest}-title`, { href: linkUrl });
+    title.innerText = e.title;
+
+    const subtitle = createElement('p', `recent-articles-${firstOrRest}-subtitle`);
+    subtitle.innerText = e.subtitle;
+
+    const link = createElement('a', `recent-articles-${firstOrRest}-link`, { href: linkUrl });
+    link.innerText = 'READ NOW';
+
     if (idx === 0) {
-      const item = createElement('li', 'recent-articles-first-item');
-
-      const image = createElement('div', 'recent-articles-image');
-      const picture = createOptimizedPicture(e.image, e.title);
-      const pictureTag = picture.outerHTML;
-      image.innerHTML = `<a href="${linkUrl}">
-        ${pictureTag}
-      </a>`;
-      item.append(image);
-
-      const category = createElement('a', 'recent-articles-first-category');
-      const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-      const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
-      category.href = categoryUrl;
-      category.innerText = e.category;
-
-      const title = createElement('a', 'recent-articles-first-title');
-      title.href = linkUrl;
-      title.innerText = e.title;
-
-      const subtitle = createElement('p', 'recent-articles-first-subtitle');
-      subtitle.innerText = e.subtitle;
-
-      const link = createElement('a', 'recent-articles-first-link');
-      link.innerText = 'READ NOW';
-      link.href = linkUrl;
-
-      item.append(category, title, subtitle, link);
-      recentArticleList.append(item);
+      item.append(image, category, title, subtitle, link);
     } else {
-      const item = createElement('li', 'recent-articles-rest-item');
-
-      const image = createElement('div', 'recent-articles-rest-image');
-      const picture = createOptimizedPicture(e.image, e.title);
-      const pictureTag = picture.outerHTML;
-      image.innerHTML = `<a href='${linkUrl}'>
-        ${pictureTag}
-      </a>`;
-
-      const title = createElement('a', 'recent-articles-rest-title');
-      title.href = linkUrl;
-      title.innerText = e.title;
-
       item.append(image, title);
-      recentArticleList.append(item);
     }
+    recentArticleList.append(item);
   });
   recentArticlesSection.append(recentArticlesTitle, recentArticleList);
 

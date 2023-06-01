@@ -16,54 +16,35 @@ async function buildArticleHero() {
 
   const headImg = createOptimizedPicture(headPic, headAlt);
   const articleHeroImage = createElement('div', 'article-hero-image');
-  articleHeroImage.append(headImg);
-
   const articleHeroContent = createElement('div', 'article-hero-content');
 
   const categorySpan = createElement('a', 'article-hero-category');
   categorySpan.innerText = category;
-  articleHeroContent.append(categorySpan);
 
   const titleH4 = createElement('h4', 'article-hero-title');
   titleH4.innerText = title;
-  articleHeroContent.append(titleH4);
 
   const truck = createElement('div', 'article-hero-truck');
   const truckText = createElement('p', 'truck-text');
   truckText.innerText = truckModel;
-  const truckIcon = createElement('img', 'truck-icon');
-  truckIcon.src = '/icons/Truck_Key_icon.svg';
-  truckIcon.alt = 'truck icon';
+  const truckIcon = createElement('img', 'truck-icon', { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' });
 
+  articleHeroImage.append(headImg);
   truck.append(truckIcon, truckText);
-  articleHeroContent.append(truck);
+
+  articleHeroContent.append(categorySpan, titleH4, truck);
   section.append(articleHeroImage, articleHeroContent);
 
   return section;
 }
 
-async function buildBreadcrumb(container) {
-  const breadcrumb = container.querySelector('.breadcrumb-container .breadcrumb-wrapper');
-  const breadcrumbContainer = createElement('div', ['section', 'template', 'article-template', 'breadcrumb-container']);
-  breadcrumbContainer.append(breadcrumb);
+async function buildSection(container, sectionName = '') {
+  const selectedContent = container.querySelector(`.${sectionName}-container .${sectionName}-wrapper`);
+  const classes = sectionName === 'breadcrumbs' ? ['section', 'template', 'article-template', `${sectionName}-container`] : `${sectionName}-container`;
+  const sectionContainer = createElement('div', classes);
+  sectionContainer.append(selectedContent);
 
-  return breadcrumbContainer;
-}
-
-async function buildRecommendations(container) {
-  const recommendations = container.querySelector('.recommendations-container .recommendations-wrapper');
-  const recommendationsContainer = createElement('div', 'recommendations-container');
-  recommendationsContainer.append(recommendations);
-
-  return recommendationsContainer;
-}
-
-async function buildRecentArticles(container) {
-  const recentArticles = container.querySelector('.recent-articles-container .recent-articles-wrapper');
-  const recentArticlesContainer = createElement('div', 'recent-articles-container');
-  recentArticlesContainer.append(recentArticles);
-
-  return recentArticlesContainer;
+  return sectionContainer;
 }
 
 async function buildShareSection() {
@@ -108,11 +89,11 @@ export default async function decorate(doc) {
     recentSection,
     recommendationsSection,
   ] = await Promise.all([
-    buildBreadcrumb(container),
+    buildSection(container, 'breadcrumb'),
     buildArticleHero(),
     buildShareSection(),
-    buildRecentArticles(container),
-    buildRecommendations(container),
+    buildSection(container, 'recent-articles'),
+    buildSection(container, 'recommendations'),
   ]);
 
   const shareClone = shareSection.cloneNode(true);
