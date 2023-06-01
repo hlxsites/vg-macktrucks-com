@@ -67,13 +67,6 @@
     width: 100%;
 }
 
-.cards.cta > ul > li > a {
-    text-decoration: none;
-    color: inherit;
-    display: inline-block;
-    height: 100%;
-}
-
 .block.cards.modest > ul > li {
   width: 270px;
   background: transparent;
