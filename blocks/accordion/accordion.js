@@ -35,12 +35,15 @@ export default async function decorate(block) {
       const pointedContent = document.querySelector(`.${accordionContent.textContent.substring(1)}`);
 
       if (pointedContent) {
+        const prevDisaply = pointedContent.parentElement.style.display;
+        pointedContent.parentElement.style.display = 'none';
         // lets wait for loading of the content that we want to put inside the accordion
         new MutationObserver((_, observer) => {
           if (pointedContent.dataset.blockStatus === 'loaded') {
             observer.disconnect();
             contentEl.innerHTML = '';
             contentEl.append(pointedContent.parentElement);
+            pointedContent.parentElement.style.display = prevDisaply;
           }
         }).observe(pointedContent, { attributes: true });
       }
