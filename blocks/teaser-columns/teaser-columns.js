@@ -15,6 +15,6 @@ export default function decorate(block) {
     }
   });
 
-  // unwrap picture so that text styles are not applied to this paragraph
+  // unwrap picture so that text styles are not applied to this paragraphs
   block.querySelectorAll('picture').forEach((picture) => picture.closest('p').replaceWith(picture));
 }
