@@ -1,0 +1,115 @@
+.accordion .accordion-item {
+  border-top: 3px solid var(--primary-black);
+  padding: 32px 0;
+}
+
+.accordion .accordion-header-button {
+  margin: 0;
+  background: inherit;
+  color: var(--primary-black);
+  text-align: left;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  padding: 0;
+}
+
+.accordion .accordion-header-button h2 {
+  margin: 0;
+  font-family: var(--emphasis-ff-bold);
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.accordion .accordion-header-button .accordion-close {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-white);
+  border: 2px solid var(--primary-black);
+  border-radius: 50%;
+  margin-left: 14px;
+  min-width: 40px;
+  background-image: url("../../icons/minus.png");
+  background-size: cover;
+  background-position: center left;
+  background-repeat: no-repeat;
+  transition: 0.25s all;
+}
+
+.accordion .accordion-header-button .accordion-close:hover {
+  background-position: center right;
+  background-color: var(--primary-black);
+}
+
+.accordion .accordion-item-close .accordion-header-button .accordion-close {
+  background-image: url("../../icons/plus.png");
+}
+
+.accordion .accordion-header-button:hover .accordion-close {
+  background-position: center right;
+  background-color: var(--primary-black);
+}
+
+.accordion .accordion-content {
+  font-family: var(--body-ff);
+  font-size: 11px;
+  line-height: 15px;
+  opacity: 1;
+  height: auto;
+  padding: 16px 0;
+  transition: all 0.5s;
+  margin-bottom: -16px;
+}
+
+.accordion .accordion-item-close .accordion-content {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion .accordion-content a {
+  color: var(--primary-black);
+  font-family: var(--emphasis-ff-bold);
+  font-size: 16px;
+  line-height: 16px;
+}
+
+
+@media (min-width: 496px) {
+  .accordion .accordion-header-button h2 {
+    font-size: 16px;
+  }
+
+  .accordion .accordion-content {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 768px) {
+  .accordion .accordion-header-button h2 {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .accordion .accordion-content {
+    width: 75%;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .accordion .accordion-header-button h2 {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .accordion .accordion-content {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
