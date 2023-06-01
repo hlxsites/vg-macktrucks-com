@@ -211,6 +211,11 @@
     text-decoration: underline;
 }
 
+.block.cards.magazine .cards-card-body .button-container a:hover {
+    color: var(--secondary-steel);
+    transition: unset;
+}
+
 @media (min-width: 768px) {
     .block.cards.magazine > ul {
         max-width: 960px;
