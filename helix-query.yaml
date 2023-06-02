@@ -109,3 +109,44 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+  search:
+    include:
+      - '/**'
+      - '/mack-news/*/**'
+      - '/parts-and-services/support/body-builders/news-and-events/**'
+      - '/magazine/articles/*/**'
+    exclude:
+      - '/drafts/**'
+      - 'images/**'
+      - '/**/footer'
+      - '/footer'
+      - '/**/nav'
+      - '/nav'
+      - '/fragments/**'
+      - '/**/sub-nav'
+      - '/block-library/**'
+      - '/mack-news/fragments/**'
+      - '/parts-and-services/support/body-builders/news-and-events/'
+      - '/magazine/articles/'
+    target: /query-index.json
+    properties:
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      category:
+        select: head > meta[name="category"]
+        value: attribute(el, "content")
+      tags:
+        select: head > meta[property="article:tag"]
+        values: attribute(el, "content")
+      text:
+        select: main
+        value: textContent(el)
+
+
