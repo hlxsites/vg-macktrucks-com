@@ -1,6 +1,8 @@
 import { createElement, getTextLabel } from '../../scripts/scripts.js';
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
+const sectionTitle = getTextLabel('Recent article text');
+
 export const getAllArticles = async () => {
   const response = await fetch('/magazine-articles.json');
   const json = await response.json();
@@ -16,7 +18,6 @@ export const getLimit = (block) => {
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const allArticles = await getAllArticles();
-  const sectionTitle = await getTextLabel('Recent article text');
 
   const sortedArticles = allArticles.sort((a, b) => {
     a.date = +(a.date);

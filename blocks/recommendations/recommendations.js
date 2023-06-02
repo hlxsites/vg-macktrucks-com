@@ -5,12 +5,13 @@ import {
   createOptimizedPicture,
 } from '../../scripts/lib-franklin.js';
 
+const recommendationsText = getTextLabel('Recommendations text');
+
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const category = getMetadata('category');
-  const recommendationsText = await getTextLabel('Recommendations text');
-
   const allArticles = await getAllArticles();
+
   const recommendedArticles = allArticles.filter((e) => e.category === category);
   const selectedArticles = recommendedArticles.slice(0, limit);
 
