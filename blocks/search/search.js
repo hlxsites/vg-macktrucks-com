@@ -1,7 +1,4 @@
-import templates from './templates.js';
-import { loadScript } from '../../scripts/lib-franklin.js';
-import { createElement, getTargetParentElement } from '../../scripts/scripts.js';
-import config from '../../config.js';
+import { getTargetParentElement } from '../../scripts/scripts.js';
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
@@ -34,143 +31,60 @@ export default function decorate(block) {
   </div>
   `;
 
-  function setCookie(name, value, days = 7, path = '/') {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=${path}`;
-  }
+  async function fetchResults() {
+    const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
+    const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
-  function getCookie(name) {
-    return document.cookie.split('; ').reduce((r, v) => {
-      const parts = v.split('=');
-      return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-    }, '');
-  }
-
-  // generating random value for cookie when value is missing
-  function makeid(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
-  function getOrSetCookie(name) {
-    let cookieID = getCookie(name);
-    if (cookieID == null) {
-      cookieID = makeid(25);
-      setCookie(name, cookieID);
-    }
-    return cookieID;
-  }
-
-  function formatDate(value) {
-    if (value != null) {
-      if (typeof value === 'undefined') {
-        return '';
+    const queryObj = {
+      query: `
+      query MacTrucksQuery($q: String, $locale: LocaleEnum!, $facets: [Facet]) {
+        macktrucksearch(q: $q, locale: $locale, facets: $facets) {
+          count
+          items {
+            metadata {
+              title
+              description
+            }
+          }
+          facets {
+            items {
+              value
+            }
+          }
+        }
       }
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(value).toLocaleDateString(undefined, options);
-    }
-    return value;
-  }
-
-  window.studioConfig = {
-    connector: {
-      url: 'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158/emselect',
-      authentication: config.authKey,
-      apikey: config.apiKey,
-      select_auth_token: 'None',
-      suggester_auth_token: 'None',
-      search_auth_type: 'basic',
-      session: getOrSetCookie('searchcookie'),
-      fields: {
-        description: 'description_t',
-        title: 'title_t',
-        url: 'result_url_creation_s',
+      `,
+      variables: {
+        q: 'trucks',
+        locale: 'EN',
+        facets: [{
+          field: 'TAGS',
+        }, {
+          field: 'CATEGORY',
+        }],
       },
-      suggester: 'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
-      searchAPIKey: config.searchAPIKey,
-      language: 'en',
-      fieldFormatters: { date: formatDate },
-      searchAdditionalArgs: 'hl.fragsize=200',
-      hideUniqueKey: true,
-    },
-    searchResults: '#searchResultsSection',
-    searchInput: '#searchInput',
-    searchResultSummarySection: '#searchResultSummarySection',
-    facetSection: '#searchFacetSection',
-    searchOptionsSection: '#searchOptionsSection',
-    relatedSearchesSection: '#relatedSearchesSection',
-    paginationSection: '#paginationSection',
-    customSearchTemplate: '#search-template',
-    customSearchFeedbackTemplate: '#searchFeedback-template',
-    customPagingTemplate: '#paging-template',
-    customPaginationTemplate: '#paging-template',
-    customSearchOptionSectionTemplate: '#searchOptionSection-template',
-    customNoResultTemplate: '#noresult-template',
-    customFacetTemplate: '#facet-template',
-    hideBranding: false,
-    isGridLayout: true,
-    display: 'list',
-    facet_pagination: 3,
-    customResultTemplate: '#result-template',
-    customRelatedSearchesTemplate: '#customRelatedSearches-template',
-    suggestAfterMinChars: 2,
-  };
+    };
 
-  // these functions required for searchstax
-  const scripts = [{
-    inline: `
-      var _msq = _msq || []; //declare object
-      var analyticsBaseUrl = 'https://analytics-us.searchstax.com';
-      (function () {
-        var ms = document.createElement('script');
-        ms.type = 'text/javascript';
-        ms.src = 'https://static.searchstax.com/studio-js/v3.20/js/studio-analytics.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ms, s);
-      })();
-    `,
-  },
-  {
-    inline: `
-      (function (w, d, s, o, f) {
-        w['sf-widget'] = o;
-        w[o] =
-          w[o] ||
-          function () {
-            (w[o].q = w[o].q || []).push(arguments);
-          };
-        js = d.createElement(s);
-        fjs = d.getElementsByTagName(s)[0];
-        js.src = f;
-        js.async = 1;
-        fjs.parentNode.insertBefore(js, fjs);
-      })(window, document, 'script', '_sf', 'https://static.searchstax.com/studio-js/v3.20/js/studio-feedback.js');
-      _sf('4kKviXTq4zCnoB4SuKAFhZHVRZTAokybcN6uMcS1HQ4');
-    `,
-  }];
+    const response = await fetch(
+      SEARCH_LINK,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Content-Length': queryObj.length,
+        },
+        body: JSON.stringify(queryObj),
+      },
+    );
 
-  // adding templates
-  const temps = createElement('div');
-  temps.innerHTML = templates.join('');
-  document.body.appendChild(temps);
-
-  // loading scripts one by one to prevent inappropriate script execution order.
-  // eslint-disable-next-line no-restricted-syntax
-  for (const script of scripts) {
-    const newScript = createElement('script', '', { type: 'text/javascript' });
-
-    if (script.inline) {
-      newScript.innerHTML = script.inline;
-      document.body.append(newScript);
+    const json = await response.json();
+    if (json.errors) {
+      console.log(JSON.stringify(json.errors));
+    } else {
+      console.log((json.data));
     }
   }
 
-  loadScript('https://static.searchstax.com/studio-js/v3.20/js/studio-app.js', { type: 'text/javascript', charset: 'UTF-8' });
-  loadScript('https://static.searchstax.com/studio-js/v3.20/js/studio-vendors.js', { type: 'text/javascript', charset: 'UTF-8' });
+  fetchResults();
 }
