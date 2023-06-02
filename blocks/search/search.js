@@ -1,4 +1,8 @@
-import { getTargetParentElement } from '../../scripts/scripts.js';
+import { getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
+
+const PLACEHOLDERS = {
+  searchFor: getTextLabel('Search For'),
+};
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
@@ -10,7 +14,28 @@ export default function decorate(block) {
 
   block.innerHTML = `
   <div class="search-input-wrapper">
-    <div id="searchInput"></div>
+    <div id="searchInput" class="input-container-custom">
+      <div class="sf-header-searchstudio-js mb-5">
+        <div class="sf-form">
+          <div class="form-group">
+            <div id="autosuggest" class="form-control-suggest">
+              <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                aria-owns="autosuggest-autosuggest__results">
+                <input type="text" autocomplete="off" aria-autocomplete="list" id="searchTerm"
+                  aria-controls="autosuggest-autosuggest__results"
+                  placeholder="${PLACEHOLDERS.searchFor}..." autofocus="autofocus">
+              </div>
+              <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"></div>
+            </div>
+            <span>
+              <button type="submit" class="btn text-primary search-close-button">
+                <span class="fa fa-search search-icon"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="search-results-summary-options-wrapper">
