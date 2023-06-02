@@ -11,6 +11,13 @@ export default function decorate(block) {
   defaultActive.className = 'active';
   // make tab-titles focusable
   [...tabTitles.children].forEach((li) => { li.tabIndex = 0; });
+  // add picture & text wrappers a css class
+  [...items].forEach((item) => {
+    const picture = item.querySelector('picture');
+    const p = item.querySelector('p');
+    picture.parentElement.className = 'tab-picture-wrapper';
+    p.parentElement.className = 'tab-text-wrapper';
+  });
 
   const setActiveTab = (e) => {
     if (e.target.localName !== 'li') return;
