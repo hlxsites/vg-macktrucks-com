@@ -1,0 +1,166 @@
+.block.sds {
+  --grid-col-count: 1;
+  --grid-col-show: 1;
+  --grid-rowheader-width: 35%;
+}
+
+.block.sds p {
+  line-height: 1.5;
+}
+
+.block.sds img {
+  display: block;
+  margin: 0 auto;
+  max-height: 68px;
+}
+
+.block.sds p:last-child {
+  margin-bottom: 0;
+}
+
+.block.sds :is(.row, .column-header) {
+  column-gap: 1px;
+  display: grid;
+  grid-template-columns: var(--grid-rowheader-width) 1fr;
+}
+
+.block.sds .cell {
+  padding: 15px;
+  font-size: 16px;
+  flex-direction: column;
+  justify-content: center;
+  display: none;
+}
+
+.block.sds .cell[role="rowheader"] {
+  font-family: var(--emphasis-ff-bold);
+}
+
+.block.sds .column-header {
+  display: none;
+}
+
+.block.sds .column-header .cell {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.block.sds .cell.expand,
+.block.sds .row .cell:first-child {
+  display: flex;
+}
+
+.block.sds .row:nth-child(2n-1) .cell {
+  background-color: var(--tertiary-light-warm-gray);
+}
+
+.block.sds .cell > * {
+  margin: 0;
+}
+
+.block.sds[aria-colcount="1"] :is(.row, .column-header) {
+  grid-template-columns: 1fr;
+}
+
+/* row group and row group header */
+.block.sds [role="rowgroup"] {
+  height: 0;
+  overflow: hidden;
+  transition: height 200ms ease-out
+}
+
+.block.sds .rowgroup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: span var(--grid-col-count);
+  background: none;
+  border-radius: 0;
+  border: none;
+  border-top: solid var(--secondary-silver);
+  padding: 15px;
+  margin: 0;
+  color: unset;
+  text-align: unset;
+  font-size: 16px;
+  width: 100%;
+}
+
+.block.sds .rowgroup-header:hover {
+  background-color: var(--primary-gold);
+  color: var(--primary-white);
+}
+
+.block.sds .rowgroup-header::after {
+  display: block;
+  content: '\f067';
+  font-family: var(--ff-fontawesome);
+}
+
+.block.sds .rowgroup-header[aria-expanded="true"]::after {
+  content: '\f068';
+}
+
+/* column header mobile */
+.block.sds .column-header-mobile {
+  position: relative;
+}
+
+.block.sds .column-header-mobile select {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  text-align: center;
+  appearance: none;
+  position: relative;
+}
+
+.block.sds .column-header-mobile::after {
+  display: block;
+  content: '\f078';
+  font-family: var(--ff-fontawesome);
+  color: var(--primary-white);
+  position: absolute;
+  font-size: 11px;
+  top: 17px;
+  right: 17px;
+}
+
+@media screen and (min-width: 481px) {
+  .block.sds {
+      --grid-rowheader-width: 25%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .block.sds {
+      --grid-rowheader-width: 18%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .block.sds {
+      --grid-rowheader-width: 115px;
+  }
+
+  .block.sds .column-header-mobile {
+      display: none;
+  }
+
+  .block.sds :is(.row, .column-header) {
+      display: grid;
+      grid-template-columns: var(--grid-rowheader-width) repeat(calc(var(--grid-col-count) - 1), minmax(0, 1fr));
+  }
+
+  .block.sds .cell {
+      display: flex;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .block.sds {
+      --grid-rowheader-width: 200px;
+  }
+}
