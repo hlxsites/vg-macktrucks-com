@@ -16,7 +16,7 @@ export const getLimit = (block) => {
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const allArticles = await getAllArticles();
-  const sectionTitle = getTextLabel('Recent article text');
+  const sectionTitle = await getTextLabel('Recent article text');
 
   const sortedArticles = allArticles.sort((a, b) => {
     a.date = +(a.date);
