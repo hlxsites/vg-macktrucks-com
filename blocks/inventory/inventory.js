@@ -50,8 +50,27 @@ const addInventory = async (block) => {
     // eslint-disable-next-line no-await-in-loop
     await waitForLoad;
   }
-
+  // eslint-disable-next-line no-use-before-define
+  removeContactButtons(block);
   block.style.display = displayValue;
+};
+
+const removeContactButtons = async (block) => {
+  const buttons = block.getElementsByClassName('contact-buttons');
+  if (buttons) {
+    const buttonsArray = Array.from(buttons);
+    buttonsArray.forEach((button) => {
+      button.remove();
+    });
+  }
+
+  const contactUsButtons = document.querySelectorAll('button.widget-details.listings-button.collapsible-contacts');
+  if (contactUsButtons) {
+    const contactUsButtonsArray = Array.from(contactUsButtons);
+    contactUsButtonsArray.forEach((cuButton) => {
+      cuButton.remove();
+    });
+  }
 };
 
 export default async function decorate(block) {
