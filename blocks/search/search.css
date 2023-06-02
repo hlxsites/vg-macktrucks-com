@@ -354,7 +354,7 @@
 @media (min-width: 576px) {
   .search-results-summary-options-wrapper,
   .search-results-wrapper,
-  ..search-input-wrapper {
+  .search-input-wrapper {
     max-width: 540px;
     padding-left: 15px;
     padding-right: 15px;
@@ -2047,7 +2047,7 @@ a:any-link {
   padding-right: 0;
 }
 
-.autosuggest__results-container 
+.autosuggest__results-container
 .autosuggest__results ul li {
   font-size: 16px;
   color: #53565a;
@@ -2064,6 +2064,10 @@ a:any-link {
 }
 
 /* styles for popular seraches */
+
+.section.popular-search {
+  margin: auto;
+}
 
 .popular-search {
   max-width: 960px;
