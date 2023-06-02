@@ -26,6 +26,10 @@
     {
       "Key": "Recent article text",
       "Text": "Recent Articles"
+    },
+    {
+      "Key": "READ NOW",
+      "Text": "READ NOW"
     }
   ],
   ":type": "sheet"

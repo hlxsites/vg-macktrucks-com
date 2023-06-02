@@ -2,6 +2,7 @@ import { createElement, getTextLabel } from '../../scripts/scripts.js';
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const sectionTitle = getTextLabel('Recent article text');
+const readNowText = getTextLabel('READ NOW');
 
 export const getAllArticles = async () => {
   const response = await fetch('/magazine-articles.json');
@@ -65,7 +66,7 @@ export default async function decorate(block) {
     subtitle.innerText = e.subtitle;
 
     const link = createElement('a', `recent-articles-${firstOrRest}-link`, { href: linkUrl });
-    link.innerText = 'READ NOW';
+    link.innerText = readNowText;
 
     if (idx === 0) {
       item.append(image, category, title, subtitle, link);
