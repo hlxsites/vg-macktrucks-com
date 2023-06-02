@@ -2065,29 +2065,29 @@ a:any-link {
 
 /* styles for popular seraches */
 
-.search-container .popular-search {
+.popular-search {
   max-width: 960px;
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.search-container .popular-search h3 {
+.popular-search h3 {
   font-size: var(--body-font-size-s);
   text-transform: uppercase;
   font-family: var(--headline-ff-medium);
 }
 
-.search-container .popular-search ul {
+.popular-search ul {
   padding-left: 16px;
 }
 
-.search-container .popular-search a {
+.popular-search a {
   text-decoration: underline;
   font-size: 14px;
   font-family: var(--accents-ff-medium);
 }
 
-.search-container .popular-search a:hover { 
-  color: #999; 
+.popular-search a:hover {
+  color: #999;
 }

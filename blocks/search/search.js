@@ -1,11 +1,14 @@
 import templates from './templates.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, getTargetParentElement } from '../../scripts/scripts.js';
 import config from '../../config.js';
 
 // Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
-  const popularSearchWrapper = block.parentElement.nextElementSibling;
+  const section = getTargetParentElement(block, { className: 'section' });
+  // check if the closest default content wrapper is inside the same section element
+  const siblingDefaultSection = section.querySelector('.default-content-wrapper');
+  const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
   popularSearchWrapper.classList.add('popular-search');
 
   block.innerHTML = `
