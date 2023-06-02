@@ -56,6 +56,10 @@
   visibility: inherit;
 }
 
+.sub-nav-container .sub-nav-title {
+  flex: 1 0 20%;
+}
+
 .sub-nav-container > .fa-caret-up ~ .sub-nav-title {
   box-shadow: 0 2px var(--secondary-steel);
   width: 100%;
