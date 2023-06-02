@@ -146,7 +146,7 @@ indices:
         select: head > meta[property="article:tag"]
         values: attribute(el, "content")
       text:
-        select: head > meta[name="content"]
-        value: attribute(el, "content")
+        select: main
+        value: textContent(el)
 
 
