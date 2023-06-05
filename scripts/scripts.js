@@ -203,7 +203,9 @@ function buildSubNavigation(main, head) {
 function buildAutoBlocks(main, head) {
   try {
     buildHeroBlock(main);
-    buildSubNavigation(main, head);
+    if (head) {
+      buildSubNavigation(main, head);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
