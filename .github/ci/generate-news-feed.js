@@ -15,6 +15,15 @@ const feeds = [
     description:	"Get the latest news from Mack® Trucks and see how we are taking our Born Ready " +
       "semi truck line to the next level with new innovations and technology."
   },
+  {
+    title: 'Mack Body Builder News',
+    targetFile: `../../parts-and-services/support/body-builders/news-and-events/feed.xml`,
+    source: 'https://main--vg-macktrucks-com--hlxsites.hlx.live/body-builder-news.json',
+    siteRoot: "https://www.macktrucks.com",
+    link:	"https://www.macktrucks.com/parts-and-services/support/body-builders/news-and-events/",
+    language:	"en",
+    description:	"Get the latest news from Mack® Trucks Body Builder Portal."
+  },
 ]
 
 
