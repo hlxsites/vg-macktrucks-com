@@ -447,7 +447,7 @@ export function createIframe(url, { parentEl, classes = [] }) {
   return iframe;
 }
 
-/* this furnction load scrpt only when it wasn't loaded yet */
+/* this function load script only when it wasn't loaded yet */
 const scriptMap = new Map();
 
 export function loadScriptIfNotLoadedYet(url, attrs) {
