@@ -15,6 +15,7 @@ import {
   readBlockConfig,
   toCamelCase,
   toClassName,
+  loadScript,
 } from './lib-franklin.js';
 
 /**
@@ -442,4 +443,17 @@ export function createIframe(url, { parentEl, classes = [] }) {
   }
 
   return iframe;
+}
+
+/* this furnction load scrpt only when it wasn't loaded yet */
+const scriptMap = new Map();
+
+export function loadScriptIfNotLoadedYet(url, attrs) {
+  if (scriptMap.has(url)) {
+    return scriptMap.get(url).promise;
+  }
+
+  const promise = loadScript(url, attrs);
+  scriptMap.set(url, { url, attrs, promise });
+  return promise;
 }
