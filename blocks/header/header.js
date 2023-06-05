@@ -214,7 +214,7 @@ export default async function decorate(block) {
   if (navTools && navSearch) {
     const navSearchBtn = [...navTools.children].at(-1);
     const searchIcon = navSearch.querySelector('.icon-search');
-    searchIcon.classList.remove('icon-search');
+    searchIcon.classList.remove('icon-search', 'icon');
     searchIcon.classList.add('fa', 'fa-search');
     const searchIconWrapper = searchIcon.parentElement;
     searchIconWrapper.classList.add('search-icon-wrapper');
