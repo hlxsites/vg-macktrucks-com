@@ -214,8 +214,13 @@ header .nav-search-wrapper {
   gap: 0.5rem;
 }
 
-header .nav-search-wrapper p:has(.icon-search) {
+header .nav-search-wrapper .search-icon-wrapper {
   padding-inline: 10px;
+  color: var(--primary-black);
+}
+
+header .nav-search-wrapper a:hover {
+  text-decoration: none;
 }
 
 header .nav-search-wrapper input {
