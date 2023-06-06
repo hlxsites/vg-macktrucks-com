@@ -434,31 +434,3 @@ header .studio-search-widget {
 .search-wrapper {
   position: relative;
 }
-
-.studio-widget-autosuggest-results {
-  position: absolute;
-  color: #53565A;
-  cursor: pointer;
-  margin-top: 16px;
-  border: 1px solid;
-  border-top: none;
-  font-size: 16px;
-  top: 20px;
-  background-color: var(--background-color);
-  width: 100%;
-}
-
-.studio-widget-autosuggest-results .result-row {
-  padding: 10px 10px 10px 30px;
-  text-align: left;
-  text-transform: capitalize;
-  height: 40px;
-  line-height: 20px;
-}
-
-.studio-widget-autosuggest-results .result-row.searchstudio-active-row {
-  color: #53565A;
-  cursor: pointer;
-  height: 40px;
-  background: #f2f2f2;
-}
