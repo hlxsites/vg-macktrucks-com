@@ -156,6 +156,7 @@ main .template.section.article-hero-container {
   }
 
   .template.article-template.article-texts-container .current-article-container {
+    margin: unset;
     grid-area: current;
   }
 
@@ -175,7 +176,7 @@ main .template.section.article-hero-container {
     grid-template-rows: auto;
     grid-template-areas: 
       "current recent"
-      "recommended .";
+      "recommended recent";
     column-gap: 50px;
     margin: 0 auto;
   }

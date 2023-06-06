@@ -264,6 +264,10 @@ main .hero.magazine .hero-content-wrapper a {
     margin: 0;
 }
 
+main .hero.magazine .hero-content-wrapper a:hover {
+    text-decoration: unset;
+}
+
 @media (min-width: 768px) {
     main .hero.magazine .hero-content-container {
         flex-direction: row;
@@ -289,11 +293,13 @@ main .hero.magazine .hero-content-wrapper a {
     }
 }
 
+/* MAGAZINE CATEGORIES hero styling  */
 main .hero.magazine-categories,
 main .hero.magazine-categories .hero-content-container,
 main .hero.magazine-categories .hero-content-wrapper,
 main .hero.magazine-categories img {
-    height: 310px;   
+    height: 310px;  
+    padding: 0; 
 }
 
 main .hero.magazine-categories .hero-content-wrapper {
@@ -303,6 +309,10 @@ main .hero.magazine-categories .hero-content-wrapper {
 
 main .hero.magazine-categories h4 {
     margin: 0 0 55px;
+}
+
+main .hero.magazine-categories em {
+    font-style: unset;
 }
 
 @media (min-width: 768px) {

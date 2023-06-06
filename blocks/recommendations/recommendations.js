@@ -36,8 +36,8 @@ export default async function decorate(block) {
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
 
-    const content = createElement('div', 'recommendations-text-content', { href: categoryUrl });
-    const categoryLink = createElement('a', 'recommendations-category');
+    const content = createElement('div', 'recommendations-text-content');
+    const categoryLink = createElement('a', 'recommendations-category', { href: categoryUrl });
     categoryLink.innerText = e.category;
 
     const title = createElement('a', 'recommendations-title', { href: linkUrl });
