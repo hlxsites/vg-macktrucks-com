@@ -288,3 +288,32 @@ main .hero.magazine .hero-content-wrapper a {
         color: var(--primary-white);
     }
 }
+
+main .hero.magazine-categories,
+main .hero.magazine-categories .hero-content-container,
+main .hero.magazine-categories .hero-content-wrapper,
+main .hero.magazine-categories img {
+    height: 310px;   
+}
+
+main .hero.magazine-categories .hero-content-wrapper {
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+main .hero.magazine-categories h4 {
+    margin: 0 0 55px;
+}
+
+@media (min-width: 768px) {
+    main .hero.magazine-categories,
+    main .hero.magazine-categories .hero-content-container,
+    main .hero.magazine-categories .hero-content-wrapper,
+    main .hero.magazine-categories img {
+        height: 600px;   
+    }
+
+    main .hero.magazine-categories h4 {
+        font-size: var(--heading-1-desktop-size-xl);
+    }
+}

@@ -6,6 +6,7 @@ import {
 } from '../../scripts/lib-franklin.js';
 
 const recommendationsText = getTextLabel('Recommendations text');
+const readNowText = getTextLabel('READ NOW');
 
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
@@ -42,6 +43,15 @@ export default async function decorate(block) {
     const title = createElement('a', 'recommendations-title', { href: linkUrl });
     title.innerText = e.title;
 
+    const truck = createElement('div', 'recommendations-truck');
+    const truckText = createElement('p', 'recommendations-truck-text');
+    truckText.innerText = e.truck;
+    const truckIcon = createElement('img', 'truck-icon', { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' });
+    truck.append(truckIcon, truckText);
+
+    const link = createElement('a', 'recommendations-link', { href: linkUrl });
+    link.innerText = readNowText;
+
     content.append(categoryLink, title);
 
     const subtitle = createElement('a', 'recommendations-subtitle', { href: linkUrl });
@@ -49,6 +59,7 @@ export default async function decorate(block) {
     if (e.subtitle.length !== 0) {
       content.append(subtitle);
     }
+    content.append(truck, link);
     item.append(image, content);
     recommendationsList.append(item);
   });
