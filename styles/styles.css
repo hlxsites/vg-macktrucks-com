@@ -519,3 +519,49 @@ body.disable-scroll main {
   background: url('../../media/bg-explore.jpeg');
   background-size: cover;
 }
+
+/* Magazine listing default content metadata style */
+main .section.magazine-listing-content {
+  padding: 0 16px;
+}
+
+main .section.magazine-listing-content p {
+  font-family: var(--subheadings-ff-medium); 
+  font-size: var(--body-font-size-xs);
+}
+
+main .section.magazine-listing-content p:first-of-type {
+  margin: 0 0 15px;
+}
+
+main .section.magazine-listing-content h3 {
+  font-family: var(--emphasis-ff-bold); 
+  font-size: var(--heading-font-size-s);
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  width: 100%;
+  line-height: 38px;
+  padding: 5px 0 0 5px;
+  margin: 0 0 13px;
+}
+
+@media (min-width: 768px) {
+  main .section.magazine-listing-content {
+    max-width: calc(960px + 16px + 16px);
+    padding-top: 50px;
+    margin: 0 auto;
+  }
+
+  main .section.magazine-listing-content h3 {
+    font-size: var(--heading-font-size-ml);
+    margin: 0 0 17px;
+  }
+
+  main .section.magazine-listing-content p {
+    font-size: var(--body-font-size-s);
+  }
+
+  main .section.magazine-listing-content p:first-of-type {
+    margin: 0 0 22px;
+  }
+}

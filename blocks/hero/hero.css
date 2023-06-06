@@ -109,6 +109,11 @@ main .hero:not(.auto-block) > div {
     background-color: var(--primary-black);
 }
 
+/* Rule just for magazine listing page */
+main .hero.magazine .hero-content-media picture {
+    position: unset;
+}
+
 .hero .hero-content-media:has(.hero-video.hide) picture {
     z-index: 0;
 }
@@ -131,7 +136,7 @@ main .hero.specs::after  {
     width: 100vw;
     height: 400px;
     background: linear-gradient(0deg, rgba(255 255 255 / 100%) 0%, rgba(255 255 255 / 40%) 70%, rgba(255 255 255 / 0%) 100%);
-  }
+}
 
 main .hero.specs img {
     object-fit: cover;
@@ -159,7 +164,6 @@ main .hero.specs .hero-content-wrapper h1 {
     width: 100%;
     margin: 50px auto;
 }
-
 
 @media (min-width: 650px) {
     main .hero.specs .hero-content-wrapper h1 {
@@ -195,4 +199,92 @@ main .hero.specs .hero-content-wrapper h1 {
         width: 1000px;
         margin: 20vh calc((100vw - 1000px) / 2) 0;
     } 
+}
+
+/* MAGAZINE hero styling  */
+main .hero.magazine {
+    background-color: var(--primary-white);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: unset;
+}
+
+main .hero.magazine .hero-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    position: unset;
+    height: unset;
+}
+
+main .hero.magazine .hero-content-media {
+    background-color: var(--primary-white);
+}
+
+main .hero.magazine .hero-content-media p {
+    margin: 0 !important;
+}
+
+main .hero.magazine img {
+    width: 55vw;
+}
+
+main .hero.magazine .hero-content-wrapper {
+    text-align: left;
+    position: unset;
+    height: unset;
+    max-width: fit-content;
+    width: 100%;
+    color: var(--primary-black);
+    margin: 66px 70px 50px;
+    row-gap: 0;
+}
+
+main .hero.magazine .hero-content-wrapper h1 {
+    font-family: var(--emphasis-ff-bold);
+    font-size: var(--heading-font-size-xxl);
+    color: var(--primary-black);
+}
+
+main .hero.magazine .hero-content-wrapper p {
+    font-family: var(--subheadings-ff-medium);
+    font-size: var(--body-font-size-xl);
+    height: auto;
+}
+
+main .hero.magazine .hero-content-wrapper p:first-of-type {
+    margin-bottom: 30px;
+}
+
+main .hero.magazine .hero-content-wrapper a {
+    font-family: var(--emphasis-ff-bold);
+    font-size: var(--body-font-size-xs);
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    main .hero.magazine .hero-content-container {
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: var(--primary-black);
+    }
+    
+    main .hero.magazine .hero-content-media {
+        width: 45vw;
+        max-width: 800px;
+        background-color: var(--primary-black);
+        padding: 50px 5vw;
+    }
+
+    main .hero.magazine .hero-content-wrapper {
+        color: var(--primary-white);
+        width: 50%;
+        max-width: 500px;
+    }
+
+    main .hero.magazine .hero-content-wrapper h1 {
+        color: var(--primary-white);
+    }
 }
