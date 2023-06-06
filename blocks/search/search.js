@@ -64,7 +64,7 @@ export default function decorate(block) {
     fetchResults(value); // TODO get the input value to be applied in the search
   };
 
-  async function fetchResults() {
+  async function fetchResults(queryTerm) {
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
@@ -88,7 +88,7 @@ export default function decorate(block) {
       }
       `,
       variables: {
-        q: 'trucks',
+        q: queryTerm,
         locale: 'EN',
         facets: [{
           field: 'TAGS',
@@ -119,5 +119,8 @@ export default function decorate(block) {
     }
   }
 
-  fetchResults();
+  // check if url has query params
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchTerm = urlParams.get('q');
+  if (searchTerm) fetchResults(searchTerm);
 }
