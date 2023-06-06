@@ -17,7 +17,7 @@ main .section.breadcrumb-container {
   list-style: none;
   max-width: 1376px;
   height: 45px;
-  margin: 5px auto 10px 0;
+  margin: 5px auto 10px;
 }
 
 .breadcrumb-home {

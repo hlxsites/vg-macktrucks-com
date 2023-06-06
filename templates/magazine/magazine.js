@@ -18,7 +18,8 @@ async function buildArticleHero() {
   const articleHeroImage = createElement('div', 'article-hero-image');
   const articleHeroContent = createElement('div', 'article-hero-content');
 
-  const categorySpan = createElement('a', 'article-hero-category');
+  const categoryUrl = category.toLowerCase().replaceAll(' ', '-');
+  const categorySpan = createElement('a', 'article-hero-category', {href: `/magazine/categories/${categoryUrl}`});
   categorySpan.innerText = category;
 
   const titleH4 = createElement('h4', 'article-hero-title');

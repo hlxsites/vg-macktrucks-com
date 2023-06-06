@@ -16,6 +16,17 @@ export const getLimit = (block) => {
   return number;
 };
 
+
+export const clearRepeatedArticles = (articles) => {
+    const result = articles.filter((e) => {
+    const currentArticlePath = window.location.href.split('/').pop();
+    const path = e.path.split('/').pop();
+    if (path !== currentArticlePath) return e;
+    return null;
+  });
+  return result
+}
+
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const allArticles = await getAllArticles();
@@ -25,14 +36,7 @@ export default async function decorate(block) {
     b.date = +(b.date);
     return a.date - b.date;
   });
-
-  const currentArticlePath = window.location.href.split('/').pop();
-  const filteredArticles = sortedArticles.filter((e) => {
-    const path = e.path.split('/').pop();
-    if (path !== currentArticlePath) return e;
-    return null;
-  });
-
+  const filteredArticles = clearRepeatedArticles(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
   const recentArticlesSection = createElement('div', 'recent-articles-section');

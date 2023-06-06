@@ -1,5 +1,5 @@
 import { createElement, getTextLabel } from '../../scripts/scripts.js';
-import { getAllArticles, getLimit } from '../recent-articles/recent-articles.js';
+import { getAllArticles, getLimit, clearRepeatedArticles } from '../recent-articles/recent-articles.js';
 import {
   getMetadata,
   createOptimizedPicture,
@@ -14,7 +14,8 @@ export default async function decorate(block) {
   const allArticles = await getAllArticles();
 
   const recommendedArticles = allArticles.filter((e) => e.category === category);
-  const selectedArticles = recommendedArticles.slice(0, limit);
+  const filteredArticles = clearRepeatedArticles(recommendedArticles)
+  const selectedArticles = filteredArticles.slice(0, limit);
 
   const recommendationsSection = createElement('div', 'recommendations-section');
   const recommendationsTitle = createElement('h3', 'recommendations-section-title');
