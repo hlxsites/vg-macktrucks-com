@@ -2,7 +2,7 @@ import { getMetadata } from './lib-franklin.js';
 
 /**
  * loads more data from the query index
- * */
+ */
 async function loadMoreNews() {
   if (!window.mack.newsData.allLoaded) {
     const queryLimit = 200;
@@ -62,19 +62,22 @@ function extractYearFromPath(path) {
   return null;
 }
 /**
- * Get the list of news from the query index. News are auto-filtered based on page context
+ * Get the list of news posts from the query index. News are auto-filtered based on page context
  * e.g tags, etc. and sorted by date
  *
- * @param {string} filter the name of the filter to apply
+ * @param filter {"mack-news"|"body-builder-news"|"auto"}  the name of the filter to apply
  * one of: topic, subtopic, author, tag, post, auto, none
- * @param {number} limit the number of posts to return, or -1 for no limit
+ * @param path {string}  the path of the current page, used to filter by year
+ * @param limit {number}  the number of posts to return, or -1 for no limit
  * @returns the posts as an array
  */
 export async function getNews(filter, path, limit) {
   const pages = await loadNews();
-  // filter out anything that isn't a mack news (eg. must have an author)
-  let finalNews;
   const allNews = pages.filter((page) => page.template === 'mack-news');
+
+  // filter out anything that isn't a mack news (e.g. must have an author)
+  let finalNews;
+
   const year = path ? extractYearFromPath(path) : null;
   const allYearsNews = year ? filterNewsByDate(allNews, year) : allNews;
   const template = getMetadata('template');
@@ -88,6 +91,8 @@ export async function getNews(filter, path, limit) {
   }
 
   if (applicableFilter === 'mack-news') {
+    finalNews = allYearsNews.sort(sortNewsByDate);
+  } else if (applicableFilter === 'body-builder-news') {
     finalNews = allYearsNews.sort(sortNewsByDate);
   } else {
     finalNews = [];
