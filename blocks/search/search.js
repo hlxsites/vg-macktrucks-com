@@ -56,6 +56,14 @@ export default function decorate(block) {
   </div>
   `;
 
+  const searchBtn = block.querySelector('.form-group > span');
+  searchBtn.onclick = () => {
+    const input = document.getElementById('searchTerm');
+    const { value } = input;
+    console.log({ value });
+    fetchResults(value); // TODO get the input value to be applied in the search
+  };
+
   async function fetchResults() {
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';

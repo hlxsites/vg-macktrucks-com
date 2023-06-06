@@ -1291,6 +1291,7 @@
   right: 0;
   height: 64px;
   background: var(--primary-black);
+  cursor: pointer;
 }
 
 .input-container-custom
