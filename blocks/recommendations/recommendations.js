@@ -14,7 +14,7 @@ export default async function decorate(block) {
   const allArticles = await getAllArticles();
 
   const recommendedArticles = allArticles.filter((e) => e.category === category);
-  const filteredArticles = clearRepeatedArticles(recommendedArticles)
+  const filteredArticles = clearRepeatedArticles(recommendedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
   const recommendationsSection = createElement('div', 'recommendations-section');

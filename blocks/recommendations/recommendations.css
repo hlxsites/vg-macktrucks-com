@@ -58,12 +58,23 @@
   background: var(--secondary-dark-gold);
   width: fit-content;
   padding: 5px 8px;
+  line-height: 15px;
+}
+
+.recommendations-text-content .recommendations-category:hover {
+  text-decoration: none;
+  color: var(--primary-gold);
 }
 
 .recommendations-text-content .recommendations-title {
   font-family: var(--subheadings-ff-roman);
   font-size: var(--body-font-size-xs);
   margin: 10px 0 0;
+}
+
+.recommendations-text-content .recommendations-title:hover {
+  text-decoration: none;
+  opacity: 0.8;
 }
 
 .recommendations-text-content .recommendations-subtitle {
@@ -100,6 +111,7 @@
   
   .recommendations-item {
     --card-height: 270px;
+
     width: 50%;
   }
 }
@@ -165,9 +177,6 @@
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
   align-items: center;
-}
-
-.magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
   background-color: var(--secondary-steel);
   width: fit-content;
   opacity: 0.6;
@@ -181,7 +190,7 @@
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-link {
-  padding: 5px 0 5px;
+  padding: 5px 0;
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-link::after {
@@ -234,6 +243,7 @@
     width: auto;
     overflow: hidden;
   }
+
   main .section.magazine-categories.recommendations-container.recent-articles-container {
     display: flex;
     flex-flow: wrap;

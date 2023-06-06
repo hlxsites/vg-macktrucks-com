@@ -16,16 +16,12 @@ export const getLimit = (block) => {
   return number;
 };
 
-
-export const clearRepeatedArticles = (articles) => {
-    const result = articles.filter((e) => {
-    const currentArticlePath = window.location.href.split('/').pop();
-    const path = e.path.split('/').pop();
-    if (path !== currentArticlePath) return e;
-    return null;
-  });
-  return result
-}
+export const clearRepeatedArticles = (articles) => articles.filter((e) => {
+  const currentArticlePath = window.location.href.split('/').pop();
+  const path = e.path.split('/').pop();
+  if (path !== currentArticlePath) return e;
+  return null;
+});
 
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
