@@ -38,8 +38,8 @@ export default async function decorate(block) {
   const socialMediaSection = footer.querySelector('.fa-twitter, .fa-facebook, .fa-twitter, .fa-linkedin, .fa-instagram, .fa-youtube')?.closest('ul');
   socialMediaSection?.classList.add('footer-social-media-section');
 
-  const [firstHeader, secondHeader] = [...footer.querySelectorAll('h1')];
-  const [firstLinks, secondLinks] = [...footer.querySelectorAll('h1 ~ ul')];
+  const [firstHeader, secondHeader] = [...footer.querySelectorAll('h3')];
+  const [firstLinks, secondLinks] = [...footer.querySelectorAll('h3 ~ ul')];
 
   // creating the  logo link
   const picture = footer.querySelector('picture');
@@ -139,18 +139,18 @@ export default async function decorate(block) {
         }
 
         const checkbox = block.querySelector('.checkbox-span input[type="checkbox"]');
-        const checkboxLable = block.querySelector('.checkbox-span .checkbox-label');
+        const checkboxLabel = block.querySelector('.checkbox-span .checkbox-label');
         // customization of the checkbox
-        if (checkbox && checkboxLable) {
+        if (checkbox && checkboxLabel) {
           const checkboxId = 'footer-subscribe-checkbox';
           const checkboxParent = checkbox.parentElement;
           checkbox.setAttribute('id', checkboxId);
-          checkboxLable.setAttribute('for', checkboxId);
+          checkboxLabel.setAttribute('for', checkboxId);
           checkboxParent.classList.add('confirm-checkbox');
 
           if (emailInput) {
             // showing the checkbox only when the user start typing
-            emailInput.addEventListener('input', () => { checkboxParent.classList.add('show'); }, { onece: true });
+            emailInput.addEventListener('input', () => { checkboxParent.classList.add('show'); }, { once: true });
           }
 
           checkboxFixed = true;
