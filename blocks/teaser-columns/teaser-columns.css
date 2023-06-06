@@ -67,6 +67,10 @@
 }
 
 @media (min-width: 900px) {
+  main .section.background.teaser-columns-container {
+    height: 100%;
+  }
+  
   .teaser-columns .row {
     flex-direction: row;
   }
