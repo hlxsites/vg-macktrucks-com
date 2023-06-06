@@ -88,9 +88,13 @@
 }
 
 @media (min-width: 990px) {
+  .recommendations-container {
+    width: 100%;
+  }
   
   .recommendations-list {
     flex-direction: row;
+    justify-content: flex-start;
     column-gap: 15px;
   }
   
@@ -101,6 +105,10 @@
 }
 
 /* CATEGORIES */
+.magazine-categories.recommendations-container .recommendations-wrapper {
+  margin: unset;
+}
+
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-title,
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-subtitle,
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-link,
@@ -221,11 +229,6 @@
   .magazine-categories.recommendations-container .recommendations-item {
     width: unset;
   }
-  
-  /* .magazine-categories.recommendations-container .recommendations-item .recommendations-image,
-  .magazine-categories.recommendations-container  .recommendations-image  img {
-    height: 140px;
-  } */
 
   .magazine-categories.recommendations-container .recommendations-text-content {
     width: auto;
