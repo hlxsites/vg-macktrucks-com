@@ -10,12 +10,9 @@ export default async function decorate(block) {
     : 'mack-news';
 
   const pagingInfo = new PagingInfo();
-  let newsPage;
-  if (type === 'body-builder-news') {
-    newsPage = await getBodyBuilderNews(pagingInfo);
-  } else {
-    newsPage = await getMackNews(window.location.pathname, pagingInfo, '');
-  }
+  const newsPage = type === 'body-builder-news'
+    ? await getBodyBuilderNews(pagingInfo)
+    : await getMackNews(window.location.pathname, pagingInfo, '');
 
   block.textContent = '';
   const list = createElement('ul', ['news-sidebar-list']);

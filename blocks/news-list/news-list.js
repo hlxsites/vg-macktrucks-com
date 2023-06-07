@@ -23,12 +23,9 @@ export default async function decorate(block) {
   block.append(rssLink);
 
   const pagingInfo = new PagingInfo();
-  let posts;
-  if (type === 'body-builder-news') {
-    posts = await getBodyBuilderNews(pagingInfo);
-  } else {
-    posts = await getMackNews(window.location.pathname, pagingInfo, filter);
-  }
+  const posts = type === 'body-builder-news'
+    ? await getBodyBuilderNews(pagingInfo)
+    : await getMackNews(window.location.pathname, pagingInfo, filter);
 
   const list = createElement('ul', ['news-sidebar-list']);
   list.append(...posts.map((post) => {
