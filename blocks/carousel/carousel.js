@@ -140,7 +140,17 @@ function createDotControls(ul) {
   return dotControls;
 }
 
+function replaceBlockClasses(block) {
+  const classes = block.classList;
+
+  if (classes.contains('cards')) {
+    classes.remove('cards');
+    classes.add('cards-variant');
+  }
+}
+
 export default function decorate(block) {
+  replaceBlockClasses(block);
   const ul = createElement('ul', ['items']);
 
   // We support two formats:
