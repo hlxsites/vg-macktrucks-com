@@ -1,0 +1,186 @@
+main .section {
+  padding: 0!important;
+} 
+
+main .template.section.article-hero-container {
+  position: relative;
+}
+
+.article-hero-container {
+  --image-height: 300px;
+}
+
+.article-hero-image {
+  position: absolute;
+  z-index: -1;
+  height: var(--image-height);
+  width: 100%;
+}
+
+.article-hero-image img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: revert;
+}
+
+.article-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: var(--image-height);
+  text-justify: auto;
+  padding-left: 30px;
+}
+
+.article-hero-content .article-hero-category {
+  background: var(--secondary-dark-gold);
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xxs);
+  color: var(--primary-white);
+  width: fit-content;
+  padding: 5px 8px;
+}
+
+.article-hero-content .article-hero-title {
+  width: 90%;
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--heading-font-size-m);
+  color: var(--primary-white);
+  margin: 20px 0 0;
+}
+
+.article-hero-content .article-hero-truck {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xs);
+  color: var(--secondary-steel);
+  padding-top: 0;
+  margin: 35px 0 50px;
+}
+
+.article-hero-content .article-hero-truck .truck-text{
+  margin: 0;
+  padding-left: 5px;
+}
+
+.article-texts-container {
+  margin: 30px;
+  max-width: 1200px !important;
+}
+
+.article-texts-container .default-content-subtitle {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--heading-font-size-s);
+  color: var(--primary-black);
+  margin: 0 4px 10px;
+}
+
+.article-texts-container .current-article-container .author-text {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--body-font-size-xs);
+  line-height: 21px;
+  margin: 20px 4px 10px;
+}
+
+.article-texts-container .default-content-wrapper p {
+  font-family: var(--body-ff);
+  font-size: var(--body-font-size-xs);
+  line-height: 21px;
+  margin: 0 4px 20px;
+}
+
+.article-texts-container .default-content-wrapper p:first-child {
+  margin-top: 50px;
+}
+
+.current-article-container .share-wrapper {
+  border-bottom: 5px solid var(--secondary-graphite);
+  width: 100%;
+  margin: 0 4px 20px;
+}
+
+.current-article-container .share-icons button {
+  font-family: var(--body-ff);
+  font-size: 12px;
+  font-weight: normal;
+  border-radius: 3px;
+  margin-left: 5px;
+  padding: 1px 5px;
+}
+
+.current-article-container .share-icons .icon {
+  font-family: var(--ff-fontawesome);
+  padding-left: 5px;
+  font-size: 10px;
+}
+
+@media (min-width: 768px) {
+  .article-hero-container {
+    --image-height: 600px;
+  }
+
+  .article-hero-content {
+    width: 90%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .article-hero-content .article-hero-title {
+    font-size: var(--heading-font-size-xl);
+  }
+
+  .article-texts-container {
+    width: 90%;
+  }
+
+  .article-texts-container .default-content-subtitle {
+    font-size: var(--heading-font-size-m);
+  }
+}
+
+@media (min-width: 990px) {
+  main .section .article-hero-image {
+    max-width: 100vw;
+  }
+
+  .article-texts-container .default-content-subtitle {
+    margin-top: 60px;
+  }
+
+  .template.article-template.article-texts-container {
+    max-width: 1200px !important;
+  }
+
+  .template.article-template.article-texts-container .current-article-container {
+    grid-area: current;
+  }
+
+  .template.article-template.article-texts-container .recommendations-container {
+    grid-area: recommended;
+  }
+
+  .template.article-template.article-texts-container .recent-articles-container {
+    grid-area: recent;
+    display: contents;
+    align-self: start;
+  }
+
+  .template.article-template.article-texts-container {
+    display: grid;
+    grid-template-columns: 60% 35%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "current recent"
+      "recommended .";
+    column-gap: 50px;
+    margin: 0 auto;
+  }
+}
+
+.current-article-container .share-icons .fa-facebook::before {
+  display: unset;
+}

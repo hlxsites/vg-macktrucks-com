@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://www.macktrucks.com/parts-and-services/support/body-builders/news-and-events/</id>
+    <title>Mack Body Builder News</title>
+    <updated>2023-06-04T16:31:05.000Z</updated>
+    <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
+    <link rel="alternate" href="https://www.macktrucks.com/parts-and-services/support/body-builders/news-and-events/"/>
+    <subtitle>Get the latest news from Mack® Trucks Body Builder Portal.</subtitle>
+    <entry>
+        <title type="html"><![CDATA[Mack Medium Duty PTO Options]]></title>
+        <id>https://www.macktrucks.com/parts-and-services/support/body-builders/news-and-events/mack-medium-duty-pto-options</id>
+        <link href="https://www.macktrucks.com/parts-and-services/support/body-builders/news-and-events/mack-medium-duty-pto-options"/>
+        <updated>2023-06-04T16:31:05.000Z</updated>
+        <content type="html"><![CDATA[A guild to help wire and setting up the right PTO option for your application.]]></content>
+        <published>2023-06-04T16:31:05.000Z</published>
+    </entry>
+</feed>

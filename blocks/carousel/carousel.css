@@ -366,31 +366,31 @@
 
 /* cards version */
 
-.block.carousel.cards .items {
+.block.carousel.cards-variant .items {
   gap: 5px;
 }
 
-.block.carousel.cards .carousel-item {
+.block.carousel.cards-variant .carousel-item {
   flex-basis: 66.6vw;
 }
 
-.block.carousel.cards .carousel-content-wrapper {
+.block.carousel.cards-variant .carousel-content-wrapper {
   justify-content: flex-start;
   flex-direction: column;
 }
 
-.block.carousel.cards .carousel-item-text {
+.block.carousel.cards-variant .carousel-item-text {
   padding: 5px 0;
 }
 
-.block.carousel.cards .carousel-item-text p {
+.block.carousel.cards-variant .carousel-item-text p {
   padding-bottom: 5px;
   font-size: 16px;
   line-height: 18px;
   color: #5d5d5d;
 }
 
-.block.carousel.cards .carousel-item-text h2 {
+.block.carousel.cards-variant .carousel-item-text h2 {
   font-family: var(--emphasis-ff-bold);
   font-size: 14px;
   color: var(--primary-white);
@@ -399,25 +399,25 @@
   line-height: 14px;
 }
 
-.block.carousel.cards .carousel-item-text > * {
+.block.carousel.cards-variant .carousel-item-text > * {
   opacity: 0;
   transition: opacity 0.7s;
 }
 
-.block.carousel.cards .carousel-item-text > *:first-child {
+.block.carousel.cards-variant .carousel-item-text > *:first-child {
   opacity: 1;
 }
 
-.block.carousel.cards .carousel-item.active .carousel-item-text > * {
+.block.carousel.cards-variant .carousel-item.active .carousel-item-text > * {
   opacity: 1;
 }
 
-.block.carousel.cards .desktop-controls {
+.block.carousel.cards-variant .desktop-controls {
   display: none;
 }
 
 @media (min-width: 897px) {
-  .block.carousel.cards .items {
+  .block.carousel.cards-variant .items {
     gap: 20px;
     padding: 0;
     width: auto;
@@ -425,21 +425,21 @@
     margin: auto;
   }
 
-  .block.carousel.cards .carousel-item {
+  .block.carousel.cards-variant .carousel-item {
     flex-basis: calc((100% - 40px) / 3);
   }
 
-  .block.carousel.cards .carousel-item-text > * {
+  .block.carousel.cards-variant .carousel-item-text > * {
     opacity: 1;
   }
 
-  .block.carousel.cards .items .carousel-item::after {
+  .block.carousel.cards-variant .items .carousel-item::after {
     display: none;
   }
 }
 
 @media (min-width: 1025px) {
-  .block.carousel.cards .desktop-controls {
+  .block.carousel.cards-variant .desktop-controls {
     display: flex;
     max-width: 1200px;
     margin: auto;
