@@ -104,6 +104,7 @@ export default async function decorate(doc) {
   author.innerText = authorName;
 
   const defaultContent = container.querySelector('.default-content-wrapper');
+  const subscribeContent = container.querySelector('.magazine-subscribe-wrapper');
 
   const parentSection = defaultContent.parentNode;
   parentSection.classList.add('default-content-container');
@@ -119,7 +120,7 @@ export default async function decorate(doc) {
 
   currentArticle.append(firstHeading, author, shareSection1, defaultContent, shareSection2);
   articleTexts.append(currentArticle, recommendationsSection, recentSection);
-  article.append(breadSection, heroSection, articleTexts);
+  article.append(breadSection, heroSection, articleTexts, subscribeContent);
 
   container.innerText = '';
   container.append(article);
