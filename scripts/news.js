@@ -12,6 +12,15 @@ export const feedsInfo = {
 };
 
 /**
+ * @typedef {Object} NewsPost
+ * @property {string} path
+ * @property {string} title
+ * @property {string} summary
+ * @property {string} template
+ * @property {string} publicationDate
+ */
+
+/**
  * This method can be called multiple times with the same parameters as the pagingInfo is
  * automatically updated to track the offset.
  *
@@ -40,18 +49,6 @@ export async function getBodyBuilderNews(pagingInfo) {
  * @returns {Promise<NewsPost[]>}
  */
 export async function getMackNews(path, pagingInfo, filter = 'none') {
-  let applicableFilter = filter.toLowerCase();
-  if (applicableFilter === 'auto') {
-    if (getMetadata('template')) {
-      // eg. "mack-news" or "body-builder-news"
-      applicableFilter = getMetadata('template');
-    } else {
-      // eslint-disable-next-line no-console
-      console.warn('Unable to determine news filter');
-      return [];
-    }
-  }
-
   const allPosts = await fetchJsonFeed(feedsInfo['mack-news'].jsonSource, pagingInfo);
   let filteredPosts = allPosts.filter((page) => page.template === 'mack-news');
   filteredPosts.sort(sortNewsByDate);
@@ -61,12 +58,29 @@ export async function getMackNews(path, pagingInfo, filter = 'none') {
     filteredPosts = filterNewsByDate(filteredPosts, year);
   }
 
+  // TODO: filter by topic, subtopic, author, tag, post
+  let applicableFilter = filter ? filter.toLowerCase() : 'none';
+  if (applicableFilter === 'auto') {
+    if (getMetadata('template') === 'mack-news') {
+      applicableFilter = 'mack-news';
+    } else {
+      applicableFilter = 'none';
+    }
+  }
+
   if (pagingInfo.pageSize > 0) {
     return filteredPosts.slice(0, pagingInfo.pageSize);
   }
   return filteredPosts;
 }
 
+/**
+ * Stores the paging metadata so that additional pages can be fetched.
+ * @type {PagingInfo}
+ * @property {number} offset  the offset of the next page to fetch
+ * @property {boolean} allLoaded  true if all pages have been fetched
+ * @property {number} pageSize  the number of items to return per page. -1 means all.
+ */
 export class PagingInfo {
   constructor() {
     this.offset = 0;
@@ -79,6 +93,7 @@ export class PagingInfo {
  * loads more data from the query index
  * @param jsonFeedPath {string}  path to the json feed to fetch
  * @param {PagingInfo} pagingInfo
+ * @returns {Promise<NewsPost[]>}
  */
 async function fetchJsonFeed(jsonFeedPath, pagingInfo) {
   if (!pagingInfo.allLoaded) {
@@ -127,12 +142,3 @@ function extractYearFromPath(path) {
 
   return null;
 }
-
-/**
- * @typedef {Object} NewsPost
- * @property {string} path
- * @property {string} title
- * @property {string} summary
- * @property {string} template
- * @property {string} publicationDate
- */
