@@ -1,4 +1,4 @@
-name: Generate Atom news feed
+name: Generate Atom news feeds
 
 on:
   repository_dispatch:
