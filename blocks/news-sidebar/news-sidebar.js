@@ -72,7 +72,7 @@ export default async function decorate(block) {
 function getParentCategoryLink(pagePath) {
   const parentFolders = pagePath.split('/').filter((item) => item !== '');
   parentFolders.pop();
-  // either a category like 'news and events' or a year like 2023
+  // either a category like 'news-and-events' or a year like '2023'
   let parentFolderName = parentFolders.at(-1);
 
   // format the parent folder name to be more readable

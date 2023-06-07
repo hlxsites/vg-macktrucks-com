@@ -14,11 +14,8 @@ export default async function decorate(block) {
   const filter = config.filter || '';
   block.textContent = '';
 
-  const rssLink = createElement(
-    'a',
-    ['title-with-icon'],
-    { href: feedsInfo[type].feedPath, target: '_blank' },
-  );
+  // eslint-disable-next-line function-call-argument-newline,function-paren-newline
+  const rssLink = createElement('a', ['title-with-icon'], { href: feedsInfo[type].feedPath, target: '_blank' });
   rssLink.textContent = 'News RSS';
   block.append(rssLink);
 
