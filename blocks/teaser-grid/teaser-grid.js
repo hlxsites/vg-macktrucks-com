@@ -17,7 +17,7 @@ export default function decorate(block) {
     const subtitle = `${texts[2].innerText} >`;
 
     let categoriesUrl = buttonText.replaceAll(' ', '-').toLowerCase();
-    categoriesUrl = `${window.location.href}/categories/${categoriesUrl}`;
+    categoriesUrl = `${window.location.href}categories/${categoriesUrl}`;
 
     teaserGridItem.innerHTML = `
         <div class='teaser-card'>
