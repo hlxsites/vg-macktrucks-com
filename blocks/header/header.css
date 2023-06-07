@@ -70,29 +70,29 @@ header nav .nav-hamburger-icon::after {
   background: currentcolor;
 }
 
-header nav[aria-expanded=false] .nav-hamburger-icon,
-header nav[aria-expanded=false] .nav-hamburger-icon::before,
-header nav[aria-expanded=false] .nav-hamburger-icon::after {
+header nav[aria-expanded="false"] .nav-hamburger-icon,
+header nav[aria-expanded="false"] .nav-hamburger-icon::before,
+header nav[aria-expanded="false"] .nav-hamburger-icon::after {
   height: 2px;
   border-radius: 2px;
   background: currentcolor;
   color: #999;
 }
 
-header nav[aria-expanded=false] .nav-hamburger-icon::before {
+header nav[aria-expanded="false"] .nav-hamburger-icon::before {
   top: -9px;
 }
 
-header nav[aria-expanded=false] .nav-hamburger-icon::after {
+header nav[aria-expanded="false"] .nav-hamburger-icon::after {
   top: 9px;
 }
 
-header nav[aria-expanded=true] .nav-hamburger-icon {
+header nav[aria-expanded="true"] .nav-hamburger-icon {
   height: 22px;
 }
 
-header nav[aria-expanded=true] .nav-hamburger-icon::before,
-header nav[aria-expanded=true] .nav-hamburger-icon::after {
+header nav[aria-expanded="true"] .nav-hamburger-icon::before,
+header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   top: 3px;
   left: 1px;
   transform: rotate(45deg);
@@ -102,7 +102,7 @@ header nav[aria-expanded=true] .nav-hamburger-icon::after {
   border-radius: 2px;
 }
 
-header nav[aria-expanded=true] .nav-hamburger-icon::after {
+header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   top: unset;
   bottom: 3px;
   transform: rotate(-45deg);
@@ -138,14 +138,14 @@ header .nav-sections .nav-mobile {
   display: none;
 }
 
-header nav[aria-expanded=true] .nav-sections {
+header nav[aria-expanded="true"] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
   background-color: var(--primary-black);
 }
 
-header :where(nav[aria-expanded=true]) .nav-sections .nav-mobile {
+header :where(nav[aria-expanded="true"]) .nav-sections .nav-mobile {
   display: inherit;
   margin-block: 1rem;
 }
@@ -320,7 +320,7 @@ header .studio-search-widget {
     padding-inline: 2rem;
   }
 
-  header nav[aria-expanded=true] {
+  header nav[aria-expanded="true"] {
     min-height: 0;
     overflow: visible;
   }
@@ -355,7 +355,7 @@ header .studio-search-widget {
     padding: 0 1rem;
   }
 
-  header nav[aria-expanded=true] .nav-sections {
+  header nav[aria-expanded="true"] .nav-sections {
     align-self: unset;
   }
 
@@ -383,7 +383,7 @@ header .studio-search-widget {
     border-width: 2px 2px 0 0;
   }
 
-  header nav .nav-sections .nav-drop[aria-expanded=true]::after {
+  header nav .nav-sections .nav-drop[aria-expanded="true"]::after {
     top: unset;
     bottom: .5em;
     transform: rotate(315deg);
