@@ -1,18 +1,35 @@
 import { createElement } from '../../scripts/scripts.js';
-import { getNews } from '../../scripts/news.js';
+import {
+  feedsInfo, getBodyBuilderNews, getMackNews, PagingInfo,
+} from '../../scripts/news.js';
 import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const rssFeedUrl = config.feed;
-  const filter = config.filter || 'mack-news';
+
+  const type = window.location.pathname.startsWith('/parts-and-services/support/body-builders')
+    ? 'body-builder-news'
+    : 'mack-news';
+
+  const filter = config.filter || '';
   block.textContent = '';
 
-  const rssLink = createElement('a', ['title-with-icon'], { href: rssFeedUrl, target: '_blank' });
+  const rssLink = createElement(
+    'a',
+    ['title-with-icon'],
+    { href: feedsInfo[type].feedPath, target: '_blank' },
+  );
   rssLink.textContent = 'News RSS';
   block.append(rssLink);
 
-  const posts = await getNews(filter);
+  const pagingInfo = new PagingInfo();
+  let posts;
+  if (type === 'body-builder-news') {
+    posts = await getBodyBuilderNews(pagingInfo);
+  } else {
+    posts = await getMackNews(window.location.pathname, pagingInfo, filter);
+  }
+
   const list = createElement('ul', ['news-sidebar-list']);
   list.append(...posts.map((post) => {
     const articleLink = createElement('a', [], { href: post.path });
