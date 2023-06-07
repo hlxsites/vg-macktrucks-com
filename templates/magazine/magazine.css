@@ -34,13 +34,20 @@ main .template.section.article-hero-container {
   padding-left: 30px;
 }
 
-.article-hero-content .article-hero-category {
+.article-hero-content a.article-hero-category {
   background: var(--secondary-dark-gold);
   font-family: var(--subheadings-ff-medium);
   font-size: var(--body-font-size-xxs);
   color: var(--primary-white);
   width: fit-content;
+  line-height: 15px;
   padding: 5px 8px;
+}
+
+.article-hero-content a.article-hero-category:hover {
+  text-decoration: none;
+  color: var(--primary-gold);
+  cursor: pointer;
 }
 
 .article-hero-content .article-hero-title {
@@ -156,6 +163,7 @@ main .template.section.article-hero-container {
   }
 
   .template.article-template.article-texts-container .current-article-container {
+    margin: unset;
     grid-area: current;
   }
 
@@ -175,7 +183,7 @@ main .template.section.article-hero-container {
     grid-template-rows: auto;
     grid-template-areas: 
       "current recent"
-      "recommended .";
+      "recommended recent";
     column-gap: 50px;
     margin: 0 auto;
   }
