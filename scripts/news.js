@@ -3,9 +3,11 @@ import { getMetadata } from './lib-franklin.js';
 export const feedsInfo = {
   'mack-news': {
     feedPath: '/mack-news/feed.xml',
+    jsonSource: '/mack-news/feed.json',
   },
   'body-builder-news': {
     feedPath: '/parts-and-services/support/body-builders/news-and-events/feed.xml',
+    jsonSource: '/body-builder-news.json',
   },
 };
 
@@ -17,7 +19,7 @@ export const feedsInfo = {
  * @returns {Promise<NewsPost[]>}
  */
 export async function getBodyBuilderNews(pagingInfo) {
-  const allPosts = await fetchJsonFeed('/body-builder-news.json', pagingInfo);
+  const allPosts = await fetchJsonFeed(feedsInfo['body-builder-news'].jsonSource, pagingInfo);
   allPosts.sort(sortNewsByDate);
 
   if (pagingInfo.pageSize > 0) {
@@ -50,7 +52,7 @@ export async function getMackNews(path, pagingInfo, filter = 'none') {
     }
   }
 
-  const allPosts = await fetchJsonFeed('/mack-news/feed.json', pagingInfo);
+  const allPosts = await fetchJsonFeed(feedsInfo['mack-news'].jsonSource, pagingInfo);
   let filteredPosts = allPosts.filter((page) => page.template === 'mack-news');
   filteredPosts.sort(sortNewsByDate);
 
