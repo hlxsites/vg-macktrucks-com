@@ -37,6 +37,16 @@
   flex: 1 1 100%;
 }
 
+.tabs-tab-item.active .tab-picture-wrapper {
+  display: flex;
+  justify-content: center;
+  order: 1;
+}
+
+.tabs-tab-item.active .tab-text-wrapper {
+  order: 2;
+}
+
 .tabs-tab-item.active picture {
   display: inline-block;
 }
@@ -55,6 +65,10 @@
 @media (min-width: 748px) {
   .tabs-tab-item.active {
     flex-direction: initial;
+  }
+
+  .tabs-tab-item.active :is(.tab-text-wrapper , .tab-picture-wrapper) {
+    order: unset;
   }
 }
 

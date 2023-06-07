@@ -1,3 +1,7 @@
+main .section .breadcrumb-container {
+  padding: 0!important;
+} 
+
 .breadcrumb-wrapper {
   font-size: var(--body-font-size-xs);
   font-family: var(--subheadings-ff-medium);
@@ -13,8 +17,7 @@
   list-style: none;
   max-width: 1376px;
   height: 45px;
-  margin: 5px auto 10px;
-  padding-left: 40px;
+  margin: 5px auto 10px 0;
 }
 
 .breadcrumb-home {

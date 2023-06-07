@@ -59,6 +59,14 @@
   align-items: end;
 }
 
+/* Rule just for magazine listing page */
+.block.cards.magazine li {
+    border: none;
+    border-top: 6px solid var(--primary-black);
+    padding: 12px 0 0;
+    width: 100%;
+}
+
 .block.cards.modest > ul > li {
   width: 270px;
   background: transparent;
@@ -179,7 +187,71 @@
 
 
 .block.cards.modest .cards-card-body {
-  margin: 16px 0;
+    margin: 16px 0;
+    width: 100%;
+}
+
+/* MAGAZINE variation */
+.block.cards.magazine ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.block.cards.magazine .cards-card-body {
+    font-size: var(--body-font-size-xs);
+    margin: 0;
+}
+
+.block.cards.magazine .cards-card-body p {
+    font-family: var(--subheadings-ff-medium);
+    margin-bottom: 15px;
+}
+
+.block.cards.magazine .cards-card-body img {
+    width: unset;
+    margin: 0 0 10px;
+}
+
+.block.cards.magazine .cards-card-body p.button-container {
+    margin: 0;
+}
+
+.block.cards.magazine .cards-card-body .button.primary {
+    height: unset;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+.block.cards.magazine .cards-card-body .button-container a {
+    font-family: var(--subheadings-ff-medium);
+    color: var(--primary-black);
+    background-color: var(--primary-white);
+    padding: 0;
+    text-decoration: underline;
+}
+
+.block.cards.magazine .cards-card-body .button-container a:hover {
+    color: var(--secondary-steel);
+    transition: unset;
+}
+
+@media (min-width: 768px) {
+    .block.cards.magazine > ul {
+        max-width: 960px;
+        margin: 0 auto;
+        flex-direction: row;
+        justify-content: space-between;
+        grid-gap: 25px;
+    }
+
+    .block.cards.magazine .cards-card-body {
+        font-size: var(--body-font-size-s);
+    }
+
+    .block.cards.magazine .cards-card-body p:last-of-type {
+        margin-bottom: 65px;
+    }
 }
 
 @media (min-width: 480px) {
