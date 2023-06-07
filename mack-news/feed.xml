@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-02-28T00:00:00.000Z</updated>
-    <generator>AEM News feed generator (GitHub action)</generator>
+    <updated>2023-04-26T00:00:00.000Z</updated>
+    <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
     <entry>
@@ -12,6 +12,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/evergreen-waste-services-orders-a-mack-lr-electric-refuse-vehicle"/>
         <updated>2023-02-13T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Feb. 13, 2023) – Evergreen Waste Services, based in Hockessin, Delaware, recently ordered a Mack® LR Electric refuse vehicle, the first electric vehicle in the company’s fleet. The vehicle will operate in a residential area in New Castle County, Delaware.]]></content>
+        <published>2023-02-13T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mack Trucks Dealer Bruckner Truck Sales in Commerce City, Colorado, is Now a Mack Trucks EV-Certified Dealer | Mack Trucks]]></title>
@@ -19,6 +20,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/mack-dealer-bruckner-truck-sales-in-commerce-city-colorado-is-now-a-mack-ev-certified-dealer"/>
         <updated>2023-02-07T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Feb. 7, 2023) – Mack Trucks dealer Bruckner Truck Sales, based outside of Denver in Commerce City, Colorado, recently achieved Certified Electric Vehicle (EV) Dealer status. Bruckner’s will now be able to service and support the Mack® LR Electric refuse vehicle and is the first Mack dealer in Colorado to achieve EV certification status.]]></content>
+        <published>2023-02-07T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[General Truck Sales in Ohio Becomes a Mack Certified Electric Vehicle (EV) Dealer | Mack Trucks]]></title>
@@ -26,6 +28,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/general-truck-sales-in-ohio-becomes-a-mack-certified-electric-vehicle-ev-dealer"/>
         <updated>2023-01-23T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Jan. 23, 2023) – Mack Trucks dealer General Truck Sales recently completed the stringent requirements to become a Mack Certified Electric Vehicle (EV) Dealer at its Toledo, Ohio location. The designation means General Truck Sales will now be able to service and support the Mack LR Electric refuse vehicle, Mack’s first Class 8 full electric vehicle.]]></content>
+        <published>2023-01-23T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mack Granite Has a Clearer View of Whats Ahead | Mack Trucks]]></title>
@@ -33,13 +36,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/mack-granite-has-a-clearer-view-of-whats-ahead"/>
         <updated>2023-01-17T00:00:00.000Z</updated>
         <content type="html"><![CDATA[LAS VEGAS, Nevada (Jan.17, 2023) – Mack Trucks debuted today an updated Mack® Granite® model at World of Concrete 2023, Jan. 17-19, 2023, at the Las Vegas Convention Center.]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Mack Trucks Features Mack Anthem® Models at TMC 2023 | Mack Trucks]]></title>
-        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-features-mack-anthem-models-at-tmc-2023</id>
-        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-features-mack-anthem-models-at-tmc-2023"/>
-        <updated>2023-02-21T00:00:00.000Z</updated>
-        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 21, 2023) – Mack Trucks announced today that it will feature two versions of the Mack Anthem® model at the Technology & Maintenance Council’s (TMC) Annual Meeting. A Mack Anthem day cab and a Mack Anthem 70-inch stand-up sleeper will be in booth No. 1659 at TMC 2023, Feb. 27 – March 2, at the Orange County Convention Center, Orlando, Florida.]]></content>
+        <published>2023-01-17T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mack Defense Awarded a Contract for the Prototype and Testing Phase of U.S. Army’s Common Tactical Truck (CTT) Program | Mack Trucks]]></title>
@@ -47,6 +44,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/mack-defense-awarded-a-contract-for-the-prototype-and-testing-phase"/>
         <updated>2023-02-01T00:00:00.000Z</updated>
         <content type="html"><![CDATA[ALLENTOWN, PA (Feb. 01, 2023) – Mack Defense has been awarded a contract to design, build, and deliver trucks for the prototype and testing phase of the U.S. Army’s Common Tactical Truck (CTT) program. The prototypes will be tested and evaluated to determine the final requirements for the next generation of trucks to ultimately begin modernization and replacement of the Army’s fleet of approximately 35,000 heavy tactical trucks which perform a wide range of combat logistics, support, and service support missions.]]></content>
+        <published>2023-02-01T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mack Names Ballard Truck Center 2022 North American Dealer of the Year | Mack Trucks]]></title>
@@ -54,6 +52,7 @@
         <link href="https://www.macktrucks.com/mack-news/2023/mack-names-ballard-truck-center-2022-north-american-dealer-of-the-year"/>
         <updated>2023-02-14T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Feb. 14, 2023) – Ballard Truck Center of Tewksbury, Massachusetts, is the Mack Trucks 2022 North American Dealer of the Year. Mack named Ballard the winner during the recent Mack annual dealer meeting in Austin, Texas.]]></content>
+        <published>2023-02-14T00:00:00.000Z</published>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mack Trucks Get a Digital Upgrade Industry-Leading Capabilities Now Available for More Systems | Mack Trucks]]></title>
@@ -61,11 +60,914 @@
         <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-get-a-digital-upgrade-industryleading-capabilities-now-available-for-more-systems"/>
         <updated>2023-02-28T00:00:00.000Z</updated>
         <content type="html"><![CDATA[ORLANDO, FL (Feb. 28, 2023) – Mack Trucks announced today that it will be expanding the number of electronic control units (ECUs) enabled for Mack® Over the Air (OTA) updates in the Mack Anthem®, PinnacleTM and Granite® models. The announcement was made at the Technology & Maintenance Council’s (TMC) 2023 Annual Meeting, Feb. 27 to March 2 at the Orange County Convention Center, Orlando, Florida.]]></content>
+        <published>2023-02-28T00:00:00.000Z</published>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Mack® trucks are sold and serviced through an extensive distribution network in more than 45 countries. Mack trucks, diesel engines and transmissions sold in North America are assembled in the United States. Mack manufacturing locations are certified to the internationally recognized ISO 9001 standard for quality, ISO 14001 standard for environmental management systems and OHSAS 18001 standard for health and safety management systems. Mack is also a proud sponsor of Share the Road, an American Trucking Associations public information campaign aimed at enhancing the safety of our nation's roadways.]]></title>
-        <id>https://www.macktrucks.com/mack-news/fragments/closing-paragraphs</id>
-        <link href="https://www.macktrucks.com/mack-news/fragments/closing-paragraphs"/>
+        <title type="html"><![CDATA[Mack Trucks EV Certifies Bergey’s Truck Center in Trenton, New Jersey | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-ev-certifies-bergeys-truck-center-in-trenton-new-jersey</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-ev-certifies-bergeys-truck-center-in-trenton-new-jersey"/>
+        <updated>2023-01-26T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 26, 2023) – Mack Trucks dealer Bergey’s Truck Center achieved Certified Electric Vehicle (EV) Dealer status at its Trenton, New Jersey location. Bergey’s in Trenton will now be able to service and support the Mack® LR Electric refuse vehicle and is the first Mack dealer in New Jersey to achieve EV certification status.]]></content>
+        <published>2023-01-26T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Donates Mack® Granite® to Concrete Industry Management Association | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-donates-mack-granite-to-concrete-industry-management-association</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-donates-mack-granite-to-concrete-industry-management-association"/>
+        <updated>2023-01-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 16, 2023) – Mack Trucks will again support the Concrete Industry Management (CIM) auction with a donation of a 2023 Mack® Granite® model that will be auctioned Jan. 18 at World of Concrete 2023 at the Las Vegas Convention Center.]]></content>
+        <published>2023-01-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Features Mack® MD Electric and LR® Electric Trucks at ACT Expo 2023 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-features-mack-md-electric-and-lr-electric-trucks-at-act-expo-2023</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-features-mack-md-electric-and-lr-electric-trucks-at-act-expo-2023"/>
+        <updated>2023-04-26T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 26, 2023) – Mack Trucks announced today that the recently-revealed Mack® MD Electric will be shown alongside the Mack LR® Electric refuse vehicle at the Advanced Clean Transportation (ACT) Expo, May 1-4, at the Anaheim Convention Center in Anaheim, California.]]></content>
+        <published>2023-04-26T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[TEC Equipment – Portland is now a Mack Certified Electric Vehicle (EV) Dealer | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/tec-equipment-portland-is-now-a-mack-certified-electric-vehicle-ev-dealer</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/tec-equipment-portland-is-now-a-mack-certified-electric-vehicle-ev-dealer"/>
+        <updated>2023-01-31T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 31, 2023) – Mack Trucks dealer TEC Equipment recently became a Certified Electric Vehicle (EV) Dealer at its Portland, Oregon, location. TEC Equipment – Portland will now be able to service and support the Mack® LR Electric refuse vehicle and is the first Mack dealer in Oregon to achieve EV certification status.]]></content>
+        <published>2023-01-31T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Features its Mack Granite TerraPro and MD Series Models at World of Concrete 2023 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-features-its-mack-granite-terrapro-and-md-series-models-at-world-of-concrete-2023</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-features-its-mack-granite-terrapro-and-md-series-models-at-world-of-concrete-2023"/>
+        <updated>2023-01-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 12, 2023) – Mack Trucks announced today that it would spotlight a Mack®Granite® mixer, a Mack TerraPro® concrete pumper and a Mack MD7 dump model in booth No. C5160 at World of Concrete 2023, Jan. 17-19, at the Las Vegas Convention Center.]]></content>
+        <published>2023-01-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Enters Partnerships with Heliox, Gilbarco to Increase Charging Accessibility | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-enters-partnerships-with-heliox-gilbarco-to-increase-charging-accessibility</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-enters-partnerships-with-heliox-gilbarco-to-increase-charging-accessibility"/>
+        <updated>2023-02-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 14, 2023) – Mack Trucks announced today that it has entered partnerships with Heliox and Gilbarco Veeder-Root to help encourage customer adoption of battery-electric vehicles (BEV) such as the Mack® LR Electric, Mack’s first fully electric Class 8 refuse truck.]]></content>
+        <published>2023-02-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Produces 10,000th Mack® MD Series truck at Roanoke Valley Operations (RVO) | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-produces-10000th-mack-md-series-truck-at-roanoke-valley-operations-rvo</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-produces-10000th-mack-md-series-truck-at-roanoke-valley-operations-rvo"/>
+        <updated>2023-02-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ROANOKE VALLEY, Virginia (Feb. 2, 2023) –]]></content>
+        <published>2023-02-02T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Hands Over Keys to Red Classic’s 1,000th Mack Highway Vehicle | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-hands-over-keys-to-red-classic-s-1000th-mack-highway-vehicle</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-hands-over-keys-to-red-classic-s-1000th-mack-highway-vehicle"/>
+        <updated>2022-09-27T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA - (Sept. 27, 2022) –]]></content>
+        <published>2022-09-27T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[City of Cambridge, Massachusetts, Orders Two Mack® LR Electric Refuse Vehicles | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/city-of-cambridge-massachusetts-orders-two-mack-lr-electric-refuse-vehicles</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/city-of-cambridge-massachusetts-orders-two-mack-lr-electric-refuse-vehicles"/>
+        <updated>2022-12-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 15, 2022) – City of Cambridge, Massachusetts, executives recently ordered two Mack® LR Electric models to help them move toward the city’s goal of having a fully electric fleet. The Mack LR Electric vehicles will be the first Class 8 electric trucks in the Cambridge refuse collection fleet.]]></content>
+        <published>2022-12-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Laval in Dorval, Quebec is Mack’s First Canadian Dealer to be EV Certified | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-laval-in-dorval-quebec-is-macks-first-canadian-dealer-to-be-ev-certified</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-laval-in-dorval-quebec-is-macks-first-canadian-dealer-to-be-ev-certified"/>
+        <updated>2022-04-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 5, 2022) – Mack Laval’s Dorval facility in Montreal, Quebec, is now a Mack Trucks Certified Electric Vehicle (EV) Dealer, making it the first Mack dealer in Canada to achieve this designation. This achievement enables Mack Laval in Dorval to service and support the Mack LR®Electric refuse truck, Mack’s first fully electric Class 8 vehicle.]]></content>
+        <published>2022-04-05T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack LR® Electric Refuse Vehicle Part of $10 Million Award for a Clean Transportation Solution in the South Bronx | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-lr-electric-refuse-vehicle-part-of-10-million-award-for-a-clean-transportation-solution</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-lr-electric-refuse-vehicle-part-of-10-million-award-for-a-clean-transportation-solution"/>
+        <updated>2022-11-17T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 17, 2022) – Mack Trucks announced today that the Mack LR® Electric is part of a winning submission for a $10 million award by the New York State Energy Research and Development Authority (NYSERDA) to introduce clean transportation solutions to Hunts Point in the South Bronx.]]></content>
+        <published>2022-11-17T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Granite Models to Take Center Stage at World of Concrete 2022 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-granite-models-to-take-center-stage-at-world-of-concrete-2022</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-granite-models-to-take-center-stage-at-world-of-concrete-2022"/>
+        <updated>2022-01-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 12, 2022) – Mack Trucks will feature two of its Mack® Granite® model construction trucks at World of Concrete 2022, Jan. 18 to 20, 2022, at the Las Vegas Convention Center.]]></content>
+        <published>2022-01-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® LR Electric Ordered by Coastal Waste &amp; Recycling to Help Reduce Emissions in South Florida | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-lr-electric-ordered-by-coastal-waste-recycling-to-help-reduce-emissions-in-south-florida</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-lr-electric-ordered-by-coastal-waste-recycling-to-help-reduce-emissions-in-south-florida"/>
+        <updated>2022-12-19T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 19, 2022) – Coastal Waste & Recycling recently ordered a Mack® LR Electric refuse vehicle, the first electric vehicle in its fleet, to help the company continue to lead sustainable innovation and adopt technologies that enable a greener future.]]></content>
+        <published>2022-12-19T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® mDRIVE™ Automated Manual Transmission Now Available with Left and Right Dual PTO Option | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-mdrive-automated-manual-transmission-now-available-with-left-and-right-dual-pto-option</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-mdrive-automated-manual-transmission-now-available-with-left-and-right-dual-pto-option"/>
+        <updated>2022-03-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 18, 2022) – Mack Trucks announced that the Mack® mDRIVE™ Automated Manual Transmission (AMT) now features a left and right dual Power Takeoff (PTO) option for highway and vocational customers, offering increased versatility for customers and bodybuilders.]]></content>
+        <published>2022-03-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Dealer Surgenor Truck Group is now a Certified Electric Dealer | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-dealer-surgenor-truck-group-is-now-a-certified-electric-dealer</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-dealer-surgenor-truck-group-is-now-a-certified-electric-dealer"/>
+        <updated>2022-12-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 13, 2022) – Surgenor Truck Group locations in Kingston and Ottawa, Ontario, Canada are now both Mack Trucks Certified Electric Vehicle (EV) Dealers and ready to service and support the Mack® LR Electric refuse model.]]></content>
+        <published>2022-12-13T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Dealer Nuss Truck &amp; Equipment is Mack’s First Certified Electric Vehicle (EV) Dealer in Minnesota | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-dealer-nuss-truck-and-equipment-is-mack-s-first-certified-electric-vehicle-dealer-in-minnesota</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-dealer-nuss-truck-and-equipment-is-mack-s-first-certified-electric-vehicle-dealer-in-minnesota"/>
+        <updated>2022-09-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Sept. 28, 2022) – Longtime Mack Trucks dealer Nuss Truck & Equipment recently became a Certified Electric Vehicle (EV) Dealer at its Roseville, Minnesota, location. Nuss is now able to service and support customers who purchase the Mack® LR Electric refuse vehicle and is the first and only Mack dealer in the State of Minnesota and the first in the Central Region to achieve EV certification status.]]></content>
+        <published>2022-09-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Launches Vehicle-as-a-Service Program for Battery Electric Vehicles | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-launches-vehicle-as-a-service-program-for-battery-electric-vehicles</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-launches-vehicle-as-a-service-program-for-battery-electric-vehicles"/>
+        <updated>2022-02-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 8, 2022) – Mack Trucks and Mack Financial Services (MFS) recently launched an all-inclusive Vehicle-as-a-Service (VaaS) program to help simplify the purchase process and help customers better manage expenses associated with acquiring the Mack® LR Electric battery electric vehicle (BEV).]]></content>
+        <published>2022-02-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Announces Booth Lineup for Work Truck Show 2022 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-announces-booth-lineup-for-work-truck-show-2022</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-announces-booth-lineup-for-work-truck-show-2022"/>
+        <updated>2022-03-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 2, 2022) – Mack Trucks announced today that the Mack® Granite® and Mack MD Series models will take center stage at the Work Truck Show 2022, March 8-11 at the Indiana Convention Center.]]></content>
+        <published>2022-03-07T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Jonathan Randall Named President, Mack Trucks North America | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/jonathan-randall-named-president-mack-trucks-north-america</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/jonathan-randall-named-president-mack-trucks-north-america"/>
+        <updated>2022-11-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 21, 2022) – Mack Trucks today announced that effective Dec. 1, 2022, Jonathan Randall has been named president of Mack Trucks North America, reporting to Martin Weissburg, global president of Mack Trucks and chairman of Volvo Group North America.]]></content>
+        <published>2022-11-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® OneCall™ Roadside Assistance Service Expanded to Better Serve Mack Customers | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-onecall-roadside-assistance-service-expanded-to-better-serve-mack-customers</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-onecall-roadside-assistance-service-expanded-to-better-serve-mack-customers"/>
+        <updated>2022-03-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 23, 2022) – Mack Trucks expanded its Mack® OneCall™ 24/7 roadside assistance service and support offered through the Mack Uptime Center to better serve customers who have an unplanned event.]]></content>
+        <published>2022-03-23T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Longtime Mack Dealer Bruckner’s Truck &amp; Equipment in Fort Worth Becomes Certified EV Dealer| Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/longtime-mack-dealer-bruckners-truck-equipment-in-fort-worth-becomes-certified-ev-dealer</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/longtime-mack-dealer-bruckners-truck-equipment-in-fort-worth-becomes-certified-ev-dealer"/>
+        <updated>2022-06-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 2, 2022) – Mack Trucks announced today that Bruckner’s Truck & Equipment in Fort Worth, Texas, is now a Certified Electric Vehicle (EV) Dealer, making this the first Mack dealership to be EV-certified in Texas.]]></content>
+        <published>2022-06-02T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Introduces Next Generation Mack® LR Electric with Improved Range and Capacity | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-introduces-next-generation-mack-lr-electric-with-improved-range-and-capacity</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-introduces-next-generation-mack-lr-electric-with-improved-range-and-capacity"/>
+        <updated>2022-03-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 3, 2022) – Mack Trucks announced today that its next generation Mack® LR Electric battery-electric vehicle (BEV) is now available for order.]]></content>
+        <published>2022-03-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Launches PreView Collision Warning Technology Now Available for Order | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-launches-preview-collision-warning-technology-now-available-for-order</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-launches-preview-collision-warning-technology-now-available-for-order"/>
+        <updated>2022-05-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS, Nevada (May 10, 2022) – Mack Trucks today announced the Sensata Technologies PreView multi-sensor collision warning system is now available for order on the Mack LR®, Mack LR Electric and Mack® TerraPro® models. Mack made the announcement at WasteExpo 2022, May 9-12, at the Las Vegas Convention Center, Las Vegas, Nevada.]]></content>
+        <published>2022-05-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Miami-Dade Purchases Mack LR® Electric Refuse Vehicle to Help Reduce Emissions | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/miami-dade-purchases-mack-lr-electric-refuse-vehicle-to-help-reduce-emissions</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/miami-dade-purchases-mack-lr-electric-refuse-vehicle-to-help-reduce-emissions"/>
+        <updated>2022-05-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS, Nevada (May 10, 2022) – Mack Trucks today announced that Miami-Dade County, Florida, purchased a Mack LR® Electric refuse vehicle, the first heavy-duty electric vehicle to be added to its fleet. The Miami-Dade LR Electric is being spotlighted during WasteExpo 2022, May 9-12, at the Las Vegas Convention Center, Las Vegas, Nevada.]]></content>
+        <published>2022-05-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Dealer Pacific Coast Heavy Truck Group in Langley is Now a Mack Certified Electric Vehicle Dealer | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/pacific-coast-heavy-truck-group-in-langley-is-now-a-mack-certified-electric-vehicle-dealer</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/pacific-coast-heavy-truck-group-in-langley-is-now-a-mack-certified-electric-vehicle-dealer"/>
+        <updated>2022-12-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 1, 2022) – Pacific Coast Heavy Truck Group, based in Langley, British Columbia, Canada is now a Mack Trucks Certified Electric Vehicle (EV) Dealer. This designation means that Pacific Coast went through stringent requirements so that it would be able to service and support the Mack® LR Electric refuse model.]]></content>
+        <published>2022-12-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Names McMahon Truck Centers as its 2021 North American Dealer of the Year | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-names-mcmahon-truck-centers-as-its-2021-north-american-dealer-of-the-year</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-names-mcmahon-truck-centers-as-its-2021-north-american-dealer-of-the-year"/>
+        <updated>2022-03-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 14, 2022) – McMahon Truck Centers based in Charlotte, North Carolina, is the Mack Trucks 2021 North American Dealer of the Year. Mack named McMahon the winner during an event at the American Truck Dealers Show, March 8-11 in Las Vegas, Nevada.]]></content>
+        <published>2022-03-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[One of Largest Nonprofit Recyclers, Eco-Cycle, Orders Mack® LR Electric as its First BEV | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/one-of-largest-nonprofit-recyclers-eco-cycle-orders-mack-lr-electric-as-its-first-bev</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/one-of-largest-nonprofit-recyclers-eco-cycle-orders-mack-lr-electric-as-its-first-bev"/>
+        <updated>2022-02-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[BOULDER, CO (Feb. 10, 2022) – Mack Trucks announced today that Eco-Cycle, one of the largest nonprofit recyclers and Zero Waste organizations in the U.S., recently ordered a Mack® LR Electric battery electric vehicle (BEV) - the first BEV that Eco-Cycle will add to its fleet.]]></content>
+        <published>2022-02-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks to Spotlight Mack Anthem® Regional Haul Model at ATA MC&amp;E 2022 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-to-spotlight-mack-anthem-regional-haul-model-at-ata-mc-e-2022</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-to-spotlight-mack-anthem-regional-haul-model-at-ata-mc-e-2022"/>
+        <updated>2022-10-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 21, 2022) – Mack Trucks announced today that its Mack Anthem® model will take center stage during the American Trucking Associations (ATA) Management Conference & Exhibition (MCE) 2022, Oct. 22-25, at the San Diego Convention Center in San Diego, California.]]></content>
+        <published>2022-10-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Now Offers Allison 3000 RDS Transmission as Option for Mack® MD Series | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-now-offers-allison-3000-rds-transmission-as-option-for-mack-md-series</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-now-offers-allison-3000-rds-transmission-as-option-for-mack-md-series"/>
+        <updated>2022-03-09T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[INDIANAPOLIS, IN (March 9, 2022) – Mack Trucks expanded its vocational offering to medium-duty customers today, by announcing that the Allison 3000 RDS transmission is now available for order for the Mack® MD Series models. Mack made the announcement during the 2022 Work Truck Show, March 8-11, at the Indiana Convention Center.]]></content>
+        <published>2022-03-09T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Town of Cary, North Carolina, Orders Mack® LR Electric | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/town-of-cary-north-carolina-orders-mack-lr-electric</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/town-of-cary-north-carolina-orders-mack-lr-electric"/>
+        <updated>2022-10-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 4, 2022) – The Town of Cary, North Carolina, recently ordered a Mack® LR Electric Class 8 refuse vehicle to reaffirm its commitment to sustainability and its citizens.]]></content>
+        <published>2022-10-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Miami-Dade County Executives Introduce the Mack® LR Electric Model to Community | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/miami-dade-county-executives-introduce-the-mack-lr-electric-model-to-community</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/miami-dade-county-executives-introduce-the-mack-lr-electric-model-to-community"/>
+        <updated>2022-10-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[MIAMI, Florida - (Oct. 5, 2022) –]]></content>
+        <published>2022-10-05T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[U.S. Sen. Bob Casey Visits Mack’s Lehigh Valley Operations, Test Drives Mack® LR Electric | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/us-sen-bob-casey-visits-macks-lehigh-valley-operations</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/us-sen-bob-casey-visits-macks-lehigh-valley-operations"/>
+        <updated>2022-08-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[MACUNGIE, PA (Aug. 12, 2022)]]></content>
+        <published>2022-08-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[The Bulldog Truck Brand Gives Back to Animals | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/the-bulldog-truck-brand-gives-back-to-animals</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/the-bulldog-truck-brand-gives-back-to-animals"/>
+        <updated>2022-11-29T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 29, 2022) – Mack Trucks announced it has donated $100,000 to the ASPCA (The American Society for the Prevention of Cruelty to Animals) to create a matching fund for Giving Tuesday, celebrated today, Nov. 29.]]></content>
+        <published>2022-11-29T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Academy Opens New Facility to Better Serve Electric Vehicle Training | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-academy-opens-new-facility-to-better-serve-electric-vehicle-training</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-academy-opens-new-facility-to-better-serve-electric-vehicle-training"/>
+        <updated>2022-05-31T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (May 31, 2022) – Mack Trucks today announced that the Mack Academy recently opened a new facility in Tinley Park, Illinois to better support battery-electric vehicle (BEV) training and provide dealers and customers with easier access to training in the central U.S.]]></content>
+        <published>2022-05-31T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Bulldog Magazine Adds a Digital Version | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-bulldog-magazine-adds-a-digital-version</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-bulldog-magazine-adds-a-digital-version"/>
+        <updated>2022-11-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 2, 2022) – Mack Trucks Bulldog Magazine is now available to a wider audience through the introduction of a new online version. The new digital platform brings Bulldog to devices everywhere in a clear, easily readable format for quicker news delivery, while minimizing the environmental impact of a printed version.]]></content>
+        <published>2022-11-02T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Partners with TenCate Advanced Armor USA in Developing Armored Cab | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-defense-partners-with-tencate-advanced-armor-usa-in-developing-armored-cab</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-defense-partners-with-tencate-advanced-armor-usa-in-developing-armored-cab"/>
+        <updated>2022-02-22T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Feb. 22, 2022) – Mack Defense announced it partnered with TenCate Advanced Armor USA to provide a force protection system for the Mack® Granite®-based M917A3 Heavy Dump Truck (HDT) and other Mack Defense vehicle platforms. TenCate provided design and engineering support to Mack Defense to equip the M917A3 HDT with a force protection system that protects occupants against threats in hostile environments.]]></content>
+        <published>2022-02-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Range Calculator for Electric Vehicles Helps Customers Plan Routes for Electrification | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-range-calculator-for-electric-vehicles-helps-customers-plan-routes-for-electrification</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-range-calculator-for-electric-vehicles-helps-customers-plan-routes-for-electrification"/>
+        <updated>2022-04-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 7, 2022) – Mack Trucks recently introduced its Range Calculator for Electric Vehicles to help customers simulate real-world collection routes. This information allows customers to plan and build routes for the Mack LR® Electric refuse vehicle based on many route-specific variables.]]></content>
+        <published>2022-04-07T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Continues Commitment to ATA’s Share the Road and Workforce Heroes Programs | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-continues-commitment-to-atas-share-the-road-and-workforce-heroes-programs</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-continues-commitment-to-atas-share-the-road-and-workforce-heroes-programs"/>
+        <updated>2022-10-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[SAN DIEGO, California (Oct. 24, 2022) – Mack Trucks announced today it will continue its long-standing commitment to improved highway safety and to helping veterans find jobs in the trucking industry through its sponsorship of the American Trucking Associations (ATA) Share the Road and Workforce Heroes programs.]]></content>
+        <published>2022-10-24T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[City of Santa Cruz, California, Purchases Mack LR® Electric Vehicle to Help Meet Sustainability Goals | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/city-of-santa-cruz-california-purchases-mack-lr-electric-vehicle-to-help-meet-sustainability-goals</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/city-of-santa-cruz-california-purchases-mack-lr-electric-vehicle-to-help-meet-sustainability-goals"/>
+        <updated>2022-05-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LONG BEACH, California (May 10, 2022) – The City of Santa Cruz, California, recently purchased a Mack LR® Electric refuse vehicle, the first fully electric vehicle in the municipality’s sanitation fleet, and plans to purchase another. Mack made the announcement during the Advanced Clean Transportation (ACT) Expo, May 9-12, at the Long Beach Convention Center.]]></content>
+        <published>2022-05-11T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Casella Waste Systems, Inc., Purchases Mack LR Electric to Help Vermont Reduce Emissions | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/casella-waste-systems-inc-purchases-mack-lr-electric-to-help-vermont-reduce-emissions</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/casella-waste-systems-inc-purchases-mack-lr-electric-to-help-vermont-reduce-emissions"/>
+        <updated>2022-12-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[RUTLAND, Vermont (Dec. 8, 2022) – Casella Waste Systems, Inc., today introduced its Mack® LR Electric model, the first electric refuse vehicle in the State of Vermont, in a ceremony with Vermont Gov. Phil Scott. Casella recently received delivery of the Mack LR Electric, which will be used in residential collection in Rutland, Vermont.]]></content>
+        <published>2022-12-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Predictive Cruise Control with Econo Roll Now Standard on Mack Highway Models | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-predictive-cruise-control-with-econo-roll-now-standard-on-mack-highway-models</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-predictive-cruise-control-with-econo-roll-now-standard-on-mack-highway-models"/>
+        <updated>2022-01-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 25, 2022) – Mack Trucks once again highlighted its commitment to the highway trucking segment by announcing that Mack® Predictive Cruise Control with Econo-Roll is now standard on Mack Anthem® and Mack Pinnacle™ models.]]></content>
+        <published>2022-01-25T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Announces Mack Calendar Contest Winners | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-announces-mack-calendar-contest-winners</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-announces-mack-calendar-contest-winners"/>
+        <updated>2022-06-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 15, 2022) – Mack Trucks announced today the winners of the 2023 Mack Trucks Calendar Contest. Each of the winning entries will have a month to themselves in next year's Mack calendar.]]></content>
+        <published>2022-06-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[City of Mobile, Alabama, Orders Mack LR® Electric to Help Meet City’s Sustainability Goals | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/city-of-mobile-alabama-orders-mack-lr-electric-to-help-meet-city-s-sustainability-goals</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/city-of-mobile-alabama-orders-mack-lr-electric-to-help-meet-city-s-sustainability-goals"/>
+        <updated>2022-07-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[MOBILE, Alabama (July 13, 2022) – The City of Mobile, Alabama, ordered a Mack LR® Electric Class 8 refuse vehicle to help the city achieve its goals of being a more resilient and energy-efficient city. Mack and the City of Mobile made the announcement today at the City’s Public Works facility.]]></content>
+        <published>2022-07-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Dealer TEC Equipment Achieves Certified Electric Vehicle (EV) Dealer Status at Oakland Branch | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-dealer-tec-equipment-achieves-certified-electric-vehicle-ev-dealer-status-at-oakland-branch</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-dealer-tec-equipment-achieves-certified-electric-vehicle-ev-dealer-status-at-oakland-branch"/>
+        <updated>2022-05-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LONG BEACH, California (May 10, 2022) – Mack Trucks announced today that TEC Equipment in Oakland, California, is now a Certified Electric Vehicle (EV) Dealer and will now be able to service and support the Mack LR®Electric refuse truck. Mack made the announcement at the Advanced Clean Transportation (ACT) Expo, May 9-12, at the Long Beach Convention Center, Long Beach California.]]></content>
+        <published>2022-05-11T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Reaches Milestone with the Production of the 5,000th Mack® MD Series Truck | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-reaches-milestone-at-roanoke-valley-operations-with-the-production-of-the-5000th-mack-md</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-reaches-milestone-at-roanoke-valley-operations-with-the-production-of-the-5000th-mack-md"/>
+        <updated>2022-02-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 16, 2022) – Mack Trucks announced today that it has produced the 5,000th Mack® MD Series vehicle at its Roanoke Valley Operations (RVO) facility, where the MD6 and MD7 are assembled.]]></content>
+        <published>2022-02-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Ballard Truck Center Becomes Mack’s First Certified Electric Vehicle Dealer in New England | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/ballard-truck-center-becomes-mack-s-first-certified-electric-vehicle-dealer-in-new-england</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/ballard-truck-center-becomes-mack-s-first-certified-electric-vehicle-dealer-in-new-england"/>
+        <updated>2022-06-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 23, 2022) – Mack Trucks dealer Ballard Truck Center in Tewksbury, Massachusetts, is now a Certified Electric Vehicle (EV) Dealer and is equipped to service and support the Mack LR® Electric, Mack’s first fully electric Class 8 refuse truck. Ballard Truck Center is Mack’s first dealership to be EV-certified in New England.]]></content>
+        <published>2022-06-23T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense to Showcase Production M917A3 Heavy Dump Truck at AUSA | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-defense-to-showcase-production-m917a3-heavy-dump-truck-at-ausa</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-defense-to-showcase-production-m917a3-heavy-dump-truck-at-ausa"/>
+        <updated>2022-10-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (October 03, 2022) – Mack Defense announced today that it will feature a production M917A3 Heavy Dump Truck (HDT) at the Association of the United States Army (AUSA) 2022 Annual Meeting and Exposition, Oct 10–12, at the Walter E. Washington Convention Center in Washington, D.C.]]></content>
+        <published>2022-10-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Environmental 360 Solutions Orders Mack LR® Electric to Operate in Canada| Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/environmental-360-solutions-orders-mack-lr-electric-to-operate-in-canada</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/environmental-360-solutions-orders-mack-lr-electric-to-operate-in-canada"/>
+        <updated>2022-11-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 1, 2022) – Environmental 360 Solutions (E360S), headquartered in Aurora, Ontario, Canada, recently ordered a Mack LR® Electric model to help the company achieve its environmental and sustainability goals. The Mack LR Electric will operate in a residential area in either Quebec or British Columbia and will feature an automated side loader from Labrie.]]></content>
+        <published>2022-11-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Charging Infrastructure Partnership with Pilot Company to Support Mack Electric Vehicle Growth | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/charging-infrastructure-partnership-with-pilot-company-to-support-mack-electric-vehicle-growth</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/charging-infrastructure-partnership-with-pilot-company-to-support-mack-electric-vehicle-growth"/>
+        <updated>2022-11-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 15, 2022) – Mack Trucks’ plans to grow its electric vehicle sales received a boost today with the announcement that Mack’s parent company, the Volvo Group, has signed a Letter of Intent with Pilot Company to bring public charging infrastructure to medium- and heavy-duty North American customers.]]></content>
+        <published>2022-11-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Dealer Affinity Truck Center in Fresno is Now Electric Vehicle Certified | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-dealer-affinity-truck-center-in-fresno-is-now-electric-vehicle-certified</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-dealer-affinity-truck-center-in-fresno-is-now-electric-vehicle-certified"/>
+        <updated>2022-01-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 20, 2022) – Mack Trucks' dealer Affinity Truck Center recently achieved Certified Electric Vehicle (EV) Dealer status at its Fresno, California dealership. The designation allows Affinity Truck Center to support the Mack® LR Electric refuse vehicle.]]></content>
+        <published>2022-01-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Introduces Electrify My Refuse Route Program to Incentivize Customers to Purchase the Mack LR® Electric | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-introduces-electrify-my-refuse-route-program-to-incentivize-customers</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-introduces-electrify-my-refuse-route-program-to-incentivize-customers"/>
+        <updated>2022-05-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS, Nevada (May 10, 2022) – Mack Trucks today launched its Electrify My Refuse Route Program, a unique campaign that rewards customers for sharing their refuse routes to prepare the fleet’s readiness for the Mack LR®Electric refuse vehicle. Mack made the announcement during WasteExpo 2022, May 9-12, at the Las Vegas Convention Center, Las Vegas, Nevada.]]></content>
+        <published>2022-05-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Emterra Group Orders Mack® LR Electric to be in Service in the Greater Toronto Area | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/emterra-group-orders-mack-lr-electric-to-be-in-service-in-the-greater-toronto-area</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/emterra-group-orders-mack-lr-electric-to-be-in-service-in-the-greater-toronto-area"/>
+        <updated>2022-08-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Aug. 2, 2022) – Emterra Group, one of the largest integrated resource management companies in Canada, recently ordered a Mack® LR Electric Class 8 refuse vehicle to help the company fulfill its environmental and sustainability goals.]]></content>
+        <published>2022-08-02T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Dealer Vision Truck Group in Ontario is Now a Mack Certified Electric Vehicle (EV) Dealer | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-dealer-vision-truck-group-in-ontario-is-now-a-mack-certified-electric-vehicle-ev-dealer</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-dealer-vision-truck-group-in-ontario-is-now-a-mack-certified-electric-vehicle-ev-dealer"/>
+        <updated>2022-12-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 12, 2022) – Vision Truck Group, based in Brampton, Ontario, Canada, is now a Mack Trucks Certified Electric Vehicle (EV) Dealer. This designation means that Vision went through stringent requirements so that it would be able to service and support the Mack® LR Electric refuse model and any future electrified trucks.]]></content>
+        <published>2022-12-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks’ Dealer Affinity Truck Center in Fresno is Now Electric Vehicle Certified | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-trucks-dealer-affinity-truck-center-in-fresno-is-now-electric-vehicle</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-trucks-dealer-affinity-truck-center-in-fresno-is-now-electric-vehicle"/>
+        <updated>2022-01-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 20, 2022) – Mack Trucks' dealer Affinity Truck Center recently achieved Certified Electric Vehicle (EV) Dealer status at its Fresno, California dealership. The designation allows Affinity Truck Center to support the Mack® LR Electric refuse vehicle.]]></content>
+        <published>2022-01-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Announces Electrify My Refuse Route Program and PreView Collision Warning Technology for Mack LR® Electric | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-announces-electrify-my-refuse-route-program-and-preview-collision-warning-technology</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-announces-electrify-my-refuse-route-program-and-preview-collision-warning-technology"/>
+        <updated>2022-05-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LONG BEACH, California (May 10, 2022) – Mack Trucks today announced that it was offering a new program and a new safety offering for customers of the Mack LR® Electric model. Mack made the announcement at the Advanced Clean Transportation (ACT) Expo, May 9-12, at the Long Beach Convention Center, Long Beach, California.]]></content>
+        <published>2022-05-11T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Gabrielli Truck Sales Becomes Mack’s First Certified Electric Vehicle Dealer in New York | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/gabrielli-truck-sales-becomes-mack-s-first-certified-electric-vehicle-dealer-in-new-york</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/gabrielli-truck-sales-becomes-mack-s-first-certified-electric-vehicle-dealer-in-new-york"/>
+        <updated>2022-07-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (July 28, 2022) – Mack Trucks dealer Gabrielli Truck Sales, located near John F. Kennedy International Airport in Jamaica, New York, is now a Certified Electric Vehicle (EV) Dealer, becoming the first Mack dealer in New York to be EV-certified.]]></content>
+        <published>2022-07-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[City of Ocala, Florida, Purchases Two Mack LR® Electric Vehicles to Help Meet Sustainability Goals | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/city-of-ocala-florida-purchases-two-mack-lr-electric-vehicles-to-help-meet-sustainability-goals</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/city-of-ocala-florida-purchases-two-mack-lr-electric-vehicles-to-help-meet-sustainability-goals"/>
+        <updated>2022-05-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS, Nevada (May 10, 2022) – Mack Trucks today announced that the City of Ocala, Florida, recently purchased two Mack LR® Electric refuse vehicles to add to its solid waste management fleet. Mack made the announcement during WasteExpo 2022, May 9-12, at the Las Vegas Convention Center, Las Vegas, Nevada.]]></content>
+        <published>2022-05-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® LR and Mack TerraPro® Models Now Available with HAULMAXX EX Suspension | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-lr-and-mack-terrapro-models-now-available-with-haulmaxx-ex-suspension</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-lr-and-mack-terrapro-models-now-available-with-haulmaxx-ex-suspension"/>
+        <updated>2022-08-09T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (August 9, 2022) – Mack Trucks announced today that the Mack® LR and Mack TerraPro® models are available to order with the optional HAULMAXX EX suspension system, improving capability, uptime, and total cost of ownership.]]></content>
+        <published>2022-08-09T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Receives Order for 144 Additional Trucks for the U.S. Army M917A3 Heavy Dump Truck Program | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/mack-defense-receives-order-for-144-additional-trucks-for-the-us-army-m917a3-hdt-program</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/mack-defense-receives-order-for-144-additional-trucks-for-the-us-army-m917a3-hdt-program"/>
+        <updated>2022-08-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Aug. 16, 2022) – Mack Defense announced today that the U.S. Army and the U.S. Army Reserve have ordered an additional 144 Mack Defense M917A3 Heavy Dump Trucks (HDTs).]]></content>
+        <published>2022-08-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Kriete Truck Centers Acquires Two New Dealership Locations]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/longtime-mack-dealer-kriete-truck-centers-acquires-two-new-dealership-locations-expands-footprint</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/longtime-mack-dealer-kriete-truck-centers-acquires-two-new-dealership-locations-expands-footprint"/>
+        <updated>2021-01-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 7, 2021) – Mack Trucks dealer Kriete Truck Centers recently announced its acquisition of Scaffidi Truck Centers, adding two locations to Kriete’s footprint. The two dealerships acquired by Kriete are located in Stevens Point and Tomahawk, Wisconsin.]]></content>
+        <published>2021-01-07T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Announces Integrated Insurance for Select U.S. Markets]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-announces-integrated-insurance-for-select-us-markets</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-announces-integrated-insurance-for-select-us-markets"/>
+        <updated>2021-02-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 4, 2021) – Mack Trucks announced today that Mack Financial Services (MFS) is working with REIN, a leading insurtech company, to pilot a new integrated insurance service on a digital platform providing an easier, more competitive and quicker insurance experience for Mack customers.]]></content>
+        <published>2021-02-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense M917A3 Heavy Dump Truck Ready for Harsh Cold]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-defense-m917a3-heavy-dump-truck-ready-for-the-harsh-cold</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-defense-m917a3-heavy-dump-truck-ready-for-the-harsh-cold"/>
+        <updated>2021-02-02T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Feb. 2, 2021) – Mack Defense and Phillips & Temro Industries (PTI) have partnered to prepare the U.S. Army M917A3 Heavy Dump Trucks (HDT) for harsh cold temperatures with an engine heating solution that allows the trucks to start and operate more efficiently and effectively in extreme cold weather.]]></content>
+        <published>2021-02-02T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[AAA Zoellner Materials Inc Carries on Family Legacy]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/aaa-zoellner-materials-inc-carries-on-family-legacy</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/aaa-zoellner-materials-inc-carries-on-family-legacy"/>
+        <updated>2021-04-14T00:00:00.000Z</updated>
+        <published>2021-04-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack MD Series Launch Campaign Wins MarCom Award | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-md-series-launch-campaign-wins-marcom-award</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-md-series-launch-campaign-wins-marcom-award"/>
+        <updated>2021-07-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (July 8, 2021) – The launch campaign for Mack Trucks’ all-new Mack® MD Series of medium-duty trucks won a 2020 platinum MarCom Award, the highest award level in the product launch category, from the Association of Marketing and Communications Professionals (AMCP).]]></content>
+        <published>2021-07-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® LR Electric Model Now in Serial Production at Lehigh Valley Operations | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-lr-electric-model-now-in-serial-production-at-lehigh-valley-operations</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-lr-electric-model-now-in-serial-production-at-lehigh-valley-operations"/>
+        <updated>2021-12-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 20, 2021) – The highly anticipated Mack® LR Electric model, Mack Trucks’ first fully electric Class 8 vehicle, is now in serial production at Mack’s Lehigh Valley Operations (LVO) facility in Macungie, Pennsylvania. LVO is where all Class 8 Mack vehicles for North America and export are assembled.]]></content>
+        <published>2021-12-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Presents First Production M917A3 Heavy Dump Trucks to U.S. Army | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-defense-presents-first-production-m917a3-heavy-dump-trucks-to-us-army</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-defense-presents-first-production-m917a3-heavy-dump-trucks-to-us-army"/>
+        <updated>2021-09-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Sept. 23, 2021) – Mack Defense today delivered to the U.S. Army and the U.S. Army Reserve the first production M917A3 Heavy Dump Trucks (HDT) to roll off Mack Defense’s new production line at the Mack Experience Center (MEC). The M917A3 HDT key and truck handover occurred during a ceremony at the MEC, following remarks from Mack Defense leadership, U.S. Army officials and representatives of local and state officials. Attendees were also provided a tour of Mack Defense’s new production facility.]]></content>
+        <published>2021-09-24T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks New Electric Vehicle Training Hub for LR Electric]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-to-open-new-electric-vehicle-training-hub-to-support-mack-lr-electric</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-to-open-new-electric-vehicle-training-hub-to-support-mack-lr-electric"/>
+        <updated>2021-04-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 20, 2021) – In an effort to support customers in the western U.S. and Canada, as well as Mack’s battery-electric vehicle (BEV) training efforts for the Mack® LR Electric, Mack Trucks announced today that it is leasing space for a state-of-the-art training facility in Hayward, California.]]></content>
+        <published>2021-04-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Meet the Mack Trucks Customers Starring in the 2022 Mack Calendar | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/meet-the-mack-trucks-customers-starring-in-the-2022-mack-calendar</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/meet-the-mack-trucks-customers-starring-in-the-2022-mack-calendar"/>
+        <updated>2021-06-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 21, 2021) – The votes are in and Mack is proud to announce the winners of the 2022 Mack Trucks Calendar Contest. This year’s winners will participate in a professional photo shoot of their Mack® truck and will be featured in the 2022 edition of the Mack Calendar.]]></content>
+        <published>2021-06-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® MD7 and Mack Anthem® Models at ExpoCam 2021| Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-to-highlight-mack-md7-and-mack-anthem-models-at-expocam-2021</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-to-highlight-mack-md7-and-mack-anthem-models-at-expocam-2021"/>
+        <updated>2021-09-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Sept. 16, 2021) – Mack Trucks will showcase its versatile medium-duty Mack® MD7 model and the Mack Anthem® highway model featuring Mack’s fuel-efficient powertrain and latest driver productivity, safety and uptime technology at ExpoCam 2021, Sept. 22-23 at Espace Saint-Hyacinthe, Saint-Hyacinthe, Quebec.]]></content>
+        <published>2021-09-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Granite and TerraPro Models at World of Concrete 2021]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-to-showcase-mack-granite-and-mack-terrapro-models-at-world-of-concrete-2021</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-to-showcase-mack-granite-and-mack-terrapro-models-at-world-of-concrete-2021"/>
+        <updated>2021-06-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 1, 2021) –Mack Trucks will feature the Mack® Granite® mixer and Mack TerraPro® cabover concrete pumper models at World of Concrete 2021, June 8-10 at the Las Vegas Convention Center.]]></content>
+        <published>2021-06-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Mack Anthem® Day Cab Roof Fairing Improves Fuel Efficiency, Total Cost of Ownership | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/new-mack-anthem-day-cab-roof-fairing-improves-fuel-efficiency-total-cost-of-ownership</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/new-mack-anthem-day-cab-roof-fairing-improves-fuel-efficiency-total-cost-of-ownership"/>
+        <updated>2021-06-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 14, 2021) – Mack Trucks announced today that it’s now offering a newly designed Mack Anthem® day cab roof fairing, offering customers increased fuel efficiency benefits and improved total cost of ownership. Mack made the announcement during the National Private Truck Council (NPTC) Annual Management Conference and Exhibition, June 13-15 at the Duke Energy Convention Center in Cincinnati.]]></content>
+        <published>2021-06-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Mack Ultra Service Agreement is Now Standard on Mack® LR Electric Models | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/new-mack-ultra-service-agreement-is-now-standard-on-mack-lr-electric-models</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/new-mack-ultra-service-agreement-is-now-standard-on-mack-lr-electric-models"/>
+        <updated>2021-10-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 12, 2021) – Mack Trucks announced today that its new Mack Ultra Service Agreement will come standard with the Mack® LR Electric refuse model, helping further support customers beginning their journey into owning battery electric vehicles (BEVs).]]></content>
+        <published>2021-10-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New York City Department of Sanitation to Purchase Seven Mack® LR Electric models | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/new-york-city-department-of-sanitation-to-purchase-seven-mack-lr-electric-models</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/new-york-city-department-of-sanitation-to-purchase-seven-mack-lr-electric-models"/>
+        <updated>2021-06-29T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS (June 29, 2021) – Mack Trucks announced today that the New York City Department of Sanitation (DSNY) plans to purchase seven Mack® LR Electric refuse models, which will operate in each of the city’s boroughs. Mack made the announcement during WasteExpo 2021, June 28-30 at the Las Vegas Convention Center.]]></content>
+        <published>2021-06-29T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Announces Continued Sponsorship of the ATA’s Share the Road and Workforce Heroes Programs | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-announces-continued-sponsorship-of-the-ata-s-share-the-road-and-workforce</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-announces-continued-sponsorship-of-the-ata-s-share-the-road-and-workforce"/>
+        <updated>2021-10-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[NASHVILLE, TN (Oct. 25, 2021) – Continuing its longstanding commitment to highway safety and helping veterans find careers in the trucking industry, Mack Trucks announced today it will once again sponsor the American Trucking Associations (ATA) Share the Road and Workforce Heroes programs in 2022. This is the 21st year Mack has supported Share the Road and the third year it has sponsored the Workforce Heroes program.]]></content>
+        <published>2021-10-25T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack LR Electric Eligible for Incentives to Improve Cost]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-lr-electric-eligible-for-incentives-to-improve-total-cost-of-ownership</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-lr-electric-eligible-for-incentives-to-improve-total-cost-of-ownership"/>
+        <updated>2021-03-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 24, 2021) – Mack Trucks announced today that the Mack® LR Electric model, the OEM’s first fully electric refuse vehicle, is eligible for multiple incentive packages in the U.S. and Canada, including $120,000 per vehicle through the California Hybrid and Zero-Emission Truck and Bus Voucher Incentive Project (HVIP).]]></content>
+        <published>2021-03-24T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Puts a Premium on Maximum Uptime | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-puts-a-premium-on-maximum-uptime</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-puts-a-premium-on-maximum-uptime"/>
+        <updated>2021-09-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[CLEVELAND, OH (Sept. 14, 2021) – Mack Trucks announced today the new Mack® Premium Service Agreement, a comprehensive maintenance program that simplifies maintenance management and helps increase uptime, optimize vehicle safety and performance and improve cost of ownership for Mack Anthem®, Mack Pinnacle™, Mack Granite®, Mack TerraPro® and Mack LR customers.]]></content>
+        <published>2021-09-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Starts M917A3 Heavy Dump Truck Production at Mack Experience Center | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-defense-starts-m917a3-heavy-dump-truck-production-at-mack-experience-center</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-defense-starts-m917a3-heavy-dump-truck-production-at-mack-experience-center"/>
+        <updated>2021-06-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (June 24, 2021) – Mack Defense is now producing Heavy Dump Trucks (HDT) at the Mack Experience Center, following an investment of $6.5 million to create a dedicated production line at the facility.]]></content>
+        <published>2021-06-24T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Displays Breadth of Mack® Granite® Model Lineup with Augmented Reality | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-displays-breadth-of-mack-granite-model-lineup-with-augmented-reality</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-displays-breadth-of-mack-granite-model-lineup-with-augmented-reality"/>
+        <updated>2021-06-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 15, 2021) – Mack Trucks displayed its range of Mack® Granite® models through an in-booth Augmented Reality (AR) experience at World of Concrete 2021, June 8-10 at the Las Vegas Convention Center.]]></content>
+        <published>2021-06-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Announces New Factory-Installed Idle Free eAPU for its Mack Anthem® Model | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-announces-new-factory-installed-idle-free-eapu-for-its-mack-anthem-model</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-announces-new-factory-installed-idle-free-eapu-for-its-mack-anthem-model"/>
+        <updated>2021-10-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[NASHVILLE, TN (Oct. 25, 2021) – Mack Trucks today announced it will offer a factory-installed electric Auxiliary Power Unit (eAPU) for its 70-inch Mack Anthem® sleeper models. The Idle Free Series 5000 eAPU offers customers increased air-cooling capacity, reduced idling and simplified maintenance for improved total cost of ownership.]]></content>
+        <published>2021-10-25T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Anthem® to Take Center Stage at National Private Truck Council Annual Meeting | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-anthem-to-take-center-stage-at-national-private-truck-council-annual-meeting</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-anthem-to-take-center-stage-at-national-private-truck-council-annual-meeting"/>
+        <updated>2021-06-10T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 10, 2021) – Mack Trucks announced today that the aerodynamic and fuel-efficient Mack Anthem® day cab model will be spotlighted in the Mack booth at the National Private Truck Council Annual Management Conference and Exhibition, June 13-15 at the Duke Energy Convention Center in Cincinnati.]]></content>
+        <published>2021-06-10T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Dealer Nextran Truck Centers Expands Footprint in U.S. with Acquisition | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-nextran-truck-centers-expands-footprint-in-us-with-acquisition</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-nextran-truck-centers-expands-footprint-in-us-with-acquisition"/>
+        <updated>2021-09-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Sept. 1, 2021) – Longtime Mack Trucks dealer Nextran Truck Centers has acquired Westfall-O’Dell Truck Sales, making the acquisition one of the largest by a Mack dealer in the past five years.]]></content>
+        <published>2021-09-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense to Spotlight 60-Ton Line Haul Vehicle at AUSA | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-defense-to-spotlight-60-ton-line-haul-vehicle-at-ausa</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-defense-to-spotlight-60-ton-line-haul-vehicle-at-ausa"/>
+        <updated>2021-10-06T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Oct. 6, 2021) – Mack Defense will showcase its 60-ton Mack® Granite®-based Line Haul truck during the AUSA 2021 Annual Meeting and Exposition Oct. 11-13 at the Walter E. Washington Convention Center in Washington, D.C.]]></content>
+        <published>2021-10-06T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Anthem® Model to Take Center Stage During TMC | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-anthem-model-to-take-center-stage-during-tmc</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-anthem-model-to-take-center-stage-during-tmc"/>
+        <updated>2021-09-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Sept. 7, 2021) – Mack Trucks will feature its Mack Anthem® model equipped with the latest in fuel efficiency, driver productivity and safety technology during the Technology & Maintenance Council (TMC) annual meeting Sept. 12-16, 2021 at the Huntington Convention Center, Cleveland, Ohio.]]></content>
+        <published>2021-09-07T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Announces Entry Period for 2022 Calendar Contest]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-announces-entry-period-for-2022-mack-calendar-contest</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-announces-entry-period-for-2022-mack-calendar-contest"/>
+        <updated>2021-04-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 28, 2021) – Proud owners of Mack® trucks will have the chance to be featured in the upcoming 2022 Mack Trucks Calendar. Nominations are being accepted through the Mack Calendar Contest website, May 4 to June 4, 2021.]]></content>
+        <published>2021-04-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack MD Series Exceeds Customers’ Expectations]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-md-series-exceeds-customers-expectationsas-orders-interest-grows</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-md-series-exceeds-customers-expectationsas-orders-interest-grows"/>
+        <updated>2021-03-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 8, 2021) – Mack Trucks’ MD Series models are exceeding customer and dealer expectations for productivity and performance, resulting in strong order activity and driving increased interest in the medium-duty vehicles.]]></content>
+        <published>2021-03-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Conway Beam Truck Group Opens New York Facility Near Buffalo]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-conway-beam-truck-group-to-open-new-york-facility-near-buffalo</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-conway-beam-truck-group-to-open-new-york-facility-near-buffalo"/>
+        <updated>2021-01-18T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 18, 2021) – Conway Beam Truck Group, a 70-year Mack Trucks dealer, recently invested $16.2 million to open a new dealership near Buffalo in West Seneca, New York.]]></content>
+        <published>2021-01-18T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Fuel Savings Calculator and Benefits of Next-Generation]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-fuel-savings-calculator-demonstrates-benefits-of-next-generation-mack-mp8he</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-fuel-savings-calculator-demonstrates-benefits-of-next-generation-mack-mp8he"/>
+        <updated>2021-01-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 28, 2021) – Mack Trucks recently launched a fuel savings calculator on its website www.macktrucks.com, to clearly show fleet owners and owner-operators how much fuel savings could be realized if their trucks were spec’d with the next-generation Mack®MP®8HE+ powertrain package.]]></content>
+        <published>2021-01-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Dealer TEC Equipment Receives Electric Vehicle Certification at Second Location | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-tec-equipment-receives-electric-vehicle-certification-at-second-location</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-dealer-tec-equipment-receives-electric-vehicle-certification-at-second-location"/>
+        <updated>2021-12-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 21, 2021) – Mack Trucks dealer TEC Equipment recently received Certified Electric Vehicle (EV) Dealer status at its La Mirada, California location, marking the second TEC dealer to achieve this designation in support of the Mack® LR Electric refuse vehicle. TEC’s Fontana, California site was the first Mack dealer to be a Certified Electric Vehicle Dealer.]]></content>
+        <published>2021-12-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Founders Honored with Induction into Newly Opened American Trucking and Industry Leader Hall of Fame | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-founders-honored-with-induction-into-newly-opened-american-trucking-and-industry</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-founders-honored-with-induction-into-newly-opened-american-trucking-and-industry"/>
+        <updated>2021-10-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 28, 2021) – Mack Trucks founders John “Jack” and Augustus “Gus” Mack were recently inducted into the American Truck Historical Society’s (ATHS) new American Trucking and Industry Leader Hall of Fame (ATIL Hall of Fame) as part of its inaugural class.]]></content>
+        <published>2021-10-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Donates Mack Granite for Concrete Industry]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-donates-mack-granite-model-to-annual-auction-in-support-of-concrete-industry-management</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-donates-mack-granite-model-to-annual-auction-in-support-of-concrete-industry-management"/>
+        <updated>2021-05-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[“Mack Trucks is proud to again support the CIM program and the development of future industry professionals,” said Tim Wrinkle, Mack construction product manager. “As a leader in the construction segment, Mack understands the valuable skills and insights that CIM’s programs offer students, creating well-rounded leaders and workers, ready for the demanding and competitive concrete industry.”]]></content>
+        <published>2021-05-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Improves Uptime Through Unlimited Parameter Updates]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-improves-uptime-through-unlimited-parameter-updates-with-mack-over-the-air</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-improves-uptime-through-unlimited-parameter-updates-with-mack-over-the-air"/>
+        <updated>2021-03-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 4, 2021) – Mack customers can now make unlimited parameter updates through the Mack®Over The Air (OTA) remote programming solution, improving uptime and simplifying the update process.]]></content>
+        <published>2021-03-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Financial Services Offers Special Financing for Mack MD]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-financial-services-offers-special-financing-for-mack-md-series-models</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-financial-services-offers-special-financing-for-mack-md-series-models"/>
+        <updated>2021-05-19T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (May 19, 2021) – Mack Trucks announced today that its all-new Mack® MD Series models now have special financing options available from Mack Financial Services (MFS) for customers in the U.S. and Canada.]]></content>
+        <published>2021-05-19T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Names David Galbraith Vice President of Global Brand and Marketing | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-names-david-galbraith-vice-president-of-global-brand-and-marketing</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-names-david-galbraith-vice-president-of-global-brand-and-marketing"/>
+        <updated>2021-11-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 1, 2021) – Mack Trucks announced today that David Galbraith has been appointed Mack’s vice president of global brand and marketing. In this role, Galbraith will be responsible for marketing strategy, brand management, marketing communications, product marketing and digital marketing.]]></content>
+        <published>2021-11-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Celebrates 100 Years of Trucking in Canada]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-celebrates-100-years-of-trucking-leadership-in-canada</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-celebrates-100-years-of-trucking-leadership-in-canada"/>
+        <updated>2021-04-26T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (April 26, 2021) – Mack Trucks reached a significant milestone in Canada in 2021 – it’s 100th anniversary.]]></content>
+        <published>2021-04-26T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack mRIDE Suspension and Mack Axles Delivers Weight Savings]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-mride-suspension-paired-with-mack-axles-delivers-weight-savings-increased-payload</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-mride-suspension-paired-with-mack-axles-delivers-weight-savings-increased-payload"/>
+        <updated>2021-03-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 8, 2021) – The Mack® mRIDE™ spring leaf over rubber block suspension, ideal for vocational customers needing improved stability and greater traction on jobsites, now offers additional weight savings for increased payload when paired with proprietary Mack axles.]]></content>
+        <published>2021-03-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Command Steer for Mack Granite Models Now in Production]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-command-steer-for-mack-granite-models-now-in-production</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-command-steer-for-mack-granite-models-now-in-production"/>
+        <updated>2021-03-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 8, 2021) – Mack® Command Steer, Mack’s highly anticipated active steering system that reduces driver fatigue, is now in production in Mack Granite® axle back models.]]></content>
+        <published>2021-03-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Anthem Gets Custom NASCAR Wrap to Honor Military Heroes]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-anthem-featuring-custom-nascar-salutes-wrap-in-honor-of-military-heroes-makes-its-2021-debut</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-anthem-featuring-custom-nascar-salutes-wrap-in-honor-of-military-heroes-makes-its-2021-debut"/>
+        <updated>2021-05-14T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (May 14, 2021) – A Mack Anthem® model featuring a custom-designed military-themed wrap recently debuted as part of the 2021 edition of NASCAR Salutes Together with Coca-Cola (#NASCARSalutes).]]></content>
+        <published>2021-05-14T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Over the Air Updates Standard with Driver Activation Feature]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-over-the-air-updates-now-standard-with-driver-download-activation-feature</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-over-the-air-updates-now-standard-with-driver-download-activation-feature"/>
+        <updated>2021-01-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 13, 2021) – Mack Trucks announced today that its driver-activated Mack®Over The Air (OTA) updates feature is now standard on the Mack Anthem®, Pinnacle™ and Granite® models, enabling customers to implement software updates themselves at a time when it’s most convenient for them.]]></content>
+        <published>2021-01-13T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Highlights Mack Anthem® Model Spec’d for Maximum Fuel Efficiency at ATA MC&amp;E 2021]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-highlights-mack-anthem-model-spec-for-maximum-fuel-efficiency-at-ata-mc-e-2021</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-highlights-mack-anthem-model-spec-for-maximum-fuel-efficiency-at-ata-mc-e-2021"/>
+        <updated>2021-10-18T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 18, 2021) – Mack Trucks announced today that it will highlight the Mack Anthem® model spec’d with a selection of Mack’s top fuel efficiency, driver productivity and safety technologies during the American Trucking Associations Management Conference & Exhibition (ATA MC&E) Oct. 23-26, 2021 at the Music City Center, Nashville, Tennessee.]]></content>
+        <published>2021-10-18T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[New Online Parts Store Revolutionizes Truck Parts Ordering]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-new-partsasist-parts-store-revolutionizes-online-truck-parts-ordering</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-new-partsasist-parts-store-revolutionizes-online-truck-parts-ordering"/>
+        <updated>2021-01-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 25, 2021) – Mack Trucks’ new PartsASIST platform makes ordering Mack® truck parts and components online faster and simpler than ever.]]></content>
+        <published>2021-01-25T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Is Well-Positioned for Next 100 Years of Trucking Leadership in Canada | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-trucks-is-well-positioned-for-next-100-years-of-trucking-leadership-in-canada</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-trucks-is-well-positioned-for-next-100-years-of-trucking-leadership-in-canada"/>
+        <updated>2021-09-24T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[SAINT-HYACINTHE, QUEBEC (Sept. 24, 2021) – Celebrating its 100th anniversary in Canada this year, Mack Trucks demonstrated this week that it is well-positioned to support and grow its diverse customer base as a result of recent investments in technologies and services. Mack highlighted these investments with its Class 8 Mack Anthem® and Class 7 Mack® MD7 models during ExpoCam 2021, Sept. 22-23 at Espace Saint-Hyacinthe, Saint-Hyacinthe, Quebec.]]></content>
+        <published>2021-09-24T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® mDRIVE™ HD Now Available in Mack TerraPro® Concrete Pumpers Powered by the Mack MP®8 Engine | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-mdrive-hd-now-available-in-mack-terrapro-concrete-pumpers-powered-by-the-mack-mp8-engine</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-mdrive-hd-now-available-in-mack-terrapro-concrete-pumpers-powered-by-the-mack-mp8-engine"/>
+        <updated>2021-06-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS (June 8, 2021) – Mack Trucks customers can now order a Mack® mDRIVE™HD automated manual transmission (AMT) in Mack TerraPro® cabover concrete pumpers powered by the 13-liter Mack MP®8 engine. Fully integrated with the MP8 engine and Mack axles, the 13- and 14-speed mDRIVE provides concrete pumper customers a proven solution to help improve performance, boost on-site productivity and safety and maximize uptime.]]></content>
+        <published>2021-06-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vital Speed Motorsports Transports Race Cars in Style with Mack Anthem® Models in Latest RoadLife 2.0 Feature | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/vital-speed-motorsports-transports-race-cars-in-style-with-mack-anthem-models-in-latest-roadlife</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/vital-speed-motorsports-transports-race-cars-in-style-with-mack-anthem-models-in-latest-roadlife"/>
+        <updated>2021-11-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Nov. 3, 2021) – Mack Trucks highlights the Mack Anthem® 70-inch stand-up sleeper model and how its fuel efficiency, uptime benefits and head-turning style helps Ferrari Challenge and GT Racing team, Vital Speed Motorsports, make a statement in the latest installment of Mack’s RoadLife 2.0 video series.]]></content>
+        <published>2021-11-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Trash Gurl Makes Refuse "Look Gud" With Mack's Help In Latest RoadLife 2.0 Episode | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/trash-gurl-makes-refuse-look-gud-with-macks-help-in-latest-roadlife-20-episode</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/trash-gurl-makes-refuse-look-gud-with-macks-help-in-latest-roadlife-20-episode"/>
+        <updated>2021-07-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (July 1, 2021) –Trash Gurl, a woman-owned recycling and waste disposal company that uses creative marketing to get attention in a mature market, is featured in the ninth episode of Mack’s RoadLife 2.0 series. Trash Gurl currently operates an all-Mack® Class 8 fleet, including the Mack Granite® roll-off and Mack LR front-end loader trucks.]]></content>
+        <published>2021-07-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[U.S. Army Orders 99 Heavy Dump Trucks from Mack Defense]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/us-army-orders-99-heavy-dump-trucks-from-mack-defense</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/us-army-orders-99-heavy-dump-trucks-from-mack-defense"/>
+        <updated>2021-03-01T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (March 1, 2021) – Mack Defense announced today that the U.S. Army ordered 99 Mack Defense M917A3 non-armored Heavy Dump Trucks (HDT) as part of the previously announced contract that could be worth up to $296.4 million over seven years between the U.S. Department of Defense and Mack Defense.]]></content>
+        <published>2021-03-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[President Joe Biden Visits Mack Trucks Lehigh Valley Operations | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/president-joe-biden-visits-mack-trucks-lehigh-valley-operations</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/president-joe-biden-visits-mack-trucks-lehigh-valley-operations"/>
+        <updated>2021-07-28T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (July 28, 2021) – Mack Trucks today hosted President Joe Biden at its Lehigh Valley Operations (LVO) facility in Macungie, Pennsylvania, where all Mack heavy-duty models for North America and export are assembled. President Biden stressed the importance of American manufacturing, buying American products and good-paying jobs during remarks made at the facility.]]></content>
+        <published>2021-07-28T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vanguard Truck Centers Invests $23 Million in New Dealership]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-dealer-vanguard-truck-centers-invests-23-million-in-new-state-of-the-art-houston-dealership</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-dealer-vanguard-truck-centers-invests-23-million-in-new-state-of-the-art-houston-dealership"/>
+        <updated>2021-02-18T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 18, 2021) – Vanguard Truck Centers recently opened a new dealership in Houston, investing $23 million in the facility to offer customers increased service and uptime support. Vanguard now operates 20 different sites in six states, including Arizona, Georgia, Illinois, Missouri, South Carolina and Texas, The new 120,000 square-foot facility rests on 23 acres at 12935 Crosby Freeway, north of U.S. 90, and offers easy access for customers. “Vanguard Truck Centers has been an outstanding partner to Mack, and it is all the more evident with this significant investment in this brand-new, state-of-the-art facility,” said Jonathan Randall, Mack Trucks senior vice president of North American sales and commercial operations. “This new dealership epitomizes the Mack® brand, and we are pleased that Vanguard continues to offer exceptional sales, service and support to Mack customers.” Featuring 44 heated and air-conditioned service bays staffed by 42 technicians, half whom are master technicians, the dealership employs 151 people and offers new truck sales for Mack heavy-duty and the new Mack MD Series medium-duty vehicles, used truck sales, leasing and rental, service and financing and insurance. The Vanguard Houston site is a Certified Uptime Dealer, meaning the dealership fulfilled superior service and support requirements, including offering dedicated bays for repairs requiring less than four hours. Vanguard Houston also is CNG-ready and will service and support the Mack LR Electric refuse model. “We believe our new Houston location provides a best-in-class experience for our employees and customers, through significant capacity expansion and facility design excellence, said Tom Ewing, president and CEO of Vanguard Truck Centers. “We’re excited about the investment, and we look forward to working alongside Mack Trucks to continue our growth in the Houston region.” A four-lane drive-up check-in area protects drivers from poor weather conditions, and the spacious parking lot easily accommodates customer, truck and trailer parking. Employees have access to roomy locker rooms, showers and break rooms, as well as a training center that can accommodate both internal and external meetings and events. The Vanguard Houston dealership offers more than $8 million in parts inventory, and a parts service counter that is easily accessible and comfortable for customers. A dedicated regional call center that offers support 24/7, and parts delivery with a citywide dispatch are available at the facility. The 45,000 square-foot parts warehouse features a mezzanine level where parts are stored for easy access, and customers can easily order parts through Mack PartsASIST, Mack’s recently launched parts ordering platform. Offering an expansive driver’s lounge with theater seating, work areas and free Wi-Fi. Hours of operation are 7 a.m. to midnight Central Time Monday through Friday, and 8 to 5 p.m. Saturday.]]></content>
+        <published>2021-02-18T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Enhanced Axle Warranty for Normal Heavy-Duty &amp; Severe-Duty]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-enhances-axle-warranty-for-normal-heavy-duty-and-severe-duty-applications</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-enhances-axle-warranty-for-normal-heavy-duty-and-severe-duty-applications"/>
+        <updated>2021-01-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Jan. 21, 2021) – Mack Trucks enhanced its standard Mack® axle warranty for Model Year 2022 Mack models, extending time and mileage coverage to improve the total cost of ownership for customers.]]></content>
+        <published>2021-01-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Bergey’s Truck Centers 2020 North American Dealer of the Year]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-names-bergeys-truck-centers-2020-north-american-dealer-of-the-year</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-names-bergeys-truck-centers-2020-north-american-dealer-of-the-year"/>
+        <updated>2021-02-15T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 15, 2021) – Bergey’s Truck Centers of Pennsauken, New Jersey, is the Mack Trucks 2020 North American Dealer of the Year. Mack named Bergey’s the winner virtually during the Mack annual dealer meeting.]]></content>
+        <published>2021-02-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Northwest Equipment Sales Becomes First Mack Certified Electric Vehicle Dealer in the Northwest | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/northwest-equipment-sales-becomes-first-mack-certified-electric-vehicle-dealer-in-the-northwest</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/northwest-equipment-sales-becomes-first-mack-certified-electric-vehicle-dealer-in-the-northwest"/>
+        <updated>2021-10-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 20, 2021) – Mack Trucks dealer Northwest Equipment Sales, based in Boise, Idaho, is now a Certified Electric Vehicle (EV) Dealer, making it the first Mack dealer in the Northwest United States to achieve that status.]]></content>
+        <published>2021-10-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® LR Electric to be Spotlighted During WasteExpo 2021 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/mack-lr-electric-to-be-spotlighted-during-wasteexpo-2021</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/mack-lr-electric-to-be-spotlighted-during-wasteexpo-2021"/>
+        <updated>2021-06-22T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 22, 2021) – Attendees of WasteExpo 2021 will experience the Mack® LR Electric, Mack’s first refuse model with a fully electric integrated Mack drivetrain, firsthand during the show, June 28-30 at the Las Vegas Convention Center.]]></content>
+        <published>2021-06-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Truck News]]></title>
+        <id>https://www.macktrucks.com/mack-news/2021/</id>
+        <link href="https://www.macktrucks.com/mack-news/2021/"/>
         <updated>1970-01-01T00:00:00.000Z</updated>
+        <published>1970-01-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Truck News]]></title>
+        <id>https://www.macktrucks.com/mack-news/2022/</id>
+        <link href="https://www.macktrucks.com/mack-news/2022/"/>
+        <updated>1970-01-01T00:00:00.000Z</updated>
+        <published>1970-01-01T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Truck News]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/"/>
+        <updated>1970-01-01T00:00:00.000Z</updated>
+        <published>1970-01-01T00:00:00.000Z</published>
     </entry>
 </feed>

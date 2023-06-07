@@ -18,7 +18,7 @@ export default async function decorate(block) {
     const articleLink = createElement('a', [], { href: post.path });
 
     const heading = createElement('h3');
-    heading.textContent = (post.heading && post.heading !== '0') ? post.heading : '';
+    heading.textContent = (post.title && post.title !== '0') ? post.title : '';
     articleLink.append(heading);
 
     const summary = createElement('p');
