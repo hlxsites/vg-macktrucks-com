@@ -17,6 +17,8 @@ export default function decorate(block) {
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
   popularSearchWrapper.classList.add('popular-search');
   let searchTerm = null;
+  let offset = 1;
+  const limit = 25;
 
   block.textContent = '';
   const mainTemplate = getMainTemplate(PLACEHOLDERS.searchFor);
@@ -27,11 +29,27 @@ export default function decorate(block) {
   const searchBtn = block.querySelector('.sf-form > span');
   const input = document.getElementById('searchTerm');
 
-  searchBtn.onclick = () => fetchResults(input.value);
-  input.onkeyup = (e) => e.key === 'Enter' && fetchResults(input.value);
+  function searchResults() {
+    insertUrlParam('q', input.value);
+    fetchResults(offset, input.value);
+  }
+
+  searchBtn.onclick = () => searchResults();
+  input.onkeyup = (e) => e.key === 'Enter' && searchResults;
+
+  const paginationConatiner = block.querySelector('.search-pagination-container');
+
+  const nextBtn = paginationConatiner.querySelector('.next');
+  nextBtn.onclick = () => pagination('next');
+
+  const prevBtn = paginationConatiner.querySelector('.prev');
+  prevBtn.onclick = () => pagination('prev');
+
+  const countSpan = paginationConatiner.querySelector('.count');
+  const resRange = paginationConatiner.querySelector('.page-range');
 
   function showResults(data) {
-    const { items } = data.macktrucksearch;
+    const { items } = data;
     const resultsWrapper = document.getElementById('searchResultsSection');
     const summary = document.getElementById('searchResultSummarySection');
     // TODO const sortBy = document.getElementById('searchOptionsSection');
@@ -39,6 +57,7 @@ export default function decorate(block) {
     let resultsText = '';
     let hasResults = true;
     if (items.length > 0) {
+      paginationConatiner.classList.add('show');
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
     } else {
@@ -48,7 +67,7 @@ export default function decorate(block) {
       resultsText = getNoResultsTemplate({ noResults, refine: PLACEHOLDERS.refine });
       hasResults = false;
     }
-    searchTerm = null;
+
     const fragment = document.createRange().createContextualFragment(resultsText);
     summary.textContent = '';
     resultsWrapper.textContent = '';
@@ -61,20 +80,43 @@ export default function decorate(block) {
     }
   }
 
-  async function fetchResults(queryTerm = '') {
+  function insertUrlParam(key, value) {
+    if (window.history.pushState) {
+      const searchUrl = new URL('/search', window.location.origin);
+      searchUrl.searchParams.append(key, value);
+      window.history.pushState({}, '', searchUrl.toString());
+    }
+  }
+  function updatePaginationDOM(data) {
+    let isPrevDisabled = false;
+    let isNextDisabled = false;
+    const rangeText = `${(limit * (offset - 1)) + 1}-${(limit * (offset - 1)) + data.items.length}`;
+    if (offset === 1) {
+      isPrevDisabled = 'disabled';
+      countSpan.innerText = data.count;
+    }
+    if ((offset + 1) * limit > data.count) {
+      isNextDisabled = 'disabled';
+    }
+    prevBtn.setAttribute('disabled', isPrevDisabled);
+    nextBtn.setAttribute('disabled', isNextDisabled);
+    resRange.innerText = rangeText;
+  }
+
+  async function fetchResults(offsetVal, queryTerm) {
+    searchTerm = queryTerm;
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
     const queryObj = {
       query: `
-      query MacTrucksQuery($q: String, $locale: LocaleEnum!, $facets: [Facet]) {
-        macktrucksearch(q: $q, locale: $locale, facets: $facets) {
+      query MacTrucksQuery($q: String, $limit: Int, $offset: Int, $language: MackLocaleEnum!, $facets: [MackFacet]) {
+        macktrucksearch(q: $q, limit: $limit, offset: $offset, language: $language, facets: $facets) {
           count
           items {
             metadata {
               title
               description
-              url
             }
           }
           facets {
@@ -87,12 +129,14 @@ export default function decorate(block) {
       `,
       variables: {
         q: queryTerm,
-        locale: 'EN',
         facets: [{
           field: 'TAGS',
         }, {
           field: 'CATEGORY',
         }],
+        offset: offsetVal,
+        limit,
+        language: 'EN',
       },
     };
 
@@ -109,17 +153,29 @@ export default function decorate(block) {
       },
     );
 
-    const json = await response.json();
-    if (json.errors) {
+    const {
+      errors,
+      data: {
+        macktrucksearch,
+      } = {},
+    } = await response.json();
+    if (errors) {
       // eslint-disable-next-line no-console
       console.log('%cSomething went wrong', 'color:red');
     } else {
-      showResults(json.data);
+      showResults(macktrucksearch);
+      updatePaginationDOM(macktrucksearch);
     }
+  }
+
+  function pagination(type) {
+    offset = type === 'next' ? offset + 1 : offset - 1;
+    insertUrlParam('start', offset);
+    fetchResults(offset, searchTerm);
   }
 
   // check if url has query params
   const urlParams = new URLSearchParams(window.location.search);
   searchTerm = urlParams.get('q');
-  if (searchTerm) fetchResults(searchTerm);
+  if (searchTerm) fetchResults(offset, searchTerm);
 }

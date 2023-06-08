@@ -36,6 +36,20 @@ export const getMainTemplate = (placeholder) => `
     <div id="paginationSection"></div>
   </div>
 </div>
+
+<div class="search-pagination-container">
+  <ul class="pagination">
+    <li class="page-item">
+      <a variant="outline-primary" class="page-link-searchstudio-js prev"> &lt; Previous </a>
+    </li> 
+    <li class="page-item">
+      <span class="page-link-searchstudio-js page-number"><strong class="page-range">1 — 25 </strong> of <strong class="count">113</strong></span>
+    </li>
+    <li class="page-item">
+      <a variant="outline-primary" class="page-link-searchstudio-js next"> Next &gt; </a>
+    </li>
+  </ul>
+</div>
 `;
 
 export const getNoResultsTemplate = ({ noResults, refine }) => `

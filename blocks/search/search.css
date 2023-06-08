@@ -2095,3 +2095,39 @@ a:any-link {
 .popular-search a:hover {
   color: #999;
 }
+
+.search-pagination-container {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: end;
+  max-width: 960px;
+  margin: 20px auto;
+}
+
+.search-pagination-container.show {
+  display: flex;
+}
+
+.search-pagination-container .page-number {
+  color: #33465a;
+}
+
+.search-pagination-container .page-item {
+  font-size: 14px;
+}
+
+.search-pagination-container .page-item a {
+  cursor: pointer;
+}
+
+.search-pagination-container .page-item .page-link-searchstudio-js[disabled=disabled] {
+  color: #33465a;
+  background-color: transparent;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.search-pagination-container .page-item .page-link-searchstudio-js:hover {
+  background-color: transparent;
+  color: #999;
+}
