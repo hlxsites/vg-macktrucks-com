@@ -1,70 +1,67 @@
 import { getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
+import { getMainTemplate, getNoResultsTemplate, getResultsItemsTemplate } from './templates.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
+  noResults: getTextLabel('no results'),
+  refine: getTextLabel('refine'),
+  showingResults: getTextLabel('Showing results for'), // searchResultSummarySection
+  sortBy: getTextLabel('Sort By'), // searchOptionsSection
+  sortFilter: getTextLabel('Sort Filter'),
 };
 
-// Implementation based on searchtax documentation https://www.searchstax.com/docs/searchstudio/searchstax-studio-searchjs-module/
 export default function decorate(block) {
   const section = getTargetParentElement(block, { className: 'section' });
   // check if the closest default content wrapper is inside the same section element
   const siblingDefaultSection = section.querySelector('.default-content-wrapper');
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
   popularSearchWrapper.classList.add('popular-search');
+  let searchTerm = null;
 
-  block.innerHTML = `
-  <div class="search-input-wrapper">
-    <div id="searchInput" class="input-container-custom">
-      <div class="sf-header-searchstudio-js mb-5">
-        <div class="sf-form">
-          <div class="form-group">
-            <div id="autosuggest" class="form-control-suggest">
-              <div role="combobox" aria-expanded="false" aria-haspopup="listbox"
-                aria-owns="autosuggest-autosuggest__results">
-                <input type="text" autocomplete="off" aria-autocomplete="list" id="searchTerm"
-                  aria-controls="autosuggest-autosuggest__results"
-                  placeholder="${PLACEHOLDERS.searchFor}..." autofocus="autofocus">
-              </div>
-              <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"></div>
-            </div>
-            <span>
-              <button type="submit" class="btn text-primary search-close-button">
-                <span class="fa fa-search search-icon"></span>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  block.textContent = '';
+  const mainTemplate = getMainTemplate(PLACEHOLDERS.searchFor);
+  const mainFragment = document.createRange().createContextualFragment(mainTemplate);
+  block.appendChild(mainFragment);
 
-  <div class="search-results-summary-options-wrapper">
-    <div id="searchResultSummarySection"></div>
-    <div id="searchOptionsSection"></div>
-  </div>
+  // after insert the main template, both elements are present then
+  const searchBtn = block.querySelector('.sf-form > span');
+  const input = document.getElementById('searchTerm');
 
-  <div class="search-results-wrapper">
-    <div class="facet-container-wrapper">
-      <div id="searchFacetSection"></div>
-    </div>
-    <div class="result-container-wrapper">
-      <div id="external-search-result-container"></div>
-      <div id="searchResultsSection"></div>
-      <div id="relatedSearchesSection"></div>
-      <div id="paginationSection"></div>
-    </div>
-  </div>
-  `;
+  searchBtn.onclick = () => fetchResults(input.value);
+  input.onkeyup = (e) => e.key === 'Enter' && fetchResults(input.value);
 
-  const searchBtn = block.querySelector('.form-group > span');
-  searchBtn.onclick = () => {
-    const input = document.getElementById('searchTerm');
-    const { value } = input;
-    console.log({ value });
-    fetchResults(value); // TODO get the input value to be applied in the search
-  };
+  function showResults(data) {
+    const { items } = data.macktrucksearch;
+    const resultsWrapper = document.getElementById('searchResultsSection');
+    const summary = document.getElementById('searchResultSummarySection');
+    // TODO const sortBy = document.getElementById('searchOptionsSection');
+    const queryTerm = searchTerm || input.value;
+    let resultsText = '';
+    let hasResults = true;
+    if (items.length > 0) {
+      summary.parentElement.classList.remove('no-results');
+      resultsText = getResultsItemsTemplate({ items, queryTerm });
+    } else {
+      const noResults = PLACEHOLDERS.noResults.replace('$0', `"${
+        queryTerm.trim() === '' ? ' ' : queryTerm}"`);
+      summary.parentElement.classList.add('no-results');
+      resultsText = getNoResultsTemplate({ noResults, refine: PLACEHOLDERS.refine });
+      hasResults = false;
+    }
+    searchTerm = null;
+    const fragment = document.createRange().createContextualFragment(resultsText);
+    summary.textContent = '';
+    resultsWrapper.textContent = '';
+    if (hasResults) {
+      resultsWrapper.appendChild(fragment);
+      // TODO show sort by
+    } else {
+      summary.appendChild(fragment);
+      // TODO hide sort by
+    }
+  }
 
-  async function fetchResults(queryTerm) {
+  async function fetchResults(queryTerm = '') {
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
@@ -77,6 +74,7 @@ export default function decorate(block) {
             metadata {
               title
               description
+              url
             }
           }
           facets {
@@ -113,14 +111,15 @@ export default function decorate(block) {
 
     const json = await response.json();
     if (json.errors) {
-      console.log(JSON.stringify(json.errors));
+      // eslint-disable-next-line no-console
+      console.log('%cSomething went wrong', 'color:red');
     } else {
-      console.log((json.data));
+      showResults(json.data);
     }
   }
 
   // check if url has query params
   const urlParams = new URLSearchParams(window.location.search);
-  const searchTerm = urlParams.get('q');
+  searchTerm = urlParams.get('q');
   if (searchTerm) fetchResults(searchTerm);
 }

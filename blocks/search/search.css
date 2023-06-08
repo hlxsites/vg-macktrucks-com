@@ -339,6 +339,10 @@
   padding-left: 0;
 }
 
+.search-results-wrapper h4 {
+  font-family: var(--headline-ff-medium);
+}
+
 .facet-container-wrapper {
   max-width: 25%;
   min-width: 25%;
@@ -656,10 +660,6 @@
   font-size: 16px;
   font-weight: 300;
   padding-left: 0;
-}
-
-.search-feedback-filters-custom .sf-filter-info .d-block {
-  display: block !important;
 }
 
 .search-feedback-filters-custom .sf-filter-info .text-primary {
@@ -2073,8 +2073,7 @@ a:any-link {
 .popular-search {
   max-width: 960px;
   box-sizing: border-box;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 30px 15px 0;
 }
 
 .popular-search h3 {
