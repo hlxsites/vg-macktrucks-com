@@ -39,6 +39,7 @@ export default function decorate(block) {
   // after insert the main template, both elements are present then
   const searchBtn = block.querySelector('.sf-form > span');
   const input = document.getElementById('searchTerm');
+  const facetsWrapper = document.getElementById('searchFacetSection');
   const resultsWrapper = document.getElementById('searchResultsSection');
   const summary = document.getElementById('searchResultSummarySection');
   const sortBy = document.getElementById('searchOptionsSection');
@@ -49,7 +50,7 @@ export default function decorate(block) {
   }
 
   searchBtn.onclick = () => searchResults();
-  input.onkeyup = (e) => e.key === 'Enter' && searchResults;
+  input.onkeyup = (e) => e.key === 'Enter' && searchResults();
 
   const paginationConatiner = block.querySelector('.search-pagination-container');
 
@@ -63,7 +64,7 @@ export default function decorate(block) {
   const resRange = paginationConatiner.querySelector('.page-range');
 
   function showResults(data) {
-    const { items, count, facets } = data.macktrucksearch;
+    const { items, count, facets } = data;
     const queryTerm = searchTerm || input.value;
     let resultsText = '';
     let hasResults = true;
@@ -73,7 +74,6 @@ export default function decorate(block) {
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
       facetsText = getFacetsTemplate(facets);
-      console.log({facetsText});
     } else {
       const noResults = PLACEHOLDERS.noResults.replace('$0', `"${
         queryTerm.trim() === '' ? ' ' : queryTerm}"`);
@@ -90,8 +90,10 @@ export default function decorate(block) {
         .replace('$1', items.length).replace('$2', count).replace('$3', queryTerm);
       const showingResultsText = getShowingResultsTemplate(showingResults);
       const summaryFragment = fragmentRange.createContextualFragment(showingResultsText);
+      const facetsFragment = fragmentRange.createContextualFragment(facetsText);
       resultsWrapper.appendChild(fragment);
       summary.appendChild(summaryFragment);
+      facetsWrapper.appendChild(facetsFragment);
     } else {
       summary.appendChild(fragment);
     }
@@ -202,5 +204,4 @@ export default function decorate(block) {
   }
 
   if (searchTerm) fetchResults(offset, searchTerm);
-  console.assert(!searchTerm, {searchTerm});
 }

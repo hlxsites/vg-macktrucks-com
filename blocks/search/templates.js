@@ -27,7 +27,7 @@ export const getMainTemplate = (PLACEHOLDERS) => {
   <div class="search-results-summary-options-wrapper">
     <div id="searchResultSummarySection"></div>
     <div id="searchOptionsSection" class="hide">
-      <div className="sf-filter-actions-wrapper">
+      <div class="sf-filter-actions-wrapper">
         <div class="ml-auto sf-filter-actions-custom">
           <div class="form-inline justify-content-end">
             <label for="sort-by" class="ml-4 mr-2">${PLACEHOLDERS.sortBy}</label>
@@ -44,34 +44,35 @@ export const getMainTemplate = (PLACEHOLDERS) => {
 
   <div class="search-results-wrapper">
     <div class="facet-container-wrapper">
-      <div id="searchFacetSection"></div>
+      <div id="searchFacetSection" class="facet-wrapper facet-container-holder"></div>
     </div>
     <div class="result-container-wrapper">
       <div id="searchResultsSection"></div>
-      <div id="paginationSection"></div>
+      <div id="paginationSection">
+        <div class="search-pagination-container">
+          <ul class="pagination">
+            <li class="page-item">
+              <a variant="outline-primary" class="page-link-searchstudio-js prev"> &lt; Previous </a>
+            </li>
+            <li class="page-item">
+              <span class="page-link-searchstudio-js page-number"><strong class="page-range">1 — 25 </strong> of <strong class="count">113</strong></span>
+            </li>
+            <li class="page-item">
+              <a variant="outline-primary" class="page-link-searchstudio-js next"> Next &gt; </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="search-pagination-container">
-  <ul class="pagination">
-    <li class="page-item">
-      <a variant="outline-primary" class="page-link-searchstudio-js prev"> &lt; Previous </a>
-    </li>
-    <li class="page-item">
-      <span class="page-link-searchstudio-js page-number"><strong class="page-range">1 — 25 </strong> of <strong class="count">113</strong></span>
-    </li>
-    <li class="page-item">
-      <a variant="outline-primary" class="page-link-searchstudio-js next"> Next &gt; </a>
-    </li>
-  </ul>
-</div>
-`;
+  `;
+};
 
 export const getNoResultsTemplate = ({ noResults, refine }) => `
   <div class="search-feedback-filters-wrapper">
-    <div className="search-feedback-filters-custom">
-      <div className="sf-filter-info-custom">
+    <div class="search-feedback-filters-custom">
+      <div class="sf-filter-info-custom">
         <span class="no-result-msg">${noResults}</span>
         <br />
         <span class="no-result-msg2">${refine}</span>
@@ -133,10 +134,10 @@ export const getResultsItemsTemplate = ({ items, queryTerm }) => {
 };
 
 export const getShowingResultsTemplate = (text) => `
-  <div className="search-feedback-filters-wrapper-container">
-    <div className="search-feedback-filters-wrapper">
+  <div class="search-feedback-filters-wrapper-container">
+    <div class="search-feedback-filters-wrapper">
       <div class="search-feedback-filters-custom align-items-center333">
-        <div className="sf-filter-info">
+        <div class="sf-filter-info">
           <span>${text}</span>
         </div>
       </div>
@@ -161,41 +162,60 @@ export const getFacetsTemplate = (facets) => {
   const [category, tags] = facets;
   const categoryItemsText = getItemsList(category.items);
   const tagsItemsText = getItemsList(tags.items);
-  console.log({categoryItemsText, tagsItemsText});
 
-  // TODO finish with the template for facets
   return `
-  <div id="collapse-topics" data-parent="#search-facets" className="collapse show">
-    <div class="filters">
-      <form id="facetsFilters">
-        <div class="facet-list mb-4">
-          <h4 class="sidebar-heading">
-            <a href="#" class="text-uppercase active">Types </a>
-          </h4>
-          <div class="collapse show">
-            <ul class="list-unstyled pl-3">
-              ${categoryItemsText}
-            </ul>
-            <div class="more-less">
-              <a href="#">More</a>
-            </div>
-          </div>
+    <div class="facet-template-container-custom">
+      <div class="pill-container">
+        <div class="pill ">Filter By <span class="pill-close filter-by"></span></div>
+      </div>
+      <div class="sidebar-background"></div>
+      <div class="sf-sidebar-container">
+        <div class="sf-mobile-header">
+          <div class="sf-mobile-header-text">Filter By</div>
+          <button type="button" class="btn btn-custom text-primary">
+            <span class="search-close fa fa-close"></span>
+          </button>
         </div>
-        <div class="facet-list mb-4">
-          <h4 class="sidebar-heading">
-            <a href="#" class="text-uppercase active">Tags </a>
-          </h4>
-          <div class="collapse show">
-            <ul class="list-unstyled pl-3">
-              ${tagsItemsText}
-            </ul>
-            <div class="more-less">
-              <a href="#">More</a>
-            </div>
-          </div>
+        <div class="sf-sidebar">
+          <ul id="search-facets" class="list-group accordion">
+            <li class="list-group-item-searchstudio-js">
+              <div id="collapse-topics" data-parent="#search-facets" class="collapse show">
+                <div class="filters">
+                  <form id="facetsFilters">
+                    <div class="facet-list mb-4">
+                      <h4 class="sidebar-heading">
+                        <a href="#" class="text-uppercase active">Categories </a>
+                      </h4>
+                      <div class="collapse show">
+                        <ul class="list-unstyled pl-3">
+                          ${categoryItemsText}
+                        </ul>
+                        <div class="more-less">
+                          <a href="#">More</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="facet-list mb-4">
+                      <h4 class="sidebar-heading">
+                        <a href="#" class="text-uppercase active">Tags </a>
+                      </h4>
+                      <div class="collapse show">
+                        <ul class="list-unstyled pl-3">
+                          ${tagsItemsText}
+                        </ul>
+                        <div class="more-less">
+                          <a href="#">More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-custom close-button">Done</button>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
   `;
 };
