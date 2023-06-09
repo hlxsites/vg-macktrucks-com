@@ -16,8 +16,12 @@ export default function decorate(block) {
   const siblingDefaultSection = section.querySelector('.default-content-wrapper');
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
   popularSearchWrapper.classList.add('popular-search');
-  let searchTerm = null;
-  let offset = 1;
+
+  // check if url has query params
+  const urlParams = new URLSearchParams(window.location.search);
+  let searchTerm = urlParams.get('q');
+  let offset = urlParams.get('start');
+  offset = offset ? Number(offset) : 1;
   const limit = 25;
 
   block.textContent = '';
@@ -82,18 +86,20 @@ export default function decorate(block) {
 
   function insertUrlParam(key, value) {
     if (window.history.pushState) {
-      const searchUrl = new URL('/search', window.location.origin);
-      searchUrl.searchParams.append(key, value);
+      const searchUrl = new URL(window.location.href);
+      searchUrl.searchParams.set(key, value);
       window.history.pushState({}, '', searchUrl.toString());
     }
   }
+
   function updatePaginationDOM(data) {
     let isPrevDisabled = false;
     let isNextDisabled = false;
     const rangeText = `${(limit * (offset - 1)) + 1}-${(limit * (offset - 1)) + data.items.length}`;
+
+    // disable the prev , next buttons
     if (offset === 1) {
       isPrevDisabled = 'disabled';
-      countSpan.innerText = data.count;
     }
     if ((offset + 1) * limit > data.count) {
       isNextDisabled = 'disabled';
@@ -163,6 +169,7 @@ export default function decorate(block) {
       // eslint-disable-next-line no-console
       console.log('%cSomething went wrong', 'color:red');
     } else {
+      countSpan.innerText = macktrucksearch.count;
       showResults(macktrucksearch);
       updatePaginationDOM(macktrucksearch);
     }
@@ -174,8 +181,5 @@ export default function decorate(block) {
     fetchResults(offset, searchTerm);
   }
 
-  // check if url has query params
-  const urlParams = new URLSearchParams(window.location.search);
-  searchTerm = urlParams.get('q');
   if (searchTerm) fetchResults(offset, searchTerm);
 }
