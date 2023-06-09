@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import * as echarts from '../../common/echarts/echarts.esm.js';
 
 /**
  * content of the tabs for the performance-specifications block.
@@ -13,18 +13,50 @@ export default async function decorate(block) {
   // rows until RPM are facts, after is performance data
   const facts = tableData.slice(0, indexOfRpm);
   const performanceData = tableData.slice(indexOfRpm);
-  console.log({ facts, performanceData });
-
-  const definitions  = domEl('dl', {class: 'key-specs'});
-  facts.forEach((row) => {
-    definitions.appendChild(domEl('dt', row[0]));
-    definitions.appendChild(domEl('dd', row[1]));
+  console.log({
+    facts,
+    performanceData,
   });
 
+  const keyFacts = domEl('dl', { class: 'key-specs' });
+  facts.forEach((row) => {
+    keyFacts.appendChild(domEl('dt', row[0]));
+    keyFacts.appendChild(domEl('dd', row[1]));
+  });
+
+
   block.innerText = '';
-  block.append(definitions);
+  block.append(keyFacts);
 
+  const diagram = div( { class: 'performance-chart' });
+  block.append(diagram);
 
+  const myChart = echarts.init(diagram);
+
+  // Specify the configuration items and data for the chart
+  const option = {
+    title: {
+      text: 'ECharts Getting Started Example',
+    },
+    tooltip: {},
+    legend: {
+      data: ['sales'],
+    },
+    xAxis: {
+      data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks'],
+    },
+    yAxis: {},
+    series: [
+      {
+        name: 'sales',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20],
+      },
+    ],
+  };
+
+  // Display the chart using the configuration items and data just specified.
+  myChart.setOption(option);
 
 }
 
@@ -52,7 +84,6 @@ export function deconstructBlockIntoArray(blockEl) {
 
   return array2d;
 }
-
 
 /**
  * Example Usage:
@@ -88,6 +119,7 @@ export function domEl(tag, ...items) {
 
   if (!(items[0] instanceof Element || items[0] instanceof HTMLElement) && typeof items[0] === 'object') {
     const [attributes, ...rest] = items;
+    // eslint-disable-next-line no-param-reassign
     items = rest;
 
     Object.entries(attributes).forEach(([key, value]) => {
@@ -100,6 +132,7 @@ export function domEl(tag, ...items) {
   }
 
   items.forEach((item) => {
+    // eslint-disable-next-line no-param-reassign
     item = item instanceof Element || item instanceof HTMLElement
       ? item
       : document.createTextNode(item);
