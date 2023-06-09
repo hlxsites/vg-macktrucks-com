@@ -354,7 +354,7 @@
 @media (min-width: 576px) {
   .search-results-summary-options-wrapper,
   .search-results-wrapper,
-  ..search-input-wrapper {
+  .search-input-wrapper {
     max-width: 540px;
     padding-left: 15px;
     padding-right: 15px;

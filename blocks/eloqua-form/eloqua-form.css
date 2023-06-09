@@ -9,7 +9,7 @@
 }
 
 .eloqua-form .elq-form input,
-.eloqua-form .elq-form input[type=text],
+.eloqua-form .elq-form input[type="text"],
 .eloqua-form .elq-form select,
 .eloqua-form .elq-form textarea {
   display: block;

@@ -1,50 +1,41 @@
-import { getMetadata } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
-import { getNews } from '../../scripts/news.js';
+import {
+  feedsInfo,
+  getBodyBuilderNews, getMackNews, PagingInfo,
+} from '../../scripts/news.js';
 
 export default async function decorate(block) {
-  const navPages = await getNews('mack-news', window.location.pathname);
-  const newsPage = navPages.filter((page) => page.title.toLowerCase() !== getMetadata('title')
-    ?.toLowerCase());
+  const type = window.location.pathname.startsWith('/parts-and-services/support/body-builders')
+    ? 'body-builder-news'
+    : 'mack-news';
+
+  const pagingInfo = new PagingInfo();
+  const newsPage = type === 'body-builder-news'
+    ? await getBodyBuilderNews(pagingInfo)
+    : await getMackNews(window.location.pathname, pagingInfo, '');
 
   block.textContent = '';
-
   const list = createElement('ul', ['news-sidebar-list']);
+  block.append(list);
 
-  // creating RSS link
-  const rssLink = document.createElement('a');
-  rssLink.setAttribute('href', '/mack-news/rss/');
+  const rssLink = createElement('a', ['news-sidebar-rss-icon'], { href: feedsInfo[type].feedPath });
   rssLink.textContent = 'News RSS';
-  rssLink.classList.add('news-sidebar-rss-icon');
+
   list.appendChild(rssLink);
+  list.appendChild(getParentCategoryLink(window.location.pathname));
 
-  // creating the year link
-  const yearLink = document.createElement('a');
-  const currentLink = newsPage && newsPage.find((item) => item.path === window.location.pathname);
-  const newsYear = new Date(currentLink.publicationDate * 1000).getFullYear();
+  newsPage.forEach((newsData) => {
+    const li = createElement('li');
 
-  if (!Number.isNaN(Number(newsYear))) {
-    yearLink.setAttribute('href', `/mack-news/${newsYear}/`);
-    yearLink.textContent = newsYear;
-    list.appendChild(yearLink);
-  }
+    const newsItem = createElement('a', [], { href: newsData.path });
+    if (window.location.pathname === newsData.path) {
+      newsItem.classList.add('new-sidebar-active-link');
+    }
+    newsItem.textContent = (newsData.title && newsData.title !== '0') ? newsData.title.split('|')[0] : '';
 
-  if (newsPage) {
-    newsPage.forEach((newsData) => {
-      const li = createElement('li');
-      const newsItem = document.createElement('a');
-
-      if (window.location.pathname === newsData.path) {
-        newsItem.classList.add('new-sidebar-active-link');
-      }
-
-      newsItem.href = newsData.path;
-      newsItem.textContent = (newsData.title && newsData.title !== '0') ? newsData.title.split('|')[0] : '';
-      li.append(newsItem);
-      list.append(li);
-    });
-    block.append(list);
-  }
+    li.append(newsItem);
+    list.append(li);
+  });
 
   // creating select - for mobile only
   const div = document.createElement('div');
@@ -65,8 +56,8 @@ export default async function decorate(block) {
   const select = div.querySelector('select');
   newsPage.forEach((item) => {
     const option = createElement('option', [], { value: item.path });
-    const optionText = item.title.split('|')[0];
-    option.textContent = optionText;
+    // eslint-disable-next-line prefer-destructuring
+    option.textContent = item.title.split('|')[0];
     select.append(option);
   });
   const selectEl = div.firstElementChild;
@@ -76,4 +67,18 @@ export default async function decorate(block) {
     block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.title.split('|')[0];
     window.location = event.target.value;
   });
+}
+
+function getParentCategoryLink(pagePath) {
+  const parentFolders = pagePath.split('/').filter((item) => item !== '');
+  parentFolders.pop();
+  // either a category like 'news-and-events' or a year like '2023'
+  let parentFolderName = parentFolders.at(-1);
+
+  // format the parent folder name to be more readable
+  parentFolderName = parentFolderName.replaceAll('-', ' ');
+
+  const category = createElement('a', [], { href: `/${parentFolders.join('/')}/` });
+  category.textContent = parentFolderName;
+  return category;
 }

@@ -193,6 +193,7 @@ main .hero.specs .hero-content-wrapper h1 {
     } 
 
 }
+
 @media (min-width: 992px) {
     main .hero.specs img {
         height: unset;
