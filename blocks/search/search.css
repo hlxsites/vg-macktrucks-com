@@ -328,6 +328,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 24px;
+  justify-content: space-between;
 }
 
 .search-results-wrapper {
@@ -737,7 +738,8 @@
 }
 
 #sf-widget-custom .sf-close,
-#sf-widget-custom .sf-hide {
+#sf-widget-custom .sf-hide,
+#searchOptionsSection.hide {
   display: none;
 }
 

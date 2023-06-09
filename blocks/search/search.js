@@ -1,5 +1,11 @@
 import { getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
-import { getMainTemplate, getNoResultsTemplate, getResultsItemsTemplate } from './templates.js';
+import {
+  getFacetsTemplate,
+  getNoResultsTemplate,
+  getMainTemplate,
+  getResultsItemsTemplate,
+  getShowingResultsTemplate,
+} from './templates.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
@@ -15,32 +21,37 @@ export default function decorate(block) {
   // check if the closest default content wrapper is inside the same section element
   const siblingDefaultSection = section.querySelector('.default-content-wrapper');
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
+  const fragmentRange = document.createRange();
   popularSearchWrapper.classList.add('popular-search');
   let searchTerm = null;
+  const offset = 0; // TODO has to be let and be updated in pagination
 
   block.textContent = '';
-  const mainTemplate = getMainTemplate(PLACEHOLDERS.searchFor);
-  const mainFragment = document.createRange().createContextualFragment(mainTemplate);
+  const mainTemplate = getMainTemplate(PLACEHOLDERS);
+  const mainFragment = fragmentRange.createContextualFragment(mainTemplate);
   block.appendChild(mainFragment);
 
   // after insert the main template, both elements are present then
   const searchBtn = block.querySelector('.sf-form > span');
   const input = document.getElementById('searchTerm');
+  const resultsWrapper = document.getElementById('searchResultsSection');
+  const summary = document.getElementById('searchResultSummarySection');
+  const sortBy = document.getElementById('searchOptionsSection');
 
   searchBtn.onclick = () => fetchResults(input.value);
   input.onkeyup = (e) => e.key === 'Enter' && fetchResults(input.value);
 
   function showResults(data) {
-    const { items } = data.macktrucksearch;
-    const resultsWrapper = document.getElementById('searchResultsSection');
-    const summary = document.getElementById('searchResultSummarySection');
-    // TODO const sortBy = document.getElementById('searchOptionsSection');
+    const { items, count, facets } = data.macktrucksearch;
     const queryTerm = searchTerm || input.value;
     let resultsText = '';
     let hasResults = true;
-    if (items.length > 0) {
+    let facetsText = null;
+    if (items.length > 0) { // items by query: 20, count has the total
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
+      facetsText = getFacetsTemplate(facets);
+      console.log({facetsText});
     } else {
       const noResults = PLACEHOLDERS.noResults.replace('$0', `"${
         queryTerm.trim() === '' ? ' ' : queryTerm}"`);
@@ -49,16 +60,20 @@ export default function decorate(block) {
       hasResults = false;
     }
     searchTerm = null;
-    const fragment = document.createRange().createContextualFragment(resultsText);
+    const fragment = fragmentRange.createContextualFragment(resultsText);
     summary.textContent = '';
     resultsWrapper.textContent = '';
     if (hasResults) {
+      const showingResults = PLACEHOLDERS.showingResults.replace('$0', `${offset + 1}`)
+        .replace('$1', items.length).replace('$2', count).replace('$3', queryTerm);
+      const showingResultsText = getShowingResultsTemplate(showingResults);
+      const summaryFragment = fragmentRange.createContextualFragment(showingResultsText);
       resultsWrapper.appendChild(fragment);
-      // TODO show sort by
+      summary.appendChild(summaryFragment);
     } else {
       summary.appendChild(fragment);
-      // TODO hide sort by
     }
+    sortBy.classList.toggle('hide', !hasResults);
   }
 
   async function fetchResults(queryTerm = '') {
@@ -67,19 +82,24 @@ export default function decorate(block) {
 
     const queryObj = {
       query: `
-      query MacTrucksQuery($q: String, $locale: LocaleEnum!, $facets: [Facet]) {
-        macktrucksearch(q: $q, locale: $locale, facets: $facets) {
+      query MacTrucksQuery($q: String, $offset: Int, $limit: Int, $language: MackLocaleEnum!, $facets: [MackFacet], $sort: [MackSortOptionsEnum]) {
+        macktrucksearch(q: $q, offset: $offset, limit: $limit, language: $language, facets: $facets, sort: $sort) {
           count
           items {
+            uuid
+            score
             metadata {
               title
               description
               url
+              lastModified
             }
           }
           facets {
+            field
             items {
               value
+              count
             }
           }
         }
@@ -87,12 +107,14 @@ export default function decorate(block) {
       `,
       variables: {
         q: queryTerm,
-        locale: 'EN',
-        facets: [{
-          field: 'TAGS',
-        }, {
-          field: 'CATEGORY',
-        }],
+        language: 'EN',
+        facets: [
+          { field: 'TAGS' },
+          { field: 'CATEGORY' },
+        ],
+        offset,
+        limit: 20,
+        sort: 'BEST_MATCH',
       },
     };
 

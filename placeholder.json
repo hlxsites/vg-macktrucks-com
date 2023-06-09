@@ -45,7 +45,7 @@
     },
     {
       "Key": "Showing results for",
-      "Text": "Showing <strong>$0 - $1</strong> of <strong>$3</strong> results for <strong>\"$4\"</strong>"
+      "Text": "Showing <strong>$0 - $1</strong> of <strong>$2</strong> results for <strong>\"$3\"</strong>"
     },
     {
       "Key": "Sort By",
@@ -53,7 +53,7 @@
     },
     {
       "Key": "Sort Filter",
-      "Text": "Relevance,  Newest Content, Oldest Content"
+      "Text": "Relevance,Newest Content,Oldest Content"
     }
   ],
   ":type": "sheet"
