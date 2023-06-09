@@ -18,6 +18,11 @@ const PLACEHOLDERS = {
   next: getTextLabel('Next'),
 };
 
+const SEARCH_URLS = {
+  prod: 'https://kb3ko4nzt2.execute-api.eu-west-1.amazonaws.com/prod/search',
+  dev: 'https://search-api-dev.aws.43636.vnonprod.com/search',
+};
+
 export default function decorate(block) {
   const section = getTargetParentElement(block, { className: 'section' });
   // check if the closest default content wrapper is inside the same section element
@@ -28,17 +33,17 @@ export default function decorate(block) {
 
   // check if url has query params
   const urlParams = new URLSearchParams(window.location.search);
-  const searchTerm = urlParams.get('q');
+  let searchTerm = urlParams.get('q');
   let offset = urlParams.get('start');
   offset = offset ? Number(offset) : 0;
   const limit = 25;
 
-  block.textContent = '';
   const mainTemplate = getMainTemplate(PLACEHOLDERS);
   const mainFragment = fragmentRange.createContextualFragment(mainTemplate);
+  block.textContent = '';
   block.appendChild(mainFragment);
 
-  // after insert the main template, both elements are present then
+  // after insert the main template, these elements are present then
   const searchBtn = block.querySelector('.sf-form > span');
   const input = document.getElementById('searchTerm');
   const facetsWrapper = document.getElementById('searchFacetSection');
@@ -65,6 +70,39 @@ export default function decorate(block) {
   const prevBtn = paginationConatiner.querySelector('.prev');
   prevBtn.onclick = () => pagination('prev');
 
+  const addMoreBtnToggleEvent = (e) => {
+    const facetList = e.target.parentElement.previousElementSibling;
+    const isMore = e.target.textContent.toLowerCase() === 'more';
+    e.target.textContent = isMore ? 'Less' : 'More';
+    [...facetList.children].forEach((li, i) => {
+      if (i <= 2) return;
+      li.classList.toggle('d-none', !isMore);
+    });
+  };
+
+  const addFacetTitlesToggleEvent = (e) => {
+    const titleList = e.target.closest('.sidebar-heading').nextElementSibling;
+    const isShown = titleList.classList.contains('show');
+    e.target.classList.toggle('active', !isShown);
+    titleList.classList.toggle('show', !isShown);
+  };
+
+  const addFacetsEvents = (facets) => {
+    if (!facets) return;
+    const titles = facets.querySelectorAll('.sidebar-heading a');
+    if (titles.length > 0) {
+      [...titles].forEach((title) => {
+        title.onclick = addFacetTitlesToggleEvent;
+      });
+    }
+    const moreBtns = facets.querySelectorAll('.more-less a');
+    if (moreBtns.length > 0) {
+      [...moreBtns].forEach((btn) => {
+        btn.onclick = addMoreBtnToggleEvent;
+      });
+    }
+  };
+
   // handle sort
   const sortResults = block.querySelector('.custom-select-searchstudio-js');
   const sort = urlParams.get('sort');
@@ -80,7 +118,7 @@ export default function decorate(block) {
     let resultsText = '';
     let hasResults = true;
     let facetsText = null;
-    if (items.length > 0) { // items by query: 20, count has the total
+    if (items.length > 0) { // items by query: 25, count has the total
       paginationConatiner.classList.add('show');
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
@@ -92,9 +130,11 @@ export default function decorate(block) {
       resultsText = getNoResultsTemplate({ noResults, refine: PLACEHOLDERS.refine });
       hasResults = false;
     }
+    searchTerm = null;
     const fragment = fragmentRange.createContextualFragment(resultsText);
     summary.textContent = '';
     resultsWrapper.textContent = '';
+    facetsWrapper.textContent = '';
     if (hasResults) {
       const showingResults = PLACEHOLDERS.showingResults.replace('$0', `${offset + 1}`)
         .replace('$1', items.length).replace('$2', count).replace('$3', queryTerm);
@@ -104,6 +144,7 @@ export default function decorate(block) {
       resultsWrapper.appendChild(fragment);
       summary.appendChild(summaryFragment);
       facetsWrapper.appendChild(facetsFragment);
+      addFacetsEvents(facetsWrapper);
     } else {
       summary.appendChild(fragment);
     }
@@ -135,9 +176,9 @@ export default function decorate(block) {
     resRange.innerText = rangeText;
   }
 
-  async function fetchResults(offsetVal, queryTerm, sort = 'BEST_MATCH') {
+  async function fetchResults(offsetVal, queryTerm, sortVal = 'BEST_MATCH') {
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
-    const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
+    const SEARCH_LINK = !isProd ? SEARCH_URLS.dev : SEARCH_URLS.prod;
 
     const queryObj = {
       query: `
@@ -173,7 +214,7 @@ export default function decorate(block) {
         ],
         offset: offsetVal,
         limit,
-        sort,
+        sort: sortVal,
       },
     };
 

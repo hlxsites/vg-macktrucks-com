@@ -180,36 +180,44 @@ export const getFacetsTemplate = (facets) => {
           <ul id="search-facets" class="list-group accordion">
             <li class="list-group-item-searchstudio-js">
               <div id="collapse-topics" data-parent="#search-facets" class="collapse show">
-                <div class="filters">
-                  <form id="facetsFilters">
-                    <div class="facet-list mb-4">
-                      <h4 class="sidebar-heading">
-                        <a href="#" class="text-uppercase active">Categories </a>
-                      </h4>
-                      <div class="collapse show">
-                        <ul class="list-unstyled pl-3">
-                          ${categoryItemsText}
-                        </ul>
-                        <div class="more-less">
-                          <a href="#">More</a>
-                        </div>
-                      </div>
+                <ul class="list-unstyled">
+                  <div id="ss-search-results">
+                    <div class="filters">
+                      <form id="facetsFilters">
+                        ${category.items.length > 0 ? `
+                        <div class="facet-list mb-4">
+                          <h4 class="sidebar-heading">
+                            <a href="#" class="text-uppercase active">Categories </a>
+                          </h4>
+                          <div class="collapse show">
+                            <ul class="list-unstyled pl-3">
+                              ${categoryItemsText}
+                            </ul>
+                            ${category.items.length > 3 ? `
+                            <div class="more-less">
+                              <a href="#">More</a>
+                            </div>` : ''}
+                          </div>
+                        </div>` : ''}
+                        ${tags.items.length > 0 ? `
+                        <div class="facet-list mb-4">
+                          <h4 class="sidebar-heading">
+                            <a href="#" class="text-uppercase active">Tags </a>
+                          </h4>
+                          <div class="collapse show">
+                            <ul class="list-unstyled pl-3">
+                              ${tagsItemsText}
+                            </ul>
+                            ${tags.items.length > 3 ? `
+                            <div class="more-less">
+                              <a href="#">More</a>
+                            </div>` : ''}
+                          </div>
+                        </div>` : ''}
+                      </form>
                     </div>
-                    <div class="facet-list mb-4">
-                      <h4 class="sidebar-heading">
-                        <a href="#" class="text-uppercase active">Tags </a>
-                      </h4>
-                      <div class="collapse show">
-                        <ul class="list-unstyled pl-3">
-                          ${tagsItemsText}
-                        </ul>
-                        <div class="more-less">
-                          <a href="#">More</a>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+                  </div>
+                </ul>
               </div>
             </li>
           </ul>
