@@ -7,31 +7,126 @@ import { readBlockConfig } from '../../scripts/lib-franklin.js';
  * @return {Promise<void>}
  */
 export default async function decorate(block) {
-  const config = readBlockConfig(block);
+  const tableData = deconstructBlockIntoArray(block)
+    .filter((cols) => cols.length > 0 && cols[0] !== '');
+  const indexOfRpm = tableData.findIndex((row) => row[0] === 'RPM');
+  // rows until RPM are facts, after is performance data
+  const facts = tableData.slice(0, indexOfRpm);
+  const performanceData = tableData.slice(indexOfRpm);
+  console.log({ facts, performanceData });
 
-  let rpmIndex;
-  [...block.children].forEach((row, index) => {
-    if (row.firstElementChild.textContent === 'RPM') {
-      rpmIndex = index;
-    }
+  const definitions  = domEl('dl', {class: 'key-specs'});
+  facts.forEach((row) => {
+    definitions.appendChild(domEl('dt', row[0]));
+    definitions.appendChild(domEl('dd', row[1]));
   });
 
-  const performanceData = {};
-  const titles = [];
-  for (let i = 1; i < block.children[rpmIndex].children.length; i++) {
-    // skipping the first column, which is the RPM column
-    titles[i] = block.children[rpmIndex].children[i].textContent;
-    performanceData[titles[i]] = [];
-  }
-  // starting with RPM, remove all rows until the end of the table
-  for (let i = rpmIndex + 1; i < block.children.length; i++) {
-    const row = block.children[i];
-    const rpm = row.children[0].textContent;
-    for (let j = 1; j < row.children.length; j++) {
-      const metric = titles[j];
-      performanceData[metric].push([rpm, row.children[j].textContent]);
-    }
-  }
-  console.log(performanceData);
-  // rpmIndex =
+  block.innerText = '';
+  block.append(definitions);
+
+
+
 }
+
+export function deconstructBlockIntoArray(blockEl) {
+  const array2d = [];
+  Array.from(blockEl.children)
+    .forEach((rowEl) => {
+      const row = [];
+      Array.from(rowEl.children)
+        .forEach((colEl) => {
+          if (colEl.childNodes.length <= 1) {
+            row.push(colEl.textContent);
+          } else {
+            const col = [];
+            Array.from(colEl.childNodes)
+              .forEach((val) => {
+                col.push(val.textContent);
+              });
+            row.push(col);
+          }
+        });
+
+      array2d.push(row);
+    });
+
+  return array2d;
+}
+
+
+/**
+ * Example Usage:
+ *
+ * domEl('main',
+ *  div({ class: 'card' },
+ *  a({ href: item.path },
+ *    div({ class: 'card-thumb' },
+ *     createOptimizedPicture(item.image, item.title, 'lazy', [{ width: '800' }]),
+ *    ),
+ *   div({ class: 'card-caption' },
+ *      h3(item.title),
+ *      p({ class: 'card-description' }, item.description),
+ *      p({ class: 'button-container' },
+ *       a({ href: item.path, 'aria-label': 'Read More', class: 'button primary' }, 'Read More'),
+ *     ),
+ *   ),
+ *  ),
+ * )
+ */
+
+/**
+ * Helper for more concisely generating DOM Elements with attributes and children
+ * @param {string} tag HTML tag of the desired element
+ * @param  {[Object?, ...Element]} items: First item can optionally be an object of attributes,
+ *  everything else is a child element
+ * @returns {Element} The constructred DOM Element
+ */
+export function domEl(tag, ...items) {
+  const element = document.createElement(tag);
+
+  if (!items || items.length === 0) return element;
+
+  if (!(items[0] instanceof Element || items[0] instanceof HTMLElement) && typeof items[0] === 'object') {
+    const [attributes, ...rest] = items;
+    items = rest;
+
+    Object.entries(attributes).forEach(([key, value]) => {
+      if (!key.startsWith('on')) {
+        element.setAttribute(key, Array.isArray(value) ? value.join(' ') : value);
+      } else {
+        element.addEventListener(key.substring(2).toLowerCase(), value);
+      }
+    });
+  }
+
+  items.forEach((item) => {
+    item = item instanceof Element || item instanceof HTMLElement
+      ? item
+      : document.createTextNode(item);
+    element.appendChild(item);
+  });
+
+  return element;
+}
+
+/*
+    More short hand functions can be added for very common DOM elements below.
+    domEl function from above can be used for one off DOM element occurrences.
+  */
+export function div(...items) { return domEl('div', ...items); }
+export function p(...items) { return domEl('p', ...items); }
+export function a(...items) { return domEl('a', ...items); }
+export function h1(...items) { return domEl('h1', ...items); }
+export function h2(...items) { return domEl('h2', ...items); }
+export function h3(...items) { return domEl('h3', ...items); }
+export function h4(...items) { return domEl('h4', ...items); }
+export function h5(...items) { return domEl('h5', ...items); }
+export function h6(...items) { return domEl('h6', ...items); }
+export function ul(...items) { return domEl('ul', ...items); }
+export function li(...items) { return domEl('li', ...items); }
+export function i(...items) { return domEl('i', ...items); }
+export function img(...items) { return domEl('img', ...items); }
+export function span(...items) { return domEl('span', ...items); }
+export function input(...items) { return domEl('input', ...items); }
+export function form(...items) { return domEl('form', ...items); }
+export function button(...items) { return domEl('button', ...items); }
