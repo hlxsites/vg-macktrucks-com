@@ -54,6 +54,12 @@
     {
       "Key": "Sort Filter",
       "Text": "Relevance,Newest Content,Oldest Content"
+    }, {
+      "Key": "Next",
+      "Text": "Next"
+    }, {
+      "Key": "Previous",
+      "Text": "Previous"
     }
   ],
   ":type": "sheet"

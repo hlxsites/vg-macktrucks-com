@@ -52,13 +52,13 @@ export const getMainTemplate = (PLACEHOLDERS) => {
         <div class="search-pagination-container">
           <ul class="pagination">
             <li class="page-item">
-              <a variant="outline-primary" class="page-link-searchstudio-js prev"> &lt; Previous </a>
+              <a variant="outline-primary" class="page-link-searchstudio-js prev"> &lt; ${PLACEHOLDERS.previous} </a>
             </li>
             <li class="page-item">
               <span class="page-link-searchstudio-js page-number"><strong class="page-range">1 — 25 </strong> of <strong class="count">113</strong></span>
             </li>
             <li class="page-item">
-              <a variant="outline-primary" class="page-link-searchstudio-js next"> Next &gt; </a>
+              <a variant="outline-primary" class="page-link-searchstudio-js next">  ${PLACEHOLDERS.next}  &gt; </a>
             </li>
           </ul>
         </div>

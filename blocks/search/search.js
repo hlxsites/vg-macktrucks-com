@@ -14,6 +14,8 @@ const PLACEHOLDERS = {
   showingResults: getTextLabel('Showing results for'), // searchResultSummarySection
   sortBy: getTextLabel('Sort By'), // searchOptionsSection
   sortFilter: getTextLabel('Sort Filter'),
+  previous: getTextLabel('Previous'),
+  next: getTextLabel('Next'),
 };
 
 export default function decorate(block) {
@@ -26,9 +28,9 @@ export default function decorate(block) {
 
   // check if url has query params
   const urlParams = new URLSearchParams(window.location.search);
-  let searchTerm = urlParams.get('q');
+  const searchTerm = urlParams.get('q');
   let offset = urlParams.get('start');
-  offset = offset ? Number(offset) : 1;
+  offset = offset ? Number(offset) : 0;
   const limit = 25;
 
   block.textContent = '';
@@ -52,7 +54,10 @@ export default function decorate(block) {
   searchBtn.onclick = () => searchResults();
   input.onkeyup = (e) => e.key === 'Enter' && searchResults();
 
+  // pagination events
   const paginationConatiner = block.querySelector('.search-pagination-container');
+  const countSpan = paginationConatiner.querySelector('.count');
+  const resRange = paginationConatiner.querySelector('.page-range');
 
   const nextBtn = paginationConatiner.querySelector('.next');
   nextBtn.onclick = () => pagination('next');
@@ -60,8 +65,14 @@ export default function decorate(block) {
   const prevBtn = paginationConatiner.querySelector('.prev');
   prevBtn.onclick = () => pagination('prev');
 
-  const countSpan = paginationConatiner.querySelector('.count');
-  const resRange = paginationConatiner.querySelector('.page-range');
+  // handle sort
+  const sortResults = block.querySelector('.custom-select-searchstudio-js');
+  const sort = urlParams.get('sort');
+  if (sort) sortResults.value = sort;
+  sortResults.onchange = (e) => {
+    insertUrlParam('sort', e.target.value);
+    fetchResults(offset, searchTerm, e.target.value);
+  };
 
   function showResults(data) {
     const { items, count, facets } = data;
@@ -81,7 +92,6 @@ export default function decorate(block) {
       resultsText = getNoResultsTemplate({ noResults, refine: PLACEHOLDERS.refine });
       hasResults = false;
     }
-    searchTerm = null;
     const fragment = fragmentRange.createContextualFragment(resultsText);
     summary.textContent = '';
     resultsWrapper.textContent = '';
@@ -111,13 +121,13 @@ export default function decorate(block) {
   function updatePaginationDOM(data) {
     let isPrevDisabled = false;
     let isNextDisabled = false;
-    const rangeText = `${(limit * (offset - 1)) + 1}-${(limit * (offset - 1)) + data.items.length}`;
+    const rangeText = `${(limit * (offset)) + 1}-${(limit * (offset)) + data.items.length}`;
 
     // disable the prev , next buttons
-    if (offset === 1) {
+    if (offset === 0) {
       isPrevDisabled = 'disabled';
     }
-    if ((offset + 1) * limit > data.count) {
+    if ((offset) * limit > data.count) {
       isNextDisabled = 'disabled';
     }
     prevBtn.setAttribute('disabled', isPrevDisabled);
@@ -125,8 +135,7 @@ export default function decorate(block) {
     resRange.innerText = rangeText;
   }
 
-  async function fetchResults(offsetVal, queryTerm) {
-    searchTerm = queryTerm;
+  async function fetchResults(offsetVal, queryTerm, sort = 'BEST_MATCH') {
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
@@ -164,7 +173,7 @@ export default function decorate(block) {
         ],
         offset: offsetVal,
         limit,
-        sort: 'BEST_MATCH',
+        sort,
       },
     };
 
