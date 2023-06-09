@@ -23,8 +23,13 @@ export default function decorate(block) {
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
   const fragmentRange = document.createRange();
   popularSearchWrapper.classList.add('popular-search');
-  let searchTerm = null;
-  const offset = 0; // TODO has to be let and be updated in pagination
+
+  // check if url has query params
+  const urlParams = new URLSearchParams(window.location.search);
+  let searchTerm = urlParams.get('q');
+  let offset = urlParams.get('start');
+  offset = offset ? Number(offset) : 1;
+  const limit = 25;
 
   block.textContent = '';
   const mainTemplate = getMainTemplate(PLACEHOLDERS);
@@ -38,8 +43,24 @@ export default function decorate(block) {
   const summary = document.getElementById('searchResultSummarySection');
   const sortBy = document.getElementById('searchOptionsSection');
 
-  searchBtn.onclick = () => fetchResults(input.value);
-  input.onkeyup = (e) => e.key === 'Enter' && fetchResults(input.value);
+  function searchResults() {
+    insertUrlParam('q', input.value);
+    fetchResults(offset, input.value);
+  }
+
+  searchBtn.onclick = () => searchResults();
+  input.onkeyup = (e) => e.key === 'Enter' && searchResults;
+
+  const paginationConatiner = block.querySelector('.search-pagination-container');
+
+  const nextBtn = paginationConatiner.querySelector('.next');
+  nextBtn.onclick = () => pagination('next');
+
+  const prevBtn = paginationConatiner.querySelector('.prev');
+  prevBtn.onclick = () => pagination('prev');
+
+  const countSpan = paginationConatiner.querySelector('.count');
+  const resRange = paginationConatiner.querySelector('.page-range');
 
   function showResults(data) {
     const { items, count, facets } = data.macktrucksearch;
@@ -48,6 +69,7 @@ export default function decorate(block) {
     let hasResults = true;
     let facetsText = null;
     if (items.length > 0) { // items by query: 20, count has the total
+      paginationConatiner.classList.add('show');
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
       facetsText = getFacetsTemplate(facets);
@@ -76,7 +98,33 @@ export default function decorate(block) {
     sortBy.classList.toggle('hide', !hasResults);
   }
 
-  async function fetchResults(queryTerm = '') {
+  function insertUrlParam(key, value) {
+    if (window.history.pushState) {
+      const searchUrl = new URL(window.location.href);
+      searchUrl.searchParams.set(key, value);
+      window.history.pushState({}, '', searchUrl.toString());
+    }
+  }
+
+  function updatePaginationDOM(data) {
+    let isPrevDisabled = false;
+    let isNextDisabled = false;
+    const rangeText = `${(limit * (offset - 1)) + 1}-${(limit * (offset - 1)) + data.items.length}`;
+
+    // disable the prev , next buttons
+    if (offset === 1) {
+      isPrevDisabled = 'disabled';
+    }
+    if ((offset + 1) * limit > data.count) {
+      isNextDisabled = 'disabled';
+    }
+    prevBtn.setAttribute('disabled', isPrevDisabled);
+    nextBtn.setAttribute('disabled', isNextDisabled);
+    resRange.innerText = rangeText;
+  }
+
+  async function fetchResults(offsetVal, queryTerm) {
+    searchTerm = queryTerm;
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? 'https://search-api-dev.aws.43636.vnonprod.com/search' : '';
 
@@ -112,8 +160,8 @@ export default function decorate(block) {
           { field: 'TAGS' },
           { field: 'CATEGORY' },
         ],
-        offset,
-        limit: 20,
+        offset: offsetVal,
+        limit,
         sort: 'BEST_MATCH',
       },
     };
@@ -131,17 +179,28 @@ export default function decorate(block) {
       },
     );
 
-    const json = await response.json();
-    if (json.errors) {
+    const {
+      errors,
+      data: {
+        macktrucksearch,
+      } = {},
+    } = await response.json();
+    if (errors) {
       // eslint-disable-next-line no-console
       console.log('%cSomething went wrong', 'color:red');
     } else {
-      showResults(json.data);
+      countSpan.innerText = macktrucksearch.count;
+      showResults(macktrucksearch);
+      updatePaginationDOM(macktrucksearch);
     }
   }
 
-  // check if url has query params
-  const urlParams = new URLSearchParams(window.location.search);
-  searchTerm = urlParams.get('q');
-  if (searchTerm) fetchResults(searchTerm);
+  function pagination(type) {
+    offset = type === 'next' ? offset + 1 : offset - 1;
+    insertUrlParam('start', offset);
+    fetchResults(offset, searchTerm);
+  }
+
+  if (searchTerm) fetchResults(offset, searchTerm);
+  console.assert(!searchTerm, {searchTerm});
 }
