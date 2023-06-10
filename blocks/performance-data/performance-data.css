@@ -26,6 +26,25 @@
   margin-left: 0;
 }
 
+.loading-spinner {
+  pointer-events: none;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.4em solid #eee;
+  border-top-color: #3E67EC;
+  border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes loadingspin {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
 
 .block.performance-data .performance-chart {
   width: 600px;

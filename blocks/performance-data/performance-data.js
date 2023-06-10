@@ -29,37 +29,41 @@ export default async function decorate(block) {
   block.append(keyFacts);
 
   const diagram = div({ class: 'performance-chart' });
+  diagram.append(div({ class: 'loading-spinner' }));
   block.append(diagram);
 
-  loadScript('../../common/echarts/echarts.custom.min.js').then(() => {
-    // eslint-disable-next-line no-undef
-    const myChart = echarts.init(diagram);
+  setTimeout(() => {
+    loadScript('../../common/echarts/echarts.custom.min.js')
+      .then(() => {
+        // eslint-disable-next-line no-undef
+        const myChart = echarts.init(diagram);
 
-    // Specify the configuration items and data for the chart
-    const option = {
-      title: {
-        text: 'ECharts Getting Started Example',
-      },
-      tooltip: {},
-      legend: {
-        data: ['sales'],
-      },
-      xAxis: {
-        data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks'],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: 'sales',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20],
-        },
-      ],
-    };
+        // Specify the configuration items and data for the chart
+        const option = {
+          title: {
+            text: 'ECharts Getting Started Example',
+          },
+          tooltip: {},
+          legend: {
+            data: ['sales'],
+          },
+          xAxis: {
+            data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks'],
+          },
+          yAxis: {},
+          series: [
+            {
+              name: 'sales',
+              type: 'bar',
+              data: [5, 20, 36, 10, 10, 20],
+            },
+          ],
+        };
 
-    // Display the chart using the configuration items and data just specified.
-    myChart.setOption(option);
-  });
+        // Display the chart using the configuration items and data just specified.
+        myChart.setOption(option);
+      });
+  }, 2000);
 }
 
 export function deconstructBlockIntoArray(blockEl) {
