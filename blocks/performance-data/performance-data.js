@@ -32,6 +32,7 @@ export default async function decorate(block) {
   diagram.append(div({ class: 'loading-spinner' }));
   block.append(diagram);
 
+  // TODO: https://github.com/adobecom/milo/blob/main/libs/blocks/chart/chart.js
   setTimeout(() => {
     loadScript('../../common/echarts/echarts.custom.min.js')
       .then(() => {
