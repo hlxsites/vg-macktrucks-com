@@ -1,30 +1,16 @@
-/*
- * Table Block
- * Recreate a table
- * https://www.hlx.live/developer/block-collection/table
- */
-
-function buildCell(rowIndex) {
-  const cell = rowIndex ? document.createElement('td') : document.createElement('th');
-  if (!rowIndex) cell.setAttribute('scope', 'col');
-  return cell;
-}
+import { createElement } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
-  const table = document.createElement('table');
-  const thead = document.createElement('thead');
-  const tbody = document.createElement('tbody');
-  table.append(thead, tbody);
-  [...block.children].forEach((child, i) => {
-    const row = document.createElement('tr');
-    if (i) tbody.append(row);
-    else thead.append(row);
-    [...child.children].forEach((col) => {
-      const cell = buildCell(i);
-      cell.innerHTML = col.innerHTML;
-      row.append(cell);
-    });
+  const headings = block.querySelectorAll('table h1, table h2, table h3, table h4, table h5, table h6');
+
+  headings.forEach((heading) => {
+    // unifing headings
+    const newHeading = createElement('h5', 'table-cell-heading');
+    newHeading.innerHTML = heading.innerHTML;
+    heading.replaceWith(newHeading);
+
+    newHeading.closest('tr')?.classList.add('table-heading');
   });
-  block.innerHTML = '';
-  block.append(table);
+
+  return block;
 }

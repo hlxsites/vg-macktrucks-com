@@ -1,0 +1,267 @@
+.recommendations-section-title {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--heading-3-mobile-size-m);
+  margin: 40px 4px 0;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recommendations-item {
+  --card-height: 200px;
+
+  position: relative;
+  height: var(--card-height);
+  margin: 10px 0;
+}
+
+.recommendations-title a {
+  color: var(--primary-white);
+}
+
+.recommendations-image {
+  position: absolute;
+  height: var(--card-height);
+  z-index: -1;
+}
+
+.recommendations-image img {
+  display: block;
+  height: var(--card-height);
+  width: auto;
+  object-fit: cover;
+  object-position: revert;
+}
+
+.recommendations-text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: var(--card-height);
+  width: 50%;
+  padding: 0 0 40px 20px;
+}
+
+.recommendations-text-content a {
+  color: var(--primary-white);
+}
+
+.recommendations-text-content .recommendations-category {
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xxs);
+  background: var(--secondary-dark-gold);
+  width: fit-content;
+  padding: 5px 8px;
+  line-height: 15px;
+}
+
+.recommendations-text-content .recommendations-category:hover {
+  text-decoration: none;
+  color: var(--primary-gold);
+}
+
+.recommendations-text-content .recommendations-title {
+  font-family: var(--subheadings-ff-roman);
+  font-size: var(--body-font-size-xs);
+  margin: 10px 0 0;
+}
+
+.recommendations-text-content .recommendations-title:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.recommendations-text-content .recommendations-subtitle {
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xxs);
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 20px 0 0;
+}
+
+.recommendations-text-content .recommendations-link,
+.recommendations-text-content .recommendations-truck {
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .recommendations-item {
+    --card-height: 400px;
+  }
+}
+
+@media (min-width: 990px) {
+  .recommendations-container {
+    width: 100%;
+  }
+  
+  .recommendations-list {
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 15px;
+  }
+  
+  .recommendations-item {
+    --card-height: 270px;
+
+    width: 50%;
+  }
+}
+
+/* CATEGORIES */
+.magazine-categories.recommendations-container .recommendations-wrapper {
+  margin: unset;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-title,
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-subtitle,
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-link,
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
+  display: flex;
+  color: var(--primary-black);
+  line-height: 22px;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-category,
+.magazine-categories.recommendations-container .recommendations-section-title {
+  display: none;
+}
+
+.magazine-categories.recommendations-container .recommendations-item {
+  display: flex;
+  flex-flow: column;
+  height: auto;
+  padding: 5px 20px;
+  margin: 0;
+}
+
+.magazine-categories.recommendations-container .recommendations-image {
+  position: unset;
+  max-height: 240px;
+  width: auto;
+  object-fit: cover;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content {
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xs);
+  justify-content: flex-start;
+  position: unset;
+  height: unset;
+  padding: 10px 0 20px;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content a:hover {
+  text-decoration: 0;
+  color: var(--secondary-steel);
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-title {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--heading-font-size-s);
+  margin: 5px 0 0;
+  padding: 0 0 5px;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-subtitle {
+  margin: 0;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
+  align-items: center;
+  background-color: var(--secondary-steel);
+  width: fit-content;
+  opacity: 0.6;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck p {
+  color: var(--primary-white);
+  opacity: 0.8;
+  margin: 0;
+  padding: 2px 10px 0 5px;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-link {
+  padding: 5px 0;
+}
+
+.magazine-categories.recommendations-container .recommendations-text-content .recommendations-link::after {
+  content: url('../../media/arrow-B.png');
+  margin-left: 10px;
+}
+
+@media (min-width: 480px) {
+  .magazine-categories.recommendations-container .recommendations-image {
+    max-height: unset;
+    max-width: 360px;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-item {
+    height: fit-content;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-item .recommendations-image,
+  .magazine-categories.recommendations-container  .recommendations-image  img {
+    height: 270px;
+  }
+}
+
+@media (min-width: 768px) {
+  .magazine-categories.recommendations-container .recommendations-item {
+    flex-flow: row;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-text-content {
+    padding: 20px;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-item .recommendations-image,
+  .magazine-categories.recommendations-container  .recommendations-image  img {
+    height: 240px;
+    min-width: 360px;
+  }
+}
+
+@media (min-width: 990px) {
+  .magazine-categories.recommendations-container .recommendations-list {
+    flex-direction: column;
+  }
+  
+  .magazine-categories.recommendations-container .recommendations-item {
+    width: unset;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-text-content {
+    width: auto;
+    overflow: hidden;
+  }
+
+  main .section.magazine-categories.recommendations-container.recent-articles-container {
+    display: flex;
+    flex-flow: wrap;
+    align-items: flex-start;
+    max-width: 1376px;
+    margin: 0 auto;
+  }
+
+  .magazine-categories.recommendations-container .recommendations-wrapper {
+    width: 60%;
+  }
+
+  .magazine-categories.recommendations-container .recent-articles-wrapper {
+    width: 40%;
+  }
+
+  .magazine-categories.recommendations-container .recent-articles-wrapper,
+  .magazine-categories.recommendations-container .recent-articles-wrapper h3 {
+    margin: unset;
+  }
+}
