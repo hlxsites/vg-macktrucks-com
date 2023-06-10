@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 
-import { loadScript } from '../../scripts/lib-franklin.js';
+import { loadCSS, loadScript } from '../../scripts/lib-franklin.js';
 
 /**
  * content of the tabs for the performance-specifications block.
@@ -28,37 +28,24 @@ export default async function decorate(block) {
   block.innerText = '';
   block.append(keyFacts);
 
-  const diagram = div({ class: 'performance-chart' });
+  const diagram = div({ id: 'chart', class: 'performance-chart' });
   block.append(diagram);
 
-  loadScript('../../common/echarts/echarts.custom.min.js').then(() => {
-    // eslint-disable-next-line no-undef
-    const myChart = echarts.init(diagram);
+  loadCSS('../../common/chartist/index.css');
+  import('../../common/chartist/index.js').then((module) => {
+    console.log(module);
+    new module.LineChart(
+      '#chart',
+      {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8],
+        series: [[5, 9, 7, 8, 5, 3, 5, 4]]
+      },
+      {
+        low: 0,
+        showArea: true
+      }
+    );
 
-    // Specify the configuration items and data for the chart
-    const option = {
-      title: {
-        text: 'ECharts Getting Started Example',
-      },
-      tooltip: {},
-      legend: {
-        data: ['sales'],
-      },
-      xAxis: {
-        data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks'],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: 'sales',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20],
-        },
-      ],
-    };
-
-    // Display the chart using the configuration items and data just specified.
-    myChart.setOption(option);
   });
 }
 
