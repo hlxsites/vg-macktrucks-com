@@ -1,5 +1,7 @@
 /* eslint-disable no-plusplus */
 
+import { loadScript } from '../../scripts/lib-franklin.js';
+
 /**
  * content of the tabs for the performance-specifications block.
  * @param block {HTMLDivElement}
@@ -29,7 +31,8 @@ export default async function decorate(block) {
   const diagram = div({ class: 'performance-chart' });
   block.append(diagram);
 
-  import('../../common/echarts/echarts.esm.js').then((echarts) => {
+  loadScript('../../common/echarts/echarts.custom.min.js').then(() => {
+    // eslint-disable-next-line no-undef
     const myChart = echarts.init(diagram);
 
     // Specify the configuration items and data for the chart
