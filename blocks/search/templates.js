@@ -15,8 +15,7 @@ export const getMainTemplate = (PLACEHOLDERS) => {
             <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"></div>
           </div>
           <span>
-            <button type="submit" class="btn text-primary search-close-button">
-              <span class="fa fa-search search-icon"></span>
+            <button type="submit" class="btn text-primary search-close-button fa fa-search">
             </button>
           </span>
         </div>
@@ -166,14 +165,13 @@ export const getFacetsTemplate = (facets) => {
   return `
     <div class="facet-template-container-custom">
       <div class="pill-container">
-        <div class="pill ">Filter By <span class="pill-close filter-by"></span></div>
+        <div class="pill">Filter By <span class="pill-close filter-by"></span></div>
       </div>
       <div class="sidebar-background"></div>
       <div class="sf-sidebar-container">
         <div class="sf-mobile-header">
           <div class="sf-mobile-header-text">Filter By</div>
-          <button type="button" class="btn btn-custom text-primary">
-            <span class="search-close fa fa-close"></span>
+          <button type="button" class="btn btn-custom text-primary search-close-button fa fa-close">
           </button>
         </div>
         <div class="sf-sidebar">

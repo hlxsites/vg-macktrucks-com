@@ -1715,6 +1715,16 @@
   background-image: url('/images/Close-Icons.png');
 }
 
+.search-close-button {
+  text-decoration: none;
+  color: currentcolor;
+  font-size: 150%;
+}
+
+.search-close-button:hover {
+  color: var(--primary-white);
+}
+
 @media (max-width: 991px) {
   .facet-container-wrapper {
     max-width: 100% !important;
@@ -1779,9 +1789,10 @@
     .sf-sidebar
     .close-button {
     display: block;
-    background-color: #004fbc;
-    padding: 10px 20px;
-    color: #fff;
+    background-color: var(--button-primary-red-enabled);
+    font-size: 1.3rem;
+    padding: 0.775rem 1.65rem;
+    color: var(--primary-white);
     float: right;
     position: absolute;
     bottom: 20px;
@@ -1792,8 +1803,14 @@
     .facet-template-container-custom
     .sf-sidebar-container
     .sf-sidebar
+    .close-button:focus,
+  .facet-wrapper
+    .facet-template-container-custom
+    .sf-sidebar-container
+    .sf-sidebar
     .close-button:hover {
-    color: #fff;
+    color: var(--primary-white);
+    background-color: var(--button-primary-red-hover);
   }
 
   .facet-wrapper

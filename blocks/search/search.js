@@ -87,8 +87,17 @@ export default function decorate(block) {
     titleList.classList.toggle('show', !isShown);
   };
 
+  const addToggleOverlayEvent = (sidebar, overlay, isOpen = false) => {
+    const showClass = 'show-facet-overlay';
+    sidebar.classList.toggle(showClass, isOpen);
+    overlay.classList.toggle(showClass, isOpen);
+  };
+
   const addFacetsEvents = (facets) => {
     if (!facets) return;
+    const facetSidebar = facets.querySelector('.sf-sidebar-container');
+    const facetOverlay = facets.querySelector('.sidebar-background');
+    const closeBtns = facets.querySelectorAll('.search-close-button, .close-button');
     const titles = facets.querySelectorAll('.sidebar-heading a');
     if (titles.length > 0) {
       [...titles].forEach((title) => {
@@ -101,6 +110,14 @@ export default function decorate(block) {
         btn.onclick = addMoreBtnToggleEvent;
       });
     }
+    const filterByBtn = facets.querySelector('.pill');
+    filterByBtn.onclick = () => {
+      addToggleOverlayEvent(facetSidebar, facetOverlay, true);
+    };
+
+    [...closeBtns].forEach((btn) => {
+      btn.onclick = () => addToggleOverlayEvent(facetSidebar, facetOverlay);
+    });
   };
 
   // handle sort
