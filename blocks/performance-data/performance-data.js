@@ -66,7 +66,7 @@ export default async function decorate(block) {
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
       });
-  }, 1000);
+  }, 2000);
 }
 
 export function deconstructBlockIntoArray(blockEl) {
