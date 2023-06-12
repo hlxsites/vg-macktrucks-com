@@ -48,38 +48,49 @@ export default async function decorate(block) {
           data: performanceData.slice(1)
             .map((row) => [row[0], row[index + 1]]),
           type: 'line',
+          symbol: 'none',
         }));
 
         series[0].markArea = {
+          silent: true,
           itemStyle: {
             color: 'rgb(226 233 243 / 50%)',
           },
-          data: [
-            [
-              {
-                xAxis: 1300,
-              },
-              {
-                xAxis: 1700,
-              },
-            ],
-          ],
+          data: [[{ xAxis: 1300 }, { xAxis: 1700 }]],
         };
 
         // Specify the configuration items and data for the chart
         const option = {
-          tooltip: {},
+          tooltip: null,
           legend: {
             data: titles,
           },
           xAxis: {
             type: 'value',
-            // data: performanceData.slice(1).map((row) => [row[0]]),
+            min: performanceData[1][0],
+            max: performanceData.at(-1)[0],
+            axisLine: {
+              lineStyle: {
+                // show: false,
+              },
+              onZero: false,
+            },
+            axisTick: {
+              show: false,
+            },
+            axisLabel: {
+              show: true,
+              interval: 0,
+              showMinLabel: false,
+              showMaxLabel: false,
+            },
           },
           yAxis: {
             type: 'value',
           },
           series,
+          animation: false,
+          animationDuration: 500,
         };
 
         console.log({ option });
