@@ -39,7 +39,7 @@
 
 .block.table .table-heading {
   background-color: #eee;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid var(--primary-black);
 }
 
 .block.table.row-header {
@@ -72,7 +72,7 @@
   }
 
   .block.table.row-header td {
-    color: #000;
+    color: var(--primary-black);
     padding: 10px;
     border: none;
   }
@@ -99,8 +99,8 @@
   }
 
   .block.table.row-header tr {
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-top: 2px solid var(--primary-black);
+    border-bottom: 2px solid var(--primary-black);
     border-left: 0;
     border-right: 0;
     width: 100%;
