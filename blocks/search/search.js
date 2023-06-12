@@ -36,7 +36,9 @@ export default function decorate(block) {
   let searchTerm = urlParams.get('q');
   let offset = urlParams.get('start');
   offset = offset ? Number(offset) : 0;
+  let resultCount = 0;
   const limit = 25;
+  const nextOffset = offset + limit;
 
   const mainTemplate = getMainTemplate(PLACEHOLDERS);
   const mainFragment = fragmentRange.createContextualFragment(mainTemplate);
@@ -140,6 +142,7 @@ export default function decorate(block) {
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
       facetsText = getFacetsTemplate(facets);
+      resultCount = count;
     } else {
       const noResults = PLACEHOLDERS.noResults.replace('$0', `"${
         queryTerm.trim() === '' ? ' ' : queryTerm}"`);
@@ -153,8 +156,9 @@ export default function decorate(block) {
     resultsWrapper.textContent = '';
     facetsWrapper.textContent = '';
     if (hasResults) {
+      const newOffset = nextOffset > count ? count : nextOffset;
       const showingResults = PLACEHOLDERS.showingResults.replace('$0', `${offset + 1}`)
-        .replace('$1', items.length).replace('$2', count).replace('$3', queryTerm);
+        .replace('$1', newOffset).replace('$2', count).replace('$3', queryTerm);
       const showingResultsText = getShowingResultsTemplate(showingResults);
       const summaryFragment = fragmentRange.createContextualFragment(showingResultsText);
       const facetsFragment = fragmentRange.createContextualFragment(facetsText);
@@ -179,13 +183,13 @@ export default function decorate(block) {
   function updatePaginationDOM(data) {
     let isPrevDisabled = false;
     let isNextDisabled = false;
-    const rangeText = `${(limit * (offset)) + 1}-${(limit * (offset)) + data.items.length}`;
+    const rangeText = `${offset + 1}-${nextOffset >= resultCount ? resultCount : nextOffset}`;
 
     // disable the prev , next buttons
     if (offset === 0) {
       isPrevDisabled = 'disabled';
     }
-    if ((offset) * limit > data.count) {
+    if (nextOffset >= data.count) {
       isNextDisabled = 'disabled';
     }
     prevBtn.setAttribute('disabled', isPrevDisabled);
@@ -264,9 +268,18 @@ export default function decorate(block) {
     }
   }
 
+  function getNextOffset(isNext = false) {
+    if (isNext) {
+      return nextOffset <= resultCount ? nextOffset : offset + 1;
+    }
+    const temp = offset - limit;
+    return temp > 0 ? temp : 0;
+  }
+
   function pagination(type) {
-    offset = type === 'next' ? offset + 1 : offset - 1;
+    offset = type === 'next' ? getNextOffset(true) : getNextOffset();
     insertUrlParam('start', offset);
+    searchTerm = urlParams.get('q');
     fetchResults(offset, searchTerm);
   }
 
