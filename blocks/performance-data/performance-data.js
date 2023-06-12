@@ -46,22 +46,21 @@ export default async function decorate(block) {
         const series = titles.map((title, index) => ({
           name: title,
           data: performanceData.slice(1)
-            .map((row) => row[index + 1]),
+            .map((row) => [row[0], row[index + 1]]),
           type: 'line',
         }));
 
         series[0].markArea = {
           itemStyle: {
-            color: 'rgba(255, 173, 177, 0.4)',
+            color: 'rgb(226 233 243 / 50%)',
           },
           data: [
             [
               {
-                name: 'Morning Peak',
-                xAxis: 1000,
+                xAxis: 1300,
               },
               {
-                xAxis: 1800,
+                xAxis: 1700,
               },
             ],
           ],
@@ -74,8 +73,8 @@ export default async function decorate(block) {
             data: titles,
           },
           xAxis: {
-            type: 'category',
-            data: performanceData.slice(1).map((row) => row[0]),
+            type: 'value',
+            // data: performanceData.slice(1).map((row) => [row[0]]),
           },
           yAxis: {
             type: 'value',
@@ -83,6 +82,7 @@ export default async function decorate(block) {
           series,
         };
 
+        console.log({ option });
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
       });
