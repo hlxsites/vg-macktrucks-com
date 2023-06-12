@@ -41,32 +41,52 @@ export default async function decorate(block) {
         // eslint-disable-next-line no-undef
         const myChart = echarts.init(diagram);
 
+        const titles = performanceData[0].slice(1);
+
+        const series = titles.map((title, index) => ({
+          name: title,
+          data: performanceData.slice(1)
+            .map((row) => row[index + 1]),
+          type: 'line',
+        }));
+
+        series[0].markArea = {
+          itemStyle: {
+            color: 'rgba(255, 173, 177, 0.4)',
+          },
+          data: [
+            [
+              {
+                name: 'Morning Peak',
+                xAxis: 1000,
+              },
+              {
+                xAxis: 1800,
+              },
+            ],
+          ],
+        };
+
         // Specify the configuration items and data for the chart
         const option = {
-          title: {
-            text: 'ECharts Getting Started Example',
-          },
           tooltip: {},
           legend: {
-            data: ['sales'],
+            data: titles,
           },
           xAxis: {
-            data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks'],
+            type: 'category',
+            data: performanceData.slice(1).map((row) => row[0]),
           },
-          yAxis: {},
-          series: [
-            {
-              name: 'sales',
-              type: 'bar',
-              data: [5, 20, 36, 10, 10, 20],
-            },
-          ],
+          yAxis: {
+            type: 'value',
+          },
+          series,
         };
 
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
       });
-  }, 3000);
+  }, 0);
 }
 
 export function deconstructBlockIntoArray(blockEl) {
