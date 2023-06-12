@@ -33,6 +33,8 @@ export default async function decorate(block) {
   block.append(diagram);
 
   // TODO: https://github.com/adobecom/milo/blob/main/libs/blocks/chart/chart.js
+  // https://business.adobe.com/resources/holiday-shopping-report.html
+
   setTimeout(() => {
     loadScript('../../common/echarts/echarts.custom.min.js')
       .then(() => {
@@ -64,7 +66,7 @@ export default async function decorate(block) {
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
       });
-  }, 3000);
+  }, 1000);
 }
 
 export function deconstructBlockIntoArray(blockEl) {
