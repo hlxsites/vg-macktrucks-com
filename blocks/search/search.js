@@ -33,7 +33,7 @@ export default function decorate(block) {
 
   // check if url has query params
   const urlParams = new URLSearchParams(window.location.search);
-  let searchTerm = urlParams.get('q');
+  const searchTerm = urlParams.get('q');
   let offset = urlParams.get('start');
   offset = offset ? Number(offset) : 0;
   let resultCount = 0;
@@ -55,7 +55,7 @@ export default function decorate(block) {
 
   function searchResults() {
     insertUrlParam('q', input.value);
-    fetchResults(offset, input.value);
+    fetchResults();
   }
 
   searchBtn.onclick = () => searchResults();
@@ -128,7 +128,7 @@ export default function decorate(block) {
   if (sort) sortResults.value = sort;
   sortResults.onchange = (e) => {
     insertUrlParam('sort', e.target.value);
-    fetchResults(offset, searchTerm, e.target.value);
+    fetchResults();
   };
 
   function showResults(data) {
@@ -150,7 +150,6 @@ export default function decorate(block) {
       resultsText = getNoResultsTemplate({ noResults, refine: PLACEHOLDERS.refine });
       hasResults = false;
     }
-    searchTerm = null;
     const fragment = fragmentRange.createContextualFragment(resultsText);
     summary.textContent = '';
     resultsWrapper.textContent = '';
@@ -197,7 +196,11 @@ export default function decorate(block) {
     resRange.innerText = rangeText;
   }
 
-  async function fetchResults(offsetVal, queryTerm, sortVal = 'BEST_MATCH') {
+  async function fetchResults() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const queryTerm = searchParams.get('q');
+    const offsetVal = Number(searchParams.get('start'));
+    const sortVal = searchParams.get('sort') || 'BEST_MATCH';
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? SEARCH_URLS.dev : SEARCH_URLS.prod;
 
@@ -260,7 +263,7 @@ export default function decorate(block) {
     } = await response.json();
     if (errors) {
       // eslint-disable-next-line no-console
-      console.log('%cSomething went wrong', 'color:red');
+      console.log('%cSomething went wrong');
     } else {
       countSpan.innerText = macktrucksearch.count;
       showResults(macktrucksearch);
@@ -277,11 +280,10 @@ export default function decorate(block) {
   }
 
   function pagination(type) {
-    offset = type === 'next' ? getNextOffset(true) : getNextOffset();
+    offset = getNextOffset(type === 'next');
     insertUrlParam('start', offset);
-    searchTerm = urlParams.get('q');
-    fetchResults(offset, searchTerm);
+    fetchResults();
   }
 
-  if (searchTerm) fetchResults(offset, searchTerm);
+  if (searchTerm) fetchResults();
 }
