@@ -137,7 +137,7 @@ function addDesktopLayover(hotspot, block) {
 <div class="hotspot-layover-box" data-hotspot-content="1">
     <div class="hotspot-layover-thumb" style="background-image: url();"></div>
     <div class="hotspot-layover-close">
-        <img src="../../icons/x.png" alt="close">
+        <img src="/icons/x.png" alt="close">
     </div>
     <div class="hotspot-layover-text">
         <h5></h5>
@@ -146,11 +146,11 @@ function addDesktopLayover(hotspot, block) {
     </div>
     <div class="hotspot-layover-controls">
         <a class="hotspot-layover-button prev">
-            <img src="../../icons/left-arrow-small.png" alt="Left arrow">
+            <img src="/icons/left-arrow-small.png" alt="Left arrow">
             <span></span>
         </a>
         <a class="hotspot-layover-button next">
-            <img src="../../icons/right-arrow-small.png" alt="Right arrow">
+            <img src="/icons/right-arrow-small.png" alt="Right arrow">
             <span></span>
         </a>
     </div>
@@ -242,12 +242,12 @@ function decorateImageAndTitle(mainDiv, firstPicture, title, description) {
   hotspot.innerHTML = `
       <picture class="hotspot-bg-img desktop"></picture>
       <picture class="hotspot-bg-img mobile"></picture>
-  
+
       <div class="hotspot-content content-wrapper ">
           <h1 class="hotspot-header"></h1>
           <p class="hotspot-text reduced-width"></p>
       </div>
-  
+
       <div class="hotspot-icon-set"></div>`;
 
   hotspot.querySelector('.hotspot-bg-img.desktop').innerHTML = firstPicture.innerHTML;
