@@ -7,6 +7,7 @@
 .performance-specifications .category-tablist [role="tab"] {
   color: var(--primary-black);
   width: 25%;
+  max-width: 20em;
   transition: .5s all;
   background-color: #fff;
   border: 3px solid #000;
@@ -43,6 +44,7 @@
 
   .performance-specifications .category-tablist [role="tab"] {
     width: 100%;
+    max-width: unset;
     padding: 2em;
     margin-bottom: 0;
 
