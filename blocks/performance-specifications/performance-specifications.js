@@ -73,11 +73,8 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
   tabPanel.setAttribute('role', 'tabpanel');
   tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
   tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
-  tabPanel.setAttribute('hidden', '');
-  if (isFirstTab) {
-    // first setting 'hidden' and then removing the attribute may seem redundant, but it
-    // ensures that the attribute observers see a transition from hidden to visible.
-    tabPanel.removeAttribute('hidden');
+  if (!isFirstTab) {
+    tabPanel.setAttribute('hidden', '');
   }
 
   tabsContents.append(tabPanel);

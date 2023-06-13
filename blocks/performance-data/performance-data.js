@@ -32,19 +32,17 @@ export default async function decorate(block) {
 
   // drawing the chart is delayed until the tab is visible. this avoids drawing charts
   // for tabs that are not visible.
-  const observer = new MutationObserver(() => {
-    const parentTab = block.closest('.category-panel');
-    if (!parentTab.hasAttribute('hidden') && !block.hasAttribute('hidden')) {
-      drawChart(diagram, performanceData, getColor);
-    }
-  });
-  observer.observe(block, { attributes: true, childList: false, subtree: false });
+  const observer = new IntersectionObserver(((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        drawChart(diagram, performanceData);
+      }
+    });
+  }));
+  observer.observe(block);
 
   const parent = block.parentElement;
-
   addPerformanceData(block);
-  observer.observe(block.closest('.category-panel'), { attributes: true, childList: false, subtree: false });
-
   parent.remove();
 }
 
