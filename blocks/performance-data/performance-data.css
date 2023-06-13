@@ -19,7 +19,7 @@
   line-height: 1em;
   letter-spacing: -.015em;
   border-top: 1px solid #DBDBDB;
-  padding-top: 0.75em;
+  padding-top: 1.2em;
   padding-right: 0;
   padding-left: 0;
 }
@@ -30,7 +30,7 @@
   font-weight: 700;
   font-family: var(--accents-ff-bold);
   letter-spacing: -.015em;
-  padding: 0.5em 0 1em;
+  padding: 0.5em 0 1.5em;
   margin-left: 0;
 }
 
