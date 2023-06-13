@@ -3,6 +3,7 @@ import { getAllArticles, getLimit, clearRepeatedArticles } from '../recent-artic
 import {
   getMetadata,
   createOptimizedPicture,
+  getOrigin,
 } from '../../scripts/lib-franklin.js';
 
 const recommendationsText = getTextLabel('Recommendations text');
@@ -25,7 +26,7 @@ export default async function decorate(block) {
 
   selectedArticles.forEach((e, idx) => {
     const item = createElement('li', ['recommendations-item', `recommendations-item-${idx}`]);
-    const linkUrl = new URL(e.path, window.location.origin);
+    const linkUrl = new URL(e.path, getOrigin());
 
     const image = createElement('div', 'recommendations-image');
     const picture = createOptimizedPicture(e.image, e.title);
@@ -35,7 +36,7 @@ export default async function decorate(block) {
     </a>`;
 
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
+    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
 
     const content = createElement('div', 'recommendations-text-content');
     const categoryLink = createElement('a', 'recommendations-category', { href: categoryUrl });
