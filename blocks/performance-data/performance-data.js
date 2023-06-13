@@ -68,8 +68,9 @@ export default async function decorate(block) {
             top: 'bottom',
           },
           grid: {
-            //  reduce space at the top of the chart
+            //  reduce space around the chart
             top: '10',
+            left: '50',
           },
           xAxis: {
             type: 'value',
