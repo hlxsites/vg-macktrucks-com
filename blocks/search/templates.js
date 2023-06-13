@@ -66,6 +66,9 @@ export const getMainTemplate = (PLACEHOLDERS) => {
     </div>
   </div>
 
+  <button id="scrollToTop" class="scrollToTop button" title="Go to the top of the page">
+    <span class="fa fa-angle-up"></span>
+  </button>
   `;
 };
 

@@ -39,6 +39,7 @@ export default function decorate(block) {
   let resultCount = 0;
   const limit = 25;
   const nextOffset = offset + limit;
+  let hasResults = true;
 
   const mainTemplate = getMainTemplate(PLACEHOLDERS);
   const mainFragment = fragmentRange.createContextualFragment(mainTemplate);
@@ -52,6 +53,28 @@ export default function decorate(block) {
   const resultsWrapper = document.getElementById('searchResultsSection');
   const summary = document.getElementById('searchResultSummarySection');
   const sortBy = document.getElementById('searchOptionsSection');
+  const backToTopBtn = document.getElementById('scrollToTop');
+
+  function goToTopFunction() {
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    let timeOut;
+
+    if (scrollTop !== 0) {
+      window.scrollBy(0, -50);
+      timeOut = setTimeout(goToTopFunction, 10);
+      return;
+    }
+
+    clearTimeout(timeOut);
+  }
+
+  backToTopBtn.onclick = () => goToTopFunction();
+
+  window.onscroll = () => {
+    if (!hasResults) return;
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    backToTopBtn.style.display = scrollTop > 160 ? 'flex' : 'none';
+  };
 
   function searchResults() {
     insertUrlParam('q', input.value);
@@ -135,7 +158,6 @@ export default function decorate(block) {
     const { items, count, facets } = data;
     const queryTerm = searchTerm || input.value;
     let resultsText = '';
-    let hasResults = true;
     let facetsText = null;
     if (items.length > 0) { // items by query: 25, count has the total
       paginationContainer.classList.add('show');
@@ -143,6 +165,7 @@ export default function decorate(block) {
       resultsText = getResultsItemsTemplate({ items, queryTerm });
       facetsText = getFacetsTemplate(facets);
       resultCount = count;
+      hasResults = true;
     } else {
       const noResults = PLACEHOLDERS.noResults.replace('$0', `"${
         queryTerm.trim() === '' ? ' ' : queryTerm}"`);
