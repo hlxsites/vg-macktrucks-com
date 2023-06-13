@@ -15,12 +15,12 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
   tabHeader.setAttribute('aria-selected', 'false');
   tabHeader.setAttribute('aria-controls', `panel-${tabId}`);
   tabHeader.setAttribute('id', `tab-${tabId}`);
-  // tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
+  tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
   tabList.append(tabHeader);
 
   tabPanel.setAttribute('id', `panel-${tabId}`);
   tabPanel.setAttribute('role', 'tabpanel');
-  // tabPanel.setAttribute( 'tabindex', : index); // TODO: fix tabindex
+  tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
   tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
   tabsContents.append(tabPanel);
 
@@ -32,6 +32,7 @@ export default async function decorate(block) {
 
   const tabList = div({ role: 'tablist' });
   block.append(tabList);
+  handleKeyboardNavigation(tabList);
   const tabsContents = div({ class: 'tab-panels' });
   block.append(tabsContents);
 
@@ -41,10 +42,12 @@ export default async function decorate(block) {
     tabHeader.children[1].classList.add('description');
     tabHeader.dataset.category = getCategoryKey(tabHeader.children[0]);
 
+    const engineTablist = ul({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' });
+    handleKeyboardNavigation(engineTablist);
     const panel = div(
       { 'data-category-id': tabHeader.dataset.category, class: 'tab-panels' },
       p({ class: 'engine-tab-header' }, 'Engine Ratings'),
-      ul({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' }),
+      engineTablist,
       div({ class: 'engine-tab-panels tab-panels' }),
     );
     // TODO: auto-select first tab
@@ -81,41 +84,35 @@ export function addPerformanceData(enginePanel) {
   addTab(header, enginePanel, tabs, panels);
 }
 
-function setupTabHandling(tabHeader, tabPanel) {
+function handleKeyboardNavigation(tabList) {
+  tabList.addEventListener('keydown', (e) => {
+    const tabs = [...tabList.children];
+    let tabFocus = tabs.indexOf(e.target);
 
-  // Add a click event handler to each tab
+    // Move right
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      tabs[tabFocus].setAttribute('tabindex', -1);
+      if (e.key === 'ArrowRight') {
+        // eslint-disable-next-line no-plusplus
+        tabFocus++;
+        // If we're at the end, go to the start
+        if (tabFocus >= tabs.length) {
+          tabFocus = 0;
+        }
+        // Move left
+      } else if (e.key === 'ArrowLeft') {
+        // eslint-disable-next-line no-plusplus
+        tabFocus--;
+        // If we're at the start, move to the end
+        if (tabFocus < 0) {
+          tabFocus = tabs.length - 1;
+        }
+      }
 
-  // Enable arrow navigation between tabs in the tab list
-
-  // tabList.addEventListener('keydown', (e) => {
-  //   // Move right
-  //   const tabs = e.target.closest('[role="tab"]');
-  //   const tabList = e.target.closest('[role="tablist"]');
-  //
-  //   let tabFocus // TODO: ;
-  //   if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-  //     tabs[tabFocus].setAttribute('tabindex', -1);
-  //     if (e.key === 'ArrowRight') {
-  //       // eslint-disable-next-line no-plusplus
-  //       tabFocus++;
-  //       // If we're at the end, go to the start
-  //       if (tabFocus >= tabs.length) {
-  //         tabFocus = 0;
-  //       }
-  //       // Move left
-  //     } else if (e.key === 'ArrowLeft') {
-  //       // eslint-disable-next-line no-plusplus
-  //       tabFocus--;
-  //       // If we're at the start, move to the end
-  //       if (tabFocus < 0) {
-  //         tabFocus = tabs.length - 1;
-  //       }
-  //     }
-  //
-  //     tabs[tabFocus].setAttribute('tabindex', 0);
-  //     tabs[tabFocus].focus();
-  //   }
-  // });
+      tabs[tabFocus].setAttribute('tabindex', 0);
+      tabs[tabFocus].focus();
+    }
+  });
 }
 
 function changeTabs(e) {
