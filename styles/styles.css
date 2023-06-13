@@ -546,6 +546,10 @@ main .section.magazine-listing-content h3 {
   margin: 0 0 13px;
 }
 
+main sup {
+  font-size: .3em;
+}
+
 @media (min-width: 768px) {
   main .section.magazine-listing-content {
     max-width: calc(960px + 16px + 16px);
