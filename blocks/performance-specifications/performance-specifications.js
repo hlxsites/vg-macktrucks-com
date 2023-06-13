@@ -12,8 +12,9 @@ function getCategoryKey(el) {
 let tabId = 0;
 function addTab(tabHeader, tabPanel, tabList, tabsContents) {
   tabId += 1;
+  const isFirstTab = tabList.children.length === 0;
   tabHeader.setAttribute('role', 'tab');
-  tabHeader.setAttribute('aria-selected', 'false');
+  tabHeader.setAttribute('aria-selected', isFirstTab);
   tabHeader.setAttribute('aria-controls', `panel-${tabId}`);
   tabHeader.setAttribute('id', `tab-${tabId}`);
   tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
@@ -23,6 +24,10 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
   tabPanel.setAttribute('role', 'tabpanel');
   tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
   tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
+  if (!isFirstTab) {
+    tabPanel.setAttribute('hidden', '');
+  }
+
   tabsContents.append(tabPanel);
 
   tabHeader.addEventListener('click', changeTabs);
@@ -54,19 +59,9 @@ export default async function decorate(block) {
       engineTablist,
       div({ class: 'engine-tab-panels tab-panels' }),
     );
-    // TODO: auto-select first tab
-    // if (index !== 0) tabContent.setAttribute('hidden', '');
-    tabsContents.append(panel);
-
-    tabList.append(tabHeaderButton);
 
     addTab(tabHeaderButton, panel, tabList, tabsContents);
   });
-
-  // // prepare tab panels to be filled later
-  // const modelKey = [...tabList.querySelectorAll('.name')].map((el) => getCategoryKey(el));
-  // modelKey.forEach((name, index) => {
-  // });
 }
 
 export function addPerformanceData(enginePanel) {
