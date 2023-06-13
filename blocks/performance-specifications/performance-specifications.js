@@ -3,36 +3,6 @@ import {
   div, p,
 } from '../../scripts/scripts.js';
 
-function getCategoryKey(el) {
-  return el.textContent.replaceAll('®', '')
-    .toLowerCase()
-    .trim();
-}
-
-let tabId = 0;
-function addTab(tabHeader, tabPanel, tabList, tabsContents) {
-  tabId += 1;
-  const isFirstTab = tabList.children.length === 0;
-  tabHeader.setAttribute('role', 'tab');
-  tabHeader.setAttribute('aria-selected', isFirstTab);
-  tabHeader.setAttribute('aria-controls', `panel-${tabId}`);
-  tabHeader.setAttribute('id', `tab-${tabId}`);
-  tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
-  tabList.append(tabHeader);
-
-  tabPanel.setAttribute('id', `panel-${tabId}`);
-  tabPanel.setAttribute('role', 'tabpanel');
-  tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
-  tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
-  if (!isFirstTab) {
-    tabPanel.setAttribute('hidden', '');
-  }
-
-  tabsContents.append(tabPanel);
-
-  tabHeader.addEventListener('click', changeTabs);
-}
-
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
@@ -82,6 +52,39 @@ export function addPerformanceData(enginePanel) {
   addTab(header, enginePanel, tabs, panels);
 }
 
+function getCategoryKey(el) {
+  return el.textContent.replaceAll('®', '')
+    .toLowerCase()
+    .trim();
+}
+
+let tabId = 0;
+function addTab(tabHeader, tabPanel, tabList, tabsContents) {
+  tabId += 1;
+  const isFirstTab = tabList.children.length === 0;
+  tabHeader.setAttribute('role', 'tab');
+  tabHeader.setAttribute('aria-selected', isFirstTab);
+  tabHeader.setAttribute('aria-controls', `panel-${tabId}`);
+  tabHeader.setAttribute('id', `tab-${tabId}`);
+  tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
+  tabList.append(tabHeader);
+
+  tabPanel.setAttribute('id', `panel-${tabId}`);
+  tabPanel.setAttribute('role', 'tabpanel');
+  tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
+  tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
+  tabPanel.setAttribute('hidden', '');
+  if (isFirstTab) {
+    // first setting 'hidden' and then removing the attribute may seem redundant, but it
+    // ensures that the attribute observers see a transition from hidden to visible.
+    tabPanel.removeAttribute('hidden');
+  }
+
+  tabsContents.append(tabPanel);
+
+  tabHeader.addEventListener('click', changeTabs);
+}
+
 function handleKeyboardNavigation(tabList) {
   // from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
   tabList.addEventListener('keydown', (e) => {
@@ -116,6 +119,12 @@ function handleKeyboardNavigation(tabList) {
 
 function changeTabs(e) {
   const { target } = e;
+
+  // ignore click if already selected
+  if (target.getAttribute('aria-selected') === 'true') {
+    return;
+  }
+
   const tabHeader = target.closest('[role="tab"]');
   const tabList = target.closest('[role="tablist"]');
   const grandparent = tabList.parentElement;

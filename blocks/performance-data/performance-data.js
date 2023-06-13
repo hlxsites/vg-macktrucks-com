@@ -30,110 +30,28 @@ export default async function decorate(block) {
   diagram.append(div({ class: 'loading-spinner' }));
   block.append(diagram);
 
-  // TODO: https://github.com/adobecom/milo/blob/main/libs/blocks/chart/chart.js
-  // https://business.adobe.com/resources/holiday-shopping-report.html
+  const observer = new MutationObserver(() => {
+    const parentTab = block.closest('.category-panel');
+    if (!parentTab.hasAttribute('hidden') && !block.hasAttribute('hidden')) {
+      drawChart(diagram, performanceData, getColor);
+    }
+  });
+  observer.observe(block, { attributes: true, childList: false, subtree: false });
 
-  // TODO: only draw chart when visible.
-  setTimeout(() => {
-    loadScript('../../common/echarts/echarts.custom.min.js')
-      .then(() => {
-        // eslint-disable-next-line no-undef
-        const myChart = echarts.init(diagram);
-
-        const titles = performanceData[0].slice(1).map((title) => title.toUpperCase());
-
-        const series = titles.map((title, index) => ({
-          name: title,
-          data: performanceData.slice(1)
-            .map((row) => [row[0], row[index + 1]]),
-          type: 'line',
-          symbol: 'none',
-          color: getColor(title, index),
-        }));
-
-        series[0].markArea = {
-          silent: true,
-          itemStyle: {
-            color: 'rgb(198 214 235 / 50%)',
-          },
-          data: [[{ xAxis: 1300 }, { xAxis: 1700 }]],
-        };
-
-        // Specify the configuration items and data for the chart
-        const option = {
-          tooltip: null,
-          legend: {
-            data: titles,
-            icon: 'rect',
-            top: 'bottom',
-          },
-          grid: {
-            //  reduce space around the chart
-            top: '10',
-            left: '50',
-          },
-          xAxis: {
-            type: 'value',
-            name: 'RPM',
-            nameTextStyle: {
-              borderType: 'solid',
-              verticalAlign: 'top',
-              lineHeight: 30,
-              fontWeight: 'bold',
-            },
-            nameLocation: 'start',
-            min: performanceData[1][0],
-            max: performanceData.at(-1)[0],
-            axisLine: {
-              onZero: false,
-            },
-            axisTick: {
-              show: false,
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: '#d3d3d3',
-                width: 1,
-              },
-            },
-            minorTick: {
-              show: true,
-              splitNumber: 3,
-            },
-            minorSplitLine: {
-              show: true,
-              lineStyle: {
-                color: '#d3d3d3',
-                width: 1,
-              },
-            },
-            axisLabel: {
-              show: true,
-              interval: 0,
-              showMinLabel: false,
-              showMaxLabel: false,
-              color: '#767676',
-              fontWeight: 'bold',
-            },
-          },
-          yAxis: {
-            type: 'value',
-          },
-          series,
-          animation: false,
-          animationDuration: 500,
-        };
-
-        // Display the chart using the configuration items and data just specified.
-        myChart.setOption(option);
-      });
-  }, 0);
   const parent = block.parentElement;
+
   addPerformanceData(block);
+  observer.observe(block.closest('.category-panel'), { attributes: true, childList: false, subtree: false });
+
   parent.remove();
 }
 
+/**
+ *  inverse operation of `buildBlock()`.
+ *
+ * @param blockEl {HTMLDivElement} Franklin row column tree
+ * @return {string[][]} 2d array of the block's content
+ */
 export function deconstructBlockIntoArray(blockEl) {
   const array2d = [];
   Array.from(blockEl.children)
@@ -161,4 +79,101 @@ export function deconstructBlockIntoArray(blockEl) {
 
 function getColor(title, index) {
   return ['#85764d', '#808285', '#275fa6'][index];
+}
+
+function drawChart(diagram, performanceData) {
+  loadScript('../../common/echarts/echarts.custom.min.js')
+    .then(() => {
+      // eslint-disable-next-line no-undef
+      const myChart = echarts.init(diagram);
+
+      const titles = performanceData[0].slice(1)
+        .map((title) => title.toUpperCase());
+
+      const series = titles.map((title, index) => ({
+        name: title,
+        data: performanceData.slice(1)
+          .map((row) => [row[0], row[index + 1]]),
+        type: 'line',
+        symbol: 'none',
+        color: getColor(title, index),
+      }));
+
+      series[0].markArea = {
+        silent: true,
+        itemStyle: {
+          color: 'rgb(198 214 235 / 50%)',
+        },
+        data: [[{ xAxis: 1300 }, { xAxis: 1700 }]],
+      };
+
+      // Specify the configuration items and data for the chart
+      const option = {
+        tooltip: null,
+        legend: {
+          data: titles,
+          icon: 'rect',
+          top: 'bottom',
+        },
+        grid: {
+          //  reduce space around the chart
+          top: '10',
+          left: '50',
+        },
+        xAxis: {
+          type: 'value',
+          name: 'RPM',
+          nameTextStyle: {
+            borderType: 'solid',
+            verticalAlign: 'top',
+            lineHeight: 30,
+            fontWeight: 'bold',
+          },
+          nameLocation: 'start',
+          min: performanceData[1][0],
+          max: performanceData.at(-1)[0],
+          axisLine: {
+            onZero: false,
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#d3d3d3',
+              width: 1,
+            },
+          },
+          minorTick: {
+            show: true,
+            splitNumber: 3,
+          },
+          minorSplitLine: {
+            show: true,
+            lineStyle: {
+              color: '#d3d3d3',
+              width: 1,
+            },
+          },
+          axisLabel: {
+            show: true,
+            interval: 0,
+            showMinLabel: false,
+            showMaxLabel: false,
+            color: '#767676',
+            fontWeight: 'bold',
+          },
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series,
+        animation: true,
+        animationDuration: 500,
+      };
+
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option);
+    });
 }
