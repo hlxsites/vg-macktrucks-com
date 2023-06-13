@@ -67,6 +67,10 @@ export default async function decorate(block) {
             icon: 'rect',
             top: 'bottom',
           },
+          grid: {
+            //  reduce space at the top of the chart
+            top: '10',
+          },
           xAxis: {
             type: 'value',
             name: 'RPM',
@@ -94,7 +98,7 @@ export default async function decorate(block) {
             },
             minorTick: {
               show: true,
-              splitNumber: 2,
+              splitNumber: 3,
             },
             minorSplitLine: {
               show: true,

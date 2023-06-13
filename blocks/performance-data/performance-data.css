@@ -1,7 +1,15 @@
 .block.performance-data {
-  border: 1px solid #ccc;
+  display: flex;
+  gap: 50px;
 }
 
+.block.performance-data[hidden] {
+  display: none;
+}
+
+.block.performance-data dl {
+  flex: 1;
+}
 
 .block.performance-data dl dt {
   color: #7B7B7B;
@@ -49,4 +57,5 @@
 .block.performance-data .performance-chart {
   width: 600px;
   height: 400px;
+  flex: 3;
 }
