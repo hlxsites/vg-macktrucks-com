@@ -1,6 +1,6 @@
 /* stylelint-disable no-descending-specificity */
 
-.performance-specifications [role="tablist"] {
+.performance-specifications .category-tablist[role="tablist"] {
   display: flex;
 }
 
@@ -34,6 +34,22 @@
 .performance-specifications .category-tablist [role="tab"]:hover {
   background-color: #000;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .performance-specifications .category-tablist[role="tablist"] {
+    flex-direction: column;
+  }
+
+  .performance-specifications .category-tablist [role="tab"] {
+    width: 100%;
+    padding: 2em;
+    margin-bottom: 0;
+
+    /* avoid double border on the top */
+    margin-top: -3px;
+
+  }
 }
 
 .performance-specifications .engine-tablist [role="tab"] {
