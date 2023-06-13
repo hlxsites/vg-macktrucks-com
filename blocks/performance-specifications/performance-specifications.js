@@ -1,4 +1,6 @@
-import { div, li, p, ul, } from '../../scripts/scripts.js';
+import {
+  div, li, p, ul,
+} from '../../scripts/scripts.js';
 
 function getCategoryKey(el) {
   return el.textContent.replaceAll('®', '')
@@ -26,9 +28,9 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
-  const tabList = div({ class: 'tabs', role: 'tablist' });
+  const tabList = div({ role: 'tablist' });
   block.append(tabList);
-  const tabsContents = div({ class: 'tabs-content' });
+  const tabsContents = div({ class: 'tab-panels' });
   block.append(tabsContents);
 
   rawCategories.forEach((tabHeader) => {
@@ -37,10 +39,11 @@ export default async function decorate(block) {
     tabHeader.children[1].classList.add('description');
     tabHeader.dataset.category = getCategoryKey(tabHeader.children[0]);
 
-    const panel = div({ 'data-category-id': tabHeader.dataset.category, class: 'tab-panel' },
+    const panel = div(
+      { 'data-category-id': tabHeader.dataset.category, class: 'tab-panels' },
       p({ class: 'engine-tab-header' }, 'Engine Ratings'),
-      ul({ class: 'engine-tabs tabs', role: 'tablist', ariaLabel: 'Engine Ratings' }),
-      div({ class: 'engine-tabs-content tabs-content' }),
+      ul({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' }),
+      div({ class: 'engine-tab-panels tab-panels' }),
     );
     // TODO: auto-select first tab
     // if (index !== 0) tabContent.setAttribute('hidden', '');
@@ -57,33 +60,22 @@ export default async function decorate(block) {
   // });
 }
 
-export function addPerformanceData(element) {
+export function addPerformanceData(enginePanel) {
   // TOOD: add panels as children of the tabs.
-  const block = element.closest('.performance-specifications-container').querySelector('.performance-specifications');
+  const block = enginePanel.closest('.performance-specifications-container').querySelector('.performance-specifications');
 
-  const categoryKey = [...element.classList].find((c) => c !== 'performance-data' && !c.toLowerCase().endsWith('-hp') && c !== 'block');
-  const horsepower = [...element.classList].find((c) => c.toLowerCase().endsWith('-hp'));
+  const categoryKey = [...enginePanel.classList].find((c) => c !== 'performance-data' && !c.toLowerCase().endsWith('-hp') && c !== 'block');
+  const horsepower = [...enginePanel.classList].find((c) => c.toLowerCase().endsWith('-hp'));
 
-  // element.setAttribute('role', 'tabpanel');
-  // element.setAttribute('tabindex', tabsContent.children.length);
-  // element.setAttribute('aria-labelledby', `tab-${categoryKey}-${horsepower}`);
-  // if (tabsContent.querySelectorAll('.performance-data').length !== 0) element.setAttribute('hidden', '');
-  // categoryPanel.append(element);
-  // add entry to tab list
-  // const verticalTabs = categoryPanel.querySelector('.vertical-tabs');
-  const header = li({
-    // role: 'tab',
-    // ariaSelected: verticalTabs.children.length === 0,
-    // ariaControls: `panel-${categoryKey}-${horsepower}`,
-    // id: `tab-${categoryKey}-${horsepower}`,
-    // tabindex: verticalTabs.children.length,
-  }, horsepower);
+  const header = li(horsepower.replace('-', ' ').toUpperCase());
 
-  const enginePanel = div(element);
+  enginePanel.dataset.category = categoryKey;
+  enginePanel.dataset.engine = horsepower;
 
-  const categoryPanel = block.querySelector(`.tab-panel[data-category-id="${categoryKey}"]`);
-  const tabs = categoryPanel.querySelector('.tabs');
-  const panels = categoryPanel.querySelector('.tabs-content');
+  // find parent tab panel and add the engine panel to it
+  const categoryPanel = block.querySelector(`.tab-panels[data-category-id="${categoryKey}"]`);
+  const tabs = categoryPanel.querySelector('[role="tablist"]');
+  const panels = categoryPanel.querySelector('.tab-panels');
   addTab(header, enginePanel, tabs, panels);
   // setupTabs(block);
 }
