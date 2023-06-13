@@ -15,7 +15,8 @@ export const getMainTemplate = (PLACEHOLDERS) => {
             <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"></div>
           </div>
           <span>
-            <button type="submit" class="btn text-primary search-close-button fa fa-search">
+            <button type="submit" class="btn text-primary search-close-button">
+              <span class="fa fa-search search-icon"></span>
             </button>
           </span>
         </div>

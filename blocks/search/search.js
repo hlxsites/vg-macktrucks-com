@@ -62,14 +62,14 @@ export default function decorate(block) {
   input.onkeyup = (e) => e.key === 'Enter' && searchResults();
 
   // pagination events
-  const paginationConatiner = block.querySelector('.search-pagination-container');
-  const countSpan = paginationConatiner.querySelector('.count');
-  const resRange = paginationConatiner.querySelector('.page-range');
+  const paginationContainer = block.querySelector('.search-pagination-container');
+  const countSpan = paginationContainer.querySelector('.count');
+  const resRange = paginationContainer.querySelector('.page-range');
 
-  const nextBtn = paginationConatiner.querySelector('.next');
+  const nextBtn = paginationContainer.querySelector('.next');
   nextBtn.onclick = () => pagination('next');
 
-  const prevBtn = paginationConatiner.querySelector('.prev');
+  const prevBtn = paginationContainer.querySelector('.prev');
   prevBtn.onclick = () => pagination('prev');
 
   const addMoreBtnToggleEvent = (e) => {
@@ -138,7 +138,7 @@ export default function decorate(block) {
     let hasResults = true;
     let facetsText = null;
     if (items.length > 0) { // items by query: 25, count has the total
-      paginationConatiner.classList.add('show');
+      paginationContainer.classList.add('show');
       summary.parentElement.classList.remove('no-results');
       resultsText = getResultsItemsTemplate({ items, queryTerm });
       facetsText = getFacetsTemplate(facets);
