@@ -14,10 +14,6 @@ export default async function decorate(block) {
   // rows until RPM are facts, after is performance data
   const facts = tableData.slice(0, indexOfRpm);
   const performanceData = tableData.slice(indexOfRpm);
-  console.log({
-    facts,
-    performanceData,
-  });
 
   const keyFacts = domEl('dl', { class: 'key-specs' });
   facts.forEach((row) => {

@@ -116,6 +116,7 @@
   --body-font-size-s: 1.6rem; /* 16px */
   --body-font-size-xs: 1.4rem; /* 14px */
   --body-font-size-xxs: 1.3rem; /* 13px */
+  --body-font-size-xxxs: 1.1rem; /* 11px */
 
   /* Body font sizes DESKTOP */
   --body-desktop-font-size-1: var(--body-font-size-s); /* 16px */
@@ -526,7 +527,7 @@ main .section.magazine-listing-content {
 }
 
 main .section.magazine-listing-content p {
-  font-family: var(--subheadings-ff-medium); 
+  font-family: var(--subheadings-ff-medium);
   font-size: var(--body-font-size-xs);
 }
 
@@ -535,7 +536,7 @@ main .section.magazine-listing-content p:first-of-type {
 }
 
 main .section.magazine-listing-content h3 {
-  font-family: var(--emphasis-ff-bold); 
+  font-family: var(--emphasis-ff-bold);
   font-size: var(--heading-font-size-s);
   background-color: var(--primary-black);
   color: var(--primary-white);
