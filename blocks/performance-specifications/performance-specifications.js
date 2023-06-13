@@ -19,3 +19,8 @@ export default async function decorate(block) {
   tabs.append(...block.children);
   block.append(tabs);
 }
+
+export function addPerformanceData(element) {
+  const block = element.closest('.performance-specifications-container').querySelector('.performance-specifications');
+  block.append(element);
+}

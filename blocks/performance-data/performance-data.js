@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 
 import { loadScript } from '../../scripts/lib-franklin.js';
+import { addPerformanceData } from '../performance-specifications/performance-specifications.js';
 
 /**
  * content of the tabs for the performance-specifications block.
@@ -122,6 +123,9 @@ export default async function decorate(block) {
         myChart.setOption(option);
       });
   }, 0);
+  const parent = block.parentElement;
+  addPerformanceData(block);
+  parent.remove();
 }
 
 export function deconstructBlockIntoArray(blockEl) {
