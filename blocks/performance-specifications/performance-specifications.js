@@ -1,5 +1,6 @@
 import {
-  div, li, p, ul,
+  button,
+  div, p, ul,
 } from '../../scripts/scripts.js';
 
 function getCategoryKey(el) {
@@ -36,16 +37,19 @@ export default async function decorate(block) {
   const tabsContents = div({ class: 'tab-panels' });
   block.append(tabsContents);
 
-  rawCategories.forEach((tabHeader) => {
-    tabHeader.classList.add('tab');
-    tabHeader.children[0].classList.add('name');
-    tabHeader.children[1].classList.add('description');
-    tabHeader.dataset.category = getCategoryKey(tabHeader.children[0]);
+  rawCategories.forEach((rawTabHeader) => {
+    const tabHeaderButton = button();
+    tabHeaderButton.append(...rawTabHeader.children);
+    tabHeaderButton.classList.add('tab');
+    tabHeaderButton.children[0].classList.add('name');
+    tabHeaderButton.children[1].classList.add('description');
+    const categoryKey = getCategoryKey(tabHeaderButton.children[0]);
+    tabHeaderButton.dataset.category = categoryKey;
 
     const engineTablist = ul({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' });
     handleKeyboardNavigation(engineTablist);
     const panel = div(
-      { 'data-category-id': tabHeader.dataset.category, class: 'tab-panels' },
+      { 'data-category-id': categoryKey, class: 'tab-panels' },
       p({ class: 'engine-tab-header' }, 'Engine Ratings'),
       engineTablist,
       div({ class: 'engine-tab-panels tab-panels' }),
@@ -54,9 +58,9 @@ export default async function decorate(block) {
     // if (index !== 0) tabContent.setAttribute('hidden', '');
     tabsContents.append(panel);
 
-    tabList.append(tabHeader);
+    tabList.append(tabHeaderButton);
 
-    addTab(tabHeader, panel, tabList, tabsContents);
+    addTab(tabHeaderButton, panel, tabList, tabsContents);
   });
 
   // // prepare tab panels to be filled later
@@ -72,7 +76,7 @@ export function addPerformanceData(enginePanel) {
   const categoryKey = [...enginePanel.classList].find((c) => c !== 'performance-data' && !c.toLowerCase().endsWith('-hp') && c !== 'block');
   const horsepower = [...enginePanel.classList].find((c) => c.toLowerCase().endsWith('-hp'));
 
-  const header = li(horsepower.replace('-', ' ').toUpperCase());
+  const header = button(horsepower.replace('-', ' ').toUpperCase());
 
   enginePanel.dataset.category = categoryKey;
   enginePanel.dataset.engine = horsepower;
