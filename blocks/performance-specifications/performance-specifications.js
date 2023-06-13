@@ -1,6 +1,6 @@
 import {
   button,
-  div, p, ul,
+  div, p,
 } from '../../scripts/scripts.js';
 
 function getCategoryKey(el) {
@@ -36,11 +36,11 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
-  const tabList = div({ role: 'tablist' });
+  const tabList = div({ role: 'tablist', class: 'category-tablist' });
   block.append(tabList);
   handleKeyboardNavigation(tabList);
-  const tabsContents = div({ class: 'tab-panels' });
-  block.append(tabsContents);
+  const tabPanels = div({ class: 'category-tab-panels tab-panels' });
+  block.append(tabPanels);
 
   rawCategories.forEach((rawTabHeader) => {
     const tabHeaderButton = button();
@@ -49,18 +49,20 @@ export default async function decorate(block) {
     tabHeaderButton.children[0].classList.add('name');
     tabHeaderButton.children[1].classList.add('description');
     const categoryKey = getCategoryKey(tabHeaderButton.children[0]);
-    tabHeaderButton.dataset.category = categoryKey;
 
-    const engineTablist = ul({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' });
+    const engineTablist = div({ class: 'engine-tablist ', role: 'tablist', ariaLabel: 'Engine Ratings' });
     handleKeyboardNavigation(engineTablist);
     const panel = div(
-      { 'data-category-id': categoryKey, class: 'tab-panels' },
-      p({ class: 'engine-tab-header' }, 'Engine Ratings'),
-      engineTablist,
+      { 'data-category-id': categoryKey, class: 'category-panel' },
+      div(
+        { class: 'engine-navigation' },
+        p({ class: 'engine-tab-header' }, 'Engine Ratings'),
+        engineTablist,
+      ),
       div({ class: 'engine-tab-panels tab-panels' }),
     );
 
-    addTab(tabHeaderButton, panel, tabList, tabsContents);
+    addTab(tabHeaderButton, panel, tabList, tabPanels);
   });
 }
 
@@ -73,17 +75,15 @@ export function addPerformanceData(enginePanel) {
 
   const header = button(horsepower.replace('-', ' ').toUpperCase());
 
-  enginePanel.dataset.category = categoryKey;
-  enginePanel.dataset.engine = horsepower;
-
   // find parent tab panel and add the engine panel to it
-  const categoryPanel = block.querySelector(`.tab-panels[data-category-id="${categoryKey}"]`);
+  const categoryPanel = block.querySelector(`.category-panel[data-category-id="${categoryKey}"]`);
   const tabs = categoryPanel.querySelector('[role="tablist"]');
   const panels = categoryPanel.querySelector('.tab-panels');
   addTab(header, enginePanel, tabs, panels);
 }
 
 function handleKeyboardNavigation(tabList) {
+  // from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
   tabList.addEventListener('keydown', (e) => {
     const tabs = [...tabList.children];
     let tabFocus = tabs.indexOf(e.target);
@@ -119,7 +119,7 @@ function changeTabs(e) {
   const tabHeader = target.closest('[role="tab"]');
   const tabList = target.closest('[role="tablist"]');
   const grandparent = tabList.parentElement;
-  const tabPanels = grandparent.querySelector('.tab-panels');
+  const tabPanels = grandparent.querySelector('.tab-panels') || grandparent.parentElement.querySelector('.tab-panels');
 
   // Remove all current selected tabs
   tabList

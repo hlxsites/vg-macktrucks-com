@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 .performance-specifications [role="tablist"] {
   display: flex;
 }
@@ -28,11 +30,11 @@
   text-transform: uppercase;
 }
 
+.performance-specifications .category-tablist [role="tab"][aria-selected="true"],
 .performance-specifications .category-tablist [role="tab"]:hover {
   background-color: #000;
   color: #fff;
 }
-
 
 .performance-specifications .engine-tablist [role="tab"] {
   background-color: var(--primary-white);
@@ -44,7 +46,8 @@
   font-family: var(--emphasis-ff-bold);
 }
 
-.performance-specifications .engine-tablist [role="tab"][aria-selected="true"] {
+.performance-specifications .engine-tablist [role="tab"][aria-selected="true"],
+.performance-specifications .engine-tablist [role="tab"]:hover {
   background-color: #000;
   color: var(--primary-white);
 }
