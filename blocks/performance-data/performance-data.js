@@ -82,7 +82,7 @@ function getColor(title, index) {
 }
 
 function drawChart(diagram, performanceData) {
-  loadScript('../../common/echarts/echarts.custom.min.js')
+  loadScript('../../common/echarts/echarts.simple.min.js')
     .then(() => {
       // eslint-disable-next-line no-undef
       const myChart = echarts.init(diagram);
