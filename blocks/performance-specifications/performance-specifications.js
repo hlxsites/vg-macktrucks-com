@@ -23,6 +23,8 @@ function addTab(tabHeader, tabPanel, tabList, tabsContents) {
   // tabPanel.setAttribute( 'tabindex', : index); // TODO: fix tabindex
   tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
   tabsContents.append(tabPanel);
+
+  tabHeader.addEventListener('click', changeTabs);
 }
 
 export default async function decorate(block) {
@@ -77,68 +79,66 @@ export function addPerformanceData(enginePanel) {
   const tabs = categoryPanel.querySelector('[role="tablist"]');
   const panels = categoryPanel.querySelector('.tab-panels');
   addTab(header, enginePanel, tabs, panels);
-  // setupTabs(block);
 }
 
-function setupTabs(block) {
-  const tabs = block.querySelectorAll('[role="tab"]');
-  const tabList = block.querySelector('[role="tablist"]');
+function setupTabHandling(tabHeader, tabPanel) {
 
   // Add a click event handler to each tab
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', changeTabs);
-  });
 
   // Enable arrow navigation between tabs in the tab list
-  let tabFocus = 0;
 
-  tabList.addEventListener('keydown', (e) => {
-    // Move right
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      tabs[tabFocus].setAttribute('tabindex', -1);
-      if (e.key === 'ArrowRight') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus++;
-        // If we're at the end, go to the start
-        if (tabFocus >= tabs.length) {
-          tabFocus = 0;
-        }
-        // Move left
-      } else if (e.key === 'ArrowLeft') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus--;
-        // If we're at the start, move to the end
-        if (tabFocus < 0) {
-          tabFocus = tabs.length - 1;
-        }
-      }
-
-      tabs[tabFocus].setAttribute('tabindex', 0);
-      tabs[tabFocus].focus();
-    }
-  });
+  // tabList.addEventListener('keydown', (e) => {
+  //   // Move right
+  //   const tabs = e.target.closest('[role="tab"]');
+  //   const tabList = e.target.closest('[role="tablist"]');
+  //
+  //   let tabFocus // TODO: ;
+  //   if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+  //     tabs[tabFocus].setAttribute('tabindex', -1);
+  //     if (e.key === 'ArrowRight') {
+  //       // eslint-disable-next-line no-plusplus
+  //       tabFocus++;
+  //       // If we're at the end, go to the start
+  //       if (tabFocus >= tabs.length) {
+  //         tabFocus = 0;
+  //       }
+  //       // Move left
+  //     } else if (e.key === 'ArrowLeft') {
+  //       // eslint-disable-next-line no-plusplus
+  //       tabFocus--;
+  //       // If we're at the start, move to the end
+  //       if (tabFocus < 0) {
+  //         tabFocus = tabs.length - 1;
+  //       }
+  //     }
+  //
+  //     tabs[tabFocus].setAttribute('tabindex', 0);
+  //     tabs[tabFocus].focus();
+  //   }
+  // });
 }
 
 function changeTabs(e) {
   const { target } = e;
-  const parent = target.parentNode;
-  const grandparent = parent.parentNode;
+  const tabHeader = target.closest('[role="tab"]');
+  const tabList = target.closest('[role="tablist"]');
+  const grandparent = tabList.parentElement;
+  const tabPanels = grandparent.querySelector('.tab-panels');
 
   // Remove all current selected tabs
-  parent
+  tabList
     .querySelectorAll('[aria-selected="true"]')
-    .forEach((t) => t.setAttribute('aria-selected', false));
+    .forEach((tab) => tab.setAttribute('aria-selected', false));
 
   // Set this tab as selected
-  target.setAttribute('aria-selected', true);
+  tabHeader.setAttribute('aria-selected', true);
 
   // Hide all tab panels
-  grandparent
-    .querySelectorAll('[role="tabpanel"]')
-    .forEach((childEl) => childEl.setAttribute('hidden', true));
+  tabPanels
+    .querySelectorAll(':scope > [role="tabpanel"]')
+    .forEach((panel) => panel.setAttribute('hidden', ''));
 
   // Show the selected panel
-  grandparent.parentNode
-    .querySelector(`#${target.getAttribute('aria-controls')}`)
+  document.getElementById(tabHeader.getAttribute('aria-controls'))
     .removeAttribute('hidden');
 }
