@@ -55,8 +55,8 @@
 
 
 .block.performance-data .performance-chart {
-  width: 600px;
-  height: 400px;
+  width: 100%;
+  min-height: 400px;
   flex: 3;
 }
 

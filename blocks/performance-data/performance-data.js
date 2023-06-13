@@ -175,5 +175,8 @@ function drawChart(diagram, performanceData) {
 
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
+      window.addEventListener('resize', () => {
+        myChart.resize();
+      });
     });
 }
