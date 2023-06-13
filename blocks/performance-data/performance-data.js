@@ -30,6 +30,8 @@ export default async function decorate(block) {
   diagram.append(div({ class: 'loading-spinner' }));
   block.append(diagram);
 
+  // drawing the chart is delayed until the tab is visible. this avoids drawing charts
+  // for tabs that are not visible.
   const observer = new MutationObserver(() => {
     const parentTab = block.closest('.category-panel');
     if (!parentTab.hasAttribute('hidden') && !block.hasAttribute('hidden')) {
