@@ -80,26 +80,31 @@ export function decorateButtons(element) {
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
-      if (!a.querySelector('img')) {
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+      if (!a.querySelector('img') && up.childNodes.length === 1) {
+        if (up.tagName === 'P' || up.tagName === 'DIV') {
           a.className = 'button primary'; // default
-          up.classList.add('button-container');
+          up.className = 'button-container';
         }
-        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+        if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
           a.className = 'button primary';
-          twoup.classList.add('button-container');
+          twoup.className = 'button-container';
         }
-        if (up.childNodes.length === 1 && up.tagName === 'EM'
-          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+        if (up.tagName === 'EM' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
           a.className = 'button secondary';
-          twoup.classList.add('button-container');
+          twoup.className = 'button-container';
         }
-        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
+        if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
           const arrow = document.createElement('span');
           a.className = 'button arrowed';
           twoup.parentElement.className = 'button-container';
+          arrow.className = 'fa fa-arrow-right';
+          a.appendChild(arrow);
+        }
+        if (up.tagName === 'LI' && twoup.children.length === 1
+          && a.firstElementChild.tagName === 'STRONG') {
+          const arrow = document.createElement('span');
+          a.className = 'button arrowed';
+          twoup.className = 'button-container';
           arrow.className = 'fa fa-arrow-right';
           a.appendChild(arrow);
         }
@@ -153,7 +158,7 @@ export function findAndCreateImageLink(node) {
  * @param {object} props any other attributes to add to the element
  * @returns the element
  */
-export function createElement(tagName, classes, props = {}) {
+export function createElement(tagName, classes = [], props = {}) {
   const elem = document.createElement(tagName);
   if (classes) {
     const classesArr = (typeof classes === 'string') ? [classes] : classes;
