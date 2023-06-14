@@ -76,7 +76,7 @@ function getParentCategoryLink(pagePath) {
   let parentFolderName = parentFolders.at(-1);
 
   // format the parent folder name to be more readable
-  parentFolderName = parentFolderName.replaceAll('-', ' ');
+  parentFolderName = parentFolderName?.replaceAll('-', ' ');
 
   const category = createElement('a', [], { href: `/${parentFolders.join('/')}/` });
   category.textContent = parentFolderName;
