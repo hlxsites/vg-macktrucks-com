@@ -178,5 +178,15 @@ function drawChart(diagram, performanceData) {
       window.addEventListener('resize', () => {
         myChart.resize();
       });
+
+      // discard if the chart is not visible
+      new IntersectionObserver(((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            myChart.dispose();
+            observer.disconnect();
+          }
+        });
+      })).observe(diagram);
     });
 }
