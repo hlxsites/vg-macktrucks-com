@@ -3,25 +3,37 @@ import { loadScript } from '../../scripts/lib-franklin.js';
 
 const engineData = new Map();
 
-function initView(block) {
-  const selectedCategory = block.querySelector('.category-tablist button[aria-selected="true"]').dataset.categoryId;
-
+function updateEngineListView(block, categoryId) {
   // update engine selection
   const tabList = block.querySelector('.engine-tablist');
+  // skip if category is already selected
+  tabList.textContent = '';
+
   [...engineData.keys()]
-    .filter((key) => key[0] === selectedCategory)
+    .filter((key) => key[0] === categoryId)
     .forEach((key, index) => {
       const engineTab = button({
-        role: 'tab', 'aria-selected': index === 0,
+        role: 'tab',
+        'aria-selected': index === 0,
       }, key[1]);
       tabList.append(engineTab);
     });
+}
 
+function initView(block) {
+  const selectedCategory = block.querySelector('.category-tablist button[aria-selected="true"]').dataset.categoryId;
+
+  updateEngineListView(block, selectedCategory);
+
+  const tabList = block.querySelector('.engine-tablist');
   const selectedEngine = tabList.querySelector('[aria-selected="true"]').textContent;
   // TODO: use string keys instead of array keys
   const key = [...engineData.keys()].find((aKey) => aKey[0] === selectedCategory && aKey[1] === selectedEngine);
   // update performance data
-  const { facts, performanceData } = engineData.get(key);
+  const {
+    facts,
+    performanceData
+  } = engineData.get(key);
   const keySpecs = block.querySelector('.key-specs');
   // keySpecs.innerHTML = '';
   facts.forEach((row) => {
@@ -34,13 +46,33 @@ function initView(block) {
   const diagram = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
   drawChart(diagram, performanceData);
-  console.log({ diagram, performanceData });
+}
+
+function changeCategory(event, tabList, block) {
+  const tabHeader = event.target.closest('[role="tab"]');
+
+  // ignore click if already selected
+  if (tabHeader.getAttribute('aria-selected') === 'true') {
+    return;
+  }
+
+  // Remove all current selected tabs
+  tabList.querySelectorAll('[aria-selected="true"]')
+    .forEach((tab) => tab.setAttribute('aria-selected', false));
+
+  // Set this tab as selected
+  tabHeader.setAttribute('aria-selected', true);
+
+  updateEngineListView(block, tabHeader.getAttribute('data-category-id'));
 }
 
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
-  const tabList = div({ role: 'tablist', class: 'category-tablist' });
+  const tabList = div({
+    role: 'tablist',
+    class: 'category-tablist'
+  });
   rawCategories.forEach((rawTabHeader) => {
     const tabHeaderButton = button({ class: 'tab' });
     tabHeaderButton.append(...rawTabHeader.children);
@@ -51,6 +83,9 @@ export default async function decorate(block) {
     tabHeaderButton.setAttribute('role', 'tab');
     const isFirstTab = tabList.children.length === 0;
     tabHeaderButton.setAttribute('aria-selected', isFirstTab);
+    tabHeaderButton.addEventListener('click', (event) => {
+      changeCategory(event, tabList, block);
+    });
 
     tabList.append(tabHeaderButton);
   });
@@ -212,11 +247,17 @@ function getPerformanceDataFromDataBlocks(block) {
       const facts = tableData.slice(0, indexOfRpm);
       const performanceData = tableData.slice(indexOfRpm);
 
-      const categoryKey = [...dataBlock.classList].find((c) => c !== 'performance-data' && !c.toLowerCase().endsWith('-hp') && c !== 'block');
-      const horsepower = [...dataBlock.classList].find((c) => c.toLowerCase().endsWith('-hp'));
+      const categoryKey = [...dataBlock.classList].find((c) => c !== 'performance-data' && !c.toLowerCase()
+        .endsWith('-hp') && c !== 'block');
+      const horsepower = [...dataBlock.classList].find((c) => c.toLowerCase()
+        .endsWith('-hp'));
 
       // TODO: support multiple blocks
-      engineData.set([categoryKey, horsepower.replace('-', ' ').toUpperCase()], { facts, performanceData });
+      engineData.set([categoryKey, horsepower.replace('-', ' ')
+        .toUpperCase()], {
+        facts,
+        performanceData
+      });
     });
 }
 
