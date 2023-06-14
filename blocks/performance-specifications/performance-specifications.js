@@ -271,7 +271,7 @@ async function updateChart(diagram, performanceData) {
       left: '50',
     },
     xAxis: {
-      min: performanceData[1][0] - 100,
+      min: performanceData[1][0],
       max: performanceData.at(-1)[0] + 100,
       type: 'value',
       name: 'RPM',
