@@ -115,7 +115,7 @@ function updateDetailView(block) {
 
   const diagram = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
-  drawChart(diagram, performanceData);
+  updateChart(diagram, performanceData);
 }
 
 function handleChangeCategory(event, tabList, block) {
@@ -188,11 +188,14 @@ function getColor(title, index) {
   return ['#85764d', '#808285', '#275fa6'][index];
 }
 
-async function drawChart(diagram, performanceData) {
-  await loadScript('../../common/echarts-5.4.2/echarts.simple.min.js');
-  // TODO: update chart instead of recreating it
-  // eslint-disable-next-line no-undef
-  const myChart = echarts.init(diagram);
+/**
+ * @param diagram {HTMLElement}
+ * @param performanceData {Array<Array<string>>}
+ */
+async function updateChart(diagram, performanceData) {
+  if (diagram.querySelector('.loading-spinner')) {
+    await initChart(diagram, performanceData);
+  }
 
   const titles = performanceData[0].slice(1)
     .map((title) => title.toUpperCase());
@@ -214,14 +217,31 @@ async function drawChart(diagram, performanceData) {
     data: [[{ xAxis: 1300 }, { xAxis: 1700 }]],
   };
 
-  // Specify the configuration items and data for the chart
-  const option = {
-    tooltip: null,
+  // eslint-disable-next-line no-undef
+  echarts.getInstanceByDom(diagram).setOption({
     legend: {
       data: titles,
       icon: 'rect',
-      top: 'bottom',
+      top: 'top',
     },
+
+    xAxis: {
+      min: performanceData[1][0],
+      max: performanceData.at(-1)[0],
+    },
+    series,
+  });
+}
+
+async function initChart(diagram) {
+// custom small bundle created on https://echarts.apache.org/en/builder.html
+  await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
+  // eslint-disable-next-line no-undef
+  const myChart = echarts.init(diagram);
+
+  // Specify the configuration items and data for the chart
+  const option = {
+    tooltip: null,
     grid: {
       //  reduce space around the chart
       top: '10',
@@ -237,8 +257,6 @@ async function drawChart(diagram, performanceData) {
         fontWeight: 'bold',
       },
       nameLocation: 'start',
-      min: performanceData[1][0],
-      max: performanceData.at(-1)[0],
       axisLine: {
         onZero: false,
       },
@@ -275,7 +293,6 @@ async function drawChart(diagram, performanceData) {
     yAxis: {
       type: 'value',
     },
-    series,
     animation: true,
     animationDuration: 500,
   };
