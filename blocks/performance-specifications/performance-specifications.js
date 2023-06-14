@@ -27,7 +27,10 @@ export default async function decorate(block) {
   const rawCategories = [...block.children];
 
   // add categories
-  const tabList = div({ role: 'tablist', class: 'category-tablist' });
+  const tabList = div({
+    role: 'tablist',
+    class: 'category-tablist',
+  });
   rawCategories.forEach((rawTabHeader) => {
     const categoryKey = getCategoryKey(rawTabHeader.children[0]);
     const isFirstTab = tabList.children.length === 0;
@@ -103,7 +106,10 @@ function updateDetailView(block) {
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
 
   // update performance data
-  const { facts, performanceData } = engineData.get(block)[categoryId][engineId];
+  const {
+    facts,
+    performanceData,
+  } = engineData.get(block)[categoryId][engineId];
   const keySpecs = block.querySelector('.key-specs');
   keySpecs.textContent = '';
   facts.forEach((row) => {
@@ -191,58 +197,34 @@ function handleKeyboardNavigation(tabList) {
  */
 async function updateChart(diagram, performanceData) {
   if (diagram.querySelector('.loading-spinner')) {
-    await initChart(diagram, performanceData);
+    // custom small bundle created on https://echarts.apache.org/en/builder.html
+    await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
+    /* global echarts */
   }
 
-  const titles = performanceData[0].slice(1)
-    .map((title) => title.toUpperCase());
+  // cleanup old chart (updating the existing chart does not work, it has additional labels.
+  // https://github.com/apache/echarts/issues/6202 )
+  if (echarts.getInstanceByDom(diagram)) {
+    echarts.getInstanceByDom(diagram)
+      .dispose();
+  }
 
-  const series = titles.map((title, index) => ({
-    name: title,
-    data: performanceData.slice(1)
-      .map((row) => [row[0], row[index + 1]]),
-    type: 'line',
-    symbol: 'none',
-  }));
-
-  series[0].markArea = {
-    silent: true,
-    itemStyle: {
-      color: 'rgb(198 214 235 / 50%)',
-    },
-    data: [[{ xAxis: 1300 }, { xAxis: 1700 }]],
-  };
-
-  // eslint-disable-next-line no-undef
-  echarts.getInstanceByDom(diagram).setOption({
-    legend: {
-      data: titles,
-      icon: 'rect',
-      top: 'top',
-    },
-
-    xAxis: {
-      min: performanceData[1][0],
-      max: performanceData.at(-1)[0],
-    },
-    series,
-  });
-}
-
-async function initChart(diagram) {
-// custom small bundle created on https://echarts.apache.org/en/builder.html
-  await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
-  // eslint-disable-next-line no-undef
-  const myChart = echarts.init(diagram, 'dark');
-
-  // Specify the configuration items and data for the chart
+  const myChart = echarts.init(diagram); // TODO: , 'dark'
   const option = {
+    dataset: {
+      source: performanceData,
+    },
+    legend: {
+      icon: 'rect',
+      top: 'bottom',
+    },
+
+    series: getEchartsSeries(performanceData, 1300, 1700),
     // Global palette:
     color: [
       '#85764d',
       '#808285',
       '#275fa6',
-
       '#c23531',
       '#2f4554',
       '#61a0a8',
@@ -253,16 +235,17 @@ async function initChart(diagram) {
       '#bda29a',
       '#6e7074',
       '#546570',
-      '#c4ccd3'
+      '#c4ccd3',
     ],
 
-    tooltip: null,
     grid: {
       //  reduce space around the chart
       top: '10',
       left: '50',
     },
     xAxis: {
+      min: performanceData[1][0],
+      max: performanceData.at(-1)[0],
       type: 'value',
       name: 'RPM',
       nameTextStyle: {
@@ -272,9 +255,6 @@ async function initChart(diagram) {
         fontWeight: 'bold',
       },
       nameLocation: 'start',
-      axisLine: {
-        onZero: false,
-      },
       axisTick: {
         show: false,
       },
@@ -311,13 +291,37 @@ async function initChart(diagram) {
     animation: true,
     animationDuration: 500,
   };
-
-  // Display the chart using the configuration items and data just specified.
   myChart.setOption(option);
+
   window.addEventListener('resize', () => {
-    myChart.resize();
+    if (!myChart.isDisposed()) {
+      myChart.resize();
+    }
   });
+
 }
+
+function getEchartsSeries(performanceData, sweetSpotStart, sweetSpotEnd) {
+  const series = [];
+
+  performanceData[0].slice(1)
+    .forEach(() => series.push({ type: 'line' }));
+
+  // add mark area to first series
+  series[0] = {
+    ...series[0],
+    markArea: {
+      silent: true,
+      itemStyle: {
+        color: 'rgb(198 214 235 / 50%)',
+      },
+      data: [[{ xAxis: sweetSpotStart }, { xAxis: sweetSpotEnd }]],
+    },
+  };
+
+  return series;
+}
+
 
 function getCategoryKey(el) {
   return el.textContent.replaceAll('®', '')
@@ -341,12 +345,17 @@ function loadPerformanceDataFromDataBlocks(block) {
       const categoryKey = [...dataBlock.classList].find((c) => c !== 'performance-data' && !c.toLowerCase()
         .endsWith('-hp') && c !== 'block');
       const horsepower = [...dataBlock.classList].find((c) => c.toLowerCase()
-        .endsWith('-hp')).replace('-', ' ').toUpperCase();
+        .endsWith('-hp'))
+        .replace('-', ' ')
+        .toUpperCase();
 
       if (!engineData.get(block)[categoryKey]) {
         engineData.get(block)[categoryKey] = {};
       }
-      engineData.get(block)[categoryKey][horsepower] = { facts, performanceData };
+      engineData.get(block)[categoryKey][horsepower] = {
+        facts,
+        performanceData,
+      };
     });
 }
 
