@@ -190,7 +190,6 @@ function handleKeyboardNavigation(tabList) {
   });
 }
 
-
 /**
  * @param diagram {HTMLElement}
  * @param performanceData {Array<Array<string>>}
@@ -209,17 +208,45 @@ async function updateChart(diagram, performanceData) {
       .dispose();
   }
 
+  performanceData.forEach((row) => {
+    row[0] = Number(row[0]);
+  });
+
   const myChart = echarts.init(diagram); // TODO: , 'dark'
+
+  function getEchartsSeries(sweetSpotStart, sweetSpotEnd) {
+    const series = [];
+
+    performanceData[0].slice(1)
+      .forEach((title, index) => series.push({
+        type: 'line',
+        seriesLayoutBy: 'column',
+        data: performanceData.slice(1)
+          .map((row) => [row[0], row[index + 1]]),
+      }));
+
+    // add mark area to first series
+    series[0] = {
+      ...series[0],
+      markArea: {
+        silent: true,
+        itemStyle: {
+          color: 'rgb(198 214 235 / 50%)',
+        },
+        data: [[{ xAxis: sweetSpotStart }, { xAxis: sweetSpotEnd }]],
+      },
+    };
+
+    return series;
+  }
+
   const option = {
-    dataset: {
-      source: performanceData,
-    },
     legend: {
       icon: 'rect',
       top: 'bottom',
     },
 
-    series: getEchartsSeries(performanceData, 1300, 1700),
+    series: getEchartsSeries(1300, 1700),
     // Global palette:
     color: [
       '#85764d',
@@ -244,8 +271,8 @@ async function updateChart(diagram, performanceData) {
       left: '50',
     },
     xAxis: {
-      min: performanceData[1][0],
-      max: performanceData.at(-1)[0],
+      min: performanceData[1][0] - 100,
+      max: performanceData.at(-1)[0] + 100,
       type: 'value',
       name: 'RPM',
       nameTextStyle: {
@@ -289,7 +316,7 @@ async function updateChart(diagram, performanceData) {
       type: 'value',
     },
     animation: true,
-    animationDuration: 500,
+    animationDuration: 400,
   };
   myChart.setOption(option);
 
@@ -298,30 +325,7 @@ async function updateChart(diagram, performanceData) {
       myChart.resize();
     }
   });
-
 }
-
-function getEchartsSeries(performanceData, sweetSpotStart, sweetSpotEnd) {
-  const series = [];
-
-  performanceData[0].slice(1)
-    .forEach(() => series.push({ type: 'line' }));
-
-  // add mark area to first series
-  series[0] = {
-    ...series[0],
-    markArea: {
-      silent: true,
-      itemStyle: {
-        color: 'rgb(198 214 235 / 50%)',
-      },
-      data: [[{ xAxis: sweetSpotStart }, { xAxis: sweetSpotEnd }]],
-    },
-  };
-
-  return series;
-}
-
 
 function getCategoryKey(el) {
   return el.textContent.replaceAll('®', '')
