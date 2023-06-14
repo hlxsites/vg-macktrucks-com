@@ -6,6 +6,7 @@ const engineData = new Map();
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
+  // add categories
   const tabList = div({ role: 'tablist', class: 'category-tablist' });
   rawCategories.forEach((rawTabHeader) => {
     const categoryKey = getCategoryKey(rawTabHeader.children[0]);
@@ -27,6 +28,7 @@ export default async function decorate(block) {
   block.append(tabList);
   handleKeyboardNavigation(tabList);
 
+  // add engine selection ("XY HP")
   const engineSelection = div({ class: 'engine-navigation' });
   engineSelection.innerHTML = `
     <p class="engine-tab-header">Engine Ratings</p>
@@ -35,22 +37,14 @@ export default async function decorate(block) {
   handleKeyboardNavigation(engineSelection.querySelector('.engine-tablist'));
   block.append(engineSelection);
 
+  // Add detail panel with facts and chart
   const detailPanel = div({ class: 'details-panel' });
   detailPanel.innerHTML = `<dl class="key-specs">
-<!--  e.g.    <dt>Peak Power</dt>-->
-<!--      <dd>425 HP</dd>-->
-<!--      <dt>Peak Power RPM</dt>-->
-<!--      <dd>1500-1700</dd>-->
-<!--      <dt>Peak Torque</dt>-->
-<!--      <dd>1560 lb-ft</dd>-->
-<!--      <dt>Peak Torque RPM</dt>-->
-<!--      <dd>1000-1300</dd>-->
     </dl>
     <div class="performance-chart">
         <div class="loading-spinner"></div>
     </div>
 `;
-
   block.append(detailPanel);
 
   loadPerformanceDataFromDataBlocks(block);
@@ -58,14 +52,12 @@ export default async function decorate(block) {
 }
 
 function initView(block) {
-  const selectedCategory = block.querySelector('.category-tablist button[aria-selected="true"]').dataset.categoryId;
-
-  updateEngineListView(block, selectedCategory);
-  const selectedEngineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
-  updateDetailView(block, selectedCategory, selectedEngineId);
+  updateEngineListView(block);
+  updateDetailView(block);
 }
 
-function updateEngineListView(block, categoryId) {
+function updateEngineListView(block) {
+  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
   // update engine selection
   const tabList = block.querySelector('.engine-tablist');
   // skip if category is already selected
@@ -79,15 +71,18 @@ function updateEngineListView(block, categoryId) {
         'aria-selected': index === 0,
       }, key[1]);
       engineTab.addEventListener('click', () => {
-        handleChangeEngineSelection(engineTab, tabList, block, categoryId);
+        handleChangeEngineSelection(engineTab, tabList, block);
       });
       tabList.append(engineTab);
     });
 
-  updateDetailView(block, categoryId, tabList.querySelector('[aria-selected="true"]').textContent);
+  updateDetailView(block);
 }
 
-function updateDetailView(block, categoryId, engineId) {
+function updateDetailView(block) {
+  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
+  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+
   // TODO: use string keys instead of array keys
   const key = [...engineData.keys()].find((aKey) => aKey[0] === categoryId && aKey[1] === engineId);
   // update performance data
@@ -122,10 +117,10 @@ function handleChangeCategory(event, tabList, block) {
   // Set this tab as selected
   tabHeader.setAttribute('aria-selected', true);
 
-  updateEngineListView(block, tabHeader.getAttribute('data-category-id'));
+  updateEngineListView(block);
 }
 
-function handleChangeEngineSelection(engineTab, tabList, block, categoryId) {
+function handleChangeEngineSelection(engineTab, tabList, block) {
   // ignore click if already selected
   if (engineTab.getAttribute('aria-selected') === 'true') {
     return;
@@ -138,7 +133,7 @@ function handleChangeEngineSelection(engineTab, tabList, block, categoryId) {
   // Set this tab as selected
   engineTab.setAttribute('aria-selected', true);
 
-  updateDetailView(block, categoryId, engineTab.textContent);
+  updateDetailView(block);
 }
 
 function handleKeyboardNavigation(tabList) {
