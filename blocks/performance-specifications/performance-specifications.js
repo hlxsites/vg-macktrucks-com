@@ -3,91 +3,26 @@ import { loadScript } from '../../scripts/lib-franklin.js';
 
 const engineData = new Map();
 
-function updateEngineListView(block, categoryId) {
-  // update engine selection
-  const tabList = block.querySelector('.engine-tablist');
-  // skip if category is already selected
-  tabList.textContent = '';
-
-  [...engineData.keys()]
-    .filter((key) => key[0] === categoryId)
-    .forEach((key, index) => {
-      const engineTab = button({
-        role: 'tab',
-        'aria-selected': index === 0,
-      }, key[1]);
-      tabList.append(engineTab);
-    });
-}
-
-function initView(block) {
-  const selectedCategory = block.querySelector('.category-tablist button[aria-selected="true"]').dataset.categoryId;
-
-  updateEngineListView(block, selectedCategory);
-
-  const tabList = block.querySelector('.engine-tablist');
-  const selectedEngine = tabList.querySelector('[aria-selected="true"]').textContent;
-  // TODO: use string keys instead of array keys
-  const key = [...engineData.keys()].find((aKey) => aKey[0] === selectedCategory && aKey[1] === selectedEngine);
-  // update performance data
-  const {
-    facts,
-    performanceData
-  } = engineData.get(key);
-  const keySpecs = block.querySelector('.key-specs');
-  // keySpecs.innerHTML = '';
-  facts.forEach((row) => {
-    keySpecs.append(
-      domEl('dt', row[0]),
-      domEl('dd', row[1]),
-    );
-  });
-
-  const diagram = block.querySelector('.performance-chart');
-  // noinspection JSIgnoredPromiseFromCall
-  drawChart(diagram, performanceData);
-}
-
-function changeCategory(event, tabList, block) {
-  const tabHeader = event.target.closest('[role="tab"]');
-
-  // ignore click if already selected
-  if (tabHeader.getAttribute('aria-selected') === 'true') {
-    return;
-  }
-
-  // Remove all current selected tabs
-  tabList.querySelectorAll('[aria-selected="true"]')
-    .forEach((tab) => tab.setAttribute('aria-selected', false));
-
-  // Set this tab as selected
-  tabHeader.setAttribute('aria-selected', true);
-
-  updateEngineListView(block, tabHeader.getAttribute('data-category-id'));
-}
-
 export default async function decorate(block) {
   const rawCategories = [...block.children];
 
-  const tabList = div({
-    role: 'tablist',
-    class: 'category-tablist'
-  });
+  const tabList = div({ role: 'tablist', class: 'category-tablist' });
   rawCategories.forEach((rawTabHeader) => {
-    const tabHeaderButton = button({ class: 'tab' });
-    tabHeaderButton.append(...rawTabHeader.children);
-    tabHeaderButton.children[0].classList.add('name');
-    tabHeaderButton.children[1].classList.add('description');
-    const categoryKey = getCategoryKey(tabHeaderButton.children[0]);
-    tabHeaderButton.setAttribute('data-category-id', categoryKey);
-    tabHeaderButton.setAttribute('role', 'tab');
+    const categoryKey = getCategoryKey(rawTabHeader.children[0]);
     const isFirstTab = tabList.children.length === 0;
-    tabHeaderButton.setAttribute('aria-selected', isFirstTab);
-    tabHeaderButton.addEventListener('click', (event) => {
-      changeCategory(event, tabList, block);
+    const tabButton = button({
+      class: 'tab',
+      role: 'tab',
+      'aria-selected': isFirstTab,
+      'data-category-id': categoryKey,
     });
-
-    tabList.append(tabHeaderButton);
+    tabButton.append(...rawTabHeader.children);
+    tabButton.children[0].classList.add('name');
+    tabButton.children[1].classList.add('description');
+    tabButton.addEventListener('click', (event) => {
+      handleChangeCategory(event, tabList, block);
+    });
+    tabList.append(tabButton);
   });
   block.append(tabList);
   handleKeyboardNavigation(tabList);
@@ -95,13 +30,9 @@ export default async function decorate(block) {
   const engineSelection = div({ class: 'engine-navigation' });
   engineSelection.innerHTML = `
     <p class="engine-tab-header">Engine Ratings</p>
-                <div class="engine-tablist " role="tablist" arialabel="Engine Ratings">
-                
-<!--             e.g.   <button role="tab" aria-selected="true" aria-controls="panel-3" id="tab-3" tabindex="0">425 HP </button>-->
-                
-                </div>
-            `;
+    <div class="engine-tablist " role="tablist" aria-label="Engine Ratings"></div>`;
 
+  handleKeyboardNavigation(engineSelection.querySelector('.engine-tablist'));
   block.append(engineSelection);
 
   const detailPanel = div({ class: 'details-panel' });
@@ -122,9 +53,124 @@ export default async function decorate(block) {
 
   block.append(detailPanel);
 
-  getPerformanceDataFromDataBlocks(block);
+  loadPerformanceDataFromDataBlocks(block);
   initView(block);
-  console.log(engineData);
+}
+
+function initView(block) {
+  const selectedCategory = block.querySelector('.category-tablist button[aria-selected="true"]').dataset.categoryId;
+
+  updateEngineListView(block, selectedCategory);
+  const selectedEngineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+  updateDetailView(block, selectedCategory, selectedEngineId);
+}
+
+function updateEngineListView(block, categoryId) {
+  // update engine selection
+  const tabList = block.querySelector('.engine-tablist');
+  // skip if category is already selected
+  tabList.textContent = '';
+
+  [...engineData.keys()]
+    .filter((key) => key[0] === categoryId)
+    .forEach((key, index) => {
+      const engineTab = button({
+        role: 'tab',
+        'aria-selected': index === 0,
+      }, key[1]);
+      engineTab.addEventListener('click', () => {
+        handleChangeEngineSelection(engineTab, tabList, block, categoryId);
+      });
+      tabList.append(engineTab);
+    });
+
+  updateDetailView(block, categoryId, tabList.querySelector('[aria-selected="true"]').textContent);
+}
+
+function updateDetailView(block, categoryId, engineId) {
+  // TODO: use string keys instead of array keys
+  const key = [...engineData.keys()].find((aKey) => aKey[0] === categoryId && aKey[1] === engineId);
+  // update performance data
+  const { facts, performanceData } = engineData.get(key);
+  const keySpecs = block.querySelector('.key-specs');
+  keySpecs.textContent = '';
+  // keySpecs.innerHTML = '';
+  facts.forEach((row) => {
+    keySpecs.append(
+      domEl('dt', row[0]),
+      domEl('dd', row[1]),
+    );
+  });
+
+  const diagram = block.querySelector('.performance-chart');
+  // noinspection JSIgnoredPromiseFromCall
+  drawChart(diagram, performanceData);
+}
+
+function handleChangeCategory(event, tabList, block) {
+  const tabHeader = event.target.closest('[role="tab"]');
+
+  // ignore click if already selected
+  if (tabHeader.getAttribute('aria-selected') === 'true') {
+    return;
+  }
+
+  // Remove all current selected tabs
+  tabList.querySelectorAll('[aria-selected="true"]')
+    .forEach((tab) => tab.setAttribute('aria-selected', false));
+
+  // Set this tab as selected
+  tabHeader.setAttribute('aria-selected', true);
+
+  updateEngineListView(block, tabHeader.getAttribute('data-category-id'));
+}
+
+function handleChangeEngineSelection(engineTab, tabList, block, categoryId) {
+  // ignore click if already selected
+  if (engineTab.getAttribute('aria-selected') === 'true') {
+    return;
+  }
+
+  // Remove all current selected tabs
+  tabList.querySelectorAll('[aria-selected="true"]')
+    .forEach((tab) => tab.setAttribute('aria-selected', false));
+
+  // Set this tab as selected
+  engineTab.setAttribute('aria-selected', true);
+
+  updateDetailView(block, categoryId, engineTab.textContent);
+}
+
+function handleKeyboardNavigation(tabList) {
+  // from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
+  tabList.addEventListener('keydown', (e) => {
+    const tabs = [...tabList.children];
+    let tabFocus = tabs.indexOf(e.target);
+
+    // Move right
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      tabs[tabFocus].setAttribute('tabindex', -1);
+      if (e.key === 'ArrowRight') {
+        // eslint-disable-next-line no-plusplus
+        tabFocus++;
+        // If we're at the end, go to the start
+        if (tabFocus >= tabs.length) {
+          tabFocus = 0;
+        }
+        // Move left
+      } else if (e.key === 'ArrowLeft') {
+        // eslint-disable-next-line no-plusplus
+        tabFocus--;
+        // If we're at the start, move to the end
+        if (tabFocus < 0) {
+          tabFocus = tabs.length - 1;
+        }
+      }
+
+      tabs[tabFocus].setAttribute('tabindex', 0);
+      tabs[tabFocus].focus();
+    }
+  });
 }
 
 function getColor(title, index) {
@@ -133,7 +179,7 @@ function getColor(title, index) {
 
 async function drawChart(diagram, performanceData) {
   await loadScript('../../common/echarts-5.4.2/echarts.simple.min.js');
-
+  // TODO: update chart instead of recreating it
   // eslint-disable-next-line no-undef
   const myChart = echarts.init(diagram);
 
@@ -236,7 +282,7 @@ function getCategoryKey(el) {
     .trim();
 }
 
-function getPerformanceDataFromDataBlocks(block) {
+function loadPerformanceDataFromDataBlocks(block) {
   block.closest('.performance-specifications-container')
     .querySelectorAll('.performance-data')
     .forEach((dataBlock) => {
@@ -256,96 +302,9 @@ function getPerformanceDataFromDataBlocks(block) {
       engineData.set([categoryKey, horsepower.replace('-', ' ')
         .toUpperCase()], {
         facts,
-        performanceData
+        performanceData,
       });
     });
-}
-
-// let tabId = 0;
-// function addTab(tabHeader, tabPanel, tabList, tabsContents) {
-//   tabId += 1;
-//   const isFirstTab = tabList.children.length === 0;
-//   tabHeader.setAttribute('role', 'tab');
-//   tabHeader.setAttribute('aria-selected', isFirstTab);
-//   tabHeader.setAttribute('aria-controls', `panel-${tabId}`);
-//   tabHeader.setAttribute('id', `tab-${tabId}`);
-//   tabHeader.setAttribute('tabindex', '0'); // TODO: fix tabindex
-//   tabList.append(tabHeader);
-//
-//   tabPanel.setAttribute('id', `panel-${tabId}`);
-//   tabPanel.setAttribute('role', 'tabpanel');
-//   tabPanel.setAttribute('tabindex', '0'); // TODO: fix tabindex
-//   tabPanel.setAttribute('aria-labelledby', `tab-${tabId}`);
-//   if (!isFirstTab) {
-//     tabPanel.setAttribute('hidden', '');
-//   }
-//
-//   tabsContents.append(tabPanel);
-//
-//   tabHeader.addEventListener('click', changeTabs);
-// }
-
-function handleKeyboardNavigation(tabList) {
-  // from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
-  tabList.addEventListener('keydown', (e) => {
-    const tabs = [...tabList.children];
-    let tabFocus = tabs.indexOf(e.target);
-
-    // Move right
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      tabs[tabFocus].setAttribute('tabindex', -1);
-      if (e.key === 'ArrowRight') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus++;
-        // If we're at the end, go to the start
-        if (tabFocus >= tabs.length) {
-          tabFocus = 0;
-        }
-        // Move left
-      } else if (e.key === 'ArrowLeft') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus--;
-        // If we're at the start, move to the end
-        if (tabFocus < 0) {
-          tabFocus = tabs.length - 1;
-        }
-      }
-
-      tabs[tabFocus].setAttribute('tabindex', 0);
-      tabs[tabFocus].focus();
-    }
-  });
-}
-
-function changeTabs(e) {
-  const { target } = e;
-
-  // ignore click if already selected
-  if (target.getAttribute('aria-selected') === 'true') {
-    return;
-  }
-
-  const tabHeader = target.closest('[role="tab"]');
-  const tabList = target.closest('[role="tablist"]');
-  const grandparent = tabList.parentElement;
-  const tabPanels = grandparent.querySelector('.tab-panels') || grandparent.parentElement.querySelector('.tab-panels');
-
-  // Remove all current selected tabs
-  tabList
-    .querySelectorAll('[aria-selected="true"]')
-    .forEach((tab) => tab.setAttribute('aria-selected', false));
-
-  // Set this tab as selected
-  tabHeader.setAttribute('aria-selected', true);
-
-  // Hide all tab panels
-  tabPanels
-    .querySelectorAll(':scope > [role="tabpanel"]')
-    .forEach((panel) => panel.setAttribute('hidden', ''));
-
-  // Show the selected panel
-  document.getElementById(tabHeader.getAttribute('aria-controls'))
-    .removeAttribute('hidden');
 }
 
 /**
