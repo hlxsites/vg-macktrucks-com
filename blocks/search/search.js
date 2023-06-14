@@ -118,12 +118,34 @@ export default function decorate(block) {
     overlay.classList.toggle(showClass, isOpen);
   };
 
+  // handle filters
+  const addFilterEvent = (e, form) => {
+    form.requestSubmit();
+  };
+
+  const addFilterSubmitEvent = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const inputsChecked = [];
+    const filters = [];
+    [...form].forEach((field) => {
+      if (!field.checked) return;
+      inputsChecked.push(field.id);
+      filters.push({
+        field: field.dataset.filter,
+        value: field.value,
+      });
+    });
+    fetchResults(filters);
+  };
+
   const addFacetsEvents = (facets) => {
     if (!facets) return;
     const facetSidebar = facets.querySelector('.sf-sidebar-container');
     const facetOverlay = facets.querySelector('.sidebar-background');
     const closeBtns = facets.querySelectorAll('.search-close-button, .close-button');
     const titles = facets.querySelectorAll('.sidebar-heading a');
+    const filtersForm = facets.querySelector('#facetsFilters');
     if (titles.length > 0) {
       [...titles].forEach((title) => {
         title.onclick = addFacetTitlesToggleEvent;
@@ -143,6 +165,9 @@ export default function decorate(block) {
     [...closeBtns].forEach((btn) => {
       btn.onclick = () => addToggleOverlayEvent(facetSidebar, facetOverlay);
     });
+
+    filtersForm.addEventListener('submit', addFilterSubmitEvent);
+    filtersForm.onchange = (e) => addFilterEvent(e, filtersForm);
   };
 
   // handle sort
@@ -219,7 +244,7 @@ export default function decorate(block) {
     resRange.innerText = rangeText;
   }
 
-  async function fetchResults() {
+  async function fetchResults(filters = null) {
     const searchParams = new URLSearchParams(window.location.search);
     const queryTerm = searchParams.get('q');
     const offsetVal = Number(searchParams.get('start'));
@@ -229,8 +254,10 @@ export default function decorate(block) {
 
     const queryObj = {
       query: `
-      query MacTrucksQuery($q: String, $offset: Int, $limit: Int, $language: MackLocaleEnum!, $facets: [MackFacet], $sort: [MackSortOptionsEnum]) {
-        macktrucksearch(q: $q, offset: $offset, limit: $limit, language: $language, facets: $facets, sort: $sort) {
+      query MacTrucksQuery($q: String, $offset: Int, $limit: Int, $language: MackLocaleEnum!,
+      $facets: [MackFacet], $sort: [MackSortOptionsEnum]${filters ? ', $filters: [MackFilterItem]' : ''}) {
+        macktrucksearch(q: $q, offset: $offset, limit: $limit, language: $language,
+      facets: $facets, sort: $sort${filters ? ', filters: $filters' : ''}) {
           count
           items {
             uuid
@@ -264,6 +291,8 @@ export default function decorate(block) {
         sort: sortVal,
       },
     };
+
+    if (filters) queryObj.variables.filters = filters;
 
     const response = await fetch(
       SEARCH_LINK,

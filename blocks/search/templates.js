@@ -150,11 +150,11 @@ export const getShowingResultsTemplate = (text) => `
 
 const sanitizeString = (string) => string.replaceAll(' ', '-');
 
-const getItemsList = (items) => items.map((item, i) => {
+const getItemsList = (items, filter) => items.map((item, i) => {
   const sanitizedValue = sanitizeString(item.value);
   return `
     <li ${i > 2 ? 'class="d-none"' : ''}>
-      <input type="checkbox" id="${sanitizedValue}" value="${sanitizedValue}" />
+      <input type="checkbox" id="${sanitizedValue}" data-filter="${filter}" value="${item.value}" />
       <label for="${sanitizedValue}" class="ml-1">
       <span class="facet-name" title="${sanitizedValue}"> ${item.value} </span> (${item.count}) </label>
     </li>
@@ -163,8 +163,8 @@ const getItemsList = (items) => items.map((item, i) => {
 
 export const getFacetsTemplate = (facets) => {
   const [category, tags] = facets;
-  const categoryItemsText = getItemsList(category.items);
-  const tagsItemsText = getItemsList(tags.items);
+  const categoryItemsText = getItemsList(category.items, 'CATEGORY');
+  const tagsItemsText = getItemsList(tags.items, 'TAGS');
 
   return `
     <div class="facet-template-container-custom">
