@@ -184,9 +184,6 @@ function handleKeyboardNavigation(tabList) {
   });
 }
 
-function getColor(title, index) {
-  return ['#85764d', '#808285', '#275fa6'][index];
-}
 
 /**
  * @param diagram {HTMLElement}
@@ -206,7 +203,6 @@ async function updateChart(diagram, performanceData) {
       .map((row) => [row[0], row[index + 1]]),
     type: 'line',
     symbol: 'none',
-    color: getColor(title, index),
   }));
 
   series[0].markArea = {
@@ -237,10 +233,29 @@ async function initChart(diagram) {
 // custom small bundle created on https://echarts.apache.org/en/builder.html
   await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
   // eslint-disable-next-line no-undef
-  const myChart = echarts.init(diagram);
+  const myChart = echarts.init(diagram, 'dark');
 
   // Specify the configuration items and data for the chart
   const option = {
+    // Global palette:
+    color: [
+      '#85764d',
+      '#808285',
+      '#275fa6',
+
+      '#c23531',
+      '#2f4554',
+      '#61a0a8',
+      '#d48265',
+      '#91c7ae',
+      '#749f83',
+      '#ca8622',
+      '#bda29a',
+      '#6e7074',
+      '#546570',
+      '#c4ccd3'
+    ],
+
     tooltip: null,
     grid: {
       //  reduce space around the chart
