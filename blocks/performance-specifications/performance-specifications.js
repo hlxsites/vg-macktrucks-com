@@ -1,7 +1,27 @@
 import { button, div, domEl } from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
+/**
+ * as multiple blocks might be on the same page, the data is accessed using they block node as the
+ * key.
+ *
+ * @type {Map<HTMLElement, CategoryData>}
+ */
 const engineData = new Map();
+
+/**
+ * @typedef {Object.<string, EngineInfo>} CategoryData
+ */
+
+/**
+ * @typedef {Object.<string, EngineDetail>} EngineInfo
+ */
+
+/**
+ * @typedef {Object} EngineDetail
+ * @property {Array<Array<string>>} facts
+ * @property {Array<Array<string>>} performanceData
+ */
 
 export default async function decorate(block) {
   const rawCategories = [...block.children];
@@ -63,13 +83,12 @@ function updateEngineListView(block) {
   // skip if category is already selected
   tabList.textContent = '';
 
-  [...engineData.keys()]
-    .filter((key) => key[0] === categoryId)
-    .forEach((key, index) => {
+  Object.keys(engineData.get(block)[categoryId])
+    .forEach((engineId, index) => {
       const engineTab = button({
         role: 'tab',
         'aria-selected': index === 0,
-      }, key[1]);
+      }, engineId);
       engineTab.addEventListener('click', () => {
         handleChangeEngineSelection(engineTab, tabList, block);
       });
@@ -83,13 +102,10 @@ function updateDetailView(block) {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
 
-  // TODO: use string keys instead of array keys
-  const key = [...engineData.keys()].find((aKey) => aKey[0] === categoryId && aKey[1] === engineId);
   // update performance data
-  const { facts, performanceData } = engineData.get(key);
+  const { facts, performanceData } = engineData.get(block)[categoryId][engineId];
   const keySpecs = block.querySelector('.key-specs');
   keySpecs.textContent = '';
-  // keySpecs.innerHTML = '';
   facts.forEach((row) => {
     keySpecs.append(
       domEl('dt', row[0]),
@@ -278,6 +294,8 @@ function getCategoryKey(el) {
 }
 
 function loadPerformanceDataFromDataBlocks(block) {
+  engineData.set(block, {});
+
   block.closest('.performance-specifications-container')
     .querySelectorAll('.performance-data')
     .forEach((dataBlock) => {
@@ -291,14 +309,12 @@ function loadPerformanceDataFromDataBlocks(block) {
       const categoryKey = [...dataBlock.classList].find((c) => c !== 'performance-data' && !c.toLowerCase()
         .endsWith('-hp') && c !== 'block');
       const horsepower = [...dataBlock.classList].find((c) => c.toLowerCase()
-        .endsWith('-hp'));
+        .endsWith('-hp')).replace('-', ' ').toUpperCase();
 
-      // TODO: support multiple blocks
-      engineData.set([categoryKey, horsepower.replace('-', ' ')
-        .toUpperCase()], {
-        facts,
-        performanceData,
-      });
+      if (!engineData.get(block)[categoryKey]) {
+        engineData.get(block)[categoryKey] = {};
+      }
+      engineData.get(block)[categoryKey][horsepower] = { facts, performanceData };
     });
 }
 
