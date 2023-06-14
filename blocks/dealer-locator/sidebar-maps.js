@@ -235,6 +235,13 @@ $hoverText = $('#hoverText').val();
         'routeindex_changed',
     );
 
+    google.maps.event.addListenerOnce( $map, 'idle', function() {  
+        if (document.getElementById('location').value){
+          $.fn.setAddress();
+        }    
+      }
+    );
+
     if ($isAsist) {
       $('#filter-options').css('display', 'none');
       $brandOptionSelected = window.locatorConfig.selectedBrand;
