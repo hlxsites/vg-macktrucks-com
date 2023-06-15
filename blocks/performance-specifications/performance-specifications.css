@@ -1,73 +1,51 @@
 /* stylelint-disable no-descending-specificity */
 
+.performance-specifications {
+  --gold-button-background: #b3976b;
+}
+
 .performance-specifications .category-tablist[role="tablist"] {
   display: flex;
 }
 
 .performance-specifications .category-tablist [role="tab"] {
-  color: var(--primary-black);
-  width: 25%;
-  max-width: 20em;
+  --tab-inactive-text-color: #8d8d8d;
+  --tab-inactive-border-color: #393939;
+
+  color: var(--secondary-steel);
+  width: 33vw;
   transition: .5s all;
-  background-color: #fff;
-  border: 3px solid #000;
-  padding: 0.9em;
+  border-bottom: 3px solid var(--tab-inactive-border-color);
+  padding-bottom: 0.7em;
   cursor: pointer;
   text-align: center;
-
-  /* avoid double border on the side */
-  margin-left: -3px;
-}
-
-.performance-specifications .category-tablist [role="tab"] .name {
-  font-size: var(--body-font-size-l);
-  font-family: var(--emphasis-ff-bold);
-  line-height: 1;
-}
-
-.performance-specifications .category-tablist [role="tab"] .description {
-  font-size: var(--body-font-size-xxxs);
-  font-family: var(--emphasis-ff-bold);
-  text-transform: uppercase;
+  background-color: transparent;
+  font-size: var(--body-font-size-s);
+  font-family: var(--subheadings-ff-medium);
+  font-weight: normal;
 }
 
 .performance-specifications .category-tablist [role="tab"][aria-selected="true"],
 .performance-specifications .category-tablist [role="tab"]:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-@media screen and (max-width: 768px) {
-  .performance-specifications .category-tablist[role="tablist"] {
-    flex-direction: column;
-  }
-
-  .performance-specifications .category-tablist [role="tab"] {
-    width: 100%;
-    max-width: unset;
-    padding: 2em;
-    margin-bottom: 0;
-
-    /* avoid double border on the top */
-    margin-top: -3px;
-
-  }
-}
-
-.performance-specifications .engine-tablist [role="tab"] {
-  background-color: var(--primary-white);
-  color: var(--primary-black);
-  margin-left: 1em;
-  border-radius: 4px;
-  padding: 0.5em 0.7em;
-  font-size: var(--body-font-size-xs);
-  font-family: var(--emphasis-ff-bold);
-}
-
-.performance-specifications .engine-tablist [role="tab"][aria-selected="true"],
-.performance-specifications .engine-tablist [role="tab"]:hover {
-  background-color: #000;
   color: var(--primary-white);
+  border-bottom: 3px solid var(--primary-accent-red);
+}
+
+.performance-specifications .category-detail {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--primary-white);
+  margin-bottom: 20px;
+}
+
+.performance-specifications .category-detail .category-description {
+  font-size: var(--body-font-size-s);
+  max-width: 600px;
+}
+
+.performance-specifications .engine-ratings {
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  margin-top: 22px;
 }
 
 .performance-specifications .engine-navigation {
@@ -78,14 +56,28 @@
   gap: 20px;
 }
 
-.performance-specifications .engine-tab-header {
-  font-family: var(--emphasis-ff-bold);
+.performance-specifications .engine-tablist [role="tab"] {
+  background-color: var(--primary-white);
   font-size: var(--body-font-size-s);
-  text-transform: uppercase;
-  color: #7B7B7B;
-  line-height: unset;
-  margin-top: 22px;
+  color: var(--primary-black);
+  margin-left: 1em;
+  border-radius: 2px;
+  padding: 0.4em 0.7em;
+  line-height: 1em;
 }
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="true"] {
+  background-color: var(--gold-button-background);
+}
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="true"]:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="false"]:hover {
+  background-color: var(--button-tertiary-white-hover);
+}
+
 
 .performance-specifications .details-panel {
   display: flex;
@@ -97,13 +89,10 @@
 }
 
 .performance-specifications .details-panel dl dt {
-  color: #7B7B7B;
+  font-size: var(--body-font-size-xs);
   text-transform: uppercase;
-  font-size: .7em;
-  font-family: var(--emphasis-ff-bold);
   line-height: 1em;
-  letter-spacing: -.015em;
-  border-top: 1px solid #DBDBDB;
+  letter-spacing: .1em;
   padding-top: 1.2em;
   padding-right: 0;
   padding-left: 0;
@@ -112,11 +101,24 @@
 .performance-specifications .details-panel dl dd {
   line-height: 1em;
   font-size: var(--body-font-size-xs);
-  font-weight: 700;
-  font-family: var(--accents-ff-bold);
   letter-spacing: -.015em;
-  padding: 0.5em 0 1.5em;
+  padding: 0.5em 0 0;
   margin-left: 0;
+  margin-bottom: 1.2em;
+}
+
+.performance-specifications .details-panel a.download-specs {
+  background-color: var(--gold-button-background);
+  font-size: var(--body-font-size-s);
+  border-radius: 2px;
+  padding: 0.6em 0.7em;
+  line-height: 1em;
+}
+
+.performance-specifications .details-panel a.download-specs:hover {
+  text-decoration: none;
+  color: var(--primary-black);
+  border: 2px solid currentcolor;
 }
 
 .details-panel .loading-spinner {

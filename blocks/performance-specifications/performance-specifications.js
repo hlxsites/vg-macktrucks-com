@@ -1,4 +1,6 @@
-import { button, div, domEl } from '../../scripts/scripts.js';
+import {
+  button, a, div, domEl, p,
+} from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 /**
@@ -101,10 +103,10 @@ function renderCategoryTabs(block, categoryData, categoryId) {
 function renderCategoryDetail(block, categoryData, selectEngineId = null) {
   const categoryDetails = div({ class: 'category-detail' });
   categoryDetails.innerHTML = `
-    <h2>${categoryData.nameHTML}</h2>
-    <p>${categoryData.descriptionHTML}</p>
+    <h3>${categoryData.nameHTML}</h3>
+    <p class="category-description">${categoryData.descriptionHTML}</p>
     <div class="engine-navigation">
-      <p class="engine-tab-header">Engine Ratings</p>
+      <p class="engine-ratings">Engine Ratings</p>
       <div class="engine-tablist" role="tablist" aria-label="Engine Ratings"> </div>
     </div>`;
 
@@ -144,11 +146,15 @@ function renderEngineSpecs(engineDetails) {
   const { facts } = engineDetails;
 
   // noinspection JSCheckFunctionSignatures
-  return domEl('dl', { class: 'key-specs' }, ...facts.map((cells) => [
-    domEl('dt', cells[0]),
-    domEl('dd', cells[1]),
-  ])
-    .flat());
+  return div({ class: 'key-specs' },
+    domEl('dl', {}, ...facts.map((cells) => [
+      domEl('dt', cells[0]),
+      domEl('dd', cells[1]),
+    ])
+      .flat()),
+    p({ class: 'button-container' },
+      a({ class: 'button secondary download-specs' }, 'Download Specs')),
+  );
 }
 
 function refreshDetailView(block) {
