@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern */
 .eloqua-form {
   font-size: 16px;
   max-width: 950px;
@@ -143,11 +144,20 @@
   bottom: 0;
 }
 
-.eloqua-form .elq-form input, .eloqua-form .elq-form textarea {
+.eloqua-form .elq-form input,
+.eloqua-form .elq-form textarea {
   box-sizing: border-box;
   height: auto;
 }
 
 .eloqua-form .elq-form .field-wrapper.individual {
   float: none;
+}
+
+.eloqua-form .LV_valid_field,
+.eloqua-form input.LV_valid_field:hover,
+.eloqua-form input.LV_valid_field:active,
+.eloqua-form textarea.LV_valid_field:hover,
+.eloqua-form textarea.LV_valid_field:active {
+  outline: inherit;
 }
