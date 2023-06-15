@@ -1,6 +1,6 @@
-import { loadCSS } from '../../scripts/lib-franklin.js';
+import { loadBlock, loadCSS } from '../../scripts/lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
-import { createIframe, createElement } from '../../scripts/scripts.js';
+import { createIframe, createElement, loadAsBlock } from '../../scripts/scripts.js';
 
 const styles$ = new Promise((r) => {
   loadCSS(`${window.hlx.codeBasePath}/common/modal/modal.css`, r);
@@ -44,9 +44,10 @@ const createModal = () => {
 
   const clearModalContent = () => {
     modalContent.innerHTML = '';
+    modalContent.className = 'modal-content';
   };
 
-  async function showModal(newUrl, beforeBanner, beforeIframe) {
+  async function showModal(newContent, { beforeBanner, beforeIframe, classes = [] }) {
     await styles$;
     await new Promise((resolve) => {
       // beacues the styels$ is based on the on load event it's waiting for the file to be loaded
@@ -66,9 +67,10 @@ const createModal = () => {
     modalBackground.style = '';
     window.addEventListener('keydown', keyDownAction);
 
-    if (newUrl) {
+    // if the newContent is String then load it as iframe
+    if (newContent && newContent instanceof String) {
       clearModalContent();
-      const iframe = createIframe(newUrl, { parentEl: modalContent, classes: 'modal-video' });
+      const iframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });
 
       if (beforeBanner) {
         const bannerWrapper = createElement('div', ['modal-before-banner']);
@@ -83,6 +85,10 @@ const createModal = () => {
         wrapper.appendChild(beforeIframe);
         iframe.parentElement.insertBefore(wrapper, iframe);
       }
+    } else if (newContent) {
+      clearModalContent();
+      modalContent.classList.add(...classes);
+      modalContent.append(newContent);
     }
 
     modalBackground.classList.remove(HIDE_MODAL_CLASS);

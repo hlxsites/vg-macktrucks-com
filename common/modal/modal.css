@@ -46,6 +46,7 @@
   transform: translate(-50%, -50%);
   opacity: 1;
   top: 50vh;
+  cursor: auto;
 }
 
 .modal-content .modal-video {
@@ -111,4 +112,51 @@
 .modal-soundcloud .episode-image img {
   width: 100%;
   height: unset;
+}
+
+.modal-content.modal-bulldog-form {
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../media/subscribe-to-bulldog-background.png");
+  padding: 50px;
+  color: var(--primary-white);
+}
+
+.modal-content.modal-bulldog-form h2,
+.modal-content.modal-bulldog-form h3 {
+  margin-top: 0;
+}
+
+.modal-content.modal-bulldog-form .eloqua-form .elq-form input,
+.modal-content.modal-bulldog-form .eloqua-form .elq-form select {
+  color: var(--primary-white);
+  opacity: 0.6;
+  background-color: rgb(255 255 255 / 40%);
+}
+
+.modal-content.modal-bulldog-form input::placeholder {
+  color: var(--primary-white);
+}
+
+.modal-content.modal-bulldog-form .eloqua-form .elq-form .eloqua-select-wrapper::after {
+  color: var(--primary-white);
+  border-color: var(--primary-white);
+  opacity: 0.6;
+}
+
+.modal-content.modal-bulldog-form .eloqua-form input[type="submit"] {
+  background: var(--primary-black);
+  color: var(--primary-white);
+  opacity: 1;
+}
+
+.modal-content.modal-bulldog-form .eloqua-form .elq-form input[type="checkbox"],
+/* stylelint-disable-next-line max-line-length */
+.modal-content.modal-bulldog-form .eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
+  background-color: transparent;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.modal-content.modal-bulldog-form .LV_invalid {
+  color: yellow;
 }

@@ -407,7 +407,7 @@ export function showVideoModal(linkUrl) {
       beforeBanner = createLowResolutionBanner();
     }
 
-    modal.showModal(linkUrl, beforeBanner);
+    modal.showModal(linkUrl, { beforeBanner });
   });
 }
 
@@ -463,4 +463,21 @@ export function loadScriptIfNotLoadedYet(url, attrs) {
   const promise = loadScript(url, attrs);
   scriptMap.set(url, { url, attrs, promise });
   return promise;
+}
+
+/**
+ *
+ * @param {string} blockName - block name with '-' instead of spaces
+ * @param {string} blockContent - the content that will be set as block inner HTML
+ * @param {object} options - other options like variantsClasses
+ * @returns
+ */
+export function loadAsBlock(blockName, blockContent, options = {}) {
+  const { variantsClasses = [] } = options;
+  const blockEl = createElement('div', ['block', blockName, ...variantsClasses], { 'data-block-name': blockName });
+
+  blockEl.innerHTML = blockContent;
+  loadBlock(blockEl);
+
+  return blockEl;
 }

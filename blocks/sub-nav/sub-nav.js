@@ -1,4 +1,6 @@
-import { createElement, decorateButtons, getTextLabel } from '../../scripts/scripts.js';
+import {
+  createElement, decorateButtons, getTextLabel, loadAsBlock,
+} from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
@@ -131,6 +133,16 @@ async function buildMagazineSubNav(block, ref) {
   mainSubNav.appendChild(subNavTitle);
   subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
   block.appendChild(subNavContainer);
+
+  const showBulldogSubscribeForm = () => {
+    // eslint-disable-next-line import/no-cycle
+    import('../../common/modal/modal.js').then((modal) => {
+      const bulldogForm = loadAsBlock('eloqua-form', '<div>magazine-subscribe</div><div><div><div>Thank you!</div></div></div>');
+      modal.showModal(bulldogForm, { classes: ['modal-bulldog-form'] });
+    });
+  };
+  subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
+  listSubscribeBtn.addEventListener('click', showBulldogSubscribeForm);
 
   window.onresize = () => {
     const isDesktop = MQ.matches;
