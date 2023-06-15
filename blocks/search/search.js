@@ -161,14 +161,18 @@ export default function decorate(block) {
         });
       }
     });
-    const searchParams = new URLSearchParams(window.location.search);
+    const filterParams = ['tags', 'category'];
 
-    if (facetsFilters.length) {
-      facetsFilters.forEach((item) => {
-        searchParams.delete(item);
-        insertUrlParam(item.field, item.value);
-      });
-    }
+    filterParams.forEach((item) => {
+      const filter = facetsFilters.find(({ field }) => field.toLowerCase() === item);
+
+      if (filter) {
+        insertUrlParam(item, filter.value);
+        return;
+      }
+      insertUrlParam(item, '', true);
+    });
+    facetsFilters = [];
     fetchResults();
   };
 
@@ -256,11 +260,13 @@ export default function decorate(block) {
     sortBy.classList.toggle('hide', !hasResults);
   }
 
-  function insertUrlParam(key = null, value = null) {
+  function insertUrlParam(key, value = '', isDelete = false) {
     if (window.history.pushState) {
       const searchUrl = new URL(window.location.href);
-      if (key) {
+      if (!isDelete) {
         searchUrl.searchParams.set(key, value);
+      } else {
+        searchUrl.searchParams.delete(key);
       }
       window.history.pushState({}, '', searchUrl.toString());
     }
@@ -290,6 +296,24 @@ export default function decorate(block) {
     const sortVal = searchParams.get('sort') || 'BEST_MATCH';
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? SEARCH_URLS.dev : SEARCH_URLS.prod;
+
+    const tags = searchParams.get('tags');
+    const category = searchParams.get('category');
+
+    if (tags) {
+      facetsFilters.push({
+        field: 'TAGS',
+        value: tags.split(','),
+      });
+    }
+
+    if (category) {
+      facetsFilters.push({
+        field: 'CATEGORY',
+        value: category.split(','),
+      });
+    }
+
     const isFilters = facetsFilters.length;
 
     const queryObj = {
