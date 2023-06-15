@@ -246,7 +246,7 @@ async function updateChart(chartContainer, performanceData) {
       markArea: {
         silent: true,
         itemStyle: {
-          color: 'rgb(198 214 235 / 50%)',
+          color: 'rgb(62 62 62 / 50%)',
         },
         data: [[{ xAxis: sweetSpotStart }, { xAxis: sweetSpotEnd }]],
       },
@@ -264,38 +264,33 @@ async function updateChart(chartContainer, performanceData) {
     series: getEchartsSeries(1300, 1700),
     // Global palette:
     color: [
-      '#85764d',
-      '#808285',
+      '#ffffff',
+      '#b3976b',
       '#275fa6',
-      '#c23531',
-      '#2f4554',
-      '#61a0a8',
-      '#d48265',
-      '#91c7ae',
-      '#749f83',
-      '#ca8622',
-      '#bda29a',
-      '#6e7074',
-      '#546570',
-      '#c4ccd3',
     ],
+    backgroundColor: '#1d1d1d',
 
     grid: {
       //  reduce space around the chart
       left: '50',
+    },
+    textStyle: {
+      color: '#ffffff',
     },
     xAxis: {
       min: performanceData[1][0],
       max: performanceData.at(-1)[0] + 100,
       type: 'value',
       name: 'RPM',
+      nameGap: 40,
       nameTextStyle: {
-        borderType: 'solid',
-        verticalAlign: 'top',
-        lineHeight: 30,
+        fontSize: 15,
+        // borderType: 'solid',
+        // verticalAlign: 'top',
+        // lineHeight: 50,
         fontWeight: 'bold',
       },
-      nameLocation: 'start',
+      nameLocation: 'center',
       axisTick: {
         show: false,
       },
@@ -322,12 +317,20 @@ async function updateChart(chartContainer, performanceData) {
         interval: 0,
         showMinLabel: false,
         showMaxLabel: false,
-        color: '#767676',
-        fontWeight: 'bold',
+        formatter(value) {
+          // remove thousands separator
+          return value;
+        },
       },
     },
     yAxis: {
       type: 'value',
+      axisLabel: {
+        formatter(value) {
+          // remove thousands separator
+          return value;
+        },
+      },
     },
     animation: true,
     animationDuration: 400,
