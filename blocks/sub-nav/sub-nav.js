@@ -41,7 +41,7 @@ async function createSubNav(block, ref) {
   // add a caret arrow for mobile version
   const caretIcon = createElement('div', ['fa', 'fa-caret-down', 'icon']);
   // set the active link, if is not found then use overview as default
-  const activeLink = [...ul.querySelectorAll('li a')].find((a) => new URL(a.href).pathname === pathname);
+  const activeLink = ul && [...ul.querySelectorAll('li a')].find((a) => new URL(a.href).pathname === pathname);
   const activeLi = activeLink ? activeLink.closest('li') : overview;
 
   title.className = 'sub-nav-title';
