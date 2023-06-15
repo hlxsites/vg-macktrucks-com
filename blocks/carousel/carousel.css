@@ -40,7 +40,7 @@
 
 .block.carousel .carousel-content-wrapper {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   height: 100%;
   overflow: hidden;
   max-width: 100vw;
@@ -216,6 +216,11 @@
   font-size: 16px;
   line-height: 21px;
   color: var(--primary-white);
+}
+
+.block.carousel .items picture {
+  width: 100%;
+  height: 100%;
 }
 
 .block.carousel .items .carousel-item-text picture img {

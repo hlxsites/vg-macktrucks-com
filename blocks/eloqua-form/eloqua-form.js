@@ -1,3 +1,5 @@
+import { createElement, loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
+
 // eslint-disable no-console
 const addForm = async (block) => {
   // hiding till ready to display
@@ -52,26 +54,30 @@ const addForm = async (block) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const script of [...block.querySelectorAll('script')]) {
     let waitForLoad = Promise.resolve();
-    // the script element added by innerHTML is NOT executed
-    // the workaround is to create the new script tag, copy attibutes and content
-    const newScript = document.createElement('script');
+    const scriptAttrs = {};
 
-    newScript.setAttribute('type', 'text/javascript');
     // coping all script attribute to the new one
+    // eslint-disable-next-line no-loop-func
     script.getAttributeNames().forEach((attrName) => {
       const attrValue = script.getAttribute(attrName);
-      newScript.setAttribute(attrName, attrValue);
-
-      if (attrName === 'src') {
-        waitForLoad = new Promise((resolve) => {
-          newScript.addEventListener('load', resolve);
-        });
-      }
+      scriptAttrs[attrName] = attrValue;
     });
-    newScript.innerHTML = script.innerHTML;
-    script.remove();
-    document.body.append(newScript);
 
+    // script with external script link
+    if (script.getAttribute('src')) {
+      waitForLoad = loadScriptIfNotLoadedYet(script.getAttribute('src'), scriptAttrs);
+    } else {
+      // scripts with inline code
+
+      // the script element added by innerHTML is NOT executed
+      // the workaround is to create the new script tag, copy attibutes and content
+      const newScript = createElement('script', '', { type: 'text/javascript' });
+
+      newScript.innerHTML = script.innerHTML;
+      document.body.append(newScript);
+    }
+
+    script.remove();
     // eslint-disable-next-line no-await-in-loop
     await waitForLoad;
   }
