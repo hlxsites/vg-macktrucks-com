@@ -220,6 +220,7 @@ async function updateChart(diagram, performanceData) {
     performanceData[0].slice(1)
       .forEach((title, index) => series.push({
         type: 'line',
+        name: title,
         seriesLayoutBy: 'column',
         data: performanceData.slice(1)
           .map((row) => [row[0], row[index + 1]]),
