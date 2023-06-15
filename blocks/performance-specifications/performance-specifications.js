@@ -37,18 +37,20 @@ export default async function decorate(block) {
   // add category details and engine selection ("XY HP")
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
   block.append(renderCategoryDetail(block, engineData.get(block)[categoryId]));
+  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+  const engineDetails = engineData.get(block)[categoryId].engines[engineId];
 
   // Add detail panel with facts and chart
-  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
   const detailPanel = div({ class: 'details-panel' },
-    renderEngineSpecs(engineData.get(block)[categoryId].engines[engineId]),
+    renderEngineSpecs(engineDetails),
     div({ class: 'performance-chart' },
       div({ class: 'loading-spinner' }),
     ));
-
   block.append(detailPanel);
 
-  initView(block);
+  const chartContainer = block.querySelector('.performance-chart');
+  // noinspection JSIgnoredPromiseFromCall,ES6MissingAwait
+  updateChart(chartContainer, engineDetails.performanceData);
 }
 
 /**
@@ -72,8 +74,21 @@ function renderCategoryTabs(block, categoryData) {
       });
       tabButton.innerHTML = nameHTML;
 
-      tabButton.addEventListener('click', (event) => {
-        handleChangeCategory(event, tabList, block);
+      tabButton.addEventListener('click', () => {
+        if (tabButton.getAttribute('aria-selected') === 'true') {
+          // ignore click if already selected
+          return;
+        }
+        // Remove all current selected tabs and set this tab as selected
+        tabList.querySelectorAll('[aria-selected="true"]')
+          .forEach((tab) => tab.setAttribute('aria-selected', false));
+        tabButton.setAttribute('aria-selected', true);
+
+        block.querySelector('.category-detail').replaceWith(
+          renderCategoryDetail(block, engineData.get(block)[tabButton.dataset.categoryId]),
+        );
+
+        refreshDetailView(block);
       });
       tabList.append(tabButton);
     });
@@ -103,14 +118,12 @@ function renderCategoryDetail(block, categoryData) {
         return;
       }
 
-      // Remove selection from currently selected tabs
+      // Remove selection from currently selected tabs and set this tab as selected
       tabList.querySelectorAll('[aria-selected="true"]')
         .forEach((tab) => tab.setAttribute('aria-selected', false));
-
-      // Set this tab as selected
       engineButton.setAttribute('aria-selected', true);
 
-      updateDetailView(block);
+      refreshDetailView(block);
     });
     tabList.append(engineButton);
   });
@@ -121,6 +134,7 @@ function renderCategoryDetail(block, categoryData) {
 function renderEngineSpecs(engineDetails) {
   const { facts } = engineDetails;
 
+  // noinspection JSCheckFunctionSignatures
   return domEl('dl', { class: 'key-specs' }, ...facts.map((cells) => [
     domEl('dt', cells[0]),
     domEl('dd', cells[1]),
@@ -128,19 +142,7 @@ function renderEngineSpecs(engineDetails) {
     .flat());
 }
 
-function initView(block) {
-  updateDetailView(block);
-}
-
-function updateCategoryDetailView(block) {
-  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
-
-  block.querySelector('.category-detail').replaceWith(renderCategoryDetail(block, engineData.get(block)[categoryId]));
-
-  updateDetailView(block);
-}
-
-function updateDetailView(block) {
+function refreshDetailView(block) {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
   const engineDetails = engineData.get(block)[categoryId].engines[engineId];
@@ -151,24 +153,6 @@ function updateDetailView(block) {
   const chartContainer = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
   updateChart(chartContainer, performanceData);
-}
-
-function handleChangeCategory(event, tabList, block) {
-  const tabHeader = event.target.closest('[role="tab"]');
-
-  // ignore click if already selected
-  if (tabHeader.getAttribute('aria-selected') === 'true') {
-    return;
-  }
-
-  // Remove all current selected tabs
-  tabList.querySelectorAll('[aria-selected="true"]')
-    .forEach((tab) => tab.setAttribute('aria-selected', false));
-
-  // Set this tab as selected
-  tabHeader.setAttribute('aria-selected', true);
-
-  updateCategoryDetailView(block);
 }
 
 function handleKeyboardNavigation(tabList) {
