@@ -482,3 +482,21 @@ export function loadScriptIfNotLoadedYet(url, attrs) {
   scriptMap.set(url, { url, attrs, promise });
   return promise;
 }
+
+/**
+ * returns an element that is a parent in the DOM tree that match with the options settings
+ * @param {HTMLElement} el the initial element to search its parent
+ * @param {object} option option to look for
+ * @param {object} option.tag search by parent's tag name
+ * @param {object} option.className search by one of its parent's class
+ * @returns {HTMLElement} target parent Element
+ */
+export const getTargetParentElement = (el, option) => {
+  const [key] = Object.keys(option);
+  const checks = {
+    tag: el.parentElement.localName === option[key],
+    className: el.parentElement.classList.contains(option[key]),
+  };
+  if (checks[key] === undefined) return null;
+  return checks[key] ? el.parentElement : getTargetParentElement(el.parentElement, option);
+};
