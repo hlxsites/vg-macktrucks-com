@@ -2139,7 +2139,7 @@ a:any-link {
   cursor: pointer;
 }
 
-.search-pagination-container .page-item .page-link-searchstudio-js[disabled=disabled] {
+.search-pagination-container .page-item .page-link-searchstudio-js[disabled="disabled"] {
   color: #33465a;
   background-color: transparent;
   cursor: default;
