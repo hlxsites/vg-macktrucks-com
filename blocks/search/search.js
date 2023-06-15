@@ -40,6 +40,7 @@ export default function decorate(block) {
   const limit = 25;
   const nextOffset = offset + limit;
   let hasResults = true;
+  let facetsFilters = [];
 
   const mainTemplate = getMainTemplate(PLACEHOLDERS);
   const mainFragment = fragmentRange.createContextualFragment(mainTemplate);
@@ -123,20 +124,52 @@ export default function decorate(block) {
     form.requestSubmit();
   };
 
+  const updateFilterCheckbox = () => {
+    // const facetsArr = facets.reduce((acc, curVal) => acc.concat(curVal.items), []);
+    const form = block.querySelector('form');
+    [...form].forEach((field) => {
+      const isChecked = facetsFilters.find(({ value }) => value.includes(field.value));
+      if (isChecked) {
+        field.checked = true;
+      }
+    });
+  };
+
   const addFilterSubmitEvent = (e) => {
     e.preventDefault();
     const form = e.target;
     const inputsChecked = [];
-    const filters = [];
     [...form].forEach((field) => {
-      if (!field.checked) return;
       inputsChecked.push(field.id);
-      filters.push({
-        field: field.dataset.filter,
-        value: field.value,
-      });
+
+      const facetIndex = facetsFilters.findIndex((item) => item.field === field.dataset.filter);
+
+      if (facetIndex > -1) {
+        facetsFilters[facetIndex].value = facetsFilters[facetIndex].value
+          .filter((val) => val !== field.value);
+
+        if (field.checked) {
+          facetsFilters[facetIndex].value.push(field.value);
+        }
+        if (!facetsFilters[facetIndex].value.length) {
+          facetsFilters = facetsFilters.filter((item) => item.field !== field.dataset.filter);
+        }
+      } else if (field.checked) {
+        facetsFilters.push({
+          field: field.dataset.filter,
+          value: [field.value],
+        });
+      }
     });
-    fetchResults(filters);
+    const searchParams = new URLSearchParams(window.location.search);
+
+    if (facetsFilters.length) {
+      facetsFilters.forEach((item) => {
+        searchParams.delete(item);
+        insertUrlParam(item.field, item.value);
+      });
+    }
+    fetchResults();
   };
 
   const addFacetsEvents = (facets) => {
@@ -168,6 +201,10 @@ export default function decorate(block) {
 
     filtersForm.addEventListener('submit', addFilterSubmitEvent);
     filtersForm.onchange = (e) => addFilterEvent(e, filtersForm);
+
+    if (facetsFilters.length) {
+      updateFilterCheckbox();
+    }
   };
 
   // handle sort
@@ -219,10 +256,12 @@ export default function decorate(block) {
     sortBy.classList.toggle('hide', !hasResults);
   }
 
-  function insertUrlParam(key, value) {
+  function insertUrlParam(key = null, value = null) {
     if (window.history.pushState) {
       const searchUrl = new URL(window.location.href);
-      searchUrl.searchParams.set(key, value);
+      if (key) {
+        searchUrl.searchParams.set(key, value);
+      }
       window.history.pushState({}, '', searchUrl.toString());
     }
   }
@@ -244,20 +283,21 @@ export default function decorate(block) {
     resRange.innerText = rangeText;
   }
 
-  async function fetchResults(filters = null) {
+  async function fetchResults() {
     const searchParams = new URLSearchParams(window.location.search);
     const queryTerm = searchParams.get('q');
     const offsetVal = Number(searchParams.get('start'));
     const sortVal = searchParams.get('sort') || 'BEST_MATCH';
     const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
     const SEARCH_LINK = !isProd ? SEARCH_URLS.dev : SEARCH_URLS.prod;
+    const isFilters = facetsFilters.length;
 
     const queryObj = {
       query: `
       query MacTrucksQuery($q: String, $offset: Int, $limit: Int, $language: MackLocaleEnum!,
-      $facets: [MackFacet], $sort: [MackSortOptionsEnum]${filters ? ', $filters: [MackFilterItem]' : ''}) {
+      $facets: [MackFacet], $sort: [MackSortOptionsEnum]${isFilters ? ', $filters: [MackFilterItem]' : ''}) {
         macktrucksearch(q: $q, offset: $offset, limit: $limit, language: $language,
-      facets: $facets, sort: $sort${filters ? ', filters: $filters' : ''}) {
+      facets: $facets, sort: $sort${isFilters ? ', filters: $filters' : ''}) {
           count
           items {
             uuid
@@ -292,7 +332,7 @@ export default function decorate(block) {
       },
     };
 
-    if (filters) queryObj.variables.filters = filters;
+    if (isFilters) queryObj.variables.filters = facetsFilters;
 
     const response = await fetch(
       SEARCH_LINK,

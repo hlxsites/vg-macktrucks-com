@@ -7,7 +7,7 @@ sampleRUM('cwv');
 // add more delayed functionality here
 
 // Prevent the cookie banner from loading when running in library
-if (!window.location.pathname.includes('srcdoc')) {
+if (!window.location.pathname.includes('srcdoc') && (!window.location.host.includes('hlx.page') && !window.location.host.includes('localhost'))) {
   loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
     type: 'text/javascript',
     charset: 'UTF-8',
