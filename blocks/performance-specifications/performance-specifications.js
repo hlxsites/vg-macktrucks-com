@@ -229,13 +229,12 @@ async function updateChart(chartContainer, performanceData) {
   });
 
   function getEchartsSeries(sweetSpotStart, sweetSpotEnd) {
-    const series = [];
-
-    performanceData[0].slice(1)
-      .forEach((title, index) => series.push({
+    const series = performanceData[0].slice(1)
+      .map((title, index) => ({
         type: 'line',
-        name: title,
-        seriesLayoutBy: 'column',
+        name: title.toUpperCase(),
+        symbolSize: 12,
+        smooth: true,
         data: performanceData.slice(1)
           .map((row) => [row[0], row[index + 1]]),
       }));
@@ -246,7 +245,7 @@ async function updateChart(chartContainer, performanceData) {
       markArea: {
         silent: true,
         itemStyle: {
-          color: 'rgb(62 62 62 / 50%)',
+          color: 'rgb(96 96 96 / 50%)',
         },
         data: [[{ xAxis: sweetSpotStart }, { xAxis: sweetSpotEnd }]],
       },
@@ -259,6 +258,14 @@ async function updateChart(chartContainer, performanceData) {
     legend: {
       icon: 'circle',
       top: 'top',
+      right: 0,
+      fontFamily: 'Helvetica Neue LT Pro 55 Roman',
+      itemHeight: 25,
+      itemGap: 40,
+      textStyle: {
+        fontSize: 15,
+        color: '#ffffff',
+      },
     },
 
     series: getEchartsSeries(1300, 1700),
@@ -273,6 +280,7 @@ async function updateChart(chartContainer, performanceData) {
     grid: {
       //  reduce space around the chart
       left: '50',
+      right: '5',
     },
     textStyle: {
       color: '#ffffff',
@@ -281,37 +289,39 @@ async function updateChart(chartContainer, performanceData) {
       min: performanceData[1][0],
       max: performanceData.at(-1)[0] + 100,
       type: 'value',
+
+      // label center bellow chart
       name: 'RPM',
       nameGap: 40,
+      nameLocation: 'center',
       nameTextStyle: {
         fontSize: 15,
-        // borderType: 'solid',
-        // verticalAlign: 'top',
-        // lineHeight: 50,
         fontWeight: 'bold',
       },
-      nameLocation: 'center',
-      axisTick: {
-        show: false,
-      },
+
+      // use lines at each 100 RPM
       splitLine: {
         show: true,
         lineStyle: {
-          color: '#d3d3d3',
+          color: '#8e8e8e',
           width: 1,
         },
-      },
-      minorTick: {
-        show: true,
-        splitNumber: 3,
       },
       minorSplitLine: {
         show: true,
         lineStyle: {
-          color: '#d3d3d3',
+          color: '#8e8e8e',
           width: 1,
         },
       },
+      axisTick: {
+        show: false,
+      },
+      minorTick: {
+        show: false,
+        splitNumber: 3,
+      },
+      // unfortunately we can not control which label values are shown
       axisLabel: {
         show: true,
         interval: 0,
@@ -329,6 +339,11 @@ async function updateChart(chartContainer, performanceData) {
         formatter(value) {
           // remove thousands separator
           return value;
+        },
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#8e8e8e',
         },
       },
     },
