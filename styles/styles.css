@@ -362,6 +362,10 @@ main .section.black-background {
   background-color: var(--primary-black);
 }
 
+main .section.dark-background {
+  background-color: var(--secondary-graphite);
+}
+
 main .section.center {
   text-align: center;
 }
