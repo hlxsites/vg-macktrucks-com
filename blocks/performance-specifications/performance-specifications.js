@@ -18,6 +18,29 @@ const engineData = new Map();
  * @property {Object.<string, EngineDetail>} engines
  */
 
+function renderCategoryTabs(block, categoryData) {
+  const tabList = div({ role: 'tablist', class: 'category-tablist' });
+  Object.keys(categoryData)
+    .forEach((categoryKey) => {
+      const { nameHTML } = categoryData[categoryKey];
+      const isFirstTab = tabList.children.length === 0;
+      const tabButton = button({
+        class: 'tab',
+        role: 'tab',
+        'aria-selected': isFirstTab,
+        'data-category-id': categoryKey,
+      });
+      tabButton.innerHTML = nameHTML;
+
+      tabButton.addEventListener('click', (event) => {
+        handleChangeCategory(event, tabList, block);
+      });
+      tabList.append(tabButton);
+    });
+  handleKeyboardNavigation(tabList);
+  return tabList;
+}
+
 /**
  * @typedef {Object} EngineDetail
  * @property {Array<Array<string>>} facts
@@ -27,12 +50,8 @@ const engineData = new Map();
 export default async function decorate(block) {
   engineData.set(block, {});
 
-  // add categories
+  // load categories
   const rawCategories = [...block.children];
-  const tabList = div({
-    role: 'tablist',
-    class: 'category-tablist',
-  });
   rawCategories.forEach((rawTabHeader) => {
     const categoryKey = getCategoryKey(rawTabHeader.children[0]);
     engineData.get(block)[categoryKey] = {
@@ -40,23 +59,13 @@ export default async function decorate(block) {
       descriptionHTML: rawTabHeader.children[1].innerHTML,
       engines: {},
     };
-    const isFirstTab = tabList.children.length === 0;
-    const tabButton = button({
-      class: 'tab',
-      role: 'tab',
-      'aria-selected': isFirstTab,
-      'data-category-id': categoryKey,
-    });
-    tabButton.append(...rawTabHeader.firstElementChild.childNodes);
-
-    tabButton.addEventListener('click', (event) => {
-      handleChangeCategory(event, tabList, block);
-    });
-    tabList.append(tabButton);
-    rawTabHeader.remove();
   });
-  block.append(tabList);
-  handleKeyboardNavigation(tabList);
+  rawCategories.forEach((node) => node.remove());
+
+  loadPerformanceDataFromDataBlocks(block);
+
+  // add tabs
+  block.append(renderCategoryTabs(block, engineData.get(block)));
 
   // add engine selection ("XY HP")
   const categoryDetails = div(
@@ -82,7 +91,6 @@ export default async function decorate(block) {
 `;
   block.append(detailPanel);
 
-  loadPerformanceDataFromDataBlocks(block);
   initView(block);
 }
 
@@ -348,8 +356,7 @@ function getCategoryKey(el) {
 }
 
 function loadPerformanceDataFromDataBlocks(block) {
-  block.closest('.performance-specifications-container')
-    .querySelectorAll('.performance-data')
+  block.closest('.performance-specifications-container').querySelectorAll('.performance-data')
     .forEach((dataBlock) => {
       const tableData = deconstructBlockIntoArray(dataBlock)
         .filter((cols) => cols.length > 0 && cols[0] !== '');
