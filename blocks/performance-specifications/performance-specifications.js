@@ -1,6 +1,4 @@
-import {
-  button, div, domEl, h2, p,
-} from '../../scripts/scripts.js';
+import { button, div, domEl } from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 /**
@@ -10,6 +8,48 @@ import { loadScript } from '../../scripts/lib-franklin.js';
  * @type {Map<HTMLElement, Record<string, CategoryData>>}>}
  */
 const engineData = new Map();
+
+/**
+ * @typedef {Object} EngineDetail
+ * @property {Array<Array<string>>} facts
+ * @property {Array<Array<string>>} performanceData
+ */
+
+export default async function decorate(block) {
+  engineData.set(block, {});
+
+  // load categories and data
+  const rawCategories = [...block.children];
+  rawCategories.forEach((rawTabHeader) => {
+    const categoryKey = getCategoryKey(rawTabHeader.children[0]);
+    engineData.get(block)[categoryKey] = {
+      nameHTML: rawTabHeader.children[0].innerHTML,
+      descriptionHTML: rawTabHeader.children[1].innerHTML,
+      engines: {},
+    };
+  });
+  rawCategories.forEach((node) => node.remove());
+  loadPerformanceDataFromDataBlocks(block);
+
+  // add tabs
+  block.append(renderCategoryTabs(block, engineData.get(block)));
+
+  // add category details and engine selection ("XY HP")
+  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
+  block.append(renderCategoryDetail(block, engineData.get(block)[categoryId]));
+
+  // Add detail panel with facts and chart
+  const detailPanel = div({ class: 'details-panel' });
+  detailPanel.innerHTML = `<dl class="key-specs">
+    </dl>
+    <div class="performance-chart">
+        <div class="loading-spinner"></div>
+    </div>
+`;
+  block.append(detailPanel);
+
+  initView(block);
+}
 
 /**
  * @typedef {Object} CategoryData
@@ -41,86 +81,51 @@ function renderCategoryTabs(block, categoryData) {
   return tabList;
 }
 
-/**
- * @typedef {Object} EngineDetail
- * @property {Array<Array<string>>} facts
- * @property {Array<Array<string>>} performanceData
- */
+function renderCategoryDetail(block, categoryData) {
+  const categoryDetails = div({ class: 'category-detail' });
+  categoryDetails.innerHTML = `
+    <h2>${categoryData.nameHTML}</h2>
+    <p>${categoryData.descriptionHTML}</p>
+    <div class="engine-navigation">
+      <p class="engine-tab-header">Engine Ratings</p>
+      <div class="engine-tablist" role="tablist" aria-label="Engine Ratings"> </div>
+    </div>`;
 
-export default async function decorate(block) {
-  engineData.set(block, {});
+  const tabList = categoryDetails.querySelector('.engine-tablist');
+  handleKeyboardNavigation(tabList);
 
-  // load categories
-  const rawCategories = [...block.children];
-  rawCategories.forEach((rawTabHeader) => {
-    const categoryKey = getCategoryKey(rawTabHeader.children[0]);
-    engineData.get(block)[categoryKey] = {
-      nameHTML: rawTabHeader.children[0].innerHTML,
-      descriptionHTML: rawTabHeader.children[1].innerHTML,
-      engines: {},
-    };
+  Object.keys(categoryData.engines).forEach((engineId, index) => {
+    const engineButton = button({ role: 'tab', 'aria-selected': index === 0 }, engineId);
+
+    engineButton.addEventListener('click', () => {
+      // ignore click if already selected
+      if (engineButton.getAttribute('aria-selected') === 'true') {
+        return;
+      }
+
+      // Remove selection from currently selected tabs
+      tabList.querySelectorAll('[aria-selected="true"]')
+        .forEach((tab) => tab.setAttribute('aria-selected', false));
+
+      // Set this tab as selected
+      engineButton.setAttribute('aria-selected', true);
+
+      updateDetailView(block);
+    });
+    tabList.append(engineButton);
   });
-  rawCategories.forEach((node) => node.remove());
 
-  loadPerformanceDataFromDataBlocks(block);
-
-  // add tabs
-  block.append(renderCategoryTabs(block, engineData.get(block)));
-
-  // add engine selection ("XY HP")
-  const categoryDetails = div(
-    { class: 'category-detail' },
-    h2({ class: 'category-name' }),
-    p({ class: 'category-description' }),
-  );
-  const engineSelection = div({ class: 'engine-navigation' });
-  engineSelection.innerHTML = `
-    <p class="engine-tab-header">Engine Ratings</p>
-    <div class="engine-tablist " role="tablist" aria-label="Engine Ratings"></div>`;
-  handleKeyboardNavigation(engineSelection.querySelector('.engine-tablist'));
-  categoryDetails.append(engineSelection);
-  block.append(categoryDetails);
-
-  // Add detail panel with facts and chart
-  const detailPanel = div({ class: 'details-panel' });
-  detailPanel.innerHTML = `<dl class="key-specs">
-    </dl>
-    <div class="performance-chart">
-        <div class="loading-spinner"></div>
-    </div>
-`;
-  block.append(detailPanel);
-
-  initView(block);
+  return categoryDetails;
 }
 
 function initView(block) {
-  updateCategoryDetailView(block);
   updateDetailView(block);
 }
 
 function updateCategoryDetailView(block) {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
 
-  block.querySelector('.category-name').innerHTML = engineData.get(block)[categoryId].nameHTML;
-  block.querySelector('.category-description').innerHTML = engineData.get(block)[categoryId].descriptionHTML;
-
-  // update engine selection
-  const tabList = block.querySelector('.engine-tablist');
-  // skip if category is already selected
-  tabList.textContent = '';
-
-  Object.keys(engineData.get(block)[categoryId].engines)
-    .forEach((engineId, index) => {
-      const engineTab = button({
-        role: 'tab',
-        'aria-selected': index === 0,
-      }, engineId);
-      engineTab.addEventListener('click', () => {
-        handleChangeEngineSelection(engineTab, tabList, block);
-      });
-      tabList.append(engineTab);
-    });
+  block.querySelector('.category-detail').replaceWith(renderCategoryDetail(block, engineData.get(block)[categoryId]));
 
   updateDetailView(block);
 }
@@ -164,22 +169,6 @@ function handleChangeCategory(event, tabList, block) {
   tabHeader.setAttribute('aria-selected', true);
 
   updateCategoryDetailView(block);
-}
-
-function handleChangeEngineSelection(engineTab, tabList, block) {
-  // ignore click if already selected
-  if (engineTab.getAttribute('aria-selected') === 'true') {
-    return;
-  }
-
-  // Remove all current selected tabs
-  tabList.querySelectorAll('[aria-selected="true"]')
-    .forEach((tab) => tab.setAttribute('aria-selected', false));
-
-  // Set this tab as selected
-  engineTab.setAttribute('aria-selected', true);
-
-  updateDetailView(block);
 }
 
 function handleKeyboardNavigation(tabList) {
