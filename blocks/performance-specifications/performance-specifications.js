@@ -261,7 +261,7 @@ async function updateChart(chartContainer, performanceData) {
       right: 0,
       fontFamily: 'Helvetica Neue LT Pro 55 Roman',
       itemHeight: 25,
-      itemGap: 40,
+      itemGap: 10,
       textStyle: {
         fontSize: 15,
         color: '#ffffff',
@@ -281,6 +281,7 @@ async function updateChart(chartContainer, performanceData) {
       //  reduce space around the chart
       left: '50',
       right: '5',
+      top: '80',
     },
     textStyle: {
       color: '#ffffff',

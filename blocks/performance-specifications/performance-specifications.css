@@ -17,6 +17,8 @@
   transition: .5s all;
   border-bottom: 3px solid var(--tab-inactive-border-color);
   padding-bottom: 0.7em;
+  padding-left: 0;
+  padding-right: 0;
   cursor: pointer;
   text-align: center;
   background-color: transparent;
@@ -45,25 +47,26 @@
 .performance-specifications .engine-ratings {
   font-size: var(--body-font-size-xs);
   text-transform: uppercase;
-  margin-top: 22px;
+  margin-top: 6px;
+  margin-right: 1em;
 }
 
 .performance-specifications .engine-navigation {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 20px;
 }
 
 .performance-specifications .engine-tablist [role="tab"] {
   background-color: var(--primary-white);
   font-size: var(--body-font-size-s);
   color: var(--primary-black);
-  margin-left: 1em;
   border-radius: 2px;
   padding: 0.4em 0.7em;
   line-height: 1em;
+  margin-right: 1em;
+  margin-top: 0;
 }
 
 .performance-specifications .engine-tablist [role="tab"][aria-selected="true"] {
@@ -110,7 +113,7 @@
 .performance-specifications .details-panel a.download-specs {
   background-color: var(--gold-button-background);
   font-size: var(--body-font-size-s);
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 0.6em 0.7em;
   line-height: 1em;
 }
