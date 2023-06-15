@@ -137,7 +137,10 @@ async function buildMagazineSubNav(block, ref) {
   const showBulldogSubscribeForm = () => {
     // eslint-disable-next-line import/no-cycle
     import('../../common/modal/modal.js').then((modal) => {
-      const bulldogForm = loadAsBlock('eloqua-form', '<div>magazine-subscribe</div><div><div><div>Thank you!</div></div></div>');
+      const bulldogForm = loadAsBlock(
+        'eloqua-form',
+        '<div>magazine-subscribe</div><div><div><div>Thank you!</div></div></div>',
+      );
       modal.showModal(bulldogForm, { classes: ['modal-bulldog-form'] });
     });
   };
