@@ -1,20 +1,21 @@
-import { button, div, domEl } from '../../scripts/scripts.js';
+import {
+  button, div, domEl, h2, p,
+} from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 /**
  * as multiple blocks might be on the same page, the data is accessed using they block node as the
  * key.
  *
- * @type {Map<HTMLElement, CategoryData>}
+ * @type {Map<HTMLElement, Record<string, CategoryData>>}>}
  */
 const engineData = new Map();
 
 /**
- * @typedef {Object.<string, EngineInfo>} CategoryData
- */
-
-/**
- * @typedef {Object.<string, EngineDetail>} EngineInfo
+ * @typedef {Object} CategoryData
+ * @property {string} nameHTML
+ * @property {string} descriptionHTML
+ * @property {Object.<string, EngineDetail>} engines
  */
 
 /**
@@ -24,15 +25,21 @@ const engineData = new Map();
  */
 
 export default async function decorate(block) {
-  const rawCategories = [...block.children];
+  engineData.set(block, {});
 
   // add categories
+  const rawCategories = [...block.children];
   const tabList = div({
     role: 'tablist',
     class: 'category-tablist',
   });
   rawCategories.forEach((rawTabHeader) => {
     const categoryKey = getCategoryKey(rawTabHeader.children[0]);
+    engineData.get(block)[categoryKey] = {
+      nameHTML: rawTabHeader.children[0].innerHTML,
+      descriptionHTML: rawTabHeader.children[1].innerHTML,
+      engines: {},
+    };
     const isFirstTab = tabList.children.length === 0;
     const tabButton = button({
       class: 'tab',
@@ -40,25 +47,30 @@ export default async function decorate(block) {
       'aria-selected': isFirstTab,
       'data-category-id': categoryKey,
     });
-    tabButton.append(...rawTabHeader.children);
-    tabButton.children[0].classList.add('name');
-    tabButton.children[1].classList.add('description');
+    tabButton.append(...rawTabHeader.firstElementChild.childNodes);
+
     tabButton.addEventListener('click', (event) => {
       handleChangeCategory(event, tabList, block);
     });
     tabList.append(tabButton);
+    rawTabHeader.remove();
   });
   block.append(tabList);
   handleKeyboardNavigation(tabList);
 
   // add engine selection ("XY HP")
+  const categoryDetails = div(
+    { class: 'category-detail' },
+    h2({ class: 'category-name' }),
+    p({ class: 'category-description' }),
+  );
   const engineSelection = div({ class: 'engine-navigation' });
   engineSelection.innerHTML = `
     <p class="engine-tab-header">Engine Ratings</p>
     <div class="engine-tablist " role="tablist" aria-label="Engine Ratings"></div>`;
-
   handleKeyboardNavigation(engineSelection.querySelector('.engine-tablist'));
-  block.append(engineSelection);
+  categoryDetails.append(engineSelection);
+  block.append(categoryDetails);
 
   // Add detail panel with facts and chart
   const detailPanel = div({ class: 'details-panel' });
@@ -75,18 +87,22 @@ export default async function decorate(block) {
 }
 
 function initView(block) {
-  updateEngineListView(block);
+  updateCategoryDetailView(block);
   updateDetailView(block);
 }
 
-function updateEngineListView(block) {
+function updateCategoryDetailView(block) {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
+
+  block.querySelector('.category-name').innerHTML = engineData.get(block)[categoryId].nameHTML;
+  block.querySelector('.category-description').innerHTML = engineData.get(block)[categoryId].descriptionHTML;
+
   // update engine selection
   const tabList = block.querySelector('.engine-tablist');
   // skip if category is already selected
   tabList.textContent = '';
 
-  Object.keys(engineData.get(block)[categoryId])
+  Object.keys(engineData.get(block)[categoryId].engines)
     .forEach((engineId, index) => {
       const engineTab = button({
         role: 'tab',
@@ -109,7 +125,7 @@ function updateDetailView(block) {
   const {
     facts,
     performanceData,
-  } = engineData.get(block)[categoryId][engineId];
+  } = engineData.get(block)[categoryId].engines[engineId];
   const keySpecs = block.querySelector('.key-specs');
   keySpecs.textContent = '';
   facts.forEach((row) => {
@@ -139,7 +155,7 @@ function handleChangeCategory(event, tabList, block) {
   // Set this tab as selected
   tabHeader.setAttribute('aria-selected', true);
 
-  updateEngineListView(block);
+  updateCategoryDetailView(block);
 }
 
 function handleChangeEngineSelection(engineTab, tabList, block) {
@@ -244,8 +260,8 @@ async function updateChart(diagram, performanceData) {
 
   const option = {
     legend: {
-      icon: 'rect',
-      top: 'bottom',
+      icon: 'circle',
+      top: 'top',
     },
 
     series: getEchartsSeries(1300, 1700),
@@ -269,7 +285,6 @@ async function updateChart(diagram, performanceData) {
 
     grid: {
       //  reduce space around the chart
-      top: '10',
       left: '50',
     },
     xAxis: {
@@ -333,8 +348,6 @@ function getCategoryKey(el) {
 }
 
 function loadPerformanceDataFromDataBlocks(block) {
-  engineData.set(block, {});
-
   block.closest('.performance-specifications-container')
     .querySelectorAll('.performance-data')
     .forEach((dataBlock) => {
@@ -355,7 +368,7 @@ function loadPerformanceDataFromDataBlocks(block) {
       if (!engineData.get(block)[categoryKey]) {
         engineData.get(block)[categoryKey] = {};
       }
-      engineData.get(block)[categoryKey][horsepower] = {
+      engineData.get(block)[categoryKey].engines[horsepower] = {
         facts,
         performanceData,
       };
