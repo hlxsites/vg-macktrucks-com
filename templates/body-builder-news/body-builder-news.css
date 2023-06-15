@@ -100,10 +100,7 @@
   }
 
   div.section.news-sidebar-container {
-    /* float: left; */
     margin: 0 1%;
-    /* stylelint-disable-next-line comment-empty-line-before */
-    /* width: 23%; */
     height: auto;
     padding: 10px 0 0;
   }
