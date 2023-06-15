@@ -21,8 +21,8 @@ export default async function decorate(block) {
   // load categories and data
   const rawCategories = [...block.children];
   rawCategories.forEach((rawTabHeader) => {
-    const categoryKey = getCategoryKey(rawTabHeader.children[0]);
-    engineData.get(block)[categoryKey] = {
+    const categoryId = rawTabHeader.children[0].textContent.replaceAll('®', '').toLowerCase().trim();
+    engineData.get(block)[categoryId] = {
       nameHTML: rawTabHeader.children[0].innerHTML,
       descriptionHTML: rawTabHeader.children[1].innerHTML,
       engines: {},
@@ -31,16 +31,19 @@ export default async function decorate(block) {
   rawCategories.forEach((node) => node.remove());
   loadPerformanceDataFromDataBlocks(block);
 
+  const initialCategoryId = Object.keys(engineData.get(block))[0];
+  const initialEngineId = Object.keys(engineData.get(block)[initialCategoryId].engines)[0];
+
   // add tabs
-  block.append(renderCategoryTabs(block, engineData.get(block)));
+  block.append(renderCategoryTabs(block, engineData.get(block), initialCategoryId));
 
   // add category details and engine selection ("XY HP")
-  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
-  block.append(renderCategoryDetail(block, engineData.get(block)[categoryId]));
-  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
-  const engineDetails = engineData.get(block)[categoryId].engines[engineId];
+  block.append(
+    renderCategoryDetail(block, engineData.get(block)[initialCategoryId], initialEngineId),
+  );
 
   // Add detail panel with facts and chart
+  const engineDetails = engineData.get(block)[initialCategoryId].engines[initialEngineId];
   const detailPanel = div({ class: 'details-panel' },
     renderEngineSpecs(engineDetails),
     div({ class: 'performance-chart' },
@@ -60,17 +63,16 @@ export default async function decorate(block) {
  * @property {Object.<string, EngineDetail>} engines
  */
 
-function renderCategoryTabs(block, categoryData) {
+function renderCategoryTabs(block, categoryData, categoryId) {
   const tabList = div({ role: 'tablist', class: 'category-tablist' });
   Object.keys(categoryData)
-    .forEach((categoryKey) => {
-      const { nameHTML } = categoryData[categoryKey];
-      const isFirstTab = tabList.children.length === 0;
+    .forEach((aCategoryId) => {
+      const { nameHTML } = categoryData[aCategoryId];
       const tabButton = button({
         class: 'tab',
         role: 'tab',
-        'aria-selected': isFirstTab,
-        'data-category-id': categoryKey,
+        'aria-selected': aCategoryId === categoryId,
+        'data-category-id': aCategoryId,
       });
       tabButton.innerHTML = nameHTML;
 
@@ -96,7 +98,7 @@ function renderCategoryTabs(block, categoryData) {
   return tabList;
 }
 
-function renderCategoryDetail(block, categoryData) {
+function renderCategoryDetail(block, categoryData, selectEngineId = null) {
   const categoryDetails = div({ class: 'category-detail' });
   categoryDetails.innerHTML = `
     <h2>${categoryData.nameHTML}</h2>
@@ -110,7 +112,14 @@ function renderCategoryDetail(block, categoryData) {
   handleKeyboardNavigation(tabList);
 
   Object.keys(categoryData.engines).forEach((engineId, index) => {
-    const engineButton = button({ role: 'tab', 'aria-selected': index === 0 }, engineId);
+    let isSelected;
+    if (selectEngineId) {
+      isSelected = engineId === selectEngineId;
+    } else {
+      isSelected = index === 0;
+    }
+
+    const engineButton = button({ role: 'tab', 'aria-selected': isSelected }, engineId);
 
     engineButton.addEventListener('click', () => {
       // ignore click if already selected
@@ -147,12 +156,13 @@ function refreshDetailView(block) {
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
   const engineDetails = engineData.get(block)[categoryId].engines[engineId];
 
+  // replace key specs
   block.querySelector('.key-specs').replaceWith(renderEngineSpecs(engineDetails));
 
-  const { performanceData } = engineDetails;
+  // update chart
   const chartContainer = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
-  updateChart(chartContainer, performanceData);
+  updateChart(chartContainer, engineDetails.performanceData);
 }
 
 function handleKeyboardNavigation(tabList) {
@@ -188,18 +198,18 @@ function handleKeyboardNavigation(tabList) {
 }
 
 /**
- * @param diagram {HTMLElement}
+ * @param chartContainer {HTMLElement}
  * @param performanceData {Array<Array<string>>}
  */
-async function updateChart(diagram, performanceData) {
+async function updateChart(chartContainer, performanceData) {
   if (!window.echarts) {
     // custom small bundle created on https://echarts.apache.org/en/builder.html
     await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
   }
 
-  let myChart = window.echarts.getInstanceByDom(diagram);
+  let myChart = window.echarts.getInstanceByDom(chartContainer);
   if (!myChart) {
-    myChart = window.echarts.init(diagram, 'dark');
+    myChart = window.echarts.init(chartContainer, 'dark');
     window.addEventListener('resize', () => {
       if (!myChart.isDisposed()) {
         myChart.resize();
@@ -320,12 +330,6 @@ async function updateChart(diagram, performanceData) {
     // https://github.com/apache/echarts/issues/6202
     notMerge: true,
   });
-}
-
-function getCategoryKey(el) {
-  return el.textContent.replaceAll('®', '')
-    .toLowerCase()
-    .trim();
 }
 
 function loadPerformanceDataFromDataBlocks(block) {
