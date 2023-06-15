@@ -195,24 +195,25 @@ function handleKeyboardNavigation(tabList) {
  * @param performanceData {Array<Array<string>>}
  */
 async function updateChart(diagram, performanceData) {
-  if (diagram.querySelector('.loading-spinner')) {
+  if (!window.echarts) {
     // custom small bundle created on https://echarts.apache.org/en/builder.html
     await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
-    /* global echarts */
   }
 
-  // cleanup old chart (updating the existing chart does not work, it has additional labels.
-  // https://github.com/apache/echarts/issues/6202 )
-  if (echarts.getInstanceByDom(diagram)) {
-    echarts.getInstanceByDom(diagram)
-      .dispose();
+  let myChart = window.echarts.getInstanceByDom(diagram);
+  if (!myChart) {
+    myChart = window.echarts.init(diagram, 'dark');
+    window.addEventListener('resize', () => {
+      if (!myChart.isDisposed()) {
+        myChart.resize();
+      }
+    });
   }
 
+  // cast RPM column to numbers
   performanceData.forEach((row) => {
     row[0] = Number(row[0]);
   });
-
-  const myChart = echarts.init(diagram); // TODO: , 'dark'
 
   function getEchartsSeries(sweetSpotStart, sweetSpotEnd) {
     const series = [];
@@ -319,12 +320,9 @@ async function updateChart(diagram, performanceData) {
     animation: true,
     animationDuration: 400,
   };
-  myChart.setOption(option);
-
-  window.addEventListener('resize', () => {
-    if (!myChart.isDisposed()) {
-      myChart.resize();
-    }
+  myChart.setOption(option, {
+    // https://github.com/apache/echarts/issues/6202
+    notMerge: true,
   });
 }
 
