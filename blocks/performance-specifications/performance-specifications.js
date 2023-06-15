@@ -39,13 +39,13 @@ export default async function decorate(block) {
   block.append(renderCategoryDetail(block, engineData.get(block)[categoryId]));
 
   // Add detail panel with facts and chart
-  const detailPanel = div({ class: 'details-panel' });
-  detailPanel.innerHTML = `<dl class="key-specs">
-    </dl>
-    <div class="performance-chart">
-        <div class="loading-spinner"></div>
-    </div>
-`;
+  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+  const detailPanel = div({ class: 'details-panel' },
+    renderEngineSpecs(engineData.get(block)[categoryId].engines[engineId]),
+    div({ class: 'performance-chart' },
+      div({ class: 'loading-spinner' }),
+    ));
+
   block.append(detailPanel);
 
   initView(block);
@@ -118,6 +118,16 @@ function renderCategoryDetail(block, categoryData) {
   return categoryDetails;
 }
 
+function renderEngineSpecs(engineDetails) {
+  const { facts } = engineDetails;
+
+  return domEl('dl', { class: 'key-specs' }, ...facts.map((cells) => [
+    domEl('dt', cells[0]),
+    domEl('dd', cells[1]),
+  ])
+    .flat());
+}
+
 function initView(block) {
   updateDetailView(block);
 }
@@ -133,24 +143,14 @@ function updateCategoryDetailView(block) {
 function updateDetailView(block) {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+  const engineDetails = engineData.get(block)[categoryId].engines[engineId];
 
-  // update performance data
-  const {
-    facts,
-    performanceData,
-  } = engineData.get(block)[categoryId].engines[engineId];
-  const keySpecs = block.querySelector('.key-specs');
-  keySpecs.textContent = '';
-  facts.forEach((row) => {
-    keySpecs.append(
-      domEl('dt', row[0]),
-      domEl('dd', row[1]),
-    );
-  });
+  block.querySelector('.key-specs').replaceWith(renderEngineSpecs(engineDetails));
 
-  const diagram = block.querySelector('.performance-chart');
+  const { performanceData } = engineDetails;
+  const chartContainer = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
-  updateChart(diagram, performanceData);
+  updateChart(chartContainer, performanceData);
 }
 
 function handleChangeCategory(event, tabList, block) {
