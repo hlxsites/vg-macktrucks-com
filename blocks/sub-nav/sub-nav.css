@@ -215,7 +215,7 @@
   width: 100%;
 }
 
-header:has(nav[aria-expanded=true]) .sub-nav-container {
+header:has(nav[aria-expanded="true"]) .sub-nav-container {
   position: relative;
   z-index: -1;
 }
@@ -290,7 +290,7 @@ header:has(nav[aria-expanded=true]) .sub-nav-container {
     padding: 10px 30px;
   }
 
-  header:has(nav[aria-expanded=true]) .sub-nav-container {
+  header:has(nav[aria-expanded="true"]) .sub-nav-container {
     position: unset;
     z-index: unset;
   }

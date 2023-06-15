@@ -193,6 +193,7 @@ main .hero.specs .hero-content-wrapper h1 {
     } 
 
 }
+
 @media (min-width: 992px) {
     main .hero.specs img {
         height: unset;
@@ -264,6 +265,10 @@ main .hero.magazine .hero-content-wrapper a {
     margin: 0;
 }
 
+main .hero.magazine .hero-content-wrapper a:hover {
+    text-decoration: unset;
+}
+
 @media (min-width: 768px) {
     main .hero.magazine .hero-content-container {
         flex-direction: row;
@@ -286,5 +291,40 @@ main .hero.magazine .hero-content-wrapper a {
 
     main .hero.magazine .hero-content-wrapper h1 {
         color: var(--primary-white);
+    }
+}
+
+/* MAGAZINE CATEGORIES hero styling  */
+main .hero.magazine-categories,
+main .hero.magazine-categories .hero-content-container,
+main .hero.magazine-categories .hero-content-wrapper,
+main .hero.magazine-categories img {
+    height: 310px;  
+    padding: 0; 
+}
+
+main .hero.magazine-categories .hero-content-wrapper {
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+main .hero.magazine-categories h4 {
+    margin: 0 0 55px;
+}
+
+main .hero.magazine-categories em {
+    font-style: unset;
+}
+
+@media (min-width: 768px) {
+    main .hero.magazine-categories,
+    main .hero.magazine-categories .hero-content-container,
+    main .hero.magazine-categories .hero-content-wrapper,
+    main .hero.magazine-categories img {
+        height: 600px;   
+    }
+
+    main .hero.magazine-categories h4 {
+        font-size: var(--heading-1-desktop-size-xl);
     }
 }

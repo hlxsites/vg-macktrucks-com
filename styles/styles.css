@@ -1,3 +1,5 @@
+/* stylelint-disable selector-list-comma-newline-after */
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,18 +12,20 @@
  * governing permissions and limitations under the License.
  */
 
- @font-face {
-  font-family: 'fontawesome Fallback';
+@font-face {
+  font-family: "fontawesome Fallback";
   font-style: normal;
   font-weight: 400;
-  src: local('Arial');
+  src: local("Arial");
   ascent-override: 93.75%;
   descent-override: 6.25%;
+  /* stylelint-disable-next-line number-no-trailing-zeros */
   line-gap-override: 0.00%;
+  /* stylelint-disable-next-line number-no-trailing-zeros */
   size-adjust: 100.00%;
 }
 
- :root {
+:root {
   /* BASE COLORS */
 
   /* Primary colors */
@@ -58,55 +62,55 @@
 
   /* Primary */
   --button-primary-red-enabled: var(--primary-accent-red);
-  --button-primary-red-hover: #E11D0B;
-  --button-primary-red-pressed: #B91709;
-  --button-primary-red-disabled: #E1DFDD;
+  --button-primary-red-hover: #e11d0b;
+  --button-primary-red-pressed: #b91709;
+  --button-primary-red-disabled: #e1dfdd;
 
   /* Secondary */
   --button-secondary-gold-enabled: var(--secondary-accent-copper);
-  --button-secondary-gold-hover: #D9B781;
-  --button-secondary-gold-pressed: #A18860;
-  --button-secondary-gold-disabled: #E1DFDD;
+  --button-secondary-gold-hover: #d9b781;
+  --button-secondary-gold-pressed: #a18860;
+  --button-secondary-gold-disabled: #e1dfdd;
 
   /* Tertiary */
   --button-tertiary-white-enabled: var(--primary-white);
   --button-tertiary-white-hover: #a7a8a9;
-  --button-tertiary-white-pressed: #E1DFDD;
+  --button-tertiary-white-pressed: #e1dfdd;
   --button-tertiary-white-disabled: var(--primary-white);
 
   /* NEW fonts */
 
   /* Headline */
-  --headline-ff-medium: 'GT America Extended Medium', var(--fallback-ff-headlines);
-  --headline-ff-medium-italic: 'GT America Extended Medium Italic', var(--fallback-ff-headlines);
+  --headline-ff-medium: "GT America Extended Medium", var(--fallback-ff-headlines);
+  --headline-ff-medium-italic: "GT America Extended Medium Italic", var(--fallback-ff-headlines);
 
   /* Body */
-  --body-ff: 'Helvetica Neue LT Pro 55 Roman', var(--fallback-ff-texts);
+  --body-ff: "Helvetica Neue LT Pro 55 Roman", var(--fallback-ff-texts);
 
   /* Subheadings, Emphasis & Legal Copy */
   --subheadings-ff-roman: var(--body-ff), var(--fallback-ff-texts);
-  --subheadings-ff-medium: 'Helvetica Neue LT Pro 65 Medium', var(--fallback-ff-texts);
+  --subheadings-ff-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
   --legal-ff: var(--body-ff), var(--fallback-ff-texts);
-  --emphasis-ff-bold: 'Helvetica Neue LT Pro 75 Bold', var(--fallback-ff-texts);
-  --emphasis-ff-roman-italic: 'Helvetica Neue LT Pro 56 Roman Italic', var(--fallback-ff-texts);
-  --emphasis-ff-medium-italic: 'Helvetica Neue LT Pro 66 Medium Italic', var(--fallback-ff-texts);
-  --emphasis-ff-bold-italic: 'Helvetica Neue LT Pro 76 Bold Italic', var(--fallback-ff-texts);
+  --emphasis-ff-bold: "Helvetica Neue LT Pro 75 Bold", var(--fallback-ff-texts);
+  --emphasis-ff-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
+  --emphasis-ff-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
+  --emphasis-ff-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
 
   /* Accent elements */
-  --accents-ff-regular: 'GT America Mono Regular', var(--fallback-ff-accents);
-  --accents-ff-medium: 'GT America Mono Medium', var(--fallback-ff-accents);
-  --accents-ff-bold: 'GT America Mono Bold', var(--fallback-ff-accents);
-  --accents-ff-regular-italic: 'GT America Mono Regular Italic', var(--fallback-ff-accents);
-  --accents-ff-medium-italic: 'GT America Mono Medium Italic', var(--fallback-ff-accents);
-  --accents-ff-bold-italic: 'GT America Mono Bold Italic', var(--fallback-ff-accents);
+  --accents-ff-regular: "GT America Mono Regular", var(--fallback-ff-accents);
+  --accents-ff-medium: "GT America Mono Medium", var(--fallback-ff-accents);
+  --accents-ff-bold: "GT America Mono Bold", var(--fallback-ff-accents);
+  --accents-ff-regular-italic: "GT America Mono Regular Italic", var(--fallback-ff-accents);
+  --accents-ff-medium-italic: "GT America Mono Medium Italic", var(--fallback-ff-accents);
+  --accents-ff-bold-italic: "GT America Mono Bold Italic", var(--fallback-ff-accents);
 
   /* Alternate fonts */
-  --fallback-ff-texts: 'Arial Regular Text Fallback', helvetica, sans-serif;
-  --fallback-ff-headlines: 'Arial Bold Headline Fallback', helvetica, sans-serif;
-  --fallback-ff-accents: 'Arial Regular Text Fallback', helvetica, sans-serif;
+  --fallback-ff-texts: "Arial Regular Text Fallback", helvetica, sans-serif;
+  --fallback-ff-headlines: "Arial Bold Headline Fallback", helvetica, sans-serif;
+  --fallback-ff-accents: "Arial Regular Text Fallback", helvetica, sans-serif;
 
   /* Fontawesome */
-  --ff-fontawesome: 'fontawesome', 'fontawesome Fallback';
+  --ff-fontawesome: "fontawesome", "fontawesome Fallback";
 
   /* Body font sizes */
   --body-font-size-xxl: 2.4rem; /* 24px */
@@ -216,7 +220,7 @@ h4, h5, h6 {
   font-weight: 600;
   line-height: 1.25;
   margin-top: 1em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   scroll-margin: calc(var(--nav-height-m) + 1em);
 }
 
@@ -224,12 +228,12 @@ h1, h2 {
   font-family: var(--headline-ff-medium);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
-h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-xs) }
+h1 { font-size: var(--heading-font-size-xxl); }
+h2 { font-size: var(--heading-font-size-xl); }
+h3 { font-size: var(--heading-font-size-l); }
+h4 { font-size: var(--heading-font-size-m); }
+h5 { font-size: var(--heading-font-size-s); }
+h6 { font-size: var(--heading-font-size-xs); }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
@@ -252,7 +256,7 @@ code, pre, samp {
 }
 
 code, samp {
-  padding: .125em;
+  padding: 0.125em;
 }
 
 pre {
@@ -279,7 +283,7 @@ a.button:any-link, button {
   transition: all 500ms;
 }
 
-a.button:hover, a.button:focus, button:hover, button:focus  {
+a.button:hover, a.button:focus, button:hover, button:focus {
   background-color: var(--link-hover-color);
   cursor: pointer;
 }
@@ -292,7 +296,7 @@ button:disabled, button:disabled:hover {
 a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 a.button.secondary:hover, button.secondary:hover,
@@ -365,10 +369,20 @@ main .section.center {
   text-align: center;
 }
 
+main .section.title-line > div > h2 {
+  border-block-start: 3px solid var(--primary-black);
+  padding-block-start: 1rem;
+}
+
+main .block.line-separator {
+  border-block-start: 3px solid var(--primary-black);
+  padding-block-start: 5rem;
+}
+
 main pre {
   background-color: var(--overlay-background-color);
   padding: 1em;
-  border-radius: .25em;
+  border-radius: 0.25em;
   overflow-x: auto;
   white-space: pre;
 }
@@ -422,8 +436,8 @@ main img {
 }
 
 /* progressive section appearance */
-main .section[data-section-status='loading'],
-main .section[data-section-status='initialized'] {
+main .section[data-section-status="loading"],
+main .section[data-section-status="initialized"] {
   display: none;
 }
 
@@ -516,7 +530,7 @@ body.disable-scroll main {
 
 /* background classes */
 .bg-white-paper {
-  background: url('../../media/bg-explore.jpeg');
+  background: url("../../media/bg-explore.jpeg");
   background-size: cover;
 }
 
@@ -526,7 +540,7 @@ main .section.magazine-listing-content {
 }
 
 main .section.magazine-listing-content p {
-  font-family: var(--subheadings-ff-medium); 
+  font-family: var(--subheadings-ff-medium);
   font-size: var(--body-font-size-xs);
 }
 
@@ -535,7 +549,7 @@ main .section.magazine-listing-content p:first-of-type {
 }
 
 main .section.magazine-listing-content h3 {
-  font-family: var(--emphasis-ff-bold); 
+  font-family: var(--emphasis-ff-bold);
   font-size: var(--heading-font-size-s);
   background-color: var(--primary-black);
   color: var(--primary-white);

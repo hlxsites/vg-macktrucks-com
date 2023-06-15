@@ -18,7 +18,8 @@ async function buildArticleHero() {
   const articleHeroImage = createElement('div', 'article-hero-image');
   const articleHeroContent = createElement('div', 'article-hero-content');
 
-  const categorySpan = createElement('a', 'article-hero-category');
+  const categoryUrl = category.toLowerCase().replaceAll(' ', '-');
+  const categorySpan = createElement('a', 'article-hero-category', { href: `/magazine/categories/${categoryUrl}` });
   categorySpan.innerText = category;
 
   const titleH4 = createElement('h4', 'article-hero-title');
@@ -85,24 +86,25 @@ export default async function decorate(doc) {
   const [
     breadSection,
     heroSection,
-    shareSection,
+    shareSection1,
+    shareSection2,
     recentSection,
     recommendationsSection,
   ] = await Promise.all([
     buildSection(container, 'breadcrumb'),
     buildArticleHero(),
     buildShareSection(),
+    buildShareSection(),
     buildSection(container, 'recent-articles'),
     buildSection(container, 'recommendations'),
   ]);
-
-  const shareClone = shareSection.cloneNode(true);
 
   const authorName = getMetadata('author');
   const author = createElement('p', 'author-text');
   author.innerText = authorName;
 
   const defaultContent = container.querySelector('.default-content-wrapper');
+  const subscribeContent = container.querySelector('.magazine-subscribe-wrapper');
 
   const parentSection = defaultContent.parentNode;
   parentSection.classList.add('default-content-container');
@@ -116,12 +118,9 @@ export default async function decorate(doc) {
 
   parentSection.insertAdjacentElement('afterbegin', firstHeading);
 
-  defaultContent.insertAdjacentElement('beforebegin', shareSection);
-  defaultContent.insertAdjacentElement('afterend', shareClone);
-
-  currentArticle.append(firstHeading, author, shareSection, defaultContent, shareClone);
+  currentArticle.append(firstHeading, author, shareSection1, defaultContent, shareSection2);
   articleTexts.append(currentArticle, recommendationsSection, recentSection);
-  article.append(breadSection, heroSection, articleTexts);
+  article.append(breadSection, heroSection, articleTexts, subscribeContent);
 
   container.innerText = '';
   container.append(article);

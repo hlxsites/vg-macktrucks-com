@@ -1,5 +1,5 @@
 import { createElement, getTextLabel } from '../../scripts/scripts.js';
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import { createOptimizedPicture, getOrigin } from '../../scripts/lib-franklin.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
@@ -16,6 +16,13 @@ export const getLimit = (block) => {
   return number;
 };
 
+export const clearRepeatedArticles = (articles) => articles.filter((e) => {
+  const currentArticlePath = window.location.href.split('/').pop();
+  const path = e.path.split('/').pop();
+  if (path !== currentArticlePath) return e;
+  return null;
+});
+
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const allArticles = await getAllArticles();
@@ -25,14 +32,7 @@ export default async function decorate(block) {
     b.date = +(b.date);
     return a.date - b.date;
   });
-
-  const currentArticlePath = window.location.href.split('/').pop();
-  const filteredArticles = sortedArticles.filter((e) => {
-    const path = e.path.split('/').pop();
-    if (path !== currentArticlePath) return e;
-    return null;
-  });
-
+  const filteredArticles = clearRepeatedArticles(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
   const recentArticlesSection = createElement('div', 'recent-articles-section');
@@ -42,7 +42,7 @@ export default async function decorate(block) {
   const recentArticleList = createElement('ul', 'recent-articles-list');
 
   selectedArticles.forEach((e, idx) => {
-    const linkUrl = new URL(e.path, window.location.origin);
+    const linkUrl = new URL(e.path, getOrigin());
     const firstOrRest = (idx === 0) ? 'first' : 'rest';
 
     const item = createElement('li', `recent-articles-${firstOrRest}-item`);
@@ -55,7 +55,7 @@ export default async function decorate(block) {
     </a>`;
 
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, window.location.origin);
+    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
     const category = createElement('a', `recent-articles-${firstOrRest}-category`, { href: categoryUrl });
     category.innerText = e.category;
 

@@ -1,3 +1,8 @@
+.iframe {
+  display: flex;
+  justify-content: center;
+}
+
 .iframe iframe {
   width: 100%;
 }

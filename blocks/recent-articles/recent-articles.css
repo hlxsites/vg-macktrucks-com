@@ -33,12 +33,18 @@
   
 .recent-articles-first-item .recent-articles-first-category {
   position: relative;
-  font-size: var(--heading-font-size-xxs);
+  font-size: var(--body-font-size-xxs);
   background: var(--secondary-dark-gold);
   color: var(--primary-white);
   width: fit-content;
+  line-height: 15px;
   padding: 5px 8px;
   margin-top: 8px;
+}
+
+.recent-articles-first-item .recent-articles-first-category:hover {
+  text-decoration: none;
+  color: var(--primary-gold);
 }
 
 .recent-articles-first-item .recent-articles-first-title {
@@ -46,6 +52,7 @@
   font-size: var(--heading-4-mobile-size-s);
   line-height: 32px;
   word-wrap: break-word;
+  width: fit-content;
   height: auto;
   margin-top: 20px;
 }
@@ -63,6 +70,7 @@
   font-size: var(--body-font-size-xs);
   text-transform: uppercase;
   height: 31px;
+  width: fit-content;
   margin: 20px 0 30px;
 }
 
@@ -93,7 +101,20 @@
   color: var(--primary-black);
   font-weight: bolder;
   word-wrap: break-word;
-  width: 90%;
+  max-width: 90%;
+  width: fit-content;
   cursor: pointer;
   margin: 5px 0 0 20px;
+}
+
+.recent-articles-rest-item .recent-articles-rest-title:hover,
+.recent-articles-first-item .recent-articles-first-title:hover,
+.recent-articles-first-item .recent-articles-first-link:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+/* CATEGORIES */
+.magazine-categories.recent-articles-container .recent-articles-wrapper {
+  padding: 5px 20px;
 }
