@@ -1,16 +1,11 @@
 import {
-  createElement, isVideoLink, selectVideoLink, wrapImageWithVideoLink, addVideoShowHandler,
+  createElement,
+  isVideoLink,
+  selectVideoLink,
+  wrapImageWithVideoLink,
+  addVideoShowHandler,
+  getTargetParentElement,
 } from '../../scripts/scripts.js';
-
-const getTargetParentElement = (el, option) => {
-  const [key] = Object.keys(option);
-  const checks = {
-    tag: el.parentElement.localName === option[key],
-    className: el.parentElement.classList.contains(option[key]),
-  };
-  if (checks[key] === undefined) return null;
-  return checks[key] ? el.parentElement : getTargetParentElement(el.parentElement, option);
-};
 
 const decorateUnderline = (col) => {
   const u = col.querySelector('u');
