@@ -20,9 +20,14 @@ const engineData = new Map();
 export default async function decorate(block) {
   engineData.set(block, {});
 
+  let jsonUrl;
   // load categories  data
-  const rawCategories = [...block.children];
-  rawCategories.forEach((rawTabHeader) => {
+  [...block.children].forEach((rawTabHeader) => {
+    // any first cell that contains a link is the json url
+    if (rawTabHeader.children[0].querySelector('a')) {
+      jsonUrl = rawTabHeader.children[0].querySelector('a').getAttribute('href');
+      return;
+    }
     const categoryId = rawTabHeader.children[0].textContent.replaceAll('®', '').toLowerCase().trim();
     engineData.get(block)[categoryId] = {
       nameHTML: rawTabHeader.children[0].innerHTML,
@@ -30,10 +35,10 @@ export default async function decorate(block) {
       engines: {},
     };
   });
-  rawCategories.forEach((node) => node.remove());
+  [...block.children].forEach((node) => node.remove());
 
   // load data
-  const response = await fetch('/drafts/wingeier/performance-specifications-mp8.json');
+  const response = await fetch(jsonUrl);
   const result = await response.json();
   parseEngineJsonData(result.data, block);
 
