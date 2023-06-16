@@ -11,24 +11,23 @@ const articlesPerChunk = 4;
 let counter = 1;
 
 const divideArray = (mainArray, perChunk) => {
-  const dividedArrays = mainArray.reduce((resultArray, item, index) => { 
-    const chunkIndex = Math.floor(index/perChunk);
-    if(!resultArray[chunkIndex]) {
+  const dividedArrays = mainArray.reduce((resultArray, item, index) => {
+    const chunkIndex = Math.floor(index / perChunk);
+    if (!resultArray[chunkIndex]) {
       resultArray[chunkIndex] = [];
     }
-    resultArray[chunkIndex].push(item)
-    return resultArray
-  }, [])
-  return dividedArrays
-}
+    resultArray[chunkIndex].push(item);
+    return resultArray;
+  }, []);
+  return dividedArrays;
+};
 
 const getOptions = (list, placeholder) => {
   const options = [];
   list.unshift(placeholder);
-  list.forEach((value) => {
-    if (value.length === 0) return null;
-    const option = createElement('option', '', { value: value });
-    option.innerText = value;
+  list.forEach((el) => {
+    const option = createElement('option', '', { value: el });
+    option.innerText = el;
     options.push(option);
   });
   return options;
@@ -84,86 +83,75 @@ const buildArticle = (e) => {
   return article;
 };
 
-const loadMoreArticles = (evt, articleGroups, totalAmount, amountOfGroups) => {
+const loadMoreArticles = (evt, articleGroups, amountOfGroups) => {
   evt.preventDefault();
-  const activeButton = evt.srcElement
+  const activeButton = evt.srcElement;
   const allShownArticles = document.querySelectorAll('.article');
-  const lastShownArticle = allShownArticles[allShownArticles.length - 1]
-  const lastShownId = +(lastShownArticle.id.split('-').pop())
-  const nextArticleGroup = articleGroups[lastShownId + 1]
+  const lastShownArticle = allShownArticles[allShownArticles.length - 1];
+  const lastShownId = +(lastShownArticle.id.split('-').pop());
+  const nextArticleGroup = articleGroups[lastShownId + 1];
 
   nextArticleGroup.forEach((e, idx) => {
-    if (idx != 0) lastShownArticle.insertAdjacentElement('afterend', e)
+    if (idx !== 0) lastShownArticle.insertAdjacentElement('afterend', e);
   });
 
-  console.warn(amountOfGroups)
-  console.warn(counter)
-  
-  if ((amountOfGroups - 1) <= counter) {
-    console.log(amountOfGroups)
-    console.log(counter)
-    activeButton.remove()
-  }
-  
-  counter = counter + 1;
+  if ((amountOfGroups - 1) <= counter) activeButton.remove();
 
-  // console.log(allShownArticles.length, totalAmount)
-  // if (allShownArticles.length <= totalAmount) activeButton.remove()
-  // if (allShownArticles.length !<= totalAmount) activeButton.remove()
-}
+  counter += 1;
+};
 
 const addAllArrays = (array) => {
-  let initialValue = 0
+  const initialValue = 0;
   const totalArticles = array.reduce(
     (acc, curr) => acc + curr.length,
-    initialValue
+    initialValue,
   );
-  return totalArticles
-}
+  return totalArticles;
+};
 
 const getArticleGroups = (artGroup) => {
-  const groups = []
-    artGroup.forEach((articleGroup, idx) => {
-      const group = [idx]
-      articleGroup.forEach((el) => {
-        const article = buildArticle(el);
-        article.id = `group-${idx}`
-        group.push(article)
-      });
-      groups.push(group)
+  const groups = [];
+  artGroup.forEach((articleGroup, idx) => {
+    const group = [idx];
+    articleGroup.forEach((el) => {
+      const article = buildArticle(el);
+      article.id = `group-${idx}`;
+      group.push(article);
     });
-  return groups
-}
+    groups.push(group);
+  });
+  return groups;
+};
 
 const buildFirstArticles = (art, section) => {
-  const firstArticles = art[0]
+  const firstArticles = art[0];
   firstArticles.forEach((e, idx) => {
-    if (idx != 0) section.append(e)
+    if (idx !== 0) section.append(e);
   });
-}
+};
 
 const buildArticleList = (articles) => {
-  const groupedArticles = divideArray(articles, articlesPerChunk)
-  const articleGroups = getArticleGroups(groupedArticles)
-  const totalArticlesNumber = addAllArrays(groupedArticles)
-  const amountOfGroups = articleGroups.length
+  const groupedArticles = divideArray(articles, articlesPerChunk);
+  const articleGroups = getArticleGroups(groupedArticles);
+  const totalArticlesNumber = addAllArrays(groupedArticles);
+  const amountOfGroups = articleGroups.length;
 
   const paginationSection = createElement('div', 'pagination-section');
   const articlesSection = createElement('div', 'explore-articles-articles');
 
   const amountOfArticles = createElement('p', 'article-amount');
-  amountOfArticles.textContent = (totalArticlesNumber != 0) ?  `${totalArticlesNumber} articles` : getTextLabel('No article Message')
+  amountOfArticles.textContent = (totalArticlesNumber !== 0) ? `${totalArticlesNumber} articles` : getTextLabel('No article Message');
 
-  paginationSection.append(amountOfArticles)
+  paginationSection.append(amountOfArticles);
   articlesSection.append(paginationSection);
 
   const moreSection = createElement('div', 'explore-articles-more');
   const moreButton = createElement('button', 'more-btn');
   moreButton.textContent = getTextLabel('Load more articles button');
-  moreButton.addEventListener('click', (evt) => loadMoreArticles(evt, articleGroups, totalArticlesNumber, amountOfGroups))
+  moreButton.addEventListener('click', (evt) => loadMoreArticles(evt, articleGroups, amountOfGroups));
   if (totalArticlesNumber > articlesPerChunk) moreSection.append(moreButton);
 
-  if (articleGroups.length != 0) {
+  if (articleGroups.length !== 0) {
     const articleListSection = createElement('div', 'article-list');
     buildFirstArticles(articleGroups, articleListSection);
     articlesSection.append(articleListSection, moreSection);
@@ -171,9 +159,7 @@ const buildArticleList = (articles) => {
   return articlesSection;
 };
 
-const handleForm = (event) => {
-  // const fieldset = event.srcElement.parentNode.parentNode;
-  event.preventDefault();
+const handleForm = () => {
   counter = 1;
   const fieldset = document.querySelector('#explore-magazine-fieldset');
   const selects = fieldset.querySelectorAll('select');
@@ -197,9 +183,7 @@ const handleForm = (event) => {
   const articleList = document.querySelector('.explore-articles-articles');
 
   articleList.textContent = '';
-  //add grouped articles
   const filteredArticles = buildArticleList(filteredList, 0);
-  // if (filteredList.length != 0) articleList.append(filteredArticles);
   articleList.append(filteredArticles);
 };
 
@@ -223,7 +207,6 @@ const buildFieldset = () => {
 
   return formSection;
 };
-
 
 export default async function decorate(block) {
   const children = block.querySelectorAll('p');
