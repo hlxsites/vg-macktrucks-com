@@ -28,7 +28,7 @@ const getOptions = (list, placeholder) => {
   list.forEach((el) => {
     const option = createElement('option', '', { value: el });
     option.innerText = el;
-    options.push(option);
+    if (el.length !== 0) options.push(option);
   });
   return options;
 };
