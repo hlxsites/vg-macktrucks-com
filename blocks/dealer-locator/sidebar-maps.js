@@ -2535,10 +2535,9 @@ $.fn.setAddress = function () {
         $.fn.filterRadius();
       }
 
+      $('.waiting-overlay').css('display', 'none');
       // Set default sidebar pane
       $.fn.switchSidebarPane('sidebar-pins');
-
-      $('.waiting-overlay').css('display', 'none');
 
     }
   });
