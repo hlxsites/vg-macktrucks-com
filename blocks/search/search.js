@@ -55,28 +55,6 @@ export default function decorate(block) {
   const resultsWrapper = document.getElementById('searchResultsSection');
   const summary = document.getElementById('searchResultSummarySection');
   const sortBy = document.getElementById('searchOptionsSection');
-  const backToTopBtn = document.getElementById('scrollToTop');
-
-  function goToTopFunction() {
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    let timeOut;
-
-    if (scrollTop !== 0) {
-      window.scrollBy(0, -50);
-      timeOut = setTimeout(goToTopFunction, 10);
-      return;
-    }
-
-    clearTimeout(timeOut);
-  }
-
-  backToTopBtn.onclick = () => goToTopFunction();
-
-  window.onscroll = () => {
-    if (!hasResults) return;
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    backToTopBtn.style.display = scrollTop > 160 ? 'flex' : 'none';
-  };
 
   function searchResults() {
     insertUrlParam('q', input.value);

@@ -159,6 +159,36 @@ export default async function decorate(block) {
     }
   };
 
+  function displayScrollToTop(buttonEl) {
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    buttonEl.style.display = scrollTop > 160 ? 'block' : 'none';
+  }
+
+  function goToTopFunction() {
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    let timeOut;
+
+    if (scrollTop !== 0) {
+      window.scrollBy(0, -50);
+      timeOut = setTimeout(goToTopFunction, 10);
+      return;
+    }
+
+    clearTimeout(timeOut);
+  }
+
+  function addScrollToTopButton(mainEl) {
+    const scrollToTopButton = createElement('button', ['scroll-to-top', 'button'], { title: 'Go to the top of the page' });
+    const icon = createElement('i', ['fa', 'fa-angle-up']);
+    scrollToTopButton.appendChild(icon);
+
+    scrollToTopButton.addEventListener('click', goToTopFunction);
+    window.addEventListener('scroll', () => displayScrollToTop(scrollToTopButton));
+    mainEl.append(scrollToTopButton);
+  }
+
   observer = new MutationObserver(onFormLoaded);
   observer.observe(targetNode, observerOptions);
+
+  addScrollToTopButton(block);
 }
