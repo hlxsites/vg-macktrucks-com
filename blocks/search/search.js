@@ -50,6 +50,7 @@ export default function decorate(block) {
   // after insert the main template, these elements are present then
   const searchBtn = block.querySelector('.sf-form > span');
   const input = document.getElementById('searchTerm');
+  input.value = searchTerm;
   const facetsWrapper = document.getElementById('searchFacetSection');
   const resultsWrapper = document.getElementById('searchResultsSection');
   const summary = document.getElementById('searchResultSummarySection');
