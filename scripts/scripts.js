@@ -75,38 +75,38 @@ export function decorateSections(main) {
  * @param {Element} element container element
  */
 export function decorateButtons(element) {
-  element.querySelectorAll('a').forEach((a) => {
-    a.title = a.title || a.textContent;
-    if (a.href !== a.textContent) {
-      const up = a.parentElement;
-      const twoup = a.parentElement.parentElement;
-      if (!a.querySelector('img') && up.childNodes.length === 1) {
+  element.querySelectorAll('a').forEach((link) => {
+    link.title = link.title || link.textContent;
+    if (link.href !== link.textContent) {
+      const up = link.parentElement;
+      const twoup = link.parentElement.parentElement;
+      if (!link.querySelector('img') && up.childNodes.length === 1) {
         if (up.tagName === 'P' || up.tagName === 'DIV') {
-          a.className = 'button primary'; // default
+          link.className = 'button primary'; // default
           up.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          a.className = 'button primary';
+          link.className = 'button primary';
           twoup.className = 'button-container';
         }
         if (up.tagName === 'EM' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          a.className = 'button secondary';
+          link.className = 'button secondary';
           twoup.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
           const arrow = document.createElement('span');
-          a.className = 'button arrowed';
+          link.className = 'button arrowed';
           twoup.parentElement.className = 'button-container';
           arrow.className = 'fa fa-arrow-right';
-          a.appendChild(arrow);
+          link.appendChild(arrow);
         }
         if (up.tagName === 'LI' && twoup.children.length === 1
-          && a.firstElementChild.tagName === 'STRONG') {
+          && link.firstElementChild.tagName === 'STRONG') {
           const arrow = document.createElement('span');
-          a.className = 'button arrowed';
+          link.className = 'button arrowed';
           twoup.className = 'button-container';
           arrow.className = 'fa fa-arrow-right';
-          a.appendChild(arrow);
+          link.appendChild(arrow);
         }
       }
     }
@@ -179,14 +179,16 @@ export function createElement(tagName, classes = [], props = {}) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
+  const header = main.querySelector('h1');
   const picture = main.querySelector('picture');
   const heroBlock = main.querySelector('.hero');
   if (heroBlock) return;
   // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+  if (header && picture
+    // eslint-disable-next-line no-bitwise
+    && (header.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(buildBlock('hero', { elems: [picture, header] }));
     section.querySelector('.hero').classList.add('auto-block');
     main.prepend(section);
   }
