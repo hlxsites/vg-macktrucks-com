@@ -114,49 +114,66 @@
   height: unset;
 }
 
-.modal-content.modal-bulldog-form {
+.modal-content.modal-form {
   background-size: cover;
   background-position: center;
-  background-image: url("../../media/subscribe-to-bulldog-background.png");
   padding: 50px;
   color: var(--primary-white);
+  max-height: 80vh;
+  overflow: scroll;
+  aspect-ratio: unset;
 }
 
-.modal-content.modal-bulldog-form h2,
-.modal-content.modal-bulldog-form h3 {
+.modal-content.modal-form h2,
+.modal-content.modal-form h3 {
   margin-top: 0;
 }
 
-.modal-content.modal-bulldog-form .eloqua-form .elq-form input,
-.modal-content.modal-bulldog-form .eloqua-form .elq-form select {
+.modal-content.modal-form .eloqua-form .elq-form input,
+.modal-content.modal-form .eloqua-form .elq-form select {
   color: var(--primary-white);
   opacity: 0.6;
   background-color: rgb(255 255 255 / 40%);
 }
 
-.modal-content.modal-bulldog-form input::placeholder {
+.modal-content.modal-form .eloqua-form input::placeholder {
   color: var(--primary-white);
 }
 
-.modal-content.modal-bulldog-form .eloqua-form .elq-form .eloqua-select-wrapper::after {
+.modal-content.modal-form .eloqua-form .elq-form .eloqua-select-wrapper::after {
   color: var(--primary-white);
   border-color: var(--primary-white);
   opacity: 0.6;
 }
 
-.modal-content.modal-bulldog-form .eloqua-form input[type="submit"] {
-  background: var(--primary-black);
-  color: var(--primary-white);
+.modal-content.modal-form .eloqua-form input[type="submit"] {
   opacity: 1;
 }
 
-.modal-content.modal-bulldog-form .eloqua-form .elq-form input[type="checkbox"],
+.modal-content.modal-form .eloqua-form .elq-form input[type="checkbox"],
 /* stylelint-disable-next-line max-line-length */
-.modal-content.modal-bulldog-form .eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
+.modal-content.modal-form .eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
   background-color: transparent;
 }
 
 /* stylelint-disable-next-line selector-class-pattern */
-.modal-content.modal-bulldog-form .LV_invalid {
+.modal-content.modal-form.modal-red .LV_invalid {
   color: yellow;
+}
+
+.modal-content.modal-form.modal-red .eloqua-form input[type="submit"] {
+  background: var(--primary-black);
+  color: var(--primary-white);
+}
+
+.modal-content.modal-red {
+  background-image: url("../../media/subscribe-to-bulldog-background.png");
+}
+
+.modal-content.modal-form.modal-black .eloqua-form input[type="submit"] {
+  background: #af9866;
+}
+
+.modal-content.modal-black {
+  background-image: url("../../media/share-your-thoughts-background.png");
 }

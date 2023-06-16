@@ -141,7 +141,7 @@ async function buildMagazineSubNav(block, ref) {
         'eloqua-form',
         '<div>magazine-subscribe</div><div><div><div>Thank you!</div></div></div>',
       );
-      modal.showModal(bulldogForm, { classes: ['modal-bulldog-form'] });
+      modal.showModal(bulldogForm, { classes: ['modal-form', 'modal-red'] });
     });
   };
   subscribeBtn.addEventListener('click', showBulldogSubscribeForm);

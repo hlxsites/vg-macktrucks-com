@@ -227,6 +227,22 @@ export function decorateLinks(block) {
         return;
       }
 
+      // handling modal links
+      if (link.getAttribute('href').startsWith('/#id-modal')) {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const modalId = link.getAttribute('href').split('#')[1];
+          const modalEvent = new CustomEvent('open-modal', {
+            detail: {
+              modalId,
+            },
+          });
+
+          document.dispatchEvent(modalEvent, { bubbles: true });
+        });
+        return;
+      }
+
       const url = new URL(link.href);
       const external = !url.host.match('macktrucks.com') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
       if (url.host.match('build.macktrucks.com') || url.pathname.endsWith('.pdf') || external) {
