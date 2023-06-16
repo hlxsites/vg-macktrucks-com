@@ -254,11 +254,7 @@
   background: #212121;
 }
 
-.footer
-  .eloqua-form
-  .elq-form
-  .email-and-submit-container
-  input[type="submit"] {
+.footer .eloqua-form .elq-form .email-and-submit-container input[type="submit"] {
   position: absolute;
   right: 0;
   border: none;
@@ -284,6 +280,7 @@
 .footer .checkbox-span label[for] {
   position: relative;
   margin-left: 0;
+  white-space: break-spaces;
 }
 
 .footer .checkbox-span label[for]::before {
