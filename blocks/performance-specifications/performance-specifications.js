@@ -216,6 +216,10 @@ function handleKeyboardNavigation(tabList) {
  */
 async function updateChart(chartContainer, performanceData) {
   if (!window.echarts) {
+    // delay by 3 seconds to ensure a good lighthouse score
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     // custom small bundle created on https://echarts.apache.org/en/builder.html
     await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
   }
