@@ -2444,7 +2444,7 @@ $.fn.setAddress = function () {
   if (!address) {
     return null;
   }
-
+  
   $geocoder = new google.maps.Geocoder;
   $geocoder = new google.maps.Geocoder;
   $geocoder.geocode({ 'address': address }, function (results, status) {
@@ -2535,7 +2535,6 @@ $.fn.setAddress = function () {
         $.fn.filterRadius();
       }
 
-      $('.waiting-overlay').css('display', 'none');
       // Set default sidebar pane
       $.fn.switchSidebarPane('sidebar-pins');
 
@@ -2633,7 +2632,8 @@ $.fn.setLocation = function () {
 
       console.log('error with navigator');
       $.fn.handleLocationError(true);
-
+      const waiting = $('.sidebar #location').val() ? 'none' : 'block';
+      $('.waiting-overlay').css('display', waiting)
     });
 
 
