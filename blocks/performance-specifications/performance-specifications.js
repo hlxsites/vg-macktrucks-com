@@ -155,7 +155,7 @@ function renderEngineSpecs(engineDetails) {
     ])
       .flat()),
     p({ class: 'button-container' },
-      a({ class: 'button secondary download-specs', href: engineDetails['download specs'] }, 'Download Specs')),
+      a({ class: 'button secondary download-specs', href: engineDetails['download specs'], target: '_blank' }, 'Download Specs')),
   );
 }
 
