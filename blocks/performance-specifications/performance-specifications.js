@@ -12,6 +12,26 @@ import { loadScript } from '../../scripts/lib-franklin.js';
 const engineData = new Map();
 
 /**
+ * converts the rows into columns, and vice versa.
+ * @return {Object<string, string[]>}
+ */
+function transposeTable(data) {
+  const newData = {};
+  data.forEach((row) => {
+    const label = row.ID.toLowerCase().trim();
+    for (const modelId in row) {
+      if (modelId !== 'ID') {
+        if (!newData[modelId]) {
+          newData[modelId] = [];
+        }
+        newData[modelId].push([label, row[modelId]]);
+      }
+    }
+  });
+  return newData;
+}
+
+/**
  * @typedef {Object} EngineDetail
  * @property {Array<Array<string>>} facts
  * @property {Array<Array<string>>} performanceData
@@ -20,7 +40,7 @@ const engineData = new Map();
 export default async function decorate(block) {
   engineData.set(block, {});
 
-  // load categories and data
+  // load categories  data
   const rawCategories = [...block.children];
   rawCategories.forEach((rawTabHeader) => {
     const categoryId = rawTabHeader.children[0].textContent.replaceAll('®', '').toLowerCase().trim();
@@ -31,7 +51,12 @@ export default async function decorate(block) {
     };
   });
   rawCategories.forEach((node) => node.remove());
-  loadPerformanceDataFromDataBlocks(block);
+
+  // load data
+  const response = await fetch('/drafts/wingeier/performance-specifications-mp8.json');
+  const result = await response.json();
+  parseEngineJsonData(result.data, block);
+  console.log('engineData', engineData.get(block));
 
   const initialCategoryId = Object.keys(engineData.get(block))[0];
   const initialEngineId = Object.keys(engineData.get(block)[initialCategoryId].engines)[0];
@@ -223,21 +248,24 @@ async function updateChart(chartContainer, performanceData) {
     });
   }
 
-  // cast RPM column to numbers
-  performanceData.forEach((row) => {
-    row[0] = Number(row[0]);
-  });
+  const firstMetric = Object.values(performanceData)[0];
+  const rpmValues = Object.keys(firstMetric);
 
   function getEchartsSeries(sweetSpotStart, sweetSpotEnd) {
-    const series = performanceData[0].slice(1)
-      .map((title, index) => ({
+    const metrics = Object.keys(performanceData);
+
+    const series = metrics.map((title) => {
+      const metricValues = Object.entries(performanceData[title])
+        .map(([rpm, value]) => [Number(rpm), Number(value)]);
+
+      return ({
         type: 'line',
         name: title.toUpperCase(),
         symbolSize: 12,
         smooth: true,
-        data: performanceData.slice(1)
-          .map((row) => [row[0], row[index + 1]]),
-      }));
+        data: metricValues,
+      });
+    });
 
     // add mark area to first series
     series[0] = {
@@ -287,8 +315,8 @@ async function updateChart(chartContainer, performanceData) {
       color: '#ffffff',
     },
     xAxis: {
-      min: performanceData[1][0],
-      max: performanceData.at(-1)[0] + 100,
+      min: rpmValues[0],
+      max: rpmValues.at(-1) + 100,
       type: 'value',
 
       // label center bellow chart
@@ -357,30 +385,41 @@ async function updateChart(chartContainer, performanceData) {
   });
 }
 
-function loadPerformanceDataFromDataBlocks(block) {
-  block.closest('.performance-specifications-container').querySelectorAll('.performance-data')
-    .forEach((dataBlock) => {
-      const tableData = deconstructBlockIntoArray(dataBlock)
-        .filter((cols) => cols.length > 0 && cols[0] !== '');
-      const indexOfRpm = tableData.findIndex((row) => row[0] === 'RPM');
-      // rows until RPM are facts, after is performance data
-      const facts = tableData.slice(0, indexOfRpm);
-      const performanceData = tableData.slice(indexOfRpm);
-
-      const categoryKey = [...dataBlock.classList].find((c) => c !== 'performance-data' && !c.toLowerCase()
-        .endsWith('-hp') && c !== 'block');
-      const horsepower = [...dataBlock.classList].find((c) => c.toLowerCase()
-        .endsWith('-hp'))
-        .replace('-', ' ')
-        .toUpperCase();
-
-      if (!engineData.get(block)[categoryKey]) {
-        engineData.get(block)[categoryKey] = {};
+function parseEngineJsonData(data, block) {
+  // need to convert because the Excel sheet is column based and the JSON API returns rows.
+  const rows = transposeTable(data);
+  Object.values(rows)
+    .forEach((modelArray) => {
+      const engine = { facts: [], performanceData: {} };
+      let rpmLabel = null;
+      // extract RPM data into engine.performanceData. The rows after the key `rpm`
+      // are the performance data. They value of the RPM row contains the type of performance data.
+      for (const [key, value] of modelArray) {
+        if (key === 'rpm') {
+          rpmLabel = value;
+        } else if (key === 'model' || key === 'series') {
+          engine.facts[key] = value;
+        } else if (rpmLabel !== null) {
+          if (!engine.performanceData[rpmLabel]) {
+            engine.performanceData[rpmLabel] = {};
+          }
+          engine.performanceData[rpmLabel][key] = value;
+        } else {
+          engine.facts.push([key, value]);
+        }
       }
-      engineData.get(block)[categoryKey].engines[horsepower] = {
-        facts,
-        performanceData,
-      };
+
+      // remove empty performance data
+      Object.keys(engine.performanceData)
+        .forEach((key) => {
+          if (Object.values(engine.performanceData[key])[0] === '') {
+            delete engine.performanceData[key];
+          }
+        });
+
+      const categoryId = engine.facts.series.replaceAll('®', '').toLowerCase().trim();
+
+      engineData.get(block)[categoryId].engines[engine.facts.model] = engine;
     });
 }
 
