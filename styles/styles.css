@@ -120,7 +120,6 @@
   --body-font-size-s: 1.6rem; /* 16px */
   --body-font-size-xs: 1.4rem; /* 14px */
   --body-font-size-xxs: 1.3rem; /* 13px */
-  --body-font-size-xxxs: 1.1rem; /* 11px */
 
   /* Body font sizes DESKTOP */
   --body-desktop-font-size-1: var(--body-font-size-s); /* 16px */
@@ -565,7 +564,7 @@ main .section.magazine-listing-content h3 {
 }
 
 main sup {
-  font-size: clamp(var(--body-font-size-xxxs), 12px, 1em);
+  font-size: clamp(var(--body-font-size-xxs), 12px, 1em);
 }
 
 @media (min-width: 768px) {
