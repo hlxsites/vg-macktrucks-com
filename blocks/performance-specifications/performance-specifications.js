@@ -1,5 +1,5 @@
 import {
-  button, a, div, domEl, p,
+  a, button, div, domEl, p,
 } from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 
@@ -12,29 +12,9 @@ import { loadScript } from '../../scripts/lib-franklin.js';
 const engineData = new Map();
 
 /**
- * converts the rows into columns, and vice versa.
- * @return {Object<string, string[]>}
- */
-function transposeTable(data) {
-  const newData = {};
-  data.forEach((row) => {
-    const label = row.ID.toLowerCase().trim();
-    for (const modelId in row) {
-      if (modelId !== 'ID') {
-        if (!newData[modelId]) {
-          newData[modelId] = [];
-        }
-        newData[modelId].push([label, row[modelId]]);
-      }
-    }
-  });
-  return newData;
-}
-
-/**
  * @typedef {Object} EngineDetail
  * @property {Array<Array<string>>} facts
- * @property {Array<Array<string>>} performanceData
+ * @property {Object<string, Object<number, number>>} performanceData
  */
 
 export default async function decorate(block) {
@@ -56,7 +36,6 @@ export default async function decorate(block) {
   const response = await fetch('/drafts/wingeier/performance-specifications-mp8.json');
   const result = await response.json();
   parseEngineJsonData(result.data, block);
-  console.log('engineData', engineData.get(block));
 
   const initialCategoryId = Object.keys(engineData.get(block))[0];
   const initialEngineId = Object.keys(engineData.get(block)[initialCategoryId].engines)[0];
@@ -168,17 +147,15 @@ function renderCategoryDetail(block, categoryData, selectEngineId = null) {
 }
 
 function renderEngineSpecs(engineDetails) {
-  const { facts } = engineDetails;
-
   // noinspection JSCheckFunctionSignatures
   return div({ class: 'key-specs' },
-    domEl('dl', {}, ...facts.map((cells) => [
+    domEl('dl', {}, ...engineDetails.facts.map((cells) => [
       domEl('dt', cells[0]),
       domEl('dd', cells[1]),
     ])
       .flat()),
     p({ class: 'button-container' },
-      a({ class: 'button secondary download-specs' }, 'Download Specs')),
+      a({ class: 'button secondary download-specs', href: engineDetails['download specs'] }, 'Download Specs')),
   );
 }
 
@@ -249,7 +226,7 @@ async function updateChart(chartContainer, performanceData) {
   }
 
   const firstMetric = Object.values(performanceData)[0];
-  const rpmValues = Object.keys(firstMetric);
+  const rpmValues = Object.keys(firstMetric).map(Number);
 
   function getEchartsSeries(sweetSpotStart, sweetSpotEnd) {
     const metrics = Object.keys(performanceData);
@@ -315,7 +292,7 @@ async function updateChart(chartContainer, performanceData) {
       color: '#ffffff',
     },
     xAxis: {
-      min: rpmValues[0],
+      min: rpmValues.at(0),
       max: rpmValues.at(-1) + 100,
       type: 'value',
 
@@ -391,19 +368,21 @@ function parseEngineJsonData(data, block) {
   Object.values(rows)
     .forEach((modelArray) => {
       const engine = { facts: [], performanceData: {} };
-      let rpmLabel = null;
+      let metricName = null;
       // extract RPM data into engine.performanceData. The rows after the key `rpm`
-      // are the performance data. They value of the RPM row contains the type of performance data.
+      // are the performance data. They value of the RPM row contains the metric name.
       for (const [key, value] of modelArray) {
         if (key === 'rpm') {
-          rpmLabel = value;
-        } else if (key === 'model' || key === 'series') {
-          engine.facts[key] = value;
-        } else if (rpmLabel !== null) {
-          if (!engine.performanceData[rpmLabel]) {
-            engine.performanceData[rpmLabel] = {};
+          metricName = value;
+        } else if (key === 'model' || key === 'series' || key === 'download specs') {
+          engine[key] = value;
+        } else if (metricName !== null) {
+          // handle performance data
+          if (!engine.performanceData[metricName]) {
+            engine.performanceData[metricName] = {};
           }
-          engine.performanceData[rpmLabel][key] = value;
+          const rpmValue = Number(key);
+          engine.performanceData[metricName][rpmValue] = Number(value);
         } else {
           engine.facts.push([key, value]);
         }
@@ -412,44 +391,34 @@ function parseEngineJsonData(data, block) {
       // remove empty performance data
       Object.keys(engine.performanceData)
         .forEach((key) => {
-          if (Object.values(engine.performanceData[key])[0] === '') {
+          if (Object.values(engine.performanceData[key])[0] === 0
+          && Object.values(engine.performanceData[key])[1] === 0) {
             delete engine.performanceData[key];
           }
         });
 
-      const categoryId = engine.facts.series.replaceAll('®', '').toLowerCase().trim();
+      const categoryId = engine.series.replaceAll('®', '').toLowerCase().trim();
 
-      engineData.get(block)[categoryId].engines[engine.facts.model] = engine;
+      engineData.get(block)[categoryId].engines[engine.model] = engine;
     });
 }
 
 /**
- *  inverse operation of `buildBlock()`.
- *
- * @param blockEl {HTMLDivElement} Franklin row column tree
- * @return {string[][]} 2d array of the block's content
+ * converts the rows into columns, and vice versa.
+ * @return {Object<string, string[]>}
  */
-export function deconstructBlockIntoArray(blockEl) {
-  const array2d = [];
-  Array.from(blockEl.children)
-    .forEach((rowEl) => {
-      const row = [];
-      Array.from(rowEl.children)
-        .forEach((colEl) => {
-          if (colEl.childNodes.length <= 1) {
-            row.push(colEl.textContent);
-          } else {
-            const col = [];
-            Array.from(colEl.childNodes)
-              .forEach((val) => {
-                col.push(val.textContent);
-              });
-            row.push(col);
-          }
-        });
-
-      array2d.push(row);
-    });
-
-  return array2d;
+function transposeTable(data) {
+  const newData = {};
+  data.forEach((row) => {
+    const label = row.ID.toLowerCase().trim();
+    for (const modelId in row) {
+      if (modelId !== 'ID') {
+        if (!newData[modelId]) {
+          newData[modelId] = [];
+        }
+        newData[modelId].push([label, row[modelId]]);
+      }
+    }
+  });
+  return newData;
 }
