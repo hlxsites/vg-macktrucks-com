@@ -11,9 +11,13 @@ export const getAllArticles = async () => {
 };
 
 export const getLimit = (block) => {
-  const children = [...block.children];
-  const number = [...children[0].children][1].innerText;
-  return number;
+  const classes = block.classList;
+  let limit;
+  classes.forEach((e) => {
+    const [name, value] = e.split('-');
+    if (name === 'limit') limit = value;
+  });
+  return limit;
 };
 
 export const clearRepeatedArticles = (articles) => articles.filter((e) => {
