@@ -135,15 +135,16 @@ async function buildMagazineSubNav(block, ref) {
   block.appendChild(subNavContainer);
 
   const showBulldogSubscribeForm = () => {
-    // eslint-disable-next-line import/no-cycle
-    import('../../common/modal/modal-component.js').then((modal) => {
-      const bulldogForm = loadAsBlock(
-        'eloqua-form',
-        '<div>magazine-subscribe</div><div><div><div>Thank you!</div></div></div>',
-      );
-      modal.showModal(bulldogForm, { classes: ['modal-form', 'modal-red'] });
+    const modalId = 'id-modal-subscribe-magazine';
+    const modalEvent = new CustomEvent('open-modal', {
+      detail: {
+        modalId,
+      },
     });
+
+    document.dispatchEvent(modalEvent, { bubbles: true });
   };
+
   subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
   listSubscribeBtn.addEventListener('click', showBulldogSubscribeForm);
 
