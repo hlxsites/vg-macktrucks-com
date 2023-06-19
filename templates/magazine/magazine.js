@@ -33,7 +33,8 @@ async function buildArticleHero() {
   articleHeroImage.append(headImg);
   truck.append(truckIcon, truckText);
 
-  articleHeroContent.append(categorySpan, titleH4, truck);
+  articleHeroContent.append(categorySpan, titleH4);
+  if (truckModel.length !== 0) articleHeroContent.append(truck);
   section.append(articleHeroImage, articleHeroContent);
 
   return section;

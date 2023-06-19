@@ -4,13 +4,12 @@ import {
   selectVideoLink,
   wrapImageWithVideoLink,
   addVideoShowHandler,
-  getTargetParentElement,
 } from '../../scripts/scripts.js';
 
 const decorateUnderline = (col) => {
   const u = col.querySelector('u');
   const uText = u.textContent;
-  const p = getTargetParentElement(u, { tag: 'p' });
+  const p = u.closest('p');
   const hr = createElement('hr', 'column-underline');
   u.parentElement.textContent = uText;
   p.appendChild(hr);

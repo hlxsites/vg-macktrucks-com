@@ -1,4 +1,4 @@
-import { createElement, getTargetParentElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/scripts.js';
 
 const decorateVideo = (link) => {
   const { parentElement } = link;
@@ -23,9 +23,9 @@ export default function decorate(block) {
   const parentContainer = contentWrapper.parentElement;
   // check if it has a video or an image
   const picture = block.querySelector('picture');
-  const pictureWrapper = getTargetParentElement(picture, { tag: 'p' });
+  const pictureWrapper = picture.closest('p');
   const video = block.querySelector('a[href*=".mp4"]');
-  const videoWrapper = video && getTargetParentElement(video, { tag: 'p' });
+  const videoWrapper = video && video.closest('p');
   const videoLink = videoWrapper?.firstElementChild;
   const contentContainer = createElement('div', 'hero-content-container');
   const mediaWrapper = createElement('div', 'hero-content-media');
