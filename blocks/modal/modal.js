@@ -21,7 +21,7 @@ export default async function decorate(block) {
   const fragmentLink = content.innerText.trim();
   const modalId = [...block.classList].find((el) => el.startsWith('id-modal'));
   const classes = [...block.classList].filter((el) => el !== modalId && el !== 'block');
-  const itemFromCache = cacheList.find((el) => el.fragmentLink === fragmentLink);
+  const itemFromCache = cacheList.find((el) => el.modalId === modalId);
 
   // load fragment only if it wasn't loaded yet
   if (!itemFromCache) {
@@ -42,5 +42,6 @@ export default async function decorate(block) {
   }
 
   // modal block do not render anything by itself
+  // it just add event that shows up the modal with proper content
   block.remove();
 }
