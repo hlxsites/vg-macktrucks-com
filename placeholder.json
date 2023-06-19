@@ -30,6 +30,18 @@
     {
       "Key": "READ NOW",
       "Text": "READ NOW"
+    },
+    {
+      "Key": "Article filter placeholder",
+      "Text": "All Categories,All Trucks"
+    },
+    {
+      "Key": "No article Message",
+      "Text": "No Results Found"
+    },
+    {
+      "Key": "Load more articles button",
+      "Text": "Load More Articles"
     }
   ],
   ":type": "sheet"
