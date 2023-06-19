@@ -24,11 +24,6 @@ const setClickableCard = (ul, isDarkVar = false) => {
   });
 };
 
-const getParentSection = (element) => {
-  const parent = element.parentElement;
-  return parent.dataset.sectionStatus ? parent : getParentSection(parent);
-};
-
 const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
   changes.forEach((change) => {
     const isAttribute = change.type === 'attributes';
@@ -49,7 +44,7 @@ const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
 };
 
 const setSameHeightCards = (block, cards, imgMaxHeight) => {
-  const parentSection = getParentSection(block);
+  const parentSection = block.closest('[data-section-status]');
   const observer = new MutationObserver(
     (changes) => observerFallBack(changes, observer, cards, imgMaxHeight),
   );

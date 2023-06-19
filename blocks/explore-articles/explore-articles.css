@@ -1,0 +1,183 @@
+.explore-articles-section {
+  padding: 30px 45px;
+}
+
+.explore-articles-section .explore-articles-heading .explore-articles-title {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--heading-font-size-xxl);
+  margin: 0 0 5px;
+}
+
+.explore-articles-section .explore-articles-heading .explore-articles-text {
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-xs);
+  margin: 0 0 15px;
+}
+
+.explore-articles-section .explore-articles-content form {
+  margin: 0 0 20px;
+}
+
+.explore-articles-section .explore-articles-content fieldset {
+  border: none;
+  border-bottom: 5px solid var(--primary-black);
+  margin: 0;
+  padding: 0;
+}
+
+.explore-articles-section .explore-articles-content .input-field {
+  line-height: 25px;
+  width: 100%;
+  border: 2px solid var(--primary-black);
+  margin: 0 0 15px;
+}
+
+.explore-articles-section .explore-articles-content select {
+  font-family: var(--subheadings-ff-medium);
+  font-size: var(--body-font-size-s);
+  padding: 8px;
+}
+
+.explore-articles-section .explore-articles-articles .article {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  height: 300px;
+  margin: 0 0 25px;
+}
+
+.explore-articles-articles .pagination-section {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: 0 0 60px;
+}
+
+.explore-articles-articles .pagination-section p,
+.explore-articles-articles .pagination-section .article-empty-message {
+  font-family: var(--body-ff);
+  font-size: var(--body-font-size-xxs);
+}
+
+.explore-articles-articles .pagination {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.explore-articles-articles .pagination .page-number {
+  padding: 0;
+  margin: 0 5px;
+}
+
+.explore-articles-articles .pagination .pagination-button {
+  color: var(--primary-black);
+  background-color: transparent;
+  font-family: var(--emphasis-ff-bold);
+  margin: 0 5px;
+  padding: 0;
+}
+
+.explore-articles-articles .article .article-image {
+  position: absolute;
+  z-index: -1;
+}
+
+.explore-articles-articles .article-image img {
+  object-fit: cover;
+  height: 300px;
+}
+
+.explore-articles-articles .article .article-content {
+  font-family: var(--subheadings-ff-medium);
+  color: var(--primary-white);
+  padding: 0 30px 25px;
+}
+
+.explore-articles-articles .article-content .article-category {
+  font-size: var(--heading-font-size-xxs);
+  background-color: var(--primary-gold);
+  color: var(--primary-white);
+  padding: 8px;
+}
+
+.explore-articles-articles .article-content .article-category:hover {
+  font-size: var(--heading-font-size-xxs);
+  background-color: var(--primary-gold);
+  color: var(--secondary-dark-gold);
+  text-decoration: none;
+  padding: 8px;
+}
+
+.explore-articles-articles .article-content .article-title {
+  font-family: var(--emphasis-ff-bold);
+  font-size: var(--body-font-size-m);
+  margin: 15px 0 0;
+}
+
+.explore-articles-articles .article-content .article-subtitle {
+  font-size: var(--body-font-size-xxs);
+  width: 90%;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px 0 0;
+}
+
+.explore-articles-articles .article-content .article-title:hover,
+.explore-articles-articles .article-content .article-subtitle:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.explore-articles-articles .article-content .article-truck {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  margin: 5px 0 0;
+}
+
+.explore-articles-articles .article-content .article-truck:hover {
+  cursor: default;
+}
+
+.explore-articles-articles .article-content .article-truck-text {
+  font-size: var(--heading-font-size-xxs);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.explore-articles-articles .article-content .article-truck-icon {
+  height: 25px;
+  margin: 0;
+}
+
+.explore-articles-articles .explore-articles-more {
+  width: fit-content;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .explore-articles-section .explore-articles-content fieldset {
+    display: flex;
+    column-gap: 5px;
+  }
+  
+  .explore-articles-section .explore-articles-content .category-field,
+  .explore-articles-section .explore-articles-content .trucks-field {
+    width: 100%;
+  }
+
+  .explore-articles-section .explore-articles-articles .article-list {
+    display: flex;
+    flex-flow: wrap;
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+
+  .explore-articles-section .article-list .article {
+    width: calc(50% - 5px);
+    margin: 0;
+  }
+}

@@ -1,4 +1,8 @@
 /* TITLES */
+.tabs-tab-titles {
+  font-family: var(--emphasis-ff-bold);
+}
+
 .tabs-tab-titles ul {
   display: flex;
   flex-wrap: wrap;
@@ -10,7 +14,6 @@
 
 .tabs-tab-titles li {
   cursor: pointer;
-  font-weight: bold;
   font-size: 90%;
 }
 
