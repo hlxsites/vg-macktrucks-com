@@ -22,8 +22,10 @@ export default function decorate(block) {
   const contentWrapper = block.querySelector(':scope > div > div');
   const parentContainer = contentWrapper.parentElement;
   // check if it has a video or an image
-  const pictureWrapper = block.querySelector('p:has(picture)');
-  const videoWrapper = block.querySelector('p:has(a[href*=".mp4"])');
+  const picture = block.querySelector('picture');
+  const pictureWrapper = picture.closest('p');
+  const video = block.querySelector('a[href*=".mp4"]');
+  const videoWrapper = video && video.closest('p');
   const videoLink = videoWrapper?.firstElementChild;
   const contentContainer = createElement('div', 'hero-content-container');
   const mediaWrapper = createElement('div', 'hero-content-media');

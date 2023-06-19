@@ -1,9 +1,8 @@
 import { loadScript } from '../../scripts/lib-franklin.js';
 
 export default async function decorate(block) {
-  const location = new URL(window.location.href);
-  const { searchParams } = location;
-  const hasZipLocation = searchParams.size > 0 && searchParams.has('l');
+  const searchParams = new URLSearchParams(window.location.search);
+  const hasZipLocation = searchParams.has('l');
   const MQ = window.matchMedia('(max-width: 992px)');
   const isMobile = MQ.matches;
   // add the zip code to the input search, if it is present

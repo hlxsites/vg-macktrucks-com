@@ -41,7 +41,7 @@ main .section.specifications-container {
 .specs-list-multiple .feature-list .p-element {
   width: calc(50% - 65px);
   word-wrap: break-word;
-  height: 65px;
+  min-height: 65px;
 }
 
 .specs-item {
@@ -73,11 +73,6 @@ main .section.specifications-container {
   line-height: 14px;
 }
 
-.specs-item p:last-child {
-  margin: 0 0 5px;
-  padding-right: 50px;
-}
-
 .specs-item p:first-child {
   margin: 0;
   padding-bottom: 5px;
@@ -96,6 +91,13 @@ main .section.specifications-container {
 
 .specs-item img {
   margin-bottom: 10px;
+}
+
+@media (min-width: 426px) {
+  .specs-item p:last-child {
+    margin: 0 0 5px;
+    padding-right: 50px;
+  }
 }
 
 @media (min-width: 768px) {

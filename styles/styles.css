@@ -369,14 +369,39 @@ main .section.center {
   text-align: center;
 }
 
+/* top line over section or block */
 main .section.title-line > div > h2 {
   border-block-start: 3px solid var(--primary-black);
   padding-block-start: 1rem;
 }
 
+main .section.no-first-line.title-line > div:first-child > h2 {
+  border-block-start: none;
+  padding-block-start: none;
+}
+
 main .block.line-separator {
   border-block-start: 3px solid var(--primary-black);
   padding-block-start: 5rem;
+}
+
+/* less padding in sections */
+main .section.padding-16 {
+  padding: 16px;
+}
+
+main .section.padding-32 {
+  padding: 32px 16px;
+}
+
+@media (min-width: 600px) {
+  main .section.padding-16 {
+    padding: 16px 32px;
+  }
+
+  main .section.padding-32 {
+    padding: 32px;
+  }
 }
 
 main pre {
