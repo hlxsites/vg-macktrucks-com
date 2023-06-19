@@ -91,6 +91,8 @@ async function buildMagazineSubNav(block, ref) {
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
+  const modalId = 'id-modal-subscribe-magazine';
+  const modalBlockEl = fragment.querySelector(`#${modalId}`);
   // bar main section
   const mainTitleImg = mainTitleImgWrapper.querySelector('picture');
   const mainTitleLink = mainTitleImgWrapper.querySelector('a');
@@ -136,9 +138,6 @@ async function buildMagazineSubNav(block, ref) {
   block.appendChild(subNavContainer);
 
   const showBulldogSubscribeForm = async () => {
-    const modalId = 'id-modal-subscribe-magazine';
-    const modalBlockEl = fragment.querySelector(`#${modalId}`);
-
     if (modalBlockEl) {
       await loadBlocks(modalBlockEl);
 
