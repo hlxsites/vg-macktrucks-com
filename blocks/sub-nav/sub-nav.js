@@ -1,4 +1,3 @@
-import { loadBlocks } from '../../scripts/lib-franklin.js';
 import {
   createElement, decorateButtons, getTextLabel, loadAsBlock,
 } from '../../scripts/scripts.js';
@@ -92,7 +91,7 @@ async function buildMagazineSubNav(block, ref) {
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
   const modalId = 'id-modal-subscribe-magazine';
-  const modalBlockEl = fragment.querySelector(`#${modalId}`);
+  const modalBlockEl = fragment.querySelector(`.${modalId}`);
   // bar main section
   const mainTitleImg = mainTitleImgWrapper.querySelector('picture');
   const mainTitleLink = mainTitleImgWrapper.querySelector('a');
@@ -137,10 +136,12 @@ async function buildMagazineSubNav(block, ref) {
   subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
   block.appendChild(subNavContainer);
 
+  if (modalBlockEl) {
+    await loadAsBlock('modal', modalBlockEl.innerHTML, { variantsClasses: [...modalBlockEl.classList] });
+  }
+
   const showBulldogSubscribeForm = async () => {
     if (modalBlockEl) {
-      await loadBlocks(modalBlockEl);
-
       const modalEvent = new CustomEvent('open-modal', {
         detail: {
           modalId,
