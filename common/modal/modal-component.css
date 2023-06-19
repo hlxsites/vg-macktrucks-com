@@ -168,6 +168,7 @@
 }
 
 .modal-content.modal-red {
+  background-color: #7d191b;
   background-image: url("../../media/subscribe-to-bulldog-background.png");
 }
 
@@ -176,5 +177,6 @@
 }
 
 .modal-content.modal-black {
+  background-color: #090909;
   background-image: url("../../media/share-your-thoughts-background.png");
 }
