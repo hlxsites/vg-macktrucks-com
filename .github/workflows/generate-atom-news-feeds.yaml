@@ -10,7 +10,7 @@ on:
   pull_request:
     paths:
       - '.github/ci/**'
-      - '.github/workflows/generate-news-feed.yaml'
+      - '.github/workflows/generate-atom-news-feeds.yaml'
 
 jobs:
   build:
@@ -42,5 +42,4 @@ jobs:
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        file_pattern: 'mack-news/feed.xml'
         commit_message: "Update feed.xml"
