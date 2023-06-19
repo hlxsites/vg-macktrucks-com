@@ -1,3 +1,4 @@
+import { loadBlocks } from '../../scripts/lib-franklin.js';
 import {
   createElement, decorateButtons, getTextLabel, loadAsBlock,
 } from '../../scripts/scripts.js';
@@ -134,15 +135,21 @@ async function buildMagazineSubNav(block, ref) {
   subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
   block.appendChild(subNavContainer);
 
-  const showBulldogSubscribeForm = () => {
+  const showBulldogSubscribeForm = async () => {
     const modalId = 'id-modal-subscribe-magazine';
-    const modalEvent = new CustomEvent('open-modal', {
-      detail: {
-        modalId,
-      },
-    });
+    const modalBlockEl = fragment.querySelector(`#${modalId}`);
 
-    document.dispatchEvent(modalEvent, { bubbles: true });
+    if (modalBlockEl) {
+      await loadBlocks(modalBlockEl);
+
+      const modalEvent = new CustomEvent('open-modal', {
+        detail: {
+          modalId,
+        },
+      });
+
+      document.dispatchEvent(modalEvent, { bubbles: true });
+    }
   };
 
   subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
