@@ -1,4 +1,4 @@
-import { showModal } from '../../common/modal/modal.js';
+import { showModal } from '../../common/modal/modal-component.js';
 import fragmentBlock from '../fragment/fragment.js';
 
 const cacheList = [];

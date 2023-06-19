@@ -416,7 +416,7 @@ export function createLowResolutionBanner() {
 
 export function showVideoModal(linkUrl) {
   // eslint-disable-next-line import/no-cycle
-  import('../common/modal/modal.js').then((modal) => {
+  import('../common/modal/modal-component.js').then((modal) => {
     let beforeBanner = null;
 
     if (isLowResolutionVideoUrl(linkUrl)) {

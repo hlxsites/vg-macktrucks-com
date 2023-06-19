@@ -3,7 +3,7 @@ import { loadCSS } from '../../scripts/lib-franklin.js';
 import { createIframe, createElement } from '../../scripts/scripts.js';
 
 const styles$ = new Promise((r) => {
-  loadCSS(`${window.hlx.codeBasePath}/common/modal/modal.css`, r);
+  loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
 });
 
 const HIDE_MODAL_CLASS = 'modal-hidden';
