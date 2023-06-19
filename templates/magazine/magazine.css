@@ -34,6 +34,10 @@ main .template.section.article-hero-container {
   padding-left: 30px;
 }
 
+.article-hero-content:last-child {
+  padding-bottom: 50px;
+}
+
 .article-hero-content a.article-hero-category {
   background: var(--secondary-dark-gold);
   font-family: var(--subheadings-ff-medium);
@@ -66,10 +70,10 @@ main .template.section.article-hero-container {
   font-size: var(--body-font-size-xs);
   color: var(--secondary-steel);
   padding-top: 0;
-  margin: 35px 0 50px;
+  margin: 35px 0 0;
 }
 
-.article-hero-content .article-hero-truck .truck-text{
+.article-hero-content .article-hero-truck .truck-text {
   margin: 0;
   padding-left: 5px;
 }
