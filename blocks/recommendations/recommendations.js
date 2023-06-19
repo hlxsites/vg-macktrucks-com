@@ -67,7 +67,6 @@ export default async function decorate(block) {
   });
   recommendationsSection.append(recommendationsTitle, recommendationsList);
 
-  block.style.display = 'block';
   block.textContent = '';
   block.append(recommendationsSection);
 }
