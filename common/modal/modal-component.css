@@ -130,7 +130,8 @@
 }
 
 .modal-content.modal-form .eloqua-form .elq-form input,
-.modal-content.modal-form .eloqua-form .elq-form select {
+.modal-content.modal-form .eloqua-form .elq-form select,
+.modal-content.modal-form .eloqua-form .elq-form textarea {
   color: var(--primary-white);
   opacity: 0.6;
   background-color: rgb(255 255 255 / 40%);
