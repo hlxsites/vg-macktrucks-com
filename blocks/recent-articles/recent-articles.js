@@ -77,6 +77,7 @@ export default async function decorate(block) {
   });
   recentArticlesSection.append(recentArticlesTitle, recentArticleList);
 
+  block.style.display = 'block';
   block.textContent = '';
   block.append(recentArticlesSection);
 }
