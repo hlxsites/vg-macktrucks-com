@@ -365,6 +365,10 @@ main .section.black-background {
   background-color: var(--primary-black);
 }
 
+main .section.dark-background {
+  background-color: var(--secondary-graphite);
+}
+
 main .section.center {
   text-align: center;
 }
@@ -582,6 +586,10 @@ main .section.magazine-listing-content h3 {
   line-height: 38px;
   padding: 5px 0 0 5px;
   margin: 0 0 13px;
+}
+
+main sup {
+  font-size: clamp(var(--body-font-size-xxs), 12px, 1em);
 }
 
 @media (min-width: 768px) {

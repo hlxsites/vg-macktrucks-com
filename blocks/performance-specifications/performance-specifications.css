@@ -1,0 +1,157 @@
+/* stylelint-disable no-descending-specificity */
+
+.performance-specifications {
+  --gold-button-background: #b3976b;
+}
+
+.performance-specifications .category-tablist[role="tablist"] {
+  display: flex;
+}
+
+.performance-specifications .category-tablist [role="tab"] {
+  --tab-inactive-text-color: #8d8d8d;
+  --tab-inactive-border-color: #393939;
+
+  color: var(--secondary-steel);
+  width: 33vw;
+  transition: .5s all;
+  border-bottom: 3px solid var(--tab-inactive-border-color);
+  padding-bottom: 0.7em;
+  padding-left: 0;
+  padding-right: 0;
+  cursor: pointer;
+  text-align: center;
+  background-color: transparent;
+  font-size: var(--body-font-size-s);
+  font-family: var(--subheadings-ff-medium);
+  font-weight: normal;
+}
+
+.performance-specifications .category-tablist [role="tab"][aria-selected="true"],
+.performance-specifications .category-tablist [role="tab"]:hover {
+  color: var(--primary-white);
+  border-bottom: 3px solid var(--primary-accent-red);
+}
+
+.performance-specifications .category-detail {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--primary-white);
+  margin-bottom: 20px;
+}
+
+.performance-specifications .category-detail .category-description {
+  font-size: var(--body-font-size-s);
+  max-width: 600px;
+}
+
+.performance-specifications .engine-ratings {
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  margin-top: 6px;
+  margin-right: 1em;
+}
+
+.performance-specifications .engine-navigation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.performance-specifications .engine-tablist [role="tab"] {
+  background-color: var(--primary-white);
+  font-size: var(--body-font-size-s);
+  color: var(--primary-black);
+  border-radius: 2px;
+  padding: 0.4em 0.7em;
+  line-height: 1em;
+  margin-right: 1em;
+  margin-top: 0;
+}
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="true"] {
+  background-color: var(--gold-button-background);
+}
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="true"]:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.performance-specifications .engine-tablist [role="tab"][aria-selected="false"]:hover {
+  background-color: var(--button-tertiary-white-hover);
+}
+
+
+.performance-specifications .details-panel {
+  display: flex;
+  gap: 50px;
+}
+
+.performance-specifications .details-panel dl {
+  flex: 1;
+}
+
+.performance-specifications .details-panel dl dt {
+  font-size: var(--body-font-size-xs);
+  text-transform: uppercase;
+  line-height: 1em;
+  letter-spacing: .1em;
+  padding-top: 1.2em;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.performance-specifications .details-panel dl dd {
+  line-height: 1em;
+  font-size: var(--body-font-size-xs);
+  letter-spacing: -.015em;
+  padding: 0.5em 0 0;
+  margin-left: 0;
+  margin-bottom: 1.2em;
+}
+
+.performance-specifications .details-panel a.download-specs {
+  background-color: var(--gold-button-background);
+  font-size: var(--body-font-size-s);
+  border-radius: 4px;
+  padding: 0.6em 0.7em;
+  line-height: 1em;
+}
+
+.performance-specifications .details-panel a.download-specs:hover {
+  text-decoration: none;
+  color: var(--primary-black);
+  border: 2px solid currentcolor;
+}
+
+.details-panel .loading-spinner {
+  pointer-events: none;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.4em solid #eee;
+  border-top-color: #3E67EC;
+  border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes loadingspin {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.performance-specifications .performance-chart {
+  width: 100%;
+  min-height: 480px;
+  flex: 3;
+}
+
+@media screen and (max-width: 768px) {
+  .performance-specifications .details-panel {
+    flex-direction: column;
+  }
+}
+
