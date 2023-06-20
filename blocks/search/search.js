@@ -59,8 +59,12 @@ export default function decorate(block) {
   }
 
   searchBtn.onclick = () => searchResults();
+
   input.onkeyup = (e) => {
     const term = e.target.value;
+    const listEl = block.querySelector('.autosuggest__results-container ul');
+    listEl.textContent = '';
+
     if (e.key === 'Enter') {
       searchResults();
     } else if (term.length > 2) {
@@ -81,10 +85,7 @@ export default function decorate(block) {
               terms,
             } = {},
           } = data;
-          const listEl = block.querySelector('.autosuggest__results-container ul');
-
           if (terms.length) {
-            listEl.textContent = '';
             terms.forEach((val, index) => {
               const liEl = createElement('li', 'autosuggest__results-item', {
                 id: `autosuggest__results-item--${index}`,
@@ -249,7 +250,7 @@ export default function decorate(block) {
 
   function showResults(data) {
     const { items, count, facets } = data;
-    const queryTerm = searchTerm || input.value;
+    const queryTerm = input.value;
     let resultsText = '';
     let facetsText = null;
     if (items.length > 0) { // items by query: 25, count has the total
