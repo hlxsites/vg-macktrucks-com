@@ -58,26 +58,23 @@ const buildArticle = (e) => {
   const category = createElement('a', 'article-category', { href: categoryUrl });
   category.innerText = e.category;
 
-  const title = createElement('h3', 'article-title', { href: linkUrl });
+  const link = createElement('a', 'article-link', { href: linkUrl });
+  const title = createElement('h3', 'article-title');
   title.innerText = e.title;
+  const subtitle = createElement('p', 'article-subtitle');
+  subtitle.innerText = e.subtitle;
+
+  link.append(title);
+  if (e.subtitle.length !== 0) link.append(subtitle);
 
   const truck = createElement('div', 'article-truck');
+  const truckText = createElement('p', 'article-truck-text');
+  truckText.innerText = e.truck;
+  const truckIcon = createElement('img', 'article-truck-icon', { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' });
+  truck.append(truckIcon, truckText);
 
-  articleContent.append(category, title);
-
-  if (e.subtitle.length !== 0) {
-    const subtitle = createElement('p', 'article-subtitle', { href: linkUrl });
-    subtitle.innerText = e.subtitle;
-    articleContent.append(subtitle);
-  }
-
-  if (e.truck.length !== 0) {
-    const truckText = createElement('p', 'article-truck-text');
-    truckText.innerText = e.truck;
-    const truckIcon = createElement('img', 'article-truck-icon', { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' });
-    truck.append(truckIcon, truckText);
-    articleContent.append(truck);
-  }
+  articleContent.append(category, link);
+  if (e.truck.length !== 0) articleContent.append(truck);
 
   article.append(articleImage, articleContent);
   return article;
