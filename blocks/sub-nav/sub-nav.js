@@ -103,7 +103,7 @@ async function buildMagazineSubNav(block, ref) {
   const listIcon = createElement('div', ['fa', iconClass, 'icon']);
   // add a cta button to open an eloqua form (subscribe to bulldog)
   const subscribeBtnContainer = createElement('div', 'button-container');
-  const subscribeBtn = createElement('button', 'subscribe-button', { type: 'button' });
+  const subscribeBtn = createElement('button', 'button-container',  { type: 'button' });
   // list section overlay
   const closeBtn = createElement('div', ['fa', 'fa-close', 'icon']);
   const listSubscribeBtnContainer = createElement('div', 'list-button-container');
@@ -154,6 +154,9 @@ async function buildMagazineSubNav(block, ref) {
 
   subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
   listSubscribeBtn.addEventListener('click', showBulldogSubscribeForm);
+  
+  const magazineSubsBtnBlock = document.querySelector('.magazine-subscribe-button');
+  magazineSubsBtnBlock.addEventListener('click', showBulldogSubscribeForm);
 
   window.onresize = () => {
     const isDesktop = MQ.matches;
