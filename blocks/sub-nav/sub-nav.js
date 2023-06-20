@@ -103,11 +103,11 @@ async function buildMagazineSubNav(block, ref) {
   const listIcon = createElement('div', ['fa', iconClass, 'icon']);
   // add a cta button to open an eloqua form (subscribe to bulldog)
   const subscribeBtnContainer = createElement('div', 'button-container');
-  const subscribeBtn = createElement('button', 'button-container', { type: 'button' });
+  const subscribeBtn = createElement('button', ['magazine-subscribe-button', 'button-container'], { type: 'button' });
   // list section overlay
   const closeBtn = createElement('div', ['fa', 'fa-close', 'icon']);
   const listSubscribeBtnContainer = createElement('div', 'list-button-container');
-  const listSubscribeBtn = createElement('button', 'list-subscribe-button', { type: 'button' });
+  const listSubscribeBtn = createElement('button', ['magazine-subscribe-button', 'list-subscribe-button'], { type: 'button' });
   const supR = createElement('sup', '');
   const listContainer = createElement('div', 'sub-nav-list-container');
   const listWrapper = fragment.querySelector('div:has(ul)');
@@ -152,11 +152,8 @@ async function buildMagazineSubNav(block, ref) {
     }
   };
 
-  subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
-  listSubscribeBtn.addEventListener('click', showBulldogSubscribeForm);
-
-  const magazineSubsBtnBlock = document.querySelector('.magazine-subscribe-button');
-  magazineSubsBtnBlock.addEventListener('click', showBulldogSubscribeForm);
+  const allSubscribeButtons = document.querySelectorAll('.magazine-subscribe-button');
+  allSubscribeButtons.forEach((btn) => btn.addEventListener('click', showBulldogSubscribeForm));
 
   window.onresize = () => {
     const isDesktop = MQ.matches;
