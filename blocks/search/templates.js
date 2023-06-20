@@ -12,7 +12,11 @@ export const getMainTemplate = (PLACEHOLDERS) => {
                 aria-controls="autosuggest-autosuggest__results"
                 placeholder="${PLACEHOLDERS.searchFor}..." autofocus="autofocus">
             </div>
-            <div id="autosuggest-autosuggest__results" class="autosuggest__results-container"></div>
+            <div id="autosuggest-autosuggest__results" class="autosuggest__results-container">
+              <div aria-labelledby="autosuggest" class="autosuggest__results"> 
+                <ul role="listbox"></ul>
+              </div>
+            </div>
           </div>
           <span>
             <button type="submit" class="btn text-primary search-close-button">

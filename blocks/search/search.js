@@ -1,4 +1,4 @@
-import { getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
 import {
   getFacetsTemplate,
   getNoResultsTemplate,
@@ -6,6 +6,8 @@ import {
   getResultsItemsTemplate,
   getShowingResultsTemplate,
 } from './templates.js';
+
+import { searchQuery, autosuggestQuery, fetchData } from './search-api.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
@@ -16,11 +18,6 @@ const PLACEHOLDERS = {
   sortFilter: getTextLabel('Sort Filter'),
   previous: getTextLabel('Previous'),
   next: getTextLabel('Next'),
-};
-
-const SEARCH_URLS = {
-  prod: 'https://kb3ko4nzt2.execute-api.eu-west-1.amazonaws.com/prod/search',
-  dev: 'https://search-api-dev.aws.43636.vnonprod.com/search',
 };
 
 export default function decorate(block) {
@@ -62,7 +59,57 @@ export default function decorate(block) {
   }
 
   searchBtn.onclick = () => searchResults();
-  input.onkeyup = (e) => e.key === 'Enter' && searchResults();
+  input.onkeyup = (e) => {
+    const term = e.target.value;
+    if (e.key === 'Enter') {
+      searchResults();
+    } else if (term.length > 2) {
+      fetchData({
+        query: autosuggestQuery(),
+        variables: {
+          term,
+          locale: 'EN',
+          sizeSuggestions: 5,
+        },
+      }).then(({ errors, data }) => {
+        if (errors) {
+          // eslint-disable-next-line no-console
+          console.log('%cSomething went wrong', errors);
+        } else {
+          const {
+            macktrucksuggest: {
+              terms,
+            } = {},
+          } = data;
+          const listEl = block.querySelector('.autosuggest__results-container ul');
+
+          if (terms.length) {
+            listEl.textContent = '';
+            terms.forEach((val, index) => {
+              const liEl = createElement('li', 'autosuggest__results-item', {
+                id: `autosuggest__results-item--${index}`,
+                role: 'option',
+                'data-suggestion-index': index,
+                'data-section-name': 'default',
+              });
+              const suggestFragment = fragmentRange
+                .createContextualFragment(`<div>
+                ${val}
+              </div>`);
+              liEl.appendChild(suggestFragment);
+
+              liEl.onclick = () => {
+                input.value = val;
+                searchResults();
+              };
+
+              listEl.appendChild(liEl);
+            });
+          }
+        }
+      });
+    }
+  };
 
   // pagination events
   const paginationContainer = block.querySelector('.search-pagination-container');
@@ -273,8 +320,6 @@ export default function decorate(block) {
     const queryTerm = searchParams.get('q');
     const offsetVal = Number(searchParams.get('start'));
     const sortVal = searchParams.get('sort') || 'BEST_MATCH';
-    const isProd = !window.location.host.includes('hlx.page') && !window.location.host.includes('localhost');
-    const SEARCH_LINK = !isProd ? SEARCH_URLS.dev : SEARCH_URLS.prod;
 
     const tags = searchParams.get('tags');
     const category = searchParams.get('category');
@@ -294,76 +339,35 @@ export default function decorate(block) {
     }
 
     const isFilters = facetsFilters.length;
-
-    const queryObj = {
-      query: `
-      query MacTrucksQuery($q: String, $offset: Int, $limit: Int, $language: MackLocaleEnum!,
-      $facets: [MackFacet], $sort: [MackSortOptionsEnum]${isFilters ? ', $filters: [MackFilterItem]' : ''}) {
-        macktrucksearch(q: $q, offset: $offset, limit: $limit, language: $language,
-      facets: $facets, sort: $sort${isFilters ? ', filters: $filters' : ''}) {
-          count
-          items {
-            uuid
-            score
-            metadata {
-              title
-              description
-              url
-              lastModified
-            }
-          }
-          facets {
-            field
-            items {
-              value
-              count
-            }
-          }
-        }
-      }
-      `,
-      variables: {
-        q: queryTerm,
-        language: 'EN',
-        facets: [
-          { field: 'TAGS' },
-          { field: 'CATEGORY' },
-        ],
-        offset: offsetVal,
-        limit,
-        sort: sortVal,
-      },
+    const variables = {
+      q: queryTerm,
+      language: 'EN',
+      limit,
+      offset: offsetVal,
+      facets: [{
+        field: 'TAGS',
+      }, {
+        field: 'CATEGORY',
+      }],
+      sort: sortVal,
     };
 
-    if (isFilters) queryObj.variables.filters = facetsFilters;
+    if (isFilters) variables.filters = facetsFilters;
 
-    const response = await fetch(
-      SEARCH_LINK,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Content-Length': queryObj.length,
-        },
-        body: JSON.stringify(queryObj),
-      },
-    );
-
-    const {
-      errors,
-      data: {
-        macktrucksearch,
-      } = {},
-    } = await response.json();
-    if (errors) {
-      // eslint-disable-next-line no-console
-      console.log('%cSomething went wrong');
-    } else {
-      countSpan.innerText = macktrucksearch.count;
-      showResults(macktrucksearch);
-      updatePaginationDOM(macktrucksearch);
-    }
+    fetchData({
+      query: searchQuery(isFilters),
+      variables,
+    }).then(({ errors, data }) => {
+      if (errors) {
+        // eslint-disable-next-line no-console
+        console.log('%cSomething went wrong', errors);
+      } else {
+        const { macktrucksearch } = data;
+        countSpan.innerText = macktrucksearch.count;
+        showResults(macktrucksearch);
+        updatePaginationDOM(macktrucksearch);
+      }
+    });
   }
 
   function getNextOffset(isNext = false) {
