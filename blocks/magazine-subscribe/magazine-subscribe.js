@@ -5,7 +5,7 @@ import {
 export default async function decorate(block) {
   const children = block.querySelectorAll('p');
   const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
-  const [picture, title, subtitle, text, ] = children;
+  const [picture, title, subtitle, text] = children;
 
   const generalSection = createElement('div', 'magazine-subscribe-section');
   const imageSection = createElement('div', 'magazine-subscribe-image');
@@ -15,15 +15,12 @@ export default async function decorate(block) {
   subtitle.classList.add('magazine-subscribe-subtitle');
   text.classList.add('magazine-subscribe-text');
 
-
   const buttonContainer = createElement('div', ['magazine-subscribe-button', 'button-container'], { type: 'button' });
 
   const button = createElement('button', 'subscribe-button');
   button.textContent = subscribeText;
 
-  buttonContainer.append(button)
-
-  console.log(buttonContainer);
+  buttonContainer.append(button);
 
   const image = picture.querySelector('picture');
 
