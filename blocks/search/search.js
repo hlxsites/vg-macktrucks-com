@@ -101,6 +101,7 @@ export default function decorate(block) {
               liEl.onclick = () => {
                 input.value = val;
                 searchResults();
+                listEl.textContent = '';
               };
 
               listEl.appendChild(liEl);
