@@ -66,6 +66,14 @@
     {
       "Key": "Previous",
       "Text": "Previous"
+    },
+    {
+      "Key": "No article Message",
+      "Text": "No Results Found"
+    },
+    {
+      "Key": "Load more articles button",
+      "Text": "Load More Articles"
     }
   ],
   ":type": "sheet"

@@ -49,7 +49,7 @@ export default async function decorate(block) {
     const truckText = createElement('p', 'recommendations-truck-text');
     truckText.innerText = e.truck;
     const truckIcon = createElement('img', 'truck-icon', { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' });
-    truck.append(truckIcon, truckText);
+    if (e.truck.length !== 0) truck.append(truckIcon, truckText);
 
     const link = createElement('a', 'recommendations-link', { href: linkUrl });
     link.innerText = readNowText;
@@ -65,7 +65,6 @@ export default async function decorate(block) {
     item.append(image, content);
     recommendationsList.append(item);
   });
-
   recommendationsSection.append(recommendationsTitle, recommendationsList);
 
   block.textContent = '';
