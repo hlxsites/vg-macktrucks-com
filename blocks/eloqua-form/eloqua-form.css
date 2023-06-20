@@ -90,18 +90,13 @@
   appearance: auto;
 }
 
-.eloqua-form
-  .single-checkbox-row
-  input
-  ~ label.checkbox-aligned.elq-item-label {
+.eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label {
   position: relative;
   margin-left: 0;
+  cursor: pointer;
 }
 
-.eloqua-form
-  .single-checkbox-row
-  input
-  ~ label.checkbox-aligned.elq-item-label::before {
+.eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
   content: "";
   width: 20px;
   height: 20px;
@@ -111,12 +106,10 @@
   position: relative;
   top: 4px;
   background: var(--primary-white);
+  cursor: pointer;
 }
 
-.eloqua-form
-  .single-checkbox-row
-  input:checked
-  ~ label.checkbox-aligned.elq-item-label::after {
+.eloqua-form .single-checkbox-row input:checked ~ label.checkbox-aligned.elq-item-label::after {
   content: "\f00c";
   font-family: var(--ff-fontawesome);
   color: var(--secondary-dark-gold);

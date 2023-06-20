@@ -229,6 +229,22 @@ export function decorateLinks(block) {
         return;
       }
 
+      // handling modal links
+      if (link.getAttribute('href').startsWith('/#id-modal')) {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const modalId = link.getAttribute('href').split('#')[1];
+          const modalEvent = new CustomEvent('open-modal', {
+            detail: {
+              modalId,
+            },
+          });
+
+          document.dispatchEvent(modalEvent, { bubbles: true });
+        });
+        return;
+      }
+
       const url = new URL(link.href);
       const external = !url.host.match('macktrucks.com') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
       if (url.host.match('build.macktrucks.com') || url.pathname.endsWith('.pdf') || external) {
@@ -402,14 +418,14 @@ export function createLowResolutionBanner() {
 
 export function showVideoModal(linkUrl) {
   // eslint-disable-next-line import/no-cycle
-  import('../common/modal/modal.js').then((modal) => {
+  import('../common/modal/modal-component.js').then((modal) => {
     let beforeBanner = null;
 
     if (isLowResolutionVideoUrl(linkUrl)) {
       beforeBanner = createLowResolutionBanner();
     }
 
-    modal.showModal(linkUrl, beforeBanner);
+    modal.showModal(linkUrl, { beforeBanner });
   });
 }
 
@@ -465,6 +481,23 @@ export function loadScriptIfNotLoadedYet(url, attrs) {
   const promise = loadScript(url, attrs);
   scriptMap.set(url, { url, attrs, promise });
   return promise;
+}
+
+/**
+ *
+ * @param {string} blockName - block name with '-' instead of spaces
+ * @param {string} blockContent - the content that will be set as block inner HTML
+ * @param {object} options - other options like variantsClasses
+ * @returns
+ */
+export function loadAsBlock(blockName, blockContent, options = {}) {
+  const { variantsClasses = [] } = options;
+  const blockEl = createElement('div', ['block', blockName, ...variantsClasses], { 'data-block-name': blockName });
+
+  blockEl.innerHTML = blockContent;
+  loadBlock(blockEl);
+
+  return blockEl;
 }
 
 /**
