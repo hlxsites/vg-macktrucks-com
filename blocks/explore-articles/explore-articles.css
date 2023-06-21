@@ -110,6 +110,16 @@
   padding: 8px;
 }
 
+.explore-articles-articles .article-content .article-link {
+  color: var(--primary-white);
+}
+
+.explore-articles-articles .article-content .article-link:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
 .explore-articles-articles .article-content .article-title {
   font-family: var(--emphasis-ff-bold);
   font-size: var(--body-font-size-m);
@@ -123,12 +133,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 5px 0 0;
-}
-
-.explore-articles-articles .article-content .article-title:hover,
-.explore-articles-articles .article-content .article-subtitle:hover {
-  cursor: pointer;
-  opacity: 0.7;
 }
 
 .explore-articles-articles .article-content .article-truck {

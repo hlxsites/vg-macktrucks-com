@@ -1,4 +1,6 @@
-import { createElement, decorateButtons, getTextLabel } from '../../scripts/scripts.js';
+import {
+  createElement, decorateButtons, getTextLabel, loadAsBlock,
+} from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
@@ -88,6 +90,8 @@ async function buildMagazineSubNav(block, ref) {
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
+  const modalId = 'id-modal-subscribe-magazine';
+  const modalBlockEl = fragment.querySelector(`.${modalId}`);
   // bar main section
   const mainTitleImg = mainTitleImgWrapper.querySelector('picture');
   const mainTitleLink = mainTitleImgWrapper.querySelector('a');
@@ -131,6 +135,25 @@ async function buildMagazineSubNav(block, ref) {
   mainSubNav.appendChild(subNavTitle);
   subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
   block.appendChild(subNavContainer);
+
+  if (modalBlockEl) {
+    await loadAsBlock('modal', modalBlockEl.innerHTML, { variantsClasses: [...modalBlockEl.classList] });
+  }
+
+  const showBulldogSubscribeForm = async () => {
+    if (modalBlockEl) {
+      const modalEvent = new CustomEvent('open-modal', {
+        detail: {
+          modalId,
+        },
+      });
+
+      document.dispatchEvent(modalEvent, { bubbles: true });
+    }
+  };
+
+  subscribeBtn.addEventListener('click', showBulldogSubscribeForm);
+  listSubscribeBtn.addEventListener('click', showBulldogSubscribeForm);
 
   window.onresize = () => {
     const isDesktop = MQ.matches;

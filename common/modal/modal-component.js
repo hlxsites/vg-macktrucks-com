@@ -3,7 +3,7 @@ import { loadCSS } from '../../scripts/lib-franklin.js';
 import { createIframe, createElement } from '../../scripts/scripts.js';
 
 const styles$ = new Promise((r) => {
-  loadCSS(`${window.hlx.codeBasePath}/common/modal/modal.css`, r);
+  loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
 });
 
 const HIDE_MODAL_CLASS = 'modal-hidden';
@@ -44,9 +44,10 @@ const createModal = () => {
 
   const clearModalContent = () => {
     modalContent.innerHTML = '';
+    modalContent.className = 'modal-content';
   };
 
-  async function showModal(newUrl, beforeBanner, beforeIframe) {
+  async function showModal(newContent, { beforeBanner, beforeIframe, classes = [] } = {}) {
     await styles$;
     await new Promise((resolve) => {
       // beacues the styels$ is based on the on load event it's waiting for the file to be loaded
@@ -65,10 +66,16 @@ const createModal = () => {
     });
     modalBackground.style = '';
     window.addEventListener('keydown', keyDownAction);
-
-    if (newUrl) {
+    if (newContent && !(newContent instanceof String)) {
+      // opening modal
       clearModalContent();
-      const iframe = createIframe(newUrl, { parentEl: modalContent, classes: 'modal-video' });
+      modalContent.classList.add(...classes);
+      modalContent.append(newContent);
+    } else if (newContent) {
+      // otherwise load it as iframe
+
+      clearModalContent();
+      const iframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });
 
       if (beforeBanner) {
         const bannerWrapper = createElement('div', ['modal-before-banner']);

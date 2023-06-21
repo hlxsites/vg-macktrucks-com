@@ -281,6 +281,7 @@
   position: relative;
   margin-left: 0;
   white-space: break-spaces;
+  cursor: pointer;
 }
 
 .footer .checkbox-span label[for]::before {
@@ -302,8 +303,8 @@
   position: absolute;
   font-size: 18px;
   left: 1px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -6px;
+  line-height: 18px;
 }
 
 .confirm-checkbox {
