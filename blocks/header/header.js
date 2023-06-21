@@ -1,6 +1,6 @@
-import { readBlockConfig, decorateIcons, loadScript } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
-
+import { fetchData, autosuggestQuery } from '../search/search-api.js';
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
 
@@ -34,25 +34,6 @@ function openOnKeydown(e) {
 
 function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
-}
-
-function loadSearchWidget() {
-  loadScript('https://static.searchstax.com/studio-js/v3/js/search-widget.min.js', { type: 'text/javascript', charset: 'UTF-8' })
-    .then(() => {
-      function initiateSearchWidget() {
-        // eslint-disable-next-line no-new, no-undef
-        new SearchstudioWidget(
-          'c2ltYWNrdm9sdm86V2VsY29tZUAxMjM=',
-          'https://ss705916-dy2uj8v7-us-east-1-aws.searchstax.com/solr/productionmacktrucks-1158-suggester/emsuggest',
-          `${window.location.origin}/search`,
-          3,
-          'searchStudioQuery',
-          'div-widget-id',
-          'en',
-        );
-      }
-      setTimeout(() => initiateSearchWidget(), 3000);
-    });
 }
 
 /**
@@ -157,6 +138,8 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
 
+  const fragmentRange = document.createRange();
+
   // fetch nav content
   const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
@@ -213,47 +196,117 @@ export default async function decorate(block) {
   const navSearch = nav.querySelector('.nav-search');
   if (navTools && navSearch) {
     const navSearchBtn = [...navTools.children].at(-1);
+    const navSearchLinkHref = navSearchBtn.children[0].href;
     const searchIcon = navSearch.querySelector('.icon-search');
+    searchIcon.classList.remove('icon-search', 'icon');
+    searchIcon.classList.add('fa', 'fa-search');
     const searchIconWrapper = searchIcon.parentElement;
+    searchIconWrapper.classList.add('search-icon-wrapper');
     const navSearchWrapper = createElement('div', 'nav-search-wrapper');
-    const searchWidgetDiv = createElement('div', 'studio-search-widget', { id: 'div-widget-id' });
-    const searchIconLink = createElement('a', 'search-icon');
+    const searchIconLink = createElement('a', '', { href: navSearchLinkHref });
+    const searchWrapper = createElement('div', 'search-wrapper');
+    const input = createElement('input', '', { type: 'search', placeholder: 'Search Mack Trucks' });
+    const autosuggestWrapper = createElement('div', 'autosuggest-results');
     const closeBtnWrapper = createElement('div', 'search-close');
     const closeBtn = createElement('button', '', { type: 'button' });
     const closeBtnIcon = createElement('span', 'search-close-icon');
     let isShown = false;
 
+    searchWrapper.appendChild(input);
+    searchWrapper.appendChild(autosuggestWrapper);
+
     navSearch.prepend(navSearchWrapper);
     navSearchWrapper.appendChild(searchIconLink);
-    navSearchWrapper.appendChild(searchWidgetDiv);
+    navSearchWrapper.appendChild(searchWrapper);
     navSearchWrapper.appendChild(closeBtnWrapper);
+
     searchIconLink.appendChild(searchIconWrapper);
     closeBtnWrapper.appendChild(closeBtn);
     closeBtn.appendChild(closeBtnIcon);
+
+    const navigateToSearch = (e = null) => {
+      if (e) e.preventDefault();
+      if (input.value) {
+        const searchUrl = new URL('/search', window.location.origin);
+        searchUrl.searchParams.set('q', input.value);
+        window.location.assign(searchUrl);
+      }
+    };
+
+    input.onkeyup = (e) => {
+      const term = e.target.value;
+      autosuggestWrapper.textContent = '';
+
+      if (e.key === 'Enter') {
+        navigateToSearch(e);
+      } else if (term.length > 2) {
+        fetchData({
+          query: autosuggestQuery(),
+          variables: {
+            term,
+            locale: 'EN',
+            sizeSuggestions: 5,
+          },
+        }).then(({ errors, data }) => {
+          if (errors) {
+            // eslint-disable-next-line no-console
+            console.log('%cSomething went wrong', errors);
+          } else {
+            const {
+              macktrucksuggest: {
+                terms,
+              } = {},
+            } = data;
+            if (terms.length) {
+              terms.forEach((val) => {
+                const row = createElement('div', 'result-row');
+                const suggestFragment = fragmentRange
+                  .createContextualFragment(`<b>
+                  ${val}
+                </b>`);
+                row.appendChild(suggestFragment);
+
+                row.onclick = () => {
+                  input.value = val;
+                  navigateToSearch();
+                  autosuggestWrapper.textContent = '';
+                  autosuggestWrapper.classList.remove('show');
+                };
+
+                autosuggestWrapper.appendChild(row);
+                autosuggestWrapper.classList.add('show');
+              });
+            }
+          }
+        });
+      }
+
+      if (!autosuggestWrapper.hasChildNodes()) {
+        autosuggestWrapper.classList.remove('show');
+      }
+    };
+
+    searchIconLink.onclick = (e) => {
+      navigateToSearch(e);
+    };
 
     navSearchBtn.onclick = (e) => {
       e.preventDefault();
       isShown = !isShown;
       navSearch.classList.toggle('show', isShown);
+
+      if (!isShown) {
+        autosuggestWrapper.classList.remove('show');
+      }
     };
 
     closeBtn.onclick = () => {
       isShown = false;
       navSearch.classList.remove('show');
-    };
-
-    searchIconLink.onclick = (e) => {
-      e.preventDefault();
-      const searchTerm = document.getElementById('div-widget-id-search-input').value;
-      if (searchTerm) {
-        const searchUrl = new URL('/search', window.location.origin);
-        searchUrl.searchParams.set('searchStudioQuery', searchTerm);
-        window.location.href = searchUrl;
-      }
+      autosuggestWrapper.classList.remove('show');
     };
   }
 
   decorateIcons(nav);
   block.append(nav);
-  loadSearchWidget();
 }

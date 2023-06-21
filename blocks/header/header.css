@@ -214,8 +214,13 @@ header .nav-search-wrapper {
   gap: 0.5rem;
 }
 
-header .nav-search-wrapper p:has(.icon-search) {
+header .nav-search-wrapper .search-icon-wrapper {
   padding-inline: 10px;
+  color: var(--primary-black);
+}
+
+header .nav-search-wrapper a:hover {
+  text-decoration: none;
 }
 
 header .nav-search-wrapper input {
@@ -428,22 +433,29 @@ header .studio-search-widget {
 /* serach studio css */
 .search-wrapper {
   position: relative;
+  flex: 1;
 }
 
-.studio-widget-autosuggest-results {
-  position: absolute;
+.autosuggest-results {
+  top: 33px;
+  background-color: var(--primary-white);
   color: #53565A;
   cursor: pointer;
   margin-top: 16px;
   border: 1px solid;
   border-top: none;
   font-size: 16px;
-  top: 20px;
-  background-color: var(--background-color);
+  position: absolute;
   width: 100%;
+  display: none;
 }
 
-.studio-widget-autosuggest-results .result-row {
+.autosuggest-results.show {
+  display: block;
+}
+
+.autosuggest-results .result-row {
+  width: 100%;
   padding: 10px 10px 10px 30px;
   text-align: left;
   text-transform: capitalize;
@@ -451,9 +463,9 @@ header .studio-search-widget {
   line-height: 20px;
 }
 
-.studio-widget-autosuggest-results .result-row.searchstudio-active-row {
-  color: #53565A;
-  cursor: pointer;
-  height: 40px;
+.autosuggest-results .result-row:hover {
+  width: 100%;
   background: #f2f2f2;
+  color: var(--primary-black);
+  height: 40px;
 }

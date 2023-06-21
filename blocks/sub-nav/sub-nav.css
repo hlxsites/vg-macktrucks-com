@@ -286,7 +286,7 @@ header:has(nav[aria-expanded="true"]) .sub-nav-container {
     margin-inline-start: auto;
   }
 
-  .magazine .button-container .subscribe-button {
+  .magazine .button-container .magazine-subscribe-button {
     padding: 10px 30px;
   }
 

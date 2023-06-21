@@ -57,7 +57,7 @@
   margin: 20px 0 0;
 }
 
-.magazine-subscribe-content .magazine-subscribe-button a {
+.magazine-subscribe-content .magazine-subscribe-button button {
   font-family: var(--subheadings-ff-medium);
   font-size: var(--body-font-size-xs);
   text-transform: uppercase;
