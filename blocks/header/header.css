@@ -214,8 +214,13 @@ header .nav-search-wrapper {
   gap: 0.5rem;
 }
 
-header .nav-search-wrapper p:has(.icon-search) {
+header .nav-search-wrapper .search-icon-wrapper {
   padding-inline: 10px;
+  color: var(--primary-black);
+}
+
+header .nav-search-wrapper a:hover {
+  text-decoration: none;
 }
 
 header .nav-search-wrapper input {
@@ -428,32 +433,4 @@ header .studio-search-widget {
 /* serach studio css */
 .search-wrapper {
   position: relative;
-}
-
-.studio-widget-autosuggest-results {
-  position: absolute;
-  color: #53565A;
-  cursor: pointer;
-  margin-top: 16px;
-  border: 1px solid;
-  border-top: none;
-  font-size: 16px;
-  top: 20px;
-  background-color: var(--background-color);
-  width: 100%;
-}
-
-.studio-widget-autosuggest-results .result-row {
-  padding: 10px 10px 10px 30px;
-  text-align: left;
-  text-transform: capitalize;
-  height: 40px;
-  line-height: 20px;
-}
-
-.studio-widget-autosuggest-results .result-row.searchstudio-active-row {
-  color: #53565A;
-  cursor: pointer;
-  height: 40px;
-  background: #f2f2f2;
 }

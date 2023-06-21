@@ -1,9 +1,9 @@
 import {
+  addVideoShowHandler,
   createElement,
   isVideoLink,
   selectVideoLink,
   wrapImageWithVideoLink,
-  addVideoShowHandler,
 } from '../../scripts/scripts.js';
 
 const decorateUnderline = (col) => {

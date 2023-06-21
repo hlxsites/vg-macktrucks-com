@@ -1,7 +1,7 @@
 {
-  "total": 4,
+  "total": 16,
   "offset": 0,
-  "limit": 4,
+  "limit": 16,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -32,8 +32,40 @@
       "Text": "READ NOW"
     },
     {
+      "Key": "Search For",
+      "Text": "Search For"
+    },
+    {
+      "Key": "no results",
+      "Text": "SORRY, YOUR SEARCH FOR $0 RETURNED NO RESULTS!"
+    },
+    {
+      "Key": "refine",
+      "Text": "LET'S REFINE, OR TRY SEARCHING BY DIFFERENT SEARCH KEYWORDS INSTEAD."
+    },
+    {
+      "Key": "Showing results for",
+      "Text": "Showing <strong>$0 - $1</strong> of <strong>$2</strong> results for <strong>\"$3\"</strong>"
+    },
+    {
+      "Key": "Sort By",
+      "Text": "Sort By"
+    },
+    {
+      "Key": "Sort Filter",
+      "Text": "Relevance,Newest Content,Oldest Content"
+    },
+    {
       "Key": "Article filter placeholder",
       "Text": "All Categories,All Trucks"
+    },
+    {
+      "Key": "Next",
+      "Text": "Next"
+    },
+    {
+      "Key": "Previous",
+      "Text": "Previous"
     },
     {
       "Key": "No article Message",
