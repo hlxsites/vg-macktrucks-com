@@ -1,6 +1,39 @@
 import { createElement } from '../../scripts/scripts.js';
 
-export default function decorate(block) {
+const buildLinkAndList = (block) => {
+  const specsTitle = block.querySelector('h3');
+  const subtitles = block.querySelectorAll('p');
+  const uls = block.querySelectorAll('ul');
+  uls.forEach((ul) => {
+    ul.classList.add('link-and-list');
+  });
+
+  const specsSection = createElement('div', 'specs-section');
+  const specsHeading = createElement('div', 'specs-heading');
+  const specsList = createElement('ul', 'specs-list');
+
+  for (let idx = 0; idx < subtitles.length; idx += 1) {
+    const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
+    const link = subtitles[idx].querySelector('a');
+
+    if (link) {
+      link.classList.remove('button', 'primary');
+      link.classList.add('specs-link');
+      item.append(link);
+    } else {
+      item.append(subtitles[idx]);
+    }
+    item.append(uls[idx]);
+    specsList.append(item);
+  }
+  specsHeading.append(specsTitle);
+  specsSection.append(specsHeading, specsList);
+
+  block.textContent = '';
+  block.append(specsSection);
+};
+
+const buildDefaultSpecs = (block) => {
   const children = [...block.children];
   const ulElements = [...block.querySelectorAll('ul')];
 
@@ -17,9 +50,18 @@ export default function decorate(block) {
       const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
       const text = createElement('p', 'p-element');
       const isStrong = e.querySelector('strong');
+      const link = e.querySelector('a');
 
-      text.append(isStrong ?? e.innerText);
-      item.append(text);
+      if (link) {
+        link.classList.remove('button', 'primary');
+        link.classList.add('specs-link');
+        item.append(link);
+      } else {
+        text.append(isStrong ?? e.innerText);
+        item.append(text);
+      }
+      const extraArrowSpan = item.querySelector('span');
+      if (extraArrowSpan) extraArrowSpan.remove();
       specsList.append(item);
     });
   } else if (ulElements.length > 1) {
@@ -60,7 +102,14 @@ export default function decorate(block) {
         item.append(text);
       } else {
         if (picture) item.append(picture);
-        item.append(subtitle, content);
+        const link = e.querySelector('a');
+        if (link) {
+          link.classList.remove('button', 'primary');
+          link.classList.add('specs-link');
+          item.append(subtitle, link);
+        } else {
+          item.append(subtitle, content);
+        }
       }
       specsList.append(item);
     });
@@ -70,4 +119,13 @@ export default function decorate(block) {
 
   block.textContent = '';
   block.append(specsSection);
+};
+
+export default function decorate(block) {
+  const typeDetector = [...block.classList];
+  if (typeDetector.includes('link-and-list')) {
+    buildLinkAndList(block);
+  } else {
+    buildDefaultSpecs(block);
+  }
 }
