@@ -433,4 +433,39 @@ header .studio-search-widget {
 /* serach studio css */
 .search-wrapper {
   position: relative;
+  flex: 1;
+}
+
+.autosuggest-results {
+  top: 33px;
+  background-color: var(--primary-white);
+  color: #53565A;
+  cursor: pointer;
+  margin-top: 16px;
+  border: 1px solid;
+  border-top: none;
+  font-size: 16px;
+  position: absolute;
+  width: 100%;
+  display: none;
+}
+
+.autosuggest-results.show {
+  display: block;
+}
+
+.autosuggest-results .result-row {
+  width: 100%;
+  padding: 10px 10px 10px 30px;
+  text-align: left;
+  text-transform: capitalize;
+  height: 40px;
+  line-height: 20px;
+}
+
+.autosuggest-results .result-row:hover {
+  width: 100%;
+  background: #f2f2f2;
+  color: var(--primary-black);
+  height: 40px;
 }

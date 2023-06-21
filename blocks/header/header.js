@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
-
+import { fetchData, autosuggestQuery } from '../search/search-api.js';
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
 
@@ -138,6 +138,8 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
 
+  const fragmentRange = document.createRange();
+
   // fetch nav content
   const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
@@ -202,22 +204,28 @@ export default async function decorate(block) {
     searchIconWrapper.classList.add('search-icon-wrapper');
     const navSearchWrapper = createElement('div', 'nav-search-wrapper');
     const searchIconLink = createElement('a', '', { href: navSearchLinkHref });
+    const searchWrapper = createElement('div', 'search-wrapper');
     const input = createElement('input', '', { type: 'search', placeholder: 'Search Mack Trucks' });
+    const autosuggestWrapper = createElement('div', 'autosuggest-results');
     const closeBtnWrapper = createElement('div', 'search-close');
     const closeBtn = createElement('button', '', { type: 'button' });
     const closeBtnIcon = createElement('span', 'search-close-icon');
     let isShown = false;
 
+    searchWrapper.appendChild(input);
+    searchWrapper.appendChild(autosuggestWrapper);
+
     navSearch.prepend(navSearchWrapper);
     navSearchWrapper.appendChild(searchIconLink);
-    navSearchWrapper.appendChild(input);
+    navSearchWrapper.appendChild(searchWrapper);
     navSearchWrapper.appendChild(closeBtnWrapper);
+
     searchIconLink.appendChild(searchIconWrapper);
     closeBtnWrapper.appendChild(closeBtn);
     closeBtn.appendChild(closeBtnIcon);
 
-    const navigateToSearch = (e) => {
-      e.preventDefault();
+    const navigateToSearch = (e = null) => {
+      if (e) e.preventDefault();
       if (input.value) {
         const searchUrl = new URL('/search', window.location.origin);
         searchUrl.searchParams.set('q', input.value);
@@ -225,9 +233,56 @@ export default async function decorate(block) {
       }
     };
 
-    input.onkeydown = (e) => {
+    input.onkeyup = (e) => {
+      const term = e.target.value;
+      autosuggestWrapper.textContent = '';
+
       if (e.key === 'Enter') {
         navigateToSearch(e);
+      } else if (term.length > 2) {
+        fetchData({
+          query: autosuggestQuery(),
+          variables: {
+            term,
+            locale: 'EN',
+            sizeSuggestions: 5,
+          },
+        }).then(({ errors, data }) => {
+          if (errors) {
+            // eslint-disable-next-line no-console
+            console.log('%cSomething went wrong', errors);
+          } else {
+            const {
+              macktrucksuggest: {
+                terms,
+              } = {},
+            } = data;
+            if (terms.length) {
+              terms.forEach((val) => {
+                const row = createElement('div', 'result-row');
+                const suggestFragment = fragmentRange
+                  .createContextualFragment(`<b>
+                  ${val}
+                </b>`);
+                row.appendChild(suggestFragment);
+
+                row.onclick = () => {
+                  input.value = val;
+                  navigateToSearch();
+                  autosuggestWrapper.textContent = '';
+                  autosuggestWrapper.classList.remove('show');
+                };
+
+                autosuggestWrapper.appendChild(row);
+                autosuggestWrapper.classList.add('show');
+              });
+            }
+          }
+        });
+      }
+
+      if (!autosuggestWrapper.hasChildNodes()) {
+        autosuggestWrapper.classList.remove('show');
       }
     };
 
@@ -239,11 +294,16 @@ export default async function decorate(block) {
       e.preventDefault();
       isShown = !isShown;
       navSearch.classList.toggle('show', isShown);
+
+      if (!isShown) {
+        autosuggestWrapper.classList.remove('show');
+      }
     };
 
     closeBtn.onclick = () => {
       isShown = false;
       navSearch.classList.remove('show');
+      autosuggestWrapper.classList.remove('show');
     };
   }
 
