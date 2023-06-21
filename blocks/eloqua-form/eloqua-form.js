@@ -90,7 +90,7 @@ const thankYouResponse = (elqForm, thankYou) => {
       fetch(action, { method, body, redirect: 'manual' }).then((resp) => {
         // eslint-disable-next-line no-console
         if (!resp.ok) console.error(`form submission failed: ${resp.status} / ${resp.statusText}`);
-        const firstContent = thankYou.firstElementChild.firstElementChild;
+        const firstContent = thankYou.firstElementChild;
         if (firstContent.tagName === 'A') {
           // redirect to thank you page
           window.location.href = firstContent.href;
