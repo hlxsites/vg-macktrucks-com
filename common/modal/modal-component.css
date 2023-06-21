@@ -120,7 +120,7 @@
   padding: 50px;
   color: var(--primary-white);
   max-height: 80vh;
-  overflow: scroll;
+  overflow: auto;
   aspect-ratio: unset;
 }
 
@@ -168,6 +168,7 @@
 }
 
 .modal-content.modal-red {
+  min-height: 700px;
   background-color: #7d191b;
   background-image: url("../../media/subscribe-to-bulldog-background.png");
 }
@@ -177,6 +178,7 @@
 }
 
 .modal-content.modal-black {
+  min-height: 700px;
   background-color: #090909;
   background-image: url("../../media/share-your-thoughts-background.png");
 }

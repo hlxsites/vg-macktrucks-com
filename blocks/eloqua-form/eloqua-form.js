@@ -97,6 +97,7 @@ const thankYouResponse = (elqForm, thankYou) => {
         } else {
           // show thank you content
           elqForm.replaceChildren(thankYou);
+          elqForm.classList.add('eloqua-form-thank-you');
         }
       });
     }

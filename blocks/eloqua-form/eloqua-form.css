@@ -5,6 +5,10 @@
   margin: auto;
 }
 
+.eloqua-form.eloqua-form-thank-you {
+  margin: 0;
+}
+
 .eloqua-form .elq-form .container-fluid {
   padding: 0;
 }
