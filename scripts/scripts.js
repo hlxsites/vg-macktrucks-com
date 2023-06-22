@@ -596,3 +596,12 @@ export function span(...items) { return domEl('span', ...items); }
 export function input(...items) { return domEl('input', ...items); }
 export function form(...items) { return domEl('form', ...items); }
 export function button(...items) { return domEl('button', ...items); }
+
+export function debounce(func, timeout = 200) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
