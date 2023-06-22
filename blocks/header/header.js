@@ -249,10 +249,8 @@ export default async function decorate(block) {
 
       if (e.key === 'Enter') {
         navigateToSearch(e);
-      } else if (term.length > 2) {
-        delayFetchData(term);
       } else {
-        autosuggestWrapper.classList.remove('show');
+        delayFetchData(term);
       }
     };
 

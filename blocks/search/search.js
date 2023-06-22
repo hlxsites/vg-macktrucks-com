@@ -83,7 +83,7 @@ export default function decorate(block) {
 
     if (e.key === 'Enter') {
       searchResults();
-    } else if (term.length > 2) {
+    } else {
       delayFetchData(term);
     }
   };

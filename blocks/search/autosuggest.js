@@ -22,6 +22,8 @@ export default function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
         } = {},
       } = data;
       autosuggestEle.textContent = '';
+      autosuggestEle.classList.remove('show');
+
       if (terms.length) {
         terms.forEach((val) => {
           const row = createElement(rowEle.tag, rowEle.class, rowEle.props);
