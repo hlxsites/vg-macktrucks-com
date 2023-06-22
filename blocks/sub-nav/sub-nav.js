@@ -1,5 +1,5 @@
 import {
-  createElement, decorateButtons, getTextLabel, loadAsBlock,
+  createElement, decorateButtons, getTextLabel, getElWithChildren, loadAsBlock,
 } from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
@@ -110,8 +110,8 @@ async function buildMagazineSubNav(block, ref) {
   const listSubscribeBtn = createElement('button', ['magazine-subscribe-button', 'list-subscribe-button'], { type: 'button' });
   const supR = createElement('sup', '');
   const listContainer = createElement('div', 'sub-nav-list-container');
-  const listWrapper = fragment.querySelector('div:has(ul)');
-  const dogIconWrapper = listWrapper.querySelector('p:has(picture)');
+  const listWrapper = getElWithChildren(fragment.querySelectorAll('div'), 'ul');
+  const dogIconWrapper = getElWithChildren(listWrapper.querySelectorAll('p'), 'picture');
   const mainList = listWrapper.querySelector('ul');
   const innerList = mainList.querySelector('ul');
   listWrapper.className = 'sub-nav-list-wrapper';
