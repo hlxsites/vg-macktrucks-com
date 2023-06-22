@@ -82,11 +82,41 @@ main .section.specifications-container {
   margin: 1em 0;
 }
 
+.specs-item .specs-link,
 .specs-item p strong {
   font-family: var(--emphasis-ff-bold);
   font-size: var(--body-font-size-s);
   color: var(--primary-black);
   line-height: 1.2;
+}
+
+.specs-item .specs-link:hover {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.specs-item .specs-link::after {
+  content: "\f0da";
+  font: 14px/16px var(--ff-fontawesome);
+  padding-left: 4px;
+}
+
+.specs-item ul.link-and-list {
+  margin: 0;
+  padding: 0;
+}
+
+.specs-item .link-and-list li {
+  font-size: var(--body-font-size-s);
+  color: var(--secondary-steel);
+  line-height: 18px;
+  list-style: none;
+}
+
+.specs-item .link-and-list li::before {
+  content: "\2022";
+  font: 14px/14px var(--ff-fontawesome);
+  padding-right: 4px;
 }
 
 .specs-item img {

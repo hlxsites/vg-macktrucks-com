@@ -390,6 +390,10 @@ main .block.line-separator {
 }
 
 /* less padding in sections */
+main .section.padding-0 {
+  padding: 0 16px;
+}
+
 main .section.padding-16 {
   padding: 16px;
 }
@@ -399,6 +403,10 @@ main .section.padding-32 {
 }
 
 @media (min-width: 600px) {
+  main .section.padding-0 {
+    padding: 0 32px;
+  }
+
   main .section.padding-16 {
     padding: 16px 32px;
   }
@@ -610,5 +618,26 @@ main sup {
 
   main .section.magazine-listing-content p:first-of-type {
     margin: 0 0 22px;
+  }
+}
+
+/* Theme icon button for contact-us page */
+.icon-button .default-content-wrapper ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-button ul .icon svg {
+  width: 150px;
+  height: 40px;
+}
+
+@media (min-width: 480px) {
+  .icon-button .default-content-wrapper ul {
+    flex-direction: row;
+    justify-content: center;
   }
 }
