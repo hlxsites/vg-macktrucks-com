@@ -221,7 +221,7 @@ async function updateChart(chartContainer, performanceData) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     // custom small bundle created on https://echarts.apache.org/en/builder.html
-    await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
+    await loadScript('/common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
   }
 
   let myChart = window.echarts.getInstanceByDom(chartContainer);
