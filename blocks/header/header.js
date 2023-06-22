@@ -138,8 +138,6 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
 
-  const fragmentRange = document.createRange();
-
   // fetch nav content
   const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
@@ -244,8 +242,7 @@ export default async function decorate(block) {
       tag: 'div',
       class: 'result-row',
       props: {},
-      onclickHandler,
-    }));
+    }, onclickHandler));
 
     input.onkeyup = (e) => {
       const term = e.target.value;

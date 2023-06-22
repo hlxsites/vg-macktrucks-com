@@ -57,6 +57,7 @@ export default function decorate(block) {
   const listEl = block.querySelector('.autosuggest__results-container ul');
 
   function searchResults() {
+    listEl.textContent = '';
     insertUrlParam('q', input.value);
     fetchResults();
   }
@@ -66,7 +67,6 @@ export default function decorate(block) {
   const onclickHanlder = (val) => {
     input.value = val;
     searchResults();
-    listEl.textContent = '';
   };
 
   const delayFetchData = debounce((term) => fetchAutosuggest(term, listEl, {
@@ -77,6 +77,7 @@ export default function decorate(block) {
       'data-section-name': 'default',
     },
   }, onclickHanlder));
+
   input.onkeyup = (e) => {
     const term = e.target.value;
 

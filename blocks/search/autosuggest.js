@@ -1,7 +1,7 @@
 import { createElement } from '../../scripts/scripts.js';
 import { autosuggestQuery, fetchData } from './search-api.js';
 
-export default function fetchAutosuggest(term, autosuggestEle, rowEle, onclickHanlder) {
+export default function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
   const fragmentRange = document.createRange();
 
   fetchData({
@@ -31,7 +31,7 @@ export default function fetchAutosuggest(term, autosuggestEle, rowEle, onclickHa
           </b>`);
           row.appendChild(suggestFragment);
 
-          row.onclick = () => onclickHanlder();
+          row.onclick = () => func(val);
 
           autosuggestEle.appendChild(row);
           autosuggestEle.classList.add('show');
