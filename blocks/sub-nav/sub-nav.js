@@ -138,6 +138,7 @@ async function buildMagazineSubNav(block, ref) {
 
   if (modalBlockEl) {
     await loadAsBlock('modal', modalBlockEl.innerHTML, { variantsClasses: [...modalBlockEl.classList] });
+    modalBlockEl.remove();
   }
 
   const showBulldogSubscribeForm = async () => {
