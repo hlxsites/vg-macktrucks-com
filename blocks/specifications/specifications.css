@@ -45,10 +45,16 @@ main .section.specifications-container {
 }
 
 .specs-item {
+  display: flex;
+  flex-flow: column;
   border-top: 1px solid var(--tertiary-light-cool-gray);
   width: calc(50% - 15px);
   padding: 25px 0;
   margin: 0;
+}
+
+.specs-item.specs-item-with-image {
+  justify-content: flex-end;
 }
 
 .specs-list-multiple .specs-item {
