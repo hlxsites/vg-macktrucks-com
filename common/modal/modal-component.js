@@ -66,11 +66,13 @@ const createModal = () => {
     });
     modalBackground.style = '';
     window.addEventListener('keydown', keyDownAction);
-    if (newContent && !(newContent instanceof String)) {
+
+    if (newContent && (typeof newContent !== 'string')) {
       // opening modal
       clearModalContent();
       modalContent.classList.add(...classes);
       modalContent.append(newContent);
+      modalContent.appendChild(closeButton);
     } else if (newContent) {
       // otherwise load it as iframe
 
@@ -90,6 +92,8 @@ const createModal = () => {
         wrapper.appendChild(beforeIframe);
         iframe.parentElement.insertBefore(wrapper, iframe);
       }
+
+      modalBackground.appendChild(closeButton);
     }
 
     modalBackground.classList.remove(HIDE_MODAL_CLASS);
