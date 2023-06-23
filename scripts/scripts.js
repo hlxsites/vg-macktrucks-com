@@ -600,8 +600,8 @@ export function button(...items) { return domEl('button', ...items); }
 /**
  * @param {NodeList} elements list of tested elements
  * @param {String} childrenCheck check that will be runned for every element list
- * @returns first element that pass the chilrend check
+ * @returns list of elements that pass the children check
  */
-export function getElWithChildren(elements, childrenCheck) {
-  return [...elements].find((el) => el.querySelector(childrenCheck));
+export function getAllElWithChildren(elements, childrenCheck) {
+  return [...elements].filter((el) => el.querySelector(childrenCheck));
 }

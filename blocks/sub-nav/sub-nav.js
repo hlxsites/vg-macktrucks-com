@@ -1,5 +1,5 @@
 import {
-  createElement, decorateButtons, getTextLabel, getElWithChildren, loadAsBlock,
+  createElement, decorateButtons, getTextLabel, getAllElWithChildren, loadAsBlock,
 } from '../../scripts/scripts.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
@@ -38,7 +38,7 @@ async function createSubNav(block, ref) {
   const overview = createElement('li', '');
   const overviewLink = createElement('a', '', { href: overviewUrl });
   const subNavWrapper = createElement('div', 'sub-nav-container');
-  const buttons = [...fragment.querySelectorAll('p:has(em), p:has(strong)')];
+  const buttons = getAllElWithChildren(fragment.querySelectorAll('p'), 'em, strong');
   const ctasWrapper = buttons.length > 0 && createElement('li', 'sub-nav-cta-wrapper');
   // add a caret arrow for mobile version
   const caretIcon = createElement('div', ['fa', 'fa-caret-down', 'icon']);
@@ -110,8 +110,8 @@ async function buildMagazineSubNav(block, ref) {
   const listSubscribeBtn = createElement('button', ['magazine-subscribe-button', 'list-subscribe-button'], { type: 'button' });
   const supR = createElement('sup', '');
   const listContainer = createElement('div', 'sub-nav-list-container');
-  const listWrapper = getElWithChildren(fragment.querySelectorAll('div'), 'ul');
-  const dogIconWrapper = getElWithChildren(listWrapper.querySelectorAll('p'), 'picture');
+  const listWrapper = getAllElWithChildren(fragment.querySelectorAll('div'), 'ul')[0];
+  const dogIconWrapper = getAllElWithChildren(listWrapper.querySelectorAll('p'), 'picture')[0];
   const mainList = listWrapper.querySelector('ul');
   const innerList = mainList.querySelector('ul');
   listWrapper.className = 'sub-nav-list-wrapper';
