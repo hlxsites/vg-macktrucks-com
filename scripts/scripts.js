@@ -596,3 +596,12 @@ export function span(...items) { return domEl('span', ...items); }
 export function input(...items) { return domEl('input', ...items); }
 export function form(...items) { return domEl('form', ...items); }
 export function button(...items) { return domEl('button', ...items); }
+
+/**
+ * @param {NodeList} elements list of tested elements
+ * @param {String} childrenCheck check that will be runned for every element list
+ * @returns first element that pass the chilrend check
+ */
+export function getElWithChildren(elements, childrenCheck) {
+  return [...elements].find((el) => el.querySelector(childrenCheck));
+}
