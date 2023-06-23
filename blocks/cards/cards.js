@@ -34,6 +34,8 @@ const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
     const { children } = cards;
     [...children].forEach((card) => {
       const height = card.offsetHeight;
+      const img = card.querySelector('img');
+      if (img.offsetHeight === 0) img.style.aspectRatio = '4 / 3';
       if (height > maxHeight) maxHeight = height;
     });
     [...children].forEach((card) => {
