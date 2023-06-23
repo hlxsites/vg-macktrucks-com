@@ -349,6 +349,10 @@ main .section {
   padding: 64px 16px;
 }
 
+main .section:empty {
+  display: none;
+}
+
 main .section.background {
   position: relative;
   background-repeat: no-repeat;
