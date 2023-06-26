@@ -140,7 +140,7 @@ main .hero.specs::after  {
 
 main .hero.specs img {
     object-fit: cover;
-    height: 45vw;
+    height: unset;
     padding: 20px;
     z-index: 1;
     margin-top: 15vh;
@@ -163,6 +163,13 @@ main .hero.specs .hero-content-wrapper h1 {
     font-size: var(--nav-height-m);
     width: 100%;
     margin: 50px auto;
+}
+
+main .hero.specs .hero-content-wrapper h1::after {
+    content: '®';
+    font-size: var(--body-font-size-xxl);
+    position: absolute;
+    top: 5%;
 }
 
 @media (min-width: 650px) {

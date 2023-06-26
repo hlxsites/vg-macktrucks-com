@@ -4,6 +4,11 @@ const buildLinkAndList = (block) => {
   const specsTitle = block.querySelector('h3');
   const subtitles = block.querySelectorAll('p');
   const uls = block.querySelectorAll('ul');
+  const lis = block.querySelectorAll('li');
+
+  lis.forEach((li) => {
+    if (li.textContent.length === 0) li.remove();
+  });
   uls.forEach((ul) => {
     ul.classList.add('link-and-list');
   });
@@ -89,7 +94,7 @@ const buildDefaultSpecs = (block) => {
     });
   } else {
     children.forEach((e, idx) => {
-      const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
+      const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`, 'specs-item-with-image']);
 
       const pElements = [...e.querySelectorAll('p')];
       const picture = e.querySelector('picture');
@@ -98,7 +103,9 @@ const buildDefaultSpecs = (block) => {
       if (!subtitle || !content) {
         const singleText = e.innerText;
         const text = createElement('p', 'single-text');
-        text.innerText = singleText;
+        const strongTag = createElement('strong', 'single-text');
+        strongTag.innerText = singleText;
+        text.append(strongTag);
         item.append(text);
       } else {
         if (picture) item.append(picture);
