@@ -140,7 +140,7 @@ main .hero.specs::after  {
 
 main .hero.specs img {
     object-fit: cover;
-    height: 35vw;
+    height: unset;
     padding: 20px;
     z-index: 1;
     margin-top: 15vh;

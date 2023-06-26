@@ -101,6 +101,10 @@ main .section.specifications-container {
   opacity: 0.6;
 }
 
+.specs-item .specs-link u {
+  text-decoration: none;
+}
+
 .specs-item .specs-link::after {
   content: "\f0da";
   font: 14px/16px var(--ff-fontawesome);
