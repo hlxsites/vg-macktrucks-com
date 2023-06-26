@@ -97,7 +97,7 @@
 
 .sub-nav-cta-wrapper .button-container a {
   margin: 0;
-  padding-block: 0 ;
+  padding-block: 0;
   line-height: var(--sn-btn-height);
   margin-block-start: calc((var(--sub-nav-height) - var(--sn-btn-height-block)) / 2);
 }
@@ -135,7 +135,7 @@
 
 .magazine .sub-nav-list-wrapper {
   position: absolute;
-  top: calc(var(--nav-height) + var(--sub-nav-height)) ;
+  top: calc(var(--nav-height) + var(--sub-nav-height));
   left: 0;
   width: var(--magazine-sn-list-width);
   background-color: var(--primary-white);
@@ -288,6 +288,7 @@ header:has(nav[aria-expanded="true"]) .sub-nav-container {
 
   .magazine .button-container .magazine-subscribe-button {
     padding: 10px 30px;
+    width: max-content;
   }
 
   header:has(nav[aria-expanded="true"]) .sub-nav-container {
