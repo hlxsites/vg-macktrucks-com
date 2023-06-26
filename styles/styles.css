@@ -378,12 +378,12 @@ main .section.center {
 }
 
 /* top line over section or block */
-main .section.title-line > div > h2 {
+main .section.title-line > div > :is(h2, h3, h4) {
   border-block-start: 3px solid var(--primary-black);
   padding-block-start: 1rem;
 }
 
-main .section.no-first-line.title-line > div:first-child > h2 {
+main .section.no-first-line.title-line > div:first-child > :is(h2, h3, h4) {
   border-block-start: none;
   padding-block-start: none;
 }
