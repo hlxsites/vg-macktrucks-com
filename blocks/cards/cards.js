@@ -34,6 +34,8 @@ const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
     const { children } = cards;
     [...children].forEach((card) => {
       const height = card.offsetHeight;
+      const img = card.querySelector('img');
+      if (img.offsetHeight === 0) img.classList.add('scaled');
       if (height > maxHeight) maxHeight = height;
     });
     [...children].forEach((card) => {
@@ -81,7 +83,7 @@ export default function decorate(block) {
   // add background black
   if (isDarkVar) {
     const cardsContainer = block.parentElement.parentElement;
-    cardsContainer.classList.add('dark-card-conatiner');
+    cardsContainer.classList.add('dark-card-container');
   }
   block.textContent = '';
   block.append(ul);

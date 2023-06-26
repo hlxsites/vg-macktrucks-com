@@ -138,6 +138,8 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
 
+  const subnav = block.closest('header').querySelector('.sub-nav');
+  
   // fetch nav content
   const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
@@ -231,6 +233,7 @@ export default async function decorate(block) {
       }
     };
 
+    // SEARCH INPUT
     const onclickHandler = (val) => {
       input.value = val;
       navigateToSearch();
@@ -262,6 +265,7 @@ export default async function decorate(block) {
       e.preventDefault();
       isShown = !isShown;
       navSearch.classList.toggle('show', isShown);
+      if (subnav) subnav.classList.toggle('search-open', isShown);
 
       if (!isShown) {
         autosuggestWrapper.classList.remove('show');

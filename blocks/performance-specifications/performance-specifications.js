@@ -221,7 +221,7 @@ async function updateChart(chartContainer, performanceData) {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     // custom small bundle created on https://echarts.apache.org/en/builder.html
-    await loadScript('../../common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
+    await loadScript('/common/echarts-5.4.2/echarts.custom.only-linecharts.min.js');
   }
 
   let myChart = window.echarts.getInstanceByDom(chartContainer);
@@ -407,7 +407,11 @@ function parseEngineJsonData(data, block) {
         });
 
       const categoryId = engine.series.replaceAll('®', '').toLowerCase().trim();
-
+      if (!engineData.get(block)[categoryId]) {
+        console.error(`The engine type ${categoryId} was used in Excel, but the not defined in the Engine-Specifications block. Please update the block used on this page.`);
+        // create empty object to prevent errors
+        engineData.get(block)[categoryId] = { engines: {}, nameHTML: engine.series, descriptionHTML: '' };
+      }
       engineData.get(block)[categoryId].engines[engine.model] = engine;
     });
 }
