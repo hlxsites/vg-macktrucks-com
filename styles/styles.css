@@ -385,7 +385,7 @@ main .section.title-line > div > :is(h2, h3, h4) {
 
 main .section.no-first-line.title-line > div:first-child > :is(h2, h3, h4) {
   border-block-start: none;
-  padding-block-start: none;
+  padding-block-start: 0;
 }
 
 main .block.line-separator {
