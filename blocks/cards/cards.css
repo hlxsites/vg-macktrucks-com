@@ -35,7 +35,7 @@
 
 .cards:not(.dark) > ul > li {
   border: 1px solid;
-  background-color: var(--background-color)
+  background-color: var(--background-color);
 }
 
 .cards.cta > ul > li {
@@ -61,10 +61,10 @@
 
 /* Rule just for magazine listing page */
 .block.cards.magazine li {
-    border: none;
-    border-top: 6px solid var(--primary-black);
-    padding: 12px 0 0;
-    width: 100%;
+  border: none;
+  border-top: 6px solid var(--primary-black);
+  padding: 12px 0 0;
+  width: 100%;
 }
 
 .block.cards.modest > ul > li {
@@ -102,7 +102,6 @@
   font-weight: 400;
   line-height: 1.3em;
 }
-
 
 .cards.cta .cards-card-image p:has(picture) {
   width: 85%;
@@ -152,8 +151,14 @@
   aspect-ratio: unset;
 }
 
+.cards.cta > ul > li img.scaled {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: 10px;
+}
+
 /* dark version */
-.cards-container.dark-card-conatiner {
+.cards-container.dark-card-container {
   background-color: var(--primary-black);
   padding: 0;
 }
@@ -170,7 +175,6 @@
   padding-right: 34px;
 }
 
-
 /* modest version */
 .block.cards.modest {
   display: flex;
@@ -185,73 +189,72 @@
   justify-content: center;
 }
 
-
 .block.cards.modest .cards-card-body {
-    margin: 16px 0;
-    width: 100%;
+  margin: 16px 0;
+  width: 100%;
 }
 
 /* MAGAZINE variation */
 .block.cards.magazine ul {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .block.cards.magazine .cards-card-body {
-    font-size: var(--body-font-size-xs);
-    margin: 0;
+  font-size: var(--body-font-size-xs);
+  margin: 0;
 }
 
 .block.cards.magazine .cards-card-body p {
-    font-family: var(--subheadings-ff-medium);
-    margin-bottom: 15px;
+  font-family: var(--subheadings-ff-medium);
+  margin-bottom: 15px;
 }
 
 .block.cards.magazine .cards-card-body img {
-    width: unset;
-    margin: 0 0 10px;
+  width: unset;
+  margin: 0 0 10px;
 }
 
 .block.cards.magazine .cards-card-body p.button-container {
-    margin: 0;
+  margin: 0;
 }
 
 .block.cards.magazine .cards-card-body .button.primary {
-    height: unset;
-    padding: 0;
-    margin: 0;
-    border: none;
+  height: unset;
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 
 .block.cards.magazine .cards-card-body .button-container a {
-    font-family: var(--subheadings-ff-medium);
-    color: var(--primary-black);
-    background-color: var(--primary-white);
-    padding: 0;
-    text-decoration: underline;
+  font-family: var(--subheadings-ff-medium);
+  color: var(--primary-black);
+  background-color: var(--primary-white);
+  padding: 0;
+  text-decoration: underline;
 }
 
 .block.cards.magazine .cards-card-body .button-container a:hover {
-    color: var(--secondary-steel);
-    transition: unset;
+  color: var(--secondary-steel);
+  transition: unset;
 }
 
 @media (min-width: 768px) {
-    .block.cards.magazine > ul {
-        max-width: 960px;
-        margin: 0 auto;
-        flex-direction: row;
-        justify-content: space-between;
-        grid-gap: 25px;
-    }
+  .block.cards.magazine > ul {
+    max-width: 960px;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    grid-gap: 25px;
+  }
 
-    .block.cards.magazine .cards-card-body {
-        font-size: var(--body-font-size-s);
-    }
+  .block.cards.magazine .cards-card-body {
+    font-size: var(--body-font-size-s);
+  }
 
-    .block.cards.magazine .cards-card-body p:last-of-type {
-        margin-bottom: 65px;
-    }
+  .block.cards.magazine .cards-card-body p:last-of-type {
+    margin-bottom: 65px;
+  }
 }
 
 @media (min-width: 480px) {
@@ -280,7 +283,7 @@
     padding: 0;
   }
 
-  .cards.dark .cards-card-body > p { 
+  .cards.dark .cards-card-body > p {
     width: 80%;
     margin-bottom: 0;
   }
