@@ -165,6 +165,13 @@ main .hero.specs .hero-content-wrapper h1 {
     margin: 50px auto;
 }
 
+main .hero.specs .hero-content-wrapper h1::after {
+    content: '®';
+    font-size: var(--body-font-size-xxl);
+    position: absolute;
+    top: 5%;
+}
+
 @media (min-width: 650px) {
     main .hero.specs .hero-content-wrapper h1 {
         font-size: var(--nav-height-l);
