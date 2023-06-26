@@ -139,6 +139,7 @@ export default async function decorate(block) {
   block.textContent = '';
 
   const fragmentRange = document.createRange();
+  const subnav = block.closest('header').querySelector('.sub-nav');
 
   // fetch nav content
   const navPath = config.nav || '/nav';
@@ -233,6 +234,7 @@ export default async function decorate(block) {
       }
     };
 
+    // SEARCH INPUT
     input.onkeyup = (e) => {
       const term = e.target.value;
       autosuggestWrapper.textContent = '';
@@ -294,6 +296,7 @@ export default async function decorate(block) {
       e.preventDefault();
       isShown = !isShown;
       navSearch.classList.toggle('show', isShown);
+      if (subnav) subnav.classList.toggle('search-open', isShown);
 
       if (!isShown) {
         autosuggestWrapper.classList.remove('show');
