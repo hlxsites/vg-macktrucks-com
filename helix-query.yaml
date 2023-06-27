@@ -62,11 +62,11 @@ indices:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
       summary:
-        select: head > meta[name="summary"]
+        select: head > meta[property="og:description"]
         value: attribute(el, "content")
       publicationDate:
-        select: head > meta[name="date"]
-        value: parseTimestamp(attribute(el, "content"), MM/DD/YYYY)
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
   magazine-articles:
     include:
       - '/magazine/articles/*/**'
