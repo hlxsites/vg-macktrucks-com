@@ -1,4 +1,4 @@
-import { createElement, getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/scripts.js';
 import {
   getFacetsTemplate,
   getNoResultsTemplate,
@@ -21,7 +21,7 @@ const PLACEHOLDERS = {
 };
 
 export default function decorate(block) {
-  const section = getTargetParentElement(block, { className: 'section' });
+  const section = block.closest('.section');
   // check if the closest default content wrapper is inside the same section element
   const siblingDefaultSection = section.querySelector('.default-content-wrapper');
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
