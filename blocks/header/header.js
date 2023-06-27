@@ -139,7 +139,7 @@ export default async function decorate(block) {
   block.textContent = '';
 
   const subnav = block.closest('header').querySelector('.sub-nav');
-  
+
   // fetch nav content
   const navPath = config.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
