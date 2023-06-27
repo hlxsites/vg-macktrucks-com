@@ -597,6 +597,18 @@ export function input(...items) { return domEl('input', ...items); }
 export function form(...items) { return domEl('form', ...items); }
 export function button(...items) { return domEl('button', ...items); }
 
+/* Helper for delaying something like
+takes function as argument, default timout = 200
+*/
+export function debounce(func, timeout = 200) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+
 /**
  * @param {NodeList} elements list of tested elements
  * @param {String} childrenCheck check that will be runned for every element list
