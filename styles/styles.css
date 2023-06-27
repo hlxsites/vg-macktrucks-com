@@ -377,6 +377,15 @@ main .section.center {
   text-align: center;
 }
 
+main .section.flex-center > div {
+  display: flex;
+  justify-content: center;
+}
+
+main .section.gap > div {
+  gap: 3rem;
+}
+
 /* top line over section or block */
 main .section.title-line > div > :is(h2, h3, h4) {
   border-block-start: 3px solid var(--primary-black);

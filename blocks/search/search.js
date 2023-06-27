@@ -1,4 +1,4 @@
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import { debounce, getTextLabel } from '../../scripts/scripts.js';
 import {
   getFacetsTemplate,
   getNoResultsTemplate,

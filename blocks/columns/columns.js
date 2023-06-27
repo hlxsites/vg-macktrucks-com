@@ -38,7 +38,7 @@ export default function decorate(block) {
     const textParent = block.querySelector(':scope > div > div:not(:has(picture))');
     const pictureParent = block.querySelector(':scope > div > div:has(picture)');
     textParent.className = 'columns-promo-text-wrapper';
-    pictureParent.className = 'columns-promo-picture-wrapper';
+    if (pictureParent) pictureParent.className = 'columns-promo-picture-wrapper';
   }
   if (hasVideo) {
     const pictureWrapper = block.querySelector(':scope > div > div:has(picture)');
