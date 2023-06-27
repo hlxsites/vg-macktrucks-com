@@ -118,6 +118,12 @@ main .hero.magazine .hero-content-media picture {
     z-index: 0;
 }
 
+/* Hero with text and black background */
+main .hero.dark-background h1 {
+    background-color: rgb(0 0 0 / 50%);
+    padding: 15px;
+}
+
 /* SPECS hero styling  */
 main .hero.specs {
     padding: 50px;
@@ -330,8 +336,16 @@ main .hero.magazine-categories em {
     main .hero.magazine-categories img {
         height: 600px;   
     }
-
+    
     main .hero.magazine-categories h4 {
         font-size: var(--heading-1-desktop-size-xl);
     }
+}
+
+/* Hero with half the height */
+main .hero.half-height,
+main .hero.half-height .hero-content-container,
+main .hero.half-height .hero-content-wrapper,
+main .hero.half-height img {
+    height: 50vw;  
 }
