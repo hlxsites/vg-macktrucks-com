@@ -34,23 +34,26 @@ async function createSubNav(block, ref) {
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const title = fragment.querySelector('p');
-  const ul = fragment.querySelector('ul');
-  const overview = createElement('li', '');
-  const overviewLink = createElement('a', '', { href: overviewUrl });
+  const textUl = fragment.querySelector('ul');
   const subNavWrapper = createElement('div', 'sub-nav-container');
+  const ul = textUl || createElement('ul', '');
   const buttons = getAllElWithChildren(fragment.querySelectorAll('p'), 'em, strong');
   const ctasWrapper = buttons.length > 0 && createElement('li', 'sub-nav-cta-wrapper');
   // add a caret arrow for mobile version
   const caretIcon = createElement('div', ['fa', 'fa-caret-down', 'icon']);
-  // set the active link, if is not found then use overview as default
-  const activeLink = ul && [...ul.querySelectorAll('li a')].find((a) => new URL(a.href).pathname === pathname);
-  const activeLi = activeLink ? activeLink.closest('li') : overview;
 
+  if (textUl) {
+    const overview = createElement('li', '');
+    const overviewLink = createElement('a', '', { href: overviewUrl });
+    // set the active link, if is not found then use overview as default
+    const activeLink = [...ul.querySelectorAll('li a')].find((a) => new URL(a.href).pathname === pathname);
+    const activeLi = activeLink ? activeLink.closest('li') : overview;
+    activeLi.className = 'active';
+    overviewLink.textContent = overviewText;
+    overview.appendChild(overviewLink);
+    ul.prepend(overview);
+  }
   title.className = 'sub-nav-title';
-  activeLi.className = 'active';
-  overviewLink.textContent = overviewText;
-  overview.appendChild(overviewLink);
-  ul.prepend(overview);
   if (ctasWrapper) {
     buttons.forEach((btn) => {
       ctasWrapper.appendChild(btn);

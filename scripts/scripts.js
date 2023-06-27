@@ -101,7 +101,7 @@ export function decorateButtons(element) {
           link.appendChild(arrow);
         }
         if (up.tagName === 'LI' && twoup.children.length === 1
-          && link.firstElementChild.tagName === 'STRONG') {
+          && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
           const arrow = document.createElement('span');
           link.className = 'button arrowed';
           twoup.className = 'button-container';
