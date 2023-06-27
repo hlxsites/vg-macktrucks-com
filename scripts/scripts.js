@@ -470,24 +470,6 @@ export function createIframe(url, { parentEl, classes = [] }) {
   return iframe;
 }
 
-/**
- * search recursively through the parent elements chain until find the target
- * element based on its tag or a CSS class
- * @param {HTMLElement} el the initial element or one of its parents
- * @param {object} option an option object using the key as search parameter
- * @param {string} option.tag to search by element tag
- * @param {string} option.className to search by a CSS class in the element
- * @returns {HTMLElement | null} the target element or null if is not found
- */
-export function getTargetParentElement(el, option) {
-  const [key] = Object.keys(option);
-  const checks = {
-    tag: el.parentElement.localName === option[key],
-    className: el.parentElement.classList.contains(option[key]),
-  };
-  if (checks[key] === undefined) return null;
-  return checks[key] ? el.parentElement : getTargetParentElement(el.parentElement, option);
-}
 /* this function load script only when it wasn't loaded yet */
 const scriptMap = new Map();
 
@@ -596,6 +578,18 @@ export function span(...items) { return domEl('span', ...items); }
 export function input(...items) { return domEl('input', ...items); }
 export function form(...items) { return domEl('form', ...items); }
 export function button(...items) { return domEl('button', ...items); }
+
+/* Helper for delaying something like
+takes function as argument, default timout = 200
+*/
+export function debounce(func, timeout = 200) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
 
 /**
  * @param {NodeList} elements list of tested elements

@@ -1,4 +1,4 @@
-import { createElement, getTargetParentElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/scripts.js';
 import {
   getFacetsTemplate,
   getNoResultsTemplate,
@@ -7,7 +7,9 @@ import {
   getShowingResultsTemplate,
 } from './templates.js';
 
-import { searchQuery, autosuggestQuery, fetchData } from './search-api.js';
+import { searchQuery, fetchData } from './search-api.js';
+
+import fetchAutosuggest from './autosuggest.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
@@ -21,7 +23,7 @@ const PLACEHOLDERS = {
 };
 
 export default function decorate(block) {
-  const section = getTargetParentElement(block, { className: 'section' });
+  const section = block.closest('.section');
   // check if the closest default content wrapper is inside the same section element
   const siblingDefaultSection = section.querySelector('.default-content-wrapper');
   const popularSearchWrapper = siblingDefaultSection || section.nextElementSibling;
@@ -35,7 +37,7 @@ export default function decorate(block) {
   offset = offset ? Number(offset) : 0;
   let resultCount = 0;
   const limit = 25;
-  const nextOffset = offset + limit;
+  let nextOffset = offset + limit;
   let hasResults = true;
   let facetsFilters = [];
 
@@ -52,64 +54,37 @@ export default function decorate(block) {
   const resultsWrapper = document.getElementById('searchResultsSection');
   const summary = document.getElementById('searchResultSummarySection');
   const sortBy = document.getElementById('searchOptionsSection');
+  const listEl = block.querySelector('.autosuggest__results-container ul');
 
   function searchResults() {
+    listEl.textContent = '';
     insertUrlParam('q', input.value);
     fetchResults();
   }
 
   searchBtn.onclick = () => searchResults();
 
+  const onclickHanlder = (val) => {
+    input.value = val;
+    searchResults();
+  };
+
+  const delayFetchData = debounce((term) => fetchAutosuggest(term, listEl, {
+    tag: 'li',
+    class: 'autosuggest__results-item',
+    props: {
+      role: 'option',
+      'data-section-name': 'default',
+    },
+  }, onclickHanlder));
+
   input.onkeyup = (e) => {
     const term = e.target.value;
-    const listEl = block.querySelector('.autosuggest__results-container ul');
-    listEl.textContent = '';
 
     if (e.key === 'Enter') {
       searchResults();
-    } else if (term.length > 2) {
-      fetchData({
-        query: autosuggestQuery(),
-        variables: {
-          term,
-          locale: 'EN',
-          sizeSuggestions: 5,
-        },
-      }).then(({ errors, data }) => {
-        if (errors) {
-          // eslint-disable-next-line no-console
-          console.log('%cSomething went wrong', errors);
-        } else {
-          const {
-            macktrucksuggest: {
-              terms,
-            } = {},
-          } = data;
-          if (terms.length) {
-            terms.forEach((val, index) => {
-              const liEl = createElement('li', 'autosuggest__results-item', {
-                id: `autosuggest__results-item--${index}`,
-                role: 'option',
-                'data-suggestion-index': index,
-                'data-section-name': 'default',
-              });
-              const suggestFragment = fragmentRange
-                .createContextualFragment(`<div>
-                ${val}
-              </div>`);
-              liEl.appendChild(suggestFragment);
-
-              liEl.onclick = () => {
-                input.value = val;
-                searchResults();
-                listEl.textContent = '';
-              };
-
-              listEl.appendChild(liEl);
-            });
-          }
-        }
-      });
+    } else {
+      delayFetchData(term);
     }
   };
 
@@ -309,7 +284,7 @@ export default function decorate(block) {
     if (offset === 0) {
       isPrevDisabled = 'disabled';
     }
-    if (nextOffset >= data.count) {
+    if ((nextOffset + limit) >= data.count) {
       isNextDisabled = 'disabled';
     }
     prevBtn.setAttribute('disabled', isPrevDisabled);
@@ -365,6 +340,7 @@ export default function decorate(block) {
         console.log('%cSomething went wrong', errors);
       } else {
         const { macktrucksearch } = data;
+        nextOffset = offset + limit;
         countSpan.innerText = macktrucksearch.count;
         showResults(macktrucksearch);
         updatePaginationDOM(macktrucksearch);

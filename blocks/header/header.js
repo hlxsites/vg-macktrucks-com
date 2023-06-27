@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
-import { fetchData, autosuggestQuery } from '../search/search-api.js';
+import { createElement, debounce } from '../../scripts/scripts.js';
+import fetchAutosuggest from '../search/autosuggest.js';
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
 
@@ -138,7 +138,6 @@ export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
 
-  const fragmentRange = document.createRange();
   const subnav = block.closest('header').querySelector('.sub-nav');
 
   // fetch nav content
@@ -235,56 +234,26 @@ export default async function decorate(block) {
     };
 
     // SEARCH INPUT
+    const onclickHandler = (val) => {
+      input.value = val;
+      navigateToSearch();
+      autosuggestWrapper.textContent = '';
+      autosuggestWrapper.classList.remove('show');
+    };
+
+    const delayFetchData = debounce((term) => fetchAutosuggest(term, autosuggestWrapper, {
+      tag: 'div',
+      class: 'result-row',
+      props: {},
+    }, onclickHandler));
+
     input.onkeyup = (e) => {
       const term = e.target.value;
-      autosuggestWrapper.textContent = '';
 
       if (e.key === 'Enter') {
         navigateToSearch(e);
-      } else if (term.length > 2) {
-        fetchData({
-          query: autosuggestQuery(),
-          variables: {
-            term,
-            locale: 'EN',
-            sizeSuggestions: 5,
-          },
-        }).then(({ errors, data }) => {
-          if (errors) {
-            // eslint-disable-next-line no-console
-            console.log('%cSomething went wrong', errors);
-          } else {
-            const {
-              macktrucksuggest: {
-                terms,
-              } = {},
-            } = data;
-            if (terms.length) {
-              terms.forEach((val) => {
-                const row = createElement('div', 'result-row');
-                const suggestFragment = fragmentRange
-                  .createContextualFragment(`<b>
-                  ${val}
-                </b>`);
-                row.appendChild(suggestFragment);
-
-                row.onclick = () => {
-                  input.value = val;
-                  navigateToSearch();
-                  autosuggestWrapper.textContent = '';
-                  autosuggestWrapper.classList.remove('show');
-                };
-
-                autosuggestWrapper.appendChild(row);
-                autosuggestWrapper.classList.add('show');
-              });
-            }
-          }
-        });
-      }
-
-      if (!autosuggestWrapper.hasChildNodes()) {
-        autosuggestWrapper.classList.remove('show');
+      } else {
+        delayFetchData(term);
       }
     };
 

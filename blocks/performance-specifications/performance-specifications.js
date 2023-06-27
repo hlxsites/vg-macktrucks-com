@@ -408,6 +408,7 @@ function parseEngineJsonData(data, block) {
 
       const categoryId = engine.series.replaceAll('®', '').toLowerCase().trim();
       if (!engineData.get(block)[categoryId]) {
+        // eslint-disable-next-line no-console
         console.error(`The engine type ${categoryId} was used in Excel, but the not defined in the Engine-Specifications block. Please update the block used on this page.`);
         // create empty object to prevent errors
         engineData.get(block)[categoryId] = { engines: {}, nameHTML: engine.series, descriptionHTML: '' };
