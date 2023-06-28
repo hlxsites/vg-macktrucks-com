@@ -22,6 +22,14 @@ const PLACEHOLDERS = {
   next: getTextLabel('Next'),
 };
 
+const SEARCH_PARAMS = {
+  _q: 'q',
+  _start: 'start',
+  _sort: 'sort',
+  _tags: 'tags',
+  _category: 'category',
+};
+
 export default function decorate(block) {
   const section = block.closest('.section');
   // check if the closest default content wrapper is inside the same section element
@@ -31,9 +39,16 @@ export default function decorate(block) {
   popularSearchWrapper.classList.add('popular-search');
 
   // check if url has query params
+  const {
+    _q,
+    _start,
+    _sort,
+    _tags,
+    _category,
+  } = SEARCH_PARAMS;
   const urlParams = new URLSearchParams(window.location.search);
-  const searchTerm = urlParams.get('q');
-  let offset = urlParams.get('start');
+  const searchTerm = urlParams.get(_q);
+  let offset = urlParams.get(_start);
   offset = offset ? Number(offset) : 0;
   let resultCount = 0;
   const limit = 25;
@@ -58,7 +73,7 @@ export default function decorate(block) {
 
   function searchResults() {
     listEl.textContent = '';
-    insertUrlParam('q', input.value);
+    insertUrlParam(_q, input.value);
     fetchResults();
   }
 
@@ -164,7 +179,7 @@ export default function decorate(block) {
         });
       }
     });
-    const filterParams = ['tags', 'category'];
+    const filterParams = [_tags, _category];
 
     filterParams.forEach((item) => {
       const filter = facetsFilters.find(({ field }) => field.toLowerCase() === item);
@@ -176,6 +191,8 @@ export default function decorate(block) {
       insertUrlParam(item, '', true);
     });
     facetsFilters = [];
+    offset = 0;
+    insertUrlParam(_start, offset);
     fetchResults();
   };
 
@@ -216,10 +233,10 @@ export default function decorate(block) {
 
   // handle sort
   const sortResults = block.querySelector('.custom-select-searchstudio-js');
-  const sort = urlParams.get('sort');
+  const sort = urlParams.get(_sort);
   if (sort) sortResults.value = sort;
   sortResults.onchange = (e) => {
-    insertUrlParam('sort', e.target.value);
+    insertUrlParam(_sort, e.target.value);
     fetchResults();
   };
 
@@ -248,7 +265,7 @@ export default function decorate(block) {
     facetsWrapper.textContent = '';
     if (hasResults) {
       const newOffset = nextOffset > count ? count : nextOffset;
-      const showingResults = PLACEHOLDERS.showingResults.replace('$0', `${offset + 1}`)
+      const showingResults = PLACEHOLDERS.showingResults.replace('$0', `${count > 0 ? offset + 1 : 0}`)
         .replace('$1', newOffset).replace('$2', count).replace('$3', queryTerm);
       const showingResultsText = getShowingResultsTemplate(showingResults);
       const summaryFragment = fragmentRange.createContextualFragment(showingResultsText);
@@ -259,6 +276,7 @@ export default function decorate(block) {
       addFacetsEvents(facetsWrapper);
     } else {
       summary.appendChild(fragment);
+      paginationContainer.classList.remove('show');
     }
     sortBy.classList.toggle('hide', !hasResults);
   }
@@ -294,12 +312,12 @@ export default function decorate(block) {
 
   async function fetchResults() {
     const searchParams = new URLSearchParams(window.location.search);
-    const queryTerm = searchParams.get('q');
-    const offsetVal = Number(searchParams.get('start'));
-    const sortVal = searchParams.get('sort') || 'BEST_MATCH';
+    const queryTerm = searchParams.get(_q);
+    const offsetVal = Number(searchParams.get(_start));
+    const sortVal = searchParams.get(_sort) || 'BEST_MATCH';
 
-    const tags = searchParams.get('tags');
-    const category = searchParams.get('category');
+    const tags = searchParams.get(_tags);
+    const category = searchParams.get(_category);
 
     if (tags) {
       facetsFilters.push({
@@ -358,7 +376,7 @@ export default function decorate(block) {
 
   function pagination(type) {
     offset = getNextOffset(type === 'next');
-    insertUrlParam('start', offset);
+    insertUrlParam(_start, offset);
     fetchResults();
   }
 
