@@ -284,7 +284,7 @@ export default function decorate(block) {
     if (offset === 0) {
       isPrevDisabled = 'disabled';
     }
-    if ((nextOffset + limit) >= data.count) {
+    if ((nextOffset) >= data.count) {
       isNextDisabled = 'disabled';
     }
     prevBtn.setAttribute('disabled', isPrevDisabled);
@@ -350,7 +350,7 @@ export default function decorate(block) {
 
   function getNextOffset(isNext = false) {
     if (isNext) {
-      return nextOffset <= resultCount ? nextOffset : offset + 1;
+      return nextOffset <= resultCount ? nextOffset : offset;
     }
     const temp = offset - limit;
     return temp > 0 ? temp : 0;

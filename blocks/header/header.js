@@ -276,6 +276,7 @@ export default async function decorate(block) {
       isShown = false;
       navSearch.classList.remove('show');
       autosuggestWrapper.classList.remove('show');
+      if (subnav) subnav.classList.remove('search-open');
     };
   }
 
