@@ -1,3 +1,4 @@
+/* stylelint-disable */
 /* below the fold CSS goes here */
 
 /* Headings */
@@ -54,6 +55,13 @@
   font-family: 'Helvetica Neue LT Pro 76 Bold Italic';
   src: url('../fonts/HelveticaNeueLTPro-76BdIt.otf') format('opentype');
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue 85 Heavy';
+  src: url('../fonts/HelveticaNeueLTPro-Hv.woff') format('woff');
+  font-weight: 700;
+  font-style: normal
 }
 
 /* Accent elements */
