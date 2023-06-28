@@ -6,7 +6,7 @@
   --sn-btn-height: 30px;
   --sn-btn-border: 2px;
   --sn-btn-height-block: calc(var(--sn-btn-height) + (var(--sn-btn-border) * 2));
-  --nav-full-height: calc(var(--nav-height) + var(--sub-nav-height));
+  --nav-full-height: calc(var(--nav-height) - 10px);
   --magazine-sn-list-width: 325px;
   --magazine-sn-list-height: 350px;
 }
@@ -15,6 +15,7 @@
   background-color: var(--primary-white);
   color: var(--primary-black);
   transition: translate 1s;
+  position: relative;
 }
 
 .block.sub-nav.search-open {
@@ -140,7 +141,7 @@
 
 .magazine .sub-nav-list-wrapper {
   position: absolute;
-  top: calc(var(--nav-height) + var(--sub-nav-height));
+  top: var(--nav-full-height);
   left: 0;
   width: var(--magazine-sn-list-width);
   background-color: var(--primary-white);
