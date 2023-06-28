@@ -4,7 +4,8 @@
   --nav-font-size-s: 14px;
   --nav-font-size-xs: 12px;
   --nav-height: var(--nav-height-m);
-  --nav-width: 1376px
+  --nav-width: 1376px;
+  --nav-ff: var(--emphasis-ff-bold);
 }
 
 /* header and nav layout */
@@ -19,7 +20,7 @@ header nav {
   max-width: var(--nav-width);
   margin-inline: auto;
   height: var(--nav-height);
-  font-family: var(--body-ff);
+  font-family: var(--nav-ff);
 }
 
 header nav p {
