@@ -360,6 +360,10 @@ main .section.background {
   background-position: center;
 }
 
+main .section.text-black {
+  color: var(--primary-black)
+}
+
 main .section.text-white {
   color: var(--primary-white);
 }
