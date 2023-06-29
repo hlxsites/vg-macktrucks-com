@@ -114,14 +114,44 @@ main .hero.magazine .hero-content-media picture {
     position: unset;
 }
 
-.hero .hero-content-media:has(.hero-video.hide) picture {
-    z-index: 0;
+/* Hero with text and black background */
+main .hero.dark-background .hero-content-container,
+main .hero.dark-background,
+main .hero.dark-background .hero-content-wrapper {
+    height: unset;
 }
 
-/* Hero with text and black background */
+main .hero.dark-background .hero-content-media {
+    display: none;
+}
+
+main .hero.dark-background .hero-content-wrapper {
+    padding: 70px 20px 0;
+    left: 2%;
+}
+
 main .hero.dark-background h1 {
-    background-color: rgb(0 0 0 / 50%);
-    padding: 15px;
+    font-family: var(--emphasis-ff-bold);
+    font-size: var(--heading-font-size-xl);
+    color: var(--primary-black);
+}
+
+@media (min-width: 768px) {
+    main .hero.dark-background .hero-content-media {
+        display: block;
+    }
+
+    main .hero.dark-background .hero-content-wrapper {
+        padding: unset;
+        left: 14%;
+    }
+
+    main .hero.dark-background h1 {
+        font-size: var(--heading-font-size-xxl);
+        color: var(--primary-white);
+        background-color: rgb(0 0 0 / 50%);
+        padding: 15px;
+    }
 }
 
 /* SPECS hero styling  */
@@ -204,7 +234,6 @@ main .hero.specs .hero-content-wrapper h1::after {
     main .hero.specs img {
         margin-top: 25vh;
     } 
-
 }
 
 @media (min-width: 992px) {
@@ -343,9 +372,11 @@ main .hero.magazine-categories em {
 }
 
 /* Hero with half the height */
-main .hero.half-height,
-main .hero.half-height .hero-content-container,
-main .hero.half-height .hero-content-wrapper,
-main .hero.half-height img {
-    height: 50vw;  
+@media (min-width: 768px) {
+    main .hero.half-height,
+    main .hero.half-height .hero-content-container,
+    main .hero.half-height .hero-content-wrapper,
+    main .hero.half-height img {
+        height: 50vw;  
+    }
 }

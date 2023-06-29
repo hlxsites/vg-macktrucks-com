@@ -360,6 +360,10 @@ main .section.background {
   background-position: center;
 }
 
+main .section.text-black {
+  color: var(--primary-black)
+}
+
 main .section.text-white {
   color: var(--primary-white);
 }
@@ -693,6 +697,7 @@ main .section.section-width {
   margin: 0 auto;
 }
 
+
 /* quick fix to align #community title with the cards below */
 .section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
   text-align: center;
@@ -711,4 +716,28 @@ main .section.section-width {
     margin-inline: auto;
     max-width: 910px;
   }
+}
+
+main .section.helvetica-55 {
+  font-family: var(--subheadings-ff-roman);
+}
+
+main .section.helvetica-65 {
+  font-family: var(--subheadings-ff-medium);
+}
+
+main .section.helvetica-75 {
+  font-family: var(--emphasis-ff-bold);
+}
+
+main .section.helvetica-56 {
+  font-family: var(--emphasis-ff-roman-italic);
+}
+
+main .section.helvetica-66 {
+  font-family: var(--emphasis-ff-medium-italic);
+}
+
+main .section.helvetica-76 {
+  font-family: var(--emphasis-ff-bold-italic);
 }
