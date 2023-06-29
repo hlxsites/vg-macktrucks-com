@@ -62,10 +62,22 @@
 }
 
 .hotspots-container .hotspot .hotspot-content h1 {
-  font: 80px/62px var(--headline-ff-medium);
+  font: 44px/62px var(--headline-ff-medium);
   letter-spacing: -0.035em;
   margin: -20px auto 0;
   text-align: center;
+}
+
+.hotspots-container .first .hotspot .hotspot-content h1 {
+  font: 80px/62px var(--headline-ff-medium);
+}
+
+.hotspots-container .text-black .hotspot-content * {
+  color: var(--primary-black)
+}
+
+.hotspots-container .text-white .hotspot-content * {
+  color: var(--primary-white)
 }
 
 .hotspots-container .hotspot .hotspot-content p {
