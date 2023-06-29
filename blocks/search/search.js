@@ -71,8 +71,10 @@ export default function decorate(block) {
   const sortBy = document.getElementById('searchOptionsSection');
   const listEl = block.querySelector('.autosuggest__results-container ul');
 
-  function searchResults() {
-    listEl.textContent = '';
+  function searchResults(hideAutoSuggest = true) {
+    if (hideAutoSuggest) {
+      listEl.textContent = '';
+    }
     offset = 0;
 
     deleteUrlParam(_category);
@@ -98,13 +100,72 @@ export default function decorate(block) {
     },
   }, onclickHanlder));
 
+  function removeClass(el, className) {
+    if (el.classList) {
+      el.classList.remove(className);
+    }
+  }
+
+  function addClass(el, className) {
+    if (el.classList) {
+      el.classList.add(className);
+    } else {
+      el.className = className;
+    }
+  }
+
+  let liSelected;
+  let next;
+  let index = -1;
+
   input.onkeyup = (e) => {
     const term = e.target.value;
+    const list = listEl.getElementsByTagName('li');
 
     if (e.key === 'Enter') {
       searchResults();
     } if (e.key === 'Escape') {
       listEl.textContent = '';
+    } else if (e.key === 'ArrowUp') {
+      const listLen = list.length - 1;
+
+      if (liSelected) {
+        removeClass(liSelected, 'autosuggest__results-item--highlighted');
+        index -= 1;
+
+        next = listEl.getElementsByTagName('li')[index];
+        if (next && index >= 0) {
+          liSelected = next;
+        } else {
+          index = list.length - 1;
+          liSelected = listEl.getElementsByTagName('li')[index];
+        }
+      } else {
+        index = 0;
+        liSelected = listEl.getElementsByTagName('li')[listLen];
+      }
+      input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
+      searchResults(false);
+      addClass(liSelected, 'autosuggest__results-item--highlighted');
+    } else if (e.key === 'ArrowDown') {
+      index += 1;
+
+      if (liSelected) {
+        removeClass(liSelected, 'autosuggest__results-item--highlighted');
+        next = listEl.getElementsByTagName('li')[index];
+        if (next && index < list.length) {
+          liSelected = next;
+        } else {
+          index = 0;
+          [liSelected] = list;
+        }
+      } else {
+        index = 0;
+        [liSelected] = list;
+      }
+      input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
+      searchResults(false);
+      addClass(liSelected, 'autosuggest__results-item--highlighted');
     } else {
       delayFetchData(term);
     }
@@ -391,6 +452,7 @@ export default function decorate(block) {
     fetchResults();
   }
 
+  // hide autocomplete, click was outside container.
   const containingElement = document.querySelector('#searchInput');
 
   document.body.addEventListener('click', (event) => {
