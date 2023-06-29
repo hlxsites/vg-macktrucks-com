@@ -1,3 +1,6 @@
+/* stylelint-disable max-line-length */
+/* stylelint-disable indentation */
+
 /* auto and non-auto block shared styles */
 
 main .hero-container > div {
@@ -21,7 +24,6 @@ main .hero h1 {
     color: var(--primary-white);
 }
 
-
 main .hero picture {
     position: absolute;
     inset: 0;
@@ -36,17 +38,11 @@ main .hero img {
 }
 
 /* default block */
-
-main .hero:not(.auto-block) {
-    height: 100vh;
-}
-
 main .hero:not(.auto-block) > div {
     position: relative;
 }
 
 .hero .hero-content-container {
-    height: 100vh;
     position: absolute;
     inset: 0;
     margin: -32px;
@@ -54,7 +50,6 @@ main .hero:not(.auto-block) > div {
 }
 
 .hero .hero-content-wrapper {
-    height: 100vh;
     transform: translateY(-20px);
     display: flex;
     flex-direction: column;
@@ -63,6 +58,12 @@ main .hero:not(.auto-block) > div {
     margin: 0 auto;
     gap: 1rem;
     padding-inline: 2rem;
+}
+
+.hero .hero-content-wrapper,
+.hero .hero-content-container,
+main .hero:not(.auto-block) {
+    height: 80vw;
 }
 
 @media (min-width: 480px) {
@@ -83,6 +84,12 @@ main .hero:not(.auto-block) > div {
 @media (min-width: 992px) {
     .hero .hero-content-wrapper {
         max-width: 500px;
+    }
+
+    .hero .hero-content-wrapper,
+    .hero .hero-content-container,
+    main .hero:not(.auto-block) {
+        height: 100vh;
     }
 }
 
@@ -162,8 +169,8 @@ main .hero.specs {
     height: 60vh;
 }
 
-main .hero.specs::after  {
-    content: '';
+main .hero.specs::after {
+    content: "";
     display: inline-block;
     position: absolute;
     z-index: -2;
@@ -202,7 +209,7 @@ main .hero.specs .hero-content-wrapper h1 {
 }
 
 main .hero.specs .hero-content-wrapper h1::after {
-    content: '®';
+    content: "®";
     font-size: var(--body-font-size-xxl);
     position: absolute;
     top: 5%;
@@ -217,13 +224,13 @@ main .hero.specs .hero-content-wrapper h1::after {
         height: 70vh;
     }
 
-    main .hero.specs::after  {
+    main .hero.specs::after {
         height: 300px;
     }
 
     main .hero.specs img {
         margin-top: 20vh;
-    } 
+    }
 }
 
 @media (min-width: 768px) {
@@ -233,7 +240,7 @@ main .hero.specs .hero-content-wrapper h1::after {
 
     main .hero.specs img {
         margin-top: 25vh;
-    } 
+    }
 }
 
 @media (min-width: 992px) {
@@ -241,7 +248,7 @@ main .hero.specs .hero-content-wrapper h1::after {
         height: unset;
         width: 1000px;
         margin: 20vh calc((100vw - 1000px) / 2) 0;
-    } 
+    }
 }
 
 /* MAGAZINE hero styling  */
@@ -317,7 +324,7 @@ main .hero.magazine .hero-content-wrapper a:hover {
         justify-content: space-around;
         background-color: var(--primary-black);
     }
-    
+
     main .hero.magazine .hero-content-media {
         width: 45vw;
         max-width: 800px;
@@ -341,8 +348,8 @@ main .hero.magazine-categories,
 main .hero.magazine-categories .hero-content-container,
 main .hero.magazine-categories .hero-content-wrapper,
 main .hero.magazine-categories img {
-    height: 310px;  
-    padding: 0 auto; 
+    height: 310px;
+    padding: 0 auto;
 }
 
 main .hero.magazine-categories .hero-content-wrapper {
@@ -363,9 +370,9 @@ main .hero.magazine-categories em {
     main .hero.magazine-categories .hero-content-container,
     main .hero.magazine-categories .hero-content-wrapper,
     main .hero.magazine-categories img {
-        height: 600px;   
+        height: 600px;
     }
-    
+
     main .hero.magazine-categories h4 {
         font-size: var(--heading-1-desktop-size-xl);
     }
@@ -377,6 +384,6 @@ main .hero.magazine-categories em {
     main .hero.half-height .hero-content-container,
     main .hero.half-height .hero-content-wrapper,
     main .hero.half-height img {
-        height: 50vw;  
+        height: 50vw;
     }
 }
