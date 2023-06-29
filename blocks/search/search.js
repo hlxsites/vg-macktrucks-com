@@ -73,7 +73,12 @@ export default function decorate(block) {
 
   function searchResults() {
     listEl.textContent = '';
+    offset = 0;
+
+    deleteUrlParam(_category);
     insertUrlParam(_q, input.value);
+    insertUrlParam(_start, offset);
+
     fetchResults();
   }
 
@@ -188,7 +193,7 @@ export default function decorate(block) {
         insertUrlParam(item, filter.value);
         return;
       }
-      insertUrlParam(item, '', true);
+      deleteUrlParam(item);
     });
     facetsFilters = [];
     offset = 0;
@@ -281,14 +286,18 @@ export default function decorate(block) {
     sortBy.classList.toggle('hide', !hasResults);
   }
 
-  function insertUrlParam(key, value = '', isDelete = false) {
+  function deleteUrlParam(key) {
     if (window.history.pushState) {
       const searchUrl = new URL(window.location.href);
-      if (!isDelete) {
-        searchUrl.searchParams.set(key, value);
-      } else {
-        searchUrl.searchParams.delete(key);
-      }
+      searchUrl.searchParams.delete(key);
+      window.history.pushState({}, '', searchUrl.toString());
+    }
+  }
+
+  function insertUrlParam(key, value) {
+    if (window.history.pushState) {
+      const searchUrl = new URL(window.location.href);
+      searchUrl.searchParams.set(key, value);
       window.history.pushState({}, '', searchUrl.toString());
     }
   }
