@@ -103,6 +103,8 @@ export default function decorate(block) {
 
     if (e.key === 'Enter') {
       searchResults();
+    } if (e.key === 'Escape') {
+      listEl.textContent = '';
     } else {
       delayFetchData(term);
     }
@@ -388,6 +390,14 @@ export default function decorate(block) {
     insertUrlParam(_start, offset);
     fetchResults();
   }
+
+  const containingElement = document.querySelector('#searchInput');
+
+  document.body.addEventListener('click', (event) => {
+    if (!containingElement.contains(event.target)) {
+      listEl.textContent = '';
+    }
+  });
 
   if (searchTerm) fetchResults();
 }
