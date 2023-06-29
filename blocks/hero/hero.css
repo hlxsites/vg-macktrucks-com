@@ -10,7 +10,7 @@ main .hero-container {
 
 main .hero {
     position: relative;
-    padding: 32px;
+    padding: 0;
     min-height: 300px;
 }
 
@@ -38,23 +38,27 @@ main .hero img {
 /* default block */
 
 main .hero:not(.auto-block) {
-    height: 100vh;
+    height: auto;
+    aspect-ratio: 16/9;
+    max-width: 100%;
 }
 
 main .hero:not(.auto-block) > div {
     position: relative;
+    height: 100%;
 }
 
 .hero .hero-content-container {
-    height: 100vh;
     position: absolute;
     inset: 0;
     margin: -32px;
     color: var(--primary-white);
+    height: 100%;
+    margin: 0;
 }
 
 .hero .hero-content-wrapper {
-    height: 100vh;
+    height: 100%;
     transform: translateY(-20px);
     display: flex;
     flex-direction: column;
@@ -223,7 +227,7 @@ main .hero.specs .hero-content-wrapper h1::after {
 
     main .hero.specs img {
         margin-top: 20vh;
-    } 
+    }
 }
 
 @media (min-width: 768px) {
@@ -233,7 +237,7 @@ main .hero.specs .hero-content-wrapper h1::after {
 
     main .hero.specs img {
         margin-top: 25vh;
-    } 
+    }
 }
 
 @media (min-width: 992px) {
@@ -241,7 +245,7 @@ main .hero.specs .hero-content-wrapper h1::after {
         height: unset;
         width: 1000px;
         margin: 20vh calc((100vw - 1000px) / 2) 0;
-    } 
+    }
 }
 
 /* MAGAZINE hero styling  */
@@ -317,7 +321,7 @@ main .hero.magazine .hero-content-wrapper a:hover {
         justify-content: space-around;
         background-color: var(--primary-black);
     }
-    
+
     main .hero.magazine .hero-content-media {
         width: 45vw;
         max-width: 800px;
@@ -341,8 +345,8 @@ main .hero.magazine-categories,
 main .hero.magazine-categories .hero-content-container,
 main .hero.magazine-categories .hero-content-wrapper,
 main .hero.magazine-categories img {
-    height: 310px;  
-    padding: 0 auto; 
+    height: 310px;
+    padding: 0 auto;
 }
 
 main .hero.magazine-categories .hero-content-wrapper {
@@ -363,9 +367,9 @@ main .hero.magazine-categories em {
     main .hero.magazine-categories .hero-content-container,
     main .hero.magazine-categories .hero-content-wrapper,
     main .hero.magazine-categories img {
-        height: 600px;   
+        height: 600px;
     }
-    
+
     main .hero.magazine-categories h4 {
         font-size: var(--heading-1-desktop-size-xl);
     }
@@ -377,6 +381,6 @@ main .hero.magazine-categories em {
     main .hero.half-height .hero-content-container,
     main .hero.half-height .hero-content-wrapper,
     main .hero.half-height img {
-        height: 50vw;  
+        height: 50vw;
     }
 }
