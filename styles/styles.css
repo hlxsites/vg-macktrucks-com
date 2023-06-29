@@ -360,6 +360,10 @@ main .section.background {
   background-position: center;
 }
 
+main .section.text-black {
+  color: var(--primary-black)
+}
+
 main .section.text-white {
   color: var(--primary-white);
 }
@@ -685,10 +689,55 @@ main .section.font-xxs {
 }
 
 main .section.bg-paper {
-  background: url('../media/bg-paper.gif');
+  background: url("../media/bg-paper.gif");
 }
 
 main .section.section-width {
   max-width: 960px;
   margin: 0 auto;
+}
+
+
+/* quick fix to align #community title with the cards below */
+.section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
+  text-align: center;
+}
+
+@media (min-width: 669px) {
+  .section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
+    margin-inline: auto;
+    max-width: 590px;
+    text-align: start;
+  }
+}
+
+@media (min-width: 989px) {
+  .section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
+    margin-inline: auto;
+    max-width: 910px;
+  }
+}
+
+main .section.helvetica-55 {
+  font-family: var(--subheadings-ff-roman);
+}
+
+main .section.helvetica-65 {
+  font-family: var(--subheadings-ff-medium);
+}
+
+main .section.helvetica-75 {
+  font-family: var(--emphasis-ff-bold);
+}
+
+main .section.helvetica-56 {
+  font-family: var(--emphasis-ff-roman-italic);
+}
+
+main .section.helvetica-66 {
+  font-family: var(--emphasis-ff-medium-italic);
+}
+
+main .section.helvetica-76 {
+  font-family: var(--emphasis-ff-bold-italic);
 }
