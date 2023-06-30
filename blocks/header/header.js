@@ -278,6 +278,14 @@ export default async function decorate(block) {
       autosuggestWrapper.classList.remove('show');
       if (subnav) subnav.classList.remove('search-open');
     };
+
+    // hide autocomplete, click was outside container
+    document.body.addEventListener('click', (event) => {
+      if (!searchWrapper.contains(event.target)) {
+        autosuggestWrapper.textContent = '';
+        autosuggestWrapper.classList.remove('show');
+      }
+    });
   }
 
   decorateIcons(nav);
