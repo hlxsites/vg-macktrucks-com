@@ -124,7 +124,7 @@ export default function decorate(block) {
 
     if (e.key === 'Enter') {
       searchResults();
-    } if (e.key === 'Escape') {
+    } else if (e.key === 'Escape') {
       listEl.textContent = '';
     } else if (e.key === 'ArrowUp') {
       const listLen = list.length - 1;
