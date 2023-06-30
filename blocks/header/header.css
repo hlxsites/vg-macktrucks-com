@@ -143,7 +143,7 @@ header nav[aria-expanded="true"] .nav-sections {
   visibility: visible;
   align-self: start;
   background-color: var(--primary-black);
-  z-index: 1;
+  z-index: 2;
 }
 
 header :where(nav[aria-expanded="true"]) .nav-sections .nav-mobile {
@@ -453,6 +453,7 @@ header .studio-search-widget {
 
 .autosuggest-results.show {
   display: block;
+  z-index: 1;
 }
 
 .autosuggest-results .result-row {

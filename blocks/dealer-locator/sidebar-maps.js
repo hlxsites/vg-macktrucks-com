@@ -235,10 +235,10 @@ $hoverText = $('#hoverText').val();
         'routeindex_changed',
     );
 
-    google.maps.event.addListenerOnce( $map, 'idle', function() {  
+    google.maps.event.addListenerOnce( $map, 'idle', function() {
         if (document.getElementById('location').value){
           $.fn.setAddress();
-        }    
+        }
       }
     );
 
@@ -2340,11 +2340,12 @@ $.fn.setAddress2 = function () {
   $geocoder = new google.maps.Geocoder;
   $geocoder = new google.maps.Geocoder;
   $geocoder.geocode({ 'address': address2 }, function (results, status) {
-    if (results.length == 0) {
-      setAddressNotFoundError();
+    if (!results || results.length == 0) {
+      $('.waiting-overlay').css('display', 'block');
       console.log("results not found");
     }
     else {
+      $('.waiting-overlay').css('display', 'none');
       $map.viewtype = (results[0].types[0]);
       var ne = results[0].geometry.viewport.getNorthEast();
       var sw = results[0].geometry.viewport.getSouthWest();
@@ -2444,15 +2445,16 @@ $.fn.setAddress = function () {
   if (!address) {
     return null;
   }
-  
+
   $geocoder = new google.maps.Geocoder;
   $geocoder = new google.maps.Geocoder;
   $geocoder.geocode({ 'address': address }, function (results, status) {
-    if (results.length == 0) {
-      setAddressNotFoundError();
+    if (!results || results.length == 0) {
+      $('.waiting-overlay').css('display', 'block');
       console.log("results not found");
     }
     else {
+      $('.waiting-overlay').css('display', 'none');
       $map.viewtype = (results[0].types[0]);
       var ne = results[0].geometry.viewport.getNorthEast();
       var sw = results[0].geometry.viewport.getSouthWest();
