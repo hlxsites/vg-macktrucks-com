@@ -28,8 +28,12 @@
   grid-gap: 16px;
 }
 
-.cards.cta > ul {
+.cards.cta > ul, 
+.cards.dark > ul{
   grid-gap: 0;
+}
+
+.card.cta > ul {
   grid-template-columns: repeat(auto-fill, var(--card-width-size));
 }
 
@@ -49,13 +53,19 @@
   height: 100%;
 }
 
-.cards.cta.dark > ul > li > a {
+.cards.dark > ul > li {
   display: flex;
   width: 100%;
   height: 100%;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  align-items: end;
+  min-height: 450px;
+}
+
+.cards.dark > ul > li > a {
+  display: flex;
   align-items: end;
 }
 
@@ -171,7 +181,7 @@
   padding: 15px;
 }
 
-.cards.dark .cards-card-body > h3 {
+.cards.dark a .cards-card-body > h3 {
   padding-right: 34px;
 }
 
@@ -269,7 +279,7 @@
 
 /* media handling */
 @media screen and (min-width: 640px) {
-  .cards.cta.dark {
+  .cards.dark {
     padding: 4rem 3rem;
     max-width: calc(var(--nav-width) - 6rem);
     margin: 0 auto;
@@ -277,6 +287,10 @@
 
   .cards.cta > ul {
     --card-width-size: var(--card-width-m);
+  }
+
+  .cards.two > ul {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .cards.dark .cards-card-body {
@@ -301,7 +315,12 @@
     --card-width-size: var(--card-width-l);
   }
 
-  .cards.cta.dark > ul > li {
-    min-height: 450px;
+  .cards.dark:not(.two) > ul {
+    grid-template-columns: repeat(3, 1fr);
   }
+
+  .cards.dark > ul > li {
+    min-height: 500px;
+  }
+
 }

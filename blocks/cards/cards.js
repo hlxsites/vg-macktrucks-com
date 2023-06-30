@@ -1,26 +1,29 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
-const setClickableCard = (ul, isDarkVar = false) => {
+const updateListElements = (ul, isDarkVar = false, isCTABlock = false) => {
   const lis = [...ul.children];
   lis.forEach((li) => {
-    const buttons = li.querySelectorAll('.cards-card-body .button-container');
-    const { length } = buttons;
-    if (length === 0) return;
-    const tempLink = [...buttons].at(-1).firstChild;
-    const newLink = createElement('a', '', { href: tempLink.href, title: tempLink.title });
     // get image for setting as background image
-
     if (isDarkVar) {
       const img = li.querySelector('img');
-      newLink.style.backgroundImage = `url(${img.src})`;
+      li.style.backgroundImage = `url(${img.src})`;
       const pictureDiv = li.querySelector('.cards-card-image');
       pictureDiv.remove();
     }
-    buttons[length - 1].remove();
-    newLink.innerHTML = li.innerHTML;
-    li.textContent = '';
-    li.appendChild(newLink);
+
+    if (isCTABlock) {
+      const buttons = li.querySelectorAll('.cards-card-body .button-container');
+      const { length } = buttons;
+      if (length === 0) return;
+      const tempLink = [...buttons].at(-1).firstChild;
+      const newLink = createElement('a', '', { href: tempLink.href, title: tempLink.title });
+
+      buttons[length - 1].remove();
+      newLink.innerHTML = li.innerHTML;
+      li.textContent = '';
+      li.appendChild(newLink);
+    }
   });
 };
 
@@ -88,8 +91,9 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(ul);
 
+  updateListElements(ul, isDarkVar, isCTABlock);
+
   if (isCTABlock) {
-    setClickableCard(ul, isDarkVar);
     setSameHeightCards(block, ul, imgMaxHeight);
   }
 }
