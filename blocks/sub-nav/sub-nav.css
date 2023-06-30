@@ -250,7 +250,7 @@ header:has(nav[aria-expanded="true"]) .sub-nav-container {
     padding: 0;
     visibility: inherit;
     flex-direction: row;
-    gap: 4rem;
+    gap: 2vw;
     background-color: unset;
     justify-content: end;
   }
