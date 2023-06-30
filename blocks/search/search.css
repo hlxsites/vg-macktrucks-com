@@ -2145,6 +2145,6 @@ a:any-link {
   color: #999;
 }
 
-.autosuggest__results-item--highlighted {
+.autosuggest-results-item-highlighted {
   background-color: var(--background-search) !important;
 }

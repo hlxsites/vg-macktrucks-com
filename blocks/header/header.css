@@ -470,3 +470,7 @@ header .studio-search-widget {
   color: var(--primary-black);
   height: 40px;
 }
+
+.autosuggest-results-item-highlighted {
+  background-color: #f2f2f2 !important;
+}

@@ -1,7 +1,21 @@
 import { createElement } from '../../scripts/scripts.js';
 import { autosuggestQuery, fetchData } from './search-api.js';
 
-export default function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
+function removeClass(el, className) {
+  if (el.classList) {
+    el.classList.remove(className);
+  }
+}
+
+function addClass(el, className) {
+  if (el.classList) {
+    el.classList.add(className);
+  } else {
+    el.className = className;
+  }
+}
+
+export function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
   const fragmentRange = document.createRange();
 
   fetchData({
@@ -41,4 +55,52 @@ export default function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
       }
     }
   });
+}
+
+export function handleArrowUp(props) {
+  let { liSelected, next, index } = props;
+  const { list } = props;
+  const listLen = list.length - 1;
+
+  if (liSelected) {
+    removeClass(liSelected, 'autosuggest-results-item-highlighted');
+    index -= 1;
+
+    next = list[index];
+    if (next && index >= 0) {
+      liSelected = next;
+    } else {
+      index = list.length - 1;
+      liSelected = list[index];
+    }
+  } else {
+    index = 0;
+    liSelected = list[listLen];
+  }
+  addClass(liSelected, 'autosuggest-results-item-highlighted');
+  return { liSelected, index, next };
+}
+
+export function handleArrowDown(props) {
+  let { index, liSelected, next } = props;
+  const { list } = props;
+
+  index += 1;
+
+  if (liSelected) {
+    removeClass(liSelected, 'autosuggest-results-item-highlighted');
+    next = list[index];
+    if (next && index < list.length) {
+      liSelected = next;
+    } else {
+      index = 0;
+      [liSelected] = list;
+    }
+  } else {
+    index = 0;
+    [liSelected] = list;
+  }
+
+  addClass(liSelected, 'autosuggest-results-item-highlighted');
+  return { index, liSelected, next };
 }

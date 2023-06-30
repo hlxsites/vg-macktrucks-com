@@ -9,7 +9,7 @@ import {
 
 import { searchQuery, fetchData } from './search-api.js';
 
-import fetchAutosuggest from './autosuggest.js';
+import { fetchAutosuggest, handleArrowDown, handleArrowUp } from './autosuggest.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
@@ -100,20 +100,6 @@ export default function decorate(block) {
     },
   }, onclickHanlder));
 
-  function removeClass(el, className) {
-    if (el.classList) {
-      el.classList.remove(className);
-    }
-  }
-
-  function addClass(el, className) {
-    if (el.classList) {
-      el.classList.add(className);
-    } else {
-      el.className = className;
-    }
-  }
-
   let liSelected;
   let next;
   let index = -1;
@@ -126,46 +112,30 @@ export default function decorate(block) {
       searchResults();
     } else if (e.key === 'Escape') {
       listEl.textContent = '';
-    } else if (e.key === 'ArrowUp') {
-      const listLen = list.length - 1;
+    } else if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+      let returnObj;
 
-      if (liSelected) {
-        removeClass(liSelected, 'autosuggest__results-item--highlighted');
-        index -= 1;
-
-        next = listEl.getElementsByTagName('li')[index];
-        if (next && index >= 0) {
-          liSelected = next;
-        } else {
-          index = list.length - 1;
-          liSelected = listEl.getElementsByTagName('li')[index];
-        }
+      if (e.key === 'ArrowUp') {
+        returnObj = handleArrowUp({
+          list,
+          liSelected,
+          index,
+          next,
+        });
       } else {
-        index = 0;
-        liSelected = listEl.getElementsByTagName('li')[listLen];
+        returnObj = handleArrowDown({
+          list,
+          liSelected,
+          index,
+          next,
+        });
       }
+
+      liSelected = returnObj.liSelected;
+      index = returnObj.index;
+      next = returnObj.next;
       input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
       searchResults(false);
-      addClass(liSelected, 'autosuggest__results-item--highlighted');
-    } else if (e.key === 'ArrowDown') {
-      index += 1;
-
-      if (liSelected) {
-        removeClass(liSelected, 'autosuggest__results-item--highlighted');
-        next = listEl.getElementsByTagName('li')[index];
-        if (next && index < list.length) {
-          liSelected = next;
-        } else {
-          index = 0;
-          [liSelected] = list;
-        }
-      } else {
-        index = 0;
-        [liSelected] = list;
-      }
-      input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
-      searchResults(false);
-      addClass(liSelected, 'autosuggest__results-item--highlighted');
     } else {
       delayFetchData(term);
     }
