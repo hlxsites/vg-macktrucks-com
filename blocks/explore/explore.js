@@ -143,6 +143,7 @@ function setupInitialStyles(container) {
   const tabContent = container.children[1];
   const contentWrapper = tabContent.children[0];
   let resizeTimer = null;
+  tabContent.style.height = '578px';
   const resizeObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.contentRect.height > 0) {
