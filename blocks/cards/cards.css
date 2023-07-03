@@ -145,6 +145,7 @@
 
 .cards.cta .cards-card-body p:not(:has(.button)) {
   font-size: 80%;
+  margin: 0;
 }
 
 .cards.cta:not(.dark) .cards-card-body .button-container {
@@ -265,6 +266,10 @@
   .block.cards.magazine .cards-card-body p:last-of-type {
     margin-bottom: 65px;
   }
+
+  .cards.dark > ul > li {
+    max-height: 600px;
+  }
 }
 
 @media (min-width: 480px) {
@@ -317,10 +322,6 @@
 
   .cards.dark:not(.two) > ul {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .cards.dark > ul > li {
-    min-height: 500px;
   }
 
 }
