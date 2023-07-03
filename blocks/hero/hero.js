@@ -23,6 +23,10 @@ export default function decorate(block) {
   const parentContainer = contentWrapper.parentElement;
   // check if it has a video or an image
   const picture = block.querySelector('picture');
+
+  const image = picture.querySelector('img');
+  image.rel = 'preload';
+
   const pictureWrapper = picture.closest('p');
   const video = block.querySelector('a[href*=".mp4"]');
   const videoWrapper = video && video.closest('p');
