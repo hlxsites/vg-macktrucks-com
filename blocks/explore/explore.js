@@ -144,20 +144,22 @@ function setupInitialStyles(container) {
   const contentWrapper = tabContent.children[0];
   let resizeTimer = null;
   tabContent.style.height = '578px';
-  const resizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.contentRect.height > 0) {
-        tabContent.style.height = `${entry.target.clientHeight}px`;
-      }
+  setTimeout(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.contentRect.height > 0) {
+          tabContent.style.height = `${entry.target.clientHeight}px`;
+        }
+      });
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        isInitialPainting = false;
+        resizeObserver.disconnect();
+      }, 3000);
     });
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      isInitialPainting = false;
-      resizeObserver.disconnect();
-    }, 3000);
-  });
-  resizeObserver.observe(contentWrapper);
-  tabTitle.classList.add('active');
+    resizeObserver.observe(contentWrapper);
+    tabTitle.classList.add('active');
+  }, 3000);
 }
 
 export default function decorate(block) {
@@ -193,6 +195,5 @@ export default function decorate(block) {
   block.appendChild(exploreContainer);
   addTitlesListener(exploreContainer);
   decorateSlider(exploreContainer);
-  if (MQ.matches) setupInitialStyles(exploreContainer);
-  else setTimeout(setupInitialStyles(exploreContainer), 5000);
+  setupInitialStyles(exploreContainer);
 }
