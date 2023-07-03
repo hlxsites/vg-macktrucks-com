@@ -689,7 +689,7 @@ main .section.font-xxs {
 }
 
 main .section.bg-paper {
-  background: url("../media/bg-paper.gif");
+  background: url('../media/bg-paper.webp');
 }
 
 main .section.section-width {
