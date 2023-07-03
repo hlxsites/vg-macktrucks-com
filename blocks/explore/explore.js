@@ -141,6 +141,7 @@ function decorateSlider(container) {
 function onResizeCalculation(container) {
   const tabContentList = container.querySelectorAll(':scope > .tab-content > .content-wrapper');
 
+  // resizing content of active tab
   const resizeObserver = new ResizeObserver((entries) => {
     const activeContent = container.querySelector(':scope > .tab-title.active + .tab-content > .content-wrapper');
 
@@ -154,6 +155,28 @@ function onResizeCalculation(container) {
 
   tabContentList.forEach((el) => {
     resizeObserver.observe(el);
+  });
+
+  // handling the switch between row of elements (on desktop) and carousel (on tablet and mobile)
+  let translationsList = null;
+
+  MQ.addEventListener('change', (e) => {
+    const sliderContainersList = container.querySelectorAll('.slides-container');
+
+    if (!translationsList) {
+      translationsList = Array(sliderContainersList.length).fill(0);
+    }
+
+    sliderContainersList.forEach((el, index) => {
+      if (e.matches) {
+        // storing the mobile translation - the active slide in the carousel
+        translationsList[index] = el.style.translate;
+        el.style.translate = 0;
+      } else {
+        // reverting to the prev active slide on mobile
+        el.style.translate = translationsList[index];
+      }
+    });
   });
 }
 
