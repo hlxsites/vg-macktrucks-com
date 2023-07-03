@@ -1,6 +1,12 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
+const PLACEHOLDERS = {
+  visit: 'Please, visit our $0',
+  social: 'social media',
+  channel: 'channel',
+};
+
 /**
  * loads and decorates the footer
  * @param {Element} block The header block element
@@ -29,6 +35,11 @@ export default async function decorate(block) {
 
     if (iconClass) {
       const iconName = iconClass.split('icon-')[1];
+      const link = icon.closest('a');
+      const social = iconName.replace('fa-', '');
+
+      link.ariaLabel = `${PLACEHOLDERS.visit.replace('$0', social)} ${
+        social !== 'youtube' ? PLACEHOLDERS.social : PLACEHOLDERS.channel}`;
 
       icon.classList.remove('icon', iconClass);
       icon.classList.add('fa', iconName, 'footer-social-media');
