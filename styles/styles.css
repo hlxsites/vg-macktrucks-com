@@ -92,6 +92,7 @@
   --subheadings-ff-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
   --legal-ff: var(--body-ff), var(--fallback-ff-texts);
   --emphasis-ff-bold: "Helvetica Neue LT Pro 75 Bold", var(--fallback-ff-texts);
+  --emphasis-ff-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
   --emphasis-ff-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
   --emphasis-ff-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
   --emphasis-ff-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
@@ -584,7 +585,7 @@ body.disable-scroll main {
 
 /* background classes */
 .bg-white-paper {
-  background: url("../../media/bg-explore.jpeg");
+  background: url("../../media/bg-explore.webp");
   background-size: cover;
 }
 
@@ -689,7 +690,7 @@ main .section.font-xxs {
 }
 
 main .section.bg-paper {
-  background: url("../media/bg-paper.gif");
+  background: url('../media/bg-paper.webp');
 }
 
 main .section.section-width {
