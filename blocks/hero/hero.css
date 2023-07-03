@@ -1,7 +1,12 @@
-/* stylelint-disable max-line-length */
-/* stylelint-disable indentation */
+/* stylelint-disable */
 
 /* auto and non-auto block shared styles */
+:root {
+  --hero-header-ff: 'Helvetica Neue 85 Heavy', var(--headline-ff-medium);
+  --hero-text-ff: var(--subheadings-ff-medium);
+  --hero-btn-ff: var(--emphasis-ff-bold);
+  --hero-text-size: 20px;
+}
 
 main .hero-container > div {
     max-width: unset;
@@ -22,6 +27,19 @@ main .hero h1 {
     margin-left: auto;
     margin-right: auto;
     color: var(--primary-white);
+}
+
+main .hero :is(h1, h2) {
+  font-family: var(--hero-header-ff);
+}
+
+main .hero p:not(.button-container) {
+  font-family: var(--hero-text-ff);
+  font-size: var(--hero-text-size);
+}
+
+main .hero p.button-container .button {
+  font-family: var(--hero-btn-ff);
 }
 
 main .hero picture {
