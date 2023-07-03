@@ -138,6 +138,25 @@ function decorateSlider(container) {
   addClickListener(container);
 }
 
+function onResizeCalculation(container) {
+  const tabContentList = container.querySelectorAll(':scope > .tab-content > .content-wrapper');
+
+  const resizeObserver = new ResizeObserver((entries) => {
+    const activeContent = container.querySelector(':scope > .tab-title.active + .tab-content > .content-wrapper');
+
+    entries.forEach((entry) => {
+      // resize the tab content element to fit the children node
+      if (activeContent === entry.target) {
+        activeContent.parentElement.style.height = `${entry.target.clientHeight}px`;
+      }
+    });
+  });
+
+  tabContentList.forEach((el) => {
+    resizeObserver.observe(el);
+  });
+}
+
 function setupInitialStyles(container) {
   const tabTitle = container.children[0];
   const tabContent = container.children[1];
@@ -145,7 +164,7 @@ function setupInitialStyles(container) {
   let resizeTimer = null;
   const resizeObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.contentRect.height > 0) {
+      if (entry.contentRect.height > 0 && isInitialPainting) {
         tabContent.style.height = `${entry.target.clientHeight}px`;
       }
     });
@@ -193,4 +212,5 @@ export default function decorate(block) {
   addTitlesListener(exploreContainer);
   decorateSlider(exploreContainer);
   setupInitialStyles(exploreContainer);
+  onResizeCalculation(exploreContainer);
 }
