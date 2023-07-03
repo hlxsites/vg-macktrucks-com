@@ -193,5 +193,6 @@ export default function decorate(block) {
   block.appendChild(exploreContainer);
   addTitlesListener(exploreContainer);
   decorateSlider(exploreContainer);
-  setupInitialStyles(exploreContainer);
+  if (MQ.matches) setupInitialStyles(exploreContainer);
+  else setTimeout(setupInitialStyles(exploreContainer), 5000);
 }
