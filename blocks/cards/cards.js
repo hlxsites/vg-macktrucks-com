@@ -38,7 +38,7 @@ const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
     [...children].forEach((card) => {
       const height = card.offsetHeight;
       const img = card.querySelector('img');
-      if (img.offsetHeight === 0) img.classList.add('scaled');
+      if (img && img.offsetHeight === 0) img.classList.add('scaled');
       if (height > maxHeight) maxHeight = height;
     });
     [...children].forEach((card) => {
