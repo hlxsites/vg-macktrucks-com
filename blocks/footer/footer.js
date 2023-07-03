@@ -1,10 +1,10 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/scripts.js';
 
 const PLACEHOLDERS = {
-  visit: 'Please, visit our $0',
-  social: 'social media',
-  channel: 'channel',
+  visit: getTextLabel('visit aria label'),
+  social: getTextLabel('social aria label'),
+  channel: getTextLabel('channel aria label'),
 };
 
 /**
