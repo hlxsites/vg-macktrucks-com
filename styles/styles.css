@@ -584,7 +584,7 @@ body.disable-scroll main {
 
 /* background classes */
 .bg-white-paper {
-  /* background: url("../../media/bg-explore.jpeg"); */
+  background: url("../../media/bg-explore.jpeg");
   background-size: cover;
 }
 
