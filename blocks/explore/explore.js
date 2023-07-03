@@ -143,23 +143,21 @@ function setupInitialStyles(container) {
   const tabContent = container.children[1];
   const contentWrapper = tabContent.children[0];
   let resizeTimer = null;
-  tabContent.style.height = '578px';
-  setTimeout(() => {
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.contentRect.height > 0) {
-          tabContent.style.height = `${entry.target.clientHeight}px`;
-        }
-      });
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        isInitialPainting = false;
-        resizeObserver.disconnect();
-      }, 3000);
+  tabContent.style.height = MQ.matches ? '578px' : 0;
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.contentRect.height > 0 && MQ.matches) {
+        tabContent.style.height = `${entry.target.clientHeight}px`;
+      }
     });
-    resizeObserver.observe(contentWrapper);
-    tabTitle.classList.add('active');
-  }, 3000);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      isInitialPainting = false;
+      resizeObserver.disconnect();
+    }, 3000);
+  });
+  resizeObserver.observe(contentWrapper);
+  if (MQ.matches) tabTitle.classList.add('active');
 }
 
 export default function decorate(block) {
