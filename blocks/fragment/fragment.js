@@ -20,7 +20,7 @@ import {
 async function loadFragment(path) {
   const link = path && path.startsWith('/') ? path : new URL(path).pathname;
 
-  if (link && (link.startsWith('/') || new URL(link).pathname)) {
+  if (link) {
     const resp = await fetch(`${link}.plain.html`);
     if (resp.ok) {
       const main = document.createElement('main');
