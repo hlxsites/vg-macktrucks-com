@@ -213,6 +213,13 @@ header {
   position: sticky;
   top: 0;
   z-index: 3;
+  min-height: var(--nav-height-m);
+}
+
+@media (min-width: 1140px) {
+  header {
+    min-height: var(--nav-height-l);
+  }
 }
 
 h1, h2, h3,
@@ -362,7 +369,7 @@ main .section.background {
 }
 
 main .section.text-black {
-  color: var(--primary-black)
+  color: var(--primary-black);
 }
 
 main .section.text-white {
@@ -690,14 +697,13 @@ main .section.font-xxs {
 }
 
 main .section.bg-paper {
-  background: url('../media/bg-paper.webp');
+  background: url("../media/bg-paper.webp");
 }
 
 main .section.section-width {
   max-width: 960px;
   margin: 0 auto;
 }
-
 
 /* quick fix to align #community title with the cards below */
 .section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
