@@ -361,8 +361,12 @@ main .section.background {
   background-position: center;
 }
 
+main .section.background-top {
+  background-position: top;
+}
+
 main .section.text-black {
-  color: var(--primary-black)
+  color: var(--primary-black);
 }
 
 main .section.text-white {
@@ -690,14 +694,13 @@ main .section.font-xxs {
 }
 
 main .section.bg-paper {
-  background: url('../media/bg-paper.webp');
+  background: url("../media/bg-paper.webp");
 }
 
 main .section.section-width {
   max-width: 960px;
   margin: 0 auto;
 }
-
 
 /* quick fix to align #community title with the cards below */
 .section.bg-white-paper.cards-container > .default-content-wrapper > h2 {
