@@ -28,6 +28,12 @@ export default function decorate(block) {
   const videoWrapper = video && video.closest('p');
   const videoLink = videoWrapper?.firstElementChild;
   const contentContainer = createElement('div', 'hero-content-container');
+
+  // add target="_blank" to link if class 'link-new-tab' is present in block
+  const hastNewTab = block.classList.contains('link-new-tab');
+  const link = contentWrapper.querySelector('a');
+  if (hastNewTab && link) link.setAttribute('target', '_blank');
+
   const mediaWrapper = createElement('div', 'hero-content-media');
 
   // transform link into a video tag
