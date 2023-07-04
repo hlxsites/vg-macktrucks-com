@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 import { createElement, debounce } from '../../scripts/scripts.js';
-import fetchAutosuggest from '../search/autosuggest.js';
+import { fetchAutosuggest, handleArrowDown, handleArrowUp } from '../search/autosuggest.js';
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
 
@@ -247,11 +247,38 @@ export default async function decorate(block) {
       props: {},
     }, onclickHandler));
 
+    let liSelected;
+    let next;
+    let index = -1;
+
     input.onkeyup = (e) => {
       const term = e.target.value;
+      const list = autosuggestWrapper.getElementsByTagName('div');
 
       if (e.key === 'Enter') {
         navigateToSearch(e);
+      } else if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+        let returnObj;
+
+        if (e.key === 'ArrowUp') {
+          returnObj = handleArrowUp({
+            list,
+            liSelected,
+            index,
+            next,
+          });
+        } else {
+          returnObj = handleArrowDown({
+            list,
+            liSelected,
+            index,
+            next,
+          });
+        }
+        liSelected = returnObj.liSelected;
+        index = returnObj.index;
+        next = returnObj.next;
+        input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
       } else {
         delayFetchData(term);
       }
@@ -278,6 +305,14 @@ export default async function decorate(block) {
       autosuggestWrapper.classList.remove('show');
       if (subnav) subnav.classList.remove('search-open');
     };
+
+    // hide autocomplete, click was outside container
+    document.body.addEventListener('click', (event) => {
+      if (!searchWrapper.contains(event.target)) {
+        autosuggestWrapper.textContent = '';
+        autosuggestWrapper.classList.remove('show');
+      }
+    });
   }
 
   decorateIcons(nav);

@@ -2028,10 +2028,6 @@
   max-width: 100%;
 }
 
-.search-results .autosuggest__results-container .autosuggest__results ul li.autosuggest__results-item--highlighted {
-  background: var(--background-search);
-}
-
 .search-results .card-searchstudio-js-title em {
   font-style: normal;
 }
@@ -2147,4 +2143,8 @@ a:any-link {
 .search-pagination-container .page-item .page-link-searchstudio-js:hover {
   background-color: transparent;
   color: #999;
+}
+
+.autosuggest-results-item-highlighted {
+  background-color: var(--background-search) !important;
 }

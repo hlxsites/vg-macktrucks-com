@@ -9,7 +9,7 @@ import {
 
 import { searchQuery, fetchData } from './search-api.js';
 
-import fetchAutosuggest from './autosuggest.js';
+import { fetchAutosuggest, handleArrowDown, handleArrowUp } from './autosuggest.js';
 
 const PLACEHOLDERS = {
   searchFor: getTextLabel('Search For'),
@@ -71,8 +71,10 @@ export default function decorate(block) {
   const sortBy = document.getElementById('searchOptionsSection');
   const listEl = block.querySelector('.autosuggest__results-container ul');
 
-  function searchResults() {
-    listEl.textContent = '';
+  function searchResults(hideAutoSuggest = true) {
+    if (hideAutoSuggest) {
+      listEl.textContent = '';
+    }
     offset = 0;
 
     deleteUrlParam(_category);
@@ -98,13 +100,42 @@ export default function decorate(block) {
     },
   }, onclickHanlder));
 
+  let liSelected;
+  let next;
+  let index = -1;
+
   input.onkeyup = (e) => {
     const term = e.target.value;
+    const list = listEl.getElementsByTagName('li');
 
     if (e.key === 'Enter') {
       searchResults();
-    } if (e.key === 'Escape') {
+    } else if (e.key === 'Escape') {
       listEl.textContent = '';
+    } else if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+      let returnObj;
+
+      if (e.key === 'ArrowUp') {
+        returnObj = handleArrowUp({
+          list,
+          liSelected,
+          index,
+          next,
+        });
+      } else {
+        returnObj = handleArrowDown({
+          list,
+          liSelected,
+          index,
+          next,
+        });
+      }
+
+      liSelected = returnObj.liSelected;
+      index = returnObj.index;
+      next = returnObj.next;
+      input.value = liSelected.firstElementChild.textContent.replace(/[ ]{2,}/g, '');
+      searchResults(false);
     } else {
       delayFetchData(term);
     }
@@ -391,6 +422,7 @@ export default function decorate(block) {
     fetchResults();
   }
 
+  // hide autocomplete, click was outside container.
   const containingElement = document.querySelector('#searchInput');
 
   document.body.addEventListener('click', (event) => {
