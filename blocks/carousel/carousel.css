@@ -269,7 +269,7 @@
 
 .block.carousel.two-columns .items {
   padding: 0 50%;
-  background-image: url("../../media/dark-background.jpeg");
+  background-image: url('../../media/dark-background.webp');
   background-color: black;
 }
 

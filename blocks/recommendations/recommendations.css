@@ -194,7 +194,7 @@
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-link::after {
-  content: url('../../media/arrow-B.png');
+  content: url('../../media/arrow-B.webp');
   margin-left: 10px;
 }
 

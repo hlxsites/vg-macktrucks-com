@@ -63,7 +63,7 @@ main .explore-wrapper {
   margin-left: -7px;
   width: 13px;
   height: 9px;
-  background: url("../../media/sprite.png") -300px 0 no-repeat;
+  background: url("../../media/sprite.webp") -300px 0 no-repeat;
 }
 
 .block.explore .active.tab-title {
@@ -136,7 +136,7 @@ main .explore-wrapper {
   height: 35px;
   display: block;
   text-indent: -9999px;
-  background: url("../../media/sprite-mobile.png") no-repeat;
+  background: url("../../media/sprite-mobile.webp") no-repeat;
 }
 
 .block.explore .active + .tab-content .btn-previous.disabled {

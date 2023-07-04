@@ -59,9 +59,10 @@
 
 @font-face {
   font-family: 'Helvetica Neue 85 Heavy';
-  src: url('../fonts/HelveticaNeueLTPro-Hv.woff') format('woff');
+  src: url('../fonts/helveticaneueltpro-hv.woff') format('woff');
   font-weight: 700;
-  font-style: normal
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Accent elements */
@@ -153,7 +154,7 @@
   font-display: swap
 }
 
- .fa {
+.fa {
   font: normal normal normal 14px/1 var(--ff-fontawesome);
   font-size: inherit;
   text-rendering: auto;
