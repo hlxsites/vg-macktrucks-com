@@ -2,17 +2,20 @@ import { createElement } from '../../scripts/scripts.js';
 
 const decorateVideo = (link) => {
   const { parentElement } = link;
+  const mediaParent = parentElement.closest('.hero-content-media');
   const video = createElement('video', ['hero-video', 'hide'], {
     loop: 'loop',
   });
   const source = createElement('source', '', { src: link.href, type: 'video/mp4' });
   video.appendChild(source);
   parentElement.appendChild(video);
+  parentElement.className = 'hero-video-container';
   link.remove();
   setTimeout(() => {
     video.classList.remove('hide');
     video.muted = true;
     video.play();
+    mediaParent.classList.add('playing');
   }, 3000);
 };
 
@@ -30,13 +33,16 @@ export default function decorate(block) {
   const contentContainer = createElement('div', 'hero-content-container');
   const mediaWrapper = createElement('div', 'hero-content-media');
 
-  // transform link into a video tag
-  if (videoLink) decorateVideo(videoLink);
-
   // move aside all media elements: image, video...
+  pictureWrapper.className = 'hero-image-container';
   parentContainer.prepend(mediaWrapper);
   mediaWrapper.appendChild(pictureWrapper);
-  if (videoWrapper) mediaWrapper.appendChild(videoWrapper);
+  if (videoWrapper) {
+    mediaWrapper.appendChild(videoWrapper);
+    // transform link into a video tag
+    decorateVideo(videoLink);
+    contentContainer.classList.add('has-video');
+  }
 
   contentContainer.appendChild(contentWrapper);
   parentContainer.appendChild(contentContainer);

@@ -118,11 +118,10 @@ main .hero:not(.auto-block) {
 /* video included */
 .hero .hero-video {
     position: absolute;
-    inset: 0;
+    inset: 0 auto auto 0;
     margin: auto;
-    height: 100%;
     width: 100vw;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
@@ -130,7 +129,19 @@ main .hero:not(.auto-block) {
     display: none;
 }
 
-.hero .hero-content-container:has(.hero-video) {
+@media (min-width: 1400px) {
+    .hero .hero-video {
+        inset: 0;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.hero .hero-content-media.playing img {
+    visibility: hidden;
+}
+
+.hero .hero-content-container.has-video {
     background-color: var(--primary-black);
 }
 
