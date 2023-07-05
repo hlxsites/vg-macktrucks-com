@@ -368,6 +368,10 @@ main .section.background {
   background-position: center;
 }
 
+main .section.background-top {
+  background-position: top;
+}
+
 main .section.text-black {
   color: var(--primary-black);
 }
