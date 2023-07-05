@@ -604,7 +604,8 @@ export function getAllElWithChildren(elements, childrenCheck) {
 const allLinks = [...document.querySelectorAll('a'), ...document.querySelectorAll('button')];
 allLinks.forEach((link) => {
   const linkText = link.innerText;
-  const brackets = linkText.match(/\[(.*?)\]/);
+  if (linkText[0] !== '[') return;
+  const brackets = linkText.match(/^\[(.*?)\]/);
   const rawProperties = brackets && brackets[1];
   const propertyArray = rawProperties?.split(',');
   propertyArray?.forEach((prop) => {
