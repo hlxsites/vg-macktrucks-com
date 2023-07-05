@@ -1,7 +1,7 @@
 {
-  "total": 16,
+  "total": 21,
   "offset": 0,
-  "limit": 16,
+  "limit": 21,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -74,6 +74,18 @@
     {
       "Key": "Load more articles button",
       "Text": "Load More Articles"
+    },
+    {
+      "Key": "visit aria label",
+      "Text": "Please, visit our $0"
+    },
+    {
+      "Key": "social aria label",
+      "Text": "social media"
+    },
+    {
+      "Key": "channel aria label",
+      "Text": "channel"
     }
   ],
   ":type": "sheet"

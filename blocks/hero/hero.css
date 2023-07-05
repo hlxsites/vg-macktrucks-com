@@ -2,7 +2,7 @@
 
 /* auto and non-auto block shared styles */
 :root {
-  --hero-header-ff: 'Helvetica Neue 85 Heavy', var(--headline-ff-medium);
+  --hero-header-ff: var(--emphasis-ff-heavy);
   --hero-text-ff: var(--subheadings-ff-medium);
   --hero-btn-ff: var(--emphasis-ff-bold);
   --hero-text-size: 20px;
@@ -84,6 +84,19 @@ main .hero:not(.auto-block) {
     height: 80vw;
 }
 
+.hero.dark-background .hero-content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero.dark-background .hero-content-wrapper {
+  background: rgb(0 0 0 / 50%);
+  max-height: 80vh;
+  height: auto;
+  padding: 20px;
+}
+
 @media (min-width: 480px) {
     .hero .hero-content-wrapper {
         position: absolute;
@@ -137,46 +150,6 @@ main .hero:not(.auto-block) {
 /* Rule just for magazine listing page */
 main .hero.magazine .hero-content-media picture {
     position: unset;
-}
-
-/* Hero with text and black background */
-main .hero.dark-background .hero-content-container,
-main .hero.dark-background,
-main .hero.dark-background .hero-content-wrapper {
-    height: unset;
-}
-
-main .hero.dark-background .hero-content-media {
-    display: none;
-}
-
-main .hero.dark-background .hero-content-wrapper {
-    padding: 70px 20px 0;
-    left: 2%;
-}
-
-main .hero.dark-background h1 {
-    font-family: var(--emphasis-ff-bold);
-    font-size: var(--heading-font-size-xl);
-    color: var(--primary-black);
-}
-
-@media (min-width: 768px) {
-    main .hero.dark-background .hero-content-media {
-        display: block;
-    }
-
-    main .hero.dark-background .hero-content-wrapper {
-        padding: unset;
-        left: 14%;
-    }
-
-    main .hero.dark-background h1 {
-        font-size: var(--heading-font-size-xxl);
-        color: var(--primary-white);
-        background-color: rgb(0 0 0 / 50%);
-        padding: 15px;
-    }
 }
 
 /* SPECS hero styling  */

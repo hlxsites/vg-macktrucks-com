@@ -75,7 +75,7 @@
 }
 
 .recent-articles-first-item .recent-articles-first-link::after {
-  content: url('../../media/arrow-B.png');
+  content: url('../../media/arrow-B.webp');
   margin-left: 10px;
 }
 

@@ -25,7 +25,7 @@ main .explore-wrapper {
   margin: 0;
   text-transform: uppercase;
   font-size: 18px;
-  height: 47px;
+  height: auto;
   width: 100%;
   text-align: center;
 }
@@ -63,7 +63,7 @@ main .explore-wrapper {
   margin-left: -7px;
   width: 13px;
   height: 9px;
-  background: url("../../media/sprite.png") -300px 0 no-repeat;
+  background: url("../../media/sprite.webp") -300px 0 no-repeat;
 }
 
 .block.explore .active.tab-title {
@@ -136,7 +136,7 @@ main .explore-wrapper {
   height: 35px;
   display: block;
   text-indent: -9999px;
-  background: url("../../media/sprite-mobile.png") no-repeat;
+  background: url("../../media/sprite-mobile.webp") no-repeat;
 }
 
 .block.explore .active + .tab-content .btn-previous.disabled {
@@ -280,7 +280,7 @@ main .explore-wrapper {
 
   .block.explore h2 {
     text-transform: initial;
-    font-size: 26px;
+    font-size: 20px;
   }
 
   .block.explore .slide-controls {
@@ -298,5 +298,11 @@ main .explore-wrapper {
     width: initial;
     margin: 0;
     border: unset;
+  }
+}
+
+@media (min-width: 900px) {
+  .block.explore h2 {
+    font-size: 26px;
   }
 }
