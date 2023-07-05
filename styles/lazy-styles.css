@@ -179,6 +179,10 @@
   content: "\f002"
 }
 
+.fa-search-plus::before {
+  content: "\f00e"
+}
+
 .fa-plug::before {
   content: "\f1e6"
 }
