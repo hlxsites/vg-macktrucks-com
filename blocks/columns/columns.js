@@ -51,7 +51,7 @@ export default function decorate(block) {
   block.classList.add(`columns-${cols.length}-cols`);
   const isInfo = block.classList.contains('info');
   const isPromo = block.classList.contains('promo');
-
+  const hasDownloadLink = block.classList.contains('with-download-link');
   if (isInfo) {
     cols.forEach((col) => {
       col.className = 'columns-col-wrapper';
@@ -66,4 +66,12 @@ export default function decorate(block) {
   }
 
   videoHandling(block);
+
+  if (hasDownloadLink) {
+    const links = block.querySelectorAll('a');
+    links.forEach((link) => {
+      const hasDownload = (link.innerText.toLowerCase().split(' '));
+      if (hasDownload[0] === 'download') link.setAttribute('target', '_blank');
+    });
+  }
 }

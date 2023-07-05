@@ -69,15 +69,21 @@
 }
 
 .hotspots-container .first .hotspot .hotspot-content h1 {
-  font: 80px/62px var(--headline-ff-medium);
+  font: 50px/42px var(--headline-ff-medium);
+}
+
+@media (min-width: 480px) {
+  .hotspots-container .first .hotspot .hotspot-content h1 {
+    font: 80px/62px var(--headline-ff-medium);
+  }
 }
 
 .hotspots-container .text-black .hotspot-content * {
-  color: var(--primary-black)
+  color: var(--primary-black);
 }
 
 .hotspots-container .text-white .hotspot-content * {
-  color: var(--primary-white)
+  color: var(--primary-white);
 }
 
 .hotspots-container .hotspot .hotspot-content p {
