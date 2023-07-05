@@ -90,6 +90,11 @@ hr.column-underline {
   line-height: 15px;
 }
 
+.columns .link-with-video img {
+  height: 100%;
+  object-fit: cover;
+}
+
 @media (min-width: 496px) {
   .columns > div {
     flex-flow: row wrap;
