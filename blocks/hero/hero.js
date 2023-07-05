@@ -31,8 +31,19 @@ export default function decorate(block) {
 
   // add target="_blank" to link if class 'link-new-tab' is present in block
   const hastNewTab = block.classList.contains('link-new-tab');
-  const link = contentWrapper.querySelector('a');
-  if (hastNewTab && link) link.setAttribute('target', '_blank');
+  const links = contentWrapper.querySelectorAll('a');
+  if (hastNewTab) {
+    links.forEach((link) => {
+      const newTab = (link.innerText.toLowerCase().split('-'))[0];
+      if (hastNewTab && newTab === 'new tab') {
+        link.setAttribute('target', '_blank');
+        const wholeText = link.innerText;
+        const firstDashIndex = wholeText.indexOf('-');
+        const selectedText = wholeText.slice(firstDashIndex + 1);
+        link.innerText = selectedText;
+      }
+    });
+  }
 
   const mediaWrapper = createElement('div', 'hero-content-media');
 
