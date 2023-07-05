@@ -97,7 +97,7 @@ export class PagingInfo {
  */
 async function fetchJsonFeed(jsonFeedPath, pagingInfo) {
   if (!pagingInfo.allLoaded) {
-    const queryLimit = 200;
+    const queryLimit = 600;
     const resp = await fetch(`${jsonFeedPath}?limit=${queryLimit}&offset=${pagingInfo.offset}`);
     const json = await resp.json();
     const { total, data } = json;
