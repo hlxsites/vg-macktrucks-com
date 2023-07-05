@@ -599,3 +599,16 @@ export function debounce(func, timeout = 200) {
 export function getAllElWithChildren(elements, childrenCheck) {
   return [...elements].filter((el) => el.querySelector(childrenCheck));
 }
+
+// Adds target='_blank' to all anchors and buttons that start with 'new tab-'
+const allLinks = [...document.querySelectorAll('a'), ...document.querySelectorAll('button')];
+allLinks.forEach((link) => {
+  const newTab = (link.innerText.toLowerCase().split('-'))[0];
+  if (newTab === 'new tab') {
+    link.setAttribute('target', '_blank');
+    const wholeText = link.innerText;
+    const firstDashIndex = wholeText.indexOf('-');
+    const selectedText = wholeText.slice(firstDashIndex + 1);
+    link.innerText = selectedText;
+  }
+});

@@ -33,15 +33,3 @@ loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId0}`, {
   charset: 'UTF-8',
   async: true,
 });
-
-const allLinks = [...document.querySelectorAll('a'), ...document.querySelectorAll('button')];
-allLinks.forEach((link) => {
-  const newTab = (link.innerText.toLowerCase().split('-'))[0];
-  if (newTab === 'new tab') {
-    link.setAttribute('target', '_blank');
-    const wholeText = link.innerText;
-    const firstDashIndex = wholeText.indexOf('-');
-    const selectedText = wholeText.slice(firstDashIndex + 1);
-    link.innerText = selectedText;
-  }
-});
