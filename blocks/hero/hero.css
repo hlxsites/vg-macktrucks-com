@@ -2,7 +2,7 @@
 
 /* auto and non-auto block shared styles */
 :root {
-  --hero-header-ff: var(--emphasis-ff-heavy)
+  --hero-header-ff: var(--emphasis-ff-heavy);
   --hero-text-ff: var(--subheadings-ff-medium);
   --hero-btn-ff: var(--emphasis-ff-bold);
   --hero-text-size: 20px;
