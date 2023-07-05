@@ -28,6 +28,7 @@ export default function decorate(block) {
   const isInfo = block.classList.contains('info');
   const isPromo = block.classList.contains('promo');
   const hasVideo = block.classList.contains('video');
+  const hasDownloadLink = block.classList.contains('with-download-link');
   if (isInfo) {
     cols.forEach((col) => {
       col.className = 'columns-col-wrapper';
@@ -55,5 +56,12 @@ export default function decorate(block) {
       selectedVideoLink.parentElement.replaceWith(selectedVideoLink);
       removeEmptyPs(pictureWrapper);
     }
+  }
+  if (hasDownloadLink) {
+    const links = block.querySelectorAll('a');
+    links.forEach((link) => {
+      const hasDownload = (link.innerText.toLowerCase().split(' '));
+      if (hasDownload[0] === 'download') link.setAttribute('target', '_blank');
+    });
   }
 }
