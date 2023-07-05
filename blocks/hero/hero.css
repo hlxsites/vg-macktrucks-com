@@ -2,10 +2,13 @@
 
 /* auto and non-auto block shared styles */
 :root {
-  --hero-header-ff: var(--emphasis-ff-heavy)
+  --hero-header-ff: var(--emphasis-ff-heavy);
   --hero-text-ff: var(--subheadings-ff-medium);
   --hero-btn-ff: var(--emphasis-ff-bold);
-  --hero-text-size: 20px;
+  /* --hero-text-size: 20px; */
+  --size-factor: 1.2;
+  --hero-header-size: calc(100% * var(--size-factor));
+  --hero-text-size: calc(55% * var(--size-factor));
 }
 
 main .hero-container > div {
@@ -31,6 +34,7 @@ main .hero h1 {
 
 main .hero :is(h1, h2) {
   font-family: var(--hero-header-ff);
+  font-size: var(--hero-header-size);
 }
 
 main .hero p:not(.button-container) {
@@ -68,10 +72,11 @@ main .hero:not(.auto-block) > div {
 }
 
 .hero .hero-content-wrapper {
-    transform: translateY(-20px);
+    /* transform: translateY(-20px); */
+    translate: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     max-width: 1376px;
     margin: 0 auto;
     gap: 1rem;
@@ -84,22 +89,56 @@ main .hero:not(.auto-block) {
     height: 80vw;
 }
 
+.hero.dark-background .hero-content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero.dark-background .hero-content-wrapper {
+  background: rgb(0 0 0 / 50%);
+  max-height: 80vh;
+  height: auto;
+  padding: 20px;
+}
+
+main .hero:not(.auto-block) p:not(.button-container) {
+    /* font-size: calc(65% * 1.2); */
+}
+
+main .hero:not(.auto-block) :is(h1, h2) {
+    /* font-size: calc(100% * 1.2); */
+}
+
 @media (min-width: 480px) {
+    :root {
+        --size-factor: 1.6;
+    }
+
     .hero .hero-content-wrapper {
         position: absolute;
         left: 15%;
         max-width: 360px;
         padding: 0;
+        justify-content: center;
     }
 }
 
 @media (min-width: 600px) {
+    :root {
+        --size-factor: 1.8;
+    }
+
     .hero .hero-content-wrapper {
         max-width: 450px;
     }
 }
 
 @media (min-width: 992px) {
+    :root {
+        --size-factor: 2;
+    }
+
     .hero .hero-content-wrapper {
         max-width: 500px;
     }
