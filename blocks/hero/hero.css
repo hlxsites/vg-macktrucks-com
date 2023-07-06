@@ -90,6 +90,21 @@ main .hero:not(.auto-block) {
   align-items: center;
 }
 
+.hero .hero-content-wrapper h1 {
+  font-size: max(10vmin, 38px);
+  line-height: 1;
+}
+
+.hero .hero-content-wrapper h2 {
+  font-size: max(8vmin, 32px);
+  line-height: 1;
+}
+
+main .hero .hero-content-wrapper p:not(.button-container) {
+  font-size: max(4vmin, 16px);
+  line-height: 1.1;
+}
+
 .hero.dark-background .hero-content-wrapper {
   background: rgb(0 0 0 / 50%);
   max-height: 80vh;
@@ -98,6 +113,18 @@ main .hero:not(.auto-block) {
 }
 
 @media (min-width: 480px) {
+    .hero .hero-content-wrapper h1 {
+     font-size: var(--heading-font-size-xxl);
+    }
+
+    .hero .hero-content-wrapper h2 {
+      font-size: var(--heading-font-size-xl);
+    }
+
+    main .hero .hero-content-wrapper p:not(.button-container) {
+      font-size: var(--hero-text-size);
+    }
+
     .hero .hero-content-wrapper {
         position: absolute;
         left: 15%;
@@ -377,4 +404,56 @@ main .hero.magazine-categories em {
     main .hero.half-height img {
         height: 50vw;
     }
+}
+
+/* hero columns variant */
+.hero.hero-columns {
+  background-color: var(--primary-black);
+  padding: 32px 0;
+}
+
+.hero.hero-columns .hero-content-wrapper,
+.hero.hero-columns .hero-content-container,
+main .hero.hero-columns:not(.auto-block) {
+  height: auto;
+}
+
+.hero.hero-columns .hero-content-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.hero.hero-columns .hero-content-media p {
+  margin: 0;
+}
+
+.hero.hero-columns picture {
+  position: relative;
+}
+
+.hero.hero-columns .hero-content-wrapper {
+  transform: unset;
+  padding: 40px 16px;
+  position: static;
+  max-width: unset
+}
+
+@media (min-width: 600px) {
+  .hero.hero-columns .hero-content-container {
+    flex-direction: row-reverse;
+  }
+
+  .hero.hero-columns .hero-content-wrapper {
+    padding: 40px 32px;
+  }
+
+  .hero.hero.hero-columns .hero-content-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50%;
+  }
 }
