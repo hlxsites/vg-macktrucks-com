@@ -10,3 +10,23 @@
   height: 3.6rem;
   justify-content: center;
 }
+
+.inventory.block .details-mobile i.fa {
+  display: inline-flex !important;
+  justify-content: center;
+}
+
+.section.inventory-container,
+.section.inventory-container ~ .section.center,
+.inventory.block .section {
+  padding: 0 16px;
+}
+
+.inventory.block h1 {
+  font: 60px/60px var(--emphasis-ff-heavy);
+  padding: 0 !important;
+}
+
+.inventory.block .listings-list.hosted-theme {
+  margin: -10px;
+}
