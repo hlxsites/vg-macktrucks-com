@@ -27,6 +27,22 @@ const updateListElements = (ul, isDarkVar = false, isCTABlock = false) => {
   });
 };
 
+const recalcMaxHeight = (elements, initMaxHeight) => {
+  const newMaxHeight = elements.reduce((maxHeight, el) => {
+    el.style.height = '';
+
+    return (el.offsetHeight > maxHeight ? el.offsetHeight : maxHeight);
+  }, initMaxHeight);
+
+  return newMaxHeight;
+};
+
+const setHeightForCards = (cards, height) => {
+  [...cards].forEach((c) => {
+    c.style.height = `${height}px`;
+  });
+};
+
 const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
   changes.forEach((change) => {
     const isAttribute = change.type === 'attributes';
@@ -38,12 +54,19 @@ const observerFallBack = (changes, observer, cards, imgMaxHeight) => {
     [...children].forEach((card) => {
       const height = card.offsetHeight;
       const img = card.querySelector('img');
-      if (img && img.offsetHeight === 0) img.classList.add('scaled');
+      if (img && img.offsetHeight === 0) {
+        img.classList.add('scaled');
+
+        // adding height recalculation on images load
+        img.addEventListener('load', () => {
+          maxHeight = recalcMaxHeight([...children], maxHeight);
+
+          setHeightForCards(children, maxHeight);
+        });
+      }
       if (height > maxHeight) maxHeight = height;
     });
-    [...children].forEach((card) => {
-      card.style.height = `${maxHeight}px`;
-    });
+    setHeightForCards(children, maxHeight);
     observer.disconnect();
   });
 };
