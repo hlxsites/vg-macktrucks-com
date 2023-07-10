@@ -90,7 +90,7 @@ export function decorateButtons(element) {
           twoup.className = 'button-container';
         }
         if (up.tagName === 'EM' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          link.className = 'button secondary';
+          link.className = 'button primary';
           twoup.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
