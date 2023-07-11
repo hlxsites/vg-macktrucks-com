@@ -28,7 +28,7 @@ gtag('js', new Date());
 gtag('config', `${gaId0}`);
 gtag('config', `${gaId1}`);
 
-loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId0}`, {
+loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId1}`, {
   type: 'text/javascript',
   charset: 'UTF-8',
   async: true,
