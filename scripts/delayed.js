@@ -3,6 +3,7 @@ import { sampleRUM, loadScript } from './lib-franklin.js';
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
+loadGoogleTagManager();
 
 // add more delayed functionality here
 
@@ -34,20 +35,11 @@ window.OptanonWrapper = () => {
 };
 
 // Google Analytics
-const gaId0 = 'GTM-NDMV8BN';
-const gaId1 = 'G-7ZGJPBTFYW';
-window.dataLayer = window.dataLayer || [];
-
-function gtag(...args) {
-  window.dataLayer.push(args);
+async function loadGoogleTagManager() {
+  // google tag manager
+  // eslint-disable-next-line func-names
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); const f = d.getElementsByTagName(s)[0]; const j = d.createElement(s); const
+      dl = l !== 'dataLayer' ? `&l=${l}` : ''; j.async = true; j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`; f.parentNode.insertBefore(j, f);
+  }(window, document, 'script', 'dataLayer', 'GTM-NDMV8BN'));
 }
-
-gtag('js', new Date());
-gtag('config', `${gaId0}`);
-gtag('config', `${gaId1}`);
-
-loadScript(`https://www.googletagmanager.com/gtag/js?id=${gaId1}`, {
-  type: 'text/javascript',
-  charset: 'UTF-8',
-  async: true,
-});
