@@ -505,3 +505,30 @@
     display: none;
   }
 }
+
+/* moving one trust floating button and scroll to top button - on mobile */
+#onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
+  bottom: 80px;
+}
+
+footer .block.footer {
+  padding-bottom: 110px;
+}
+
+footer .block.footer .scroll-to-top {
+  bottom: 55px;
+}
+
+@media (min-width: 897px) {
+  #onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
+    bottom: 10px;
+  }
+
+  footer .block.footer {
+    padding-bottom: 10px;
+  }
+
+  footer .block.footer .scroll-to-top {
+    bottom: 20px;
+  }
+}
