@@ -53,6 +53,7 @@
   background-color: var(--primary-black);
 }
 
+.accordion .accordion-content p,
 .accordion .accordion-content {
   font-family: var(--body-ff);
   font-size: 11px;
@@ -75,41 +76,47 @@
 .accordion .accordion-content a {
   color: var(--primary-black);
   font-family: var(--emphasis-ff-bold);
-  font-size: 16px;
+  font-size: var(--body-font-size-s);
   line-height: 16px;
 }
 
 
 @media (min-width: 496px) {
   .accordion .accordion-header-button h2 {
-    font-size: 16px;
+    font-size: var(--heading-font-size-xs);
   }
 
+  .accordion .accordion-content p,
   .accordion .accordion-content {
-    font-size: 13px;
+    font-size: var(--body-font-size-xxs);
   }
 }
 
 @media (min-width: 768px) {
   .accordion .accordion-header-button h2 {
-    font-size: 18px;
+    font-size: var(--heading-font-size-s);
     line-height: 20px;
+  }
+
+  .accordion .accordion-content p,
+  .accordion .accordion-content {
+    font-size: var(--body-font-size-xs);
   }
 
   .accordion .accordion-content > p {
     width: 75%;
-    font-size: 14px;
   }
 }
 
 @media (min-width: 1025px) {
   .accordion .accordion-header-button h2 {
-    font-size: 20px;
+    font-size: var(--heading-font-size-m);
     line-height: 22px;
   }
 
+  .accordion .accordion-content p,
   .accordion .accordion-content {
-    font-size: 16px;
+    font-size: var(--body-font-size-s);
     line-height: 20px;
   }
 }
