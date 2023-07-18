@@ -752,3 +752,14 @@ main .section.helvetica-66 {
 main .section.helvetica-76 {
   font-family: var(--emphasis-ff-bold-italic);
 }
+
+main .section.responsive-title h1 {
+  font-family: var(--emphasis-ff-heavy);
+  font-size: var(--heading-2-mobile-size-l);
+}
+
+@media (min-width: 768px) {
+  main .section.responsive-title h1 {
+    font-size: var(--heading-font-size-xxl);
+  }
+}
