@@ -13,10 +13,6 @@
   padding-inline: 32px;
 }
 
-.columns.info .columns-col-wrapper p:not(:has(strong)) {
-  color: #999;
-}
-
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -139,7 +135,7 @@ hr.column-underline {
     pointer-events: none;
   }
 
-  .section.columns-container .columns-wrapper:has(.info.absolute) {
+  .section.columns-container .columns-wrapper.info.absolute {
     position: initial;
     display: flex;
     justify-content: center;
@@ -165,7 +161,7 @@ hr.column-underline {
     gap: 96px;
   }
 
-  .columns.info .columns-col-wrapper :not(:first-child) {
+  .columns.info .columns-col-wrapper > :not(:first-child) {
     font-size: 85%;
   }
 

@@ -593,10 +593,12 @@ export function debounce(func, timeout = 200) {
 
 /**
  * @param {NodeList} elements list of tested elements
- * @param {String} childrenCheck check that will be runned for every element list
+ * @param {String} childrenCheck check that will be run for every element list
+ * @param {boolean} [isOpposite=false] Flag to contemplate an edge case that is the opposite case
  * @returns list of elements that pass the children check
  */
-export function getAllElWithChildren(elements, childrenCheck) {
+export function getAllElWithChildren(elements, childrenCheck, isOpposite = false) {
+  if (isOpposite) return [...elements].filter((el) => !el.querySelector(childrenCheck));
   return [...elements].filter((el) => el.querySelector(childrenCheck));
 }
 

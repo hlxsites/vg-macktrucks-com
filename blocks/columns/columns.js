@@ -8,10 +8,15 @@ import {
 } from '../../scripts/scripts.js';
 
 const decorateUnderline = (col) => {
+  const hr = createElement('hr', 'column-underline');
   const u = col.querySelector('u');
+  if (!u) {
+    const strong = col.firstElementChild.querySelector('strong');
+    if (strong) strong.parentElement.appendChild(hr);
+    return;
+  }
   const uText = u.textContent;
   const p = u.closest('p');
-  const hr = createElement('hr', 'column-underline');
   u.parentElement.textContent = uText;
   p.appendChild(hr);
 };
@@ -52,14 +57,17 @@ export default function decorate(block) {
   const isInfo = block.classList.contains('info');
   const isPromo = block.classList.contains('promo');
   if (isInfo) {
+    const hasAbsolute = block.classList.contains('absolute');
+    if (hasAbsolute) block.closest('.columns-wrapper').classList.add('info', 'absolute');
     cols.forEach((col) => {
       col.className = 'columns-col-wrapper';
       decorateUnderline(col);
     });
   }
   if (isPromo) {
-    const textParent = block.querySelector(':scope > div > div:not(:has(picture))');
-    const pictureParent = block.querySelector(':scope > div > div:has(picture)');
+    const parent = block.querySelectorAll(':scope > div > div');
+    const textParent = getAllElWithChildren(parent, 'picture', true)[0];
+    const pictureParent = getAllElWithChildren(parent, 'picture')[0];
     textParent.className = 'columns-promo-text-wrapper';
     if (pictureParent) pictureParent.className = 'columns-promo-picture-wrapper';
   }
