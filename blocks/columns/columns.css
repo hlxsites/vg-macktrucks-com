@@ -161,7 +161,7 @@ hr.column-underline {
     gap: 96px;
   }
 
-  .columns.info .columns-col-wrapper :not(:first-child) {
+  .columns.info .columns-col-wrapper > :not(:first-child) {
     font-size: 85%;
   }
 
