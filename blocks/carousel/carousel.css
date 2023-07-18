@@ -442,3 +442,19 @@
     padding: 0;
   }
 }
+
+/* Magazine articles styling */
+
+.magazine .carousel-wrapper {
+  max-width: inherit;
+  width: 100%;
+  margin-left: 4px;
+}
+
+.magazine .block.carousel {
+  background-color: transparent;
+}
+
+.magazine .block.carousel .desktop-controls {
+  padding: 0 2vw;
+}

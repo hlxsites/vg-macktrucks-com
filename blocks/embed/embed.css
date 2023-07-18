@@ -40,4 +40,10 @@
 /* Video in magazine styling */
 .magazine .embed-video {
   width: unset;
+  margin-left: 4px;
+}
+
+.magazine .low-resolution-banner {
+  font-size: var(--body-font-size-xs);
+  margin: 0;
 }
