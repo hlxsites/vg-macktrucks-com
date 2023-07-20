@@ -86,7 +86,7 @@ function createDesktopControls(ul) {
     ul.scrollBy({ top: 0, left, behavior: 'smooth' });
   }
 
-  const desktopControls = createElement('ul', ['desktop-controls', 'hidden']);
+  const desktopControls = createElement('ul', 'desktop-controls');
   const leftButtonContainer = createElement('li');
   const leftButton = createElement('button', [], { type: 'button' });
   leftButton.textContent = 'Left';
@@ -100,6 +100,11 @@ function createDesktopControls(ul) {
   const [prevButton, nextButton] = desktopControls.querySelectorAll(':scope button');
   prevButton.addEventListener('click', () => scroll('left'));
   nextButton.addEventListener('click', () => scroll('right'));
+
+  // Check if the carousel is inside a magazine article and if NOT hide the controls
+  const isMagazineArticle = document.querySelector('.magazine');
+  if (!isMagazineArticle) desktopControls.classList.add('hidden');
+
   return desktopControls;
 }
 
