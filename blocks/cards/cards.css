@@ -263,10 +263,6 @@
     font-size: var(--body-font-size-s);
   }
 
-  .block.cards.magazine .cards-card-body p:last-of-type {
-    margin-bottom: 65px;
-  }
-
   .cards.dark > ul > li {
     max-height: 600px;
   }

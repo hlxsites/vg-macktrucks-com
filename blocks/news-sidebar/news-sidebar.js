@@ -53,6 +53,8 @@ export default async function decorate(block) {
     </div>
   `;
 
+  const selectContainer = createElement('div', 'news-sidebar-select-container');
+
   const select = div.querySelector('select');
   newsPage.forEach((item) => {
     const option = createElement('option', [], { value: item.path });
@@ -61,7 +63,12 @@ export default async function decorate(block) {
     select.append(option);
   });
   const selectEl = div.firstElementChild;
-  block.append(selectEl);
+
+  const clonedRssLink = rssLink.cloneNode(true);
+  selectContainer.appendChild(clonedRssLink);
+  selectContainer.appendChild(selectEl);
+  block.append(selectContainer);
+
   select.addEventListener('change', (event) => {
     const selectedNews = newsPage.find((item) => item.path === event.target.value);
     block.querySelector('.news-sidebar-select-text').textContent = selectedNews?.title.split('|')[0];
