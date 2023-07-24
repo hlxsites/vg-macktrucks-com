@@ -1,5 +1,5 @@
 .recommendations-section-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   font-size: var(--heading-3-mobile-size-m);
   margin: 40px 4px 0;
 }
@@ -22,7 +22,7 @@
 }
 
 .recommendations-title a {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .recommendations-image {
@@ -49,13 +49,13 @@
 }
 
 .recommendations-text-content a {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .recommendations-text-content .recommendations-category {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xxs);
-  background: var(--secondary-dark-gold);
+  background: var(--c-secondary-dark-gold);
   width: fit-content;
   padding: 5px 8px;
   line-height: 15px;
@@ -63,11 +63,11 @@
 
 .recommendations-text-content .recommendations-category:hover {
   text-decoration: none;
-  color: var(--primary-gold);
+  color: var(--c-primary-gold);
 }
 
 .recommendations-text-content .recommendations-title {
-  font-family: var(--subheadings-ff-roman);
+  font-family: var(--ff-body);
   font-size: var(--body-font-size-xs);
   margin: 10px 0 0;
 }
@@ -78,7 +78,7 @@
 }
 
 .recommendations-text-content .recommendations-subtitle {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xxs);
   width: 90%;
   white-space: nowrap;
@@ -126,7 +126,7 @@
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-link,
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
   display: flex;
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   line-height: 22px;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xs);
   justify-content: flex-start;
   position: unset;
@@ -161,11 +161,11 @@
 
 .magazine-categories.recommendations-container .recommendations-text-content a:hover {
   text-decoration: 0;
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   font-size: var(--heading-font-size-s);
   margin: 5px 0 0;
   padding: 0 0 5px;
@@ -177,13 +177,13 @@
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck {
   align-items: center;
-  background-color: var(--secondary-steel);
+  background-color: var(--c-secondary-steel);
   width: fit-content;
   opacity: 0.6;
 }
 
 .magazine-categories.recommendations-container .recommendations-text-content .recommendations-truck p {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   opacity: 0.8;
   margin: 0;
   padding: 2px 10px 0 5px;

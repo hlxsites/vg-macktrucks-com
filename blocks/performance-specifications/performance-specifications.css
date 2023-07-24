@@ -12,7 +12,7 @@
   --tab-inactive-text-color: #8d8d8d;
   --tab-inactive-border-color: #393939;
 
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   width: 33vw;
   transition: .5s all;
   border-bottom: 3px solid var(--tab-inactive-border-color);
@@ -23,19 +23,19 @@
   text-align: center;
   background-color: transparent;
   font-size: var(--body-font-size-s);
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-weight: normal;
 }
 
 .performance-specifications .category-tablist [role="tab"][aria-selected="true"],
 .performance-specifications .category-tablist [role="tab"]:hover {
-  color: var(--primary-white);
-  border-bottom: 3px solid var(--primary-accent-red);
+  color: var(--c-primary-white);
+  border-bottom: 3px solid var(--c-accent-red);
 }
 
 .performance-specifications .category-detail {
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--primary-white);
+  border-bottom: 1px solid var(--c-primary-white);
   margin-bottom: 20px;
 }
 
@@ -59,9 +59,9 @@
 }
 
 .performance-specifications .engine-tablist [role="tab"] {
-  background-color: var(--primary-white);
+  background-color: var(--c-primary-white);
   font-size: var(--body-font-size-s);
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   border-radius: 2px;
   padding: 0.4em 0.7em;
   line-height: 1em;
@@ -120,7 +120,7 @@
 
 .performance-specifications .details-panel a.download-specs:hover {
   text-decoration: none;
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   border: 2px solid currentcolor;
 }
 

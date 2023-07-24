@@ -12,7 +12,7 @@
 .download-card {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid var(--secondary-steel);
+  border-bottom: 1px solid var(--c-secondary-steel);
   padding: 15px 0;
 }
 
@@ -26,18 +26,18 @@
 }
 
 .download-card .download-texts-title {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   font-size: var(--body-font-size-s);
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   line-height: 28px;
 }
 
 .download-card .download-texts-text a,
 .download-card .download-texts-text,
 .download-card .download-texts-link {
-  color: var(--secondary-graphite);  
+  color: var(--c-secondary-graphite);  
   font-size: var(--body-font-size-xs);
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   line-height: 22px;
   
 }
@@ -57,12 +57,12 @@
 }
 
 .download-card .download-texts a:hover {
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
 }
 
 /* download block variation NEW */
 .download-new-list {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   list-style: none;
   padding: 20px 8px;
   margin: 0;
@@ -73,7 +73,7 @@
 
   min-height: var(--item-height);
   max-height: var(--item-height);
-  background-color: var(--secondary-silver);
+  background-color: var(--c-secondary-silver);
   margin-bottom: 5px;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .download-new-texts {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   font-size: var(--body-font-size-m);
   padding: 9px 0 9px 15px;
   line-height: normal;
@@ -110,8 +110,8 @@
 
 .download-new-label {
   min-width: 50px;
-  background-color: var(--secondary-dark-gold);
-  color: var(--primary-white);
+  background-color: var(--c-secondary-dark-gold);
+  color: var(--c-primary-white);
   font-size: var(--body-font-size-xs);
   font-weight: 700;
   height: var(--item-height);
@@ -125,7 +125,7 @@
 
 .download-new-link:hover small,
 .download-new-link:hover p {
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
 }
 
 @media (min-width: 768px) {
@@ -176,13 +176,13 @@
   }
 
   .download-new-item:hover {
-    background-color: var(--primary-gold);
+    background-color: var(--c-primary-gold);
     transition: .35s;
   }
 
   .download-new-link:hover small,
   .download-new-link:hover p {
-    color: var(--primary-white);
+    color: var(--c-primary-white);
   }
 
   .download-new-label {

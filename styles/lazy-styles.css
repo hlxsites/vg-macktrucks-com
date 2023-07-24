@@ -11,14 +11,14 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'GT America Extended Medium Italic';
-  src: url('../fonts/GT-America-Extended-Medium-Italic.woff2') format('woff2'),
-  url('../fonts/GT-America-Extended-Medium-Italic.woff') format('woff'),
-  url('../fonts/GT-America-Extended-Medium-Italic.otf') format('opentype'),
-  url('../fonts/GT-America-Extended-Medium-Italic.ttf') format('truetype');
+/* @font-face {
+  font-family: 'GT America Extended Regular';
+  src: url('../fonts/GT-America-Extended-Regular.woff2') format('woff2'),
+  url('../fonts/GT-America-Extended-Regular.woff') format('woff'),
+  url('../fonts/GT-America-Extended-Regular.otf') format('opentype'),
+  url('../fonts/GT-America-Extended-Regular.ttf') format('truetype');
   font-display: swap;
-}
+} */
 
 /* Subheads, Body Copy, & Legal Copy */
 @font-face {
@@ -39,7 +39,7 @@
   font-display: swap;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Helvetica Neue LT Pro 56 Roman Italic';
   src: url('../fonts/HelveticaNeueLTPro-56It.otf') format('opentype');
   font-display: swap;
@@ -63,7 +63,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 /* Accent elements */
 @font-face {
@@ -76,7 +76,7 @@
   font-display: swap;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'GT America Mono Medium';
   src: url('../fonts/GT-America-Mono-Medium.woff2') format('woff2'),
   url('../fonts/GT-America-Mono-Medium.woff') format('woff'),
@@ -94,9 +94,9 @@
   url('../fonts/GT-America-Mono-Bold.ttf') format('truetype');
   letter-spacing: -4%;
   font-display: swap;
-}
+} */
 
-@font-face {
+/* @font-face {
   font-family: 'GT America Mono Regular Italic';
   src: url('../fonts/GT-America-Mono-Regular-Italic.woff2') format('woff2'),
   url('../fonts/GT-America-Mono-Regular-Italic.woff') format('woff'),
@@ -124,7 +124,7 @@
   url('../fonts/GT-America-Mono-Bold-Italic.ttf') format('truetype');
   letter-spacing: -4%;
   font-display: swap;
-}
+} */
 
 /* Alternate Fonts */
 @font-face {
@@ -139,7 +139,6 @@
   font-weight: bold;
   font-display: swap;
 }
-
 
 /*
  *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome

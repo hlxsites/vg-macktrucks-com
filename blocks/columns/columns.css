@@ -51,7 +51,7 @@ hr.column-underline {
 
 .columns.promo.underlined-text .columns-promo-text-wrapper ul > li {
   padding-block: 1rem;
-  border-block-start: 2px solid var(--tertiary-cool-gray);
+  border-block-start: 2px solid var(--c-tertiary-cool-gray);
 }
 
 .columns.options > div > div {
@@ -61,11 +61,11 @@ hr.column-underline {
 .columns.options h2 {
   padding: 42px;
   margin: 0;
-  background: var(--primary-black);
-  color: var(--primary-white);
+  background: var(--c-primary-black);
+  color: var(--c-primary-white);
   font-size: var(--body-font-size-xs);
   text-align: center;
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   line-height: 14px;
 }
 
@@ -74,7 +74,7 @@ hr.column-underline {
   margin: 0;
   line-height: 14px;
   font-size: var(--body-font-size-xs);
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -82,7 +82,7 @@ hr.column-underline {
   margin: 0;
   padding: 3px 0 15px;
   font-size: var(--body-font-size-xxs);
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   line-height: 15px;
 }
 

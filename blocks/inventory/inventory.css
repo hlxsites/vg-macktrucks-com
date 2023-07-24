@@ -1,5 +1,5 @@
 .inventory-container a:any-link {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 .inventory-container a:any-link:hover {
@@ -23,7 +23,7 @@
 }
 
 .inventory.block h1 {
-  font: 60px/60px var(--emphasis-ff-heavy);
+  font: 60px/60px var(--ff-emphasis-heavy);
   padding: 0 !important;
 }
 

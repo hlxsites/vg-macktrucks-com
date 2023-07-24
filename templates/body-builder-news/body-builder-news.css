@@ -28,7 +28,7 @@
 
   @media (max-width: 796px) {
     .body-builder-news h1 {
-      font-family: var(--headline-ff-medium);
+      font-family: var(--ff-headline-medium);
       font-size: var(--heading-font-size-l);
     }
   }

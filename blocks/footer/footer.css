@@ -1,9 +1,9 @@
 .footer-wrapper {
-  background: var(--primary-black);
+  background: var(--c-primary-black);
 }
 
 .footer {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   padding: 60px 32px 10px;
   font-size: 14px;
   margin: auto;
@@ -24,8 +24,8 @@
 
 .footer .footer-social-media {
   border-radius: 17.5px;
-  border: 2px solid var(--secondary-dark-gold);
-  color: var(--secondary-dark-gold);
+  border: 2px solid var(--c-secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
   text-decoration: none;
   display: flex;
   width: 35px;
@@ -56,7 +56,7 @@
 }
 
 .footer ul li a {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .footer .footer-bottom-section li a {
@@ -102,7 +102,7 @@
 }
 
 .footer .footer-bottom-section li a:hover {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .footer .footer-form-and-social-section {
@@ -195,27 +195,27 @@
   padding: 15px 10px;
   border: none;
   width: 100%;
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   font-size: 16px;
   line-height: 16px;
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .footer .eloqua-form .elq-form input[type="text"]::placeholder {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .footer .elq-form .checkbox-label {
   font-size: 13px;
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   bottom: 0;
   padding-left: 0;
 }
 
 .footer .elq-form input.submit-button {
-  color: var(--secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
   background: transparent;
-  border: solid 2px var(--secondary-dark-gold);
+  border: solid 2px var(--c-secondary-dark-gold);
   font-size: 20px !important;
   line-height: 20px;
   height: auto !important;
@@ -231,7 +231,7 @@
 
 .footer .eloqua-form p {
   font-size: 11px;
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
 }
 
 .footer .eloqua-form .elq-form .email-and-submit-container {
@@ -289,17 +289,17 @@
   width: 20px;
   height: 20px;
   display: inline-block;
-  border: solid 2px var(--secondary-dark-gold);
+  border: solid 2px var(--c-secondary-dark-gold);
   margin-right: 10px;
   position: relative;
   top: 4px;
-  background: var(--primary-black);
+  background: var(--c-primary-black);
 }
 
 .footer .checkbox-span input:checked ~ label[for]::after {
   content: "\f00c";
   font-family: var(--ff-fontawesome);
-  color: var(--secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
   position: absolute;
   font-size: 18px;
   left: 1px;

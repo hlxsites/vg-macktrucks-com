@@ -5,7 +5,7 @@ main .section.specifications-container {
 .specs-section {
   display: flex;
   flex-direction: column;
-  border-top: 2px solid var(--primary-black);
+  border-top: 2px solid var(--c-primary-black);
 }
 
 .specs-list {
@@ -28,7 +28,7 @@ main .section.specifications-container {
 }
 
 .specs-list-multiple .specs-item-subtitle {
-  border-bottom: 1px solid var(--tertiary-light-cool-gray);
+  border-bottom: 1px solid var(--c-tertiary-light-cool-gray);
   border-top: none;
 }
 
@@ -47,7 +47,7 @@ main .section.specifications-container {
 .specs-item {
   display: flex;
   flex-flow: column;
-  border-top: 1px solid var(--tertiary-light-cool-gray);
+  border-top: 1px solid var(--c-tertiary-light-cool-gray);
   width: calc(50% - 15px);
   padding: 25px 0;
   margin: 0;
@@ -66,7 +66,7 @@ main .section.specifications-container {
 }
 
 .specs-section h3 {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   font-size: var(--body-font-size-l);
   position: relative;
   padding: 15px 32px;
@@ -75,7 +75,7 @@ main .section.specifications-container {
 
 .specs-item p {
   font-size: var(--body-font-size-xs);
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   line-height: 14px;
 }
 
@@ -90,9 +90,9 @@ main .section.specifications-container {
 
 .specs-item .specs-link,
 .specs-item p strong {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-emphasis-bold);
   font-size: var(--body-font-size-s);
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   line-height: 1.2;
 }
 
@@ -118,7 +118,7 @@ main .section.specifications-container {
 
 .specs-item .link-and-list li {
   font-size: var(--body-font-size-s);
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   line-height: 18px;
   list-style: none;
 }
@@ -160,7 +160,7 @@ main .section.specifications-container {
   }
 
   .specs-section h3 {
-    border-bottom: 1px solid var(--tertiary-light-cool-gray);
+    border-bottom: 1px solid var(--c-tertiary-light-cool-gray);
   }
 
   .specs-item {

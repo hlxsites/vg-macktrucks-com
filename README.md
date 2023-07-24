@@ -30,5 +30,5 @@ npm run lint
 * We are using [fallback fonts](https://github.com/pixel-point/fontpie) that avoid CLS.
 * The fallback fonts are specific to the font family and style (bold, italic etc)
 * For this reason, please don't use the font-style properties in css. Instead, use the font family variables defined in `styles/styles.css`
-* Eg. for subheadings instead of using `font-weight: 500`, use `font-family: var(--subheadings-ff-medium);`
+* Eg. for subheadings instead of using `font-weight: 500`, use `font-family: var(--ff-subheadings-medium);`
 
