@@ -2,8 +2,8 @@
 Franklin site for macktrucks.com
 
 ## Environments
-- Preview: https://main--vg-macktrucks-com--hlxsites.hlx.page/
-- Live: https://main--vg-macktrucks-com--hlxsites.hlx.live/
+- Preview: https://main--vg-macktrucks-com-rd--netcentric.hlx.page/
+- Live: https://main--vg-macktrucks-com-rd--netcentric.hlx.live/
 
 ## Installation
 
