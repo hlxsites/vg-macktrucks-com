@@ -1,7 +1,7 @@
 {
-  "total": 21,
+  "total": 23,
   "offset": 0,
-  "limit": 21,
+  "limit": 23,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -86,6 +86,14 @@
     {
       "Key": "channel aria label",
       "Text": "channel"
+    },
+    {
+      "Key": "no eloqua message",
+      "Text": "We cannot show the content because you have not given us permission to store cooki files"
+    },
+    {
+      "Key": "no eloqua link message",
+      "Text": "Change cookie settings"
     }
   ],
   ":type": "sheet"

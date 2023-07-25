@@ -1,5 +1,7 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import {
+  checkOneTruckGroup, createElement, getTextLabel, isEloquaFormAllowed,
+} from '../../scripts/scripts.js';
 
 const PLACEHOLDERS = {
   visit: getTextLabel('visit aria label'),
@@ -120,6 +122,10 @@ export default async function decorate(block) {
   let submitButtonFixed = false;
   let checkboxFixed = false;
   const onFormLoaded = (mutationList) => {
+    if (!isEloquaFormAllowed()) {
+      return;
+    }
+
     // eslint-disable-next-line no-restricted-syntax
     for (const mutation of mutationList) {
       if (submitButtonFixed && checkboxFixed) {
