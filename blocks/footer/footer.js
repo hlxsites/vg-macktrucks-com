@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
 import {
-  checkOneTruckGroup, createElement, getTextLabel, isEloquaFormAllowed,
+  createElement, getTextLabel, isEloquaFormAllowed,
 } from '../../scripts/scripts.js';
 
 const PLACEHOLDERS = {
