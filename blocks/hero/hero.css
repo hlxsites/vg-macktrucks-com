@@ -2,9 +2,9 @@
 
 /* auto and non-auto block shared styles */
 :root {
-  --hero-header-ff: var(--ff-emphasis-heavy);
+  --hero-header-ff: var(--ff-helvetica-heavy);
   --hero-text-ff: var(--ff-subheadings-medium);
-  --hero-btn-ff: var(--ff-emphasis-bold);
+  --hero-btn-ff: var(--ff-body-bold);
   --hero-text-size: 20px;
 }
 
@@ -220,7 +220,7 @@ main .hero.specs .hero-content-wrapper p {
 
 main .hero.specs .hero-content-wrapper h1 {
     color: var(--c-primary-black);
-    font-family: var(--ff-emphasis-bold);
+    font-family: var(--ff-body-bold);
     font-size: var(--nav-height-m);
     width: 100%;
     margin: 50px auto;
@@ -311,7 +311,7 @@ main .hero.magazine .hero-content-wrapper {
 }
 
 main .hero.magazine .hero-content-wrapper h1 {
-    font-family: var(--ff-emphasis-bold);
+    font-family: var(--ff-body-bold);
     font-size: var(--heading-font-size-xxl);
     color: var(--c-primary-black);
 }
@@ -327,7 +327,7 @@ main .hero.magazine .hero-content-wrapper p:first-of-type {
 }
 
 main .hero.magazine .hero-content-wrapper a {
-    font-family: var(--ff-emphasis-bold);
+    font-family: var(--ff-body-bold);
     font-size: var(--body-font-size-xs);
     margin: 0;
 }

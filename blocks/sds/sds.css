@@ -33,7 +33,7 @@
 }
 
 .block.sds .cell[role="rowheader"] {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
 }
 
 .block.sds .column-header {

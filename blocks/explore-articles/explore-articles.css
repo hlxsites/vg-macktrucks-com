@@ -3,7 +3,7 @@
 }
 
 .explore-articles-section .explore-articles-heading .explore-articles-title {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-xxl);
   margin: 0 0 5px;
 }
@@ -74,7 +74,7 @@
 .explore-articles-articles .pagination .pagination-button {
   color: var(--c-primary-black);
   background-color: transparent;
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   margin: 0 5px;
   padding: 0;
 }
@@ -121,7 +121,7 @@
 }
 
 .explore-articles-articles .article-content .article-title {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-m);
   margin: 15px 0 0;
 }

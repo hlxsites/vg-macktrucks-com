@@ -3,7 +3,7 @@
 }
 
 .recent-articles-section-title {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-4-mobile-size-s);
   border-bottom: 3px solid var(--c-accent-copper);
   margin: 55px 0 0;
@@ -48,7 +48,7 @@
 }
 
 .recent-articles-first-item .recent-articles-first-title {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-4-mobile-size-s);
   line-height: 32px;
   word-wrap: break-word;
@@ -96,7 +96,7 @@
 }
 
 .recent-articles-rest-item .recent-articles-rest-title {
-  font-family: var(--ff-emphasis-bold); 
+  font-family: var(--ff-body-bold); 
   font-size: var(--heading-font-size-xs);
   color: var(--c-primary-black);
   font-weight: bolder;

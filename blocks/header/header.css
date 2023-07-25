@@ -5,7 +5,7 @@
   --nav-font-size-xs: 12px;
   --nav-height: var(--nav-height-m);
   --nav-width: 1376px;
-  --nav-ff: var(--ff-emphasis-bold);
+  --nav-ff: var(--ff-body-bold);
 }
 
 /* header and nav layout */

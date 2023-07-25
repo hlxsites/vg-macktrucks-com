@@ -66,7 +66,7 @@ main .section.specifications-container {
 }
 
 .specs-section h3 {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-l);
   position: relative;
   padding: 15px 32px;
@@ -90,7 +90,7 @@ main .section.specifications-container {
 
 .specs-item .specs-link,
 .specs-item p strong {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-s);
   color: var(--c-primary-black);
   line-height: 1.2;

@@ -8,7 +8,7 @@ main .section.download-specs-container {
 }
 
 .download-specs-section h3 {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-l);
   position: relative;
   padding: 15px 32px;
@@ -44,7 +44,7 @@ main .section.download-specs-container {
 }
 
 .download-specs-item .anchor-element .p-element {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-s);
   color: var(--c-primary-black);
   width: 75%;

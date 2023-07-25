@@ -1,7 +1,7 @@
 .news-list a.title-with-icon {
   color: var(--text-color);
   font-size: var(--heading-font-size-xs);
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-weight: bold;
 }
 
@@ -50,7 +50,7 @@
 
 .news-list a h3 {
   font-size: var(--heading-font-size-m);
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   margin-top: 0;
   font-weight: bold;
   margin-bottom: 5px;

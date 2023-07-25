@@ -234,7 +234,7 @@
   line-height: 32px;
   padding: 8px 0 16px;
   margin: 0;
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   color: var(--c-primary-black);
 }
 
@@ -243,7 +243,7 @@
   padding-top: 10px;
   line-height: 14px;
   margin: 0;
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   color: var(--c-primary-black);
 }
 
@@ -387,7 +387,7 @@
 }
 
 .block.carousel.cards-variant .carousel-item-text h2 {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: 14px;
   color: var(--c-primary-white);
   margin: 5px 0 10px;

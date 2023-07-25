@@ -143,12 +143,10 @@
   OLD STYLES
   */
 
-  /* --ff-subheadings-roman: var(--ff-body), var(--fallback-ff-texts); */
-  --ff-emphasis-bold: "Helvetica Neue LT Pro 75 Bold", var(--fallback-ff-texts);
-  --ff-emphasis-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
-  --ff-emphasis-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
-  --ff-emphasis-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
-  --ff-emphasis-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
+  --ff-helvetica-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
+  --ff-helvetica-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
+  --ff-helvetica-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
+  --ff-helvetica-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
 
   /* Accent elements */
   --ff-accents-medium: "GT America Mono Medium", var(--fallback-ff-accents);
@@ -620,7 +618,7 @@ main .section.magazine-listing-content p:first-of-type {
 }
 
 main .section.magazine-listing-content h3 {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-s);
   background-color: var(--c-primary-black);
   color: var(--c-primary-white);
@@ -735,8 +733,8 @@ main .section.section-width {
   }
 }
 
-/* main .section.helvetica-55 {
-  font-family: var(--ff-subheadings-roman);
+main .section.helvetica-55 {
+  font-family: var(--ff-body);
 }
 
 main .section.helvetica-65 {
@@ -744,23 +742,23 @@ main .section.helvetica-65 {
 }
 
 main .section.helvetica-75 {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
 }
 
 main .section.helvetica-56 {
-  font-family: var(--ff-emphasis-roman-italic);
+  font-family: var(--ff-helvetica-roman-italic);
 }
 
 main .section.helvetica-66 {
-  font-family: var(--ff-emphasis-medium-italic);
+  font-family: var(--ff-helvetica-medium-italic);
 }
 
 main .section.helvetica-76 {
-  font-family: var(--ff-emphasis-bold-italic);
+  font-family: var(--ff-helvetica-bold-italic);
 }
 
 main .section.responsive-title h1 {
-  font-family: var(--ff-emphasis-heavy);
+  font-family: var(--ff-helvetica-heavy);
   font-size: var(--heading-2-mobile-size-l);
 }
 
@@ -768,4 +766,4 @@ main .section.responsive-title h1 {
   main .section.responsive-title h1 {
     font-size: var(--heading-font-size-xxl);
   }
-} */
+}

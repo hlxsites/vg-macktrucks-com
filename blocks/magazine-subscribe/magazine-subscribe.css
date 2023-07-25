@@ -33,7 +33,7 @@
 }
 
 .magazine-subscribe-content .magazine-subscribe-title {
-  font-family: var(--ff-emphasis-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-l);
   line-height: 22px;
   padding: 30px 0 0;
