@@ -2,8 +2,8 @@
 Franklin site redesign for macktrucks.com
 
 ## Environments
-- Preview: https://main--vg-macktrucks-com-redesign--netcentric.hlx.page/
-- Live: https://main--vg-macktrucks-com-redesign--netcentric.hlx.live/
+- Preview: https://main--vg-macktrucks-com-rd--netcentric.hlx.page/
+- Live: https://main--vg-macktrucks-com-rd--netcentric.hlx.live/
 
 ## Installation
 
