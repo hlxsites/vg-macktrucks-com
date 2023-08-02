@@ -1,6 +1,8 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, domEl } from '../../scripts/scripts.js';
+import { default as htm } from './htm.module.js';
 // test
+const html = htm.bind(domEl);
 
 /**
  * @typedef {Object} HotspotContent
