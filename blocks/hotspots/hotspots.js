@@ -1,5 +1,6 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
+// test
 
 /**
  * @typedef {Object} HotspotContent
