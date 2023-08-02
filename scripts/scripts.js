@@ -539,15 +539,13 @@ export function domEl(tag, ...items) {
     // eslint-disable-next-line no-param-reassign
     items = rest;
 
-    if (attributes) {
-      Object.entries(attributes).forEach(([key, value]) => {
-        if (!key.startsWith('on')) {
-          element.setAttribute(key, Array.isArray(value) ? value.join(' ') : value);
-        } else {
-          element.addEventListener(key.substring(2).toLowerCase(), value);
-        }
-      });
-    }
+    Object.entries(attributes).forEach(([key, value]) => {
+      if (!key.startsWith('on')) {
+        element.setAttribute(key, Array.isArray(value) ? value.join(' ') : value);
+      } else {
+        element.addEventListener(key.substring(2).toLowerCase(), value);
+      }
+    });
   }
 
   items.forEach((item) => {
