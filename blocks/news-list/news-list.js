@@ -23,15 +23,18 @@ export default async function decorate(block) {
     ? await getBodyBuilderNews(pagingInfo)
     : await getMackNews(window.location.pathname, pagingInfo, filter);
 
-  const list = html`<ul class="news-sidebar-list">
-     
-  </ul>`;
-  posts.forEach((post) => list.append(html`
-      <li>
-          <a href="${post.path}">
-              <h3>${(post.title && post.title !== '0') ? post.title : ''}</h3>
-              <p>${post.summary}</p>
-          </a>
-      </li>`));
+  const list = html`
+      <ul class="news-sidebar-list">
+          ${posts.map((post) => html`
+              <li>
+                  <a href="${post.path}">
+                      <h3>${post.title && post.title !== '0' ? post.title : ''}</h3>
+                      <p>${post.summary}</p>
+                  </a>
+
+              </li>
+          `)}
+
+      </ul>`;
   block.append(list);
 }
