@@ -1,4 +1,4 @@
-import { html } from '../../scripts/htm.module.js';
+import { html } from '../../scripts/scripts.js';
 import {
   feedsInfo, getBodyBuilderNews, getMackNews, PagingInfo,
 } from '../../scripts/news.js';
