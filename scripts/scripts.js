@@ -17,6 +17,7 @@ import {
   toClassName,
   loadScript,
 } from './lib-franklin.js';
+import { default as htm } from './htm.module.js';
 
 /**
  * Add the image as background
@@ -539,21 +540,24 @@ export function domEl(tag, ...items) {
     // eslint-disable-next-line no-param-reassign
     items = rest;
 
-    Object.entries(attributes).forEach(([key, value]) => {
-      if (!key.startsWith('on')) {
-        element.setAttribute(key, Array.isArray(value) ? value.join(' ') : value);
-      } else {
-        element.addEventListener(key.substring(2).toLowerCase(), value);
-      }
-    });
+    if (attributes) {
+      Object.entries(attributes).forEach(([key, value]) => {
+        if (!key.startsWith('on')) {
+          element.setAttribute(key, Array.isArray(value) ? value.join(' ') : value);
+        } else {
+          element.addEventListener(key.substring(2).toLowerCase(), value);
+        }
+      });
+    }
   }
 
   items.forEach((item) => {
     // eslint-disable-next-line no-param-reassign
-    item = item instanceof Element || item instanceof HTMLElement
-      ? item
-      : document.createTextNode(item);
-    element.appendChild(item);
+    if (item instanceof Array) {
+      element.append(...item.flatMap((i) => i));
+    } else {
+      element.append(item);
+    }
   });
 
   return element;
@@ -625,3 +629,40 @@ allLinks.forEach((link) => {
   link.title = selectedText;
   link.innerText = selectedText;
 });
+
+// mini-van-0.3.9.min.js
+// eslint-disable-next-line
+export const van = (() => {
+  // mini-van.js
+  const Obj = Object;
+  const protoOf = Obj.getPrototypeOf;
+  let _undefined;
+  const vanWithDoc = (doc) => {
+    const propSetterCache = {};
+    const _result = {
+      add: (dom, ...children) => (dom.append(...children.flat(Infinity).filter((c) => c != _undefined)), dom),
+      tag: (name, ...args) => {
+        const [props, ...children] = args[0]?.constructor === Obj ? args : [{}, ...args];
+        const dom = doc.createElement(name);
+        for (const [k, v] of Obj.entries(props)) {
+          const getPropDescriptor = (proto) => (proto ? Obj.getOwnPropertyDescriptor(proto, k) ?? getPropDescriptor(protoOf(proto)) : _undefined);
+          const cacheKey = `${name},${k}`;
+          const propSetter = propSetterCache[cacheKey] ?? (propSetterCache[cacheKey] = getPropDescriptor(protoOf(dom))?.set ?? 0);
+          propSetter ? propSetter.call(dom, v) : dom.setAttribute(k, v);
+        }
+        return _result.add(dom, ...children);
+      },
+      html: (...args) => `<!DOCTYPE html>${_result.tags.html(...args).outerHTML}`,
+    };
+    return _result;
+  };
+  const mini_van_default = {
+    vanWithDoc,
+    ...vanWithDoc(typeof window !== 'undefined' ? window.document : null),
+  };
+
+  // mini-van.forbundle.js
+  return mini_van_default;
+})();
+
+export const html = htm.bind(van.tag);

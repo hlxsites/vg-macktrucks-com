@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { html } from '../../scripts/scripts.js';
 import {
   feedsInfo, getBodyBuilderNews, getMackNews, PagingInfo,
 } from '../../scripts/news.js';
@@ -15,30 +15,23 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // eslint-disable-next-line function-call-argument-newline,function-paren-newline
-  const rssLink = createElement('a', ['title-with-icon'], { href: feedsInfo[type].feedPath, target: '_blank' });
-  rssLink.textContent = 'News RSS';
-  block.append(rssLink);
+  block.append(html`<a class="title-with-icon" href="${feedsInfo[type].feedPath}" target="_blank">
+      News RSS</a>`);
 
   const pagingInfo = new PagingInfo();
   const posts = type === 'body-builder-news'
     ? await getBodyBuilderNews(pagingInfo)
     : await getMackNews(window.location.pathname, pagingInfo, filter);
 
-  const list = createElement('ul', ['news-sidebar-list']);
-  list.append(...posts.map((post) => {
-    const articleLink = createElement('a', [], { href: post.path });
-
-    const heading = createElement('h3');
-    heading.textContent = (post.title && post.title !== '0') ? post.title : '';
-    articleLink.append(heading);
-
-    const summary = createElement('p');
-    summary.textContent = post.summary;
-    articleLink.append(summary);
-
-    const li = createElement('li');
-    li.append(articleLink);
-    return li;
-  }));
+  const list = html`<ul class="news-sidebar-list">
+     
+  </ul>`;
+  posts.forEach((post) => list.append(html`
+      <li>
+          <a href="${post.path}">
+              <h3>${(post.title && post.title !== '0') ? post.title : ''}</h3>
+              <p>${post.summary}</p>
+          </a>
+      </li>`));
   block.append(list);
 }
