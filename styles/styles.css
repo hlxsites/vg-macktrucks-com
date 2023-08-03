@@ -85,20 +85,17 @@
   /* Font sizes */
 
   /* GT America, Extended Medium, 45px, 115%, -2% / 32px, 115%, -2% */
-  --headline-1-font-size-desktop: 4.5rem; /* 45px */
-  --headline-1-font-size-mobile: 3.2rem; /* 32px */
+  --headline-1-font-size: 3.2rem; /* 32px */
   --headline-1-line-height: 115%;
   --headline-1-letter-spacing: -2%;
 
   /* GT America, Extended Medium, 32px, 115%, -2% / 28px, 115%, -2% */
-  --headline-2-font-size-desktop: 3.2rem; /* 32px */
-  --headline-2-font-size-mobile: 2.8rem; /* 28px */
+  --headline-2-font-size: 2.8rem; /* 28px */
   --headline-2-line-height: 115%;
   --headline-2-letter-spacing: -2%;
 
   /* Helvetica Neue LT Pro, 65 Medium, 32px, 115% / 28px, 115% */
-  --headline-3-font-size-desktop: 3.2rem; /* 32px */
-  --headline-3-font-size-mobile: 2.8rem; /* 28px */
+  --headline-3-font-size: 2.8rem; /* 28px */
   --headline-3-line-height: 115%;
 
   /* Helvetica Neue LT Pro, 65 Medium, 24px, 140%  */
@@ -134,8 +131,7 @@
   --button-line-height: 18px;
 
   /* GT America, Extended Roman, 24px, 120%, -2% / 18px, 120%, -2% */
-  --testimonial-font-size-desktop: 2.4rem; /* 24px */
-  --testimonial-font-size-mobile: 1.8rem; /* 18px */
+  --testimonial-font-size: 1.8rem; /* 18px */
   --testimonial-line-height: 120%;
   --testimonial-letter-spacing: -2%;
 
@@ -227,9 +223,7 @@ header {
 
 h1, h2, h3,
 h4, h5, h6 {
-  font-family: var(--ff-headline-medium);
-  font-weight: 600;
-  line-height: 1.25;
+  font-family: var(--ff-subheadings-medium);
   margin-top: 1em;
   margin-bottom: 0.5em;
   scroll-margin: calc(var(--nav-height-m) + 1em);
@@ -239,11 +233,33 @@ h1, h2 {
   font-family: var(--ff-headline-medium);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
+h1 {
+  font-size: var(--headline-1-font-size);
+  line-height: var(--headline-1-line-height);
+  letter-spacing: var(--headline-1-line-letter-spacing);
+}
+
+h2 {
+  font-size: var(--headline-2-font-size);
+  line-height: var(--headline-2-line-height);
+  letter-spacing: var(--headline-2-line-letter-spacing);
+}
+
+h3 {
+  font-size: var(--headline-3-font-size);
+  line-height: var(--headline-3-line-height);
+}
+
+h4 {
+  font-size: var(--headline-4-font-size);
+  line-height: var(--headline-4-line-height);
+}
+
+h5 {
+  font-size: var(--headline-5-font-size);
+  line-height: var(--headline-5-line-height);
+}
+
 h6 { font-size: var(--heading-font-size-xs); }
 
 p, dl, ol, ul, pre, blockquote {
@@ -765,5 +781,15 @@ main .section.responsive-title h1 {
 @media (min-width: 768px) {
   main .section.responsive-title h1 {
     font-size: var(--heading-font-size-xxl);
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    /* New design variables */
+    --headline-1-font-size: 4.5rem; /* 45px */
+    --headline-2-font-size: 3.2rem; /* 32px */
+    --headline-3-font-size: 3.2rem; /* 32px */
+    --testimonial-font-size: 2.4rem; /* 24px */
   }
 }
