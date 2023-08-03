@@ -11,14 +11,12 @@
   font-display: swap;
 }
 
-/* @font-face {
+@font-face {
   font-family: 'GT America Extended Regular';
   src: url('../fonts/GT-America-Extended-Regular.woff2') format('woff2'),
-  url('../fonts/GT-America-Extended-Regular.woff') format('woff'),
-  url('../fonts/GT-America-Extended-Regular.otf') format('opentype'),
-  url('../fonts/GT-America-Extended-Regular.ttf') format('truetype');
+  url('../fonts/GT-America-Extended-Regular.woff') format('woff');
   font-display: swap;
-} */
+}
 
 /* Subheads, Body Copy, & Legal Copy */
 @font-face {
