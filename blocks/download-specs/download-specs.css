@@ -3,12 +3,12 @@ main .section.download-specs-container {
 }
 
 .download-specs-section {
-  border-top: 2px solid var(--primary-black);
+  border-top: 2px solid var(--c-primary-black);
   padding-bottom: 125px;
 }
 
 .download-specs-section h3 {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-l);
   position: relative;
   padding: 15px 32px;
@@ -22,7 +22,7 @@ main .section.download-specs-container {
 }
 
 .download-specs-item {
-  border-top: 1px solid var(--tertiary-light-cool-gray);
+  border-top: 1px solid var(--c-tertiary-light-cool-gray);
   padding: 25px 0 14px;
 }
 
@@ -44,9 +44,9 @@ main .section.download-specs-container {
 }
 
 .download-specs-item .anchor-element .p-element {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-s);
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   width: 75%;
   margin: 0 0 5px;
   padding: 0 50px 0 0;
@@ -65,7 +65,7 @@ main .section.download-specs-container {
   }
 
   .download-specs-section h3 {
-    border-bottom: 1px solid var(--tertiary-light-cool-gray);
+    border-bottom: 1px solid var(--c-tertiary-light-cool-gray);
   }
 
   .download-specs-item.download-specs-item-1,

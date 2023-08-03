@@ -2,9 +2,9 @@
 
 .section.hotspots-container {
   padding: unset;
-  background-color: var(--primary-black);
+  background-color: var(--c-primary-black);
   width: 100%;
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 /* on mobile, hide hotspots areas which are not active */
@@ -53,7 +53,7 @@
 }
 
 .hotspots-container .hotspot .hotspot-content.invert {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 .hotspots-container .hotspot .hotspot-content h1,
@@ -62,33 +62,33 @@
 }
 
 .hotspots-container .hotspot .hotspot-content h1 {
-  font: 44px/62px var(--headline-ff-medium);
+  font: 44px/62px var(--ff-headline-medium);
   letter-spacing: -0.035em;
   margin: -20px auto 0;
   text-align: center;
 }
 
 .hotspots-container .first .hotspot .hotspot-content h1 {
-  font: 50px/42px var(--headline-ff-medium);
+  font: 50px/42px var(--ff-headline-medium);
 }
 
 @media (min-width: 480px) {
   .hotspots-container .first .hotspot .hotspot-content h1 {
-    font: 80px/62px var(--headline-ff-medium);
+    font: 80px/62px var(--ff-headline-medium);
   }
 }
 
 .hotspots-container .text-black .hotspot-content * {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 .hotspots-container .text-white .hotspot-content * {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .hotspots-container .hotspot .hotspot-content p {
   font-size: var(--body-font-size-l);
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   max-width: 500px;
   line-height: 1em;
 }
@@ -121,7 +121,7 @@
 }
 
 .hotspots-container .hotspot.truck .hotspot-content .hotspot-header {
-  font: 65px/72px var(--headline-ff-medium);
+  font: 65px/72px var(--ff-headline-medium);
 }
 
 .hotspots-container .hotspot.truck .feature-block:first-child {
@@ -157,14 +157,14 @@
   }
 
   .hotspots-container .hotspot .hotspot-content .hotspot-header {
-    font: 8vw/12vw var(--headline-ff-medium);
-    color: var(--primary-white) !important;
+    font: 8vw/12vw var(--ff-headline-medium);
+    color: var(--c-primary-white) !important;
   }
 
   .hotspots-container .hotspot .hotspot-content p.hotspot-text {
     font-size: 20px;
     line-height: 1.1;
-    color: var(--primary-white) !important;
+    color: var(--c-primary-white) !important;
   }
 
   .hotspots-container .hotspot .hotspot-icon-set {
@@ -213,7 +213,7 @@
 }
 
 .hotspots-container .hotspot-layover a:link {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .hotspots-container .hotspot-layover a:hover {
@@ -221,43 +221,43 @@
 }
 
 .hotspots-container .hotspot-layover a:visited {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .hotspots-container .hotspot-layover h1 {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  font: 50px/50px var(--headline-ff-medium);
+  font: 50px/50px var(--ff-headline-medium);
   text-align: center;
 }
 
 .hotspots-container .hotspot-layover h2 {
-  font: 44px/44px var(--headline-ff-medium);
+  font: 44px/44px var(--ff-headline-medium);
 }
 
 .hotspots-container .hotspot-layover h3 {
-  font: 20px/18px var(--headline-ff-medium);
+  font: 20px/18px var(--ff-headline-medium);
   margin-bottom: 8px;
 }
 
 .hotspots-container .hotspot-layover h4 {
-  font: 18px/18px var(--headline-ff-medium);
+  font: 18px/18px var(--ff-headline-medium);
 }
 
 .hotspots-container .hotspot-layover h5 {
   margin: 10px 0 8px;
-  font: 12px/12px var(--emphasis-ff-bold);
+  font: 12px/12px var(--ff-body-bold);
   text-transform: uppercase;
 }
 
 .hotspots-container .hotspot-layover h6 {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
 }
 
 .hotspots-container .hotspot-layover p,
 .hotspots-container .hotspot-layover p.large {
-  font: 16px/1.1 var(--body-ff);
+  font: 16px/1.1 var(--ff-body);
 }
 
 .hotspots-container .hotspot-layover p {
@@ -276,29 +276,29 @@
 }
 
 .hotspots-container .hotspot-layover a {
-  font: 16px/16px var(--emphasis-ff-bold);
-  color: var(--primary-white);
+  font: 16px/16px var(--ff-body-bold);
+  color: var(--c-primary-white);
 }
 
 @media (max-width: 896px) {
   .hotspots-container .hotspot-layover :is(h1, h2) {
-    font: 40px/40px var(--headline-ff-medium);
+    font: 40px/40px var(--ff-headline-medium);
   }
 
   .hotspots-container .hotspot-layover h3 {
-    font: 28px/28px var(--emphasis-ff-bold);
+    font: 28px/28px var(--ff-body-bold);
   }
 
   .hotspots-container .hotspot-layover :is(h4, h5) {
-    font: 14px/14px var(--headline-ff-medium);
+    font: 14px/14px var(--ff-headline-medium);
   }
 
   .hotspots-container .hotspot-layover p {
-    font: 16px/16px var(--body-ff);
+    font: 16px/16px var(--ff-body);
   }
 
   .hotspots-container .hotspot-layover p.large {
-    font: 16px/16px var(--subheadings-ff-medium);
+    font: 16px/16px var(--ff-subheadings-medium);
   }
 }
 
@@ -489,14 +489,14 @@
 #hotspots-mobile-nav .featurenav-list .featurenav-list-item a:any-link {
   position: absolute;
   padding: 0;
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   display: block;
   text-align: center;
   text-decoration: none;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: var(--emphasis-ff-bold), serif;
+  font-family: var(--ff-body-bold), serif;
   font-size: 0.85em;
 }
 

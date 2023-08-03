@@ -40,7 +40,7 @@ main .cookie-list-container a:hover {
 }
   
 #ot-sdk-cookie-policy-v2.ot-sdk-cookie-policy section {
-  color: var(--primary-white) !important;
+  color: var(--c-primary-white) !important;
   font-size: 16px;
 }
 

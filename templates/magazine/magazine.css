@@ -39,10 +39,10 @@ main .template.section.article-hero-container {
 }
 
 .article-hero-content a.article-hero-category {
-  background: var(--secondary-dark-gold);
-  font-family: var(--subheadings-ff-medium);
+  background: var(--c-secondary-dark-gold);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xxs);
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   width: fit-content;
   line-height: 15px;
   padding: 5px 8px;
@@ -50,15 +50,15 @@ main .template.section.article-hero-container {
 
 .article-hero-content a.article-hero-category:hover {
   text-decoration: none;
-  color: var(--primary-gold);
+  color: var(--c-primary-gold);
   cursor: pointer;
 }
 
 .article-hero-content .article-hero-title {
   width: 90%;
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-m);
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   margin: 20px 0 0;
 }
 
@@ -66,9 +66,9 @@ main .template.section.article-hero-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xs);
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   padding-top: 0;
   margin: 35px 0 0;
 }
@@ -84,21 +84,21 @@ main .template.section.article-hero-container {
 }
 
 .article-texts-container .default-content-subtitle {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-s);
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   margin: 0 4px 10px;
 }
 
 .article-texts-container .current-article-container .author-text {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-xs);
   line-height: 21px;
   margin: 20px 4px 10px;
 }
 
 .article-texts-container .default-content-wrapper p {
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   font-size: var(--body-font-size-xs);
   line-height: 21px;
   margin: 0 4px 20px;
@@ -109,13 +109,13 @@ main .template.section.article-hero-container {
 }
 
 .current-article-container .share-wrapper {
-  border-bottom: 5px solid var(--secondary-graphite);
+  border-bottom: 5px solid var(--c-secondary-graphite);
   width: 100%;
   margin: 0 4px 20px;
 }
 
 .current-article-container .share-icons button {
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   font-size: 12px;
   font-weight: normal;
   border-radius: 3px;

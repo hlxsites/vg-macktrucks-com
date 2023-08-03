@@ -24,12 +24,12 @@
 
 .block.table .table-cell-heading {
   margin: 0;
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   font-size: var(--body-font-size-xs);
 }
 
 .block.table h5.table-cell-heading {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
@@ -40,7 +40,7 @@
 
 .block.table .table-heading {
   background-color: #eee;
-  border-bottom: 2px solid var(--primary-black);
+  border-bottom: 2px solid var(--c-primary-black);
 }
 
 .block.table.row-header {
@@ -59,7 +59,7 @@
   }
 
   .block.table h5.table-cell-heading {
-    font-family: var(--emphasis-ff-bold);
+    font-family: var(--ff-body-bold);
   }
 
   .block.table.row-header table {
@@ -73,7 +73,7 @@
   }
 
   .block.table.row-header td {
-    color: var(--primary-black);
+    color: var(--c-primary-black);
     padding: 10px;
     border: none;
   }
@@ -85,7 +85,7 @@
 
   .block.table.row-header td:first-child p {
     margin: 0;
-    font-family: var(--emphasis-ff-bold);
+    font-family: var(--ff-body-bold);
     font-size: 18px;
     text-align: left;
     vertical-align: middle;
@@ -100,8 +100,8 @@
   }
 
   .block.table.row-header tr {
-    border-top: 2px solid var(--primary-black);
-    border-bottom: 2px solid var(--primary-black);
+    border-top: 2px solid var(--c-primary-black);
+    border-bottom: 2px solid var(--c-primary-black);
     border-left: 0;
     border-right: 0;
     width: 100%;
@@ -151,7 +151,7 @@
   .block.table.row-header td:first-child p {
     border-right: 0;
     padding: 0;
-    font-family: var(--emphasis-ff-bold);
+    font-family: var(--ff-body-bold);
     font-size: 20px;
     text-align: left;
     margin-left: 10px;

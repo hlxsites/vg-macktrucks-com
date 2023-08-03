@@ -33,7 +33,7 @@
 }
 
 .block.sds .cell[role="rowheader"] {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
 }
 
 .block.sds .column-header {
@@ -41,8 +41,8 @@
 }
 
 .block.sds .column-header .cell {
-  background-color: var(--primary-black);
-  color: var(--primary-white);
+  background-color: var(--c-primary-black);
+  color: var(--c-primary-white);
 }
 
 .block.sds .cell.expand,
@@ -51,7 +51,7 @@
 }
 
 .block.sds .row:nth-child(2n-1) .cell {
-  background-color: var(--tertiary-light-warm-gray);
+  background-color: var(--c-tertiary-light-warm-gray);
 }
 
 .block.sds .row .cell:nth-of-type(2n) {
@@ -83,7 +83,7 @@
   background: none;
   border-radius: 0;
   border: none;
-  border-top: solid var(--secondary-silver);
+  border-top: solid var(--c-secondary-silver);
   padding: 15px;
   margin: 0;
   color: unset;
@@ -93,8 +93,8 @@
 }
 
 .block.sds .rowgroup-header:hover {
-  background-color: var(--primary-gold);
-  color: var(--primary-white);
+  background-color: var(--c-primary-gold);
+  color: var(--c-primary-white);
 }
 
 .block.sds .rowgroup-header::after {
@@ -113,8 +113,8 @@
 }
 
 .block.sds .column-header-mobile select {
-  background-color: var(--primary-black);
-  color: var(--primary-white);
+  background-color: var(--c-primary-black);
+  color: var(--c-primary-white);
   width: 100%;
   padding: 15px;
   font-size: 16px;
@@ -127,7 +127,7 @@
   display: block;
   content: "\f078";
   font-family: var(--ff-fontawesome);
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   position: absolute;
   font-size: 11px;
   top: 17px;
