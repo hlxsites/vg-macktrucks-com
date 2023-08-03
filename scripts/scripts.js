@@ -625,3 +625,9 @@ allLinks.forEach((link) => {
   link.title = selectedText;
   link.innerText = selectedText;
 });
+
+/* REDESING CLASS CHECK */
+if (document.querySelector('main').classList.contains('redesign-v2')) {
+  document.querySelector('html').classList.add('redesign-v2');
+  document.querySelector('main').classList.remove('redesign-v2');
+}
