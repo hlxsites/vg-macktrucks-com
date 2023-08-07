@@ -181,7 +181,7 @@ export function createElement(tagName, classes = [], props = {}) {
 function buildHeroBlock(main) {
   const header = main.querySelector('h1');
   const picture = main.querySelector('picture');
-  const heroBlock = main.querySelector('.hero');
+  const heroBlock = main.querySelector('.hero, .v2-hero');
   if (heroBlock) return;
   // eslint-disable-next-line no-bitwise
   if (header && picture
@@ -627,7 +627,6 @@ allLinks.forEach((link) => {
 });
 
 /* REDESING CLASS CHECK */
-if (document.querySelector('main').classList.contains('redesign-v2')) {
+if (document.querySelector('meta[content="redesign-v2"]')) {
   document.querySelector('html').classList.add('redesign-v2');
-  document.querySelector('main').classList.remove('redesign-v2');
 }
