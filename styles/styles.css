@@ -848,3 +848,8 @@ main .section.responsive-title h1 {
     width: 65px;
   }
 }
+
+/* CLS OPTIMIZATION */
+.v2-hero {
+  height: calc(100vh - var(--nav-height));
+}

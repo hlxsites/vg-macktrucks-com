@@ -1,7 +1,7 @@
 /* stylelint-disable selector-class-pattern */
 .v2-hero {
+  /* height of the hero block is set in main style to prevent CLS */
   position: relative;
-  height: calc(100vh - var(--nav-height));
   overflow: hidden;
 }
 
