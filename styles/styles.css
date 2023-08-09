@@ -51,9 +51,9 @@
   --button-primary-red-disabled: #e1dfdd;
 
   /* Secondary */
-  --button-secondary-gold-enabled: var(--c-accent-copper);
-  --button-secondary-gold-hover: #d9b781; 
-  --button-secondary-gold-pressed: #a18860;
+  --button-secondary-gold-enabled: var(--c-primary-gold);
+  --button-secondary-gold-hover: #D9B781; 
+  --button-secondary-gold-pressed: #A18860;
   --button-secondary-gold-disabled: #e1dfdd;
 
   /* Tertiary */
@@ -134,6 +134,14 @@
   --testimonial-font-size: 1.125rem; /* 18px */
   --testimonial-line-height: 120%;
   --testimonial-letter-spacing: -2%;
+
+  /* Motions */
+  --duration-small: 160ms;
+  --duration-medium: 240ms;
+  --duration-large: 320ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
+  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /*
   OLD STYLES
@@ -795,6 +803,99 @@ main .section.responsive-title h1 {
 }
 
 /* REDESIGN GLOBAL STYLES */
-:root.redesign-v2 {
+.redesign-v2 {
   font-size: 16px;
+}
+
+.redesign-v2 a.button.primary,
+.redesign-v2 button.primary,
+.redesign-v2 a.button.secondary,
+.redesign-v2 button.secondary,
+.redesign-v2 a.button.tertiary,
+.redesign-v2 button.tertiary {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-family: var(--ff-body);
+  font-size: var(--button-font-size);
+  font-weight: normal;
+  gap: 10px;
+  justify-content: center;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  min-width: 80px;
+  padding: 13px 20px 9px;
+  text-align: center;
+  text-decoration: none;
+  transition: all var(--duration-small) var(--easing-standard);
+}
+
+.redesign-v2 a.button.primary.small,
+.redesign-v2 button.primary.small,
+.redesign-v2 a.button.secondary.small,
+.redesign-v2 button.secondary.small,
+.redesign-v2 a.button.tertiary.small,
+.redesign-v2 button.tertiary.small {
+  padding: 10px 20px 6px;
+}
+
+.redesign-v2 a.button.primary.large,
+.redesign-v2 button.primary.large,
+.redesign-v2 a.button.secondary.large,
+.redesign-v2 button.secondary.large,
+.redesign-v2 a.button.tertiary.large,
+.redesign-v2 button.tertiary.large {
+  padding: 17px 20px 13px;
+}
+
+.redesign-v2 a.button.primary,
+.redesign-v2 button.primary {
+  background-color: var(--button-primary-red-enabled);
+  color: var(--c-white);
+}
+
+.redesign-v2 a.button.primary:hover,
+.redesign-v2 button.primary:hover {
+  background-color: var(--button-primary-red-hover);
+}
+
+.redesign-v2 a.button.primary:active,
+.redesign-v2 button.primary:active {
+  background-color: var(--button-primary-red-pressed);
+}
+
+.redesign-v2 a.button.secondary,
+.redesign-v2 button.secondary {
+  background-color: var(--button-secondary-gold-enabled);
+  color: var(--c-black);
+}
+
+.redesign-v2 a.button.secondary:hover,
+.redesign-v2 button.secondary:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.redesign-v2 a.button.secondary:active,
+.redesign-v2 button.secondary:active {
+  background-color: var(--button-secondary-gold-pressed);
+}
+
+.redesign-v2 a.button.tertiary,
+.redesign-v2 button.tertiary {
+  background-color: var(--button-tertiary-white-enabled);
+  border-color: var(--c-black);
+  color: var(--c-black);
+}
+
+.redesign-v2 a.button.tertiary:hover,
+.redesign-v2 button.tertiary:hover {
+  background-color: #F1F1F1;
+  border-color: var(--button-tertiary-white-hover);
+}
+
+.redesign-v2 a.button.tertiary:active,
+.redesign-v2 button.tertiary:active {
+  background-color: var(--button-tertiary-white-pressed);
+  border-color: #D9D9D9;
 }
