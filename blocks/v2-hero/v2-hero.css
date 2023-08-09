@@ -1,7 +1,7 @@
 /* stylelint-disable selector-class-pattern */
 .v2-hero {
   position: relative;
-  height: 100vh;
+  height: calc(100vh - var(--nav-height));
   overflow: hidden;
 }
 
