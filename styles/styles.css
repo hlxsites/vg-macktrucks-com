@@ -823,6 +823,17 @@ main .section.responsive-title h1 {
   padding: 0;
 }
 
+.redesign-v2 .with-marker::before {
+  content: '';
+  margin: 0;
+  height: 0;
+  width: 42px;
+  border-bottom: 4px solid var(--c-accent-red);
+  display: block;
+  position: relative;
+  top: -18px;
+}
+
 @media (min-width: 1040px) {
   .redesign-v2 .section {
     padding: 80px 0;
@@ -831,5 +842,9 @@ main .section.responsive-title h1 {
   .redesign-v2 .section > div {
     padding: 0 200px;
     margin: 0 auto;
+  }
+
+  .redesign-v2 .with-marker::before {
+    width: 65px;
   }
 }

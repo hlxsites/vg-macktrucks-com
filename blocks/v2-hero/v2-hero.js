@@ -14,17 +14,17 @@ export default async function decorate(block) {
   const content = block.querySelector(':scope > div > div');
   content.classList.add(`${heroClass}__content`);
 
-  const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  [...headings].forEach((h) => h.classList.add(`${heroClass}__heading`));
+  const headings = [...content.querySelectorAll('h1, h2, h3, h4, h5, h6')];
+  headings.forEach((h) => h.classList.add(`${heroClass}__heading`));
+
+  const firstHeading = headings[0];
+  firstHeading.classList.add('with-marker');
 
   const ctaButtons = content.querySelectorAll('.button-container > a');
   [...ctaButtons].forEach((b) => {
     b.classList.add(`${heroClass}__cta`);
     b.parentElement.classList.add(`${heroClass}__cta-wrapper`);
   });
-
-  const hrs = block.querySelectorAll('hr');
-  [...hrs].forEach((hr) => hr.classList.add(`${heroClass}__separator`));
 
   block.prepend(picture);
   block.parentElement.classList.add('full-width');
