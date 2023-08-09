@@ -827,7 +827,7 @@ main .section.responsive-title h1 {
   content: '';
   margin: 0;
   height: 0;
-  width: 42px;
+  width: 45px;
   border-bottom: 4px solid var(--c-accent-red);
   display: block;
   position: relative;
