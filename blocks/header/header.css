@@ -3,7 +3,6 @@
   --nav-font-size-m: 16px;
   --nav-font-size-s: 14px;
   --nav-font-size-xs: 12px;
-  --nav-height: var(--nav-height-m);
   --nav-width: 1376px;
   --nav-ff: var(--ff-body-bold);
 }
@@ -317,10 +316,6 @@ header .studio-search-widget {
 
 @media (min-width: 1140px) {
   /* header and nav layout */
-  :root {
-    --nav-height: var(--nav-height-l);
-  }
-
   header nav {
     display: flex;
     justify-content: space-between;
