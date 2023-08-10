@@ -179,6 +179,13 @@
   /* nav sizes */
   --nav-height-m: 60px;
   --nav-height-l: 85px;
+  --nav-height: var(--nav-height-m);
+}
+
+@media (min-width: 1140px) {
+  :root {
+    --nav-height: var(--nav-height-l);
+  }
 }
 
 *,
