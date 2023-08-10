@@ -852,7 +852,7 @@ main .section.responsive-title h1 {
 .redesign-v2 a.button.primary,
 .redesign-v2 button.primary {
   background-color: var(--button-primary-red-enabled);
-  color: var(--c-white);
+  color: var(--c-primary-white);
 }
 
 .redesign-v2 a.button.primary:hover,
@@ -868,7 +868,7 @@ main .section.responsive-title h1 {
 .redesign-v2 a.button.secondary,
 .redesign-v2 button.secondary {
   background-color: var(--button-secondary-gold-enabled);
-  color: var(--c-black);
+  color: var(--c-primary-black);
 }
 
 .redesign-v2 a.button.secondary:hover,
@@ -884,8 +884,8 @@ main .section.responsive-title h1 {
 .redesign-v2 a.button.tertiary,
 .redesign-v2 button.tertiary {
   background-color: var(--button-tertiary-white-enabled);
-  border-color: var(--c-black);
-  color: var(--c-black);
+  border-color: var(--c-primary-black);
+  color: var(--c-primary-black);
 }
 
 .redesign-v2 a.button.tertiary:hover,

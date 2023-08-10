@@ -627,7 +627,7 @@ allLinks.forEach((link) => {
 });
 
 /* REDESING CLASS CHECK */
-if (document.querySelector('main').classList.contains('redesign-v2')) {
+if (getMetadata('style') === 'redesign-v2') {
   document.querySelector('html').classList.add('redesign-v2');
   document.querySelector('main').classList.remove('redesign-v2');
 }
