@@ -89,6 +89,17 @@
   align-items: center;
 }
 
+.v2-testimonial__video-link::before {
+  content: '';
+  height: 32px;
+  width: 1px;
+  background: var(--c-accent-copper);
+}
+
+.v2-testimonial__video-link .icon {
+  height: 24px;
+}
+
 .v2-testimonial__video-link svg {
   height: 24px;
   width: 24px;
@@ -124,6 +135,10 @@
 
   .v2-testimonial__blockquote-column {
     padding: 54px 200px 34px 90px;
+  }
+
+  .v2-testimonial__video-section {
+    padding: 20px 40px;
   }
 
   .v2-testimonial__overlap .v2-testimonial__image-row,
