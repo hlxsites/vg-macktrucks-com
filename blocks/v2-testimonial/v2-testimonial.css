@@ -89,6 +89,10 @@
   align-items: center;
 }
 
+.v2-testimonial .v2-testimonial__video-section .v2-testimonial__video-link:hover {
+  text-decoration: underline;
+}
+
 .v2-testimonial__video-link::before {
   content: '';
   height: 32px;

@@ -36,7 +36,17 @@ const createModal = () => {
 
   // adding close modal button
   const closeButton = createElement('button', ['modal-close-button']);
-  const closeIcon = createElement('i', ['fa', 'fa-close']);
+  const closeIcon = createElement('span', ['icon', 'icon-close']);
+  closeIcon.innerHTML = `
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="Icons/16px/Plus">
+      <g id="Group 633">
+        <path id="Line 103" d="M5.00195 5L19.1441 19.1421" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path id="Line 104" d="M19.1426 5L5.00044 19.1421" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </g>
+  </svg>
+  `;
   closeButton.append(closeIcon);
   modalBackground.appendChild(closeButton);
   // eslint-disable-next-line no-use-before-define
