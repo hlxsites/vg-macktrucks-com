@@ -804,9 +804,40 @@ main .section.responsive-title h1 {
 /* REDESIGN GLOBAL STYLES */
 .redesign-v2 {
   --v2-space-small: 16px;
+  --color-icon: var(--c-primary-black);
+  --color-icon-accent: var(--c-primary-gold);
 
   font-size: 16px;
 }
+
+/* ICONS STYLES - default on white background */
+.redesign-v2 svg path[fill] {
+  fill: var(--color-icon);
+}
+
+.redesign-v2 svg path[stroke] {
+  stroke: var(--color-icon);
+}
+
+.redesign-v2 svg path[fill].accent {
+  fill: var(--color-icon-accent);
+}
+
+.redesign-v2 svg path[stroke].accent {
+  stroke: var(--color-icon-accent);
+}
+
+/* icons on gold background */
+.redesign-v2 [data-theme="gold"] {
+  --color-icon-accent: var(--c-primary-white);
+}
+
+/* icons on black background */
+.redesign-v2 [data-theme="black"] {
+  --color-icon: var(--c-primary-white);
+}
+
+/* ICONS STYLES - END */
 
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section {

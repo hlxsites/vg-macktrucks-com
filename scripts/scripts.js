@@ -630,3 +630,12 @@ allLinks.forEach((link) => {
 if (document.querySelector('meta[content="redesign-v2"]')) {
   document.querySelector('html').classList.add('redesign-v2');
 }
+
+export function variantsClassesToBEM(blockClasses, expectedVariantsNames, blockName) {
+  expectedVariantsNames.forEach((variant) => {
+    if (blockClasses.contains(variant)) {
+      blockClasses.remove(variant);
+      blockClasses.add(`${blockName}__${variant}`);
+    }
+  });
+}
