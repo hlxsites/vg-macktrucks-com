@@ -62,6 +62,8 @@
   --button-tertiary-white-pressed: #e1dfdd;
   --button-tertiary-white-disabled: var(--c-primary-white);
 
+  --border-focus: red;
+
   /* Font family */
 
   /* Alternate fonts */
