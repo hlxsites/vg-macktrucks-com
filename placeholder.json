@@ -1,7 +1,7 @@
 {
-  "total": 22,
+  "total": 24,
   "offset": 0,
-  "limit": 22,
+  "limit": 24,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -86,6 +86,14 @@
     {
       "Key": "channel aria label",
       "Text": "channel"
+    },
+    {
+      "Key": "no eloqua message",
+      "Text": "We cannot show the content because you have not given us permission to store cookie files"
+    },
+    {
+      "Key": "no eloqua link message",
+      "Text": "Change cookie settings"
     },
     {
       "Key": "truck builder text",
