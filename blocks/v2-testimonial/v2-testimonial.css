@@ -84,6 +84,14 @@
   letter-spacing: 1.12px;
   background: transparent;
   border: 0;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.v2-testimonial__video-link svg {
+  height: 24px;
+  width: 24px;
 }
 
 .v2-testimonial__text-row {
