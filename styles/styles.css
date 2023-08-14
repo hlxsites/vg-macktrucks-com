@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 @font-face {
   font-family: "fontawesome Fallback";
   font-style: normal;
@@ -866,6 +868,7 @@ main .section.responsive-title h1 {
   background-color: var(--button-primary-red-pressed);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 a.button--secondary,
 .redesign-v2 button.button--secondary {
   background-color: var(--button-secondary-gold-enabled);

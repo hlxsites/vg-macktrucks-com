@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 :root {
   --card-width-s: 1fr;
   --card-width-m: 50%;
