@@ -230,7 +230,7 @@
   margin: 0;
 }
 
-.block.cards.magazine .cards-card-body .button.primary {
+.block.cards.magazine .cards-card-body .button.button--primary {
   height: unset;
   padding: 0;
   margin: 0;

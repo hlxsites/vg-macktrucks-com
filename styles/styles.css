@@ -335,14 +335,14 @@ button:disabled, button:disabled:hover {
   cursor: unset;
 }
 
-a.button.secondary, button.secondary {
+html:not(.redesign-v2) a.button--secondary, html:not(.redesign-v2) button.button--secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color);
 }
 
-a.button.secondary:hover, button.secondary:hover,
-a.button.secondary:focus, button.secondary:focus {
+html:not(.redesign-v2) a.button--secondary:hover, html:not(.redesign-v2) button.button--secondary:hover,
+html:not(.redesign-v2) a.button--secondary:focus, html:not(.redesign-v2) button.button--secondary:focus {
   background-color: var(--button-secondary-gold-pressed);
   color: #fff;
   border-color: var(--button-secondary-gold-hover);
@@ -817,12 +817,8 @@ main .section.responsive-title h1 {
 }
 
 /* REDESIGN Buttons */
-.redesign-v2 a.button.primary,
-.redesign-v2 button.primary,
-.redesign-v2 a.button.secondary,
-.redesign-v2 button.secondary,
-.redesign-v2 a.button.tertiary,
-.redesign-v2 button.tertiary {
+.redesign-v2 a.button,
+.redesign-v2 button.button {
   align-items: center;
   border-radius: 2px;
   border: 1px solid transparent;
@@ -834,78 +830,71 @@ main .section.responsive-title h1 {
   justify-content: center;
   letter-spacing: 1.12px;
   line-height: var(--button-line-height);
-  min-width: 80px;
-  padding: 13px 20px 9px;
+  min-width: 128px;
+  padding: 12px 20px 8px;
   text-align: center;
   text-decoration: none;
-  transition: all var(--duration-small) var(--easing-standard);
+  transition: 
+    background-color var(--duration-small) var(--easing-standard),
+    color var(--duration-small) var(--easing-standard),
+    border-color  var(--duration-small) var(--easing-standard);
 }
 
-.redesign-v2 a.button.primary.small,
-.redesign-v2 button.primary.small,
-.redesign-v2 a.button.secondary.small,
-.redesign-v2 button.secondary.small,
-.redesign-v2 a.button.tertiary.small,
-.redesign-v2 button.tertiary.small {
-  padding: 10px 20px 6px;
+.redesign-v2 a.button--small,
+.redesign-v2 button.button--small {
+  min-width: 96px;
+  padding: 8px 20px 4px;
 }
 
-.redesign-v2 a.button.primary.large,
-.redesign-v2 button.primary.large,
-.redesign-v2 a.button.secondary.large,
-.redesign-v2 button.secondary.large,
-.redesign-v2 a.button.tertiary.large,
-.redesign-v2 button.tertiary.large {
-  padding: 17px 20px 13px;
+.redesign-v2 a.button--large,
+.redesign-v2 button.button--large {
+  min-width: 160px;
+  padding: 16px 20px 12px;
 }
 
-.redesign-v2 a.button.primary,
-.redesign-v2 button.primary {
+.redesign-v2 .button--primary {
   background-color: var(--button-primary-red-enabled);
   color: var(--c-primary-white);
 }
 
-.redesign-v2 a.button.primary:hover,
-.redesign-v2 button.primary:hover {
+.redesign-v2 .button--primary:hover,
+.redesign-v2 .button--primary:focus {
   background-color: var(--button-primary-red-hover);
 }
 
-.redesign-v2 a.button.primary:active,
-.redesign-v2 button.primary:active {
+.redesign-v2 .button--primary:active {
   background-color: var(--button-primary-red-pressed);
 }
 
-.redesign-v2 a.button.secondary,
-.redesign-v2 button.secondary {
+.redesign-v2 a.button--secondary,
+.redesign-v2 button.button--secondary {
   background-color: var(--button-secondary-gold-enabled);
   color: var(--c-primary-black);
 }
 
-.redesign-v2 a.button.secondary:hover,
-.redesign-v2 button.secondary:hover {
+.redesign-v2 .button--secondary:hover,
+.redesign-v2 .button--secondary:focus {
   background-color: var(--button-secondary-gold-hover);
 }
 
-.redesign-v2 a.button.secondary:active,
-.redesign-v2 button.secondary:active {
+.redesign-v2 .button--secondary:active {
   background-color: var(--button-secondary-gold-pressed);
 }
 
-.redesign-v2 a.button.tertiary,
-.redesign-v2 button.tertiary {
+.redesign-v2 a.button--tertiary,
+.redesign-v2 button.button--tertiary {
   background-color: var(--button-tertiary-white-enabled);
   border-color: var(--c-primary-black);
   color: var(--c-primary-black);
 }
 
-.redesign-v2 a.button.tertiary:hover,
-.redesign-v2 button.tertiary:hover {
+.redesign-v2 .button--tertiary:hover,
+.redesign-v2 .button--tertiary:focus {
   background-color: #F1F1F1;
   border-color: var(--button-tertiary-white-hover);
 }
 
-.redesign-v2 a.button.tertiary:active,
-.redesign-v2 button.tertiary:active {
+.redesign-v2 .button--tertiary:active {
   background-color: var(--button-tertiary-white-pressed);
   border-color: #D9D9D9;
 }
