@@ -124,7 +124,7 @@
   }
 
   .v2-testimonial__image-row {
-    width: 50vw;
+    width: 50%;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -133,7 +133,7 @@
   }
 
   .v2-testimonial__text-row {
-    width: 50vw;
+    width: 50%;
     position: relative;
     z-index: 1;
   }
@@ -148,7 +148,7 @@
 
   .v2-testimonial__overlap .v2-testimonial__image-row,
   .v2-testimonial__overlap .v2-testimonial__text-row {
-    width: calc(50vw + 80px);
+    width: calc(50% + 80px);
   }
 
   .v2-testimonial__media-left {

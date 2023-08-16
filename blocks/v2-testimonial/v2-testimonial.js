@@ -36,7 +36,7 @@ const createVideoSection = (col, block) => {
   col.classList.add(`${blockClass}__video-section`);
   col.setAttribute('data-theme', 'gold');
   col.querySelector('p').classList.add(`${blockClass}__author`);
-  const videoLinkEl = col.querySelector('.v2-testimonial__video-link');
+  const videoLinkEl = col.querySelector(`.${blockClass}__video-link`);
   videoLinkEl.parentElement.classList.add(`${blockClass}__video-link-wrapper`);
 };
 
@@ -53,10 +53,7 @@ export default async function decorate(block) {
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
     headings.forEach((h) => h.classList.add(`${blockClass}__heading`));
 
-    const firstHeading = headings[0];
-    if (firstHeading) {
-      firstHeading.classList.add('with-marker');
-    }
+    headings[0]?.classList.add('with-marker');
 
     const images = [...col.querySelectorAll('img')];
     images.forEach((img) => {
