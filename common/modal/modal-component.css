@@ -160,7 +160,6 @@
 }
 
 .modal-content.modal-form .eloqua-form .elq-form input[type="checkbox"],
-/* stylelint-disable-next-line max-line-length */
 .modal-content.modal-form .eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
   background-color: transparent;
 }
