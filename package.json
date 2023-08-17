@@ -19,9 +19,9 @@
     "url": "https://github.com/adobe/helix-project-boilerplate/issues"
   },
   "lint-staged": {
-    "**/*.{js,css}": [
-      "npm run lint"
-    ]
+    "**/*.js": "npm run lint",
+    "**/*.css": "npm run lint:css"
+    
   },
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "devDependencies": {
