@@ -407,7 +407,6 @@
   right: 30px;
 }
 
-/* stylelint-disable-next-line max-line-length */
 .hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:first-child {
   border-right: 1px solid #222;
 }
