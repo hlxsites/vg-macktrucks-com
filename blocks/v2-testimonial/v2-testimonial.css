@@ -21,13 +21,13 @@
 
 .v2-testimonial__heading {
   color: var(--c-primary-white);
-  font: normal 400 32px/115% var(--ff-headline-medium);
+  font: normal 400 var(--headline-1-font-size)/var(--headline-1-line-height) var(--ff-headline-medium);
   letter-spacing: -0.64px;
   margin: 24px 0;
 }
 
 .v2-testimonial__blockquote {
-  font: normal 400 18px/120% var(--ff-testimonial);
+  font: normal 400 var(--testimonial-font-size)/var(--testimonial-line-height) var(--ff-testimonial);
   letter-spacing: -0.36px;
   margin: 40px 0;
   text-indent: 0;
@@ -68,7 +68,7 @@
   margin: 0;
   padding: 4px 0;
   color: var(--c-primary-black);
-  font: normal 400 14px/18px var(--ff-body);
+  font: normal 400 var(--button-font-size)/var(--button-line-height) var(--ff-body);
   letter-spacing: 1.12px;
   background: transparent;
   border: 0;
