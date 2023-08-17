@@ -866,7 +866,6 @@ main .section.responsive-title h1 {
   background-color: var(--button-primary-red-pressed);
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 a.button--primary,
 .redesign-v2 button.button--primary {
   background-color: var(--button-secondary-gold-enabled);
@@ -882,6 +881,7 @@ main .section.responsive-title h1 {
   background-color: var(--button-secondary-gold-pressed);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 a.button--secondary,
 .redesign-v2 button.button--secondary {
   background-color: var(--button-tertiary-white-enabled);
@@ -889,6 +889,7 @@ main .section.responsive-title h1 {
   color: var(--c-primary-black);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
   background-color: #F1F1F1;
