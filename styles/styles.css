@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 @font-face {
   font-family: "fontawesome Fallback";
   font-style: normal;
@@ -49,7 +51,7 @@
   --button-primary-red-disabled: #e1dfdd;
 
   /* Secondary */
-  --button-secondary-gold-enabled: var(--c-accent-copper);
+  --button-secondary-gold-enabled: var(--c-primary-gold);
   --button-secondary-gold-hover: #d9b781;
   --button-secondary-gold-pressed: #a18860;
   --button-secondary-gold-disabled: #e1dfdd;
@@ -132,6 +134,14 @@
   --testimonial-font-size: 1.125rem; /* 18px */
   --testimonial-line-height: 120%;
   --testimonial-letter-spacing: -2%;
+
+  /* Motions */
+  --duration-small: 160ms;
+  --duration-medium: 240ms;
+  --duration-large: 320ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
+  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /*
   OLD STYLES
@@ -325,14 +335,14 @@ button:disabled, button:disabled:hover {
   cursor: unset;
 }
 
-a.button.secondary, button.secondary {
+html:not(.redesign-v2) a.button--secondary, html:not(.redesign-v2) button.button--secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color);
 }
 
-a.button.secondary:hover, button.secondary:hover,
-a.button.secondary:focus, button.secondary:focus {
+html:not(.redesign-v2) a.button--secondary:hover, html:not(.redesign-v2) button.button--secondary:hover,
+html:not(.redesign-v2) a.button--secondary:focus, html:not(.redesign-v2) button.button--secondary:focus {
   background-color: var(--button-secondary-gold-pressed);
   color: #fff;
   border-color: var(--button-secondary-gold-hover);
@@ -836,6 +846,91 @@ main .section.responsive-title h1 {
 }
 
 /* ICONS STYLES - END */
+
+/* REDESIGN Buttons */
+.redesign-v2 a.button,
+.redesign-v2 button.button {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-family: var(--ff-body);
+  font-size: var(--button-font-size);
+  font-weight: normal;
+  gap: 10px;
+  justify-content: center;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  min-width: 128px;
+  padding: 12px 20px 8px;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-small) var(--easing-standard),
+    color var(--duration-small) var(--easing-standard),
+    border-color  var(--duration-small) var(--easing-standard);
+}
+
+.redesign-v2 a.button--small,
+.redesign-v2 button.button--small {
+  min-width: 96px;
+  padding: 8px 20px 4px;
+}
+
+.redesign-v2 a.button--large,
+.redesign-v2 button.button--large {
+  min-width: 160px;
+  padding: 16px 20px 12px;
+}
+
+.redesign-v2 .button--cta {
+  background-color: var(--button-primary-red-enabled);
+  color: var(--c-primary-white);
+}
+
+.redesign-v2 .button--cta:hover,
+.redesign-v2 .button--cta:focus {
+  background-color: var(--button-primary-red-hover);
+}
+
+.redesign-v2 .button--cta:active {
+  background-color: var(--button-primary-red-pressed);
+}
+
+.redesign-v2 a.button--primary,
+.redesign-v2 button.button--primary {
+  background-color: var(--button-secondary-gold-enabled);
+  color: var(--c-primary-black);
+}
+
+.redesign-v2 .button--primary:hover,
+.redesign-v2 .button--primary:focus {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.redesign-v2 .button--primary:active {
+  background-color: var(--button-secondary-gold-pressed);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 a.button--secondary,
+.redesign-v2 button.button--secondary {
+  background-color: var(--button-tertiary-white-enabled);
+  border-color: var(--c-primary-black);
+  color: var(--c-primary-black);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 .button--secondary:hover,
+.redesign-v2 .button--secondary:focus {
+  background-color: #F1F1F1;
+  border-color: var(--button-tertiary-white-hover);
+}
+
+.redesign-v2 .button--secondary:active {
+  background-color: var(--button-tertiary-white-pressed);
+  border-color: #D9D9D9;
+}
 
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section {
