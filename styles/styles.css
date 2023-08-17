@@ -5,9 +5,7 @@
   src: local("Arial");
   ascent-override: 93.75%;
   descent-override: 6.25%;
-  /* stylelint-disable-next-line number-no-trailing-zeros */
   line-gap-override: 0.00%;
-  /* stylelint-disable-next-line number-no-trailing-zeros */
   size-adjust: 100.00%;
 }
 
