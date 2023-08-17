@@ -194,4 +194,15 @@
   .modal-background {
     background-color: rgb(0 0 0 / 80%);
   }
+
+  .modal-background button.modal-close-button {
+    position: relative;
+    right: calc(-100% + 60px);
+    top: 0;
+    transition: unset;
+  }
+
+  .modal-video {
+    margin-top: -60px;
+  }
 }
