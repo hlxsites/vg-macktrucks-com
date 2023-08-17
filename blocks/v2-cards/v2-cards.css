@@ -67,6 +67,7 @@ main .section.v2-cards-container .v2-cards-wrapper {
   margin: 0;
   padding: 0;
   background: transparent;
+  justify-content: left;
 }
 
 @media (min-width: 740px) {
