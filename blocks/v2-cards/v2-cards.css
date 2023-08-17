@@ -1,9 +1,13 @@
-/* stylelint-disable selector-class-pattern */
+main .section.v2-cards-container .v2-cards-wrapper {
+  padding: 0;
+}
+
 .v2-cards {
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 16px;
+  justify-content: center;
 }
 
 .v2-cards__card-item {
@@ -65,10 +69,16 @@
   background: transparent;
 }
 
-@media (min-width: 1040px) {
+@media (min-width: 740px) {
   .v2-cards {
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: 16px;
     padding: 0;
+    justify-content: center;
+  }
+
+  .v2-cards__card-item {
+    max-width: calc((100% - 32px) / 3);
+    min-width: 336px;
   }
 }
