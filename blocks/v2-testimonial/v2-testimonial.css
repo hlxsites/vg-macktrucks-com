@@ -10,11 +10,7 @@
   background-color: #2b2b2b;
   padding: 48px 16px;
   color: var(--c-primary-white);
-  font-family: var(--ff-body);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
+  font: normal 400 14px/150% var(--ff-body);
   letter-spacing: 0.3px;
   padding-right: calc(100vw - 510px);
 }
@@ -25,19 +21,13 @@
 
 .v2-testimonial__heading {
   color: var(--c-primary-white);
-  font-family: var(--ff-headline-medium);
-  font-size: 32px;
-  font-style: normal;
-  line-height: 115%;
+  font: normal 400 32px/115% var(--ff-headline-medium);
   letter-spacing: -0.64px;
   margin: 24px 0;
 }
 
 .v2-testimonial__blockquote {
-  font-family: var(--ff-testimonial);
-  font-size: 18px;
-  font-style: normal;
-  line-height: 120%;
+  font: normal 400 18px/120% var(--ff-testimonial);
   letter-spacing: -0.36px;
   margin: 40px 0;
   text-indent: 0;
@@ -78,10 +68,7 @@
   margin: 0;
   padding: 4px 0;
   color: var(--c-primary-black);
-  font-family: var(--ff-body);
-  font-size: 14px;
-  font-style: normal;
-  line-height: 18px;
+  font: normal 400 14px/18px var(--ff-body);
   letter-spacing: 1.12px;
   background: transparent;
   border: 0;
