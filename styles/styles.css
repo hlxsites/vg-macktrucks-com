@@ -104,7 +104,7 @@
 
   /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
   --headline-5-font-size: 1.125rem; /* 18px */
-  --headline-5-line-height: 150%;
+  --headline-5-line-height: 140%;
 
   /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 16px, 150%  */
   --body-1-font-size: 1rem; /* 16px */
@@ -808,6 +808,22 @@ main .section.responsive-title h1 {
   font-size: 16px;
 }
 
+.redesign-v2 .icon {
+  display: inline-flex;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 .icon svg {
+  fill: currentcolor;
+  height: 1em;
+  width: 1em;
+}
+
+.redesign-v2 .section.dark-backgorund {
+  background-color: var(--c-secondary-graphite);
+  color: var(--c-primary-white);
+}
+
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section {
   padding: 40px 0;
@@ -830,6 +846,7 @@ main .section.responsive-title h1 {
   padding: 0;
 }
 
+.section.header-with-mark > .default-content-wrapper:first-child > h1:first-child::before,
 .redesign-v2 .with-marker::before {
   content: '';
   margin: 0;
