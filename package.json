@@ -6,7 +6,8 @@
   "scripts": {
     "lint:js": "eslint .",
     "lint:css": "stylelint blocks/**/*.css styles/*.css",
-    "lint": "npm run lint:js && npm run lint:css"
+    "lint": "npm run lint:js && npm run lint:css",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,11 @@
   "license": "Apache License 2.0",
   "bugs": {
     "url": "https://github.com/adobe/helix-project-boilerplate/issues"
+  },
+  "lint-staged": {
+    "**/*.js": "npm run lint",
+    "**/*.css": "npm run lint:css"
+    
   },
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "devDependencies": {
@@ -28,6 +34,8 @@
     "eslint": "8.47.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.28.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
     "sinon": "15.0.1",
     "stylelint": "15.10.2",
     "stylelint-config-standard": "34.0.0"
