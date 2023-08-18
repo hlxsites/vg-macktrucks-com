@@ -8,6 +8,8 @@ main .section.v2-cards-container .v2-cards-wrapper {
   gap: 24px;
   padding: 16px;
   justify-content: center;
+  max-width: 1040px;
+  margin: auto;
 }
 
 .v2-cards__card-item {
