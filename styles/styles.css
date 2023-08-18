@@ -812,6 +812,8 @@ main .section.responsive-title h1 {
 /* REDESIGN GLOBAL STYLES */
 .redesign-v2 {
   --v2-space-small: 16px;
+  --color-icon: var(--c-primary-black);
+  --color-icon-accent: var(--c-primary-gold);
 
   font-size: 16px;
 }
@@ -822,7 +824,6 @@ main .section.responsive-title h1 {
 
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .icon svg {
-  fill: currentcolor;
   height: 1em;
   width: 1em;
 }
@@ -831,6 +832,35 @@ main .section.responsive-title h1 {
   background-color: var(--c-secondary-graphite);
   color: var(--c-primary-white);
 }
+
+/* ICONS STYLES - default on white background */
+.redesign-v2 svg path[fill] {
+  fill: var(--color-icon);
+}
+
+.redesign-v2 svg path[stroke] {
+  stroke: var(--color-icon);
+}
+
+.redesign-v2 svg path[fill].accent {
+  fill: var(--color-icon-accent);
+}
+
+.redesign-v2 svg path[stroke].accent {
+  stroke: var(--color-icon-accent);
+}
+
+/* icons on gold background */
+.redesign-v2 [data-theme="gold"] {
+  --color-icon-accent: var(--c-primary-white);
+}
+
+/* icons on black background */
+.redesign-v2 [data-theme="black"] {
+  --color-icon: var(--c-primary-white);
+}
+
+/* ICONS STYLES - END */
 
 /* REDESIGN Buttons */
 .redesign-v2 a.button,
