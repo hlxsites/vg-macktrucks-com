@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
 const addClassToTitle = (block, className) => {
@@ -10,6 +10,7 @@ const blockName = 'v2-footer';
 const blockNamePrefooter = 'v2-prefooter';
 const blockNameTruckList = 'v2-footer-truck-list';
 const blockNameMenu = 'v2-footer-menu';
+const blockNameNewsletter = 'v2-footer-newsletter';
 const blockNameLegal = 'v2-footer-legal';
 
 function displayScrollToTop(buttonEl) {
@@ -73,6 +74,7 @@ export default async function decorate(block) {
 
   // Eloqua form necessary variables
   const eloquaForm = block.querySelector('.eloqua-form');
+  eloquaForm?.setAttribute('data-block-name', 'eloqua-form');
   let observer = null;
   let submitButtonFixed = false;
   let checkboxFixed = false;
@@ -94,11 +96,13 @@ export default async function decorate(block) {
 
   // Truck list
   if (truckList) {
-    truckList.classList.add(blockNameTruckList);
+    truckList.classList.add(`${blockNameTruckList}__wrapper`);
     truckList.querySelector('ul')?.classList.add(`${blockNameTruckList}__items`);
     addClassToTitle(truckList, `${blockNameTruckList}__title`);
+    const truckListContent = createElement('div', blockNameTruckList);
+    truckListContent.appendChild(truckList);
 
-    newFooter.append(truckList);
+    newFooter.append(truckListContent);
   }
 
   // Menu: social media + logo + menu list + newsletter form
@@ -120,18 +124,21 @@ export default async function decorate(block) {
     // remove div which contained logo and social media
     footerMenu.firstElementChild.remove();
 
+    // Menu Columns: Newsletter form
+    const newsletter = createElement('div', blockNameNewsletter);
+    const oldNews = footerMenu.querySelector(':scope > div:last-child');
+    newsletter.appendChild(oldNews);
+    newsletter.append(eloquaForm);
+    addClassToTitle(newsletter, `${blockNameNewsletter}__title`);
+
     // Menu Columns: menu
-    footerMenu.classList.add(`${blockNameMenu}__columns`);
-    addClassToTitle(footerMenu, `${blockNameMenu}__title`);
-    const menuList = footerMenu.querySelectorAll(':scope > div');
+    const menu = createElement('div', `${blockNameMenu}__columns`);
+    menu.innerHTML = footerMenu.innerHTML;
+    const menuList = menu.querySelectorAll(':scope > div');
     menuList.forEach((item) => item.classList.add(`${blockNameMenu}__column`));
 
-    // Menu Columns: Newsletter form
-    const lastColumn = footerMenu.querySelector(':scope > div:last-child');
-    lastColumn.append(eloquaForm);
-
-    newMenu.appendChild(footerMenu);
-
+    newMenu.appendChild(menu);
+    newMenu.appendChild(newsletter);
     newFooter.append(newMenu);
   }
 
@@ -144,6 +151,7 @@ export default async function decorate(block) {
   block.innerHTML = newFooter.innerHTML;
 
   await decorateIcons(block);
+  await loadBlocks(block);
 
   const onFormLoaded = (mutationList) => {
     // eslint-disable-next-line no-restricted-syntax

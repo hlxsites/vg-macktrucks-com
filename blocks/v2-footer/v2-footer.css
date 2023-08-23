@@ -2,3 +2,297 @@
   background: var(--c-primary-black);
   color: var(--c-secondary-silver);
 }
+
+.v2-footer svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* General ul styles */
+.v2-prefooter ul,
+.v2-footer-menu__column ul,
+.v2-footer-legal ul,
+.v2-footer-menu__socialmedia,
+.v2-footer-truck-list__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Apply max width to all the necessary footer items */
+.v2-prefooter ul,
+.v2-footer-truck-list__wrapper,
+.v2-footer-legal ul,
+.v2-footer-menu {
+  max-width: var(--wrapper-width);
+  margin: 0 auto;
+}
+
+/* Prefooter */
+
+/* To be done Avinash in desktop */
+.v2-prefooter {
+  background-color: var(--c-primary-gold);
+}
+
+.v2-prefooter ul {
+  padding: 8px 16px;
+}
+
+.v2-prefooter a {
+  font-size: 24px;
+  font-family: var(--ff-subheadings-medium);
+  line-height: 140%;
+  letter-spacing: 0.36px;
+  color: var(--c-primary-black);
+  border-bottom: 1px solid var(--c-primary-black);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.v2-prefooter li:last-child a {
+  border-bottom: 0;
+}
+
+.v2-prefooter .icon-arrow-right {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* Truck list menu */
+
+/* To be done Avinash */
+.v2-footer-truck-list {
+  background-color: var(--c-secondary-graphite);
+}
+
+.v2-footer-truck-list__title {
+  margin: 0;
+  padding: 24px 32px;
+}
+
+/* Menu wrapper */
+.v2-footer-menu {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+  grid-template-areas:
+    'logo'
+    'menu'
+    'newsletter'
+    'social';
+}
+
+/* Logo */
+.v2-footer-menu__logo {
+  grid-area: logo;
+}
+
+/* Menu */
+.v2-footer-menu__columns {
+  grid-area: menu;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.v2-footer-menu__column {
+  width: 50%;
+}
+
+/* Newsletter */
+.v2-footer-newsletter {
+  grid-area: newsletter;
+}
+
+.v2-footer-newsletter__title {
+  font-family: var(--ff-body);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 1.92px;
+  margin-bottom: 12px;
+}
+
+
+/* eloqua footer form styles - START */
+.v2-footer-newsletter .eloqua-form {
+  max-width: 1200px;
+}
+
+.v2-footer-newsletter .eloqua-form p {
+  font-size: 11px;
+  font-family: var(--ff-body);
+}
+
+.v2-footer-newsletter .elq-form .field-style {
+  margin: 0;
+}
+
+.v2-footer-newsletter .elq-form .item-padding {
+  padding: 0;
+}
+
+.v2-footer-newsletter .elq-form input[type='text'] {
+  background-color: var(--c-primary-white);
+  padding: 15px 10px;
+  border: none;
+  max-width: 320px;
+  font-family: var(--ff-body);
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--c-primary-black);
+}
+
+.v2-footer-newsletter .elq-form input[type='text']::placeholder {
+  color: var(--c-primary-black);
+}
+
+.v2-footer-newsletter .elq-form .checkbox-label {
+  font-size: 13px;
+  font-family: var(--ff-body);
+  bottom: 0;
+  padding-left: 0;
+}
+
+.v2-footer-newsletter .elq-form input.submit-button {
+  color: var(--c-primary-black);
+  background: transparent;
+  font-size: 20px !important;
+  line-height: 30px;
+  height: auto;
+  cursor: pointer;
+  margin: 0;
+  padding: 5px 10px;
+}
+
+.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+
+.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='text'] {
+  padding-right: 40px;
+  height: 48px;
+}
+
+.v2-footer-newsletter .elq-form .loader {
+  position: absolute;
+  right: 10px;
+  bottom: 50%;
+  transform: translate(0, 50%);
+  border-top: 3px solid #212121;
+  margin-bottom: -12px;
+  background: #212121;
+}
+
+.v2-footer-newsletter .eloqua-form input[type='submit']:hover {
+  color: var(--c-primary-black);
+}
+
+.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit'] {
+  height: 48px !important;
+  width: 48px !important;
+  background: var(--c-primary-gold) url("../../icons/arrow-right.svg") no-repeat center;
+}
+
+.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit']:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit']:active {
+  background-color: var(--button-secondary-gold-pressed);
+}
+
+.v2-footer-newsletter .checkbox-span {
+  position: relative;
+}
+
+.v2-footer-newsletter .checkbox-span input[type='checkbox'][id] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  padding: 0;
+}
+
+.v2-footer-newsletter .checkbox-span label[for] {
+  position: relative;
+  margin-left: 0;
+  white-space: break-spaces;
+  cursor: pointer;
+}
+
+.v2-footer-newsletter .checkbox-span label[for]::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border: solid 2px var(--c-secondary-dark-gold);
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+  background: var(--c-primary-black);
+}
+
+.v2-footer-newsletter .checkbox-span input:checked~label[for]::after {
+  content: "\f00c";
+  font-family: var(--ff-fontawesome);
+  color: var(--c-secondary-dark-gold);
+  position: absolute;
+  font-size: 18px;
+  left: 1px;
+  top: -6px;
+  line-height: 18px;
+}
+
+.v2-footer-newsletter .confirm-checkbox {
+  user-select: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 1s;
+  visibility: hidden;
+}
+
+.v2-footer-newsletter .confirm-checkbox.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* eloqua footer form styles - END */
+
+/* Social media */
+.v2-footer-menu__socialmedia {
+  grid-area: social;
+}
+
+/* Legal */
+
+/* To be done Avinash */
+.v2-footer-legal ul {
+  border-top: 1px solid var(--c-tertiary-cool-gray);
+  margin: 0 16px;
+  padding: 40px 0;
+}
+
+@media (min-width: 1200px) {
+  .v2-footer-menu {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+    grid-template-areas:
+      'logo menu newsletter'
+      'social menu newsletter';
+  }
+
+  .v2-footer-legal ul {
+    margin: 0 auto;
+  }
+}

@@ -814,6 +814,7 @@ main .section.responsive-title h1 {
   --v2-space-small: 16px;
   --color-icon: var(--c-primary-black);
   --color-icon-accent: var(--c-primary-gold);
+  --wrapper-width: 1040px;
 
   font-size: 16px;
 }
