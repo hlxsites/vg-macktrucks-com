@@ -93,7 +93,7 @@
 }
 
 .v2-footer-truck-list.expand .icon-dropdown-caret {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
 .v2-footer-truck-list__items {
@@ -403,7 +403,7 @@
   /* Truck list menu */
 
   .v2-footer-truck-list {
-    padding: 24px 0;
+    padding: 0;
   }
 
   .v2-footer-truck-list__wrapper {
