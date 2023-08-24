@@ -73,8 +73,6 @@ export default async function decorate(block) {
   block.innerHTML = html;
 
   // Eloqua form necessary variables
-  const eloquaForm = block.querySelector('.eloqua-form');
-  eloquaForm?.setAttribute('data-block-name', 'eloqua-form');
   let observer = null;
   let submitButtonFixed = false;
   let checkboxFixed = false;
@@ -128,6 +126,9 @@ export default async function decorate(block) {
     const newsletter = createElement('div', blockNameNewsletter);
     const oldNews = footerMenu.querySelector(':scope > div:last-child');
     newsletter.appendChild(oldNews);
+
+    const eloquaForm = block.querySelector('.eloqua-form');
+    eloquaForm?.setAttribute('data-block-name', 'eloqua-form');
     newsletter.append(eloquaForm);
     addClassToTitle(newsletter, `${blockNameNewsletter}__title`);
 
@@ -204,6 +205,7 @@ export default async function decorate(block) {
     }
   };
 
+  const eloquaForm = block.querySelector('.eloqua-form');
   observer = new MutationObserver(onFormLoaded);
   observer.observe(eloquaForm, {
     childList: true,
