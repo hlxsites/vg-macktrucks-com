@@ -95,6 +95,11 @@
   transform: rotate(180deg);
 }
 
+.v2-footer-truck-list__title .icon-dropdown-caret svg {
+  width: 16px;
+  height: 16px;
+}
+
 .v2-footer-truck-list__items {
   transition: 300ms max-height ease;
   will-change: max-height;
