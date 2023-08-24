@@ -4,8 +4,9 @@
 }
 
 .v2-footer svg {
-  width: 1em;
+  display: block;
   height: 1em;
+  width: 1em;
 }
 
 /* General ul styles */
@@ -29,8 +30,6 @@
 }
 
 /* Prefooter */
-
-/* To be done Avinash in desktop */
 .v2-prefooter {
   background-color: var(--c-primary-gold);
 }
@@ -67,8 +66,6 @@
 }
 
 /* Truck list menu */
-
-/* To be done Avinash */
 .v2-footer-truck-list {
   background-color: var(--c-secondary-graphite);
 }
@@ -79,21 +76,28 @@
   max-width: var(--wrapper-width);
   font-family: var(--ff-body);
   font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
   line-height: 16px;
   letter-spacing: 1.92px;
   text-transform: uppercase;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .v2-footer-truck-list__title .icon-dropdown-caret {
-  margin-left: auto;
+  --color-icon: var(--c-primary-white);
+
   transition: transform var(--duration-medium) cubic-bezier(0.45, 0, 0.125, 1);
 }
 
 .v2-footer-truck-list.expand .icon-dropdown-caret {
   transform: rotate(180deg);
+}
+
+.v2-footer-truck-list__title .icon-dropdown-caret svg {
+  width: 16px;
+  height: 16px;
 }
 
 .v2-footer-truck-list__items {
@@ -109,20 +113,18 @@
   color: var(--c-primary-white);
   font-family: var(--ff-body);
   font-size: var(--body-1-font-size);
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: var(--body-1-line-height);
   letter-spacing: 0.16px;
   justify-content: flex-start;
 }
 
 /* Menu wrapper */
 .v2-footer-menu {
-  padding: 40px 16px;
   display: grid;
+  gap: 40px 0;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  gap: 40px 0;
+  padding: 40px 16px;
   /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
   grid-template-areas:
     'logo'
@@ -199,14 +201,14 @@
 }
 
 .v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='text'] {
-  padding: 14px 48px 14px 14px;
+  background-color: var(--c-primary-white);
   border: none;
+  color: var(--c-secondary-graphite);
   font-family: var(--ff-body);
   font-size: var(--body-2-font-size);
-  line-height: var(--body-2-font-size);
-  color: var(--c-secondary-graphite);
-  background-color: var(--c-primary-white);
   height: 48px;
+  line-height: var(--body-2-font-size);
+  padding: 14px 48px 14px 14px;
 }
 
 .v2-footer-newsletter .elq-form input[type='text']::placeholder {
@@ -306,7 +308,6 @@
 
 /* Social media */
 .v2-footer-menu__socialmedia {
-  background-color: yellow;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -315,17 +316,22 @@
 
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-footer-menu__socialmedia a {
+  --color-icon: var(--c-tertiary-cool-gray);
+
   display: block;
 }
 
+.v2-footer-menu__socialmedia a:hover {
+  --color-icon: var(--c-primary-white);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-footer-menu__socialmedia svg {
   width: 24px;
   height: 24px;
 }
 
 /* Legal */
-
-/* To be done Avinash */
 .v2-footer-legal ul {
   border-top: 1px solid var(--c-tertiary-cool-gray);
   margin: 0 16px;
@@ -336,10 +342,12 @@
   flex-wrap: wrap;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-footer-legal li {
   font-size: 13px;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-footer-legal a {
   font-family: var(--ff-body);
   font-style: normal;
@@ -355,7 +363,7 @@
   position: fixed;
   bottom: 20px;
   right: 30px;
-  z-index: 99;  
+  z-index: 99;
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -406,10 +414,17 @@
     padding: 15px 0;
   }
 
-  .v2-prefooter li:first-child a { margin-right: auto; }
-  .v2-prefooter li:last-child a { margin-left: auto;  }
+  .v2-prefooter li:first-child a {
+    margin-right: auto;
+  }
 
-  .v2-prefooter .icon-arrow-right { padding-top: 0; }
+  .v2-prefooter li:last-child a {
+    margin-left: auto;
+  }
+
+  .v2-prefooter .icon-arrow-right {
+    padding-top: 0;
+  }
 
   /* Truck list menu */
   .v2-footer-truck-list {
@@ -426,13 +441,14 @@
     font-family: var(--ff-subheadings-medium);
     margin: 0 auto 0 0;
     padding: 24px 32px 24px 0;
+    cursor: default;
   }
 
   .v2-footer-truck-list__title .icon-dropdown-caret {
     display: none;
   }
 
-  .v2-footer-truck-list__items { 
+  .v2-footer-truck-list__items {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -441,6 +457,7 @@
     overflow: auto;
   }
 
+  /* stylelint-disable-next-line no-descending-specificity */
   .v2-footer-truck-list__items a {
     padding: 0;
   }
