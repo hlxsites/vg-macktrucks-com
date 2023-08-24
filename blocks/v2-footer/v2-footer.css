@@ -320,6 +320,11 @@
       'social menu newsletter';
   }
 
+  /* Logo */
+  .v2-footer-menu__logo {
+    margin-top: 10px;
+  }
+
   /* Menu */
   .v2-footer-menu__columns {
     flex-wrap: nowrap;
