@@ -325,6 +325,7 @@
   --color-icon: var(--c-primary-white);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-footer-menu__socialmedia svg {
   width: 24px;
   height: 24px;
