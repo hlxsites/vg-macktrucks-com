@@ -361,7 +361,7 @@
   border-radius: 10px;
   padding: 12px 24px;
   background-color: var(--c-primary-gold);
-  filter: drop-shadow(0px 6.88532018661499px 17.213302612304688px rgba(0, 0, 0, 0.20));
+  filter: drop-shadow(0 6.8853px 17.2133px rgb(0 0 0 / 20%) );
 }
 
 .v2-scroll-to-top:hover {
