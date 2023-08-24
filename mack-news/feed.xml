@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-06-28T00:00:00.000Z</updated>
+    <updated>2023-08-23T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2600,5 +2600,37 @@
         <link href="https://www.macktrucks.com/mack-news/2018/the-new-mack-anthem-takes-the-stage-at-the-2018-mid-america-trucking-show"/>
         <updated>2018-03-22T00:00:00.000Z</updated>
         <published>2018-03-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Announces Collaboration with Australian Clothing Brand Cotton:On | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-announces-collaboration-with-australian-clothing-brand-cotton</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-announces-collaboration-with-australian-clothing-brand-cotton"/>
+        <updated>2023-08-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Aug 01, 2023) – Mack Trucks today announced its collaboration with Australian clothing brand Cotton:On, which will offer an exclusive line of Mack®-branded menswear..]]></content>
+        <published>2023-08-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Highlights Commitment to Sustainability at the Green Transportation Summit & Expo | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-highlights-commitment-to-sustainability-at-the-green-transportation-summit-and-expo</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-highlights-commitment-to-sustainability-at-the-green-transportation-summit-and-expo"/>
+        <updated>2023-08-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Aug. 16, 2023) – Mack Trucks will showcase its Mack® LR Electric Class 8 refuse vehicle during ride-and-drive and exhibition events at the Green Transportation Summit & Expo (GTSE) Aug.]]></content>
+        <published>2023-08-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack’s Roanoke Valley Operations (RVO) Now Certified for Supporting Renewable Energy Resources | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/macks-roanoke-valley-operations-rvo-now-certified-for-supporting-renewable-energy-resources</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/macks-roanoke-valley-operations-rvo-now-certified-for-supporting-renewable-energy-resources"/>
+        <updated>2023-08-17T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ROANOKE VALLEY, Virginia (Aug.17, 2023) – Roanoke Valley Operations (RVO) in Virginia, where all Mack Trucks medium-duty vehicles are assembled, is now certified and participating in Appalachian Power Company’s 100% Renewable Wind-Water-Sunlight (WWS) Service.]]></content>
+        <published>2023-08-17T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Receives Order for 135 Additional Trucks for the U.S. Army M917A3 Heavy Dump Truck Program | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-defense-receives-order-for-additional-trucks-for-the-us-army</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-defense-receives-order-for-additional-trucks-for-the-us-army"/>
+        <updated>2023-08-23T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Aug. 23, 2023) – Mack Defense announced today that the U.S. military has ordered an additional 135 Mack Defense M917A3 Heavy Dump Trucks (HDTs).]]></content>
+        <published>2023-08-23T00:00:00.000Z</published>
     </entry>
 </feed>
