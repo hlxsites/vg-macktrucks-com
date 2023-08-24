@@ -115,11 +115,11 @@
 
 /* Menu wrapper */
 .v2-footer-menu {
-  padding: 40px 16px;
   display: grid;
+  gap: 40px 0;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  gap: 40px 0;
+  padding: 40px 16px;
   /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
   grid-template-areas:
     'logo'
@@ -196,14 +196,14 @@
 }
 
 .v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='text'] {
-  padding: 14px 48px 14px 14px;
+  background-color: var(--c-primary-white);
   border: none;
+  color: var(--c-secondary-graphite);
   font-family: var(--ff-body);
   font-size: var(--body-2-font-size);
-  line-height: var(--body-2-font-size);
-  color: var(--c-secondary-graphite);
-  background-color: var(--c-primary-white);
   height: 48px;
+  line-height: var(--body-2-font-size);
+  padding: 14px 48px 14px 14px;
 }
 
 .v2-footer-newsletter .elq-form input[type='text']::placeholder {
@@ -423,6 +423,7 @@
     font-family: var(--ff-subheadings-medium);
     margin: 0 auto 0 0;
     padding: 24px 32px 24px 0;
+    cursor: default;
   }
 
   .v2-footer-truck-list__title .icon-dropdown-caret {
