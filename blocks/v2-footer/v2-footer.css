@@ -380,6 +380,7 @@
   background-color: var(--button-secondary-gold-pressed);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-scroll-to-top svg {
   margin-top: 8px; 
   transform: rotate(-90deg);
