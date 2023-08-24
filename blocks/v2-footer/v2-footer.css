@@ -63,6 +63,7 @@
   width: 28px;
   height: 28px;
   display: block;
+  padding-top: 2px;
 }
 
 /* Truck list menu */
@@ -104,15 +105,15 @@
 
 .v2-footer-truck-list__items a {
   display: flex;
-  padding: 0 16px 16px;
+  padding: 0 32px 16px;
   color: var(--c-primary-white);
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: var(--body-1-font-size);
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* Menu wrapper */
@@ -397,6 +398,8 @@
   .v2-prefooter li:first-child a { margin-right: auto; }
   .v2-prefooter li:last-child a { margin-left: auto;  }
 
+  .v2-prefooter .icon-arrow-right { padding-top: 0; }
+
   /* Truck list menu */
 
   .v2-footer-truck-list {
@@ -404,16 +407,19 @@
   }
 
   .v2-footer-truck-list__wrapper {
-    padding-left: 30px;
-    padding-right: 30px;
     margin: auto;
-    max-width: 1100px;
     display: flex;
     align-items: baseline;
   }
 
   .v2-footer-truck-list__title {
     font-family: var(--ff-subheadings-medium);
+    margin: 0 auto 0 0;
+    padding: 24px 32px 24px 0;
+  }
+
+  .v2-footer-truck-list__title .icon-dropdown-caret {
+    display: none;
   }
 
   .v2-footer-truck-list__items { 
@@ -427,10 +433,6 @@
 
   .v2-footer-truck-list__items a {
     padding: 0;
-  }
-
-  .icon-dropdown-caret {
-    display: none;
   }
 
   .v2-footer-menu {
