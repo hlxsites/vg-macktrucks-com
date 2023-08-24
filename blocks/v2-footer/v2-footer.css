@@ -167,11 +167,10 @@
 
 /* eloqua footer form styles - START */
 .v2-footer-newsletter .eloqua-form {
-  max-width: 1200px;
+  margin: 0;
 }
 
 .v2-footer-newsletter .eloqua-form p {
-  font-size: 11px;
   font-family: var(--ff-body);
 }
 
@@ -183,48 +182,44 @@
   padding: 0;
 }
 
-.v2-footer-newsletter .elq-form input[type='text'] {
-  background-color: var(--c-primary-white);
-  padding: 15px 10px;
-  border: none;
-  max-width: 320px;
-  font-family: var(--ff-body);
-  font-size: 13px;
-  line-height: 16px;
-  color: var(--c-primary-black);
-}
-
-.v2-footer-newsletter .elq-form input[type='text']::placeholder {
-  color: var(--c-primary-black);
-}
-
-.v2-footer-newsletter .elq-form .checkbox-label {
-  font-size: 13px;
-  font-family: var(--ff-body);
-  bottom: 0;
-  padding-left: 0;
-}
-
-.v2-footer-newsletter .elq-form input.submit-button {
-  color: var(--c-primary-black);
-  background: transparent;
-  font-size: 20px !important;
-  line-height: 30px;
-  height: auto;
-  cursor: pointer;
-  margin: 0;
-  padding: 5px 10px;
-}
-
 .v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container {
-  display: flex;
-  align-items: stretch;
+  display: block;
   position: relative;
+  max-width: 320px;
+  margin-bottom: 5px;
 }
 
 .v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='text'] {
-  padding-right: 40px;
+  padding: 14px 48px 14px 14px;
+  border: none;
+  font-family: var(--ff-body);
+  font-size: var(--body-2-font-size);
+  line-height: var(--body-2-font-size);
+  color: var(--c-secondary-graphite);
+  background-color: var(--c-primary-white);
   height: 48px;
+}
+
+.v2-footer-newsletter .elq-form input[type='text']::placeholder {
+  color: var(--c-secondary-graphite);
+}
+
+.v2-footer-newsletter .elq-form .submit-button {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48px !important;
+  height: 48px !important;
+  background: var(--button-secondary-gold-enabled) url('../../icons/arrow-right.svg') no-repeat center;
+}
+
+.v2-footer-newsletter .elq-form .submit-button:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.v2-footer-newsletter .elq-form .submit-button:active {
+  background-color: var(--button-secondary-gold-pressed);
 }
 
 .v2-footer-newsletter .elq-form .loader {
@@ -237,35 +232,16 @@
   background: #212121;
 }
 
-.v2-footer-newsletter .eloqua-form input[type='submit']:hover {
-  color: var(--c-primary-black);
-}
-
-.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit'] {
-  height: 48px !important;
-  width: 48px !important;
-  background: var(--c-primary-gold) url("../../icons/arrow-right.svg") no-repeat center;
-}
-
-.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit']:hover {
-  background-color: var(--button-secondary-gold-hover);
-}
-
-.v2-footer-newsletter .eloqua-form .elq-form .email-and-submit-container input[type='submit']:active {
-  background-color: var(--button-secondary-gold-pressed);
+.v2-footer-newsletter .elq-form .checkbox-label {
+  bottom: 0;
+  padding-left: 0;
+  font-family: var(--ff-body);
+  font-size: var(--body-2-font-size);
+  line-height: var(--body-2-font-size);
 }
 
 .v2-footer-newsletter .checkbox-span {
   position: relative;
-}
-
-.v2-footer-newsletter .checkbox-span input[type='checkbox'][id] {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 4px;
-  left: 0;
-  padding: 0;
 }
 
 .v2-footer-newsletter .checkbox-span label[for] {
@@ -287,6 +263,15 @@
   background: var(--c-primary-black);
 }
 
+.v2-footer-newsletter .checkbox-span input[type='checkbox'][id] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  padding: 0;
+}
+
 .v2-footer-newsletter .checkbox-span input:checked~label[for]::after {
   content: "\f00c";
   font-family: var(--ff-fontawesome);
@@ -299,16 +284,13 @@
 }
 
 .v2-footer-newsletter .confirm-checkbox {
+  display: none !important;
   user-select: none;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 1s;
-  visibility: hidden;
 }
 
 .v2-footer-newsletter .confirm-checkbox.show {
-  opacity: 1;
-  visibility: visible;
+  display: block !important;
 }
 
 /* eloqua footer form styles - END */
