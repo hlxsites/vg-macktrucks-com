@@ -40,7 +40,7 @@
 }
 
 .v2-prefooter a {
-  font-size: 24px;
+  font-size: 18px;
   font-family: var(--ff-subheadings-medium);
   line-height: 140%;
   letter-spacing: 0.36px;
@@ -70,8 +70,38 @@
 }
 
 .v2-footer-truck-list__title {
-  margin: 0;
-  padding: 24px 32px;
+  margin: 0 auto;
+  padding: 24px 0;
+  max-width: 420px;
+  font-family: var(--ff-body);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 1.92px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+}
+
+.v2-footer-truck-list__items {
+  transition: 300ms max-height ease;
+  will-change: max-height;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.v2-footer-truck-list__items a {
+  display: flex;
+  padding: 0 16px 16px;
+  color: var(--c-primary-white);
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+  justify-content: center;
 }
 
 /* Menu wrapper */
@@ -283,6 +313,39 @@
 }
 
 @media (min-width: 1200px) {
+  /* Prefooter */
+
+  .v2-prefooter ul {
+    display: flex;
+    flex-direction: row;
+    padding: 28px 0 24px;
+    max-width: var(--wrapper-width);
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  .v2-prefooter li { 
+    width: calc(100%/3);
+  }
+
+  .v2-prefooter a { 
+    font-size: 24px;
+    display: flex;
+    gap: 12px;
+    border-bottom: none;
+    justify-content: center;
+    letter-spacing: 0.48px;
+    border-right: solid var(--c-primary-black) 1px;
+  }
+
+  .v2-prefooter li:last-child a {
+    border-right: 0;
+  }
+
+  /* Truck list menu */
+
+
+
   .v2-footer-menu {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
