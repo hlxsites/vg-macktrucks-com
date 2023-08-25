@@ -641,7 +641,8 @@ main .section.magazine-listing-content h3 {
 }
 
 main sup {
-  font-size: clamp(var(--body-font-size-xxs), 12px, 1em);
+  font-size: clamp(var(--body-font-size-s), 12px, 1em);
+  padding-left: 3px;
 }
 
 @media (min-width: 768px) {
