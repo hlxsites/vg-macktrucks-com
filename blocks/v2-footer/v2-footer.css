@@ -366,7 +366,7 @@
   z-index: 99;
   border: none;
   cursor: pointer;
-  padding: 12px;
+  padding: 14px;
   background-color: var(--c-primary-gold);
   filter: drop-shadow(0 6.8853px 17.2133px rgb(0 0 0 / 20%) );
 }
@@ -382,8 +382,8 @@
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-scroll-to-top svg {
   transform: rotate(-90deg);
-  height: 24px;
-  width: 24px;
+  height: 22px;
+  width: 22px;
 }
 
 @media (min-width: 1200px) {
