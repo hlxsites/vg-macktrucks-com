@@ -366,8 +366,7 @@
   z-index: 99;
   border: none;
   cursor: pointer;
-  border-radius: 10px;
-  padding: 12px 24px;
+  padding: 12px;
   background-color: var(--c-primary-gold);
   filter: drop-shadow(0 6.8853px 17.2133px rgb(0 0 0 / 20%) );
 }
@@ -382,8 +381,9 @@
 
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-scroll-to-top svg {
-  margin-top: 8px; 
   transform: rotate(-90deg);
+  height: 24px;
+  width: 24px;
 }
 
 @media (min-width: 1200px) {
