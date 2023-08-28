@@ -369,7 +369,7 @@
   cursor: pointer;
   padding: 12px;
   background-color: var(--c-primary-gold);
-  filter: drop-shadow(0 6.8853px 17.2133px rgb(0 0 0 / 20%) );
+  box-shadow: 0 8px 16px rgb(0 0 0 / 30%);
 }
 
 .v2-scroll-to-top:hover {
