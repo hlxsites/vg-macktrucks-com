@@ -58,18 +58,15 @@ main .section.v2-cards-container .v2-cards-wrapper {
 }
 
 .v2-cards__button-container .v2-cards__button:any-link {
-  color: var(--c-primary-black);
-  font-family: var(--ff-subheadings-medium);
-  font-size: var(--button-font-size);
-  font-style: normal;
-  line-height: var(--button-line-height);
-  letter-spacing: 1.12px;
-  display: inline-flex;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  justify-content: left;
+  align-items: flex-start;
+}
+
+.v2-cards__button-container .icon {
+  stroke: currentcolor;
+}
+
+.v2-cards__button-container .v2-cards__button:hover {
+  color: var(--c-secondary-steel);
 }
 
 @media (min-width: 740px) {

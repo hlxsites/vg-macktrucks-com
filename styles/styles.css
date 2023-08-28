@@ -251,13 +251,13 @@ h1, h2 {
 h1 {
   font-size: var(--headline-1-font-size);
   line-height: var(--headline-1-line-height);
-  letter-spacing: var(--headline-1-line-letter-spacing);
+  letter-spacing: var(--headline-1-letter-spacing);
 }
 
 h2 {
   font-size: var(--headline-2-font-size);
   line-height: var(--headline-2-line-height);
-  letter-spacing: var(--headline-2-line-letter-spacing);
+  letter-spacing: var(--headline-2-letter-spacing);
 }
 
 h3 {
@@ -828,7 +828,7 @@ main .section.responsive-title h1 {
   width: 1em;
 }
 
-.redesign-v2 .section.dark-backgorund {
+.redesign-v2 .section.section-dark {
   background-color: var(--c-secondary-graphite);
   color: var(--c-primary-white);
 }
@@ -979,6 +979,25 @@ main .section.responsive-title h1 {
   display: block;
   position: relative;
   top: -18px;
+}
+
+.redesign-v2 a.standalone-link {
+  align-items: center;
+  color: var(--c-primary-black);
+  display: inline-flex;
+  font-family: var(--ff-body-bold);
+  font-size: var(--button-font-size);
+  gap: 4px;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  background: transparent;
+}
+
+.redesign-v2 a.standalone-link:active,
+.redesign-v2 a.standalone-link:visited,
+.redesign-v2 a.standalone-link:hover {
+  background: transparent;
+  color: var(--c-cta-blue-active);
 }
 
 @media (min-width: 1040px) {
