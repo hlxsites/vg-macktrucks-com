@@ -32,9 +32,10 @@ function goToTopFunction() {
 }
 
 function addScrollToTopButton(mainEl) {
-  const scrollToTopButton = createElement('button', ['scroll-to-top', 'button'], { title: 'Go to the top of the page' });
-  const icon = createElement('i', ['fa', 'fa-angle-up']);
-  scrollToTopButton.appendChild(icon);
+  const scrollToTopButton = createElement('button', ['v2-scroll-to-top'], { title: 'Go to the top of the page' });
+  const svgIcon = document.createRange().createContextualFragment(`
+  <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>`);
+  scrollToTopButton.append(...svgIcon.children);
 
   scrollToTopButton.addEventListener('click', goToTopFunction);
   window.addEventListener('scroll', () => displayScrollToTop(scrollToTopButton));
