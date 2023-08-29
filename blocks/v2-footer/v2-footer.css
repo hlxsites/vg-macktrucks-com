@@ -140,6 +140,10 @@
   height: 19px;
 }
 
+.v2-footer-menu__logo svg path[fill] {
+  fill: var(--c-primary-white);
+}
+
 /* Menu */
 .v2-footer-menu__columns {
   grid-area: menu;
