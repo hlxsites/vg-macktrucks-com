@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 const buildLinkAndList = (block) => {
   const specsTitle = block.querySelector('h3');
@@ -13,12 +13,12 @@ const buildLinkAndList = (block) => {
     ul.classList.add('link-and-list');
   });
 
-  const specsSection = createElement('div', 'specs-section');
-  const specsHeading = createElement('div', 'specs-heading');
-  const specsList = createElement('ul', 'specs-list');
+  const specsSection = createElement('div', { classes: 'specs-section' });
+  const specsHeading = createElement('div', { classes: 'specs-heading' });
+  const specsList = createElement('ul', { classes: 'specs-list' });
 
   for (let idx = 0; idx < subtitles.length; idx += 1) {
-    const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
+    const item = createElement('li', { classes: ['specs-item', `specs-item-${idx + 1}`] });
     const link = subtitles[idx].querySelector('a');
 
     if (link) {
@@ -44,16 +44,16 @@ const buildDefaultSpecs = (block) => {
 
   const specsTitle = children.shift().querySelector('h3');
 
-  const specsSection = createElement('div', 'specs-section');
-  const specsHeading = createElement('div', 'specs-heading');
-  const specsList = createElement('ul', 'specs-list');
+  const specsSection = createElement('div', { classes: 'specs-section' });
+  const specsHeading = createElement('div', { classes: 'specs-heading' });
+  const specsList = createElement('ul', { classes: 'specs-list' });
 
   if (ulElements.length === 1) {
     const liElements = [...ulElements[0].querySelectorAll('li')];
 
     liElements.forEach((e, idx) => {
-      const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
-      const text = createElement('p', 'p-element');
+      const item = createElement('li', { classes: ['specs-item', `specs-item-${idx + 1}`] });
+      const text = createElement('p', { classes: 'p-element' });
       const isStrong = e.querySelector('strong');
       const link = e.querySelector('a');
 
@@ -73,17 +73,17 @@ const buildDefaultSpecs = (block) => {
     specsList.classList.add('specs-list-multiple');
 
     ulElements.forEach((e, idx) => {
-      const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`]);
+      const item = createElement('li', { classes: ['specs-item', `specs-item-${idx + 1}`] });
 
       const subtitle = e.parentNode.querySelector('p');
       subtitle.classList.add('specs-item-subtitle');
       if (idx <= 2) item.append(subtitle);
 
       const liElements = [...e.querySelectorAll('li')];
-      const features = createElement('div', 'feature-list');
+      const features = createElement('div', { classes: 'feature-list' });
 
       liElements.forEach((feature) => {
-        const text = createElement('p', 'p-element');
+        const text = createElement('p', { classes: 'p-element' });
         const isStrong = feature.querySelector('strong');
 
         text.append(isStrong ?? feature.innerText);
@@ -94,7 +94,7 @@ const buildDefaultSpecs = (block) => {
     });
   } else {
     children.forEach((e, idx) => {
-      const item = createElement('li', ['specs-item', `specs-item-${idx + 1}`, 'specs-item-with-image']);
+      const item = createElement('li', { classes: ['specs-item', `specs-item-${idx + 1}`, 'specs-item-with-image'] });
 
       const pElements = [...e.querySelectorAll('p')];
       const picture = e.querySelector('picture');
@@ -102,8 +102,8 @@ const buildDefaultSpecs = (block) => {
 
       if (!subtitle || !content) {
         const singleText = e.innerText;
-        const text = createElement('p', 'single-text');
-        const strongTag = createElement('strong', 'single-text');
+        const text = createElement('p', { classes: 'single-text' });
+        const strongTag = createElement('strong', { classes: 'single-text' });
         strongTag.innerText = singleText;
         text.append(strongTag);
         item.append(text);

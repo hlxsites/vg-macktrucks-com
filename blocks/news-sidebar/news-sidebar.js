@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 import {
   feedsInfo,
   getBodyBuilderNews, getMackNews, PagingInfo,
@@ -15,10 +15,13 @@ export default async function decorate(block) {
     : await getMackNews(window.location.pathname, pagingInfo, '');
 
   block.textContent = '';
-  const list = createElement('ul', ['news-sidebar-list']);
+  const list = createElement('ul', { classes: ['news-sidebar-list'] });
   block.append(list);
 
-  const rssLink = createElement('a', ['news-sidebar-rss-icon'], { href: feedsInfo[type].feedPath });
+  const rssLink = createElement('a', {
+    classes: ['news-sidebar-rss-icon'],
+    props: { href: feedsInfo[type].feedPath },
+  });
   rssLink.textContent = 'News RSS';
 
   list.appendChild(rssLink);
@@ -27,7 +30,7 @@ export default async function decorate(block) {
   newsPage.forEach((newsData) => {
     const li = createElement('li');
 
-    const newsItem = createElement('a', [], { href: newsData.path });
+    const newsItem = createElement('a', { props: { href: newsData.path } });
     if (window.location.pathname === newsData.path) {
       newsItem.classList.add('new-sidebar-active-link');
     }
@@ -53,11 +56,11 @@ export default async function decorate(block) {
     </div>
   `;
 
-  const selectContainer = createElement('div', 'news-sidebar-select-container');
+  const selectContainer = createElement('div', { classes: 'news-sidebar-select-container' });
 
   const select = div.querySelector('select');
   newsPage.forEach((item) => {
-    const option = createElement('option', [], { value: item.path });
+    const option = createElement('option', { props: { value: item.path } });
     // eslint-disable-next-line prefer-destructuring
     option.textContent = item.title.split('|')[0];
     select.append(option);
@@ -85,7 +88,11 @@ function getParentCategoryLink(pagePath) {
   // format the parent folder name to be more readable
   parentFolderName = parentFolderName?.replaceAll('-', ' ');
 
-  const category = createElement('a', [], { href: `/${parentFolders.join('/')}/` });
+  const category = createElement('a', {
+    props: {
+      href: `/${parentFolders.join('/')}/`,
+    },
+  });
   category.textContent = parentFolderName;
   return category;
 }

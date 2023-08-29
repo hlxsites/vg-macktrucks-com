@@ -18,6 +18,17 @@ import {
   loadScript,
 } from './lib-franklin.js';
 
+import {
+  createElement,
+  addFavIcon,
+  loadDelayed,
+  getPlaceholders,
+} from './common.js';
+import {
+  isVideoLink,
+  addVideoShowHandler,
+} from './video-helper.js';
+
 /**
  * Add the image as background
  * @param {Element} section the section container
@@ -94,18 +105,16 @@ export function decorateButtons(element) {
           twoup.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
-          const arrow = document.createElement('span');
+          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
           link.className = 'button arrowed';
           twoup.parentElement.className = 'button-container';
-          arrow.className = 'fa fa-arrow-right';
           link.appendChild(arrow);
         }
         if (up.tagName === 'LI' && twoup.children.length === 1
           && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
-          const arrow = document.createElement('span');
+          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
           link.className = 'button arrowed';
           twoup.className = 'button-container';
-          arrow.className = 'fa fa-arrow-right';
           link.appendChild(arrow);
         }
       }
@@ -121,16 +130,6 @@ window.mack.newsData = window.mack.newsData || {
   offset: 0,
   allLoaded: false,
 };
-
-let placeholders = null;
-
-async function getPlaceholders() {
-  placeholders = await fetch('/placeholder.json').then((resp) => resp.json());
-}
-
-export function getTextLabel(key) {
-  return placeholders?.data.find((el) => el.Key === key).Text || key;
-}
 
 export function findAndCreateImageLink(node) {
   const links = node.querySelectorAll('picture ~ a');
@@ -150,30 +149,6 @@ export function findAndCreateImageLink(node) {
     }
   });
 }
-
-/**
- * Create an element with the given id and classes.
- * @param {string} tagName the tag
- * @param {string[]|string} classes the class or classes to add
- * @param {object} props any other attributes to add to the element
- * @returns the element
- */
-export function createElement(tagName, classes = [], props = {}) {
-  const elem = document.createElement(tagName);
-  if (classes) {
-    const classesArr = (typeof classes === 'string') ? [classes] : classes;
-    elem.classList.add(...classesArr);
-  }
-  if (props) {
-    Object.keys(props).forEach((propName) => {
-      const value = propName === props[propName] ? '' : props[propName];
-      elem.setAttribute(propName, value);
-    });
-  }
-
-  return elem;
-}
-
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -311,24 +286,6 @@ async function loadEager(doc) {
 
   await getPlaceholders();
 }
-
-/**
- * Adds the favicon.
- * @param {string} href The favicon URL
- */
-export function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/svg+xml';
-  link.href = href;
-  const existingLink = document.querySelector('head link[rel="icon"]');
-  if (existingLink) {
-    existingLink.parentElement.replaceChild(link, existingLink);
-  } else {
-    document.getElementsByTagName('head')[0].appendChild(link);
-  }
-}
-
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
@@ -361,16 +318,6 @@ async function loadLazy(doc) {
   sampleRUM.observe(main.querySelectorAll('picture > img'));
 }
 
-/**
- * Loads everything that happens a lot later,
- * without impacting the user experience.
- */
-function loadDelayed() {
-  // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -378,99 +325,6 @@ async function loadPage() {
 }
 
 loadPage();
-
-// video helpers
-export function isLowResolutionVideoUrl(url) {
-  return url.split('?')[0].endsWith('.mp4');
-}
-
-export function isVideoLink(link) {
-  const linkString = link.getAttribute('href');
-  return (linkString.includes('youtube.com/embed/')
-    || isLowResolutionVideoUrl(linkString))
-    && link.closest('.block.embed') === null;
-}
-
-export function selectVideoLink(links, preferredType) {
-  const linksList = [...links];
-  const optanonConsentCookieValue = decodeURIComponent(document.cookie.split(';').find((cookie) => cookie.trim().startsWith('OptanonConsent=')));
-  const cookieConsentForExternalVideos = optanonConsentCookieValue.includes('C0005:1');
-  const shouldUseYouTubeLinks = cookieConsentForExternalVideos && preferredType !== 'local';
-  const youTubeLink = linksList.find((link) => link.getAttribute('href').includes('youtube.com/embed/'));
-  const localMediaLink = linksList.find((link) => link.getAttribute('href').split('?')[0].endsWith('.mp4'));
-
-  if (shouldUseYouTubeLinks && youTubeLink) {
-    return youTubeLink;
-  }
-  return localMediaLink;
-}
-
-export function createLowResolutionBanner() {
-  const lowResolutionMessage = getTextLabel('Low resolution video message');
-  const changeCookieSettings = getTextLabel('Change cookie settings');
-
-  const banner = createElement('div', ['low-resolution-banner']);
-  banner.innerHTML = `${lowResolutionMessage} <button class="low-resolution-banner-cookie-settings">${changeCookieSettings}</button>`;
-  banner.querySelector('button').addEventListener('click', () => {
-    window.OneTrust.ToggleInfoDisplay();
-  });
-
-  return banner;
-}
-
-export function showVideoModal(linkUrl) {
-  // eslint-disable-next-line import/no-cycle
-  import('../common/modal/modal-component.js').then((modal) => {
-    let beforeBanner = null;
-
-    if (isLowResolutionVideoUrl(linkUrl)) {
-      beforeBanner = createLowResolutionBanner();
-    }
-
-    modal.showModal(linkUrl, { beforeBanner });
-  });
-}
-
-export function addVideoShowHandler(link) {
-  link.classList.add('text-link-with-video');
-
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    showVideoModal(link.getAttribute('href'));
-  });
-}
-
-export function addPlayIcon(parent) {
-  const iconWrapper = createElement('div', ['video-icon-wrapper']);
-  const icon = createElement('i', ['fa', 'fa-play', 'video-icon']);
-  iconWrapper.appendChild(icon);
-  parent.appendChild(iconWrapper);
-}
-
-export function wrapImageWithVideoLink(videoLink, image) {
-  videoLink.innerText = '';
-  videoLink.appendChild(image);
-  videoLink.classList.add('link-with-video');
-  videoLink.classList.remove('button', 'primary', 'text-link-with-video');
-
-  addPlayIcon(videoLink);
-}
-
-export function createIframe(url, { parentEl, classes = [] }) {
-  // iframe must be recreated every time otherwise the new history record would be created
-  const iframe = createElement('iframe', classes, {
-    frameborder: '0',
-    allowfullscreen: 'allowfullscreen',
-    src: url,
-  });
-
-  if (parentEl) {
-    parentEl.appendChild(iframe);
-  }
-
-  return iframe;
-}
 
 /* this function load script only when it wasn't loaded yet */
 const scriptMap = new Map();
@@ -494,7 +348,10 @@ export function loadScriptIfNotLoadedYet(url, attrs) {
  */
 export function loadAsBlock(blockName, blockContent, options = {}) {
   const { variantsClasses = [] } = options;
-  const blockEl = createElement('div', ['block', blockName, ...variantsClasses], { 'data-block-name': blockName });
+  const blockEl = createElement('div', {
+    classes: ['block', blockName, ...variantsClasses],
+    props: { 'data-block-name': blockName },
+  });
 
   blockEl.innerHTML = blockContent;
   loadBlock(blockEl);
@@ -629,13 +486,4 @@ allLinks.forEach((link) => {
 /* REDESING CLASS CHECK */
 if (getMetadata('style') === 'redesign-v2') {
   document.querySelector('html').classList.add('redesign-v2');
-}
-
-export function variantsClassesToBEM(blockClasses, expectedVariantsNames, blockName) {
-  expectedVariantsNames.forEach((variant) => {
-    if (blockClasses.contains(variant)) {
-      blockClasses.remove(variant);
-      blockClasses.add(`${blockName}__${variant}`);
-    }
-  });
 }

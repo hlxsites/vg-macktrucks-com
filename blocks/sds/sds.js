@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 function newId() {
   return (Math.random() + 1).toString(36).substring(7);
@@ -32,7 +32,7 @@ function normalizeCells(cells, rowheaderRole = 'rowheader', cellRole = 'cell') {
     if (cell.children.length === 0 && !cell.querySelector('p') && cell.textContent !== '') {
       const text = cell.innerHTML;
       const fragment = document.createRange().createContextualFragment(text);
-      const pWrapper = createElement('p', '');
+      const pWrapper = createElement('p');
       cell.textContent = '';
       pWrapper.appendChild(fragment);
       cell.appendChild(pWrapper);
@@ -68,7 +68,7 @@ export default function decorate(block) {
   if (header.children.length > 1) {
     header.className = 'column-header';
     normalizeCells(header.children, 'rowheader', 'columnheader');
-    const mobileColumnHeader = createElement('div', 'column-header-mobile');
+    const mobileColumnHeader = createElement('div', { classes: 'column-header-mobile' });
     const select = `<select>
       ${[...header.querySelectorAll('[role="columnheader"]')]
     .map((columnHeader, i) => `<option value="${i + 1}">${columnHeader.textContent}</option>`)
@@ -96,7 +96,10 @@ export default function decorate(block) {
     if (cells.length === 1
       && (!singleColumn
         || (cells[0].children.length === 1 && firstChild && firstChild.tagName === 'STRONG'))) {
-      const button = createElement('button', 'rowgroup-header', { type: 'button' });
+      const button = createElement('button', {
+        classes: 'rowgroup-header',
+        props: { type: 'button' },
+      });
       button.appendChild(cells[0]);
       button.addEventListener('click', expand);
       button.ariaExpanded = false;

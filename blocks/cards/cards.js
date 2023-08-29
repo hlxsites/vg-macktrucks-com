@@ -1,5 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 const updateListElements = (ul, isDarkVar = false, isCTABlock = false) => {
   const lis = [...ul.children];
@@ -17,7 +17,9 @@ const updateListElements = (ul, isDarkVar = false, isCTABlock = false) => {
       const { length } = buttons;
       if (length === 0) return;
       const tempLink = [...buttons].at(-1).firstChild;
-      const newLink = createElement('a', '', { href: tempLink.href, title: tempLink.title });
+      const newLink = createElement('a', '', {
+        props: { href: tempLink.href, title: tempLink.title },
+      });
 
       buttons[length - 1].remove();
       newLink.innerHTML = li.innerHTML;
