@@ -85,6 +85,7 @@
   --color-icon: var(--c-primary-white);
 
   transition: transform var(--duration-medium) cubic-bezier(0.45, 0, 0.125, 1);
+  pointer-events: none;
 }
 
 .v2-footer-truck-list.expand .icon-dropdown-caret {
