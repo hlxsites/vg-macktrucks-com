@@ -2,6 +2,7 @@ import {
   sampleRUM,
   buildBlock,
   loadHeader,
+  loadFooter,
   decorateIcons,
   decorateBlocks,
   decorateBlock,
@@ -377,15 +378,6 @@ async function loadPage() {
 }
 
 loadPage();
-
-function loadFooter(footer) {
-  if (footer) {
-    const footerBlock = buildBlock('v2-footer', '');
-    footer.append(footerBlock);
-    decorateBlock(footerBlock);
-    loadBlock(footerBlock);
-  }
-}
 
 // video helpers
 export function isLowResolutionVideoUrl(url) {
