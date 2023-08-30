@@ -565,7 +565,7 @@ export function loadHeader(header) {
  * @returns {Promise}
  */
 export function loadFooter(footer) {
-  const footerBlock = buildBlock('footer', '');
+  const footerBlock = buildBlock('v2-footer', '');
   footer.append(footerBlock);
   decorateBlock(footerBlock);
   return loadBlock(footerBlock);
