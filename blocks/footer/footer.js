@@ -10,12 +10,12 @@ const addClassToTitle = (block, className) => {
   [...headings].forEach((h) => h.classList.add(className));
 };
 
-const blockName = 'v2-footer';
-const blockNamePrefooter = 'v2-prefooter';
-const blockNameTruckList = 'v2-footer-truck-list';
-const blockNameMenu = 'v2-footer-menu';
-const blockNameNewsletter = 'v2-footer-newsletter';
-const blockNameLegal = 'v2-footer-legal';
+const blockName = 'footer';
+const blockNamePrefooter = 'prefooter';
+const blockNameTruckList = 'footer-truck-list';
+const blockNameMenu = 'footer-menu';
+const blockNameNewsletter = 'footer-newsletter';
+const blockNameLegal = 'footer-legal';
 
 function displayScrollToTop(buttonEl) {
   const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -36,7 +36,7 @@ function goToTopFunction() {
 }
 
 function addScrollToTopButton(mainEl) {
-  const scrollToTopButton = createElement('button', ['v2-scroll-to-top'], { title: 'Go to the top of the page' });
+  const scrollToTopButton = createElement('button', ['scroll-to-top'], { title: 'Go to the top of the page' });
   const svgIcon = document.createRange().createContextualFragment(`
   <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>`);
   scrollToTopButton.append(...svgIcon.children);
