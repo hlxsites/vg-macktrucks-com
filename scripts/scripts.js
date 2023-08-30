@@ -228,6 +228,92 @@ export function decorateLinks(block) {
     });
 }
 
+const slugify = (text) => (
+  text.toString().toLowerCase().trim()
+    // separate accent from letter
+    .normalize('NFD')
+    // remove all separated accents
+    .replace(/[\u0300-\u036f]/g, '')
+    // replace spaces with -
+    .replace(/\s+/g, '-')
+    // replace & with 'and'
+    .replace(/&/g, '-and-')
+    // remove all non-word chars
+    .replace(/[^\w-]+/g, '')
+    // replace multiple '-' with single '-'
+    .replace(/--+/g, '-')
+);
+
+const createInpageNavigation = (main) => {
+  const navItems = [];
+  const tabItemsObj = [];
+
+  // Extract the inpage navigation info from sections
+  [...main.querySelectorAll(':scope > div')].forEach((section) => {
+    const title = section.dataset.inpage;
+    if (title) {
+      const countDuplcated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
+      const order = section.dataset.inpageOrder;
+      const anchorID = (countDuplcated > 0) ? slugify(`${section.dataset.inpage}-${countDuplcated}`) : slugify(section.dataset.inpage);
+      const obj = {
+        title,
+        id: anchorID,
+      };
+
+      if (order) {
+        obj.order = parseFloat(section.dataset.subnavOrder);
+      }
+
+      tabItemsObj.push(obj);
+
+      // Set section with ID
+      section.dataset.inpageid = anchorID;
+    }
+  });
+
+  // Sort the object by order
+  const sortedObject = tabItemsObj.slice().sort((obj1, obj2) => {
+    if (obj1.order === null || obj1.order === undefined) {
+      return 1; // Move 'a' to the end
+    }
+    if (obj2.order === null || obj2.order === undefined) {
+      return -1; // Move 'b' to the end
+    }
+    return obj1.order - obj2.order; // Compare by order values
+  });
+
+  // From the array of objects create the DOM
+  sortedObject.forEach((item) => {
+    const subnavItem = createElement('div');
+    const subnavLink = createElement('button', {
+      props: {
+        'data-id': item.id,
+        title: item.title,
+      },
+    });
+
+    subnavLink.textContent = item.title;
+
+    subnavItem.append(subnavLink);
+    navItems.push(subnavItem);
+  });
+
+  return navItems;
+};
+
+function buildInpageNavigationBlock(main) {
+  const inapgeClassName = 'v2-inpage-navigation';
+
+  const items = createInpageNavigation(main);
+
+  if (items.length > 0) {
+    const section = createElement('div');
+    section.append(buildBlock(inapgeClassName, { elems: items }));
+    main.prepend(section);
+    decorateBlock(section.querySelector(`.${inapgeClassName}`));
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -241,6 +327,9 @@ export function decorateMain(main, head) {
   decorateSections(main);
   decorateBlocks(main);
   decorateLinks(main);
+
+  // Inpage navigation
+  buildInpageNavigationBlock(main);
 }
 
 async function loadTemplate(doc, templateName) {
