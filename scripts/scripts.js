@@ -309,7 +309,9 @@ function buildInpageNavigationBlock(main) {
   if (items.length > 0) {
     const section = createElement('div');
     section.append(buildBlock(inapgeClassName, { elems: items }));
-    main.prepend(section);
+    // insert in second position, assumption is that Hero should be first
+    main.insertBefore(section, main.children[1]);
+
     decorateBlock(section.querySelector(`.${inapgeClassName}`));
   }
 }

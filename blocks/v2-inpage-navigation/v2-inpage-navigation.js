@@ -69,17 +69,26 @@ const updateActive = (id) => {
   if (!selectedButton[0]) return;
   currentItem.textContent = selectedButton[0].textContent;
   selectedButton[0].parentNode.classList.add(`${blockName}__item--active`);
+
+  const { pathname } = window.location;
+  window.history.replaceState({}, '', `${pathname}#${id}`);
 };
 
 const listenScroll = () => {
   // const main = document.querySelector('main');
+  let timeout;
   const elements = document.querySelectorAll('main .section[data-inpageid]');
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         // console.log(entry.intersectionRatio, entry.target.dataset.inpageid, entry.target);
-        updateActive(entry.target.dataset.inpageid);
+        clearTimeout(timeout);
+
+        // wait to update the active item
+        timeout = setTimeout(() => {
+          updateActive(entry.target.dataset.inpageid);
+        }, 500);
       }
     });
   }, {
