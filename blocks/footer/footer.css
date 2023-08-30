@@ -1,9 +1,9 @@
-.v2-footer {
+.footer {
   background: var(--c-primary-black);
   color: var(--c-secondary-silver);
 }
 
-.v2-footer svg {
+.footer svg {
   display: block;
   height: 1em;
   width: 1em;
