@@ -59,6 +59,11 @@
   font-size: 13px;
 }
 
+.v2-testimonial__author svg {
+  width: 34px;
+  height: 17px;
+}
+
 .v2-testimonial__video-link-wrapper {
   margin: 0;
   display: flex;

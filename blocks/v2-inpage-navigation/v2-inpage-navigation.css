@@ -1,0 +1,107 @@
+.v2-inpage-navigation {
+}
+
+.v2-inpage-navigation__wrapper {
+  display: flex;
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.16);
+  height: 48px;
+}
+
+.v2-inpage-navigation__dropdown {
+  flex-grow: 1;
+  position: relative;
+}
+
+.v2-inpage-navigation__dropdown--open .v2-inpage-navigation__items  {
+  display: block;
+}
+
+.v2-inpage-navigation__items {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  background-color: var(--c-primary-white);
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.16);
+
+  /* display: flex;
+  flex-direction: column; */
+}
+.v2-inpage-navigation__item button,
+.v2-inpage-navigation__selected-item {
+  display: block;
+  margin: 0;
+  padding: 14px 24px;
+  background: none;
+  color: var(--c-primary-black);
+  font-family: var(--ff-body-bold);
+  font-size: var(--body-2-font-size);
+  line-height: var(--body-2-line-height);
+  cursor: pointer;
+}
+
+.v2-inpage-navigation__item button:active,
+.v2-inpage-navigation__selected-item:active {
+  background-color: #F1F1F1;
+}
+
+.v2-inpage-navigation__item button {
+  max-width: none;
+  width: 100%;
+  text-align: left;
+}
+
+.v2-inpage-navigation__selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.v2-inpage-navigation__selected-item::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-color: red;
+}
+
+/* Buttons */
+.v2-inpage-navigation__cta:any-link {
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  font-family: var(--ff-body);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 1.12px;
+  background-color: var(--button-primary-red-enabled);
+  color: var(--c-primary-white);
+}
+
+.v2-inpage-navigation__cta:hover,
+.v2-inpage-navigation__cta:focus {
+  background-color: var(--button-primary-red-hover);
+}
+
+.v2-inpage-navigation__cta:active {
+  background-color: var(--button-primary-red-pressed);
+}
+
+.v2-inpage-navigation__cta--desktop {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .v2-inpage-navigation__cta--mobile {
+    display: none;
+  }
+
+  .v2-inpage-navigation__cta--desktop {
+    display: block;
+  }
+}
