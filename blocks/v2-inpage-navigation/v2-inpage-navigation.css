@@ -1,4 +1,5 @@
 .v2-inpage-navigation-wrapper {
+  box-shadow: 0 4px 24px 0 rgb(0 0 0 / 16%);
   background-color: var(--c-primary-white);
   left: 0;
   position: sticky;
@@ -8,11 +9,8 @@
 }
 
 .v2-inpage-navigation__wrapper {
-  --wrapper-margin: 0 auto;
-
-  box-shadow: 0 4px 24px 0 rgb(0 0 0 / 16%);
   display: flex;
-  margin: var(--wrapper-margin);
+  margin: 0 auto;
 }
 
 .v2-inpage-navigation__dropdown {
@@ -31,6 +29,7 @@
   position: absolute;
   top: 100%;
   width: 100%;
+  z-index: -1;
 }
 
 .v2-inpage-navigation__item--active {
@@ -130,12 +129,10 @@
 
 @media (min-width: 1200px) {
   .v2-inpage-navigation__wrapper {
-    --wrapper-margin: 24px auto;
-
     align-items: center;
-    box-shadow: none;
     gap: 24px;
     max-width: var(--wrapper-width);
+    padding: 24px 0;
   }
 
   .v2-inpage-navigation__selected-item-wrapper {
