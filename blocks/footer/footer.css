@@ -67,6 +67,7 @@
 }
 
 .footer-truck-list__title {
+  color: var(--c-primary-white);
   margin: 0 auto;
   padding: 24px 32px;
   max-width: var(--wrapper-width);
