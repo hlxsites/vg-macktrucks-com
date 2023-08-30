@@ -1,14 +1,14 @@
 import {
   addVideoShowHandler,
-  createElement,
-  getAllElWithChildren,
   isVideoLink,
   selectVideoLink,
   wrapImageWithVideoLink,
-} from '../../scripts/scripts.js';
+} from '../../scripts/video-helper.js';
+import { createElement } from '../../scripts/common.js';
+import { getAllElWithChildren } from '../../scripts/scripts.js';
 
 const decorateUnderline = (col) => {
-  const hr = createElement('hr', 'column-underline');
+  const hr = createElement('hr', { classes: 'column-underline' });
   const u = col.querySelector('u');
   if (!u) {
     const strong = col.firstElementChild.querySelector('strong');

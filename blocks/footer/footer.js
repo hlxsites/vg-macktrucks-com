@@ -1,5 +1,5 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   subscribe: getTextLabel('SUBSCRIBE TO BULLDOG'),
@@ -36,9 +36,14 @@ function goToTopFunction() {
 }
 
 function addScrollToTopButton(mainEl) {
-  const scrollToTopButton = createElement('button', ['scroll-to-top'], { title: 'Go to the top of the page' });
+  const scrollToTopButton = createElement('button', {
+    classes: 'scroll-to-top',
+    props: {
+      title: 'Go to the top of the page',
+    },
+  });
   const svgIcon = document.createRange().createContextualFragment(`
-  <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>`);
+    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>`);
   scrollToTopButton.append(...svgIcon.children);
 
   scrollToTopButton.addEventListener('click', goToTopFunction);
@@ -102,7 +107,7 @@ export default async function decorate(block) {
     truckList.classList.add(`${blockNameTruckList}__wrapper`);
     truckList.querySelector('ul')?.classList.add(`${blockNameTruckList}__items`);
     addClassToTitle(truckList, `${blockNameTruckList}__title`);
-    const truckListContent = createElement('div', blockNameTruckList);
+    const truckListContent = createElement('div', { classes: blockNameTruckList });
     truckListContent.appendChild(truckList);
 
     newFooter.append(truckListContent);
@@ -110,11 +115,11 @@ export default async function decorate(block) {
 
   // Menu: social media + logo + menu list + newsletter form
   if (footerMenu) {
-    const newMenu = createElement('div', blockNameMenu);
+    const newMenu = createElement('div', { classes: blockNameMenu });
 
     // Logo
     const logo = createElement('div');
-    const logoLink = createElement('a', '', { href: 'https://www.macktrucks.com/' });
+    const logoLink = createElement('a', { props: { href: 'https://www.macktrucks.com/' } });
     const svgLogo = document.createRange().createContextualFragment(`
     <svg xmlns="http://www.w3.org/2000/svg" width="193" height="19" viewBox="0 0 193 19">
       <g clip-path="url(#clip0_4707_6556)">
@@ -148,7 +153,7 @@ export default async function decorate(block) {
     footerMenu.firstElementChild.remove();
 
     // Menu Columns: Newsletter form
-    const newsletter = createElement('div', blockNameNewsletter);
+    const newsletter = createElement('div', { classes: blockNameNewsletter });
     const oldNews = footerMenu.querySelector(':scope > div:last-child');
     newsletter.appendChild(oldNews);
 
@@ -158,7 +163,7 @@ export default async function decorate(block) {
     addClassToTitle(newsletter, `${blockNameNewsletter}__title`);
 
     // Menu Columns: menu
-    const menu = createElement('div', `${blockNameMenu}__columns`);
+    const menu = createElement('div', { classes: `${blockNameMenu}__columns` });
     menu.innerHTML = footerMenu.innerHTML;
     const menuList = menu.querySelectorAll(':scope > div');
     menuList.forEach((item) => item.classList.add(`${blockNameMenu}__column`));
@@ -191,7 +196,7 @@ export default async function decorate(block) {
         const submitButton = block.querySelector('input[type="submit"]');
         const emailInput = block.querySelector('input[name="emailAddress"]');
         const label = emailInput.parentElement.querySelector('label');
-        const emailAndSubmitContainer = createElement('span', ['email-and-submit-container']);
+        const emailAndSubmitContainer = createElement('span', { classes: ['email-and-submit-container'] });
 
         // change the submit button to arrow button
         // and display it sticked to the right side of email input

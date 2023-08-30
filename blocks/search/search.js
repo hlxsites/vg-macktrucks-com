@@ -1,4 +1,5 @@
-import { debounce, getTextLabel } from '../../scripts/scripts.js';
+import { debounce } from '../../scripts/scripts.js';
+import { getTextLabel } from '../../scripts/common.js';
 import {
   getFacetsTemplate,
   getNoResultsTemplate,
