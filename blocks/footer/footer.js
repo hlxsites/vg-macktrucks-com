@@ -1,5 +1,5 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   visit: getTextLabel('visit aria label'),
@@ -19,7 +19,7 @@ export default async function decorate(block) {
   const footerPath = cfg.footer || '/footer';
   const resp = await fetch(`${footerPath}.plain.html`);
   const html = await resp.text();
-  const footer = createElement('footer', 'footer-content');
+  const footer = createElement('footer', { classes: 'footer-content' });
 
   footer.innerHTML = html;
 
@@ -131,7 +131,7 @@ export default async function decorate(block) {
         const submitButton = block.querySelector('input[type="submit"]');
         const emailInput = block.querySelector('input[name="emailAddress"]');
         const label = emailInput.parentElement.querySelector('label');
-        const emailAndSubmitContainer = createElement('span', ['email-and-submit-container']);
+        const emailAndSubmitContainer = createElement('span', { classes: ['email-and-submit-container'] });
 
         // change the submit button to arrow button
         // and display it sticked to the right side of email input
@@ -189,8 +189,11 @@ export default async function decorate(block) {
   }
 
   function addScrollToTopButton(mainEl) {
-    const scrollToTopButton = createElement('button', ['scroll-to-top', 'button'], { title: 'Go to the top of the page' });
-    const icon = createElement('i', ['fa', 'fa-angle-up']);
+    const scrollToTopButton = createElement('button', {
+      classes: ['scroll-to-top', 'button'],
+      props: { title: 'Go to the top of the page' },
+    });
+    const icon = createElement('i', { classes: ['fa', 'fa-angle-up'] });
     scrollToTopButton.appendChild(icon);
 
     scrollToTopButton.addEventListener('click', goToTopFunction);

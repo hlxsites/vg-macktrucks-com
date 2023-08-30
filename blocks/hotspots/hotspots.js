@@ -1,5 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 /**
  * @typedef {Object} HotspotContent
@@ -111,14 +111,19 @@ function switchToOtherHotspot(block, index) {
 }
 
 function addDesktopHotspotIcon(hotspot, block, main) {
-  const iconLink = createElement('a', 'hotspot-icon', { href: '#' });
+  const iconLink = createElement('a', {
+    classes: 'hotspot-icon',
+    props: { href: '#' },
+  });
   iconLink.dataset.spot = hotspot.id;
   iconLink.style.left = hotspot.positionLeft;
   iconLink.style.top = hotspot.positionTop;
 
-  const image = createElement('img', null, {
-    src: '/icons/hotspot.png',
-    alt: hotspot.title.textContent,
+  const image = createElement('img', {
+    props: {
+      src: '/icons/hotspot.png',
+      alt: hotspot.title.textContent,
+    },
   });
   iconLink.appendChild(image);
   iconLink.onclick = (event) => handleClickHotspot(
@@ -238,7 +243,7 @@ export function addSpot(block, hotspot) {
  * @param description {HTMLElement}
  */
 function decorateImageAndTitle(mainDiv, firstPicture, title, description) {
-  const hotspot = createElement('div', ['hotspot', 'animated']);
+  const hotspot = createElement('div', { classes: ['hotspot', 'animated'] });
   hotspot.innerHTML = `
       <picture class="hotspot-bg-img desktop"></picture>
       <picture class="hotspot-bg-img mobile"></picture>
@@ -262,21 +267,23 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
   // only one tab navigation is needed for the entire page
   let mobileNav = document.querySelector('main > div#hotspots-mobile-nav');
   if (!mobileNav) {
-    mobileNav = createElement('div', null, { id: 'hotspots-mobile-nav' });
+    mobileNav = createElement('div', {
+      props: { id: 'hotspots-mobile-nav' },
+    });
 
-    const ul = createElement('ul', 'featurenav-list');
+    const ul = createElement('ul', { classes: 'featurenav-list' });
     mobileNav.append(ul);
 
     document.querySelector('main').append(mobileNav);
   }
 
-  const li = createElement('li', 'featurenav-list-item');
+  const li = createElement('li', { classes: 'featurenav-list-item' });
   li.dataset.hotspotTargetId = hotspotAreaId;
   if (mobileNav.firstElementChild.childElementCount === 0) {
     li.classList.add('active');
   }
 
-  const link = createElement('a', null, { href: `#${title.textContent}` });
+  const link = createElement('a', { props: { href: `#${title.textContent}` } });
   link.textContent = title.innerHTML;
   li.append(link);
   mobileNav.firstElementChild.append(li);

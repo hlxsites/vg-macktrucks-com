@@ -1,12 +1,12 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 const buildRegularDownloadBlock = (block) => {
   const children = [...block.children];
 
-  const downloadList = createElement('ul', 'download-list');
+  const downloadList = createElement('ul', { classes: 'download-list' });
 
   children.forEach((e, idx) => {
-    const downloadItem = createElement('li', ['download-item', `download-item-${idx + 1}`]);
+    const downloadItem = createElement('li', { classes: ['download-item', `download-item-${idx + 1}`] });
 
     const image = e.querySelector('picture').innerHTML;
 
@@ -52,10 +52,10 @@ const buildRegularDownloadBlock = (block) => {
 
 const buildNewDownloadBlock = (block) => {
   const children = [...block.children];
-  const downloadNewList = createElement('ul', 'download-new-list');
+  const downloadNewList = createElement('ul', { classes: 'download-new-list' });
 
   children.forEach((e, idx) => {
-    const downloadItem = createElement('li', ['download-new-item', `download-new-item-${idx + 1}`]);
+    const downloadItem = createElement('li', { classes: ['download-new-item', `download-new-item-${idx + 1}`] });
     const allTexts = e.querySelectorAll('li');
     const linkUrl = e.querySelector('a').getAttribute('href');
 

@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "Starter project for Adobe Helix",
   "scripts": {
+    "test": "wtr \"./test/**/*.test.js\" --node-resolve --port=2000 --coverage",
+    "test:watch": "npm test -- --watch",
     "lint:js": "eslint .",
     "lint:css": "stylelint blocks/**/*.css styles/*.css",
     "lint": "npm run lint:js && npm run lint:css",
@@ -19,7 +21,7 @@
     "url": "https://github.com/adobe/helix-project-boilerplate/issues"
   },
   "lint-staged": {
-    "**/*.js": "npm run lint",
+    "**/*.js": "npm run lint:js",
     "**/*.css": "npm run lint:css"
     
   },

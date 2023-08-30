@@ -1,6 +1,7 @@
 import {
-  createElement, isVideoLink, selectVideoLink, wrapImageWithVideoLink, addVideoShowHandler,
-} from '../../scripts/scripts.js';
+  isVideoLink, selectVideoLink, wrapImageWithVideoLink, addVideoShowHandler,
+} from '../../scripts/video-helper.js';
+import { createElement } from '../../scripts/common.js';
 
 const debounceDelay = 30;
 
@@ -86,12 +87,12 @@ function createDesktopControls(ul) {
     ul.scrollBy({ top: 0, left, behavior: 'smooth' });
   }
 
-  const desktopControls = createElement('ul', 'desktop-controls');
+  const desktopControls = createElement('ul', { classes: 'desktop-controls' });
   const leftButtonContainer = createElement('li');
-  const leftButton = createElement('button', [], { type: 'button' });
+  const leftButton = createElement('button', { props: { type: 'button' } });
   leftButton.textContent = 'Left';
   const rightButtonContainer = createElement('li');
-  const rightButton = createElement('button', [], { type: 'button' });
+  const rightButton = createElement('button', { props: { type: 'button' } });
   rightButton.textContent = 'Right';
   leftButtonContainer.append(leftButton);
   rightButtonContainer.append(rightButton);
@@ -110,11 +111,11 @@ function createDesktopControls(ul) {
 
 function createDotControls(ul) {
   // create carousel controls for mobile
-  const dotControls = createElement('ul', ['mobile-controls']);
+  const dotControls = createElement('ul', { classes: 'mobile-controls' });
   [...ul.children].forEach((item, j) => {
     const control = createElement('li');
     if (!j) control.className = 'active';
-    const button = createElement('button', '', { type: 'button' });
+    const button = createElement('button', { props: { type: 'button' } });
     button.textContent = j + 1;
     control.append(button);
     control.firstElementChild.addEventListener('click', () => {
@@ -156,7 +157,7 @@ function replaceBlockClasses(block) {
 
 export default function decorate(block) {
   replaceBlockClasses(block);
-  const ul = createElement('ul', ['items']);
+  const ul = createElement('ul', { classes: ['items'] });
 
   // We support two formats:
   // 1. Each slide in a row (can be splitted into columns)
@@ -170,14 +171,14 @@ export default function decorate(block) {
       column.classList.add('carousel-item-column');
     });
 
-    const listItem = createElement('li', ['carousel-item']);
+    const listItem = createElement('li', { classes: ['carousel-item'] });
     listItem.append(...row.children);
     ul.append(listItem);
   });
 
   [...ul.children].forEach((li) => {
     // Add wrapper around the content
-    const container = createElement('div', ['carousel-content-wrapper']);
+    const container = createElement('div', { classes: ['carousel-content-wrapper'] });
 
     container.innerHTML = li.innerHTML;
     li.innerHTML = '';
@@ -215,12 +216,12 @@ export default function decorate(block) {
       const [header, subheader] = [...column.querySelectorAll('h1, h2, h3, h4, h5, h6')].sort((h1, h2) => h1.tagName[1] - h2.tagName[1]);
 
       if (header) {
-        const newHeader = createElement('h2', 'carousel-item-header');
+        const newHeader = createElement('h2', { classes: 'carousel-item-header' });
         newHeader.innerHTML = header.innerHTML;
         header.replaceWith(newHeader);
       }
       if (subheader) {
-        const newSubheader = createElement('h3', 'carousel-item-subheader');
+        const newSubheader = createElement('h3', { classes: 'carousel-item-subheader' });
         newSubheader.innerHTML = subheader.innerHTML;
         subheader.replaceWith(newSubheader);
       }
@@ -240,7 +241,7 @@ export default function decorate(block) {
       // warpping all paragraphs and headers
       const textElements = column.querySelectorAll('p, h2, h3');
       if (textElements.length) {
-        const textWrapper = createElement('div', 'carousel-item-text');
+        const textWrapper = createElement('div', { classes: 'carousel-item-text' });
         textWrapper.append(...textElements);
         column.append(textWrapper);
       }

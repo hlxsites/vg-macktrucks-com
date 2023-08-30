@@ -1,6 +1,7 @@
 import {
-  createElement, decorateButtons, getTextLabel, getAllElWithChildren, loadAsBlock,
+  decorateButtons, getAllElWithChildren, loadAsBlock,
 } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
@@ -35,16 +36,16 @@ async function createSubNav(block, ref) {
   const fragment = document.createRange().createContextualFragment(text);
   const title = fragment.querySelector('p');
   const textUl = fragment.querySelector('ul');
-  const subNavWrapper = createElement('div', 'sub-nav-container');
-  const ul = textUl || createElement('ul', '');
+  const subNavWrapper = createElement('div', { classes: 'sub-nav-container' });
+  const ul = textUl || createElement('ul');
   const buttons = getAllElWithChildren(fragment.querySelectorAll('p'), 'em, strong');
-  const ctasWrapper = buttons.length > 0 && createElement('li', 'sub-nav-cta-wrapper');
+  const ctasWrapper = buttons.length > 0 && createElement('li', { classes: 'sub-nav-cta-wrapper' });
   // add a caret arrow for mobile version
-  const caretIcon = createElement('div', ['fa', 'fa-caret-down', 'icon']);
+  const caretIcon = createElement('div', { classes: ['fa', 'fa-caret-down', 'icon'] });
 
   if (textUl) {
-    const overview = createElement('li', '');
-    const overviewLink = createElement('a', '', { href: overviewUrl });
+    const overview = createElement('li');
+    const overviewLink = createElement('a', { props: { href: overviewUrl } });
     // set the active link, if is not found then use overview as default
     const activeLink = [...ul.querySelectorAll('li a')].find((a) => new URL(a.href).pathname === pathname);
     const activeLi = activeLink ? activeLink.closest('li') : overview;
@@ -98,21 +99,27 @@ async function buildMagazineSubNav(block, ref) {
   // bar main section
   const mainTitleImg = mainTitleImgWrapper.querySelector('picture');
   const mainTitleLink = mainTitleImgWrapper.querySelector('a');
-  const subNavContainer = createElement('div', 'sub-nav-container');
-  const subNavTitle = createElement('p', 'sub-nav-title');
-  const mainSubNav = createElement('div', 'sub-nav-content');
+  const subNavContainer = createElement('div', { classes: 'sub-nav-container' });
+  const subNavTitle = createElement('p', { classes: 'sub-nav-title' });
+  const mainSubNav = createElement('div', { classes: 'sub-nav-content' });
   // add (hamburger menu)/(down arrow) to open close the sub-nav-list
   const iconClass = MQ.matches ? 'fa-bars' : 'fa-caret-down';
-  const listIcon = createElement('div', ['fa', iconClass, 'icon']);
+  const listIcon = createElement('div', { classes: ['fa', iconClass, 'icon'] });
   // add a cta button to open an eloqua form (subscribe to bulldog)
-  const subscribeBtnContainer = createElement('div', 'button-container');
-  const subscribeBtn = createElement('button', ['magazine-subscribe-button', 'button-container'], { type: 'button' });
+  const subscribeBtnContainer = createElement('div', { classes: 'button-container' });
+  const subscribeBtn = createElement('button', {
+    classes: ['magazine-subscribe-button', 'button-container'],
+    props: { type: 'button' },
+  });
   // list section overlay
-  const closeBtn = createElement('div', ['fa', 'fa-close', 'icon']);
-  const listSubscribeBtnContainer = createElement('div', 'list-button-container');
-  const listSubscribeBtn = createElement('button', ['magazine-subscribe-button', 'list-subscribe-button'], { type: 'button' });
-  const supR = createElement('sup', '');
-  const listContainer = createElement('div', 'sub-nav-list-container');
+  const closeBtn = createElement('div', { classes: ['fa', 'fa-close', 'icon'] });
+  const listSubscribeBtnContainer = createElement('div', { classes: 'list-button-container' });
+  const listSubscribeBtn = createElement('button', {
+    classes: ['magazine-subscribe-button', 'list-subscribe-button'],
+    props: { type: 'button' },
+  });
+  const supR = createElement('sup');
+  const listContainer = createElement('div', { classes: 'sub-nav-list-container' });
   const listWrapper = getAllElWithChildren(fragment.querySelectorAll('div'), 'ul')[0];
   const dogIconWrapper = getAllElWithChildren(listWrapper.querySelectorAll('p'), 'picture')[0];
   const mainList = listWrapper.querySelector('ul');

@@ -1,4 +1,5 @@
-import { createElement, loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
+import { loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 // Every eloqua form has it's own JS, CSS and HTML.
 // Once the form is loaded all the JS and CSS are added to the body.
@@ -40,7 +41,7 @@ const loadFormScripts = async (elqForm) => {
 
       // the script element added by innerHTML is NOT executed
       // the workaround is to create the new script tag, copy attibutes and content
-      const newScript = createElement('script', '', { type: 'text/javascript' });
+      const newScript = createElement('script', { props: { type: 'text/javascript' } });
 
       newScript.innerHTML = script.innerHTML;
       document.body.append(newScript);
@@ -131,7 +132,7 @@ const addForm = async (block) => {
   }
 
   const text = await data.text();
-  const formWrapper = createElement('div', 'eloqua-form-container');
+  const formWrapper = createElement('div', { classes: 'eloqua-form-container' });
   formWrapper.innerHTML = text;
   block.innerHTML = '';
   block.append(formWrapper);
