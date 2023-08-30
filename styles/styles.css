@@ -421,6 +421,7 @@ main .section.black-background {
 
 main .section.dark-background {
   background-color: var(--c-secondary-graphite);
+  color: var(--c-primary-white);
 }
 
 main .section.center {
@@ -826,11 +827,6 @@ main .section.responsive-title h1 {
 .redesign-v2 .icon svg {
   height: 1em;
   width: 1em;
-}
-
-.redesign-v2 .section.section-dark {
-  background-color: var(--c-secondary-graphite);
-  color: var(--c-primary-white);
 }
 
 /* ICONS STYLES - default on white background */
