@@ -14,7 +14,7 @@
 }
 
 .v2-columns .v2-columns-content p.v2-columns-content__eyebrow {
-  font-family: var(--ff-accents-medium);
+  font-family: var(--ff-accents-regular);
   font-size: var(--accent-2-font-size);
   line-height: var(--accent-2-line-height);
   margin: 0;

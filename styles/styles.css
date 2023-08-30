@@ -154,6 +154,7 @@
 
   /* Accent elements */
   --ff-accents-medium: "GT America Mono Medium", var(--fallback-ff-accents);
+  --ff-accents-regular: "GT America Mono Regular", var(--fallback-ff-accents);
 
   /* Body font sizes */
   --body-font-size-xxl: 1.5rem; /* 24px */
