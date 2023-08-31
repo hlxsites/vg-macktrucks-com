@@ -22,7 +22,7 @@ const scrollToSection = (id) => {
   resizeObserver.observe(main);
 };
 
-const getInpageNavigationButtons = () => {
+const inpageNavigationRedButton = () => {
   // if we have a button title & button link
   if (getMetadata('inpage-button') && getMetadata('inpage-link')) {
     const titleMobile = getMetadata('inpage-button');
@@ -49,7 +49,7 @@ const getInpageNavigationButtons = () => {
     return link;
   }
 
-  return [];
+  return null;
 };
 
 const gotoSection = (event) => {
@@ -112,7 +112,7 @@ const listenScroll = () => {
 };
 
 export default async function decorate(block) {
-  const buttons = getInpageNavigationButtons();
+  const redButton = inpageNavigationRedButton();
 
   const wrapper = block.querySelector(':scope > div');
   wrapper.classList.add(`${blockName}__wrapper`);
@@ -147,7 +147,9 @@ export default async function decorate(block) {
 
   itemsWrapper.remove();
 
-  wrapper.appendChild(buttons);
+  if (redButton) {
+    wrapper.appendChild(redButton);
+  }
 
   list.addEventListener('click', gotoSection);
 
