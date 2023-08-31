@@ -252,6 +252,7 @@ h1 {
   font-size: var(--headline-1-font-size);
   line-height: var(--headline-1-line-height);
   letter-spacing: var(--headline-1-letter-spacing);
+  font-weight: normal;
 }
 
 h2 {
