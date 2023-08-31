@@ -4,12 +4,12 @@
   align-items: center;
 }
 
-.v2-columns-image,
+.v2-columns__image,
 .v2-columns-content {
   max-width: 343px;
 }
 
-.v2-columns-image img {
+.v2-columns__image img {
   display: block;
 }
 
@@ -49,7 +49,7 @@
   }
 
   .v2-columns-content,
-  .v2-columns-image {
+  .v2-columns__image {
     width: 50%;
     padding: 0;
   }

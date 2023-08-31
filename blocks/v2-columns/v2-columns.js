@@ -8,7 +8,7 @@ export default async function decorate(block) {
   const blockConfig = readBlockConfig(block);
   const [, eyebrow, headline, body, link] = Object.values(blockConfig);
 
-  const columnsImage = createElement('div', { classes: 'v2-columns-image' });
+  const columnsImage = createElement('div', { classes: 'v2-columns__image' });
   const columnsText = createElement('div', { classes: 'v2-columns-content' });
 
   const eyebrowElmt = createElement('p', { classes: 'v2-columns-content__eyebrow' });
