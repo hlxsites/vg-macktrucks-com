@@ -23,6 +23,7 @@ import {
   addFavIcon,
   loadDelayed,
   getPlaceholders,
+  slugify,
 } from './common.js';
 import {
   isVideoLink,
@@ -228,22 +229,6 @@ export function decorateLinks(block) {
     });
 }
 
-const slugify = (text) => (
-  text.toString().toLowerCase().trim()
-    // separate accent from letter
-    .normalize('NFD')
-    // remove all separated accents
-    .replace(/[\u0300-\u036f]/g, '')
-    // replace spaces with -
-    .replace(/\s+/g, '-')
-    // replace & with 'and'
-    .replace(/&/g, '-and-')
-    // remove all non-word chars
-    .replace(/[^\w-]+/g, '')
-    // replace multiple '-' with single '-'
-    .replace(/--+/g, '-')
-);
-
 const createInpageNavigation = (main) => {
   const navItems = [];
   const tabItemsObj = [];
@@ -253,7 +238,7 @@ const createInpageNavigation = (main) => {
     const title = section.dataset.inpage;
     if (title) {
       const countDuplcated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
-      const order = section.dataset.inpageOrder;
+      const order = parseFloat(section.dataset.inpageOrder);
       const anchorID = (countDuplcated > 0) ? slugify(`${section.dataset.inpage}-${countDuplcated}`) : slugify(section.dataset.inpage);
       const obj = {
         title,
@@ -261,7 +246,7 @@ const createInpageNavigation = (main) => {
       };
 
       if (order) {
-        obj.order = parseFloat(section.dataset.subnavOrder);
+        obj.order = order;
       }
 
       tabItemsObj.push(obj);
@@ -273,13 +258,13 @@ const createInpageNavigation = (main) => {
 
   // Sort the object by order
   const sortedObject = tabItemsObj.slice().sort((obj1, obj2) => {
-    if (obj1.order === null || obj1.order === undefined) {
+    if (!obj1.order) {
       return 1; // Move 'a' to the end
     }
-    if (obj2.order === null || obj2.order === undefined) {
+    if (!obj2.order) {
       return -1; // Move 'b' to the end
     }
-    return obj1.order - obj2.order; // Compare by order values
+    return obj1.order - obj2.order;
   });
 
   // From the array of objects create the DOM

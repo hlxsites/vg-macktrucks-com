@@ -1,11 +1,26 @@
-import {
-  getMetadata,
-} from '../../scripts/lib-franklin.js';
-import {
-  createElement,
-} from '../../scripts/common.js';
+import { getMetadata } from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/common.js';
 
 const blockName = 'v2-inpage-navigation';
+
+const scrollToSection = (id) => {
+  let timeout;
+
+  const container = document.querySelector(`main .section[data-inpageid='${id}']`);
+  container?.scrollIntoView({ behavior: 'smooth' });
+
+  // Checking if the height of the main element changes while scrolling (caused by layout shift)
+  const main = document.querySelector('main');
+  const resizeObserver = new ResizeObserver(() => {
+    clearTimeout(timeout);
+    container?.scrollIntoView({ behavior: 'smooth' });
+
+    timeout = setTimeout(() => {
+      resizeObserver.disconnect();
+    }, 500);
+  });
+  resizeObserver.observe(main);
+};
 
 const getInpageNavigationButtons = () => {
   // if we have a button title & button link
@@ -38,61 +53,56 @@ const getInpageNavigationButtons = () => {
 };
 
 const gotoSection = (event) => {
-  // let waitingTime = 500;
   const { target } = event;
   const button = target.closest('button');
 
   if (button) {
     const { id } = button.dataset;
 
-    const container = document.querySelector(`main .section[data-inpageid='${id}']`);
-    container?.scrollIntoView({ behavior: 'smooth' });
-
-    // // create an Observer instance
-    // const resizeObserver = new ResizeObserver((entries) => {
-    //   console.log('Body height changed:', entries[0].target.clientHeight);
-    // });
-
-    // // start observing a DOM node
-    // resizeObserver.observe(document.body);
+    scrollToSection(id);
   }
 };
 
 const updateActive = (id) => {
-  // console.log('updateActive', id);
   const currentItem = document.querySelector(`.${blockName}__selected-item`);
   const listItems = document.querySelector(`.${blockName}__item--active`);
-  listItems.classList.remove(`${blockName}__item--active`);
+  listItems?.classList.remove(`${blockName}__item--active`);
   const itemsButton = document.querySelectorAll(`.${blockName}__items button`);
-
-  const selectedButton = [...itemsButton].filter((button) => button.dataset.id === id);
-  if (!selectedButton[0]) return;
-  currentItem.textContent = selectedButton[0].textContent;
-  selectedButton[0].parentNode.classList.add(`${blockName}__item--active`);
-
   const { pathname } = window.location;
-  window.history.replaceState({}, '', `${pathname}#${id}`);
+
+  if (id) {
+    const selectedButton = [...itemsButton].filter((button) => button.dataset.id === id);
+    if (!selectedButton[0]) return;
+    currentItem.textContent = selectedButton[0].textContent;
+    selectedButton[0].parentNode.classList.add(`${blockName}__item--active`);
+
+    window.history.replaceState({}, '', `${pathname}#${id}`);
+  } else {
+    window.history.replaceState({}, '', `${pathname}`);
+  }
 };
 
 const listenScroll = () => {
-  // const main = document.querySelector('main');
   let timeout;
-  const elements = document.querySelectorAll('main .section[data-inpageid]');
+  const elements = document.querySelectorAll('main .section');
 
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // console.log(entry.intersectionRatio, entry.target.dataset.inpageid, entry.target);
-        clearTimeout(timeout);
+    // Reduce entries to the one with higher intersectionRatio
+    const intersectedEntry = entries.reduce((prev, current) => (
+      prev.intersectionRatio > current.intersectionRatio ? prev : current
+    ));
 
-        // wait to update the active item
-        timeout = setTimeout(() => {
-          updateActive(entry.target.dataset.inpageid);
-        }, 500);
-      }
-    });
+    if (intersectedEntry.isIntersecting && intersectedEntry.target.dataset?.inpageid) {
+      clearTimeout(timeout);
+
+      // wait to update the active item
+      timeout = setTimeout(() => {
+        updateActive(intersectedEntry.target.dataset.inpageid);
+      }, 500);
+    } else {
+      updateActive();
+    }
   }, {
-    // root: main,
     threshold: [0.2, 0.5, 0.7, 1],
   });
 
@@ -116,7 +126,7 @@ export default async function decorate(block) {
 
   [...itemsWrapper.children].forEach((item, index) => {
     const classes = [`${blockName}__item`];
-    if (index === 0) {
+    if (index === 0) { // Default selected item
       classes.push(`${blockName}__item--active`);
       selectedItem.textContent = item.textContent;
     }
@@ -141,7 +151,17 @@ export default async function decorate(block) {
 
   list.addEventListener('click', gotoSection);
 
-  // Listener to toggle the dropdown or close it
+  // on load Go to section if defined
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    updateActive(hash);
+
+    setTimeout(() => {
+      scrollToSection(hash);
+    }, 1000);
+  }
+
+  // Listener to toggle the dropdown (open / close)
   document.addEventListener('click', (e) => {
     if (e.target.closest(`.${blockName}__selected-item-wrapper`)) {
       dropdownWrapper.classList.toggle(`${blockName}__dropdown--open`);

@@ -1,3 +1,7 @@
+:root {
+  --inpage-navigation: 48px;
+}
+
 .v2-inpage-navigation-wrapper {
   box-shadow: 0 4px 24px 0 rgb(0 0 0 / 16%);
   background-color: var(--c-primary-white);
@@ -52,7 +56,9 @@
 }
 
 .v2-inpage-navigation__item button:hover,
-.v2-inpage-navigation__selected-item-wrapper:hover {
+.v2-inpage-navigation__item button:focus,
+.v2-inpage-navigation__selected-item-wrapper:hover,
+.v2-inpage-navigation__selected-item-wrapper:focus {
   background-color: #F1F1F1;
 }
 
@@ -128,6 +134,10 @@
 }
 
 @media (min-width: 1200px) {
+  :root {
+    --inpage-navigation: 96px;
+  }
+
   .v2-inpage-navigation__wrapper {
     align-items: center;
     gap: 24px;
@@ -161,7 +171,8 @@
     position: relative;
   }
 
-  .v2-inpage-navigation__item button:hover {
+  .v2-inpage-navigation__item button:hover,
+  .v2-inpage-navigation__item button:focus {
     background: none;
   }
 
@@ -175,7 +186,8 @@
   }
 
   .v2-inpage-navigation__item--active button::after,
-  .v2-inpage-navigation__item button:hover::after {
+  .v2-inpage-navigation__item button:hover::after,
+  .v2-inpage-navigation__item button:focus::after {
     background-color: var(--c-accent-red);
   }
 
