@@ -13,12 +13,12 @@ export default async function decorate(block) {
 
   const eyebrowElmt = createElement('p', { classes: 'v2-columns-content__eyebrow' });
   eyebrowElmt.textContent = eyebrow;
-  const headlineElmt = createElement('h1', { classes: 'v2-columns-content__headline' });
+  const headlineElmt = createElement('h2', { classes: 'v2-columns-content__headline' });
   headlineElmt.textContent = headline;
   const bodyElmt = createElement('p', { classes: 'v2-columns-content__body' });
   bodyElmt.textContent = body;
-  const ctaElmt = createElement('button', {
-    classes: ['v2-columns-content__cta', 'button--primary'],
+  const ctaElmt = createElement('a', {
+    classes: ['button', 'button--large', 'button--primary'],
     props: { type: 'button', href: link },
   });
   ctaElmt.textContent = ctaText;
