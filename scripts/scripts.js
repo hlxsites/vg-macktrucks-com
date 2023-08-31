@@ -269,7 +269,7 @@ const createInpageNavigation = (main) => {
 
   // From the array of objects create the DOM
   sortedObject.forEach((item) => {
-    const subnavItem = createElement('div');
+    const subnavItem = createElement('span');
     const subnavLink = createElement('button', {
       props: {
         'data-id': item.id,
