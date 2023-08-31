@@ -158,6 +158,10 @@
     position: unset;
   }
 
+  .v2-inpage-navigation__item {
+    margin-right: auto;
+  }
+
   .v2-inpage-navigation__item--active {
     display: block;
   }
