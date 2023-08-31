@@ -144,7 +144,7 @@
   --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /* In page navigation */
-  --inpage-navigation: 0;
+  --inpage-navigation-height: 0;
 
   /*
   OLD STYLES
@@ -939,7 +939,7 @@ main .section.responsive-title h1 {
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section {
   padding: 40px 0;
-  scroll-margin-top: calc(var(--nav-height) + var(--inpage-navigation));
+  scroll-margin-top: calc(var(--nav-height) + var(--inpage-navigation-height));
 }
 
 /* stylelint-disable-next-line no-descending-specificity */

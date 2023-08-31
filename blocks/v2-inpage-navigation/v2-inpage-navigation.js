@@ -64,17 +64,17 @@ const gotoSection = (event) => {
 };
 
 const updateActive = (id) => {
-  const currentItem = document.querySelector(`.${blockName}__selected-item`);
-  const listItems = document.querySelector(`.${blockName}__item--active`);
-  listItems?.classList.remove(`${blockName}__item--active`);
+  const selectedItem = document.querySelector(`.${blockName}__selected-item`);
+  const activeItemInList = document.querySelector(`.${blockName}__item--active`);
+  activeItemInList?.classList.remove(`${blockName}__item--active`);
   const itemsButton = document.querySelectorAll(`.${blockName}__items button`);
   const { pathname } = window.location;
 
   if (id) {
-    const selectedButton = [...itemsButton].filter((button) => button.dataset.id === id);
-    if (!selectedButton[0]) return;
-    currentItem.textContent = selectedButton[0].textContent;
-    selectedButton[0].parentNode.classList.add(`${blockName}__item--active`);
+    const selectedButton = [...itemsButton].find((button) => button.dataset.id === id);
+    if (!selectedButton) return;
+    selectedItem.textContent = selectedButton.textContent;
+    selectedButton.parentNode.classList.add(`${blockName}__item--active`);
 
     window.history.replaceState({}, '', `${pathname}#${id}`);
   } else {
