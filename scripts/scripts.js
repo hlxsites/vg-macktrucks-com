@@ -269,7 +269,7 @@ const createInpageNavigation = (main) => {
 
   // From the array of objects create the DOM
   sortedObject.forEach((item) => {
-    const subnavItem = createElement('span');
+    const subnavItem = createElement('div');
     const subnavLink = createElement('button', {
       props: {
         'data-id': item.id,
@@ -293,6 +293,11 @@ function buildInpageNavigationBlock(main) {
 
   if (items.length > 0) {
     const section = createElement('div');
+    Object.assign(section.style, {
+      height: '48px',
+      overflow: 'hidden',
+    });
+
     section.append(buildBlock(inapgeClassName, { elems: items }));
     // insert in second position, assumption is that Hero should be first
     main.insertBefore(section, main.children[1]);
