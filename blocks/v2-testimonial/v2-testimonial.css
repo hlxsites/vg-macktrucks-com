@@ -98,11 +98,11 @@
 }
 
 .v2-testimonial__text-row {
-  order: 1;
+  order: 2;
 }
 
 .v2-testimonial__image-row {
-  order: 2;
+  order: 1;
 }
 
 @media (min-width: 1200px) {
