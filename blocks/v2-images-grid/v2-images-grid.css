@@ -1,0 +1,95 @@
+:root {
+  --v2-images-grid-gutter: 8px;
+  --v2-images-grid-big-height: 168px;
+  --v2-images-grid-small-height: 125px;
+  --v2-images-grid-padding-space: 24px;
+}
+
+.redesign-v2 .v2-images-grid-container .v2-images-grid-wrapper {
+  padding: 0 100px;
+}
+
+.v2-images-grid-container .with-marker::before {
+  width: 37px;
+}
+
+.v2-images-grid-title {
+  font: var(--headline-1-font-size)/var(--headline-1-line-height) var(--ff-headline-medium);
+}
+
+.v2-images-grid-items {
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: 50%;
+  gap: var(--v2-images-grid-gutter);
+  grid-template-areas: 
+    'area1 area2'
+    'area1 area4'
+    'area3 area4';
+  list-style: none;
+  margin-bottom: var(--v2-images-grid-padding-space);
+}
+
+.v2-images-grid-item {
+  margin: 0;
+  width: auto;
+}
+
+.v2-images-grid-item:nth-child(1) { grid-area: area1; }
+.v2-images-grid-item:nth-child(2) { grid-area: area2; }
+.v2-images-grid-item:nth-child(3) { grid-area: area3; }
+.v2-images-grid-item:nth-child(4) { grid-area: area4; }
+
+.v2-images-grid-item img {
+  height: var(--v2-images-grid-big-height);
+  object-fit: cover;
+  width: 100%;
+}
+
+.v2-images-grid-item:nth-child(2) img, .v2-images-grid-item:nth-child(3) img {
+  height: var(--v2-images-grid-small-height);
+}
+ 
+.v2-images-grid-picture {
+  display: block;
+  position: relative;
+}
+
+.v2-images-grid-figcaption {
+  display: none;
+}
+
+@media screen and (min-width: 700px) {
+  :root {
+    --v2-images-grid-big-height: 300px;
+    --v2-images-grid-small-height: 200px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  :root {
+    --v2-images-grid-gutter: 16px;
+    --v2-images-grid-big-height: 511px;
+    --v2-images-grid-small-height: 383px;
+    --v2-images-grid-max-width: 1040px;
+    --v2-images-grid-padding-space: 40px;
+  }
+
+  .v2-images-grid-item img {
+    vertical-align: top;
+  }
+
+  .v2-images-grid-figcaption {
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    padding: 9px;
+    color: var(--c-primary-white);
+    background-color: var(--c-secondary-graphite);
+    right: 10px;
+    text-transform: uppercase;
+    font: var(--body-2-font-size)/16px var(--ff-body);
+    letter-spacing: 1.92px;
+  }
+}
