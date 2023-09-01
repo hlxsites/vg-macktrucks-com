@@ -13,7 +13,7 @@ export default function decorate(block) {
   [...block.querySelectorAll(':scope > div > div')].forEach((cell) => {
     // If cell contain any element, we add them in the ul
     if (cell.childElementCount) {
-      const li = createElement('li', { classes: [`${blockClassName}-item`, 'border'] });
+      const li = createElement('li', { classes: [`${blockClassName}-item`] });
       li.append(...cell.childNodes);
       ul.append(li);
     }
