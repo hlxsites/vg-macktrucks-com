@@ -64,8 +64,16 @@ const gotoSection = (event) => {
 };
 
 const updateActive = (id) => {
-  const selectedItem = document.querySelector(`.${blockName}__selected-item`);
   const activeItemInList = document.querySelector(`.${blockName}__item--active`);
+
+  // Prevent reassign active value
+  if (activeItemInList?.firstElementChild?.dataset.id === id) return;
+
+  // Remove focus position
+  document.activeElement.blur();
+
+  // check active id is equal to id dont do anything
+  const selectedItem = document.querySelector(`.${blockName}__selected-item`);
   activeItemInList?.classList.remove(`${blockName}__item--active`);
   const itemsButton = document.querySelectorAll(`.${blockName}__items button`);
   const { pathname } = window.location;
