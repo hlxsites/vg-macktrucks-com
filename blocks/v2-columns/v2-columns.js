@@ -1,30 +1,46 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
-import { getTextLabel, createElement } from '../../scripts/common.js';
-
-const ctaText = getTextLabel('learn more');
+import { createElement } from '../../scripts/common.js';
 
 export default async function decorate(block) {
+  const blockName = 'v2-columns';
+  const columnsImage = createElement('div', { classes: `${blockName}__image` });
+  const columnsText = createElement('div', { classes: `${blockName}-content` });
+
+  const columns = [...block.querySelector(':scope > div').children];
+
+  const imageFirst = columns[0].querySelector('picture');
+  block.classList.add(`image-${imageFirst ? 'first' : 'last'}`);
+
   const picture = block.querySelector('picture');
-  const blockConfig = readBlockConfig(block);
-  const [, eyebrow, headline, body, link] = Object.values(blockConfig);
 
-  const columnsImage = createElement('div', { classes: 'v2-columns__image' });
-  const columnsText = createElement('div', { classes: 'v2-columns-content' });
+  const allTextElmts = block.querySelectorAll('p');
+  const bodyElmts = [];
 
-  const eyebrowElmt = createElement('p', { classes: 'v2-columns-content__eyebrow' });
-  eyebrowElmt.textContent = eyebrow;
-  const headlineElmt = createElement('h2', { classes: 'v2-columns-content__headline' });
-  headlineElmt.textContent = headline;
-  const bodyElmt = createElement('p', { classes: 'v2-columns-content__body' });
-  bodyElmt.textContent = body;
-  const ctaElmt = createElement('a', {
-    classes: ['button', 'button--large', 'button--primary'],
-    props: { type: 'button', href: link },
+  allTextElmts.forEach((e) => {
+    const nextElmt = e.nextElementSibling;
+
+    const isButton = [...e.classList].includes('button-container');
+    const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
+
+    if (!isPretitle && !isButton) bodyElmts.push(e);
   });
-  ctaElmt.textContent = ctaText;
+  bodyElmts.forEach((e) => e.classList.add(`${blockName}-content__body`));
+
+  const buttons = [...block.querySelectorAll('a')];
+  buttons.forEach((btn) => btn.classList.add('button', 'button--large', 'button--primary'));
+
+  const headings = [...block.querySelectorAll('h1, h2, h3, h4, h5, h6')];
+  headings.forEach((heading) => heading.classList.add(`${blockName}-content__heading`));
+
+  const pretitleText = headings[0].previousElementSibling;
+
+  if (pretitleText) {
+    const pretitle = createElement('span', { classes: `${blockName}-content__pretitle` });
+    pretitle.textContent = pretitleText.textContent;
+    columnsText.append(pretitle);
+  }
 
   columnsImage.appendChild(picture);
-  columnsText.append(eyebrowElmt, headlineElmt, bodyElmt, ctaElmt);
+  columnsText.append(...headings, ...bodyElmts, ...buttons);
 
   block.textContent = '';
   block.append(columnsImage, columnsText);
