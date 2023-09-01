@@ -44,10 +44,6 @@
   margin: 0;
 }
 
-.v2-columns-content a.button:last-of-type {
-  margin: 0 0 10px;
-}
-
 @media (min-width: 744px) {
   .v2-columns {
     flex-direction: row;
@@ -59,13 +55,10 @@
   .v2-columns.image-last {
     flex-direction: row-reverse;
   }
-
-  .v2-columns.info {
-    flex-direction: column;
-  }
-
+  
   .v2-columns-content,
   .v2-columns__image {
+    flex-direction: column;
     width: 50%;
     padding: 0;
   }
@@ -76,9 +69,5 @@
 
   .v2-columns-content .v2-columns-content__body {
     margin: 0 0 24px;
-  }
-
-  .v2-columns-content a.button:last-of-type {
-    margin: 0 0 0 10px;
   }
 }
