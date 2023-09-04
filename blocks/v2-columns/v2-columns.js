@@ -8,7 +8,7 @@ export default async function decorate(block) {
   const columns = [...block.querySelector(':scope > div').children];
 
   const imageFirst = columns[0].querySelector('picture');
-  block.classList.add(`image-${imageFirst ? 'first' : 'last'}`);
+  // block.classList.add(`image-${imageFirst ? 'first' : 'last'}`);
 
   const picture = block.querySelector('picture');
 
@@ -39,9 +39,13 @@ export default async function decorate(block) {
     columnsText.append(pretitle);
   }
 
-  columnsImage.appendChild(picture);
+  columnsImage.append(picture);
   columnsText.append(...headings, ...bodyElmts, ...buttons);
 
   block.textContent = '';
-  block.append(columnsImage, columnsText);
+  if (imageFirst) {
+    block.append(columnsImage, columnsText);
+  } else {
+    block.append(columnsText, columnsImage);
+  }
 }
