@@ -23,6 +23,7 @@ import {
   addFavIcon,
   loadDelayed,
   getPlaceholders,
+  slugify,
 } from './common.js';
 import {
   isVideoLink,
@@ -228,6 +229,83 @@ export function decorateLinks(block) {
     });
 }
 
+const createInpageNavigation = (main) => {
+  const navItems = [];
+  const tabItemsObj = [];
+
+  // Extract the inpage navigation info from sections
+  [...main.querySelectorAll(':scope > div')].forEach((section) => {
+    const title = section.dataset.inpage;
+    if (title) {
+      const countDuplcated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
+      const order = parseFloat(section.dataset.inpageOrder);
+      const anchorID = (countDuplcated > 0) ? slugify(`${section.dataset.inpage}-${countDuplcated}`) : slugify(section.dataset.inpage);
+      const obj = {
+        title,
+        id: anchorID,
+      };
+
+      if (order) {
+        obj.order = order;
+      }
+
+      tabItemsObj.push(obj);
+
+      // Set section with ID
+      section.dataset.inpageid = anchorID;
+    }
+  });
+
+  // Sort the object by order
+  const sortedObject = tabItemsObj.slice().sort((obj1, obj2) => {
+    if (!obj1.order) {
+      return 1; // Move 'a' to the end
+    }
+    if (!obj2.order) {
+      return -1; // Move 'b' to the end
+    }
+    return obj1.order - obj2.order;
+  });
+
+  // From the array of objects create the DOM
+  sortedObject.forEach((item) => {
+    const subnavItem = createElement('div');
+    const subnavLink = createElement('button', {
+      props: {
+        'data-id': item.id,
+        title: item.title,
+      },
+    });
+
+    subnavLink.textContent = item.title;
+
+    subnavItem.append(subnavLink);
+    navItems.push(subnavItem);
+  });
+
+  return navItems;
+};
+
+function buildInpageNavigationBlock(main) {
+  const inapgeClassName = 'v2-inpage-navigation';
+
+  const items = createInpageNavigation(main);
+
+  if (items.length > 0) {
+    const section = createElement('div');
+    Object.assign(section.style, {
+      height: '48px',
+      overflow: 'hidden',
+    });
+
+    section.append(buildBlock(inapgeClassName, { elems: items }));
+    // insert in second position, assumption is that Hero should be first
+    main.insertBefore(section, main.children[1]);
+
+    decorateBlock(section.querySelector(`.${inapgeClassName}`));
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -241,6 +319,9 @@ export function decorateMain(main, head) {
   decorateSections(main);
   decorateBlocks(main);
   decorateLinks(main);
+
+  // Inpage navigation
+  buildInpageNavigationBlock(main);
 }
 
 async function loadTemplate(doc, templateName) {
