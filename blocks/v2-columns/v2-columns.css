@@ -43,8 +43,8 @@
   margin: 0;
 }
 
-.v2-columns-content a.button:first-of-type {
-  margin: 0 0 5px;
+.v2-columns-content a.button:not(a.button:first-of-type) {
+  margin: 5px 0 0;
 }
 
 @media (min-width: 744px) {
