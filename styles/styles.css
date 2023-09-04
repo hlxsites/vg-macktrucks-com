@@ -819,22 +819,7 @@ main .section.responsive-title h1 {
   font-size: 16px;
 }
 
-/* ICONS STYLES - default on white background */
-.redesign-v2 svg path[fill] {
-  fill: var(--color-icon);
-}
-
-.redesign-v2 svg path[stroke] {
-  stroke: var(--color-icon);
-}
-
-.redesign-v2 svg path[fill].accent {
-  fill: var(--color-icon-accent);
-}
-
-.redesign-v2 svg path[stroke].accent {
-  stroke: var(--color-icon-accent);
-}
+/* ICONS STYLES */
 
 /* icons on gold background */
 .redesign-v2 [data-theme="gold"] {
