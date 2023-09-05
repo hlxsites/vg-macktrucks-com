@@ -68,8 +68,8 @@ main .section.v2-cards-container .v2-cards-wrapper {
 }
 
 .v2-cards__button-container .icon svg {
-  width: 1em;
-  height: 1em;
+  width: 16px;
+  height: 16px;
 }
 
 @media (min-width: 744px) {

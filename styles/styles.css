@@ -972,11 +972,12 @@ main .section.responsive-title h1 {
 
 .redesign-v2 a.standalone-link:active,
 .redesign-v2 a.standalone-link:visited {
-  color: var(--c-primary-black);
+  color: var(--c-tertiary-cool-gray);
 }
 
 .redesign-v2 a.standalone-link:hover,
 .redesign-v2 a.standalone-link:focus {
+  color: var(--c-tertiary-cool-gray);
   text-decoration: underline;
 }
 
