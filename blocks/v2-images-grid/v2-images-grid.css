@@ -5,10 +5,6 @@
   --v2-images-grid-padding-space: 24px;
 }
 
-.v2-images-grid-container .with-marker::before {
-  width: 37px;
-}
-
 .v2-images-grid__items {
   padding-left: 0;
   display: grid;
