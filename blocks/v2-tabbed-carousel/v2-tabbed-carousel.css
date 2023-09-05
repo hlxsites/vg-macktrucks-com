@@ -74,7 +74,7 @@
 }
 
 /* Navigation */
-ul.v2-tabbed-carousel__navigation {
+.v2-tabbed-carousel__navigation {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
