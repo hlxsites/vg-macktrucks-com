@@ -76,7 +76,7 @@ main .section.v2-cards-container .v2-cards-wrapper {
   color: var(--c-secondary-steel);
 }
 
-@media (min-width: 740px) {
+@media (min-width: 744px) {
   .v2-cards {
     flex-flow: row wrap;
     gap: 16px;
