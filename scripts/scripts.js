@@ -327,7 +327,7 @@ function buildTabbedBlock(main, classname) {
 
     nextElement = mainChildren[i + 1];
     const tabContent = createElement('div', { classes: `${classname}__item` });
-    tabContent.dataset.truckCarousel = section.dataset.carousel;
+    tabContent.dataset.carousel = section.dataset.carousel;
     tabContent.innerHTML = section.innerHTML;
     const image = tabContent.querySelector('p > picture');
 
