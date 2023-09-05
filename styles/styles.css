@@ -143,6 +143,9 @@
   --easing-exit: cubic-bezier(0.2, 0, 1, 1);
   --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
+  /* In page navigation */
+  --inpage-navigation-height: 0;
+
   /*
   OLD STYLES
   */
@@ -819,22 +822,7 @@ main .section.responsive-title h1 {
   font-size: 16px;
 }
 
-/* ICONS STYLES - default on white background */
-.redesign-v2 svg path[fill] {
-  fill: var(--color-icon);
-}
-
-.redesign-v2 svg path[stroke] {
-  stroke: var(--color-icon);
-}
-
-.redesign-v2 svg path[fill].accent {
-  fill: var(--color-icon-accent);
-}
-
-.redesign-v2 svg path[stroke].accent {
-  stroke: var(--color-icon-accent);
-}
+/* ICONS STYLES */
 
 /* icons on gold background */
 .redesign-v2 [data-theme="gold"] {
@@ -936,6 +924,7 @@ main .section.responsive-title h1 {
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section {
   padding: 40px 0;
+  scroll-margin-top: calc(var(--nav-height) + var(--inpage-navigation-height));
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
