@@ -1,32 +1,27 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import { createElement, removeEmptyTags, getTextLabel } from '../../scripts/common.js';
+import { getAllElWithChildren } from '../../scripts/scripts.js';
 
 const blockClassName = 'v2-images-grid';
 export default function decorate(block) {
-  const headings = [...block.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-  headings.forEach((heading) => {
-    heading.classList.add(`${blockClassName}-title`, 'with-marker');
-    heading.parentElement.parentElement.remove();
-  });
-  // all items are inside a ul list with classname called 'v2-images-grid-items'
-  const ul = createElement('ul', { classes: `${blockClassName}-items` });
+  // all items are inside a ul list with classname called 'v2-images-grid__items'
+  const ul = createElement('ul', { classes: `${blockClassName}__items` });
   [...block.querySelectorAll(':scope > div > div')].forEach((cell) => {
     // If cell contain any element, we add them in the ul
     if (cell.childElementCount) {
-      const li = createElement('li', { classes: [`${blockClassName}-item`] });
+      const li = createElement('li', { classes: [`${blockClassName}__item`] });
       li.append(...cell.childNodes);
       ul.append(li);
     }
     cell.remove();
   });
-  block.parentElement.prepend(...headings);
   block.append(ul);
 
   // give format to the first 4 list items
   [...ul.children].forEach((li, idx) => {
     if (idx < 4) {
       const section = createElement('div');
-      const captionEle = li.querySelector('p:not(:has(*))');
+      const captionEle = getAllElWithChildren(li.querySelectorAll('p'), 'picture', true)[0];
       let picture = li.querySelector('picture');
 
       if (picture) {
@@ -35,9 +30,9 @@ export default function decorate(block) {
         const newPicture = createOptimizedPicture(img.src, captionEle.textContent, false);
         picture.replaceWith(newPicture);
         picture = newPicture;
-        picture.classList.add(`${blockClassName}-picture`);
+        picture.classList.add(`${blockClassName}__picture`);
         // use figcaption for text
-        const figCaption = createElement('figcaption', { classes: `${blockClassName}-figcaption` });
+        const figCaption = createElement('figcaption', { classes: `${blockClassName}__figcaption` });
         figCaption.textContent = captionEle.textContent;
         picture.append(figCaption);
       }

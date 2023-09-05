@@ -961,7 +961,7 @@ main .section.responsive-title h1 {
   }
 
   .redesign-v2 .section > div {
-    padding: 0 200px;
+    max-width: var(--wrapper-width);
     margin: 0 auto;
   }
 
