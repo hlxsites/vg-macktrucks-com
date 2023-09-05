@@ -1,6 +1,7 @@
 import {
-  isVideoLink, selectVideoLink, variantsClassesToBEM,
-} from '../../scripts/scripts.js';
+  isVideoLink, selectVideoLink,
+} from '../../scripts/video-helper.js';
+import { variantsClassesToBEM } from '../../scripts/common.js';
 
 const blockClass = 'v2-testimonial';
 

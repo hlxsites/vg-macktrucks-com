@@ -16,7 +16,6 @@
 }
 
 .modal-background button.modal-close-button {
-  color: var(--c-primary-white);
   text-decoration: none;
   border: none;
   background: transparent;
@@ -40,7 +39,7 @@
 }
 
 .modal-background button.modal-close-button:hover {
-  color: #aaa;
+  --color-icon: #aaa;
 }
 
 .modal-background.modal-hidden {

@@ -63,6 +63,13 @@ main .section.v2-cards-container .v2-cards-wrapper {
 
 .v2-cards__button-container .icon {
   stroke: currentcolor;
+  width: 1em;
+  height: 1em;
+}
+
+.v2-cards__button-container .icon svg {
+  width: 1em;
+  height: 1em;
 }
 
 .v2-cards__button-container .v2-cards__button:hover {

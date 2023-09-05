@@ -1,7 +1,7 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 export default function decorate(block) {
-  const breadcrumbItems = createElement('ul', 'breadcrumb-list');
+  const breadcrumbItems = createElement('ul', { classes: 'breadcrumb-list' });
 
   const articleUrl = (window.location.href).split('/').pop();
   const articleName = articleUrl.replaceAll('-', ' ').toLowerCase();

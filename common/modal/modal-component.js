@@ -1,6 +1,7 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
-import { createIframe, createElement } from '../../scripts/scripts.js';
+import { createIframe } from '../../scripts/video-helper.js';
+import { createElement } from '../../scripts/common.js';
 
 const styles$ = new Promise((r) => {
   loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
@@ -9,7 +10,7 @@ const styles$ = new Promise((r) => {
 const HIDE_MODAL_CLASS = 'modal-hidden';
 
 const createModal = () => {
-  const modalBackground = createElement('div', ['modal-background', HIDE_MODAL_CLASS]);
+  const modalBackground = createElement('div', { classes: ['modal-background', HIDE_MODAL_CLASS] });
 
   modalBackground.addEventListener('click', () => {
     // eslint-disable-next-line no-use-before-define
@@ -23,7 +24,7 @@ const createModal = () => {
     }
   };
 
-  const modalContent = createElement('div', ['modal-content']);
+  const modalContent = createElement('div', { classes: ['modal-content'] });
   modalBackground.appendChild(modalContent);
   // preventing initial animation when added to DOM
   modalBackground.style = 'height: 0; opacity: 0;';
@@ -35,12 +36,12 @@ const createModal = () => {
   });
 
   // adding close modal button
-  const closeButton = createElement('button', ['modal-close-button']);
-  const closeIcon = createElement('span', ['icon', 'icon-close']);
+  const closeButton = createElement('button', { classes: ['modal-close-button'] });
+  const closeIcon = createElement('span', { classes: ['icon', 'icon-close'] });
   const svgCloseIcon = document.createRange().createContextualFragment(`
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path id="Line 103" d="M5.00195 5L19.1441 19.1421" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path id="Line 104" d="M19.1426 5L5.00044 19.1421" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M5.00195 5L19.1441 19.1421" stroke="var(--color-icon, #000)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M19.1426 5L5.00044 19.1421" stroke="var(--color-icon, #000)" stroke-width="2" stroke-linecap="round"/>
     </svg>
   `);
   closeIcon.append(...svgCloseIcon.children);
@@ -87,7 +88,7 @@ const createModal = () => {
       const iframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });
 
       if (beforeBanner) {
-        const bannerWrapper = createElement('div', ['modal-before-banner']);
+        const bannerWrapper = createElement('div', { classes: ['modal-before-banner'] });
         bannerWrapper.addEventListener('click', (event) => event.stopPropagation());
         bannerWrapper.appendChild(beforeBanner);
 
@@ -95,7 +96,7 @@ const createModal = () => {
       }
 
       if (beforeIframe) {
-        const wrapper = createElement('div', 'modal-before-iframe');
+        const wrapper = createElement('div', { classes: 'modal-before-iframe' });
         wrapper.appendChild(beforeIframe);
         iframe.parentElement.insertBefore(wrapper, iframe);
       }
