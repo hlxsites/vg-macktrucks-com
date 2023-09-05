@@ -8,7 +8,7 @@ main .section.v2-cards-container .v2-cards-wrapper {
   gap: 24px;
   padding: 16px;
   justify-content: center;
-  max-width: 1040px;
+  max-width: var(--wrapper-width);
   margin: auto;
 }
 
@@ -30,8 +30,8 @@ main .section.v2-cards-container .v2-cards-wrapper {
 }
 
 .v2-cards__image {
-  background: #e9eaec;
-  height: 193px;
+  background: var(--c-tertiary-light-cool-gray);
+  aspect-ratio: 16/9;
   width: 100%;
   object-fit: cover;
 }
@@ -63,17 +63,13 @@ main .section.v2-cards-container .v2-cards-wrapper {
 
 .v2-cards__button-container .icon {
   stroke: currentcolor;
-  width: 1em;
-  height: 1em;
+  width: 16px;
+  height: 16px;
 }
 
 .v2-cards__button-container .icon svg {
   width: 1em;
   height: 1em;
-}
-
-.v2-cards__button-container .v2-cards__button:hover {
-  color: var(--c-secondary-steel);
 }
 
 @media (min-width: 744px) {
@@ -86,6 +82,5 @@ main .section.v2-cards-container .v2-cards-wrapper {
 
   .v2-cards__card-item {
     max-width: calc((100% - 32px) / 3);
-    min-width: 336px;
   }
 }

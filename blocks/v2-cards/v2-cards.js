@@ -27,7 +27,7 @@ export default async function decorate(block) {
     el.classList.add(`${blockClass}__button-container`);
     [...el.querySelectorAll('a')].forEach((link) => {
       link.classList.add('standalone-link', `${blockClass}__button`);
-      link.classList.remove('button', 'primary');
+      link.classList.remove('button', 'button--primary');
     });
   });
 }

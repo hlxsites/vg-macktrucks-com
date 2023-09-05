@@ -971,10 +971,13 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 a.standalone-link:active,
-.redesign-v2 a.standalone-link:visited,
-.redesign-v2 a.standalone-link:hover {
-  background: transparent;
-  color: var(--c-cta-blue-active);
+.redesign-v2 a.standalone-link:visited {
+  color: var(--c-primary-black);
+}
+
+.redesign-v2 a.standalone-link:hover,
+.redesign-v2 a.standalone-link:focus {
+  text-decoration: underline;
 }
 
 @media (min-width: 1040px) {
