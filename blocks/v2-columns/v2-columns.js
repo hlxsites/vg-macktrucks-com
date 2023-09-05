@@ -2,50 +2,54 @@ import { createElement } from '../../scripts/common.js';
 
 export default async function decorate(block) {
   const blockName = 'v2-columns';
-  const columnsImage = createElement('div', { classes: `${blockName}__image` });
-  const columnsText = createElement('div', { classes: `${blockName}-content` });
+  const rows = [...block.querySelectorAll(':scope > div')];
+  const columns = [...block.querySelectorAll(':scope > div > div')];
 
-  const columns = [...block.querySelector(':scope > div').children];
-
-  const imageFirst = columns[0].querySelector('picture');
-  // block.classList.add(`image-${imageFirst ? 'first' : 'last'}`);
-
-  const picture = block.querySelector('picture');
-
-  const allTextElmts = block.querySelectorAll('p');
-  const bodyElmts = [];
-
-  allTextElmts.forEach((e) => {
-    const nextElmt = e.nextElementSibling;
-
-    const isButton = [...e.classList].includes('button-container');
-    const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
-
-    if (!isPretitle && !isButton) bodyElmts.push(e);
+  rows.forEach((row) => {
+    row.classList.add(`${blockName}__row`);
   });
-  bodyElmts.forEach((e) => e.classList.add(`${blockName}-content__body`));
 
-  const buttons = [...block.querySelectorAll('a')];
-  buttons.forEach((btn) => btn.classList.add('button', 'button--large', 'button--primary'));
+  columns.forEach((col) => {
+    col.classList.add(`${blockName}__column`);
 
-  const headings = [...block.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-  headings.forEach((heading) => heading.classList.add(`${blockName}-content__heading`));
+    const picture = col.querySelector('picture');
+    const allTextElmts = col.querySelectorAll('p');
+    const bodyElmts = [];
 
-  const pretitleText = headings[0].previousElementSibling;
+    if (picture) {
+      col.classList.add(`${blockName}__column--with-image`);
+    } else {
+      col.classList.add(`${blockName}__column--with-text`);
+    }
 
-  if (pretitleText) {
-    const pretitle = createElement('span', { classes: `${blockName}-content__pretitle` });
-    pretitle.textContent = pretitleText.textContent;
-    columnsText.append(pretitle);
-  }
+    allTextElmts.forEach((e) => {
+      const nextElmt = e.nextElementSibling;
 
-  columnsImage.append(picture);
-  columnsText.append(...headings, ...bodyElmts, ...buttons);
+      const isButton = [...e.classList].includes('button-container');
+      const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
 
-  block.textContent = '';
-  if (imageFirst) {
-    block.append(columnsImage, columnsText);
-  } else {
-    block.append(columnsText, columnsImage);
-  }
+      if (!isPretitle && !isButton) bodyElmts.push(e);
+    });
+    bodyElmts.forEach((e) => e.classList.add(`${blockName}__body`));
+
+    const buttons = [...col.querySelectorAll('a')];
+    buttons.forEach((btn) => {
+      btn.classList.add('button', 'button--large', 'button--primary');
+
+      if (btn.parentElement.classList.contains('button-container')) {
+        btn.parentElement.replaceWith(btn);
+      }
+    });
+
+    const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
+    headings.forEach((heading) => heading.classList.add(`${blockName}__heading`));
+
+    const pretitleText = headings[0]?.previousElementSibling;
+
+    if (pretitleText) {
+      const pretitle = createElement('span', { classes: `${blockName}__pretitle` });
+      pretitle.textContent = pretitleText.textContent;
+      pretitleText.replaceWith(pretitle);
+    }
+  });
 }
