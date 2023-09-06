@@ -35,7 +35,7 @@ function buildTabNavigation(tabItems, clickHandler) {
       });
     }
 
-    button.innerHTML = tabItem.dataset.truckCarousel;
+    button.innerHTML = tabItem.dataset.carousel;
     listItem.append(button);
     tabNavigation.append(listItem);
   });
