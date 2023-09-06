@@ -104,7 +104,7 @@
 
   /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
   --headline-5-font-size: 1.125rem; /* 18px */
-  --headline-5-line-height: 150%;
+  --headline-5-line-height: 140%;
 
   /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 16px, 150%  */
   --body-1-font-size: 1rem; /* 16px */
@@ -245,6 +245,7 @@ h4, h5, h6 {
   margin-top: 1em;
   margin-bottom: 0.5em;
   scroll-margin: calc(var(--nav-height-m) + 1em);
+  font-weight: normal;
 }
 
 h1, h2 {
@@ -254,13 +255,13 @@ h1, h2 {
 h1 {
   font-size: var(--headline-1-font-size);
   line-height: var(--headline-1-line-height);
-  letter-spacing: var(--headline-1-line-letter-spacing);
+  letter-spacing: var(--headline-1-letter-spacing);
 }
 
 h2 {
   font-size: var(--headline-2-font-size);
   line-height: var(--headline-2-line-height);
-  letter-spacing: var(--headline-2-line-letter-spacing);
+  letter-spacing: var(--headline-2-letter-spacing);
 }
 
 h3 {
@@ -424,6 +425,7 @@ main .section.black-background {
 
 main .section.dark-background {
   background-color: var(--c-secondary-graphite);
+  color: var(--c-primary-white);
 }
 
 main .section.center {
@@ -944,6 +946,7 @@ main .section.responsive-title h1 {
   padding: 0;
 }
 
+.section.header-with-mark > .default-content-wrapper:first-child > h1:first-child::before,
 .redesign-v2 .with-marker::before {
   content: '';
   margin: 0;
@@ -953,6 +956,29 @@ main .section.responsive-title h1 {
   display: block;
   position: relative;
   top: -18px;
+}
+
+.redesign-v2 a.standalone-link {
+  align-items: center;
+  color: var(--c-primary-black);
+  display: inline-flex;
+  font-family: var(--ff-body-bold);
+  font-size: var(--button-font-size);
+  gap: 4px;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  background: transparent;
+}
+
+.redesign-v2 a.standalone-link:active,
+.redesign-v2 a.standalone-link:visited {
+  color: var(--c-tertiary-cool-gray);
+}
+
+.redesign-v2 a.standalone-link:hover,
+.redesign-v2 a.standalone-link:focus {
+  color: var(--c-tertiary-cool-gray);
+  text-decoration: underline;
 }
 
 @media (min-width: 1040px) {
