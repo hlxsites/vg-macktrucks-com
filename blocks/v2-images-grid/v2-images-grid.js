@@ -20,7 +20,6 @@ export default function decorate(block) {
   // give format to the first 4 list items
   [...ul.children].forEach((li, idx) => {
     if (idx < 4) {
-      const section = createElement('div');
       const captionEle = getAllElWithChildren(li.querySelectorAll('p'), 'picture', true)[0];
       let picture = li.querySelector('picture');
 
@@ -37,13 +36,9 @@ export default function decorate(block) {
         picture.append(figCaption);
       }
 
-      // Move image outside of the wrapper
-      section.prepend(picture);
+      li.innerHTML = '';
 
-      // Remove caption element
-      captionEle.remove();
-
-      li.append(section);
+      li.append(picture);
       return;
     }
     li.remove();
