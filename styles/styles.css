@@ -987,9 +987,9 @@ main .section.responsive-title h1 {
   }
 
   .redesign-v2 .section > div {
+    max-width: var(--wrapper-width);
     padding: 0;
     margin: 0 auto;
-    max-width: 1040px;
   }
 
   .redesign-v2 .with-marker::before {
