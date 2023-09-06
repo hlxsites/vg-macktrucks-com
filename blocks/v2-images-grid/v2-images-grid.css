@@ -1,7 +1,5 @@
 :root {
   --v2-images-grid-gutter: 8px;
-  --v2-images-grid-big-height: 168px;
-  --v2-images-grid-small-height: 125px;
   --v2-images-grid-padding-space: 24px;
 }
 
@@ -23,48 +21,42 @@
   width: auto;
 }
 
+.v2-images-grid__picture {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
 .v2-images-grid__item:nth-child(1) { grid-area: area1; }
 .v2-images-grid__item:nth-child(2) { grid-area: area2; }
 .v2-images-grid__item:nth-child(3) { grid-area: area3; }
 .v2-images-grid__item:nth-child(4) { grid-area: area4; }
 
 .v2-images-grid__item img {
-  height: var(--v2-images-grid-big-height);
   object-fit: cover;
   width: 100%;
+  display: block;
+  height: 100%;
 }
 
-.v2-images-grid__item:nth-child(2) img, .v2-images-grid__item:nth-child(3) img {
-  height: var(--v2-images-grid-small-height);
+.v2-images-grid__item:nth-child(1) img,
+.v2-images-grid__item:nth-child(4) img {
+  aspect-ratio: 1/1;
+}
+
+.v2-images-grid__item:nth-child(2) img,
+.v2-images-grid__item:nth-child(3) img {
+  aspect-ratio: 4/3;
 }
  
-.v2-images-grid__picture {
-  display: block;
-  position: relative;
-}
-
 .v2-images-grid__figcaption {
   display: none;
-}
-
-@media screen and (min-width: 744px) {
-  :root {
-    --v2-images-grid-big-height: 300px;
-    --v2-images-grid-small-height: 200px;
-  }
 }
 
 @media screen and (min-width: 1200px) {
   :root {
     --v2-images-grid-gutter: 16px;
-    --v2-images-grid-big-height: 511px;
-    --v2-images-grid-small-height: 383px;
-    --v2-images-grid-max-width: 1040px;
     --v2-images-grid-padding-space: 40px;
-  }
-
-  .v2-images-grid__item img {
-    vertical-align: top;
   }
 
   .v2-images-grid__figcaption {
