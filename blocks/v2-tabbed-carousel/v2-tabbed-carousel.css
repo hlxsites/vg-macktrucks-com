@@ -16,10 +16,6 @@
   background-color: var(--bg-color);
 }
 
-.redesign-v2 .section.v2-tabbed-carousel-container {
-  padding: 0;
-}
-
 .v2-tabbed-carousel__items {
   align-items: flex-end;
   display: flex;
@@ -47,7 +43,7 @@
   object-fit: cover;
   width: 100%;
   display: block;
-  aspect-ratio: 2.02 / 1;
+  aspect-ratio: 2 / 1;
 }
 
 .v2-tabbed-carousel__figure {
@@ -83,6 +79,10 @@
   overflow: auto;
   padding: var(--navigation-padding);
   position: relative;
+}
+
+.v2-tabbed-carousel__navigation::-webkit-scrollbar {
+  display: none;
 }
 
 .v2-tabbed-carousel__navigation-line {
@@ -129,7 +129,8 @@
 }
 
 .v2-tabbed-carousel__navigation-item.active button,
-.v2-tabbed-carousel__navigation-item button:hover {
+.v2-tabbed-carousel__navigation-item button:hover,
+.v2-tabbed-carousel__navigation-item button:focus {
   color: var(--navigation-active-color);
 }
 

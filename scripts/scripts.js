@@ -309,10 +309,8 @@ function buildInpageNavigationBlock(main) {
 function createTabbedSection(tabItems, classname) {
   const tabSection = createElement('div', { classes: 'section' });
   tabSection.dataset.sectionStatus = 'initialized';
-  const wrapper = createElement('div');
-  tabSection.append(wrapper);
   const tabBlock = buildBlock(classname, [tabItems]);
-  wrapper.append(tabBlock);
+  tabSection.append(tabBlock);
   return tabSection;
 }
 

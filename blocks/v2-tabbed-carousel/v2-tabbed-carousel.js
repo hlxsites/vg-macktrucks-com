@@ -2,6 +2,15 @@ import { createElement, removeEmptyTags } from '../../scripts/common.js';
 
 const blockName = 'v2-tabbed-carousel';
 
+const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
+  const { x: navigationX } = tabNavigation.getBoundingClientRect();
+  const { x, width } = activeTab.getBoundingClientRect();
+  Object.assign(navigationLine.style, {
+    left: `${x + tabNavigation.scrollLeft - navigationX}px`,
+    width: `${width}px`,
+  });
+};
+
 function buildTabNavigation(tabItems, clickHandler) {
   const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
   const navigationLine = createElement('li', { classes: `${blockName}__navigation-line` });
@@ -11,29 +20,17 @@ function buildTabNavigation(tabItems, clickHandler) {
     const listItem = createElement('li', { classes: `${blockName}__navigation-item` });
     const button = createElement('button');
     button.addEventListener('click', () => clickHandler(i));
-    if (navigationLine) {
-      button.addEventListener('mouseover', (e) => {
-        clearTimeout(timeout);
-        const { x: navigationX } = tabNavigation.getBoundingClientRect();
-        const { x, width } = e.currentTarget.getBoundingClientRect();
-        Object.assign(navigationLine.style, {
-          left: `${x + tabNavigation.scrollLeft - navigationX}px`,
-          width: `${width}px`,
-        });
-      });
+    button.addEventListener('mouseover', (e) => {
+      clearTimeout(timeout);
+      moveNavigationLine(navigationLine, e.currentTarget, tabNavigation);
+    });
 
-      button.addEventListener('mouseout', () => {
-        timeout = setTimeout(() => {
-          const { x: navigationX } = tabNavigation.getBoundingClientRect();
-          const activeItem = document.querySelector(`.${blockName}__navigation-item.active`);
-          const { x, width } = activeItem.getBoundingClientRect();
-          Object.assign(navigationLine.style, {
-            left: `${x + tabNavigation.scrollLeft - navigationX}px`,
-            width: `${width}px`,
-          });
-        }, 600);
-      });
-    }
+    button.addEventListener('mouseout', () => {
+      timeout = setTimeout(() => {
+        const activeItem = document.querySelector(`.${blockName}__navigation-item.active`);
+        moveNavigationLine(navigationLine, activeItem, tabNavigation);
+      }, 600);
+    });
 
     button.innerHTML = tabItem.dataset.carousel;
     listItem.append(button);
@@ -54,15 +51,8 @@ const updateActiveItem = (index) => {
   carouselItems.children[index].classList.add('active');
   navigation.children[index].classList.add('active');
 
-  if (navigationLine) {
-    const { x: navigationX } = navigation.getBoundingClientRect();
-    const activeNavigationItem = navigation.children[index];
-    const { x, width } = activeNavigationItem.getBoundingClientRect();
-    Object.assign(navigationLine.style, {
-      left: `${x + navigation.scrollLeft - navigationX}px`,
-      width: `${width}px`,
-    });
-  }
+  const activeNavigationItem = navigation.children[index];
+  moveNavigationLine(navigationLine, activeNavigationItem, navigation);
 
   // Center navigation item
   const navigationActiveItem = navigation.querySelector('.active');
