@@ -9,7 +9,7 @@
 
 .v2-columns__column--with-image,
 .v2-columns__column--with-text {
-  max-width: 343px;
+  max-width: 512px;
 }
 
 .v2-columns__column--with-image {
@@ -62,7 +62,7 @@
 
   .v2-columns__row {
     flex-direction: row;
-    gap: 56px;
+    gap: 16px;
   }
 
   .v2-columns__column--with-text,
@@ -71,6 +71,10 @@
     width: 100%;
     padding: 0;
     order: unset;
+  }
+
+  .v2-columns__column--with-text {
+    padding: 0 56px;
   }
 
   .v2-columns__column--with-text .v2-columns__heading {
