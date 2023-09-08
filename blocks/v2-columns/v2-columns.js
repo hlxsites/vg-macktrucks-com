@@ -1,7 +1,10 @@
-import { createElement } from '../../scripts/common.js';
+import { createElement, variantsClassesToBEM } from '../../scripts/common.js';
 
 export default async function decorate(block) {
   const blockName = 'v2-columns';
+  const variantClasses = ['info'];
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
+
   const rows = [...block.querySelectorAll(':scope > div')];
   const columns = [...block.querySelectorAll(':scope > div > div')];
 
@@ -42,14 +45,46 @@ export default async function decorate(block) {
     });
 
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-    headings.forEach((heading) => heading.classList.add(`${blockName}__heading`));
+    headings.forEach((heading) => heading.classList.add(`${blockName}__heading`, 'h1'));
 
-    const pretitleText = headings[0]?.previousElementSibling;
+    // icons
+    [...col.querySelectorAll('.icon')].forEach((icon) => {
+      const iconParentEl = icon.parentElement;
+      if (iconParentEl.children.length === 1) {
+        iconParentEl.replaceWith(icon);
+      }
+    });
+
+    const prevEl = headings[0]?.previousElementSibling;
+    const pretitleText = prevEl && !prevEl.classList.contains('icon') && prevEl.textContent;
 
     if (pretitleText) {
       const pretitle = createElement('span', { classes: `${blockName}__pretitle` });
-      pretitle.textContent = pretitleText.textContent;
-      pretitleText.replaceWith(pretitle);
+      pretitle.textContent = pretitleText;
+      prevEl.replaceWith(pretitle);
     }
   });
+
+  // logic for info variant
+  if (block.classList.contains(`${blockName}--info`)) {
+    const headings = [...block.querySelectorAll('h3, h4, h5, h6')];
+    const h2List = [...block.querySelectorAll('h2')];
+
+    headings.forEach((h) => {
+      h.classList.add('h5');
+      h.classList.remove('h2');
+    });
+
+    h2List.forEach((h) => {
+      h.classList.add('with-marker', 'h2');
+      h.classList.remove('h1');
+      h.closest(`.${blockName}__column`)?.classList.add(`${blockName}__column--info-main`);
+    });
+
+    const buttons = [...block.querySelectorAll('a')];
+    buttons.forEach((button) => {
+      button.classList.add('standalone-link', `${blockName}__button`);
+      button.classList.remove('button', 'button--primary', 'button--large');
+    });
+  }
 }
