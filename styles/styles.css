@@ -1001,29 +1001,6 @@ main .section.responsive-title h1 {
   }
 }
 
-.redesign-v2 a.standalone-link {
-  align-items: center;
-  color: var(--c-primary-black);
-  display: inline-flex;
-  font-family: var(--ff-body-bold);
-  font-size: var(--button-font-size);
-  gap: 4px;
-  letter-spacing: 1.12px;
-  line-height: var(--button-line-height);
-  background: transparent;
-}
-
-.redesign-v2 a.standalone-link:active,
-.redesign-v2 a.standalone-link:visited {
-  color: var(--c-tertiary-cool-gray);
-}
-
-.redesign-v2 a.standalone-link:hover,
-.redesign-v2 a.standalone-link:focus {
-  color: var(--c-tertiary-cool-gray);
-  text-decoration: underline;
-}
-
 /* CLS OPTIMIZATION */
 .v2-hero {
   height: calc(100vh - var(--nav-height));
