@@ -45,7 +45,7 @@ export default async function decorate(block) {
     });
 
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-    headings.forEach((heading) => heading.classList.add(`${blockName}__heading`, 'h1'));
+    headings.forEach((heading) => heading.classList.add(`${blockName}__heading`, 'h2'));
 
     // icons
     [...col.querySelectorAll('.icon')].forEach((icon) => {
