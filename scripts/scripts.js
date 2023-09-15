@@ -306,6 +306,46 @@ function buildInpageNavigationBlock(main) {
   }
 }
 
+function createTabbedSection(tabItems, classname) {
+  const tabSection = createElement('div', { classes: 'section' });
+  tabSection.dataset.sectionStatus = 'initialized';
+  const tabBlock = buildBlock(classname, [tabItems]);
+  tabSection.append(tabBlock);
+  return tabSection;
+}
+
+function buildTabbedBlock(main, classname) {
+  let nextElement;
+  const tabItems = [];
+  const mainChildren = [...main.querySelectorAll(':scope > div')];
+
+  mainChildren.forEach((section) => {
+    const isCarousel = section.dataset.carousel;
+    if (!isCarousel) return;
+
+    nextElement = mainChildren[i + 1];
+    const tabContent = createElement('div', { classes: `${classname}__item` });
+    tabContent.dataset.carousel = section.dataset.carousel;
+    tabContent.innerHTML = section.innerHTML;
+    const image = tabContent.querySelector('p > picture');
+
+    tabContent.prepend(image);
+
+    tabItems.push(tabContent);
+    section.remove();
+  });
+
+  if (tabItems.length > 0) {
+    const tabbedCarouselSection = createTabbedSection(tabItems, classname);
+    if (nextElement) { // if we saved a position push the carousel in that position if not
+      main.insertBefore(tabbedCarouselSection, nextElement);
+    } else {
+      main.append(tabbedCarouselSection);
+    }
+    decorateBlock(tabbedCarouselSection.querySelector(`.${classname}`));
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -322,6 +362,8 @@ export function decorateMain(main, head) {
 
   // Inpage navigation
   buildInpageNavigationBlock(main);
+  // V2 tabbed carousel
+  buildTabbedBlock(main, 'v2-tabbed-carousel');
 }
 
 async function loadTemplate(doc, templateName) {

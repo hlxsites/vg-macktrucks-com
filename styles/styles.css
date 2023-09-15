@@ -991,9 +991,9 @@ main .section.responsive-title h1 {
   }
 
   .redesign-v2 .section > div {
+    margin: 0 auto;
     max-width: var(--wrapper-width);
     padding: 0;
-    margin: 0 auto;
   }
 
   .redesign-v2 .with-marker::before {
