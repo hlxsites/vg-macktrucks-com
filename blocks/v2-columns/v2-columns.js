@@ -81,6 +81,14 @@ export default async function decorate(block) {
       h.closest(`.${blockName}__column`)?.classList.add(`${blockName}__column--info-main`);
     });
 
+    // replacing headings (h3, h4, h5, h6) with strong so the block will not break semantic
+    // (example breaking semantic: col 1 -> h5, col 2 -> h2)
+    headings.forEach((heading) => {
+      const newHeadingEl = createElement('strong', { classes: [...heading.classList] });
+      newHeadingEl.innerHTML = heading.innerHTML;
+      heading.replaceWith(newHeadingEl);
+    });
+
     const buttons = [...block.querySelectorAll('a')];
     buttons.forEach((button) => {
       button.classList.add('standalone-link', `${blockName}__button`);
