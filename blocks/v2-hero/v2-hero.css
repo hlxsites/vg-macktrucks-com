@@ -73,3 +73,125 @@
     letter-spacing: -0.9px;
   }
 }
+
+/* PDP Hero section */
+[data-page='pdp'] .v2-hero__content {
+  flex-direction: row;
+  min-height: 68px;
+  padding: 0;
+  max-width: unset;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    min-height: 160px;
+  }
+}
+
+[data-page='pdp'] .v2-hero__content::after {
+  content: '';
+  flex-grow: 1;
+  background-color: rgb(29 29 29 / 85%);
+
+}
+
+[data-page='pdp'] .v2-hero__content ul {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(29 29 29 / 85%);
+  list-style-type: none;
+  color: var(--c-primary-white);
+  margin: 0;
+  padding: 35px 40px 40px;
+  text-align: center;
+  max-height: 160px;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+[data-page='pdp'] .v2-hero__content li:first-child {
+  font-family: var(--ff-testimonial);
+  font-size: var(--accent-2-font-size);
+  line-height: var(--accent-2-line-height);
+  text-transform: capitalize;
+}
+
+[data-page='pdp'] .v2-hero__content li:nth-child(2) {
+  font-size: var(--body-font-size-xxl);
+  line-height: var(--headline-1-line-height);
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+[data-page='pdp'] .v2-hero__content li:nth-child(3) {
+  font-family: var(--ff-accents);
+  font-size: var(--body-2-font-size);
+  text-transform: uppercase;
+  letter-spacing: .08rem;
+}
+
+
+[data-page='pdp'] .v2-hero__content sup {
+  margin: -8px 0 0 -8px;
+  font-size: var(--superscript-font-size);
+  letter-spacing: initial;
+
+  @media (min-width: 768px) {
+    margin: -24px 0 0 -8px;
+  }
+}
+
+[data-page='pdp'] .v2-hero__heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-height: 68px;
+  max-width: unset;
+  background: rgb(29 29 29 / 75%);
+  font-size: var(--body-font-size-xxl);
+  font-family: var(--ff-headline-medium);
+  text-transform: uppercase;
+  letter-spacing: 12px;
+  margin: 0;
+  padding-left: 20px;
+
+  @media (min-width: 768px) {
+    min-height: 160px;
+    justify-content: center;
+    font-size: calc(var(--body-font-size-xxl) * 2);
+  }
+
+  @media (min-width: 1200px) {
+    width: 50%;
+  }
+}
+
+/* PDP - electric model */
+[data-page-variation='pdp-electric'] .v2-hero__heading {
+  background: rgb(143 101 77 / 60%);
+}
+
+[data-page='pdp'] .v2-hero__content .v2-hero__heading + ul::before,
+[data-page='pdp'] .v2-hero__content .v2-hero__heading + ul + ul::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 29px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--c-primary-white);
+}
+
+[data-page='pdp'] .v2-hero__heading.with-marker::before {
+  display: none;
+}
+
+/* End PDP Hero section */
+
