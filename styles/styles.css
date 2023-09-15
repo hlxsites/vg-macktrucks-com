@@ -241,7 +241,9 @@ header {
 }
 
 h1, h2, h3,
-h4, h5, h6 {
+h4, h5, h6,
+.h1, .h2, .h3,
+.h4, .h5, .h6 {
   font-family: var(--ff-subheadings-medium);
   margin-top: 1em;
   margin-bottom: 0.5em;
@@ -249,38 +251,39 @@ h4, h5, h6 {
   font-weight: normal;
 }
 
-h1, h2 {
+h1, h2,
+.h1, .h2 {
   font-family: var(--ff-headline-medium);
 }
 
-h1 {
+h1, .h1 {
   font-size: var(--headline-1-font-size);
   line-height: var(--headline-1-line-height);
   letter-spacing: var(--headline-1-letter-spacing);
 }
 
-h2 {
+h2, .h2 {
   font-size: var(--headline-2-font-size);
   line-height: var(--headline-2-line-height);
   letter-spacing: var(--headline-2-letter-spacing);
 }
 
-h3 {
+h3, .h3 {
   font-size: var(--headline-3-font-size);
   line-height: var(--headline-3-line-height);
 }
 
-h4 {
+h4, .h4 {
   font-size: var(--headline-4-font-size);
   line-height: var(--headline-4-line-height);
 }
 
-h5 {
+h5, .h5 {
   font-size: var(--headline-5-font-size);
   line-height: var(--headline-5-line-height);
 }
 
-h6 { font-size: var(--heading-font-size-xs); }
+h6, .h6 { font-size: var(--heading-font-size-xs); }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;

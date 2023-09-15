@@ -4,7 +4,7 @@
   gap: 0;
   width: 100%;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .v2-columns__column--with-image,
@@ -18,6 +18,12 @@
 
 .v2-columns__column--with-image img {
   display: block;
+}
+
+.v2-columns__column--with-text .icon,
+.v2-columns__column--with-text svg {
+  width: 32px;
+  height: 32px;
 }
 
 .v2-columns__column--with-text {
@@ -35,9 +41,6 @@
 }
 
 .v2-columns__column--with-text .v2-columns__heading {
-  font-size: var(--headline-1-font-size);
-  line-height: var(--headline-1-line-height);
-  letter-spacing: var(--headline-1-letter-spacing);
   margin: 12px 0;
 }
 
@@ -55,12 +58,55 @@
   margin: 5px 0 0;
 }
 
+.v2-columns--info {
+  padding: 24px 16px;
+  background: var(--c-primary-white);
+}
+
+.v2-columns--info .v2-columns__column {
+  gap: 8px;
+}
+
+.v2-columns--info .icon {
+  margin-bottom: 8px;
+}
+
+.v2-columns--info .v2-columns__heading {
+  margin: 0;
+}
+
+.v2-columns--info .v2-columns__body {
+  margin: 0 0 22px;
+}
+
+.v2-columns--info .v2-columns__column--info-main {
+  gap: 24px;
+}
+
+.v2-columns--info .v2-columns__column--info-main .v2-columns__heading {
+  padding-top: 24px;
+  margin: 0;
+}
+
+.v2-columns--info .v2-columns__column--with-text {
+  padding: 0;
+}
+
+.v2-columns--info .v2-columns__row {
+  gap: 40px;
+}
+
+.v2-columns--info .v2-columns__button {
+  margin-bottom: 16px;
+}
+
 @media (min-width: 744px) {
   .v2-columns {
     width: 100%;
   }
 
   .v2-columns__row {
+    align-items: center;
     flex-direction: row;
     gap: 16px;
   }
@@ -78,10 +124,33 @@
   }
 
   .v2-columns__column--with-text .v2-columns__heading {
-    margin: 24px 0 12px;
+    margin: 0;
   }
 
   .v2-columns__column--with-text .v2-columns__body {
-    margin: 0 0 24px;
+    margin: 0 0 14px;
+  }
+
+  .v2-columns--info {
+    padding: 20px 40px;
+  }
+
+  .v2-columns--info .v2-columns__row {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .v2-columns--info .v2-columns__body:last-child {
+    margin: 0;
+  }
+
+  .v2-columns--info .v2-columns__column {
+    max-width: 245px;
+  }
+
+  .v2-columns--info .v2-columns__column--info-main {
+    align-self: center;
+    max-width: 329px;
+    width: 100%;
   }
 }
