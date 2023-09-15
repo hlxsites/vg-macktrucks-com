@@ -134,7 +134,7 @@
   color: var(--navigation-active-color);
 }
 
-@media (min-width: 744px) {
+@media (min-width: 1200px) {
   .v2-tabbed-carousel__figure {
     position: relative;
   }
@@ -156,9 +156,7 @@
     padding: 15px 32px;
     position: absolute;
   }
-}
 
-@media (min-width: 1200px) {
   .v2-tabbed-carousel-container {
     --navigation-padding: 40px 0;
     --navigation-line-top: 37px;
