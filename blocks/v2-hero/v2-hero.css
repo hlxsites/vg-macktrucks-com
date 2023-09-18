@@ -82,7 +82,7 @@
   max-width: unset;
   width: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: 744px) {
     min-height: 160px;
   }
 }
@@ -108,9 +108,13 @@
   text-align: center;
   max-height: 160px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     display: flex;
   }
+}
+
+[data-page='pdp'][data-page-variation-standard="is-standard-model"] .v2-hero__content ul {
+  background-color: rgb(29 29 29 / 85%);
 }
 
 [data-page='pdp'] .v2-hero__content li:first-child {
@@ -140,7 +144,7 @@
   font-size: var(--superscript-font-size);
   letter-spacing: initial;
 
-  @media (min-width: 768px) {
+  @media (min-width: 744px) {
     margin: -24px 0 0 -8px;
   }
 }
@@ -160,7 +164,7 @@
   margin: 0;
   padding-left: 20px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 744px) {
     min-height: 160px;
     justify-content: center;
     font-size: calc(var(--body-font-size-xxl) * 2);
@@ -169,6 +173,10 @@
   @media (min-width: 1200px) {
     width: 50%;
   }
+}
+
+[data-page='pdp'][data-page-variation-standard="is-standard-model"] .v2-hero__heading {
+  background: rgb(29 29 29 / 75%);
 }
 
 [data-page='pdp'] .v2-hero__content .v2-hero__heading + ul::before,
@@ -194,6 +202,7 @@
   position: relative;
   background: transparent;
   font-size: var(--body-1-font-size);
+  border: 1px solid red;
 }
 
 [data-page='pdp'] .v2-hero__cta-wrapper {
@@ -221,16 +230,28 @@
 /* PDP - electric model availability banner END */
 
 /* PDP - electric model stats bar */
-[data-page-variation='is-electric-model'] .v2-hero__heading {
+[data-page='pdp'][data-page-variation-electric='is-electric-model'] .v2-hero__heading {
   background: rgb(143 101 77 / 60%);
 }
 
-[data-page-variation='is-electric-model'] .v2-hero__content ul,
-[data-page-variation='is-electric-model'] .v2-hero__content::after {
+[data-page='pdp'][data-page-variation-electric='is-electric-model'] .v2-hero__content ul,
+[data-page='pdp'][data-page-variation-electric='is-electric-model'] .v2-hero__content::after {
   background: rgb(143 101 77 / 90%);
 }
 
-[data-page-variation='is-electric-model'][data-model-variation='has-electric-model'] .v2-hero__content > .v2-hero__cta-wrapper {
+[data-page-variation-electric='is-electric-model'] .v2-hero__content a {
+  display: none !important;
+}
+
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation] .v2-hero__content a {
+  display: none;
+}
+
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation="has-electric-model"] .v2-hero__content a {
+  display: block;
+}
+
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-page-variation-electric='is-electric-model'][data-model-variation="has-electric-model"] .v2-hero__content a {
   display: none;
 }
 
