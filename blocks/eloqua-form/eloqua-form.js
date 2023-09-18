@@ -1,5 +1,5 @@
 import { loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
-import { createElement } from '../../scripts/common.js';
+import { createElement, getTextLabel, isEloquaFormAllowed } from '../../scripts/common.js';
 
 // Every eloqua form has it's own JS, CSS and HTML.
 // Once the form is loaded all the JS and CSS are added to the body.
@@ -149,9 +149,32 @@ const addForm = async (block) => {
   block.style.display = displayValue;
 };
 
+const addNoCookieMessage = (messageContainer) => {
+  const messageText = getTextLabel('no eloqua message');
+  const messageLinkText = getTextLabel('no eloqua link message');
+
+  const messageEl = createElement('div', ['eloqua-form-no-cookie']);
+  messageEl.innerHTML = `
+    <span>${messageText}</span>
+    <button>${messageLinkText}</button>
+  `;
+
+  messageEl.querySelector('button').addEventListener('click', () => {
+    window.OneTrust.ToggleInfoDisplay();
+  });
+
+  messageContainer.replaceChildren(messageEl);
+};
+
 export default async function decorate(block) {
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
+      if (!isEloquaFormAllowed()) {
+        addNoCookieMessage(block);
+
+        return;
+      }
+
       observer.disconnect();
       addForm(block);
     }
