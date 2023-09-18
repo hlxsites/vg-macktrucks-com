@@ -488,6 +488,21 @@ main .section.padding-32 {
   }
 }
 
+/* title white on black background */
+.section.title-white > div > h2 {
+  color: white;
+}
+
+/* margin adjustment */
+.section.title-margin-bottom-0 > div > h2 {
+  margin-block-end: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.section.wrapper-margin-top-0 > div {
+  margin-block-start: 0;
+}
+
 main pre {
   background-color: var(--overlay-background-color);
   padding: 1em;
@@ -669,7 +684,8 @@ main .section.magazine-listing-content h3 {
 }
 
 main sup {
-  font-size: clamp(var(--body-font-size-xxs), 12px, 1em);
+  font-size: clamp(var(--body-font-size-s), 12px, 1em);
+  padding-left: 3px;
 }
 
 @media (min-width: 768px) {

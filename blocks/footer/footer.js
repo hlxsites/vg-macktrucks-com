@@ -1,5 +1,7 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/common.js';
+import {
+  createElement, getTextLabel, isEloquaFormAllowed,
+} from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   subscribe: getTextLabel('SUBSCRIBE TO BULLDOG'),
@@ -185,6 +187,10 @@ export default async function decorate(block) {
   await loadBlocks(block);
 
   const onFormLoaded = (mutationList) => {
+    if (!isEloquaFormAllowed()) {
+      return;
+    }
+
     // eslint-disable-next-line no-restricted-syntax
     for (const mutation of mutationList) {
       if (submitButtonFixed && checkboxFixed) {
