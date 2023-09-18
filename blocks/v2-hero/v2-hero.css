@@ -74,7 +74,7 @@
   }
 }
 
-/* PDP Hero section */
+/* PDP - Hero section */
 [data-page='pdp'] .v2-hero__content {
   flex-direction: row;
   min-height: 68px;
@@ -171,11 +171,6 @@
   }
 }
 
-/* PDP - electric model */
-[data-page-variation='pdp-electric'] .v2-hero__heading {
-  background: rgb(143 101 77 / 60%);
-}
-
 [data-page='pdp'] .v2-hero__content .v2-hero__heading + ul::before,
 [data-page='pdp'] .v2-hero__content .v2-hero__heading + ul + ul::before {
   content: '';
@@ -193,5 +188,53 @@
   display: none;
 }
 
-/* End PDP Hero section */
+/* PDP - electric model availability banner */
+[data-page='pdp'] .v2-hero__content .v2-hero__cta {
+  width: 100%;
+  position: relative;
+  background: transparent;
+  font-size: var(--body-1-font-size);
+}
+
+[data-page='pdp'] .v2-hero__cta-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  width: 100%;
+  background: var(--c-accent-copper);
+}
+
+[data-page='pdp'] .v2-hero__cta .icon-arrow-right,
+[data-page='pdp'] .v2-hero__cta .icon-flash {
+  line-height: 1;
+}
+
+[data-page='pdp'] .v2-hero__cta .icon-arrow-right svg,
+[data-page='pdp'] .v2-hero__cta .icon-flash svg {
+  --color-icon: var(--c-primary-white);
+  
+  width: 16px;
+  height: 16px;
+}
+
+/* PDP - electric model availability banner END */
+
+/* PDP - electric model stats bar */
+[data-page-variation='is-electric-model'] .v2-hero__heading {
+  background: rgb(143 101 77 / 60%);
+}
+
+[data-page-variation='is-electric-model'] .v2-hero__content ul,
+[data-page-variation='is-electric-model'] .v2-hero__content::after {
+  background: rgb(143 101 77 / 90%);
+}
+
+[data-page-variation='is-electric-model'][data-model-variation='has-electric-model'] .v2-hero__content > .v2-hero__cta-wrapper {
+  display: none;
+}
+
+/* PDP - electric model stats bar END */
+
+/* PDP - Hero section END */
 

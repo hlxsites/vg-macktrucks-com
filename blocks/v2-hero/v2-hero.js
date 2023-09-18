@@ -27,6 +27,12 @@ export default async function decorate(block) {
     b.parentElement.classList.add(`${heroClass}__cta-wrapper`);
   });
 
+  // PDP - Move the flash icon in front of the anchor's text content
+  const flashIcon = document.querySelector('[data-page="pdp"] .v2-hero__cta-wrapper .icon-flash');
+  const heroCTA = document.querySelector('[data-page="pdp"] .v2-hero__cta-wrapper .v2-hero__cta');
+  const heroCTATextNode = heroCTA.firstChild;
+  heroCTA.insertBefore(flashIcon, heroCTATextNode);
+
   block.prepend(picture);
   block.parentElement.classList.add('full-width');
 }
