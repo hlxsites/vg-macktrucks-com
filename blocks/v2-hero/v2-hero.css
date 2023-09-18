@@ -77,12 +77,12 @@
 /* PDP - Hero section */
 [data-page='pdp'] .v2-hero__content {
   flex-direction: row;
-  min-height: 68px;
+  height: 68px;
   padding: 0;
   max-width: unset;
   width: 100%;
 
-  @media (min-width: 744px) {
+  @media (min-width: 1024px) {
     min-height: 160px;
   }
 }
@@ -110,6 +110,7 @@
 
   @media (min-width: 1024px) {
     display: flex;
+    min-width: 180px;
   }
 }
 
@@ -144,7 +145,7 @@
   font-size: var(--superscript-font-size);
   letter-spacing: initial;
 
-  @media (min-width: 744px) {
+  @media (min-width: 1024px) {
     margin: -24px 0 0 -8px;
   }
 }
@@ -164,7 +165,7 @@
   margin: 0;
   padding-left: 20px;
 
-  @media (min-width: 744px) {
+  @media (min-width: 1024px) {
     min-height: 160px;
     justify-content: center;
     font-size: calc(var(--body-font-size-xxl) * 2);
@@ -172,6 +173,8 @@
 
   @media (min-width: 1200px) {
     width: 50%;
+    justify-content: flex-end;
+    padding-right: 160px;
   }
 }
 
@@ -202,16 +205,16 @@
   position: relative;
   background: transparent;
   font-size: var(--body-1-font-size);
-  border: 1px solid red;
 }
 
 [data-page='pdp'] .v2-hero__cta-wrapper {
   position: absolute;
   display: flex;
-  justify-content: center;
+  align-items: center;
   top: 0;
   width: 100%;
   background: var(--c-accent-copper);
+  margin-top: 0;
 }
 
 [data-page='pdp'] .v2-hero__cta .icon-arrow-right,
@@ -239,19 +242,19 @@
   background: rgb(143 101 77 / 90%);
 }
 
-[data-page-variation-electric='is-electric-model'] .v2-hero__content a {
+[data-page-variation-electric='is-electric-model'] .v2-hero__cta-wrapper {
   display: none !important;
 }
 
-[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation] .v2-hero__content a {
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation] .v2-hero__cta-wrapper {
   display: none;
 }
 
-[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation="has-electric-model"] .v2-hero__content a {
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation="has-electric-model"] .v2-hero__cta-wrapper {
   display: block;
 }
 
-[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-page-variation-electric='is-electric-model'][data-model-variation="has-electric-model"] .v2-hero__content a {
+[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-page-variation-electric='is-electric-model'][data-model-variation="has-electric-model"] .v2-hero__cta-wrapper {
   display: none;
 }
 

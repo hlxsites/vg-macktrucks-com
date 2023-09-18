@@ -35,6 +35,7 @@ export default async function decorate(block) {
     const heroCTATextNode = heroCTA.firstChild;
     heroCTA.insertBefore(flashIcon, heroCTATextNode);
   }
+
   block.prepend(picture);
   block.parentElement.classList.add('full-width');
 }
