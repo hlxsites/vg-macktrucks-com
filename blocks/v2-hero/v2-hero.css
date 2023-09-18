@@ -213,7 +213,7 @@
 [data-page='pdp'] .v2-hero__cta .icon-arrow-right svg,
 [data-page='pdp'] .v2-hero__cta .icon-flash svg {
   --color-icon: var(--c-primary-white);
-  
+
   width: 16px;
   height: 16px;
 }
