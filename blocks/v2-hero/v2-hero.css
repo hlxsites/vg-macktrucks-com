@@ -75,6 +75,18 @@
 }
 
 /* PDP - Hero section */
+
+[data-page='pdp'] .v2-hero picture::after {
+  @media (min-width: 1200px) {
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, #000 100%);
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 208px;
+    bottom: 0;
+  }
+}
+
 [data-page='pdp'] .v2-hero__content {
   flex-direction: row;
   height: 68px;
@@ -82,7 +94,7 @@
   max-width: unset;
   width: 100%;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     min-height: 160px;
   }
 }
@@ -108,7 +120,7 @@
   text-align: center;
   max-height: 160px;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     display: flex;
     min-width: 180px;
   }
@@ -145,7 +157,7 @@
   font-size: var(--superscript-font-size);
   letter-spacing: initial;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     margin: -24px 0 0 -8px;
   }
 }
@@ -165,7 +177,7 @@
   margin: 0;
   padding-left: 20px;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     min-height: 160px;
     justify-content: center;
     font-size: calc(var(--body-font-size-xxl) * 2);
@@ -174,7 +186,7 @@
   @media (min-width: 1200px) {
     width: 50%;
     justify-content: flex-end;
-    padding-right: 160px;
+    padding-right: 140px;
   }
 }
 
@@ -204,6 +216,7 @@
   width: 100%;
   position: relative;
   background: transparent;
+  font-family: var(--ff-body-bold);
   font-size: var(--body-1-font-size);
 }
 
