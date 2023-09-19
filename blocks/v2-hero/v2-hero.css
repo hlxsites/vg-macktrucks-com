@@ -173,7 +173,7 @@
   font-size: var(--body-font-size-xxl);
   font-family: var(--ff-headline-medium);
   text-transform: uppercase;
-  letter-spacing: 12px;
+  letter-spacing: .5em;
   margin: 0;
   padding-left: 20px;
 
@@ -265,10 +265,6 @@
 
 [data-page='pdp'][data-page-variation-standard='is-standard-model'][data-model-variation="has-electric-model"] .v2-hero__cta-wrapper {
   display: block;
-}
-
-[data-page='pdp'][data-page-variation-standard='is-standard-model'][data-page-variation-electric='is-electric-model'][data-model-variation="has-electric-model"] .v2-hero__cta-wrapper {
-  display: none;
 }
 
 /* PDP - electric model stats bar END */
