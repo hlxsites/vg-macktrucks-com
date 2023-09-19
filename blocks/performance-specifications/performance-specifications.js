@@ -160,7 +160,7 @@ function renderEngineSpecs(engineDetails) {
     ])
       .flat()),
     p({ class: 'button-container' },
-      a({ class: 'button secondary download-specs', href: engineDetails['download specs'], target: '_blank' }, 'Download Specs')),
+      a({ class: 'button secondary download-specs', href: engineDetails['learn more'], target: '_blank' }, 'Learn More')),
   );
 }
 
@@ -383,7 +383,7 @@ function parseEngineJsonData(data, block) {
       for (const [key, value] of modelArray) {
         if (key === 'rpm') {
           metricName = value;
-        } else if (key === 'model' || key === 'series' || key === 'download specs') {
+        } else if (key === 'model' || key === 'series' || key === 'learn more') {
           engine[key] = value;
         } else if (metricName !== null) {
           // handle performance data
