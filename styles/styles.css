@@ -103,7 +103,7 @@
   --headline-4-line-height: 140%;
 
   /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
-  --headline-5-font-size: 1.125rem; /* 18px */
+  --headline-5-font-size: 1.8rem; /* 18px */
   --headline-5-line-height: 140%;
 
   /* Wrapper for generic components */
@@ -797,14 +797,17 @@ main .section.responsive-title h1 {
   --body-font-size-m: 1.125rem; /* 18px */
   --body-font-size-s: 1rem; /* 16px */
   --body-font-size-xs: 0.875rem; /* 14px */
-  --body-font-size-xxs: 0.813rem; /* 13px */
+
+  /* stylelint-disable-next-line number-max-precision */
+  --body-font-size-xxs: 0.8125rem; /* 13px */
 
   /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 16px, 150%  */
   --body-1-font-size: 1rem; /* 16px */
   --body-1-line-height: 150%;
 
   /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 13px, 160%  */
-  --body-2-font-size: 0.813rem; /* 13px */
+  /* stylelint-disable-next-line number-max-precision */
+  --body-2-font-size: 0.8125rem; /* 13px */
   --body-2-line-height: 160%;
 
   /* GT America Mono, Regular, 18px, 120% */
@@ -1056,7 +1059,8 @@ main .section.responsive-title h1 {
 @media (min-width: 1200px) {
   .redesign-v2 {
     /* New design variables */
-    --headline-1-font-size: 2.813rem; /* 45px */
+    /* stylelint-disable-next-line number-max-precision */
+    --headline-1-font-size: 2.8125rem; /* 45px */
     --headline-2-font-size: 2rem; /* 32px */
     --headline-3-font-size: 2rem; /* 32px */
     --testimonial-font-size: 1.5rem; /* 24px */
