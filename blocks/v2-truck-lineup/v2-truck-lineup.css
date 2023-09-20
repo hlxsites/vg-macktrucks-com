@@ -1,5 +1,6 @@
 :root {
   --truck-lineup-img-width: 60%;
+  --truck-lineup-navigation-icon: 10px;
 }
 
 @keyframes truck-entry {
@@ -205,8 +206,8 @@ ul.v2-truck-lineup__navigation {
 
 .v2-truck-lineup__navigation-item .icon {
   display: inline-flex;
-  height: 15px;
-  width: 15px;
+  height: var(--truck-lineup-navigation-icon);
+  width: var(--truck-lineup-navigation-icon);
 }
 
 /* Arrow controls */
@@ -280,6 +281,7 @@ ul.v2-truck-lineup__navigation {
 @media screen and (min-width: 1200px) {
   :root {
     --truck-lineup-img-width: 60%;
+    --truck-lineup-navigation-icon: 15px;
   }
 
   .v2-truck-lineup__content {
