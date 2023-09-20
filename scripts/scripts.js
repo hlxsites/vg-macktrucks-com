@@ -682,6 +682,10 @@ function buildTruckCarouselBlock(main) {
 
     const tabContent = createElement('div', { classes: 'v2-truck-lineup__content' });
     tabContent.dataset.truckCarousel = sectionMeta;
+    if (section.dataset.truckCarouselIcon) {
+      tabContent.dataset.truckCarouselIcon = section.dataset.truckCarouselIcon;
+    }
+
     tabContent.innerHTML = section.innerHTML;
     const images = tabContent.querySelectorAll('p > picture');
 

@@ -127,15 +127,12 @@ main .section.v2-truck-lineup-container {
   margin: 0;
 }
 
-p.v2-truck-lineup__description {
-  color: var(--c-grey-800);
-}
-
 .v2-truck-lineup__buttons-container {
   margin-top: 32px;
   display: flex;
   justify-content: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .v2-truck-lineup__buttons-container a.button,
@@ -182,17 +179,22 @@ ul.v2-truck-lineup__navigation {
 
 .v2-truck-lineup__navigation-item.active button,
 .v2-truck-lineup__navigation-item button:hover {
+  --color-icon: var(--c-primary-black);
+
   color: var(--c-primary-black);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-truck-lineup__navigation-item button {
+  --color-icon: var(--c-secondary-steel);
+
   background: 0 0;
   border: none;
   color: var(--c-secondary-steel);
+  display: flex;
   font-family: var(--ff-subheadings-medium);
-  font-size: var(--headline-4-font-size);
-  line-height: var(--headline-4-line-height);
+  font-size: var(--headline-5-font-size);
+  line-height: var(--headline-5-line-height);
   margin: 0 0 0 20px;
   padding: 14px 0;
   text-wrap: nowrap;
@@ -200,6 +202,12 @@ ul.v2-truck-lineup__navigation {
 
 .v2-truck-lineup__navigation-item:first-child button {
   margin-left: 0;
+}
+
+.v2-truck-lineup__navigation-item .icon {
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
 }
 
 /* Arrow controls */
@@ -260,6 +268,11 @@ ul.v2-truck-lineup__navigation {
 }
 
 @media screen and (min-width: 744px) {
+  .v2-truck-lineup__navigation-item button {
+    font-size: var(--headline-4-font-size);
+    line-height: var(--headline-4-line-height);
+  }
+
   .v2-truck-lineup__arrow-controls {
     display: block;
   }

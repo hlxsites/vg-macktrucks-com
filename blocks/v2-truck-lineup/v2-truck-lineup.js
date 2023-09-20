@@ -1,3 +1,4 @@
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/common.js';
 
 const blockName = 'v2-truck-lineup';
@@ -41,7 +42,9 @@ function buildTabNavigation(tabItems, clickHandler) {
     });
 
     const tabContent = tabItem.querySelector(':scope > div');
-    button.innerHTML = tabContent.dataset.truckCarousel;
+    const icon = tabContent.dataset.truckCarouselIcon;
+    const svgIcon = icon ? `<span class="icon icon-${icon}"></span>` : '';
+    button.innerHTML = `${tabContent.dataset.truckCarousel}${svgIcon}`;
     listItem.append(button);
     tabNavigation.append(listItem);
   });
@@ -166,7 +169,7 @@ const createArrowControls = (carousel) => {
   nextButton.addEventListener('click', () => scroll('right'));
 };
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const descriptionContainer = block.querySelector(':scope > div');
   descriptionContainer.classList.add(`${blockName}__description-container`);
 
@@ -180,6 +183,7 @@ export default function decorate(block) {
   const tabNavigation = buildTabNavigation(tabItems, (index) => {
     setCarouselPosition(imagesContainer, index);
   });
+  await decorateIcons(tabNavigation);
 
   // Arrows
   createArrowControls(imagesContainer);
