@@ -78,11 +78,14 @@
   cursor: pointer;
 }
 
-.footer-truck-list__title, .footer-newsletter__title {
-  font-family: var(--ff-body);
+.footer-truck-list__title,
+.footer-newsletter__title {
+  font-family: var(--ff-body-bold);
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 1.92px;
+  text-transform: uppercase;
+  color: var(--c-primary-white);
 }
 
 .footer-truck-list__title .icon-dropdown-caret {
@@ -113,7 +116,7 @@
   padding: 0 32px 16px;
   color: var(--c-primary-white);
   font-family: var(--ff-body);
-  font-size: var(--body-1-font-size);
+  font-size: 16px;
   line-height: var(--body-1-line-height);
   letter-spacing: 0.16px;
   justify-content: flex-start;
@@ -165,7 +168,7 @@
 .footer-menu__column a {
   color: var(--c-secondary-silver);
   font-family: var(--ff-body);
-  font-size: var(--body-2-font-size);
+  font-size: 13px;
   line-height: var(--body-2-line-height);
 }
 
@@ -179,8 +182,8 @@
   grid-area: newsletter;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .footer-newsletter__title {
-  color: var(--c-primary-white);
   margin-bottom: 12px;
 }
 
@@ -213,9 +216,9 @@
   border: none;
   color: var(--c-secondary-graphite);
   font-family: var(--ff-body);
-  font-size: var(--body-2-font-size);
+  font-size: 13px;
   height: 48px;
-  line-height: var(--body-2-font-size);
+  line-height: 13px;
   padding: 14px 48px 14px 14px;
 }
 
@@ -451,7 +454,6 @@
   }
 
   .footer-truck-list__title {
-    font-family: var(--ff-subheadings-medium);
     margin: 0 auto 0 0;
     padding: 24px 32px 24px 0;
     cursor: default;
