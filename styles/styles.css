@@ -847,6 +847,11 @@ main .section.responsive-title h1 {
   font-size: 16px;
 }
 
+.redesign-v2 body {
+  font-size: var(--body-1-font-size);
+  line-height: var(--body-1-line-height);
+}
+
 /* ICONS STYLES */
 
 /* icons on gold background */
