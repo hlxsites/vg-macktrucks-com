@@ -666,10 +666,6 @@ function createTruckLineupSection(tabItems) {
 function buildTruckLineupBlock(main) {
   const tabItems = [];
   let nextElement;
-  const BREAKPOINTS = {
-    0: '(min-width: 400px)',
-    1: '(min-width: 1200px)',
-  };
 
   const mainChildren = [...main.querySelectorAll(':scope > div')];
   mainChildren.forEach((section, i2) => {
@@ -687,34 +683,8 @@ function buildTruckLineupBlock(main) {
     }
 
     tabContent.innerHTML = section.innerHTML;
-    const images = tabContent.querySelectorAll('p > picture');
-
-    const imageBreakpoints = [];
-    const firstImage = images[0]?.lastElementChild;
-    const baseImageObj = {
-      src: firstImage?.src,
-      alt: firstImage?.alt,
-    };
-
-    images.forEach((pic, j) => {
-      const img2 = pic.lastElementChild;
-      imageBreakpoints.push({
-        src: img2.src,
-        width: 2000,
-        media: BREAKPOINTS[j],
-      });
-
-      pic.parentNode.remove();
-    });
-    imageBreakpoints.reverse(); // order first big and then small version
-    const newPicture = createCustomOptimizedPicture(
-      baseImageObj.src,
-      baseImageObj.alt,
-      true,
-      imageBreakpoints,
-    );
-
-    tabContent.prepend(newPicture);
+    const image = tabContent.querySelector('p > picture');
+    tabContent.prepend(image);
 
     tabItems.push(tabContent);
     section.remove();
