@@ -78,8 +78,8 @@
   cursor: pointer;
 }
 
-.footer .footer-truck-list__title,
-.footer .footer-newsletter__title {
+.footer-truck-list__title,
+.footer-newsletter__title {
   font-family: var(--ff-body-bold);
   font-size: 12px;
   line-height: 16px;

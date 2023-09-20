@@ -844,8 +844,8 @@ main .section.responsive-title h1 {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 h1, .redesign-v2 h2, .redesign-v2 h3,
-.redesign-v2 h4, .redesign-v2 h5, .redesign-v2 h6,
+:where(.redesign-v2) h1, :where(.redesign-v2) h2, :where(.redesign-v2) h3,
+:where(.redesign-v2) h4, :where(.redesign-v2) h5, :where(.redesign-v2) h6,
 .h1, .h2, .h3,
 .h4, .h5, .h6 {
   font-family: var(--ff-subheadings-medium);
@@ -853,31 +853,31 @@ main .section.responsive-title h1 {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 h1, .h1 {
+:where(.redesign-v2) h1, .h1 {
   font-size: var(--headline-1-font-size);
   line-height: var(--headline-1-line-height);
   letter-spacing: var(--headline-1-letter-spacing);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 h2, .h2 {
+:where(.redesign-v2) h2, .h2 {
   font-size: var(--headline-2-font-size);
   line-height: var(--headline-2-line-height);
   letter-spacing: var(--headline-2-letter-spacing);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 h3, .h3 {
+:where(.redesign-v2) h3, .h3 {
   font-size: var(--headline-3-font-size);
   line-height: var(--headline-3-line-height);
 }
 
-.redesign-v2 h4, .h4 {
+:where(.redesign-v2) h4, .h4 {
   font-size: var(--headline-4-font-size);
   line-height: var(--headline-4-line-height);
 }
 
-.redesign-v2 h5, .h5 {
+:where(.redesign-v2) h5, .h5 {
   font-size: var(--headline-5-font-size);
   line-height: var(--headline-5-line-height);
 }
