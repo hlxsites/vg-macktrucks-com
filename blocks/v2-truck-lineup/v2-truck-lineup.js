@@ -1,0 +1,256 @@
+import { createElement } from '../../scripts/common.js';
+
+const blockName = 'v2-truck-carousel';
+
+function stripEmptyTags(main, child) {
+  if (child !== main && child.innerHTML.trim() === '') {
+    const parent = child.parentNode;
+    child.remove();
+    stripEmptyTags(main, parent);
+  }
+}
+
+function buildTabNavigation(tabItems, clickHandler) {
+  const tabNavigation = createElement('ul', `${blockName}__navigation`);
+  const navigationLine = createElement('li', `${blockName}__navigation-line`);
+  let timeout;
+
+  [...tabItems].forEach((tabItem, i) => {
+    const listItem = createElement('li', `${blockName}__navigation-item`);
+    const button = createElement('button');
+    button.addEventListener('click', () => clickHandler(i));
+    if (navigationLine) {
+      button.addEventListener('mouseover', (e) => {
+        clearTimeout(timeout);
+        const { x, width } = e.currentTarget.getBoundingClientRect();
+        Object.assign(navigationLine.style, {
+          left: `${x + tabNavigation.scrollLeft}px`,
+          width: `${width}px`,
+        });
+      });
+
+      button.addEventListener('mouseout', () => {
+        timeout = setTimeout(() => {
+          const activeItem = document.querySelector(`.${blockName}__navigation-item.active button`);
+          const { x, width } = activeItem.getBoundingClientRect();
+          Object.assign(navigationLine.style, {
+            left: `${x + tabNavigation.scrollLeft}px`,
+            width: `${width}px`,
+          });
+        }, 600);
+      });
+    }
+
+    const tabContent = tabItem.querySelector(':scope > div');
+    button.innerHTML = tabContent.dataset.truckCarousel;
+    listItem.append(button);
+    tabNavigation.append(listItem);
+  });
+
+  tabNavigation.append(navigationLine);
+
+  return tabNavigation;
+}
+
+const updateActiveItem = (index) => {
+  const images = document.querySelector(`.${blockName}__images-container`);
+  const descriptions = document.querySelector(`.${blockName}__description-container`);
+  const navigation = document.querySelector(`.${blockName}__navigation`);
+  const navigationLine = document.querySelector(`.${blockName}__navigation-line`);
+
+  [images, descriptions, navigation].forEach((c) => c.querySelectorAll('.active').forEach((i) => i.classList.remove('active')));
+  images.children[index].classList.add('active');
+  descriptions.children[index].classList.add('active');
+  navigation.children[index].classList.add('active');
+
+  if (navigationLine) {
+    const activeNavigationItem = navigation.children[index].querySelector('button');
+    const { x, width } = activeNavigationItem.getBoundingClientRect();
+    Object.assign(navigationLine.style, {
+      left: `${x + navigation.scrollLeft}px`,
+      width: `${width}px`,
+    });
+  }
+};
+
+const listenScroll = (carousel) => {
+  const elements = carousel.querySelectorAll(':scope > *');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (
+        entry.isIntersecting
+        && entry.intersectionRatio >= 0.75
+      ) {
+        const activeItem = entry.target;
+        const currentIndex = [...activeItem.parentNode.children].indexOf(activeItem);
+        updateActiveItem(currentIndex);
+      }
+    });
+  }, {
+    root: carousel,
+    threshold: 0.75,
+  });
+
+  elements.forEach((el) => {
+    io.observe(el);
+  });
+};
+
+const setCarouselPosition = (carousel, index) => {
+  const firstEl = carousel.firstElementChild;
+  const scrollOffset = firstEl.getBoundingClientRect().width;
+  const style = window.getComputedStyle(firstEl);
+  const marginleft = parseFloat(style.marginLeft);
+
+  carousel.scrollTo({
+    left: index * scrollOffset + marginleft,
+    behavior: 'smooth',
+  });
+};
+
+const createArrowControls = (imagesContainer) => {
+  function scroll(direction) {
+    const activeItem = imagesContainer.querySelector(`.${blockName}__image-item.active`);
+    let index = [...activeItem.parentNode.children].indexOf(activeItem);
+    if (direction === 'left') {
+      index -= 1;
+      if (index === -1) {
+        index = imagesContainer.childElementCount;
+      }
+    } else {
+      index += 1;
+      if (index > imagesContainer.childElementCount - 1) {
+        index = 0;
+      }
+    }
+
+    const firstEl = imagesContainer.firstElementChild;
+    const scrollOffset = firstEl.getBoundingClientRect().width;
+    const style = window.getComputedStyle(firstEl);
+    const marginleft = parseFloat(style.marginLeft);
+
+    imagesContainer.scrollTo({
+      left: index * scrollOffset + marginleft,
+      behavior: 'smooth',
+    });
+  }
+
+  const arrowControls = createElement('ul', [`${blockName}__arrow-controls`]);
+  const arrows = document.createRange().createContextualFragment(`
+    <li>
+      <button aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 11C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13V11ZM2.29289 12.7071C1.90237 12.3166 1.90237 11.6834 2.29289 11.2929L8.65685 4.92893C9.04738 4.53841 9.68054 4.53841 10.0711 4.92893C10.4616 5.31946 10.4616 5.95262 10.0711 6.34315L4.41421 12L10.0711 17.6569C10.4616 18.0474 10.4616 18.6805 10.0711 19.0711C9.68054 19.4616 9.04738 19.4616 8.65685 19.0711L2.29289 12.7071ZM21 13L3 13V11L21 11V13Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </li>
+    <li>
+      <button aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 11C2.44772 11 2 11.4477 2 12C2 12.5523 2.44772 13 3 13L3 11ZM21.7071 12.7071C22.0976 12.3166 22.0976 11.6834 21.7071 11.2929L15.3431 4.92893C14.9526 4.53841 14.3195 4.53841 13.9289 4.92893C13.5384 5.31946 13.5384 5.95262 13.9289 6.34315L19.5858 12L13.9289 17.6569C13.5384 18.0474 13.5384 18.6805 13.9289 19.0711C14.3195 19.4616 14.9526 19.4616 15.3431 19.0711L21.7071 12.7071ZM3 13L21 13V11L3 11L3 13Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </li>
+  `);
+  arrowControls.append(...arrows.children);
+  imagesContainer.insertAdjacentElement('beforebegin', arrowControls);
+  const [prevButton, nextButton] = arrowControls.querySelectorAll(':scope button');
+  prevButton.addEventListener('click', () => scroll('left'));
+  nextButton.addEventListener('click', () => scroll('right'));
+};
+
+export default function decorate(block) {
+  const descriptionContainer = block.querySelector(':scope > div');
+  descriptionContainer.classList.add(`${blockName}__description-container`);
+
+  const tabItems = block.querySelectorAll(':scope > div > div');
+
+  const imagesWrapper = createElement('div', `${blockName}__slider-wrapper`);
+  const imagesContainer = createElement('div', `${blockName}__images-container`);
+  descriptionContainer.parentNode.prepend(imagesWrapper);
+  imagesWrapper.appendChild(imagesContainer);
+
+  const tabNavigation = buildTabNavigation(tabItems, (index) => {
+    setCarouselPosition(imagesContainer, index);
+  });
+
+  // Arrows
+  createArrowControls(imagesContainer);
+
+  descriptionContainer.parentNode.append(tabNavigation);
+
+  tabItems.forEach((tabItem) => {
+    tabItem.classList.add(`${blockName}__desc-item`);
+    const tabContent = tabItem.querySelector(':scope > div');
+    const headings = tabContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    [...headings].forEach((heading) => heading.classList.add(`${blockName}__title`));
+
+    // create div for image and append inside image div container
+    const picture = tabItem.querySelector('picture');
+    const imageItem = createElement('div', `${blockName}__image-item`);
+    imageItem.appendChild(picture);
+    imagesContainer.appendChild(imageItem);
+
+    // remove empty tags
+    tabContent.querySelectorAll('p, div').forEach((item) => {
+      stripEmptyTags(tabContent, item);
+    });
+
+    const descriptions = tabContent.querySelectorAll('p:not(.button-container)');
+    [...descriptions].forEach((description) => description.classList.add(`${blockName}__description`));
+
+    // Wrap text in container
+    const textContainer = createElement('div', `${blockName}__text`);
+    const text = tabContent.querySelector('.default-content-wrapper')?.querySelectorAll(':scope > *:not(.button-container)');
+    if (text) {
+      const parentTextContainer = text[0].parentNode;
+      textContainer.append(...text);
+      parentTextContainer.appendChild(textContainer);
+    }
+
+    // Wrap links in container
+    const buttonContainer = createElement('div', `${blockName}__buttons-container`);
+    const buttons = tabContent.querySelectorAll('.button-container');
+
+    buttons.forEach((bt, i) => {
+      const buttonLink = bt.firstElementChild;
+
+      if (i > 0) {
+        buttonLink.classList.remove('primary');
+        buttonLink.classList.add('tertiary');
+      }
+    });
+
+    if (buttons.length) {
+      const parentButtonContainer = buttons[0].parentNode;
+      buttonContainer.append(...buttons);
+      parentButtonContainer.appendChild(buttonContainer);
+    }
+  });
+
+  // update the button indicator on scroll
+  listenScroll(imagesContainer);
+
+  // Update description position to be equal to image position
+  imagesContainer.addEventListener('scroll', () => {
+    const itemWidth = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tabbed-carousel-img-width'));
+
+    const firstCarouselItemWidth = imagesContainer.offsetWidth * (itemWidth / 100);
+    const secondCarouselItemWidth = descriptionContainer.offsetWidth;
+
+    // Determine the number of items in the second carousel
+    // that correspond to one item in the first carousel
+    const itemsInSecondCarouselPerItemInFirst = Math.ceil(
+      firstCarouselItemWidth / secondCarouselItemWidth,
+    );
+
+    // Calculate the scrollLeft position of the second carousel
+    const firstCarouselScrollLeft = imagesContainer.scrollLeft;
+    const secondCarouselScrollLeft = Math.floor(firstCarouselScrollLeft / firstCarouselItemWidth)
+      * (secondCarouselItemWidth * itemsInSecondCarouselPerItemInFirst);
+
+    // Apply the calculated scrollLeft position to the second carousel
+    descriptionContainer.scrollLeft = secondCarouselScrollLeft;
+  });
+}

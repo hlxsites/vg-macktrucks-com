@@ -19,6 +19,18 @@ import {
   getHref,
 } from './lib-franklin.js';
 
+import {
+  createElement,
+  addFavIcon,
+  loadDelayed,
+  getPlaceholders,
+  slugify,
+} from './common.js';
+import {
+  isVideoLink,
+  addVideoShowHandler,
+} from './video-helper.js';
+
 /**
  * Add the image as background
  * @param {Element} section the section container
@@ -70,7 +82,6 @@ export function decorateSections(main) {
     }
   });
 }
-
 /**
  * Decorates paragraphs containing a single link as buttons.
  * @param {Element} element container element
@@ -83,30 +94,28 @@ export function decorateButtons(element) {
       const twoup = link.parentElement.parentElement;
       if (!link.querySelector('img') && up.childNodes.length === 1) {
         if (up.tagName === 'P' || up.tagName === 'DIV') {
-          link.className = 'button primary'; // default
+          link.className = 'button button--primary'; // default
           up.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          link.className = 'button primary';
+          link.className = 'button button--primary';
           twoup.className = 'button-container';
         }
         if (up.tagName === 'EM' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          link.className = 'button secondary';
+          link.className = 'button button--secondary';
           twoup.className = 'button-container';
         }
         if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
-          const arrow = document.createElement('span');
+          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
           link.className = 'button arrowed';
           twoup.parentElement.className = 'button-container';
-          arrow.className = 'fa fa-arrow-right';
           link.appendChild(arrow);
         }
         if (up.tagName === 'LI' && twoup.children.length === 1
           && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
-          const arrow = document.createElement('span');
+          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
           link.className = 'button arrowed';
           twoup.className = 'button-container';
-          arrow.className = 'fa fa-arrow-right';
           link.appendChild(arrow);
         }
       }
@@ -122,16 +131,6 @@ window.mack.newsData = window.mack.newsData || {
   offset: 0,
   allLoaded: false,
 };
-
-let placeholders = null;
-
-async function getPlaceholders() {
-  placeholders = await fetch('/placeholder.json').then((resp) => resp.json());
-}
-
-export function getTextLabel(key) {
-  return placeholders?.data.find((el) => el.Key === key).Text || key;
-}
 
 export function findAndCreateImageLink(node) {
   const links = node.querySelectorAll('picture ~ a');
@@ -151,30 +150,6 @@ export function findAndCreateImageLink(node) {
     }
   });
 }
-
-/**
- * Create an element with the given id and classes.
- * @param {string} tagName the tag
- * @param {string[]|string} classes the class or classes to add
- * @param {object} props any other attributes to add to the element
- * @returns the element
- */
-export function createElement(tagName, classes = [], props = {}) {
-  const elem = document.createElement(tagName);
-  if (classes) {
-    const classesArr = (typeof classes === 'string') ? [classes] : classes;
-    elem.classList.add(...classesArr);
-  }
-  if (props) {
-    Object.keys(props).forEach((propName) => {
-      const value = propName === props[propName] ? '' : props[propName];
-      elem.setAttribute(propName, value);
-    });
-  }
-
-  return elem;
-}
-
 /**
  * Returns a picture element with webp and fallbacks / allow multiple src paths for every breakpoint
  * @param {string} src Default image URL (if no src is passed to breakpoints object)
@@ -299,6 +274,123 @@ export function decorateLinks(block) {
     });
 }
 
+const createInpageNavigation = (main) => {
+  const navItems = [];
+  const tabItemsObj = [];
+
+  // Extract the inpage navigation info from sections
+  [...main.querySelectorAll(':scope > div')].forEach((section) => {
+    const title = section.dataset.inpage;
+    if (title) {
+      const countDuplcated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
+      const order = parseFloat(section.dataset.inpageOrder);
+      const anchorID = (countDuplcated > 0) ? slugify(`${section.dataset.inpage}-${countDuplcated}`) : slugify(section.dataset.inpage);
+      const obj = {
+        title,
+        id: anchorID,
+      };
+
+      if (order) {
+        obj.order = order;
+      }
+
+      tabItemsObj.push(obj);
+
+      // Set section with ID
+      section.dataset.inpageid = anchorID;
+    }
+  });
+
+  // Sort the object by order
+  const sortedObject = tabItemsObj.slice().sort((obj1, obj2) => {
+    if (!obj1.order) {
+      return 1; // Move 'a' to the end
+    }
+    if (!obj2.order) {
+      return -1; // Move 'b' to the end
+    }
+    return obj1.order - obj2.order;
+  });
+
+  // From the array of objects create the DOM
+  sortedObject.forEach((item) => {
+    const subnavItem = createElement('div');
+    const subnavLink = createElement('button', {
+      props: {
+        'data-id': item.id,
+        title: item.title,
+      },
+    });
+
+    subnavLink.textContent = item.title;
+
+    subnavItem.append(subnavLink);
+    navItems.push(subnavItem);
+  });
+
+  return navItems;
+};
+
+function buildInpageNavigationBlock(main) {
+  const inapgeClassName = 'v2-inpage-navigation';
+
+  const items = createInpageNavigation(main);
+
+  if (items.length > 0) {
+    const section = createElement('div');
+    Object.assign(section.style, {
+      height: '48px',
+      overflow: 'hidden',
+    });
+
+    section.append(buildBlock(inapgeClassName, { elems: items }));
+    // insert in second position, assumption is that Hero should be first
+    main.insertBefore(section, main.children[1]);
+
+    decorateBlock(section.querySelector(`.${inapgeClassName}`));
+  }
+}
+
+function createTabbedSection(tabItems, classname) {
+  const tabSection = createElement('div', { classes: 'section' });
+  tabSection.dataset.sectionStatus = 'initialized';
+  const tabBlock = buildBlock(classname, [tabItems]);
+  tabSection.append(tabBlock);
+  return tabSection;
+}
+
+function buildTabbedBlock(main, classname) {
+  let nextElement;
+  const tabItems = [];
+  const mainChildren = [...main.querySelectorAll(':scope > div')];
+
+  mainChildren.forEach((section, i2) => {
+    const isCarousel = section.dataset.carousel;
+    if (!isCarousel) return;
+
+    nextElement = mainChildren[i2 + 1];
+    const tabContent = createElement('div', { classes: `${classname}__item` });
+    tabContent.dataset.carousel = section.dataset.carousel;
+    tabContent.innerHTML = section.innerHTML;
+    const image = tabContent.querySelector('p > picture');
+
+    tabContent.prepend(image);
+
+    tabItems.push(tabContent);
+    section.remove();
+  });
+
+  if (tabItems.length > 0) {
+    const tabbedCarouselSection = createTabbedSection(tabItems, classname);
+    if (nextElement) { // if we saved a position push the carousel in that position if not
+      main.insertBefore(tabbedCarouselSection, nextElement);
+    } else {
+      main.append(tabbedCarouselSection);
+    }
+    decorateBlock(tabbedCarouselSection.querySelector(`.${classname}`));
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -313,8 +405,12 @@ export function decorateMain(main, head) {
   decorateBlocks(main);
   decorateLinks(main);
 
-  // redesign
+  // Truck carousel
   buildTruckCarouselBlock(main);
+  // Inpage navigation
+  buildInpageNavigationBlock(main);
+  // V2 tabbed carousel
+  buildTabbedBlock(main, 'v2-tabbed-carousel');
 }
 
 async function loadTemplate(doc, templateName) {
@@ -360,24 +456,6 @@ async function loadEager(doc) {
 
   await getPlaceholders();
 }
-
-/**
- * Adds the favicon.
- * @param {string} href The favicon URL
- */
-export function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/svg+xml';
-  link.href = href;
-  const existingLink = document.querySelector('head link[rel="icon"]');
-  if (existingLink) {
-    existingLink.parentElement.replaceChild(link, existingLink);
-  } else {
-    document.getElementsByTagName('head')[0].appendChild(link);
-  }
-}
-
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
@@ -410,16 +488,6 @@ async function loadLazy(doc) {
   sampleRUM.observe(main.querySelectorAll('picture > img'));
 }
 
-/**
- * Loads everything that happens a lot later,
- * without impacting the user experience.
- */
-function loadDelayed() {
-  // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
-}
-
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -427,99 +495,6 @@ async function loadPage() {
 }
 
 loadPage();
-
-// video helpers
-export function isLowResolutionVideoUrl(url) {
-  return url.split('?')[0].endsWith('.mp4');
-}
-
-export function isVideoLink(link) {
-  const linkString = link.getAttribute('href');
-  return (linkString.includes('youtube.com/embed/')
-    || isLowResolutionVideoUrl(linkString))
-    && link.closest('.block.embed') === null;
-}
-
-export function selectVideoLink(links, preferredType) {
-  const linksList = [...links];
-  const optanonConsentCookieValue = decodeURIComponent(document.cookie.split(';').find((cookie) => cookie.trim().startsWith('OptanonConsent=')));
-  const cookieConsentForExternalVideos = optanonConsentCookieValue.includes('C0005:1');
-  const shouldUseYouTubeLinks = cookieConsentForExternalVideos && preferredType !== 'local';
-  const youTubeLink = linksList.find((link) => link.getAttribute('href').includes('youtube.com/embed/'));
-  const localMediaLink = linksList.find((link) => link.getAttribute('href').split('?')[0].endsWith('.mp4'));
-
-  if (shouldUseYouTubeLinks && youTubeLink) {
-    return youTubeLink;
-  }
-  return localMediaLink;
-}
-
-export function createLowResolutionBanner() {
-  const lowResolutionMessage = getTextLabel('Low resolution video message');
-  const changeCookieSettings = getTextLabel('Change cookie settings');
-
-  const banner = createElement('div', ['low-resolution-banner']);
-  banner.innerHTML = `${lowResolutionMessage} <button class="low-resolution-banner-cookie-settings">${changeCookieSettings}</button>`;
-  banner.querySelector('button').addEventListener('click', () => {
-    window.OneTrust.ToggleInfoDisplay();
-  });
-
-  return banner;
-}
-
-export function showVideoModal(linkUrl) {
-  // eslint-disable-next-line import/no-cycle
-  import('../common/modal/modal-component.js').then((modal) => {
-    let beforeBanner = null;
-
-    if (isLowResolutionVideoUrl(linkUrl)) {
-      beforeBanner = createLowResolutionBanner();
-    }
-
-    modal.showModal(linkUrl, { beforeBanner });
-  });
-}
-
-export function addVideoShowHandler(link) {
-  link.classList.add('text-link-with-video');
-
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    showVideoModal(link.getAttribute('href'));
-  });
-}
-
-export function addPlayIcon(parent) {
-  const iconWrapper = createElement('div', ['video-icon-wrapper']);
-  const icon = createElement('i', ['fa', 'fa-play', 'video-icon']);
-  iconWrapper.appendChild(icon);
-  parent.appendChild(iconWrapper);
-}
-
-export function wrapImageWithVideoLink(videoLink, image) {
-  videoLink.innerText = '';
-  videoLink.appendChild(image);
-  videoLink.classList.add('link-with-video');
-  videoLink.classList.remove('button', 'primary', 'text-link-with-video');
-
-  addPlayIcon(videoLink);
-}
-
-export function createIframe(url, { parentEl, classes = [] }) {
-  // iframe must be recreated every time otherwise the new history record would be created
-  const iframe = createElement('iframe', classes, {
-    frameborder: '0',
-    allowfullscreen: 'allowfullscreen',
-    src: url,
-  });
-
-  if (parentEl) {
-    parentEl.appendChild(iframe);
-  }
-
-  return iframe;
-}
 
 /* this function load script only when it wasn't loaded yet */
 const scriptMap = new Map();
@@ -543,7 +518,10 @@ export function loadScriptIfNotLoadedYet(url, attrs) {
  */
 export function loadAsBlock(blockName, blockContent, options = {}) {
   const { variantsClasses = [] } = options;
-  const blockEl = createElement('div', ['block', blockName, ...variantsClasses], { 'data-block-name': blockName });
+  const blockEl = createElement('div', {
+    classes: ['block', blockName, ...variantsClasses],
+    props: { 'data-block-name': blockName },
+  });
 
   blockEl.innerHTML = blockContent;
   loadBlock(blockEl);
@@ -680,7 +658,7 @@ function createTabbedTruckSection(tabItems) {
   tabSection.dataset.sectionStatus = 'initialized';
   const wrapper = createElement('div');
   tabSection.append(wrapper);
-  const tabBlock = buildBlock('v2-tabbed-carousel', [tabItems]);
+  const tabBlock = buildBlock('v2-truck-lineup', [tabItems]);
   wrapper.append(tabBlock);
   return tabSection;
 }
@@ -694,15 +672,15 @@ function buildTruckCarouselBlock(main) {
   };
 
   const mainChildren = [...main.querySelectorAll(':scope > div')];
-  mainChildren.forEach((section, i) => {
+  mainChildren.forEach((section, i2) => {
     const isTruckCarousel = section.dataset.truckCarousel;
     if (!isTruckCarousel) return;
 
     // save carousel position
-    nextElement = mainChildren[i + 1];
+    nextElement = mainChildren[i2 + 1];
     const sectionMeta = section.dataset.truckCarousel;
 
-    const tabContent = createElement('div', 'v2-tabbed-carousel__content');
+    const tabContent = createElement('div', 'v2-truck-lineup__content');
     tabContent.dataset.truckCarousel = sectionMeta;
     tabContent.innerHTML = section.innerHTML;
     const images = tabContent.querySelectorAll('p > picture');
@@ -715,9 +693,9 @@ function buildTruckCarouselBlock(main) {
     };
 
     images.forEach((pic, j) => {
-      const img = pic.lastElementChild;
+      const img2 = pic.lastElementChild;
       imageBreakpoints.push({
-        src: img.src,
+        src: img2.src,
         width: 2000,
         media: BREAKPOINTS[j],
       });
@@ -746,7 +724,7 @@ function buildTruckCarouselBlock(main) {
       main.append(tabbedCarouselSection);
     }
     decorateIcons(tabbedCarouselSection);
-    decorateBlock(tabbedCarouselSection.querySelector('.v2-tabbed-carousel'));
+    decorateBlock(tabbedCarouselSection.querySelector('.v2-truck-lineup'));
   }
 }
 

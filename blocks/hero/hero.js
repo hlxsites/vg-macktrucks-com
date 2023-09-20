@@ -1,11 +1,14 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 const decorateVideo = (link) => {
   const { parentElement } = link;
-  const video = createElement('video', ['hero-video', 'hide'], {
-    loop: 'loop',
+  const video = createElement('video', {
+    classes: ['hero-video', 'hide'],
+    props: {
+      loop: 'loop',
+    },
   });
-  const source = createElement('source', '', { src: link.href, type: 'video/mp4' });
+  const source = createElement('source', { props: { src: link.href, type: 'video/mp4' } });
   video.appendChild(source);
   parentElement.appendChild(video);
   link.remove();
@@ -27,8 +30,8 @@ export default function decorate(block) {
   const video = block.querySelector('a[href*=".mp4"]');
   const videoWrapper = video && video.closest('p');
   const videoLink = videoWrapper?.firstElementChild;
-  const contentContainer = createElement('div', 'hero-content-container');
-  const mediaWrapper = createElement('div', 'hero-content-media');
+  const contentContainer = createElement('div', { classes: 'hero-content-container' });
+  const mediaWrapper = createElement('div', { classes: 'hero-content-media' });
 
   // transform link into a video tag
   if (videoLink) decorateVideo(videoLink);

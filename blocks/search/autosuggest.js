@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 import { autosuggestQuery, fetchData } from './search-api.js';
 
 const autoSuggestClass = 'autosuggest-results-item-highlighted';
@@ -28,7 +28,7 @@ export function fetchAutosuggest(term, autosuggestEle, rowEle, func) {
 
       if (terms.length) {
         terms.forEach((val) => {
-          const row = createElement(rowEle.tag, rowEle.class, rowEle.props);
+          const row = createElement(rowEle.tag, { classes: rowEle.class, props: rowEle.props });
           const suggestFragment = fragmentRange
             .createContextualFragment(`<b>
             ${val}

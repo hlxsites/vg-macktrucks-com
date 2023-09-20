@@ -1,4 +1,5 @@
-import { createElement, loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
+import { loadScriptIfNotLoadedYet } from '../../scripts/scripts.js';
+import { createElement, getTextLabel, isEloquaFormAllowed } from '../../scripts/common.js';
 
 // Every eloqua form has it's own JS, CSS and HTML.
 // Once the form is loaded all the JS and CSS are added to the body.
@@ -40,7 +41,7 @@ const loadFormScripts = async (elqForm) => {
 
       // the script element added by innerHTML is NOT executed
       // the workaround is to create the new script tag, copy attibutes and content
-      const newScript = createElement('script', '', { type: 'text/javascript' });
+      const newScript = createElement('script', { props: { type: 'text/javascript' } });
 
       newScript.innerHTML = script.innerHTML;
       document.body.append(newScript);
@@ -131,7 +132,7 @@ const addForm = async (block) => {
   }
 
   const text = await data.text();
-  const formWrapper = createElement('div', 'eloqua-form-container');
+  const formWrapper = createElement('div', { classes: 'eloqua-form-container' });
   formWrapper.innerHTML = text;
   block.innerHTML = '';
   block.append(formWrapper);
@@ -148,9 +149,32 @@ const addForm = async (block) => {
   block.style.display = displayValue;
 };
 
+const addNoCookieMessage = (messageContainer) => {
+  const messageText = getTextLabel('no eloqua message');
+  const messageLinkText = getTextLabel('no eloqua link message');
+
+  const messageEl = createElement('div', ['eloqua-form-no-cookie']);
+  messageEl.innerHTML = `
+    <span>${messageText}</span>
+    <button>${messageLinkText}</button>
+  `;
+
+  messageEl.querySelector('button').addEventListener('click', () => {
+    window.OneTrust.ToggleInfoDisplay();
+  });
+
+  messageContainer.replaceChildren(messageEl);
+};
+
 export default async function decorate(block) {
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
+      if (!isEloquaFormAllowed()) {
+        addNoCookieMessage(block);
+
+        return;
+      }
+
       observer.disconnect();
       addForm(block);
     }
