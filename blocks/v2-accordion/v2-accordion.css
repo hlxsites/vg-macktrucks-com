@@ -36,10 +36,10 @@
 
 .v2-accordion__item-close .v2-accordion__content {
   height: 0;
+  margin: 0;
   opacity: 0;
   overflow: hidden;
   padding: 0;
-  margin: 0;
 }
 
 .v2-accordion__close svg {
@@ -49,7 +49,7 @@
 }
 
 .v2-accordion__item {
-  border-bottom: 3px solid var(--c-primary-black);
+  border-bottom: 2px solid var(--c-primary-black);
   padding: 24px 0;
 }
 
@@ -60,14 +60,14 @@
 
 /* Styles for nested accordion */
 .v2-accordion__content .v2-accordion__title {
-  color: #09161F;
+  color: var(--c-secondary-graphite);
   font-family: var(--ff-subheadings-medium);
   font-size: 22px;
   letter-spacing: 0.22px;
   line-height: 138%;
 }
 
-.v2-accordion__item .v2-accordion__item:not(:last-child) {
+.v2-accordion__item .v2-accordion__item {
   border-bottom: 1px solid var(--c-secondary-steel);
 }
 
@@ -80,15 +80,15 @@
 @media (min-width: 1200px) {
   .v2-accordion__title {
     font-size: var(--headline-2-font-size);
-    line-height: var(--headline-2-line-height);
     letter-spacing: var(--headline-2-letter-spacing);
+    line-height: var(--headline-2-line-height);
   }
 
   /* Styles for nested accordion */
   .v2-accordion__content .v2-accordion__title {
     font-size: var(--headline-4-font-size);
-    line-height: var(--headline-4-line-height);
     letter-spacing: var(--headline-4-letter-spacing);
+    line-height: var(--headline-4-line-height);
   }
 
   /* END Styles for nested accordion */

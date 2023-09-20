@@ -13,11 +13,11 @@
 .v2-specifications__list--with-text,
 .v2-specifications__list--with-pictures,
 .v2-specifications__list--with-downloads {
-  display: grid;
-  gap: 16px;
   color: var(--c-primary-black);
+  display: grid;
   font-family: var(--ff-body);
   font-size: var(--body-1-font-size);
+  gap: 16px;
   line-height: var(--body-1-line-height);
   margin-top: 16px;
 }
@@ -31,22 +31,23 @@
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-specifications__list--with-pictures,
 .v2-specifications__list--with-downloads {
-  grid-template-columns: 1fr;
   gap: 40px;
+  grid-template-columns: 1fr;
 }
 
 .v2-specifications__list--with-downloads strong,
 .v2-specifications__list--with-pictures strong {
+  display: block;
   font-family: var(--ff-subheadings-medium);
   font-size: var(--headline-5-font-size);
+  font-weight: normal;
   line-height: var(--headline-5-line-height);
-  display: block;
 }
 
 /* With Text */
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-specifications__list--with-text {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .v2-specifications__list--with-text strong {
@@ -69,8 +70,8 @@
 
 /* With downloads */
 .v2-specifications__list--with-downloads .icon-download svg {
-  width: 16px;
   height: 16px;
+  width: 16px;
 }
 
 .v2-specifications__list--with-downloads p {
@@ -80,8 +81,8 @@
 @media (min-width: 744px) {
   .v2-specifications__list--with-pictures,
   .v2-specifications__list--with-downloads {
-    grid-template-columns: 1fr 1fr;
     gap: 40px 16px;
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 40px;
   }
 }
@@ -89,7 +90,7 @@
 @media (min-width: 1200px) {
   .v2-specifications__list--with-text,
   .v2-specifications__list--with-downloads {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns:repeat(4, 1fr);
   }
 
   .v2-specifications__list--with-text {
@@ -97,7 +98,7 @@
   }
 
   .v2-specifications__list--with-text:has(> :nth-child(5)) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
   }
 
   .v2-specifications__list--with-text p {
@@ -105,7 +106,7 @@
   }
 
   .v2-specifications__list--with-pictures {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   /* Rempve accordion in Desktop */
@@ -118,13 +119,13 @@
   }
 
   .v2-specifications .v2-accordion__item-close .v2-accordion__content {
-    overflow: auto;
-    opacity: 1;
     height: auto;
     margin-top: 40px;
+    opacity: 1;
+    overflow: auto;
   }
 
-  .v2-specifications .v2-accordion__item:not(:last-child) {
+  .v2-specifications .v2-accordion__item {
     border-bottom-color: var(--c-primary-black);
     padding: 72px 0;
   }
