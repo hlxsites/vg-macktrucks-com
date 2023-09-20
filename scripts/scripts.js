@@ -406,7 +406,7 @@ export function decorateMain(main, head) {
   decorateLinks(main);
 
   // Truck carousel
-  buildTruckCarouselBlock(main);
+  buildTruckLineupBlock(main);
   // Inpage navigation
   buildInpageNavigationBlock(main);
   // V2 tabbed carousel
@@ -653,7 +653,7 @@ allLinks.forEach((link) => {
   link.innerText = selectedText;
 });
 
-function createTabbedTruckSection(tabItems) {
+function createTruckLineupSection(tabItems) {
   const tabSection = createElement('div', { classes: 'section' });
   tabSection.dataset.sectionStatus = 'initialized';
   const wrapper = createElement('div');
@@ -663,7 +663,7 @@ function createTabbedTruckSection(tabItems) {
   return tabSection;
 }
 
-function buildTruckCarouselBlock(main) {
+function buildTruckLineupBlock(main) {
   const tabItems = [];
   let nextElement;
   const BREAKPOINTS = {
@@ -721,7 +721,7 @@ function buildTruckCarouselBlock(main) {
   });
 
   if (tabItems.length > 0) {
-    const tabbedCarouselSection = createTabbedTruckSection(tabItems);
+    const tabbedCarouselSection = createTruckLineupSection(tabItems);
     if (nextElement) { // if we saved a position push the carousel in that position if not
       main.insertBefore(tabbedCarouselSection, nextElement);
     } else {
