@@ -654,7 +654,7 @@ allLinks.forEach((link) => {
 });
 
 function createTabbedTruckSection(tabItems) {
-  const tabSection = createElement('div', ['section']);
+  const tabSection = createElement('div', { classes: 'section' });
   tabSection.dataset.sectionStatus = 'initialized';
   const wrapper = createElement('div');
   tabSection.append(wrapper);
@@ -680,7 +680,7 @@ function buildTruckCarouselBlock(main) {
     nextElement = mainChildren[i2 + 1];
     const sectionMeta = section.dataset.truckCarousel;
 
-    const tabContent = createElement('div', 'v2-truck-lineup__content');
+    const tabContent = createElement('div', { classes: 'v2-truck-lineup__content' });
     tabContent.dataset.truckCarousel = sectionMeta;
     tabContent.innerHTML = section.innerHTML;
     const images = tabContent.querySelectorAll('p > picture');

@@ -1,6 +1,5 @@
-/* stylelint-disable selector-class-pattern */
 :root {
-  --tabbed-carousel-img-width: 60%;
+  --truck-lineup-img-width: 60%;
 }
 
 @keyframes truck-entry {
@@ -19,38 +18,38 @@
 }
 
 /* Full width block */
-main .section.v2-truck-carousel-container .v2-truck-carousel-wrapper {
+main .section.v2-truck-lineup-container .v2-truck-lineup-wrapper {
   margin: 0;
   padding: 0;
   width: 100%;
   max-width: none;
 }
 
-main .section.v2-truck-carousel-container {
+main .section.v2-truck-lineup-container {
   padding: 0;
 }
 
 /* End Full width block */
 
-.v2-truck-carousel {
+.v2-truck-lineup {
   display: flex;
   flex-direction: column;
 }
 
-.v2-truck-carousel__images-container,
-.v2-truck-carousel__description-container {
+.v2-truck-lineup__images-container,
+.v2-truck-lineup__description-container {
   display: flex;
   flex-flow: row nowrap;
   padding-left: 0;
   margin: 0;
 }
 
-.v2-truck-carousel__description-container {
+.v2-truck-lineup__description-container {
   order: 2;
   overflow: hidden;
 }
 
-.v2-truck-carousel__images-container {
+.v2-truck-lineup__images-container {
   align-items: flex-end;
   overflow: scroll hidden;
   scroll-behavior: smooth;
@@ -58,18 +57,18 @@ main .section.v2-truck-carousel-container {
   scrollbar-width: none;
 }
 
-.v2-truck-carousel__images-container::-webkit-scrollbar {
+.v2-truck-lineup__images-container::-webkit-scrollbar {
   display: none;
 }
 
-.v2-truck-carousel__image-item {
+.v2-truck-lineup__image-item {
   flex: none;
   scroll-snap-align: center;
   text-align: center;
-  width: var(--tabbed-carousel-img-width);
+  width: var(--truck-lineup-img-width);
 }
 
-.v2-truck-carousel__image-item picture {
+.v2-truck-lineup__image-item picture {
   display: block;
   animation-duration: 1s;
   animation-delay: 0.5s;
@@ -77,73 +76,79 @@ main .section.v2-truck-carousel-container {
   animation-timing-function: ease-in;
 }
 
-.v2-truck-carousel__image-item:first-child {
-  margin-left: calc(100% - var(--tabbed-carousel-img-width)/2);
+.v2-truck-lineup__image-item:first-child {
+  margin-left: calc(100% - var(--truck-lineup-img-width)/2);
 }
 
-.v2-truck-carousel__images-container::after {
+.v2-truck-lineup__images-container::after {
   content: '';
   display: block;
-  flex: 0 0 calc(100% - var(--tabbed-carousel-img-width)/2);
+  flex: 0 0 calc(100% - var(--truck-lineup-img-width)/2);
 }
 
-.v2-truck-carousel__image-item img {
+.v2-truck-lineup__image-item img {
   width: 100%;
   object-fit: contain;
   max-height: 570px;
 }
 
-.v2-truck-carousel__content {
+.v2-truck-lineup__content {
   width: 90%;
   margin: 0 auto 32px;
   text-align: center;
 }
 
-.v2-truck-carousel__desc-item {
+.v2-truck-lineup__desc-item {
   color: var(--text-color);
   flex: none;
   opacity: 0;
   width: 100%;
-  transition: opacity var(--duration-small) var(--easing-exit),
-    transform 1s var(--easing-entrance);
-  transform: translateX(-50px);
+
+  /* fadeout */
+  transition: opacity 0.3s cubic-bezier(0, 0, 0, 1);
 }
 
-.v2-truck-carousel__desc-item.active {
+.v2-truck-lineup__desc-item.active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity var(--duration-large) var(--easing-entrance),
-    transform 1s var(--easing-entrance);
+  transition: opacity 0.5s cubic-bezier(0, 0, 0, 1) 0.5s;
 }
 
-.v2-truck-carousel__text {
-  text-wrap: balance;
-  max-width: 400px;
+.v2-truck-lineup__text {
   margin: 0 auto;
+  max-width: 400px;
+  text-wrap: balance;
 }
 
-.v2-truck-carousel__title {
+.v2-truck-lineup__title {
   margin-right: 5px;
 }
 
-.v2-truck-carousel__title,
-p.v2-truck-carousel__description {
+.v2-truck-lineup__title,
+p.v2-truck-lineup__description {
   display: inline;
   color: var(--c-grey-800);
   font-size: var(--f-heading-5-font-size);
   line-height: var(--f-heading-5-line-height);
 }
 
-.v2-truck-carousel__buttons-container {
+.v2-truck-lineup__buttons-container {
   margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 }
 
-.v2-truck-carousel__buttons-container .button-container {
-  margin: 10px 0;
+.v2-truck-lineup__buttons-container a.button,
+.v2-truck-lineup__buttons-container .button-container {
+  margin: 0;
 }
 
 /* Navigation */
-ul.v2-truck-carousel__navigation {
+.v2-truck-lineup__navigation::-webkit-scrollbar {
+  display: none;
+}
+
+ul.v2-truck-lineup__navigation {
   display: flex;
   flex-flow: row nowrap;
   overflow: auto;
@@ -154,7 +159,7 @@ ul.v2-truck-carousel__navigation {
   position: relative;
 }
 
-.v2-truck-carousel__navigation-line {
+.v2-truck-lineup__navigation-line {
   position: absolute;
   bottom: 3px;
   left: 0;
@@ -165,23 +170,23 @@ ul.v2-truck-carousel__navigation {
   margin: 0;
 }
 
-.v2-truck-carousel__navigation::before,
-.v2-truck-carousel__navigation::after {
+.v2-truck-lineup__navigation::before,
+.v2-truck-lineup__navigation::after {
   content: '';
   margin: auto;
 }
 
-.v2-truck-carousel__navigation-item {
-  /* padding: 0 16px; */
+.v2-truck-lineup__navigation-item {
   border-bottom: 1px solid var(--c-primary-black);
 }
 
-.v2-truck-carousel__navigation-item.active button,
-.v2-truck-carousel__navigation-item button:hover {
+.v2-truck-lineup__navigation-item.active button,
+.v2-truck-lineup__navigation-item button:hover {
   color: var(--c-primary-black);
 }
 
-.v2-truck-carousel__navigation-item button {
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-truck-lineup__navigation-item button {
   background: 0 0;
   border: none;
   color: var(--c-secondary-steel);
@@ -191,30 +196,31 @@ ul.v2-truck-carousel__navigation {
   margin: 0 0 0 20px;
   padding: 14px 0;
   text-transform: uppercase;
+  text-wrap: nowrap;
 }
 
-.v2-truck-carousel__navigation-item:first-child button {
+.v2-truck-lineup__navigation-item:first-child button {
   margin-left: 0;
 }
 
 /* Arrow controls */
-.v2-truck-carousel__slider-wrapper {
+.v2-truck-lineup__slider-wrapper {
   position: relative;
   order: 1;
 }
 
-.v2-truck-carousel__arrow-controls {
-  /* display: none; */
+.v2-truck-lineup__arrow-controls {
+  display: none;
   margin: 0;
-  /* opacity: 0; */
+  opacity: 0;
   transition: opacity var(--duration-small) var(--easing-standard);
 }
 
-.v2-truck-carousel__slider-wrapper:hover .v2-truck-carousel__arrow-controls {
+.v2-truck-lineup__slider-wrapper:hover .v2-truck-lineup__arrow-controls {
   opacity: 1;
 }
 
-.v2-truck-carousel__arrow-controls li {
+.v2-truck-lineup__arrow-controls li {
   align-items: center;
   display: flex;
   height: 100%;
@@ -223,12 +229,13 @@ ul.v2-truck-carousel__navigation {
   top: 0;
 }
 
-.v2-truck-carousel__arrow-controls li:last-child {
+.v2-truck-lineup__arrow-controls li:last-child {
   left: auto;
   right: 10%;
 }
 
-.v2-truck-carousel__arrow-controls button {
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-truck-lineup__arrow-controls button {
   background-color: var(--c-primary-white);
   border: 1px solid var(--c-primary-black);
   color: var(--c-primary-black);
@@ -239,61 +246,52 @@ ul.v2-truck-carousel__navigation {
   position: relative;
 }
 
-.v2-truck-carousel__arrow-controls button:hover {
+.v2-truck-lineup__arrow-controls button:hover {
   background-color: #F1F1F1;
   border-color: #A7A8A9;
 }
 
-.v2-truck-carousel__arrow-controls button:active {
+.v2-truck-lineup__arrow-controls button:active {
   background-color: #E1DFDD;
   border-color: #D9D9D9;
 }
 
-.v2-truck-carousel__arrow-controls button:focus {
+.v2-truck-lineup__arrow-controls button:focus {
   outline: 2px solid var(--border-focus);
 }
 
 @media screen and (min-width: 744px) {
-  .v2-truck-carousel__arrow-controls {
+  .v2-truck-lineup__arrow-controls {
     display: block;
-  }
-
-  .v2-truck-carousel__buttons-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .v2-truck-carousel__buttons-container .button-container {
-    margin-left: 16px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   :root {
-    --tabbed-carousel-img-width: 60%;
+    --truck-lineup-img-width: 60%;
   }
 
-  .v2-truck-carousel__image-item img {
+  .v2-truck-lineup__image-item img {
     max-height: none;
   }
 
-  .v2-truck-carousel__content {
-    max-width: 1000px;
+  .v2-truck-lineup__content {
+    max-width: var(--truck-lineup-img-width);
   }
 
-  .v2-truck-carousel__content .default-content-wrapper {
+  .v2-truck-lineup__content .default-content-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
 
-  .v2-truck-carousel__text {
+  .v2-truck-lineup__text {
     flex-basis: 60%;
     text-align: left;
     margin: 0;
   }
 
-  .v2-truck-carousel__buttons-container {
+  .v2-truck-lineup__buttons-container {
     flex-direction: row;
     margin-top: 0;
   }
