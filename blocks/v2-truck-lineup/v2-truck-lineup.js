@@ -97,7 +97,7 @@ const listenScroll = (carousel) => {
     entries.forEach((entry) => {
       if (
         entry.isIntersecting
-        && entry.intersectionRatio >= 0.75
+        && entry.intersectionRatio >= 0.9
       ) {
         const activeItem = entry.target;
         const currentIndex = [...activeItem.parentNode.children].indexOf(activeItem);
@@ -106,7 +106,7 @@ const listenScroll = (carousel) => {
     });
   }, {
     root: carousel,
-    threshold: 0.75,
+    threshold: 0.9,
   });
 
   elements.forEach((el) => {
