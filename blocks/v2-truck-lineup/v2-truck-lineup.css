@@ -90,6 +90,7 @@ main .section.v2-truck-lineup-container {
 .v2-truck-lineup__image-item img {
   aspect-ratio: 16 / 9;
   max-height: 80vh;
+  width: auto;
 }
 
 .v2-truck-lineup__content {
