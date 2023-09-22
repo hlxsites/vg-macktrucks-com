@@ -44,6 +44,11 @@
   line-height: var(--headline-5-line-height);
 }
 
+.v2-specifications__list--subtitle {
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
 /* With Text */
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-specifications__list--with-text {

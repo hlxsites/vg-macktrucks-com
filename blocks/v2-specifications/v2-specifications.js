@@ -44,6 +44,7 @@ export default async function decorate(block) {
     const headingString = headings.join(',');
     const headingsList = [...block.querySelectorAll(headingString)];
     headingsList.forEach((heading) => heading.classList.add(`${blockName}__subtitle`, 'h5'));
+    const subtitleCounter = item.querySelectorAll(`.${blockName}__subtitle`).length;
 
     if (typeTitle) {
       if (accordion) {
@@ -77,13 +78,16 @@ export default async function decorate(block) {
       item.remove();
     }
 
+    const classes = [];
+    if (subtitleCounter) classes.push(`${blockName}__list--subtitle`);
+
     // apply classes to the content based on items inside
     if (typePicture) {
-      item.classList.add(`${blockName}__list--with-pictures`);
+      classes.push(`${blockName}__list--with-pictures`);
     }
 
     if (typeDownloads) {
-      item.classList.add(`${blockName}__list--with-downloads`);
+      classes.push(`${blockName}__list--with-downloads`);
 
       const buttons = item.querySelectorAll('.button');
       buttons.forEach((bt) => {
@@ -93,12 +97,12 @@ export default async function decorate(block) {
     }
 
     if (!typePicture && !typeDownloads && !typeTitle) {
-      item.classList.add(`${blockName}__list--with-text`);
+      classes.push(`${blockName}__list--with-text`);
     }
 
-    accordionContent.appendChild(item);
+    item.classList.add(...classes);
 
-    removeEmptyTags(item);
+    accordionContent.appendChild(item);
   });
 
   // close last accordion content
@@ -107,6 +111,8 @@ export default async function decorate(block) {
     accordionWrapper.appendChild(accordionContent);
     block.appendChild(accordionWrapper);
   }
+
+  removeEmptyTags(block);
 
   await loadBlock(accordionBlock);
 }
