@@ -180,7 +180,7 @@ ul.v2-truck-lineup__navigation {
 
 .v2-truck-lineup__navigation-item.active button,
 .v2-truck-lineup__navigation-item button:hover {
-  --color-icon: var(--c-primary-gold);
+  --color-icon: var(--c-accent-copper);
 
   color: var(--c-primary-black);
 }
