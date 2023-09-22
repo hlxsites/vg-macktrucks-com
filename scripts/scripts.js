@@ -331,9 +331,7 @@ const createInpageNavigation = (main) => {
   return navItems;
 };
 
-function buildInpageNavigationBlock(main) {
-  const inapgeClassName = 'v2-inpage-navigation';
-
+function buildInpageNavigationBlock(main, classname) {
   const items = createInpageNavigation(main);
 
   if (items.length > 0) {
@@ -343,11 +341,11 @@ function buildInpageNavigationBlock(main) {
       overflow: 'hidden',
     });
 
-    section.append(buildBlock(inapgeClassName, { elems: items }));
+    section.append(buildBlock(classname, { elems: items }));
     // insert in second position, assumption is that Hero should be first
     main.insertBefore(section, main.children[1]);
 
-    decorateBlock(section.querySelector(`.${inapgeClassName}`));
+    decorateBlock(section.querySelector(`.${classname}`));
   }
 }
 
@@ -406,9 +404,9 @@ export function decorateMain(main, head) {
   decorateLinks(main);
 
   // Truck carousel
-  buildTruckLineupBlock(main);
+  buildTruckLineupBlock(main, 'v2-truck-lineup');
   // Inpage navigation
-  buildInpageNavigationBlock(main);
+  buildInpageNavigationBlock(main, 'v2-inpage-navigation');
   // V2 tabbed carousel
   buildTabbedBlock(main, 'v2-tabbed-carousel');
 }
@@ -456,6 +454,7 @@ async function loadEager(doc) {
 
   await getPlaceholders();
 }
+
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
@@ -653,17 +652,17 @@ allLinks.forEach((link) => {
   link.innerText = selectedText;
 });
 
-function createTruckLineupSection(tabItems) {
+function createTruckLineupSection(tabItems, classname) {
   const tabSection = createElement('div', { classes: 'section' });
   tabSection.dataset.sectionStatus = 'initialized';
   const wrapper = createElement('div');
   tabSection.append(wrapper);
-  const tabBlock = buildBlock('v2-truck-lineup', [tabItems]);
+  const tabBlock = buildBlock(classname, [tabItems]);
   wrapper.append(tabBlock);
   return tabSection;
 }
 
-function buildTruckLineupBlock(main) {
+function buildTruckLineupBlock(main, classname) {
   const tabItems = [];
   let nextElement;
 
@@ -676,7 +675,7 @@ function buildTruckLineupBlock(main) {
     nextElement = mainChildren[i2 + 1];
     const sectionMeta = section.dataset.truckCarousel;
 
-    const tabContent = createElement('div', { classes: 'v2-truck-lineup__content' });
+    const tabContent = createElement('div', { classes: `${classname}__content` });
     tabContent.dataset.truckCarousel = sectionMeta;
     if (section.dataset.truckCarouselIcon) {
       tabContent.dataset.truckCarouselIcon = section.dataset.truckCarouselIcon;
@@ -691,14 +690,14 @@ function buildTruckLineupBlock(main) {
   });
 
   if (tabItems.length > 0) {
-    const tabbedCarouselSection = createTruckLineupSection(tabItems);
+    const tabbedCarouselSection = createTruckLineupSection(tabItems, classname);
     if (nextElement) { // if we saved a position push the carousel in that position if not
       main.insertBefore(tabbedCarouselSection, nextElement);
     } else {
       main.append(tabbedCarouselSection);
     }
     decorateIcons(tabbedCarouselSection);
-    decorateBlock(tabbedCarouselSection.querySelector('.v2-truck-lineup'));
+    decorateBlock(tabbedCarouselSection.querySelector(`.${classname}`));
   }
 }
 
