@@ -268,7 +268,7 @@ a.button:any-link, button {
   padding: 5px 30px;
   text-align: center;
   font-style: normal;
-  font-weight: 600;
+  font-weight: normal;
   cursor: pointer;
   color: var(--background-color);
   background-color: var(--link-color);
