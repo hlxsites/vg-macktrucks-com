@@ -109,11 +109,15 @@
   --headline-5-font-size: 1.8rem; /* 18px */
   --headline-5-line-height: 140%;
 
+  /* Superscript font size */
+  --superscript-font-size: 0.750rem; /* 12px */
+
   /* Wrapper for generic components */
   --wrapper-width: 1040px;
 
+
   /*
-  OLD STYLES
+  OLD CSS VARIABLES
   */
 
   --ff-helvetica-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
@@ -824,7 +828,7 @@ main .section.responsive-title h1 {
   /* Helvetica Neue LT Pro, 75 Bold, 14px, 16px */
   --label-font-size: 0.875rem; /* 14px */
   --label-line-height: 16px;
-  
+
   /* Helvetica Neue LT Pro, 55 Roman, 14px, 18px */
   --button-font-size: 0.875rem; /* 14px */
   --button-line-height: 18px;
