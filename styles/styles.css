@@ -902,6 +902,13 @@ main .section.responsive-title h1 {
 /* ICONS STYLES - END */
 
 /* REDESIGN Buttons */
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 a.button:any-link, 
+.redesign-v2 button {
+  font-weight: normal;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 a.button,
 .redesign-v2 button.button {
   align-items: center;
