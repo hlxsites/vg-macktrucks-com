@@ -62,6 +62,9 @@
   --button-tertiary-white-pressed: #e1dfdd;
   --button-tertiary-white-disabled: var(--c-primary-white);
 
+  /* Focus */
+  --border-focus: red;
+
   /* Font family */
 
   /* Alternate fonts */
@@ -845,6 +848,11 @@ main .section.responsive-title h1 {
 
   /* In page navigation */
   --inpage-navigation-height: 0;
+}
+
+.redesign-v2 body {
+  font-size: var(--body-1-font-size);
+  line-height: var(--body-1-line-height);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
