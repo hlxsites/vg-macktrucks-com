@@ -1359,7 +1359,6 @@ $.fn.showPin = function (pin) {
     switch (filter) {
       case 'all':
         condition = ['Sales, Service & Parts', 'Service and Parts', 'Customer Service Centre'].includes(pin.DEALER_TYPE_DESC);
-        console.log("condition", condition,pin);
         break;
 
       case 'sales-service':
@@ -2345,6 +2344,68 @@ $.fn.setAddress = function () {
 // Handles geolocation
 $.fn.setLocation = function () {
 
+  $geocoder = new google.maps.Geocoder;
+  $geocoder.geocode({ 'address': 'Australia' }, function (results, status) {
+    if (!results || results.length == 0) {
+      $('.waiting-overlay').css('display', 'block');
+      console.log("results not found");
+    } else {
+      $('.waiting-overlay').css('display', 'none');
+      $map.viewtype = (results[0].types[0]);
+
+      $map.fitBounds(results[0].geometry.viewport);
+
+      position = results[0].geometry.location;
+
+      var pos = {
+        lat: position.lat(),
+        lng: position.lng()
+      };
+
+      $location = [
+        position.lat(),
+        position.lng()
+      ];
+
+
+      if (!$me) {
+        $pin = {
+          url: $meIcon,
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(100, 100),
+
+          scaledSize: new google.maps.Size(30, 30),
+
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(30, 30)
+        };
+
+        $me = new google.maps.Marker({
+          position: { lat: $location[0], lng: $location[1] },
+          title: 'ME',
+          map: $map,
+          zIndex: 0,
+          icon: $pin
+        });
+
+        //$me.setZIndex(0);
+
+      }
+
+      $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
+      
+      // by default load pins
+      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
+      $.fn.loadPins(function () {
+        $map.setZoom(4);
+      });
+      $.fn.switchSidebarPane('sidebar-pins');
+    }
+  });
+
   if (navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -2434,69 +2495,10 @@ $.fn.setLocation = function () {
       $.fn.handleLocationError(true);
       
       const waiting = $('.sidebar #location').val() ? 'none' : 'block';
-      $('.waiting-overlay').css('display', waiting)
+      $('.waiting-overlay').css('display', waiting);
 
-      //setting address as australia
-      $geocoder = new google.maps.Geocoder;
-      $geocoder.geocode({ 'address': 'Australia' }, function (results, status) {
-        if (!results || results.length == 0) {
-          $('.waiting-overlay').css('display', 'block');
-          console.log("results not found");
-        } else {
-          $('.waiting-overlay').css('display', 'none');
-          $map.viewtype = (results[0].types[0]);
+      $map.setZoom(4);
 
-          $map.fitBounds(results[0].geometry.viewport);
-
-          position = results[0].geometry.location;
-
-          var pos = {
-            lat: position.lat(),
-            lng: position.lng()
-          };
-
-          $location = [
-            position.lat(),
-            position.lng()
-          ];
-
-
-          if (!$me) {
-            $pin = {
-              url: $meIcon,
-              // This marker is 20 pixels wide by 32 pixels high.
-              size: new google.maps.Size(100, 100),
-
-              scaledSize: new google.maps.Size(30, 30),
-
-              // The origin for this image is (0, 0).
-              origin: new google.maps.Point(0, 0),
-
-              // The anchor for this image is the base of the flagpole at (0, 32).
-              anchor: new google.maps.Point(30, 30)
-            };
-
-            $me = new google.maps.Marker({
-              position: { lat: $location[0], lng: $location[1] },
-              title: 'ME',
-              map: $map,
-              zIndex: 0,
-              icon: $pin
-            });
-
-            //$me.setZIndex(0);
-
-          }
-
-          $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
-          
-          // by default load pins
-          window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
-          $.fn.loadPins();
-          $.fn.switchSidebarPane('sidebar-pins');
-          $map.setZoom(4);
-        }
-      });
     });
   } else {
     // Browser doesn't support Geolocation
