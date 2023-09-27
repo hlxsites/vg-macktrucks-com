@@ -2550,3 +2550,8 @@ footer {
     left: 5px;
     margin-top: -5px
 }
+
+.legend-header, 
+.dealer-locator .sidebar .panel-card .panel-filter-distance {
+    display: none;
+}
