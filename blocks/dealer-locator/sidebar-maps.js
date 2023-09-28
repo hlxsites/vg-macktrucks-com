@@ -2396,13 +2396,6 @@ $.fn.setLocation = function () {
       }
 
       $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
-      
-      // by default load pins
-      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
-      $.fn.loadPins(function () {
-        $map.setZoom(4);
-      });
-      $.fn.switchSidebarPane('sidebar-pins');
     }
   });
 
@@ -2497,7 +2490,13 @@ $.fn.setLocation = function () {
       const waiting = $('.sidebar #location').val() ? 'none' : 'block';
       $('.waiting-overlay').css('display', waiting);
 
+      // by default load pins
+      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
+      $.fn.loadPins();
+      $.fn.switchSidebarPane('sidebar-pins');
+
       $map.setZoom(4);
+
 
     });
   } else {
