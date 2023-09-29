@@ -14,6 +14,7 @@ export default async function decorate(block) {
     consolidateFilters: true,
     selectedBrand: 'mack',
     dataSource: datasource,
+    country: 'Australia',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
 

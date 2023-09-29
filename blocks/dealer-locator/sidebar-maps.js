@@ -84,6 +84,7 @@ $showAsistDialog = window.locatorConfig.showAsistDialog;
 var uptimeClicked = false;
 $electricDealer = false;
 $hoverText = $('#hoverText').val();
+$country = window.locatorConfig.country;
 
 // Google callback letting us know maps is ready to be used
 (function () {
@@ -224,8 +225,8 @@ $hoverText = $('#hoverText').val();
       }]
     });
 
-    // Attempt geolocation
-    $.fn.setLocation();
+    // Remove setting location by default load all pins
+    //$.fn.setLocation();
 
     $directionsService = new google.maps.DirectionsService();
     $directionsDisplay = new google.maps.DirectionsRenderer();
@@ -255,8 +256,6 @@ $hoverText = $('#hoverText').val();
       $(options).on('click', function (ev) {
 
         $id = $brandOptionSelected = $(ev.target).attr("id");
-        // just provide single source for data
-        window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
 
         $.fn.loadPins();
 
@@ -264,6 +263,71 @@ $hoverText = $('#hoverText').val();
       });
     }
 
+    // by default load pins
+    if (!window.locatorConfig.dataSource) {
+      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
+    }
+
+    // set the default location for country if there is no postcode in url
+    if (!$('#location').val()) {
+      $geocoder = new google.maps.Geocoder;
+      $geocoder.geocode({ 'address':  $country }, function (results) {
+        if (!results || results.length == 0) {
+          $('.waiting-overlay').css('display', 'block');
+          console.log("results not found");
+        } else {
+          $('.waiting-overlay').css('display', 'none');
+          $map.viewtype = (results[0].types[0]);
+  
+          $map.fitBounds(results[0].geometry.viewport);
+  
+          position = results[0].geometry.location;
+  
+          var pos = {
+            lat: position.lat(),
+            lng: position.lng()
+          };
+  
+          $location = [
+            position.lat(),
+            position.lng()
+          ];
+  
+  
+          if (!$me) {
+            $pin = {
+              url: $meIcon,
+              // This marker is 20 pixels wide by 32 pixels high.
+              size: new google.maps.Size(100, 100),
+  
+              scaledSize: new google.maps.Size(30, 30),
+  
+              // The origin for this image is (0, 0).
+              origin: new google.maps.Point(0, 0),
+  
+              // The anchor for this image is the base of the flagpole at (0, 32).
+              anchor: new google.maps.Point(30, 30)
+            };
+  
+            $me = new google.maps.Marker({
+              position: { lat: $location[0], lng: $location[1] },
+              title: 'ME',
+              map: $map,
+              zIndex: 0,
+              icon: $pin
+            });
+  
+            //$me.setZIndex(0);
+  
+          }
+  
+          $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
+  
+          $.fn.loadPins();
+          $.fn.switchSidebarPane('sidebar-pins');
+        }
+      });
+    }
   }
 })();
 
@@ -282,147 +346,155 @@ $.fn.initGoogleMaps = function () {
 $.fn.loadPins = function () {
 
 
-  $pins = [];
   $nearbyPins = [];
-  $markers = [];
 
+  let dealers;
 
-  $.ajax({
-    // use json file from franklin
-    url: '/buy-mack/find-a-dealer/market-export-dealer.json',
-    type: "GET",
-    success: function ({ data }) {
+  // fetch markers only if they are not present, as by default we load all markers
+  if (!$markers.length) {
+    $.ajax({
+      // use json file from franklin
+      url: '/buy-mack/find-a-dealer/market-export-dealer.json',
+      type: "GET",
+      success: function ({ data }) {
+  
+        try {
+          dealers = data;
+          for (var dealer of dealers) {
+            $dealer = dealer;
 
-      let dealers;
-      try {
-       dealers = data;
-      } catch (e) {
-        // data is already an object, proceed.
-      }
-      // check for address and filter dealers based on postcode
-      const postcode = $('#location').val() || $('#location2').val();
-      if (postcode) {
-        dealers = data.filter((dealer) => dealer.MAIN_POSTAL_CD === postcode);
-      }
+            $marker = new google.maps.Marker({
+              id: $dealer.IDENTIFIER_VALUE,
+              position: { lat: parseFloat($dealer.MAIN_LATITUDE), lng: parseFloat($dealer.MAIN_LONGITUDE) },
+              title: $dealer.COMPANY_DBA_NAME,
+              map: $map,
+              icon: {
+                // by default use only one marker
+                url: "/blocks/dealer-locator/images/dealer.svg",
+                scaledSize: new google.maps.Size(17, 23), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0)
+              }
+            });
+            // Marker click event listener
+            $marker.addListener('click', function () {
 
-      for (var dealer of dealers) {
-        $dealer = dealer;
+              var index = $markers.indexOf(this);
 
-          
-        $marker = new google.maps.Marker({
-          id: $dealer.IDENTIFIER_VALUE,
-          position: { lat: parseFloat($dealer.MAIN_LATITUDE), lng: parseFloat($dealer.MAIN_LONGITUDE) },
-          title: $dealer.COMPANY_DBA_NAME,
-          map: $map,
-          icon: {
-            // by default use only one marker
-            url: "/blocks/dealer-locator/images/dealer.svg",
-            scaledSize: new google.maps.Size(17, 23), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0)
-          }
-        });
-         // Marker click event listener
-         $marker.addListener('click', function () {
+              var marker = $markers[index];
 
-          var index = $markers.indexOf(this);
+              $map.panTo(marker.position);
 
-          var marker = $markers[index];
+              if ($lastPane == 'sidebar-select-pins') {
 
-          $map.panTo(marker.position);
+                var details = null;
+                for (i = 0; i < $pins.length; i++) {
 
-          if ($lastPane == 'sidebar-select-pins') {
+                  if ($pins[i].IDENTIFIER_VALUE == marker.id) {
 
-            var details = null;
-            for (i = 0; i < $pins.length; i++) {
+                    if ($.fn.isWaypoint($pins[i].waypoint)) {
+                      continue;
+                    }
 
-              if ($pins[i].IDENTIFIER_VALUE == marker.id) {
+                    $wayPoints.push($pins[i].waypoint);
+                    details = $pins[i];
+                    // minus icon
+                    var pinIcon = $.fn.drawPin('-', 38, 38, '808080');
+                    marker.setIcon(pinIcon);
+                    // update select-pins display with location
+                    $.fn.renderAddDirectionsPin(marker, details);
 
-                if ($.fn.isWaypoint($pins[i].waypoint)) {
-                  continue;
+                  }
+
                 }
 
-                $wayPoints.push($pins[i].waypoint);
-                details = $pins[i];
-                // minus icon
-                var pinIcon = $.fn.drawPin('-', 38, 38, '808080');
-                marker.setIcon(pinIcon);
-                // update select-pins display with location
-                $.fn.renderAddDirectionsPin(marker, details);
-
+                return;
               }
 
-            }
+              // reset all markers to basic
+              // by default use only one marker
+              $markers.forEach(function (marker) {
+                marker.setIcon({
+                  url: "/blocks/dealer-locator/images/dealer.svg",
+                  scaledSize: new google.maps.Size(17, 23), // scaled size
+                  origin: new google.maps.Point(0, 0), // origin
+                  anchor: new google.maps.Point(0, 0)
+                });
 
-            return;
-          }
+              });
 
-          // reset all markers to basic
-          // by default use only one marker
-          $markers.forEach(function (marker) {
-            marker.setIcon({
-              url: "/blocks/dealer-locator/images/dealer.svg",
-              scaledSize: new google.maps.Size(17, 23), // scaled size
-              origin: new google.maps.Point(0, 0), // origin
-              anchor: new google.maps.Point(0, 0)
+              marker.setIcon({
+                url: "/blocks/dealer-locator/images/dealer.svg",
+                scaledSize: new google.maps.Size(58, 80), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0)
+              });
+
+              $.fn.myDealer();
+
+              $.fn.switchSidebarPane('sidebar-pin', marker.id);
+
             });
 
-          });
+            $markers.push($marker);
 
-          marker.setIcon({
-            url: "/blocks/dealer-locator/images/dealer.svg",
-            scaledSize: new google.maps.Size(58, 80), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0)
-          });
+            $marker.ID = $dealer.IDENTIFIER_VALUE;
+
+            $dealer.waypoint = {
+              id: $dealer.IDENTIFIER_VALUE,
+              point: {
+                location: new google.maps.LatLng($dealer.MAIN_LATITUDE, $dealer.MAIN_LONGITUDE),
+                stopover: false
+              }
+            };
+            $pins.push($dealer);
+
+            $pins2.push($dealer);
+          }
 
           $.fn.myDealer();
+          $.fn.filterRadius();
 
-          $.fn.switchSidebarPane('sidebar-pin', marker.id);
+          var markerId = $.fn.getUrlParameter('view');
+          var viewMarker = $.fn.getPinById(markerId);
+          if (markerId && viewMarker) {
 
-        });
+            //setCenter
+            for (i = 0; i < $markers.length; i++) {
 
-        $markers.push($marker);
+              if ($markers[i].id == markerId) {
 
-        $marker.ID = $dealer.IDENTIFIER_VALUE;
+                $.fn.switchSidebarPane('sidebar-pin', markerId);
 
-        $dealer.waypoint = {
-          id: $dealer.IDENTIFIER_VALUE,
-          point: {
-            location: new google.maps.LatLng($dealer.MAIN_LATITUDE, $dealer.MAIN_LONGITUDE),
-            stopover: false
+              }
+            }
           }
-        };
-        $pins.push($dealer);
-
-        $pins2.push($dealer);
-      }
-
-      $.fn.myDealer();
-      $.fn.filterRadius();
-
-      var markerId = $.fn.getUrlParameter('view');
-      var viewMarker = $.fn.getPinById(markerId);
-      if (markerId && viewMarker) {
-
-
-        //setCenter
-        for (i = 0; i < $markers.length; i++) {
-
-          if ($markers[i].id == markerId) {
-
-            $.fn.switchSidebarPane('sidebar-pin', markerId);
-
-          }
+          
+        } catch (e) {
+          // data is already an object, proceed.
         }
-
-
       }
+  
+    });
+  } else {
+    $.fn.myDealer();
+    $.fn.filterRadius();
 
+    var markerId = $.fn.getUrlParameter('view');
+    var viewMarker = $.fn.getPinById(markerId);
+    if (markerId && viewMarker) {
 
+      //setCenter
+      for (i = 0; i < $markers.length; i++) {
+
+        if ($markers[i].id == markerId) {
+
+          $.fn.switchSidebarPane('sidebar-pin', markerId);
+
+        }
+      }
     }
-
-  });
+  }
 };
 $.fn.removeWaypoint = function (pin) {
 
@@ -1053,7 +1125,7 @@ $.fn.switchSidebarPane = function (id, e) {
     $('.main-directions').css('display', 'none');
     $('.main-header').css('display', 'block');
     $.fn.clearDirections();
-    $map.setZoom(8);
+    $map.setZoom(4);
   }
   if ($lastPane) {
     $('#d-' + $lastPane).css('display', 'none');
@@ -1201,6 +1273,8 @@ $.fn.filterRadius = function () {
   var k = 1;
   for (var i = 0; i < $markers.length; i++) {
 
+    const postcode = $('#location').val() || $('#location2').val();
+
     if (google.maps.geometry.spherical.computeDistanceBetween($markers[i].getPosition(), $me.getPosition()) < radius) {
 
       bounds.extend($markers[i].getPosition())
@@ -1232,7 +1306,7 @@ $.fn.filterRadius = function () {
         return v['IDENTIFIER_VALUE'] === $markers[i].ID;
       })[0];
 
-      if ($.fn.showPin(pin)) {
+      if ($.fn.showPin(pin) && !postcode) {
         $markers[i].setMap($map);
         $nearbyPins.push($markers[i].ID);
       } else {
@@ -1258,12 +1332,17 @@ $.fn.filterRadius = function () {
     $map.fitBounds(bounds);
 
     $map.setZoom(8);
-
-
   }
 
   $map.setCenter($me.getPosition());
-  $map.setZoom(8);
+
+  // check for address and filter dealers based on postcode
+  const postcode = $('#location').val() || $('#location2').val();
+  if (!postcode) {
+    $map.setZoom(4);
+  } else {
+    $map.setZoom(8);
+  }
 
   $.fn.filterNearbyPins();
 };
@@ -2344,61 +2423,6 @@ $.fn.setAddress = function () {
 // Handles geolocation
 $.fn.setLocation = function () {
 
-  $geocoder = new google.maps.Geocoder;
-  $geocoder.geocode({ 'address': 'Australia' }, function (results, status) {
-    if (!results || results.length == 0) {
-      $('.waiting-overlay').css('display', 'block');
-      console.log("results not found");
-    } else {
-      $('.waiting-overlay').css('display', 'none');
-      $map.viewtype = (results[0].types[0]);
-
-      $map.fitBounds(results[0].geometry.viewport);
-
-      position = results[0].geometry.location;
-
-      var pos = {
-        lat: position.lat(),
-        lng: position.lng()
-      };
-
-      $location = [
-        position.lat(),
-        position.lng()
-      ];
-
-
-      if (!$me) {
-        $pin = {
-          url: $meIcon,
-          // This marker is 20 pixels wide by 32 pixels high.
-          size: new google.maps.Size(100, 100),
-
-          scaledSize: new google.maps.Size(30, 30),
-
-          // The origin for this image is (0, 0).
-          origin: new google.maps.Point(0, 0),
-
-          // The anchor for this image is the base of the flagpole at (0, 32).
-          anchor: new google.maps.Point(30, 30)
-        };
-
-        $me = new google.maps.Marker({
-          position: { lat: $location[0], lng: $location[1] },
-          title: 'ME',
-          map: $map,
-          zIndex: 0,
-          icon: $pin
-        });
-
-        //$me.setZIndex(0);
-
-      }
-
-      $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
-    }
-  });
-
   if (navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -2489,15 +2513,6 @@ $.fn.setLocation = function () {
       
       const waiting = $('.sidebar #location').val() ? 'none' : 'block';
       $('.waiting-overlay').css('display', waiting);
-
-      // by default load pins
-      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
-      $.fn.loadPins();
-      $.fn.switchSidebarPane('sidebar-pins');
-
-      $map.setZoom(4);
-
-
     });
   } else {
     // Browser doesn't support Geolocation
