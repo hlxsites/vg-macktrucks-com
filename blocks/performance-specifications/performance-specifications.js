@@ -160,7 +160,7 @@ function renderEngineSpecs(engineDetails) {
     ])
       .flat()),
     p({ class: 'button-container' },
-      a({ class: 'button secondary download-specs', href: engineDetails['learn more'], target: '_blank' }, 'Learn more')),
+      a({ class: 'button secondary download-specs', href: engineDetails['learn more'], target: '_blank' }, 'Learn More')),
   );
 }
 
