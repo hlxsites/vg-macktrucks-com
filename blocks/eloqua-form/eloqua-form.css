@@ -21,9 +21,9 @@
   border-radius: 0;
   appearance: none;
   max-width: none;
-  background-color: var(--primary-white);
+  background-color: var(--c-primary-white);
   border: 1px solid #666;
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   padding: 11px 18px;
   font-size: 14px;
   line-height: 18px;
@@ -38,7 +38,7 @@
 .eloqua-form .elq-form input::placeholder,
 .eloqua-form .elq-form select::placeholder,
 .eloqua-form .elq-form textarea ::placeholder {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 .eloqua-form input[type="submit"] {
@@ -49,8 +49,8 @@
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  background: var(--secondary-dark-gold);
-  color: var(--primary-white);
+  background: var(--c-secondary-dark-gold);
+  color: var(--c-primary-white);
   border: none;
   margin-bottom: 30px;
   border-radius: 0;
@@ -105,18 +105,18 @@
   width: 20px;
   height: 20px;
   display: inline-block;
-  border: solid 2px var(--secondary-dark-gold);
+  border: solid 2px var(--c-secondary-dark-gold);
   margin-right: 10px;
   position: relative;
   top: 4px;
-  background: var(--primary-white);
+  background: var(--c-primary-white);
   cursor: pointer;
 }
 
 .eloqua-form .single-checkbox-row input:checked ~ label.checkbox-aligned.elq-item-label::after {
   content: "\f00c";
   font-family: var(--ff-fontawesome);
-  color: var(--secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
   position: absolute;
   font-size: 18px;
   left: 1px;

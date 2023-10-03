@@ -18,7 +18,7 @@
 
 .features .row h4.feature-title {
     margin: 20px 0 0;
-    font: 14px/14px var(--emphasis-ff-bold)
+    font: 14px/14px var(--ff-body-bold)
 }
 
 .features .row p {

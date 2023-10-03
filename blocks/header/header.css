@@ -3,9 +3,8 @@
   --nav-font-size-m: 16px;
   --nav-font-size-s: 14px;
   --nav-font-size-xs: 12px;
-  --nav-height: var(--nav-height-m);
   --nav-width: 1376px;
-  --nav-ff: var(--emphasis-ff-bold);
+  --nav-ff: var(--ff-body-bold);
 }
 
 /* header and nav layout */
@@ -143,7 +142,7 @@ header nav[aria-expanded="true"] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
-  background-color: var(--primary-black);
+  background-color: var(--c-primary-black);
   z-index: 2;
 }
 
@@ -218,7 +217,7 @@ header .nav-search-wrapper {
 
 header .nav-search-wrapper .search-icon-wrapper {
   padding-inline: 10px;
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 header .nav-search-wrapper a:hover {
@@ -317,10 +316,6 @@ header .studio-search-widget {
 
 @media (min-width: 1140px) {
   /* header and nav layout */
-  :root {
-    --nav-height: var(--nav-height-l);
-  }
-
   header nav {
     display: flex;
     justify-content: space-between;
@@ -440,7 +435,7 @@ header .studio-search-widget {
 
 .autosuggest-results {
   top: 33px;
-  background-color: var(--primary-white);
+  background-color: var(--c-primary-white);
   color: #53565a;
   cursor: pointer;
   margin-top: 16px;
@@ -469,7 +464,7 @@ header .studio-search-widget {
 .autosuggest-results .result-row:hover {
   width: 100%;
   background: #f2f2f2;
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   height: 40px;
 }
 

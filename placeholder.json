@@ -1,7 +1,7 @@
 {
-  "total": 23,
+  "total": 25,
   "offset": 0,
-  "limit": 23,
+  "limit": 25,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -86,6 +86,10 @@
     {
       "Key": "channel aria label",
       "Text": "channel"
+    },
+    {
+      "Key": "Open Gallery",
+      "Text": "Open Gallery"
     },
     {
       "Key": "no eloqua message",
