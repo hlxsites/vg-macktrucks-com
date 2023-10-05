@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-10-03T00:00:00.000Z</updated>
+    <updated>2023-10-04T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2648,5 +2648,13 @@
         <updated>2023-10-03T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Oct. 3, 2023) – Mack Trucks will spotlight two Mack Anthem® models at the American Trucking Associations (ATA) Management Conference & Exhibition (MC&E), Oct.14 to 17, at the Austin Convention Center, Austin, Texas.]]></content>
         <published>2023-10-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense to Show Mack® AC Model at AUSA 2023 | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-defense-to-show-mack-ac-model-at-ausa</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-defense-to-show-mack-ac-model-at-ausa"/>
+        <updated>2023-10-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Oct. 4, 2023) – Mack Defense announced today that it will show a classic Mack® AC at the Association of the United States Army (AUSA) 2023 Annual Meeting and Exposition, Oct. 9 –11, at the Walter E. Washington Convention Center in Washington, D.C.]]></content>
+        <published>2023-10-04T00:00:00.000Z</published>
     </entry>
 </feed>
