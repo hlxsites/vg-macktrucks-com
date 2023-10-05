@@ -911,7 +911,7 @@ main .section.responsive-title h1 {
 
 /* REDESIGN Buttons */
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 a.button:any-link, 
+.redesign-v2 a.button:any-link,
 .redesign-v2 button {
   font-weight: normal;
 }
@@ -1086,6 +1086,9 @@ main .section.responsive-title h1 {
   }
 }
 
+.redesign-v2 .pretitle {
+  font: normal var(--accent-2-font-size)/1.2 var(--ff-accents);
+}
 
 /* CLS OPTIMIZATION */
 .v2-hero {
