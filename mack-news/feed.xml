@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-10-04T00:00:00.000Z</updated>
+    <updated>2023-10-09T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2658,11 +2658,11 @@
         <published>2023-10-04T00:00:00.000Z</published>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Mack Showcases Extensive Capabilities of the Mack Anthem® at ATA MC&E | Mack Trucks]]></title>
+        <title type="html"><![CDATA[UAW Members Reject Agreement with Mack Trucks, Announce Strike | Mack Trucks]]></title>
         <id>https://www.macktrucks.com/mack-news/2023/uaw-members-reject-agreement-with-mack-trucks-announce-strike</id>
         <link href="https://www.macktrucks.com/mack-news/2023/uaw-members-reject-agreement-with-mack-trucks-announce-strike"/>
-        <updated>2023-10-03T00:00:00.000Z</updated>
-        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 3, 2023) – Mack Trucks will spotlight two Mack Anthem® models at the American Trucking Associations (ATA) Management Conference & Exhibition (MC&E), Oct.14 to 17, at the Austin Convention Center, Austin, Texas.]]></content>
-        <published>2023-10-03T00:00:00.000Z</published>
+        <updated>2023-10-09T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Oct. 8, 2023) – The United Auto Workers union has informed Mack Trucks that their members voted against ratification of a new five-year collective bargaining agreement covering about 3,900 employees at facilities in Pennsylvania, Maryland and Florida, and that the UAW will strike all of the covered facilities beginning on Oct. 9.]]></content>
+        <published>2023-10-09T00:00:00.000Z</published>
     </entry>
 </feed>
