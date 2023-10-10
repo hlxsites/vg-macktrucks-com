@@ -59,7 +59,7 @@ export default async function decorate(block) {
     const pretitleText = prevEl && !prevEl.classList.contains('icon') && prevEl.textContent;
 
     if (pretitleText) {
-      const pretitle = createElement('span', { classes: `${blockName}__pretitle` });
+      const pretitle = createElement('span', { classes: 'pretitle' });
       pretitle.textContent = pretitleText;
       prevEl.replaceWith(pretitle);
     }
