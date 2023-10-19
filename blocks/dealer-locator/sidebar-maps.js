@@ -533,34 +533,30 @@ $.fn.isWaypoint = function (waypoint) {
 };
 
 $.fn.getHours = function (dealer) {
-  var hours = null;
+  let hours = null;
+  let week = {};
 
-  if (dealer.hours['Parts']) {
-    hours = dealer.hours['Parts'];
-  }
+  const hoursArray = dealer.hours.split(',');
 
-  if (!hours && dealer.hours['Service']) {
-    hours = dealer.hours['Service'];
-  }
-
-  if (!hours && dealer.hours['Leasing']) {
-    hours = dealer.hours['Leasing'];
-  }
+  hoursArray.forEach((hours, idx) => {   
+    if (hours.toLowerCase() === 'closed') {
+      week[idx] = { 'Start': 'Closed', 'End': 'Closed' }
+    } else {
+      const [start, end] = hours.split('-')
+      week[idx] = { 'Start': start, 'End': end }
+    }
+  });
+  if (dealer.hours) hours = week;
 
   return hours;
-
 };
 
 $.fn.isOpen = function (dealer, time) {
-
   var hours = $.fn.getHours(dealer);
-
   var zone = moment.tz.guess();
-
   var closeSoon = false;
 
   if (hours) {
-
     if (!time) {
       time = new Date();
     }
@@ -1008,7 +1004,6 @@ $.fn.renderPinDetails = function (markerId) {
     }
   }
 
-
   if (!hasPartsHours && !hasServiceHours && !hasLeasingHours && !hasSalesHours) {
     isOpenHtml = "Call";
   }
@@ -1031,7 +1026,6 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var templateClone = $($('#sidebar-select-pin').clone(true).html());
 
   templateClone.find('.fa-close').attr('data-id', details.IDENTIFIER_VALUE);
-  console.log(details, "details")
 
   var isOpen = $.fn.isOpen(details);
   var isOpenHtml = "";
@@ -1043,7 +1037,6 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
     isOpenHtml = "Closed";
   }
 
-
   templateClone.find('.heading p').text($.fn.camelCase(details.COMPANY_DBA_NAME));
   templateClone.find('.hours').text(isOpenHtml);
   templateClone.find('.distance').text(details.distance.toFixed(2) + ' mi');
@@ -1053,12 +1046,9 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
   templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
 
-
   $("<div/>", {
     'html': templateClone
   }).appendTo('.nearby-select');
-
-
 };
 
 $.fn.setupAddDirectionsView = function () {
@@ -1098,7 +1088,6 @@ $.fn.switchSidebarPane = function (id, e) {
   var content = $('#' + id).html();
 
   var forceRefresh = false;
-  console.log(markerId, "markerId");
   if (e && id == 'sidebar-pin') {
     content = $.fn.renderPinDetails(markerId);
   }
@@ -1385,6 +1374,7 @@ $.fn.setCookie = function (name, value, days) {
   }
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
+
 $.fn.getCookie = function (name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
@@ -1437,7 +1427,7 @@ $.fn.showPin = function (pin) {
   if ($consolidateFilters) {
     switch (filter) {
       case 'all':
-        condition = ['Sales, Service & Parts', 'Service and Parts', 'Customer Service Centre'].includes(pin.DEALER_TYPE_DESC);
+        condition = ['Sales, Service & Parts', 'Service and Parts', 'Customer Service Centre', 'Head office'].includes(pin.DEALER_TYPE_DESC);
         break;
 
       case 'sales-service':
@@ -1450,6 +1440,10 @@ $.fn.showPin = function (pin) {
 
       case 'customer-service':
         condition = pin.DEALER_TYPE_DESC.indexOf('Customer Service Centre') > -1;
+        break;
+
+      case 'head-office':
+        condition = pin.DEALER_TYPE_DESC.indexOf('Head office') > -1;
         break;
         
       default:
@@ -1494,6 +1488,7 @@ $.fn.showPin = function (pin) {
 
   return condition;
 };
+
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
@@ -1517,7 +1512,6 @@ $.fn.tmpPins = function (tmpPinList) {
     } else {
       isOpenHtml = "Closed";
     }
-
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
     templateClone.find('.hours').text(isOpenHtml);
@@ -1673,6 +1667,7 @@ $.fn.tmpPins = function (tmpPinList) {
 
   });
 };
+
 // Creates pin result item
 $.fn.filterNearbyPins = function () {
 
@@ -2313,6 +2308,7 @@ $.fn.setAddress2 = function () {
     }
   });
 };
+
 $.fn.setAddress = function () {
 
   if ($(window).width() < 992) {
