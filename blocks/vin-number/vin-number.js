@@ -7,20 +7,30 @@ const docRange = document.createRange();
 
 // list of things to be display for each recall
 const valueDisplayList = [{
-  key: 'recall_description',
-}, {
-  key: 'mfr_recall_number',
-}, {
-  key: 'mfr_recall_status',
-}, {
   key: 'recall_date',
 },
 {
+  key: 'mfr_recall_number',
+},
+{
+  key: 'nhtsa_recall_number',
+},
+{
+  key: 'mfr_recall_status',
+},
+{
+  key: 'recall_description',
+  class: 'vin-number__detail-item--column',
+},
+{
   key: 'safety_risk_description',
+  class: 'vin-number__detail-item--column',
 }, {
   key: 'remedy_description',
+  class: 'vin-number__detail-item--column',
 }, {
   key: 'mfr_notes',
+  class: 'vin-number__detail-item--column',
 }];
 
 // use this to map values from API
@@ -29,6 +39,10 @@ const recallStatus = {
   0: 'recall_complete',
   12: 'recall_incomplete_no_remedy',
 };
+
+function capitalize(text) {
+  return text.toLowerCase().split('').map((char, index) => (index === 0 ? char.toUpperCase() : char)).join('');
+}
 
 function renderRecalls(recallsData) {
   const resultText = document.querySelector('.vin-number__results-text');
@@ -44,7 +58,7 @@ function renderRecalls(recallsData) {
           </svg>
         </span>
         <h4 class="vin-number__recalls-heading" >${getTextLabel('recalls')}  &nbsp; &nbsp;</h4>
-        <p class="vin-number__recalls-refresh-date"> [${getTextLabel('published_info')}: ${recallsData.refresh_date}] </p>
+        <p class="vin-number__recalls-refresh-date"> [${getTextLabel('published_info')}: ${recallsData.refresh_date} | ${getTextLabel('recall_oldest_info')}] </p>
       </div>
     `);
 
@@ -58,22 +72,25 @@ function renderRecalls(recallsData) {
       // map the number from api to correct status
       recall.mfr_recall_status = recallStatus[recall.mfr_recall_status];
 
+      const recallDetailsList = createElement('ul', { classes: 'vin-number__detail-list' });
+
       valueDisplayList.forEach((item) => {
-        const recallClass = item.key === 'mfr_recall_status' ? `vin-number__${recall.mfr_recall_status.replace(/_/g, '-').toLowerCase()}` : '';
-        let itemValue = recall[item.key];
+        if (recall[item.key]) {
+          const recallClass = item.key === 'mfr_recall_status' ? `vin-number__${recall.mfr_recall_status.replace(/_/g, '-').toLowerCase()}` : '';
+          let itemValue = item.class ? capitalize(recall[item.key]) : recall[item.key];
 
-        if (recallClass) {
-          itemValue = getTextLabel(recall[item.key]);
-        } else if (item.key === 'mfr_recall_number') {
-          itemValue = `${recall[item.key]}/#${recall.nhtsa_recall_number}`;
+          if (recallClass) {
+            itemValue = getTextLabel(recall[item.key]);
+          }
+
+          const itemFragment = docRange.createContextualFragment(`<li class="vin-number__detail-item ${item.class ? item.class : ''}" >
+            <h5 class="vin-number__detail-title"> ${getTextLabel(item.key)} </h5>
+            <span class="vin-number__detail-value ${recallClass}">${itemValue}</span>
+          </li>`);
+          recallDetailsList.append(...itemFragment.children);
         }
-
-        const itemFragment = docRange.createContextualFragment(`
-          <div class="vin-number__item-title h5"> ${getTextLabel(item.key)} </div>
-          <div class="vin-number__item-value ${recallClass}">${itemValue}</div>
-        `);
-        liEl.append(...itemFragment.children);
       });
+      liEl.append(recallDetailsList);
       list.append(liEl);
     });
 
@@ -105,6 +122,8 @@ async function fetchRecalls(e) {
             if (response.error_code) {
               resultText.innerHTML = `${getTextLabel('no recalls')} ${vin}`;
             } else {
+              response.recalls.sort((a, b) => (b.mfr_recall_status - a.mfr_recall_status)
+                || (new Date(b.date) - new Date(a.date)));
               renderRecalls(response);
             }
 

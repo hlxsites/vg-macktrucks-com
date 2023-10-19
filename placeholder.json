@@ -169,7 +169,15 @@
     }, 
     {
       "Key": "mfr_recall_number",
-      "Text": "Campaign/NHTSA #"
+      "Text": "Brand Recall Number"
+    }, 
+    {
+      "Key": "nhtsa_recall_number",
+      "Text": "NHTSA recall number"
+    },
+    {
+      "Key": "recall_oldest_info",
+      "Text": "Recall information available since: Jan 15,2008"
     }
   ],
   ":type": "sheet"
