@@ -35,7 +35,7 @@ export default async function decorate(block) {
     });
     bodyElmts.forEach((e) => e.classList.add(`${blockName}__body`));
 
-    const buttons = [...col.querySelectorAll('a')];
+    const buttons = [...col.querySelectorAll('.button-container a')];
     buttons.forEach((btn) => {
       btn.classList.add('button', 'button--large', 'button--primary');
 
@@ -89,7 +89,7 @@ export default async function decorate(block) {
       heading.replaceWith(newHeadingEl);
     });
 
-    const buttons = [...block.querySelectorAll('a')];
+    const buttons = [...block.querySelectorAll('.button-container a')];
     buttons.forEach((button) => {
       button.classList.add('standalone-link', `${blockName}__button`);
       button.classList.remove('button', 'button--primary', 'button--large');

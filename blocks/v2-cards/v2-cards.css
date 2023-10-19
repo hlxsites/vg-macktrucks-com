@@ -1,12 +1,7 @@
-main .section.v2-cards-container .v2-cards-wrapper {
-  padding: 0;
-}
-
 .v2-cards {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 16px;
   justify-content: center;
   max-width: var(--wrapper-width);
   margin: auto;
@@ -76,7 +71,6 @@ main .section.v2-cards-container .v2-cards-wrapper {
   .v2-cards {
     flex-flow: row wrap;
     gap: 16px;
-    padding: 0;
     justify-content: center;
   }
 
