@@ -115,6 +115,11 @@
   /* Wrapper for generic components */
   --wrapper-width: 1040px;
 
+  /* COLORS START */
+  --c-primary-gray: #f1f1f1;
+  --c-secondary-light-gray: #F4F5F6;
+
+  /* COLORS END */
 
   /*
   OLD CSS VARIABLES
@@ -147,7 +152,7 @@
   --heading-font-size-m: calc(4rem * var(--heading-font-size-scale)); /* 20px */
   --heading-font-size-s: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
   --heading-font-size-xs: calc(3.2rem * var(--heading-font-size-scale)); /* 16px */
-  --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale));  /* 10px */
+  --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale)); /* 10px */
 
   /* Heading font sizes DESKTOP */
   --heading-desktop-font-size-scale: 0.5;
@@ -226,12 +231,29 @@ h1, h2 {
   font-family: var(--ff-headline-medium);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+}
+
+h4 {
+  font-size: var(--heading-font-size-m);
+}
+
+h5 {
+  font-size: var(--heading-font-size-s);
+}
+
+h6 {
+  font-size: var(--heading-font-size-xs);
+}
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
@@ -894,7 +916,6 @@ main .section.responsive-title h1 {
   line-height: var(--headline-5-line-height);
 }
 
-
 /* ICONS STYLES */
 
 /* icons on gold background */
@@ -934,10 +955,9 @@ main .section.responsive-title h1 {
   padding: 12px 20px 8px;
   text-align: center;
   text-decoration: none;
-  transition:
-    background-color var(--duration-small) var(--easing-standard),
-    color var(--duration-small) var(--easing-standard),
-    border-color  var(--duration-small) var(--easing-standard);
+  transition: background-color var(--duration-small) var(--easing-standard),
+  color var(--duration-small) var(--easing-standard),
+  border-color var(--duration-small) var(--easing-standard);
 }
 
 .redesign-v2 a.button--small,
