@@ -177,7 +177,7 @@ div.v2-all-trucks button.v2-all-trucks__segment-button.show {
   font-size: var(--headline-1-font-size);
   line-height: 1.15;
 }
-
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-all-trucks .v2-all-trucks__truck-info > p {
   letter-spacing: .01em;
   margin-top: 12px;
@@ -307,14 +307,15 @@ div.v2-all-trucks button.v2-all-trucks__segment-button.show {
     top: 0;
   }
 
-  .v2-all-trucks .v2-all-trucks__truck > div:first-child:hover picture:last-child img {
-    position: relative;
-  }
-
   .v2-all-trucks .v2-all-trucks__truck > div:first-child picture:first-child img,
   .v2-all-trucks .v2-all-trucks__truck > div:first-child picture:last-child img {
     margin: 0;
   }
+
+  .v2-all-trucks .v2-all-trucks__truck > div:first-child:hover picture:last-child img {
+    position: relative;
+  }
+
 
   .v2-all-trucks .v2-all-trucks__button-list {
     position: relative;
