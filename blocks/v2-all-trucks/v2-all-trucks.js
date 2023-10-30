@@ -1,127 +1,64 @@
-// Importing a function 'createElement' from an external file 'common.js'
 import { createElement } from '../../scripts/common.js';
 
 // Define break point/s
 const MQMobile = window.matchMedia('(max-width: 744px)');
+const blockName = 'v2-all-trucks';
 
-// Fetch truck data from a JSON file
-function fetchTruckData() {
-  return fetch('/all-trucks.json')
-    .then((response) => response.json());
-}
-
-// Create truck segment buttons based on provided data
-function createSegmentButtons(data) {
-  // Creating a container for segment buttons using createElement function
-  const segmentButtonsContainer = createElement('div', {
-    classes: 'v2-all-trucks__segment-buttons-container',
-  });
-
-  // Extracting all segments from the data and converting to lowercase
-  const allSegments = data.flatMap((truck) => truck.segments);
-  const lowerCaseSegments = [...new Set(allSegments)].map((segment) => segment.toLowerCase());
-
-  // Creating a list to hold buttons
-  const buttonList = document.createElement('ul');
-  buttonList.classList.add('v2-all-trucks__button-list');
-
-  // Hiding the button list on mobile view
-  if (MQMobile.matches) {
-    buttonList.classList.add('hidden');
-  }
-
-  // Creating buttons and attaching event listeners
-  lowerCaseSegments.forEach((segment) => {
-    const segmentButton = document.createElement('button');
-    segmentButton.textContent = segment;
-    segmentButton.addEventListener('click', () => filterTrucks(lowerCaseSegments, segment));
-
-    const segmentItem = document.createElement('li');
-    segmentItem.appendChild(segmentButton);
-    buttonList.appendChild(segmentItem);
-  });
-
-  // Appending the button list to the segment buttons container
-  segmentButtonsContainer.appendChild(buttonList);
-
-  return segmentButtonsContainer;
-}
-
-// Toggle the visibility of the button list
-function toggleButtonListVisibility() {
-  const buttonList = document.querySelector('.v2-all-trucks__button-list');
-  const buttonListButtons = document.querySelectorAll('.v2-all-trucks__button-list > li > button');
-
-  // Attaching event listeners to buttons inside the list
-  buttonListButtons.forEach((button) => {
-    button.addEventListener('click', () => buttonList.classList.add('hidden'));
-  });
-
-  // Toggling the 'hidden' class for the button list based on mobile view
-  if (MQMobile.matches) {
-    buttonList.classList.toggle('hidden');
-    buttonListButtons.forEach((button) => {
-      button.addEventListener('click', () => buttonList.classList.add('hidden'));
-    });
-  }
-}
-
-// Filter trucks based on segments
-function filterTrucks(lowerCaseSegments, segment) {
-  const trucks = document.querySelectorAll('.v2-all-trucks__truck');
-
-  trucks.forEach((truck) => {
-    if (!segment || truck.classList.contains(segment)) {
-      truck.style.display = 'flex';
-
-      if (truck.style.display === 'flex') {
-        truck.classList.add('selected-truck');
-      }
-    } else {
-      truck.style.display = 'none';
-      truck.classList.remove('selected-truck');
-    }
-  });
-
-  const allTrucks = document.querySelectorAll('.v2-all-trucks__truck');
-
-  allTrucks.forEach((truck) => {
-    if (truck.classList.contains('selected-truck')) {
-      truck.classList.remove('odd', 'even');
-
-      const selectedTrucks = document.querySelectorAll('.selected-truck');
-
-      selectedTrucks.forEach((selectedTruck, i) => {
-        // eslint-disable-next-line no-unused-expressions
-        (i % 2 === 0) ? selectedTruck.style.backgroundColor = '#E9EAEC' : selectedTruck.style.backgroundColor = '#F4F5F6';
-      });
-    } else if (!truck.classList.contains('selected-truck')) {
-      truck.classList.remove('odd', 'even');
-    }
-  });
-}
-
-// Decorate the page with truck data
 export default function decorate(block) {
-  const truckListing = document.querySelector('.v2-all-trucks > div > div');
-
   const pageDescriptionHeading = document.querySelector('.v2-all-trucks-container > div > h1');
   pageDescriptionHeading.classList.add('with-marker');
 
-  // Create a container for displaying errors
-  const errorContainer = createElement('div', {
-    classes: 'error-container',
+  const truckElement = block.querySelectorAll(`.${blockName} > div`);
+  truckElement.forEach((div) => {
+    div.classList.add(`${blockName}__truck`);
+
+    const truckImageWrapper = block.querySelectorAll('.v2-all-trucks__truck > div:first-child');
+    truckImageWrapper.forEach((image) => {
+      image.classList.add(`${blockName}__truck-image`);
+    });
+
+    const truckInfoWrapper = block.querySelectorAll('.v2-all-trucks__truck> div:last-child');
+    truckInfoWrapper.forEach((info) => {
+      info.classList.add(`${blockName}__truck-info`);
+    });
   });
 
-  // Append the error container to the block
-  block.appendChild(errorContainer);
+  const trucksWrapper = document.querySelector('.v2-all-trucks-wrapper');
+  trucksWrapper.classList.add('full-width');
 
-  // Display errors
-  function displayError(message) {
-    errorContainer.textContent = message;
-  }
+  const trucks = document.querySelectorAll(`.${blockName}__truck`);
+  const setSecondaryButton = document.querySelectorAll(`.${blockName}__truck .${blockName}__truck-info .button-container:last-of-type a`);
+  const segmentList = document.querySelectorAll(`.${blockName}__truck > div > ul`);
+  setSecondaryButton.forEach((button) => {
+    button.classList.remove('button--primary');
+    button.classList.add('button--secondary');
+  });
 
-  // Creating a dropdown icon fragment
+  // Add truck name to truck element class list
+  getTruckName();
+
+  // Create menu buttons from truck segments
+  const allSegmentNames = [];
+  segmentList.forEach((ul) => {
+    ul.classList.add(`${blockName}__segment-list`);
+    const segmentListItems = ul.querySelectorAll('li');
+    const segmentNames = Array.from(segmentListItems)
+      .map((item) => item.textContent.trim()
+        .toLowerCase()
+        .replaceAll(' ', '-'));
+    allSegmentNames.push(...segmentNames);
+
+    const truck = ul.closest(`.${blockName}__truck`);
+    segmentNames.forEach((segment) => {
+      truck.classList.add(segment);
+    });
+  });
+
+  const buttonSegmentNames = [...new Set(allSegmentNames)];
+  const segmentNamesList = createElement('ul', { classes: `${blockName}__button-list` });
+  block.prepend(segmentNamesList);
+
+  // Create a dropdown icon fragment
   const showAllButtonDropDownIcon = document.createRange()
     .createContextualFragment(`
     <span class="icon icon-drop-down-chevron">
@@ -131,104 +68,116 @@ export default function decorate(block) {
     </span>
     `);
 
-  // Fetching truck data
-  fetchTruckData()
-    .then((data) => {
-      // Creating a 'Show All' button
-      const showAllButton = document.createElement('button');
-      showAllButton.textContent = 'All Trucks';
-      showAllButton.classList.add('v2-all-trucks__show-all-button');
-      showAllButton.appendChild(showAllButtonDropDownIcon);
+  function addShowAllButton() {
+    const showAllButtonLi = createElement('li');
+    const showAllButton = createElement('button',
+      { classes: [`${blockName}__segment-button`, `${blockName}__show-all-button`] });
+
+    showAllButton.textContent = 'All trucks';
+    showAllButtonLi.appendChild(showAllButton);
+    segmentNamesList.appendChild(showAllButtonLi);
+    showAllButton.appendChild(showAllButtonDropDownIcon);
+
+    showAllButton.addEventListener('click', () => {
+      trucks.forEach((truck) => {
+        truck.style.display = 'flex';
+        truck.classList.remove('odd-row', 'even-row');
+      });
 
       if (MQMobile.matches) {
-        showAllButton.addEventListener('click', toggleButtonListVisibility);
-        showAllButton.addEventListener('click', () => filterTrucks(null));
-      } else {
-        showAllButton.addEventListener('click', () => filterTrucks(null));
+        const segmentNamesListWithoutShowAll = document.querySelectorAll(`.${blockName}__button-list > li > button:not(.${blockName}__show-all-button)`);
+        segmentNamesListWithoutShowAll.forEach((item) => {
+          item.classList.toggle('show');
+        });
       }
+    });
+  }
 
-      // Creating segment buttons container and prepending the 'Show All' button
-      const segmentButtonsContainer = createSegmentButtons(data);
-      segmentButtonsContainer.prepend(showAllButton);
+  addShowAllButton();
 
-      // Event listener for mobile view changes
-      MQMobile.addEventListener('change', (e) => {
-        const buttonList = document.querySelector('.v2-all-trucks__button-list');
-        const buttonListButtons = document.querySelectorAll('.v2-all-trucks__button-list > li > button');
+  buttonSegmentNames.forEach((segment) => {
+    const li = createElement('li');
+    const filterButton = createElement('button', { classes: `${blockName}__segment-button` });
+    filterButton.textContent = segment;
+    segmentNamesList.appendChild(li);
+    li.append(filterButton);
 
-        if (e.matches) {
-          showAllButton.removeEventListener('click', () => filterTrucks(null));
-          showAllButton.addEventListener('click', toggleButtonListVisibility);
-          buttonList.classList.add('hidden');
-        } else {
-          showAllButton.removeEventListener('click', toggleButtonListVisibility);
-          showAllButton.addEventListener('click', () => filterTrucks(null));
-          buttonList.classList.remove('hidden');
+    filterButton.addEventListener('click', () => {
+      const clickedSegment = filterButton.textContent.trim()
+        .toLowerCase();
 
-          buttonListButtons.forEach((button) => {
-            button.addEventListener('click', () => buttonList.classList.remove('hidden'));
+      trucks.forEach((truck) => {
+        truck.style.display = truck.classList.contains(clickedSegment) ? 'flex' : 'none';
+        const isSelected = truck.style.display === 'flex';
+        truck.style.display = isSelected ? 'flex' : 'none';
+        truck.classList.toggle('selected-truck', isSelected);
+      });
+
+      const allTrucksRows = document.querySelectorAll(`.${blockName}__truck`);
+
+      allTrucksRows.forEach((truck) => {
+        if (truck.classList.contains('selected-truck')) {
+          truck.classList.remove('odd', 'even');
+
+          const selectedTrucks = document.querySelectorAll('.selected-truck');
+
+          selectedTrucks.forEach((selectedTruck, i) => {
+            if (i % 2 === 0) {
+              selectedTruck.classList.remove('even-row');
+              selectedTruck.classList.add('odd-row');
+            } else {
+              selectedTruck.classList.remove('odd-row');
+              selectedTruck.classList.add('even-row');
+            }
           });
+        } else if (!truck.classList.contains('selected-truck')) {
+          truck.classList.remove('odd', 'even');
         }
       });
-
-      // Loop through truck data and create truck elements
-      data.forEach((truck) => {
-        const truckContainer = document.createElement('div');
-        truckContainer.classList.add('v2-all-trucks__truck', 'stripped-rows-on-load');
-
-        // Remove spaces and convert to lowercase for class name
-        const truckModelNameTrimmed = truck.model.replaceAll(' ', '-')
-          .toLowerCase();
-
-        const lowerCaseSegments = truck.segments.map((segment) => segment.toLowerCase());
-
-        truckContainer.classList.add(...lowerCaseSegments, truckModelNameTrimmed);
-
-        const containerDiv = document.createElement('div');
-        containerDiv.classList.add('v2-all-trucks__truck-info');
-
-        const imageElement = document.createElement('img');
-        imageElement.src = truck.image;
-        imageElement.alt = `${truck.model} Image`;
-        imageElement.classList.add('v2-all-trucks__truck-image');
-
-        const modelElement = document.createElement('h3');
-        modelElement.textContent = truck.model;
-
-        const segmentsList = document.createElement('ul');
-        segmentsList.classList.add('segment-list');
-        lowerCaseSegments.forEach((segment) => {
-          const segmentItem = document.createElement('li');
-          segmentItem.textContent = `${segment}`;
-          segmentsList.appendChild(segmentItem);
-        });
-
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = truck.description;
-
-        const primaryButton = document.createElement('a');
-        primaryButton.classList.add('button', 'button--primary', 'button--large');
-        primaryButton.textContent = truck.primaryButton;
-
-        const secondaryButton = document.createElement('a');
-        secondaryButton.classList.add('button', 'button--secondary', 'button--large');
-        secondaryButton.textContent = truck.secondaryButton;
-
-        // Appending elements to the DOM
-        containerDiv.appendChild(modelElement);
-        containerDiv.appendChild(segmentsList);
-        containerDiv.appendChild(descriptionElement);
-        containerDiv.appendChild(primaryButton);
-        containerDiv.appendChild(secondaryButton);
-
-        block.prepend(segmentButtonsContainer);
-        truckContainer.appendChild(imageElement);
-        truckContainer.appendChild(containerDiv);
-        truckListing.appendChild(truckContainer);
-      });
-    })
-    .catch(() => {
-      // Display error message on the page
-      displayError('An error occurred while fetching truck data.');
     });
+
+    filterButton.addEventListener('click', () => {
+      const segmentNamesListWithoutShowAll = document.querySelectorAll(`.${blockName}__button-list > li > button:not(.${blockName}__show-all-button)`);
+      if (MQMobile.matches) {
+        segmentNamesListWithoutShowAll.forEach((item) => {
+          item.classList.remove('show');
+        });
+      }
+    });
+
+    MQMobile.addEventListener('change', (e) => {
+      if (e.matches) {
+        const segmentNamesListWithoutShowAll = document.querySelectorAll(`.${blockName}__button-list > li > button:not(.${blockName}__show-all-button)`);
+        segmentNamesListWithoutShowAll.forEach((item) => {
+          item.classList.remove('show');
+        });
+      }
+    });
+  });
+
+  function getActiveFilterButton() {
+    const AllFilterButtons = document.querySelectorAll(`.${blockName}__button-list .${blockName}__segment-button`);
+
+    AllFilterButtons.forEach((filterButton) => {
+      filterButton.addEventListener('click', (e) => {
+        AllFilterButtons.forEach((button) => {
+          if (button !== e.target) {
+            button.classList.remove('active');
+          } else if (button === e.target && !button.classList.contains('active')) {
+            e.target.classList.toggle('active');
+          }
+        });
+      });
+    });
+  }
+
+  getActiveFilterButton();
+}
+
+function getTruckName() {
+  const modelName = document.querySelectorAll(`.${blockName}__truck > div + div > h3`);
+  modelName.forEach((model) => {
+    const parentNodeElement = model.parentNode.parentNode;
+    parentNodeElement.classList.add(model.id);
+  });
 }

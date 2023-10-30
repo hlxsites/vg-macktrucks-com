@@ -1,17 +1,18 @@
 /* All trucks styles */
 
+.v2-all-trucks-container .default-content-wrapper {
+  margin-top: 35px;
+}
+
 .v2-all-trucks-container h1 {
   font-family: var(--ff-headline-medium);
   letter-spacing: -.02em;
+  margin-bottom: 24px;
 }
 
-.v2-all-trucks-container h1 + p {
+.redesign-v2 .section.v2-all-trucks-container .default-content-wrapper h1 + p {
   letter-spacing: .01rem;
-  margin-bottom: 40px;
-}
-
-.v2-all-trucks .v2-all-trucks__segment-buttons-container {
-  position: relative;
+  margin-bottom: 30px;
 }
 
 .v2-all-trucks .v2-all-trucks__show-all-button {
@@ -23,18 +24,14 @@
   text-align: left;
   color: var(--c-primary-black);
   width: 100%;
-  min-height: 48px;
+  max-height: 48px;
   margin: 0;
   padding: 0 0 0 24px;
   font: var(--body-font-size-xxs)/1.6 var(--ff-helvetica-heavy);
 }
 
-.v2-all-trucks .v2-all-trucks__show-all-button:has( + .v2-all-trucks__button-list) {
+.v2-all-trucks .v2-all-trucks__button-list:has(li > button.show) .v2-all-trucks__show-all-button {
   background: var(--c-primary-gray);
-}
-
-.v2-all-trucks .v2-all-trucks__show-all-button:has( + .v2-all-trucks__button-list.hidden) {
-  background: var(--c-primary-white);
 }
 
 .v2-all-trucks .v2-all-trucks__show-all-button .icon-drop-down-chevron svg {
@@ -48,12 +45,12 @@
   transition: transform var(--duration-small) var(--easing-standard);
 }
 
-.v2-all-trucks .v2-all-trucks__show-all-button:has( + .v2-all-trucks__button-list) .icon-drop-down-chevron svg {
-  transform: translate(50%, -50%) rotate(270deg);
+.v2-all-trucks .v2-all-trucks__button-list:has(li > button) .v2-all-trucks__show-all-button .icon-drop-down-chevron svg {
+  transform: translate(50%, -50%) rotate(90deg);
 }
 
-.v2-all-trucks .v2-all-trucks__show-all-button:has( + .v2-all-trucks__button-list.hidden) .icon-drop-down-chevron svg {
-  transform: translate(50%, -50%) rotate(90deg);
+.v2-all-trucks .v2-all-trucks__button-list:has(li > button.show) .v2-all-trucks__show-all-button .icon-drop-down-chevron svg {
+  transform: translate(50%, -50%) rotate(270deg);
 }
 
 .v2-all-trucks .v2-all-trucks__show-all-button .icon-drop-down-chevron {
@@ -65,13 +62,13 @@
 
 .v2-all-trucks .v2-all-trucks__button-list {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   background: var(--c-primary-white);
   width: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
-  box-shadow: 0 4px 24px 0 rgb(0 0 0 / 16%);
+  box-shadow: 0 8px 8px 0 rgb(0 0 0 / 8%);
 }
 
 .v2-all-trucks .v2-all-trucks__button-list li {
@@ -84,12 +81,24 @@
   color: var(--c-primary-black);
   text-transform: capitalize;
   font: var(--body-font-size-xxs)/1.6 var(--ff-helvetica-heavy);
-  padding: 14px 24px;
+  padding: 14px 8px 14px 24px;
   margin: 0;
   text-align: left;
 }
 
 .v2-all-trucks .v2-all-trucks__button-list.hidden {
+  display: none;
+}
+
+.v2-all-trucks .v2-all-trucks__segment-button.hidden {
+  display: none;
+}
+
+div.v2-all-trucks button.v2-all-trucks__segment-button.show {
+  display: block;
+}
+
+.v2-all-trucks .v2-all-trucks__segment-button:not(.v2-all-trucks__show-all-button) {
   display: none;
 }
 
@@ -104,37 +113,108 @@
   padding: 24px 16px;
 }
 
-.v2-all-trucks .v2-all-trucks__truck.stripped-rows-on-load:nth-of-type(odd) {
+.v2-all-trucks .v2-all-trucks__truck:first-of-type {
+  padding-top: 48px;
+}
+
+.v2-all-trucks .v2-all-trucks__truck:nth-of-type(odd) {
   background-color: var(--c-tertiary-light-cool-gray);
 }
 
-.v2-all-trucks .v2-all-trucks__truck.stripped-rows-on-load:nth-of-type(even) {
+.v2-all-trucks .v2-all-trucks__truck:nth-of-type(even) {
   background-color: var(--c-secondary-light-gray);
+}
+
+.odd-row {
+  background-color: var(--c-tertiary-light-cool-gray) !important;
+}
+
+.even-row {
+  background-color: var(--c-secondary-light-gray) !important;
 }
 
 .v2-all-trucks .v2-all-trucks__truck .v2-all-trucks__truck-image {
   width: 100%;
 }
 
-.v2-all-trucks .truck-info h3 {
+.v2-all-trucks .v2-all-trucks__truck picture:last-child img {
+  opacity: 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck > div:first-child {
+  position: relative;
+}
+
+.v2-all-trucks .v2-all-trucks__truck picture:first-child img:hover {
+  cursor: pointer;
+}
+
+.v2-all-trucks .v2-all-trucks__truck > div:first-child picture:first-child img {
+  z-index: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 70px 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck > div:first-child picture:last-child img {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 70px 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck > div:first-child:hover picture:last-child img {
+  opacity: 1;
+  transition: opacity .2s linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck-info h3 {
   font-size: var(--headline-1-font-size);
   line-height: 1.15;
 }
 
-.v2-all-trucks .v2-all-trucks__truck-info .button--secondary {
-  margin-left: 16px;
+.v2-all-trucks .v2-all-trucks__truck-info > p {
+  letter-spacing: .01em;
+  margin-top: 12px;
+}
+
+.v2-all-trucks .v2-all-trucks__truck-info .button-container {
+  display: flex;
+  float: left;
+  width: 50%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck-info .button-container .button {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.v2-all-trucks .v2-all-trucks__truck-info .button-container .button--primary {
+  margin-right: 8px;
+}
+
+.v2-all-trucks .v2-all-trucks__truck-info .button-container .button--secondary {
+  margin-left: 8px;
 }
 
 /* Segment list */
 
-.v2-all-trucks .segment-list {
+.v2-all-trucks .v2-all-trucks__segment-list {
   list-style: none;
   display: flex;
   padding-left: 0;
   text-transform: uppercase;
 }
 
-.v2-all-trucks .segment-list li {
+.v2-all-trucks .v2-all-trucks__segment-list li {
   position: relative;
   padding: 0 16px;
   font-size: var(--superscript-font-size);
@@ -142,11 +222,11 @@
   letter-spacing: .1em;
 }
 
-.v2-all-trucks .segment-list li:first-child {
+.v2-all-trucks .v2-all-trucks__segment-list li:first-child {
   padding-left: 0;
 }
 
-.v2-all-trucks .segment-list li::after {
+.v2-all-trucks .v2-all-trucks__segment-list li::after {
   content: '';
   display: block;
   position: absolute;
@@ -157,20 +237,46 @@
   background: var(--c-secondary-steel);
 }
 
-.v2-all-trucks .segment-list li:last-child::after {
+.v2-all-trucks .v2-all-trucks__segment-list li:last-child::after {
   display: none;
-}
-
-.v2-all-trucks .truck-info > p {
-  letter-spacing: .01em;
 }
 
 /* Styles for > 744px viewport width */
 @media (min-width: 744px) {
+  .v2-all-trucks-wrapper {
+    margin: auto;
+    position: relative;
+  }
+
+  .v2-all-trucks::before {
+    content: '';
+    height: 1px;
+    width: 100%;
+    max-width: 1440px;
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--c-secondary-silver);
+  }
+
+  .v2-all-trucks .v2-all-trucks__show-all-button {
+    display: initial;
+  }
+
   .v2-all-trucks .v2-all-trucks__truck {
+    min-height: 386px;
     max-height: 387px;
     display: flex;
     flex-direction: row;
+    max-width: 1440px;
+    margin: auto;
+    padding: 0;
+  }
+
+  .v2-all-trucks .v2-all-trucks__truck:first-of-type {
+    border-top: 1px solid var(--c-secondary-silver);
+    padding-top: 0;
   }
 
   .v2-all-trucks-container h1 + p {
@@ -181,14 +287,51 @@
     width: 60%;
   }
 
-  .v2-all-trucks .v2-all-trucks__segment-buttons-container {
+  .v2-all-trucks .v2-all-trucks__truck .v2-all-trucks__truck-image picture:first-child {
     display: flex;
-    min-height: 88px;
-    border-top: 1px solid var(--c-secondary-silver);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
   }
 
-  .v2-all-trucks .v2-all-trucks__truck.stripped-rows-on-load:nth-of-type(odd) {
-    border-top: 1px solid var(--c-secondary-silver);
+  .v2-all-trucks .v2-all-trucks__truck .v2-all-trucks__truck-image picture:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
+
+  .v2-all-trucks .v2-all-trucks__truck > div:first-child:hover picture:last-child img {
+    position: relative;
+  }
+
+  .v2-all-trucks .v2-all-trucks__truck > div:first-child picture:first-child img,
+  .v2-all-trucks .v2-all-trucks__truck > div:first-child picture:last-child img {
+    margin: 0;
+  }
+
+  .v2-all-trucks .v2-all-trucks__button-list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 1040px;
+    margin: auto;
+    min-height: 88px;
+    box-shadow: none;
+  }
+
+  .v2-all-trucks .v2-all-trucks__segment-button:not(.v2-all-trucks__show-all-button) {
+    display: block;
+  }
+
+  .v2-all-trucks .v2-all-trucks__button-list:has(li > button) .v2-all-trucks__segment-button.v2-all-trucks__show-all-button {
+    background: var(--c-primary-white);
   }
 
   .v2-all-trucks .v2-all-trucks__button-list button {
@@ -198,11 +341,11 @@
     text-decoration-color: transparent;
     text-underline-offset: 10px;
     text-decoration-thickness: 4px;
+    padding: 14px 24px;
   }
 
   .v2-all-trucks .v2-all-trucks__segment-buttons-container .v2-all-trucks__show-all-button {
     display: inline-block;
-    min-width: 16.66%;
     width: auto;
     background: var(--c-primary-white);
     padding: 0;
@@ -213,7 +356,8 @@
   }
 
   .v2-all-trucks .v2-all-trucks__segment-buttons-container .v2-all-trucks__show-all-button:hover,
-  .v2-all-trucks .v2-all-trucks__button-list button:hover {
+  .v2-all-trucks .v2-all-trucks__button-list button:hover,
+  .v2-all-trucks .v2-all-trucks__button-list .v2-all-trucks__segment-button.active {
     text-decoration: underline;
     text-decoration-color: var(--c-accent-red);
     text-underline-offset: 10px;
@@ -224,10 +368,12 @@
     display: none;
   }
 
-  .v2-all-trucks .v2-all-trucks__button-list {
-    display: flex;
-    position: relative;
-    box-shadow: none;
+  .v2-all-trucks .v2-all-trucks__truck-info {
+    padding: 100px 0 0 50px;
+  }
+
+  .v2-all-trucks .v2-all-trucks__truck-info .button-container {
+    width: auto;
   }
 }
 
