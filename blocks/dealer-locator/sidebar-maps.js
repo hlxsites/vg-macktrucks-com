@@ -1,5 +1,12 @@
 /* eslint-disable  */
 
+// these variable set the coords of where the map sould appear when the user does not allow the location set.
+// in this case it is set to AUSTRALIA
+var defaultCenterCoords = {
+  lat: -25,
+  lng: 135,
+}
+
 // Map Sidebar Animation
 $('.slider-arrow').click(function () {
 
@@ -89,13 +96,12 @@ $country = window.locatorConfig.country;
 // Google callback letting us know maps is ready to be used
 (function () {
   initMap = function () {
-
     $geocoder = new google.maps.Geocoder();
 
     $map = new google.maps.Map(document.getElementById("map"),{
       center: {
-        lat: 39.670469,
-        lng: -101.766407
+        lat: defaultCenterCoords.lat,
+        lng: defaultCenterCoords.lng
       },
       zoom: 4,
       mapTypeControl: false,
@@ -224,9 +230,9 @@ $country = window.locatorConfig.country;
         }]
       }]
     });
-
     // Remove setting location by default load all pins
-    //$.fn.setLocation();
+
+    $.fn.setLocation();
 
     $directionsService = new google.maps.DirectionsService();
     $directionsDisplay = new google.maps.DirectionsRenderer();
@@ -268,8 +274,8 @@ $country = window.locatorConfig.country;
       window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
     }
 
-    // set the default location for country if there is no postcode in url
-    if (!$('#location').val()) {
+    // set the default location for country if there is no postcode in url or stored location
+    if (!$('#location').val() && ($location === null)) {
       $geocoder = new google.maps.Geocoder;
       $geocoder.geocode({ 'address':  $country }, function (results) {
         if (!results || results.length == 0) {
@@ -282,49 +288,42 @@ $country = window.locatorConfig.country;
           $map.fitBounds(results[0].geometry.viewport);
   
           position = results[0].geometry.location;
-  
-          var pos = {
-            lat: position.lat(),
-            lng: position.lng()
-          };
-  
-          $location = [
-            position.lat(),
-            position.lng()
-          ];
-  
-  
-          if (!$me) {
-            $pin = {
-              url: $meIcon,
-              // This marker is 20 pixels wide by 32 pixels high.
-              size: new google.maps.Size(100, 100),
-  
-              scaledSize: new google.maps.Size(30, 30),
-  
-              // The origin for this image is (0, 0).
-              origin: new google.maps.Point(0, 0),
-  
-              // The anchor for this image is the base of the flagpole at (0, 32).
-              anchor: new google.maps.Point(30, 30)
-            };
-  
-            $me = new google.maps.Marker({
-              position: { lat: $location[0], lng: $location[1] },
-              title: 'ME',
-              map: $map,
-              zIndex: 0,
-              icon: $pin
-            });
-  
-            //$me.setZIndex(0);
-  
+
+          if (!$location) {
+            $location = [
+              position.lat(),
+              position.lng()
+            ];
           }
-  
-          $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
+
+        $pin = {
+          url: $meIcon,
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(100, 100),
+
+          scaledSize: new google.maps.Size(30, 30),
+
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(30, 30)
+        };
+
+          $me = new google.maps.Marker({
+            position: { lat: $location[0], lng: $location[1] },
+            title: 'ME',
+            map: $map,
+            zIndex: 0,
+            icon: $pin
+          });
+
+          $me.setZIndex(0);
+          $me.setPosition({ lat: parseFloat($location[0]), lng: parseFloat($location[1]) });
   
           $.fn.loadPins();
           $.fn.switchSidebarPane('sidebar-pins');
+          // $.fn.setLocation();
         }
       });
     }
@@ -1299,7 +1298,7 @@ $.fn.filterRadius = function () {
         $markers[i].setMap($map);
         $nearbyPins.push($markers[i].ID);
       } else {
-        $markers[i].setMap(null);
+        $markers[i].setMap($map);
       }
 
       if ($myDealer != null && ($myDealer.IDENTIFIER_VALUE == $markers[i].id)) {
@@ -2417,8 +2416,7 @@ $.fn.setAddress = function () {
 };
 
 // Handles geolocation
-$.fn.setLocation = function () {
-
+$.fn.setLocation = function (e) {
   if (navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -2435,7 +2433,7 @@ $.fn.setLocation = function () {
 
       $map.setCenter(pos);
       $map.setZoom(8);
-
+      $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
 
       if (!$radius) {
 
@@ -2460,7 +2458,6 @@ $.fn.setLocation = function () {
 
         // Set default sidebar pane
         $.fn.switchSidebarPane('sidebar-pins');
-
 
 
       } else {
@@ -2506,8 +2503,8 @@ $.fn.setLocation = function () {
 
       console.log('error with navigator');
       $.fn.handleLocationError(true);
-      
-      const waiting = $('.sidebar #location').val() ? 'none' : 'block';
+
+      const waiting = $location ? 'none' : 'block';
       $('.waiting-overlay').css('display', waiting);
     });
   } else {
