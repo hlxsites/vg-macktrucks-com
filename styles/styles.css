@@ -1,16 +1,4 @@
-/* stylelint-disable selector-list-comma-newline-after */
-
-/*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+/* stylelint-disable selector-class-pattern */
 
 @font-face {
   font-family: "fontawesome Fallback";
@@ -19,99 +7,127 @@
   src: local("Arial");
   ascent-override: 93.75%;
   descent-override: 6.25%;
-  /* stylelint-disable-next-line number-no-trailing-zeros */
   line-gap-override: 0.00%;
-  /* stylelint-disable-next-line number-no-trailing-zeros */
   size-adjust: 100.00%;
 }
 
 :root {
-  /* BASE COLORS */
-
   /* Primary colors */
-  --primary-black: #000;
-  --primary-white: #fff;
-  --primary-gold: #b3976b;
+  --c-primary-black: #000;
+  --c-primary-white: #fff;
+  --c-primary-gold: #b3976b;
 
   /* Secondary colors */
-  --secondary-graphite: #1d1d1d;
-  --secondary-steel: #a7abaf;
-  --secondary-silver: #dfdfdf;
-  --secondary-dark-gold: #87754e;
+  --c-secondary-graphite: #1d1d1d;
+  --c-secondary-steel: #a7abaf;
+  --c-secondary-silver: #dfdfdf;
+  --c-secondary-dark-gold: #87754e;
 
   /* Tertiary colors */
-  --tertiary-cool-gray: #555;
-  --tertiary-light-cool-gray: #e9eaec;
-  --tertiary-warm-gray: #eeece7;
-  --tertiary-light-warm-gray: #f7f6f3;
+  --c-tertiary-cool-gray: #555;
+  --c-tertiary-light-cool-gray: #e9eaec;
+  --c-tertiary-warm-gray: #eeece7;
+  --c-tertiary-light-warm-gray: #f7f6f3;
 
   /* Accent colors */
-  --primary-accent-red: #cd1a0a;
-  --secondary-accent-copper: #8f654d;
+  --c-accent-red: #cd1a0a;
+  --c-accent-copper: #8f654d;
 
   /* Applied colors */
-  --background-color: var(--primary-white);
-  --text-color: var(--primary-black);
-  --link-color: var(--primary-accent-red);
-  --link-hover-color: var(--primary-black);
-  --header-color: var(--primary-white);
-  --header-background-color: var(--primary-black);
-  --overlay-background-color: var(--secondary-silver);
+  --background-color: var(--c-primary-white);
+  --text-color: var(--c-primary-black);
+  --link-color: var(--c-accent-red);
+  --link-hover-color: var(--c-primary-black);
+  --header-color: var(--c-primary-white);
+  --header-background-color: var(--c-primary-black);
+  --overlay-background-color: var(--c-secondary-silver);
 
   /* BUTTONS */
 
   /* Primary */
-  --button-primary-red-enabled: var(--primary-accent-red);
+  --button-primary-red-enabled: var(--c-accent-red);
   --button-primary-red-hover: #e11d0b;
   --button-primary-red-pressed: #b91709;
   --button-primary-red-disabled: #e1dfdd;
 
   /* Secondary */
-  --button-secondary-gold-enabled: var(--secondary-accent-copper);
+  --button-secondary-gold-enabled: var(--c-primary-gold);
   --button-secondary-gold-hover: #d9b781;
   --button-secondary-gold-pressed: #a18860;
   --button-secondary-gold-disabled: #e1dfdd;
 
   /* Tertiary */
-  --button-tertiary-white-enabled: var(--primary-white);
+  --button-tertiary-white-enabled: var(--c-primary-white);
   --button-tertiary-white-hover: #a7a8a9;
   --button-tertiary-white-pressed: #e1dfdd;
-  --button-tertiary-white-disabled: var(--primary-white);
+  --button-tertiary-white-disabled: var(--c-primary-white);
 
-  /* NEW fonts */
+  /* Focus */
+  --border-focus: red;
 
-  /* Headline */
-  --headline-ff-medium: "GT America Extended Medium", var(--fallback-ff-headlines);
-  --headline-ff-medium-italic: "GT America Extended Medium Italic", var(--fallback-ff-headlines);
-
-  /* Body */
-  --body-ff: "Helvetica Neue LT Pro 55 Roman", var(--fallback-ff-texts);
-
-  /* Subheadings, Emphasis & Legal Copy */
-  --subheadings-ff-roman: var(--body-ff), var(--fallback-ff-texts);
-  --subheadings-ff-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
-  --legal-ff: var(--body-ff), var(--fallback-ff-texts);
-  --emphasis-ff-bold: "Helvetica Neue LT Pro 75 Bold", var(--fallback-ff-texts);
-  --emphasis-ff-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
-  --emphasis-ff-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
-  --emphasis-ff-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
-  --emphasis-ff-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
-
-  /* Accent elements */
-  --accents-ff-regular: "GT America Mono Regular", var(--fallback-ff-accents);
-  --accents-ff-medium: "GT America Mono Medium", var(--fallback-ff-accents);
-  --accents-ff-bold: "GT America Mono Bold", var(--fallback-ff-accents);
-  --accents-ff-regular-italic: "GT America Mono Regular Italic", var(--fallback-ff-accents);
-  --accents-ff-medium-italic: "GT America Mono Medium Italic", var(--fallback-ff-accents);
-  --accents-ff-bold-italic: "GT America Mono Bold Italic", var(--fallback-ff-accents);
+  /* Font family */
 
   /* Alternate fonts */
   --fallback-ff-texts: "Arial Regular Text Fallback", helvetica, sans-serif;
   --fallback-ff-headlines: "Arial Bold Headline Fallback", helvetica, sans-serif;
   --fallback-ff-accents: "Arial Regular Text Fallback", helvetica, sans-serif;
 
+  /* Headlines */
+  --ff-headline-medium: "GT America Extended Medium", var(--fallback-ff-headlines);
+  --ff-subheadings-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
+
+  /* Body */
+  --ff-body: "Helvetica Neue LT Pro 55 Roman", var(--fallback-ff-texts);
+  --ff-body-bold: "Helvetica Neue LT Pro 75 Bold", var(--fallback-ff-texts);
+  --ff-testimonial: "GT America Extended Regular", var(--fallback-ff-accents);
+  --ff-accents: "GT America Mono Regular", var(--fallback-ff-accents);
+
   /* Fontawesome */
   --ff-fontawesome: "fontawesome", "fontawesome Fallback";
+
+  /* Font sizes */
+
+  /* GT America, Extended Medium, 45px, 115%, -2% / 32px, 115%, -2% */
+  --headline-1-font-size: 3.2rem; /* 32px */
+  --headline-1-line-height: 115%;
+  --headline-1-letter-spacing: -2%;
+
+  /* GT America, Extended Medium, 32px, 115%, -2% / 28px, 115%, -2% */
+  --headline-2-font-size: 2.8rem; /* 28px */
+  --headline-2-line-height: 115%;
+  --headline-2-letter-spacing: -2%;
+
+  /* Helvetica Neue LT Pro, 65 Medium, 32px, 115% / 28px, 115% */
+  --headline-3-font-size: 2.8rem; /* 28px */
+  --headline-3-line-height: 115%;
+
+  /* Helvetica Neue LT Pro, 65 Medium, 24px, 140%  */
+  --headline-4-font-size: 2.4rem; /* 24px */
+  --headline-4-line-height: 140%;
+
+  /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
+  --headline-5-font-size: 1.8rem; /* 18px */
+  --headline-5-line-height: 140%;
+
+  /* Superscript font size */
+  --superscript-font-size: 0.750rem; /* 12px */
+
+  /* Wrapper for generic components */
+  --wrapper-width: 1040px;
+
+
+  /*
+  OLD CSS VARIABLES
+  */
+
+  --ff-helvetica-heavy: "Helvetica Neue 85 Heavy", var(--fallback-ff-texts);
+  --ff-helvetica-roman-italic: "Helvetica Neue LT Pro 56 Roman Italic", var(--fallback-ff-texts);
+  --ff-helvetica-medium-italic: "Helvetica Neue LT Pro 66 Medium Italic", var(--fallback-ff-texts);
+  --ff-helvetica-bold-italic: "Helvetica Neue LT Pro 76 Bold Italic", var(--fallback-ff-texts);
+
+  /* Accent elements */
+  --ff-accents-medium: "GT America Mono Medium", var(--fallback-ff-accents);
+  --ff-accents-regular: "GT America Mono Regular", var(--fallback-ff-accents);
 
   /* Body font sizes */
   --body-font-size-xxl: 2.4rem; /* 24px */
@@ -121,34 +137,6 @@
   --body-font-size-s: 1.6rem; /* 16px */
   --body-font-size-xs: 1.4rem; /* 14px */
   --body-font-size-xxs: 1.3rem; /* 13px */
-
-  /* Body font sizes DESKTOP */
-  --body-desktop-font-size-1: var(--body-font-size-s); /* 16px */
-  --body-desktop-font-size-2: var(--body-font-size-xxs); /* 13px */
-
-  /* Body font sizes MOBILE */
-  --body-mobile-font-size-1: var(--body-font-size-s); /* 16px */
-  --body-mobile-font-size-2: var(--body-font-size-xxs); /* 13px */
-
-  /* Accents font sizes DESKTOP */
-  --accent-desktop-font-size-1: var(--body-font-size-m); /* 18px */
-  --accent-desktop-font-size-2: var(--body-font-size-xs); /* 14px */
-
-  /* Accents font sizes MOBILE */
-  --accent-mobile-font-size-1: var(--body-font-size-m); /* 18px */
-  --accent-mobile-font-size-2: var(--body-font-size-xs); /* 14px */
-
-  /* Label font sizes DESKTOP */
-  --label-desktop-font-size: var(--body-font-size-xs); /* 14px */
-
-  /* Label font sizes MOBILE */
-  --label-mobile-font-size: var(--body-font-size-xs); /* 14px */
-
-  /* Button font sizes DESKTOP */
-  --button-desktop-font-size: var(--body-font-size-xs); /* 14px */
-
-  /* Button font sizes MOBILE */
-  --button-mobile-font-size: var(--body-font-size-xs); /* 14px */
 
   /* Heading font sizes */
   --heading-font-size-scale: 0.5;
@@ -164,22 +152,22 @@
   /* Heading font sizes DESKTOP */
   --heading-desktop-font-size-scale: 0.5;
   --heading-1-desktop-size-xl: calc(9rem * var(--heading-font-size-scale)); /* 45px */
-  --heading-2-desktop-size-l: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
-  --heading-3-desktop-size-m: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
-  --heading-4-desktop-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
-  --heading-5-desktop-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
 
   /* Heading font sizes MOBILE */
   --heading-mobile-font-size-scale: 0.5;
-  --heading-1-mobile-size-xl: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
-  --heading-2-mobile-size-l: calc(5.6rem * var(--heading-font-size-scale)); /* 28px */
   --heading-3-mobile-size-m: calc(5.2rem * var(--heading-font-size-scale)); /* 26px */
   --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
-  --heading-5-mobile-size-xs: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
 
   /* nav sizes */
   --nav-height-m: 60px;
   --nav-height-l: 85px;
+  --nav-height: var(--nav-height-m);
+}
+
+@media (min-width: 1140px) {
+  :root {
+    --nav-height: var(--nav-height-l);
+  }
 }
 
 *,
@@ -195,7 +183,7 @@ html {
 body {
   font-size: var(--body-font-size-m);
   margin: 0;
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -223,8 +211,10 @@ header {
 }
 
 h1, h2, h3,
-h4, h5, h6 {
-  font-family: var(--headline-ff-medium);
+h4, h5, h6,
+.h1, .h2, .h3,
+.h4, .h5, .h6 {
+  font-family: var(--ff-headline-medium);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 1em;
@@ -233,7 +223,7 @@ h4, h5, h6 {
 }
 
 h1, h2 {
-  font-family: var(--headline-ff-medium);
+  font-family: var(--ff-headline-medium);
 }
 
 h1 { font-size: var(--heading-font-size-xxl); }
@@ -259,7 +249,7 @@ a:hover {
 }
 
 code, pre, samp {
-  font-family: var(--accents-ff-medium);
+  font-family: var(--ff-accents-medium);
   font-size: var(--body-font-size-s);
 }
 
@@ -274,7 +264,7 @@ pre {
 /* buttons */
 
 a.button:any-link, button {
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
@@ -301,14 +291,14 @@ button:disabled, button:disabled:hover {
   cursor: unset;
 }
 
-a.button.secondary, button.secondary {
+html:not(.redesign-v2) a.button--secondary, html:not(.redesign-v2) button.button--secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color);
 }
 
-a.button.secondary:hover, button.secondary:hover,
-a.button.secondary:focus, button.secondary:focus {
+html:not(.redesign-v2) a.button--secondary:hover, html:not(.redesign-v2) button.button--secondary:hover,
+html:not(.redesign-v2) a.button--secondary:focus, html:not(.redesign-v2) button.button--secondary:focus {
   background-color: var(--button-secondary-gold-pressed);
   color: #fff;
   border-color: var(--button-secondary-gold-hover);
@@ -373,20 +363,21 @@ main .section.background-top {
 }
 
 main .section.text-black {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
 
 main .section.text-white {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 main .section.text-white,
 main .section.black-background {
-  background-color: var(--primary-black);
+  background-color: var(--c-primary-black);
 }
 
 main .section.dark-background {
-  background-color: var(--secondary-graphite);
+  background-color: var(--c-secondary-graphite);
+  color: var(--c-primary-white);
 }
 
 main .section.center {
@@ -404,7 +395,7 @@ main .section.gap > div {
 
 /* top line over section or block */
 main .section.title-line > div > :is(h2, h3, h4) {
-  border-block-start: 3px solid var(--primary-black);
+  border-block-start: 3px solid var(--c-primary-black);
   padding-block-start: 1rem;
 }
 
@@ -414,7 +405,7 @@ main .section.no-first-line.title-line > div:first-child > :is(h2, h3, h4) {
 }
 
 main .block.line-separator {
-  border-block-start: 3px solid var(--primary-black);
+  border-block-start: 3px solid var(--c-primary-black);
   padding-block-start: 5rem;
 }
 
@@ -621,7 +612,7 @@ main .section.magazine-listing-content {
 }
 
 main .section.magazine-listing-content p {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xs);
 }
 
@@ -630,10 +621,10 @@ main .section.magazine-listing-content p:first-of-type {
 }
 
 main .section.magazine-listing-content h3 {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-s);
-  background-color: var(--primary-black);
-  color: var(--primary-white);
+  background-color: var(--c-primary-black);
+  color: var(--c-primary-white);
   width: 100%;
   line-height: 38px;
   padding: 5px 0 0 5px;
@@ -641,7 +632,8 @@ main .section.magazine-listing-content h3 {
 }
 
 main sup {
-  font-size: clamp(var(--body-font-size-xxs), 12px, 1em);
+  font-size: clamp(var(--body-font-size-s), 12px, 1em);
+  padding-left: 3px;
 }
 
 @media (min-width: 768px) {
@@ -687,6 +679,7 @@ main sup {
 }
 
 /* Section medatada styling */
+
 main .section.font-xxl {
   font-size: var(--body-font-size-xxl);
 }
@@ -745,31 +738,31 @@ main .section.section-width {
 }
 
 main .section.helvetica-55 {
-  font-family: var(--subheadings-ff-roman);
+  font-family: var(--ff-body);
 }
 
 main .section.helvetica-65 {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
 }
 
 main .section.helvetica-75 {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
 }
 
 main .section.helvetica-56 {
-  font-family: var(--emphasis-ff-roman-italic);
+  font-family: var(--ff-helvetica-roman-italic);
 }
 
 main .section.helvetica-66 {
-  font-family: var(--emphasis-ff-medium-italic);
+  font-family: var(--ff-helvetica-medium-italic);
 }
 
 main .section.helvetica-76 {
-  font-family: var(--emphasis-ff-bold-italic);
+  font-family: var(--ff-helvetica-bold-italic);
 }
 
 main .section.responsive-title h1 {
-  font-family: var(--emphasis-ff-heavy);
+  font-family: var(--ff-helvetica-heavy);
   font-size: var(--heading-2-mobile-size-l);
 }
 
@@ -777,4 +770,324 @@ main .section.responsive-title h1 {
   main .section.responsive-title h1 {
     font-size: var(--heading-font-size-xxl);
   }
+}
+
+/* REDESIGN GLOBAL STYLES */
+.redesign-v2 {
+  --v2-space-small: 16px;
+  --color-icon: var(--c-primary-black);
+  --color-icon-accent: var(--c-primary-gold);
+
+  font-size: 16px;
+
+  /* Font sizes */
+
+  /* GT America, Extended Medium, 45px, 115%, -2% / 32px, 115%, -2% */
+  --headline-1-font-size: 2rem; /* 32px */
+
+  /* GT America, Extended Medium, 32px, 115%, -2% / 28px, 115%, -2% */
+  --headline-2-font-size: 1.75rem; /* 28px */
+
+  /* Helvetica Neue LT Pro, 65 Medium, 32px, 115% / 28px, 115% */
+  --headline-3-font-size: 1.75rem; /* 28px */
+
+  /* Helvetica Neue LT Pro, 65 Medium, 24px, 140%  */
+  --headline-4-font-size: 1.5rem; /* 24px */
+
+  /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
+  --headline-5-font-size: 1.125rem; /* 18px */
+
+  /* Body font sizes */
+  --body-font-size-xxl: 1.5rem; /* 24px */
+  --body-font-size-xl: 1.375rem; /* 22px */
+  --body-font-size-l: 1.25rem; /* 20px */
+  --body-font-size-m: 1.125rem; /* 18px */
+  --body-font-size-s: 1rem; /* 16px */
+  --body-font-size-xs: 0.875rem; /* 14px */
+
+  /* stylelint-disable-next-line number-max-precision */
+  --body-font-size-xxs: 0.8125rem; /* 13px */
+
+  /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 16px, 150%  */
+  --body-1-font-size: 1rem; /* 16px */
+  --body-1-line-height: 150%;
+
+  /* Helvetica Neue LT Pro, 55 Roman / Helvetica Neue LT Pro, 75 Bold, 13px, 160%  */
+  /* stylelint-disable-next-line number-max-precision */
+  --body-2-font-size: 0.8125rem; /* 13px */
+  --body-2-line-height: 160%;
+
+  /* GT America Mono, Regular, 18px, 120% */
+  --accent-1-font-size: 1.125rem; /* 18px */
+  --accent-1-line-height: 120%;
+
+  /* GT America Mono, Regular, 14px, 120% */
+  --accent-2-font-size: 0.875rem; /* 14px */
+  --accent-2-line-height: 120%;
+
+  /* Helvetica Neue LT Pro, 75 Bold, 14px, 16px */
+  --label-font-size: 0.875rem; /* 14px */
+  --label-line-height: 16px;
+
+  /* Helvetica Neue LT Pro, 55 Roman, 14px, 18px */
+  --button-font-size: 0.875rem; /* 14px */
+  --button-line-height: 18px;
+
+  /* GT America, Extended Roman, 24px, 120%, -2% / 18px, 120%, -2% */
+  --testimonial-font-size: 1.125rem; /* 18px */
+  --testimonial-line-height: 120%;
+  --testimonial-letter-spacing: -2%;
+
+  /* Motions */
+  --duration-small: 160ms;
+  --duration-medium: 240ms;
+  --duration-large: 320ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
+  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
+
+  /* In page navigation */
+  --inpage-navigation-height: 0;
+}
+
+.redesign-v2 body {
+  font-size: var(--body-1-font-size);
+  line-height: var(--body-1-line-height);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+:where(.redesign-v2) h1, :where(.redesign-v2) h2, :where(.redesign-v2) h3,
+:where(.redesign-v2) h4, :where(.redesign-v2) h5, :where(.redesign-v2) h6,
+.h1, .h2, .h3,
+.h4, .h5, .h6 {
+  font-family: var(--ff-subheadings-medium);
+  font-weight: normal;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+:where(.redesign-v2) h1, .h1 {
+  font-size: var(--headline-1-font-size);
+  line-height: var(--headline-1-line-height);
+  letter-spacing: var(--headline-1-letter-spacing);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+:where(.redesign-v2) h2, .h2 {
+  font-size: var(--headline-2-font-size);
+  line-height: var(--headline-2-line-height);
+  letter-spacing: var(--headline-2-letter-spacing);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+:where(.redesign-v2) h3, .h3 {
+  font-size: var(--headline-3-font-size);
+  line-height: var(--headline-3-line-height);
+}
+
+:where(.redesign-v2) h4, .h4 {
+  font-size: var(--headline-4-font-size);
+  line-height: var(--headline-4-line-height);
+}
+
+:where(.redesign-v2) h5, .h5 {
+  font-size: var(--headline-5-font-size);
+  line-height: var(--headline-5-line-height);
+}
+
+
+/* ICONS STYLES */
+
+/* icons on gold background */
+.redesign-v2 [data-theme="gold"] {
+  --color-icon-accent: var(--c-primary-white);
+}
+
+/* icons on black background */
+.redesign-v2 [data-theme="black"] {
+  --color-icon: var(--c-primary-white);
+}
+
+/* ICONS STYLES - END */
+
+/* REDESIGN Buttons */
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 a.button:any-link, 
+.redesign-v2 button {
+  font-weight: normal;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 a.button,
+.redesign-v2 button.button {
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-family: var(--ff-body);
+  font-size: var(--button-font-size);
+  font-weight: normal;
+  gap: 10px;
+  justify-content: center;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  min-width: 128px;
+  padding: 12px 20px 8px;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-small) var(--easing-standard),
+    color var(--duration-small) var(--easing-standard),
+    border-color  var(--duration-small) var(--easing-standard);
+}
+
+.redesign-v2 a.button--small,
+.redesign-v2 button.button--small {
+  min-width: 96px;
+  padding: 8px 20px 4px;
+}
+
+.redesign-v2 a.button--large,
+.redesign-v2 button.button--large {
+  min-width: 160px;
+  padding: 16px 20px 12px;
+}
+
+.redesign-v2 .button--cta {
+  background-color: var(--button-primary-red-enabled);
+  color: var(--c-primary-white);
+}
+
+.redesign-v2 .button--cta:hover,
+.redesign-v2 .button--cta:focus {
+  background-color: var(--button-primary-red-hover);
+}
+
+.redesign-v2 .button--cta:active {
+  background-color: var(--button-primary-red-pressed);
+}
+
+.redesign-v2 a.button--primary,
+.redesign-v2 button.button--primary {
+  background-color: var(--button-secondary-gold-enabled);
+  color: var(--c-primary-black);
+}
+
+.redesign-v2 .button--primary:hover,
+.redesign-v2 .button--primary:focus {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.redesign-v2 .button--primary:active {
+  background-color: var(--button-secondary-gold-pressed);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 a.button--secondary,
+.redesign-v2 button.button--secondary {
+  background-color: var(--button-tertiary-white-enabled);
+  border-color: var(--c-primary-black);
+  color: var(--c-primary-black);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 .button--secondary:hover,
+.redesign-v2 .button--secondary:focus {
+  background-color: #F1F1F1;
+  border-color: var(--button-tertiary-white-hover);
+}
+
+.redesign-v2 .button--secondary:active {
+  background-color: var(--button-tertiary-white-pressed);
+  border-color: #D9D9D9;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 .section {
+  padding: 40px 0;
+  scroll-margin-top: calc(var(--nav-height) + var(--inpage-navigation-height));
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.redesign-v2 .section > div {
+  padding: 0 var(--v2-space-small);
+  margin: 0 auto;
+}
+
+.redesign-v2 .section > .full-width {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.redesign-v2 main .section.padding-0 {
+  padding: 0;
+}
+
+.section.header-with-mark > .default-content-wrapper:first-child > h1:first-child::before,
+.redesign-v2 .with-marker::before {
+  content: '';
+  margin: 0;
+  height: 0;
+  width: 45px;
+  border-bottom: 4px solid var(--c-accent-red);
+  display: block;
+  position: relative;
+  top: -18px;
+}
+
+.redesign-v2 a.standalone-link {
+  align-items: center;
+  color: var(--c-primary-black);
+  display: inline-flex;
+  font-family: var(--ff-body-bold);
+  font-size: var(--button-font-size);
+  gap: 4px;
+  letter-spacing: 1.12px;
+  line-height: var(--button-line-height);
+  background: transparent;
+}
+
+.redesign-v2 a.standalone-link:active,
+.redesign-v2 a.standalone-link:visited {
+  color: var(--c-tertiary-cool-gray);
+}
+
+.redesign-v2 a.standalone-link:hover,
+.redesign-v2 a.standalone-link:focus {
+  color: var(--c-tertiary-cool-gray);
+  text-decoration: underline;
+}
+
+@media (min-width: 1040px) {
+  .redesign-v2 .section {
+    padding: 80px 0;
+  }
+
+  .redesign-v2 .section > div {
+    margin: 0 auto;
+    max-width: var(--wrapper-width);
+    padding: 0;
+  }
+
+  .redesign-v2 .with-marker::before {
+    width: 65px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .redesign-v2 {
+    /* New design variables */
+    /* stylelint-disable-next-line number-max-precision */
+    --headline-1-font-size: 2.8125rem; /* 45px */
+    --headline-2-font-size: 2rem; /* 32px */
+    --headline-3-font-size: 2rem; /* 32px */
+    --testimonial-font-size: 1.5rem; /* 24px */
+  }
+}
+
+
+/* CLS OPTIMIZATION */
+.v2-hero {
+  height: calc(100vh - var(--nav-height));
 }

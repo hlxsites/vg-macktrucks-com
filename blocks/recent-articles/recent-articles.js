@@ -1,4 +1,4 @@
-import { createElement, getTextLabel } from '../../scripts/scripts.js';
+import { createElement, getTextLabel } from '../../scripts/common.js';
 import { createOptimizedPicture, getOrigin } from '../../scripts/lib-franklin.js';
 
 const sectionTitle = getTextLabel('Recent article text');
@@ -39,19 +39,19 @@ export default async function decorate(block) {
   const filteredArticles = clearRepeatedArticles(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
-  const recentArticlesSection = createElement('div', 'recent-articles-section');
-  const recentArticlesTitle = createElement('h3', 'recent-articles-section-title');
+  const recentArticlesSection = createElement('div', { classes: 'recent-articles-section' });
+  const recentArticlesTitle = createElement('h3', { classes: 'recent-articles-section-title' });
   recentArticlesTitle.innerText = sectionTitle;
 
-  const recentArticleList = createElement('ul', 'recent-articles-list');
+  const recentArticleList = createElement('ul', { classes: 'recent-articles-list' });
 
   selectedArticles.forEach((e, idx) => {
     const linkUrl = new URL(e.path, getOrigin());
     const firstOrRest = (idx === 0) ? 'first' : 'rest';
 
-    const item = createElement('li', `recent-articles-${firstOrRest}-item`);
+    const item = createElement('li', { classes: `recent-articles-${firstOrRest}-item` });
 
-    const image = createElement('div', `recent-articles-${firstOrRest}-image`);
+    const image = createElement('div', { classes: `recent-articles-${firstOrRest}-image` });
     const picture = createOptimizedPicture(e.image, e.title);
     const pictureTag = picture.outerHTML;
     image.innerHTML = `<a href='${linkUrl}'>
@@ -60,16 +60,25 @@ export default async function decorate(block) {
 
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
-    const category = createElement('a', `recent-articles-${firstOrRest}-category`, { href: categoryUrl });
+    const category = createElement('a', {
+      classes: `recent-articles-${firstOrRest}-category`,
+      props: { href: categoryUrl },
+    });
     category.innerText = e.category;
 
-    const title = createElement('a', `recent-articles-${firstOrRest}-title`, { href: linkUrl });
+    const title = createElement('a', {
+      classes: `recent-articles-${firstOrRest}-title`,
+      props: { href: linkUrl },
+    });
     title.innerText = e.title;
 
-    const subtitle = createElement('p', `recent-articles-${firstOrRest}-subtitle`);
+    const subtitle = createElement('p', { classes: `recent-articles-${firstOrRest}-subtitle` });
     subtitle.innerText = e.subtitle;
 
-    const link = createElement('a', `recent-articles-${firstOrRest}-link`, { href: linkUrl });
+    const link = createElement('a', {
+      classes: `recent-articles-${firstOrRest}-link`,
+      props: { href: linkUrl },
+    });
     link.innerText = readNowText;
 
     if (idx === 0) {

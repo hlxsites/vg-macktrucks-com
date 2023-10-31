@@ -1,0 +1,132 @@
+.vin-number-container {
+  padding: 0;
+}
+
+.vin-number__form {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.vin-number__input-wrapper {
+  position: relative;
+}
+
+.redesign-v2 .vin-number__form .vin-number__submit {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.vin-number__input {
+  margin: 0;
+  max-width: 100%;
+  font-size: var(--body-font-size-xs);
+}
+
+.vin-number__label {
+  left: 16px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    top var(--duration-small) var(--easing-standard),
+    left var(--duration-small) var(--easing-standard);
+    font-size: var(--body-font-size-xs);
+}
+
+.vin-number__input:focus ~ .vin-number__label,
+.vin-number__input:not(:placeholder-shown) ~ .vin-number__label,
+.vin-number__input:not(:focus):valid ~ .v2-forms__label {
+  bottom: 0;
+  left: 0;
+  top: 0;
+}
+
+/* recalls list styling */
+.vin-number__results-container{
+  padding: 20px 0;
+}
+
+.vin-number__recalls-wrapper {
+  margin-top: 40px;
+}
+
+.vin-number__recalls-heading-wrapper {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.vin-number__recalls-heading {
+  text-transform: uppercase;
+}
+
+.vin-number__recalls-refresh-date,
+.vin-number__recalls-heading {
+  margin-bottom: 0;
+}
+
+.vin-number__recalls-alert-icon {
+  align-self: flex-end;
+}
+
+.vin-number__recalls-refresh-date {
+  align-self: center;
+}
+
+.vin-number__list,
+.vin-number__detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vin-number__list-item {
+  border-top: 1px solid var(--c-primary-black);
+  padding: 20px 0;
+}
+
+.vin-number__item-title {
+  margin-bottom: 0;
+}
+
+.vin-number__detail-item {
+  display: flex;
+  gap: 16px;
+}
+
+.vin-number__detail-item--column {
+  flex-direction: column;
+  gap: 0;
+}
+
+.vin-number__detail-item:not(:first-child){
+  margin-top: 10px;
+}
+
+.vin-number__detail-title {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.vin-number__recall-incomplete,
+.vin-number__recall-incomplete-no-remedy {
+  color: var(--c-accent-red);
+}
+
+.vin-number__recall-complete {
+  color: #78B833;
+}
+
+@media (min-width: 744px) {
+  .vin-number__form {
+    flex-direction: row;
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .vin-number__input-wrapper {
+    flex: 1;
+  }
+}

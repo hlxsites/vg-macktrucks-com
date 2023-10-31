@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 export default function decorate(block) {
   block.querySelectorAll(':scope > div').forEach((row) => row.classList.add('row'));
@@ -8,7 +8,7 @@ export default function decorate(block) {
     if (cell.querySelector('picture')) {
       cell.classList.add('text-on-image-column');
     } else {
-      const textCol = createElement('div', ['text-wrapper']);
+      const textCol = createElement('div', { classes: ['text-wrapper'] });
       textCol.innerHTML = cell.innerHTML;
       cell.innerHTML = '';
       cell.appendChild(textCol);

@@ -25,9 +25,9 @@
 .teaser-column:not(.text-on-image-column) h3 {
   margin: 20px 0 0;
   padding-block-start: 10px;
-  border-block-start: 3px solid var(--primary-black);
+  border-block-start: 3px solid var(--c-primary-black);
   text-transform: uppercase;
-  font: 14px var(--emphasis-ff-bold);
+  font: 14px var(--ff-body-bold);
 }
 
 .text-on-image-column {
@@ -44,8 +44,8 @@
 }
 
 .teaser-column.text-on-image-column h3 {
-  font: 21px var(--emphasis-ff-bold);
-  color: var(--primary-white);
+  font: 21px var(--ff-body-bold);
+  color: var(--c-primary-white);
   position: absolute;
   bottom: 0;
   line-height: 1em;

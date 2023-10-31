@@ -18,19 +18,19 @@
 .news-sidebar a.news-sidebar-rss-icon,
 .news-sidebar .news-sidebar-list a {
   display: block;
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   padding: 10px 0 9px;
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
   line-height: 22px;
-  border-bottom: 1px solid var(--secondary-steel);
+  border-bottom: 1px solid var(--c-secondary-steel);
   font-weight: 700;
 }
 
 .news-sidebar a.news-sidebar-rss-icon,
 .news-sidebar .news-sidebar-list a.news-sidebar-rss-icon {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   text-decoration: none;
   color: var(--text-color);
 }

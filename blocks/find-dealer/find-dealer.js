@@ -1,12 +1,15 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 export default function decorate(block) {
   const container = block.querySelector(':scope > div > div');
-  const inputContainer = createElement('div', 'find-dealer-input-wrapper');
-  const input = createElement('input', 'find-dealer-input', {
-    title: 'code',
-    type: 'text',
-    placeholder: 'Enter Zip',
+  const inputContainer = createElement('div', { classes: 'find-dealer-input-wrapper' });
+  const input = createElement('input', {
+    classes: 'find-dealer-input',
+    props: {
+      title: 'code',
+      type: 'text',
+      placeholder: 'Enter Zip',
+    },
   });
   container.className = 'find-dealer-form-container';
   input.onkeydown = (e) => {

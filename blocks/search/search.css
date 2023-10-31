@@ -184,7 +184,7 @@
 
   .facet-template-container-custom .pill-container .pill {
     font-size: 16px;
-    background-color: var(--primary-black);
+    background-color: var(--c-primary-black);
     color: #fff;
     margin-left: 10px !important;
     border-radius: 0 !important;
@@ -338,7 +338,7 @@
 }
 
 .search-results-wrapper h4 {
-  font-family: var(--headline-ff-medium);
+  font-family: var(--ff-headline-medium);
 }
 
 .facet-container-wrapper {
@@ -544,7 +544,7 @@
   .card-searchstudio-js-body
   .card-searchstudio-js-title {
   font-size: 26px;
-  font-family: var(--headline-ff-medium);
+  font-family: var(--ff-headline-medium);
   font-weight: 700;
   line-height: 26px;
   margin-bottom: 0;
@@ -604,7 +604,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  font-family: var(--accents-ff-medium);
+  font-family: var(--ff-accents-medium);
 }
 
 .card-searchstudio-js-custom
@@ -1289,7 +1289,7 @@
   top: 0;
   right: 0;
   height: 64px;
-  background: var(--primary-black);
+  background: var(--c-primary-black);
   cursor: pointer;
 }
 
@@ -1719,7 +1719,7 @@
 }
 
 .search-close-button:hover {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 @media (max-width: 991px) {
@@ -1789,7 +1789,7 @@
     background-color: var(--button-primary-red-enabled);
     font-size: 1.3rem;
     padding: 0.775rem 1.65rem;
-    color: var(--primary-white);
+    color: var(--c-primary-white);
     float: right;
     position: absolute;
     bottom: 20px;
@@ -1806,7 +1806,7 @@
     .sf-sidebar-container
     .sf-sidebar
     .close-button:hover {
-    color: var(--primary-white);
+    color: var(--c-primary-white);
     background-color: var(--button-primary-red-hover);
   }
 
@@ -2091,7 +2091,7 @@ a:any-link {
 .popular-search h3 {
   font-size: var(--body-font-size-s);
   text-transform: uppercase;
-  font-family: var(--headline-ff-medium);
+  font-family: var(--ff-headline-medium);
 }
 
 .popular-search ul {
@@ -2101,7 +2101,7 @@ a:any-link {
 .popular-search a {
   text-decoration: underline;
   font-size: 14px;
-  font-family: var(--accents-ff-medium);
+  font-family: var(--ff-accents-medium);
 }
 
 .popular-search a:hover {

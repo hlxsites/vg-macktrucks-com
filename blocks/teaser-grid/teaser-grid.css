@@ -12,7 +12,7 @@
 }
 
 .teaser-grid-item * {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .teaser-grid-item:hover * {
@@ -55,31 +55,31 @@
 }
 
 .teaser-grid-item .teaser-button {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
   width: fit-content;
   font-size: var(--heading-font-size-xxs);
   border: none;
-  background-color: var(--primary-gold);
+  background-color: var(--c-primary-gold);
   padding: 6px 10px;
   margin: 0 0 10px 16px;
 }
 
 .teaser-grid-item .teaser-button:hover {
-  color: var(--secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
 }
 
 .teaser-link h3.teaser-title {
   margin: 0;
   max-width: 90%;
   font-size: var(--heading-font-size-s);
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
 }
 
 .teaser-link h4.teaser-subtitle {
   margin: 8px 0 0;
   max-width: 90%;
   font-size: var(--heading-font-size-xxs);
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
 }
 
 @media (min-width: 544px) {

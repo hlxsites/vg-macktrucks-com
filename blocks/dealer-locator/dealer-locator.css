@@ -2,7 +2,7 @@
 
 .dealer-locator {
     font-size: 16px;
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
 }
 
 main .section.dealer-locator-container > div {
@@ -72,7 +72,7 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator button {
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
     display: unset;
     box-sizing: unset;
     text-decoration: unset;
@@ -988,7 +988,7 @@ main .section.dealer-locator-container > div {
     right: 0;
     left: 0;
     padding: 1px 6px;
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
     margin: 0;
 }
 
