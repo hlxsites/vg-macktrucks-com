@@ -12,6 +12,10 @@
   color: var(--c-primary-black);
 }
 
+.v2-cards--gray-cards .v2-cards__card-item {
+  background: var(--c-tertiary-light-warm-gray);
+}
+
 .v2-cards__picture-wrapper {
   padding: 0;
 }
