@@ -195,6 +195,7 @@
 
 .v2-all-trucks__dropdown--open .v2-all-trucks__selected-item-wrapper,
 .v2-all-trucks__segment-button:hover,
+.v2-all-trucks__segment-button:focus,
 .v2-all-trucks__segment-button.active {
   background-color: var(--c-tertiary-light-cool-gray);
 }
@@ -335,6 +336,7 @@
   }
 
   .v2-all-trucks__segment-button:hover,
+  .v2-all-trucks__segment-button:focus,
   .v2-all-trucks__segment-button.active {
     background-color: transparent;
   }
