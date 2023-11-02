@@ -81,4 +81,23 @@
   .v2-cards__card-item {
     max-width: calc((100% - 32px) / 3);
   }
+
+  .v2-cards--horizontal .v2-cards__card-item {
+    max-width: 720px;
+    display: flex;
+    gap: 46px;
+  }
+
+  .v2-cards--horizontal .v2-cards__picture-wrapper,
+  .v2-cards--horizontal .v2-cards__text-wrapper {
+    width: 50%;
+  }
+
+  .v2-cards--horizontal .v2-cards__picture-wrapper {
+    display: flex;
+  }
+
+  .v2-cards--horizontal .v2-cards__picture {
+    margin: auto;
+  }
 }
