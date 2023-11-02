@@ -709,16 +709,29 @@ main .section.dealer-locator-container > div {
     width: 100%
 }
 
+/* THIS IS FOR THE GOOGLE LOGO + INFO */
+.dealer-locator #map > div .gm-style {
+    height: 93.5% !important;
+}
+
+@media (max-width: 1140px) {
+    .dealer-locator #map > div .gm-style {
+        height: 95.5% !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .dealer-locator #map > div .gm-style {
+        height: 93.1% !important;
+    }
+}
+
 .dealer-locator #map .gmnoprint {
     top: 0;
     margin-top: 45px
 }
 
 @media (max-width: 992px) {
-    .dealer-locator #map .gmnoprint {
-        display:none
-    }
-
     .dealer-locator #map {
         height: 50%
     }
