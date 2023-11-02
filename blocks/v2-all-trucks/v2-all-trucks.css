@@ -314,19 +314,28 @@
   .v2-all-trucks__segment-button {
     height: 100%;
     text-align: center;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 4px;
     padding: 14px 0;
+    position: relative;
+  }
+
+  .v2-all-trucks__segment-button::after {
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 4px;
+    position: absolute;
+    transition: background-color var(--duration-small) var(--easing-standard);
+    width: 100%;
+  }
+
+  .v2-all-trucks__segment-button.active::after,
+  .v2-all-trucks__segment-button:hover::after,
+  .v2-all-trucks__segment-button:focus::after {
+    background-color: var(--c-accent-red);
   }
 
   .v2-all-trucks__segment-button:hover,
   .v2-all-trucks__segment-button.active {
-    text-decoration: underline;
-    text-decoration-color: var(--c-accent-red);
-    text-underline-offset: 10px;
-    text-decoration-thickness: 4px;
     background-color: transparent;
   }
 
