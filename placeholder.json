@@ -1,7 +1,7 @@
 {
-  "total": 25,
+  "total": 26,
   "offset": 0,
-  "limit": 25,
+  "limit": 26,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -98,6 +98,10 @@
     {
       "Key": "no eloqua link message",
       "Text": "Change cookie settings"
+    },
+    {
+      "Key": "All trucks",
+      "Text": "All trucks"
     }
   ],
   ":type": "sheet"
