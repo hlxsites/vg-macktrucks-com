@@ -204,6 +204,17 @@ export function debounce(func, timeout = 200) {
   };
 }
 
+/*
+  The generateId function should be used only
+  for generating the id for UI elements
+*/
+let idValue = 0;
+
+export const generateId = (prefix = 'id') => {
+  idValue += 1;
+  return `${prefix}-${idValue}`;
+};
+
 export const adjustPretitle = (element) => {
   const headingSelector = 'h1, h2, h3, h4, h5, h6';
 
