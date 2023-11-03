@@ -711,12 +711,12 @@ main .section.dealer-locator-container > div {
 
 /* THIS IS FOR THE GOOGLE LOGO + INFO */
 .dealer-locator #map > div .gm-style {
-    height: calc((98% * 1.02) - 85px) !important;
+    height: calc(100% - 85px) !important;
 }
 
 @media (max-width: 1140px) {
     .dealer-locator #map > div .gm-style {
-        height: calc((98% * 1.02) - 60px) !important;
+        height: calc(100% - 60px) !important;
     }
 }
 
