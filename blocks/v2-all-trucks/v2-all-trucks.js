@@ -12,8 +12,15 @@ export default function decorate(block) {
     div.classList.add(`${blockName}__truck`);
 
     const truckImageWrapper = block.querySelectorAll(`.${blockName}__truck > div:first-child`);
-    truckImageWrapper.forEach((image) => {
-      image.classList.add(`${blockName}__truck-image`);
+    truckImageWrapper.forEach((imageWrapper) => {
+      imageWrapper.classList.add(`${blockName}__truck-image`);
+      const pictures = imageWrapper.querySelectorAll('picture');
+      const link = imageWrapper.querySelector('a');
+      link.text = '';
+      link.classList.remove('button', 'button--primary');
+      link.append(...pictures);
+      imageWrapper.innerHTML = '';
+      imageWrapper.append(link);
     });
 
     const truckInfoWrapper = block.querySelectorAll(`.${blockName}__truck> div:last-child`);
