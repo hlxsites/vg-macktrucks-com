@@ -1171,6 +1171,18 @@ main .section.responsive-title h1 {
   }
 }
 
+@media (min-width: 1072px) {
+  .redesign-v2 .section {
+    padding: 80px 0;
+  }
+
+  .redesign-v2 .section > div {
+    margin: 0 auto;
+    max-width: var(--wrapper-width);
+    padding: 0;
+  }
+}
+
 @media (min-width: 744px) {
   .section--background-with-dots::after {
     height: 75%;
