@@ -117,7 +117,7 @@
 .v2-all-trucks .v2-all-trucks__truck-info > p {
   letter-spacing: .01em;
   margin-top: 12px;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .v2-all-trucks .v2-all-trucks__truck-info .button-container {
