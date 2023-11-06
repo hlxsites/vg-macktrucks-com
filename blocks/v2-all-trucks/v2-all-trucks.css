@@ -360,4 +360,8 @@
   }
 }
 
-
+@media (min-width: 1200px) {
+  .v2-all-trucks .v2-all-trucks__truck-info > p {
+    width: 61.8%;
+  }
+}
