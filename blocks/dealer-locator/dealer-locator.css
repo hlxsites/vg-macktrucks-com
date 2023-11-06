@@ -53,10 +53,18 @@ main .section.dealer-locator-container > div {
 
 .dealer-locator {
     width: 100% !important;
-    height: calc(100vh);
+    height: calc(100vh - var(--nav-height));
     position: absolute;
+    top: var(--nav-height);
     left: 0;
 }
+
+@supports (height: 1svh) {
+  .dealer-locator {
+    height: calc(100svh - var(--nav-height));
+  }
+}
+
 .dealer-locator input[type=text],
 .dealer-locator select,
 .dealer-locator textarea {
