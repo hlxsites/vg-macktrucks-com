@@ -16,7 +16,7 @@
   color: var(--c-primary-black);
   transition: translate 1s;
   position: relative;
-  top: var(--nav-height);
+  margin-top: var(--nav-height);
   width: 100%;
   height: 100%;
   padding: 0 16px;
