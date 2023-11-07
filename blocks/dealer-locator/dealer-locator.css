@@ -53,10 +53,27 @@ main .section.dealer-locator-container > div {
 
 .dealer-locator {
     width: 100% !important;
-    height: calc(100vh);
+    height: calc(100vh - var(--nav-height));
     position: absolute;
     left: 0;
 }
+
+@supports (height: 1svh) {
+    .dealer-locator {
+      height: calc(100svh - var(--nav-height));
+    }
+  }
+
+@media (max-width: 992px) {
+    .dealer-locator #map {
+        top: -40px;
+    }
+
+    .dealer-locator .gm-bundled-control .gmnoprint {
+        top: 40px !important;
+    }
+}
+
 .dealer-locator input[type=text],
 .dealer-locator select,
 .dealer-locator textarea {
@@ -95,11 +112,11 @@ main .section.dealer-locator-container > div {
     justify-content: space-around;
 }
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
     .dealer-locator {
         height:calc(100% - 6.1em)!important;
     }
-}
+} */
 
 .dealer-locator .partsasist-form {
     z-index: 1050;
@@ -709,23 +726,6 @@ main .section.dealer-locator-container > div {
     width: 100%
 }
 
-/* THIS IS FOR THE GOOGLE LOGO + INFO */
-.dealer-locator #map > div .gm-style {
-    height: calc(100% - 85px) !important;
-}
-
-@media (max-width: 1140px) {
-    .dealer-locator #map > div .gm-style {
-        height: calc(100% - 60px) !important;
-    }
-}
-
-@media (max-width: 992px) {
-    .dealer-locator #map > div .gm-style {
-        height: calc(100% - 40px) !important;
-    }
-}
-
 .dealer-locator #map .gmnoprint {
     top: 0;
     margin-top: 45px
@@ -755,7 +755,9 @@ main .section.dealer-locator-container > div {
     .dealer-locator .mobile-main-header {
         display: block;
         border: 1px solid;
-        height: 39px
+        height: 39px;
+        position: relative;
+        z-index: 1;
     }
 
     .dealer-locator .mobile-main-header .row {
