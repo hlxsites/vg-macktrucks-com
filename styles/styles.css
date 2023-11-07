@@ -388,7 +388,7 @@ main .section.text-white {
 }
 
 main .section.text-white,
-main .section.black-background {
+main .section.section--black-background {
   background-color: var(--c-primary-black);
 }
 
