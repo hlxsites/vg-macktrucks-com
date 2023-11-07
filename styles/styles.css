@@ -164,6 +164,7 @@
   --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
 
   /* nav sizes */
+  --nav-width: 1376px;
   --nav-height-m: 60px;
   --nav-height-l: 80px;
   --nav-height: var(--nav-height-m);
@@ -1110,7 +1111,7 @@ main .section.responsive-title h1 {
 /* Remove padding top of consecutive sections with background image or colors */
 .redesign-v2 .section:first-child,
 .redesign-v2 .v2-testimonial-container,
-.section:not(.section--black-background, .section--gray-background, .v2-hero-container, .section--with-background) + .section:not(.section--black-background, .section--gray-background, .section--with-background) {
+.redesign-v2 .section:not(.section--black-background, .section--gray-background, .v2-hero-container, .section--with-background) + .section:not(.section--black-background, .section--gray-background, .section--with-background) {
   padding-top: 0;
 }
 

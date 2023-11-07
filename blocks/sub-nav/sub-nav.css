@@ -34,7 +34,7 @@
   margin-inline: auto;
   font: 14px/40px var(--ff-subheadings-medium);
   position: relative;
-  max-width: var(--wrapper-width);
+  max-width: 1440px;
   padding: 0;
   border-top: solid 1px var(--c-secondary-silver);
 }
