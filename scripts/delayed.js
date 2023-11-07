@@ -21,7 +21,7 @@ if (isPerformanceAllowed) {
 
 // Prevent the cookie banner from loading when running in library
 if (!window.location.pathname.includes('srcdoc')
-  && !['localhost', 'hlx.page'].includes(window.location.host)) {
+  && !['localhost', 'hlx.page'].some((url) => window.location.host.includes(url))) {
   loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
     type: 'text/javascript',
     charset: 'UTF-8',
