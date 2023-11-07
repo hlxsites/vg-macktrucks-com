@@ -1020,32 +1020,32 @@ main .section.responsive-title h1 {
 }
 
 /* Section Background colors */
-.section--black-background,
-.section--gray-background {
+.redesign-v2 .section--black-background,
+.redesign-v2 .section--gray-background {
   --card-background: var(--c-primary-white);
   --card-text: var(--c-primary-black);
 }
 
-.section--black-background {
+.redesign-v2 .section--black-background {
   --text-color: var(--c-primary-white);
 
   color: var(--text-color);
   background-color: var(--c-secondary-graphite);
 }
 
-.section--gray-background {
+.redesign-v2 .section--gray-background {
   --text-color: var(--c-primary-black);
 
   color: var(--text-color);
   background-color: var(--c-secondary-silver);
 }
 
-.section--background-with-dots {
+.redesign-v2 .section--background-with-dots {
   position: relative;
   z-index: 1;
 }
 
-.section--background-with-dots::after {
+.redesign-v2 .section--background-with-dots::after {
   background-image: url('../../media/dots.svg');
   background-position: top right 10px;
   bottom: 0;
@@ -1061,12 +1061,12 @@ main .section.responsive-title h1 {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.section--background-with-dots > div {
+.redesign-v2 .section--background-with-dots > div {
   position: relative;
   z-index: 2;
 }
 
-.section--with-background {
+.redesign-v2 .section--with-background {
   --section-padding: 0;
   --text-color: var(--c-primary-white);
 
@@ -1080,11 +1080,11 @@ main .section.responsive-title h1 {
   position: relative;
 }
 
-.section--with-background .default-content-wrapper {
+.redesign-v2 .section--with-background .default-content-wrapper {
   background-color: var(--c-secondary-graphite);
 }
 
-.section--with-background > picture:first-of-type img {
+.redesign-v2 .section--with-background > picture:first-of-type img {
   display: block;
   height: 100%;
   object-fit: cover;
