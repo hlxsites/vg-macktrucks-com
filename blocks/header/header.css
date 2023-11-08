@@ -1,6 +1,7 @@
 .header-wrapper {
   display: flex;
   justify-content: center;
+  z-index: 100;
 
   --menu-cards-gutter: 16px;
   --menu-animation: right 450ms ease-in-out;
@@ -771,6 +772,7 @@ a.header__link {
 
   .header__accordion-container.header__main-link-wrapper {
     height: auto;
+    box-shadow: 0 0 3px 0 rgb(66 68 90 / 59%);
   }
 
   /* tabs styles - START */
