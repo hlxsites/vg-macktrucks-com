@@ -64,7 +64,7 @@ main .section.dealer-locator-container > div {
     }
   }
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
     .dealer-locator #map {
         top: -40px;
     }
@@ -72,7 +72,7 @@ main .section.dealer-locator-container > div {
     .dealer-locator .gm-bundled-control .gmnoprint {
         top: 40px !important;
     }
-}
+} */
 
 .dealer-locator input[type=text],
 .dealer-locator select,
@@ -720,6 +720,7 @@ main .section.dealer-locator-container > div {
     width: 100%
 }
 
+.dealer-locator #map .gmnoprint + .gm-style-cc,
 .dealer-locator #map .gmnoprint {
     top: 0;
     margin-top: 45px
@@ -727,7 +728,11 @@ main .section.dealer-locator-container > div {
 
 @media (max-width: 992px) {
     .dealer-locator #map {
-        height: 50%
+        height: calc(50% - 41px);
+    }
+
+    .dealer-locator #map .gm-bundled-control {
+        display: none;
     }
 }
 
