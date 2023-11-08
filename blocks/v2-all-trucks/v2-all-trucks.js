@@ -1,4 +1,4 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
+import { createElement, getTextLabel, makeBlockFullWidth } from '../../scripts/common.js';
 
 // Define break point/s
 const blockName = 'v2-all-trucks';
@@ -29,8 +29,7 @@ export default function decorate(block) {
     });
   });
 
-  const trucksWrapper = document.querySelector(`.${blockName}-wrapper`);
-  trucksWrapper.classList.add('full-width');
+  makeBlockFullWidth(`.${blockName}-wrapper`);
 
   const trucks = document.querySelectorAll(`.${blockName}__truck`);
   const setSecondaryButton = document.querySelectorAll(`.${blockName}__truck .${blockName}__truck-info .button-container:last-of-type a`);
