@@ -1,4 +1,5 @@
 import { createElement, removeEmptyTags } from '../../scripts/common.js';
+import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-tabbed-carousel';
 
@@ -42,65 +43,33 @@ function buildTabNavigation(tabItems, clickHandler) {
   return tabNavigation;
 }
 
-const updateActiveItem = (index) => {
-  const carouselItems = document.querySelector(`.${blockName}__items`);
-  const navigation = document.querySelector(`.${blockName}__navigation`);
-  const navigationLine = document.querySelector(`.${blockName}__navigation-line`);
+const updateActiveItem = (elements, entry) => {
+  elements.forEach((el, index) => {
+    if (el === entry.target && entry.intersectionRatio >= 0.75) {
+      const carouselItems = document.querySelector(`.${blockName}__items`);
+      const navigation = document.querySelector(`.${blockName}__navigation`);
+      const navigationLine = document.querySelector(`.${blockName}__navigation-line`);
 
-  [carouselItems, navigation].forEach((c) => c.querySelectorAll('.active').forEach((i) => i.classList.remove('active')));
-  carouselItems.children[index].classList.add('active');
-  navigation.children[index].classList.add('active');
+      [carouselItems, navigation].forEach((c) => c.querySelectorAll('.active').forEach((i) => i.classList.remove('active')));
+      carouselItems.children[index].classList.add('active');
+      navigation.children[index].classList.add('active');
 
-  const activeNavigationItem = navigation.children[index];
-  moveNavigationLine(navigationLine, activeNavigationItem, navigation);
+      const activeNavigationItem = navigation.children[index];
+      moveNavigationLine(navigationLine, activeNavigationItem, navigation);
 
-  // Center navigation item
-  const navigationActiveItem = navigation.querySelector('.active');
+      // Center navigation item
+      const navigationActiveItem = navigation.querySelector('.active');
 
-  if (navigation && navigationActiveItem) {
-    const { clientWidth: itemWidth, offsetLeft } = navigationActiveItem;
-    // Calculate the scroll position to center the active item
-    const scrollPosition = offsetLeft - (navigation.clientWidth - itemWidth) / 2;
-    navigation.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
-    });
-  }
-};
-
-const listenScroll = (carousel) => {
-  const elements = carousel.querySelectorAll(':scope > *');
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (
-        entry.isIntersecting
-        && entry.intersectionRatio >= 0.75
-      ) {
-        const activeItem = entry.target;
-        const currentIndex = [...activeItem.parentNode.children].indexOf(activeItem);
-        updateActiveItem(currentIndex);
+      if (navigation && navigationActiveItem) {
+        const { clientWidth: itemWidth, offsetLeft } = navigationActiveItem;
+        // Calculate the scroll position to center the active item
+        const scrollPosition = offsetLeft - (navigation.clientWidth - itemWidth) / 2;
+        navigation.scrollTo({
+          left: scrollPosition,
+          behavior: 'smooth',
+        });
       }
-    });
-  }, {
-    root: carousel,
-    threshold: 0.75,
-  });
-
-  elements.forEach((el) => {
-    io.observe(el);
-  });
-};
-
-const setCarouselPosition = (carousel, index) => {
-  const firstEl = carousel.firstElementChild;
-  const scrollOffset = firstEl.getBoundingClientRect().width;
-  const style = window.getComputedStyle(firstEl);
-  const marginleft = parseFloat(style.marginLeft);
-
-  carousel.scrollTo({
-    left: index * scrollOffset + marginleft,
-    behavior: 'smooth',
+    }
   });
 };
 
@@ -143,5 +112,6 @@ export default function decorate(block) {
   container.append(tabNavigation);
 
   // update the button indicator on scroll
-  listenScroll(carouselItems);
+  const elements = carouselItems.querySelectorAll(':scope > *');
+  listenScroll(carouselItems, elements, updateActiveItem, 0.75);
 }
