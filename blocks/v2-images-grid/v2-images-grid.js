@@ -7,6 +7,20 @@ import { showModal } from '../../common/modal/modal-component.js';
 
 const blockClassName = 'v2-images-grid';
 
+const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList) => {
+  const itemWidth = carouselItemsList.getBoundingClientRect().width;
+
+  carouselImagesList.scrollTo({
+    left: activeSlideIndex * 90,
+    behavior: 'smooth',
+  });
+
+  carouselItemsList.scrollTo({
+    left: activeSlideIndex * itemWidth,
+    behavior: 'smooth',
+  });
+};
+
 const createModalContent = (content) => {
   const carouselItemsList = createElement('ul', { classes: `${blockClassName}__carousel-items-list` });
   const carouselImagesList = createElement('ul', { classes: `${blockClassName}__carousel-preview-list` });
@@ -149,6 +163,15 @@ export default function decorate(block) {
       li.innerHTML = '';
 
       li.append(picture);
+
+      li.addEventListener('click', async () => {
+        const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
+        const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
+
+        await showModal(modalContent);
+        setActiveSlide(idx, carouselItemsList, carouselImagesList);
+      });
+
       return;
     }
     li.remove();

@@ -18,7 +18,13 @@
 
 .v2-images-grid__item {
   margin: 0;
+  transition: scale 300ms;
   width: auto;
+}
+
+.v2-images-grid__item:hover {
+  scale: 1.05;
+  cursor: pointer;
 }
 
 .v2-images-grid__picture {
