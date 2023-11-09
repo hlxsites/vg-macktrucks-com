@@ -235,10 +235,3 @@ export const adjustPretitle = (element) => {
     }
   });
 };
-
-export const makeBlockFullWidth = (blockName) => {
-  const fullWidthWrappers = document.querySelectorAll(`.${blockName}-wrapper`);
-  fullWidthWrappers.forEach((wrapper) => {
-    wrapper.classList.add('full-width');
-  });
-};
