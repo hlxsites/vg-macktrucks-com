@@ -7,18 +7,18 @@ import { showModal } from '../../common/modal/modal-component.js';
 
 const blockClassName = 'v2-images-grid';
 
+const scrollLeft = (el, leftPadding) => {
+  el.scrollTo({
+    left: leftPadding,
+    behavior: 'smooth',
+  });
+};
+
 const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList) => {
   const itemWidth = carouselItemsList.getBoundingClientRect().width;
 
-  carouselImagesList.scrollTo({
-    left: activeSlideIndex * 90,
-    behavior: 'smooth',
-  });
-
-  carouselItemsList.scrollTo({
-    left: activeSlideIndex * itemWidth,
-    behavior: 'smooth',
-  });
+  scrollLeft(carouselImagesList, activeSlideIndex * 90);
+  scrollLeft(carouselItemsList, activeSlideIndex * itemWidth);
 };
 
 const createModalContent = (content) => {
@@ -26,10 +26,7 @@ const createModalContent = (content) => {
   const carouselImagesList = createElement('ul', { classes: `${blockClassName}__carousel-preview-list` });
 
   const debouncedOnItemChange = debounce((index) => {
-    carouselImagesList.scrollTo({
-      left: index * 90,
-      behavior: 'smooth',
-    });
+    scrollLeft(carouselImagesList, index * 90);
   }, 100);
 
   [...content.querySelectorAll('.v2-images-grid__item')].forEach((el, index) => {
@@ -43,10 +40,7 @@ const createModalContent = (content) => {
     buttonWithImage.addEventListener('click', () => {
       const itemWidth = carouselItemsList.getBoundingClientRect().width;
 
-      carouselItemsList.scrollTo({
-        left: index * itemWidth,
-        behavior: 'smooth',
-      });
+      scrollLeft(carouselItemsList, index * itemWidth);
     });
 
     buttonWithImage.append(carouselImage);
@@ -108,15 +102,8 @@ const createModalContent = (content) => {
         index = 0;
       }
 
-      carouselImagesList.scrollTo({
-        left: index * 90,
-        behavior: 'smooth',
-      });
-
-      carouselItemsList.scrollTo({
-        left: index * itemWidth,
-        behavior: 'smooth',
-      });
+      scrollLeft(carouselImagesList, index * 90);
+      scrollLeft(carouselItemsList, index * itemWidth);
     });
   });
 
