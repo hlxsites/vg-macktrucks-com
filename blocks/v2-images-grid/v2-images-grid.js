@@ -93,7 +93,7 @@ const createModalContent = (content) => {
   `;
   itemsWrapper.append(carouselItemsList);
 
-  [...wrapper.querySelectorAll('button')].forEach((el, elIndex) => {
+  [...itemsWrapper.querySelectorAll('button')].forEach((el, elIndex) => {
     const modifiers = [-1, 1];
 
     el.addEventListener('click', () => {
