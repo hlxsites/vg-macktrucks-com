@@ -168,7 +168,7 @@ export default function decorate(block) {
         const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
         const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
 
-        await showModal(modalContent);
+        await showModal(modalContent, { classes: ['modal-content--bottom'] });
         setActiveSlide(idx, carouselItemsList, carouselImagesList);
       });
 
@@ -182,7 +182,7 @@ export default function decorate(block) {
   });
   button.textContent = getTextLabel('Open Gallery');
   button.addEventListener('click', () => {
-    showModal(modalContent);
+    showModal(modalContent, { classes: ['modal-content--bottom'] });
   });
 
   block.append(button);

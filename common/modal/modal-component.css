@@ -73,6 +73,12 @@
   cursor: default;
 }
 
+.modal-content--bottom {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
 @media (min-width: 768px) {
   :root:not(.redesign-v2) .modal-content {
     width: 726px;
