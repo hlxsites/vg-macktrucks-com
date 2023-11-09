@@ -2,7 +2,6 @@ import {
   createElement,
   unwrapDivs,
   adjustPretitle,
-  makeBlockFullWidth,
 } from '../../scripts/common.js';
 import {
   listenScroll,
@@ -78,12 +77,16 @@ export default async function decorate(block) {
   });
 
   carouselContainer.append(carouselList);
-  makeBlockFullWidth(blockName);
+
+  const carouselRow = createElement('div', { classes: `${blockName}__list-wrapper` });
+  carouselRow.append(carouselContainer);
+
+  block.append(carouselRow);
 
   if (textElements.length > 1) {
     createArrowControls(carouselList, `.${blockName}__list-item.active`, [`${blockName}__arrowcontrols`], arrowFragment);
     const elements = carouselList.querySelectorAll(`.${blockName}__list-item`);
-    listenScroll(carouselList, elements, 0.75, updateActiveClass);
+    listenScroll(carouselList, elements, updateActiveClass, 0.75);
   } else {
     carouselContainer.classList.add(`${blockName}__list-container--single`);
   }
