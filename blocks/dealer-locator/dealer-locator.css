@@ -2,7 +2,12 @@
 
 .dealer-locator {
     font-size: 16px;
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
+}
+
+/* cookie button position fix */
+#onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
+    bottom: 30px;
 }
 
 main .section.dealer-locator-container > div {
@@ -53,10 +58,17 @@ main .section.dealer-locator-container > div {
 
 .dealer-locator {
     width: 100% !important;
-    height: calc(100vh);
+    height: calc(100vh - var(--nav-height));
     position: absolute;
     left: 0;
 }
+
+@supports (height: 1svh) {
+    .dealer-locator {
+      height: calc(100svh - var(--nav-height));
+    }
+}
+
 .dealer-locator input[type=text],
 .dealer-locator select,
 .dealer-locator textarea {
@@ -72,7 +84,7 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator button {
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
     display: unset;
     box-sizing: unset;
     text-decoration: unset;
@@ -93,12 +105,6 @@ main .section.dealer-locator-container > div {
 .dealer-locator .sidebar-legend span > div > div {
     display: flex;
     justify-content: space-around;
-}
-
-@media (max-width: 992px) {
-    .dealer-locator {
-        height:calc(100% - 6.1em)!important;
-    }
 }
 
 .dealer-locator .partsasist-form {
@@ -709,18 +715,19 @@ main .section.dealer-locator-container > div {
     width: 100%
 }
 
+.dealer-locator #map .gmnoprint + .gm-style-cc,
 .dealer-locator #map .gmnoprint {
     top: 0;
     margin-top: 45px
 }
 
 @media (max-width: 992px) {
-    .dealer-locator #map .gmnoprint {
-        display:none
+    .dealer-locator #map {
+        height: calc(50% - 41px);
     }
 
-    .dealer-locator #map {
-        height: 50%
+    .dealer-locator #map .gm-bundled-control {
+        display: none;
     }
 }
 
@@ -742,7 +749,9 @@ main .section.dealer-locator-container > div {
     .dealer-locator .mobile-main-header {
         display: block;
         border: 1px solid;
-        height: 39px
+        height: 39px;
+        position: relative;
+        z-index: 1;
     }
 
     .dealer-locator .mobile-main-header .row {
@@ -988,7 +997,7 @@ main .section.dealer-locator-container > div {
     right: 0;
     left: 0;
     padding: 1px 6px;
-    font-family: var(--body-ff);
+    font-family: var(--ff-body);
     margin: 0;
 }
 
@@ -2549,4 +2558,9 @@ footer {
 .tooltip.bottom-right .tooltip-arrow {
     left: 5px;
     margin-top: -5px
+}
+
+.legend-header, 
+.dealer-locator .sidebar .panel-card .panel-filter-distance {
+    display: none;
 }

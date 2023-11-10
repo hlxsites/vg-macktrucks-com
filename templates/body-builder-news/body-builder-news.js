@@ -4,12 +4,13 @@ import {
   buildBlock,
   decorateBlock,
 } from '../../scripts/lib-franklin.js';
-import { createElement, findAndCreateImageLink } from '../../scripts/scripts.js';
+import { findAndCreateImageLink } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 
 async function buildNewsData(h1) {
   const pubdate = getMetadata('date');
-  const stats = createElement('div', 'news-stats');
-  const pubDateSpan = createElement('span', 'pubdate');
+  const stats = createElement('div', { classes: 'news-stats' });
+  const pubDateSpan = createElement('span', { classes: 'pubdate' });
   pubDateSpan.innerHTML = pubdate;
   stats.append(pubDateSpan);
 
@@ -22,8 +23,11 @@ export default async function decorate(doc) {
   buildNewsData(h1);
 
   const classes = ['section'];
-  const sidebarSection = createElement('div', classes, {
-    'data-section-status': 'initialized',
+  const sidebarSection = createElement('div', {
+    classes,
+    props: {
+      'data-section-status': 'initialized',
+    },
   });
   const sidebarContainer = createElement('div');
   sidebarSection.append(sidebarContainer);

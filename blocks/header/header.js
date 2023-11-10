@@ -1,6 +1,7 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement, debounce } from '../../scripts/scripts.js';
+import { debounce } from '../../scripts/scripts.js';
 import { fetchAutosuggest, handleArrowDown, handleArrowUp } from '../search/autosuggest.js';
+import { createElement } from '../../scripts/common.js';
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 1140px)');
 
@@ -64,7 +65,7 @@ function addLabelsToIcons(navTools) {
   if (!pictures) return;
   const picturesWrappers = [...pictures].map((pic) => pic.parentElement);
   picturesWrappers.forEach((p, i) => {
-    const span = createElement('span', 'nav-label');
+    const span = createElement('span', { classes: 'nav-label' });
     const br = createElement('br');
     span.textContent = links[i].textContent;
     links[i].textContent = '';
@@ -148,7 +149,7 @@ export default async function decorate(block) {
   const html = await resp.text();
 
   // decorate nav DOM
-  const nav = createElement('nav', '', { id: 'nav' });
+  const nav = createElement('nav', { props: { id: 'nav' } });
   nav.innerHTML = html;
 
   const classes = ['brand', 'sections', 'mobile', 'tools', 'search'];
@@ -172,7 +173,7 @@ export default async function decorate(block) {
     });
 
     // hamburger for mobile
-    const hamburger = createElement('div', 'nav-hamburger');
+    const hamburger = createElement('div', { classes: 'nav-hamburger' });
     hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
@@ -202,14 +203,14 @@ export default async function decorate(block) {
     searchIcon.classList.add('fa', 'fa-search');
     const searchIconWrapper = searchIcon.parentElement;
     searchIconWrapper.classList.add('search-icon-wrapper');
-    const navSearchWrapper = createElement('div', 'nav-search-wrapper');
-    const searchIconLink = createElement('a', '', { href: navSearchLinkHref });
-    const searchWrapper = createElement('div', 'search-wrapper');
-    const input = createElement('input', '', { type: 'search', placeholder: 'Search Mack Trucks' });
-    const autosuggestWrapper = createElement('div', 'autosuggest-results');
-    const closeBtnWrapper = createElement('div', 'search-close');
-    const closeBtn = createElement('button', '', { type: 'button' });
-    const closeBtnIcon = createElement('span', 'search-close-icon');
+    const navSearchWrapper = createElement('div', { classes: 'nav-search-wrapper' });
+    const searchIconLink = createElement('a', { props: { href: navSearchLinkHref } });
+    const searchWrapper = createElement('div', { classes: 'search-wrapper' });
+    const input = createElement('input', { props: { type: 'search', placeholder: 'Search Mack Trucks' } });
+    const autosuggestWrapper = createElement('div', { classes: 'autosuggest-results' });
+    const closeBtnWrapper = createElement('div', { classes: 'search-close' });
+    const closeBtn = createElement('button', { props: { type: 'button' } });
+    const closeBtnIcon = createElement('span', { classes: 'search-close-icon' });
     let isShown = false;
 
     searchWrapper.appendChild(input);

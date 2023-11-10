@@ -3,9 +3,9 @@
 }
 
 .recent-articles-section-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-4-mobile-size-s);
-  border-bottom: 3px solid var(--secondary-accent-copper);
+  border-bottom: 3px solid var(--c-accent-copper);
   margin: 55px 0 0;
   padding-bottom: 5px;
 }
@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -28,14 +28,14 @@
 }
 
 .recent-articles-first-item a {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
 }
   
 .recent-articles-first-item .recent-articles-first-category {
   position: relative;
   font-size: var(--body-font-size-xxs);
-  background: var(--secondary-dark-gold);
-  color: var(--primary-white);
+  background: var(--c-secondary-dark-gold);
+  color: var(--c-primary-white);
   width: fit-content;
   line-height: 15px;
   padding: 5px 8px;
@@ -44,11 +44,11 @@
 
 .recent-articles-first-item .recent-articles-first-category:hover {
   text-decoration: none;
-  color: var(--primary-gold);
+  color: var(--c-primary-gold);
 }
 
 .recent-articles-first-item .recent-articles-first-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-4-mobile-size-s);
   line-height: 32px;
   word-wrap: break-word;
@@ -96,9 +96,9 @@
 }
 
 .recent-articles-rest-item .recent-articles-rest-title {
-  font-family: var(--emphasis-ff-bold); 
+  font-family: var(--ff-body-bold); 
   font-size: var(--heading-font-size-xs);
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   font-weight: bolder;
   word-wrap: break-word;
   max-width: 90%;

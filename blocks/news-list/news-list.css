@@ -1,7 +1,7 @@
 .news-list a.title-with-icon {
   color: var(--text-color);
   font-size: var(--heading-font-size-xs);
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-weight: bold;
 }
 
@@ -44,13 +44,13 @@
 }
 
 .news-list ul li a:hover {
-  color: var(--secondary-steel);
+  color: var(--c-secondary-steel);
   text-decoration: none;
 }
 
 .news-list a h3 {
   font-size: var(--heading-font-size-m);
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   margin-top: 0;
   font-weight: bold;
   margin-bottom: 5px;
@@ -58,7 +58,7 @@
 
 .news-list a p {
   font-size: var(--body-font-size-xs);
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 400;

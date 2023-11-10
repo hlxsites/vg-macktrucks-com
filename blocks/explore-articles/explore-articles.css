@@ -3,13 +3,13 @@
 }
 
 .explore-articles-section .explore-articles-heading .explore-articles-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--heading-font-size-xxl);
   margin: 0 0 5px;
 }
 
 .explore-articles-section .explore-articles-heading .explore-articles-text {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-xs);
   margin: 0 0 15px;
 }
@@ -20,7 +20,7 @@
 
 .explore-articles-section .explore-articles-content fieldset {
   border: none;
-  border-bottom: 5px solid var(--primary-black);
+  border-bottom: 5px solid var(--c-primary-black);
   margin: 0;
   padding: 0;
 }
@@ -28,12 +28,12 @@
 .explore-articles-section .explore-articles-content .input-field {
   line-height: 25px;
   width: 100%;
-  border: 2px solid var(--primary-black);
+  border: 2px solid var(--c-primary-black);
   margin: 0 0 15px;
 }
 
 .explore-articles-section .explore-articles-content select {
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   font-size: var(--body-font-size-s);
   padding: 8px;
 }
@@ -56,7 +56,7 @@
 
 .explore-articles-articles .pagination-section p,
 .explore-articles-articles .pagination-section .article-empty-message {
-  font-family: var(--body-ff);
+  font-family: var(--ff-body);
   font-size: var(--body-font-size-xxs);
 }
 
@@ -72,9 +72,9 @@
 }
 
 .explore-articles-articles .pagination .pagination-button {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   background-color: transparent;
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   margin: 0 5px;
   padding: 0;
 }
@@ -90,28 +90,28 @@
 }
 
 .explore-articles-articles .article .article-content {
-  font-family: var(--subheadings-ff-medium);
-  color: var(--primary-white);
+  font-family: var(--ff-subheadings-medium);
+  color: var(--c-primary-white);
   padding: 0 30px 25px;
 }
 
 .explore-articles-articles .article-content .article-category {
   font-size: var(--heading-font-size-xxs);
-  background-color: var(--primary-gold);
-  color: var(--primary-white);
+  background-color: var(--c-primary-gold);
+  color: var(--c-primary-white);
   padding: 8px;
 }
 
 .explore-articles-articles .article-content .article-category:hover {
   font-size: var(--heading-font-size-xxs);
-  background-color: var(--primary-gold);
-  color: var(--secondary-dark-gold);
+  background-color: var(--c-primary-gold);
+  color: var(--c-secondary-dark-gold);
   text-decoration: none;
   padding: 8px;
 }
 
 .explore-articles-articles .article-content .article-link {
-  color: var(--primary-white);
+  color: var(--c-primary-white);
 }
 
 .explore-articles-articles .article-content .article-link:hover {
@@ -121,7 +121,7 @@
 }
 
 .explore-articles-articles .article-content .article-title {
-  font-family: var(--emphasis-ff-bold);
+  font-family: var(--ff-body-bold);
   font-size: var(--body-font-size-m);
   margin: 15px 0 0;
 }

@@ -1,5 +1,12 @@
 /* eslint-disable  */
 
+// these variable set the coords of where the map should appear when the user does not allow the location set.
+// in this case it is set to AUSTRALIA
+var defaultCenterCoords = {
+  lat: -25,
+  lng: 135,
+}
+
 // Map Sidebar Animation
 $('.slider-arrow').click(function () {
 
@@ -84,17 +91,17 @@ $showAsistDialog = window.locatorConfig.showAsistDialog;
 var uptimeClicked = false;
 $electricDealer = false;
 $hoverText = $('#hoverText').val();
+$country = window.locatorConfig.country;
 
 // Google callback letting us know maps is ready to be used
 (function () {
   initMap = function () {
-
     $geocoder = new google.maps.Geocoder();
 
     $map = new google.maps.Map(document.getElementById("map"),{
       center: {
-        lat: 39.670469,
-        lng: -101.766407
+        lat: defaultCenterCoords.lat,
+        lng: defaultCenterCoords.lng
       },
       zoom: 4,
       mapTypeControl: false,
@@ -223,8 +230,8 @@ $hoverText = $('#hoverText').val();
         }]
       }]
     });
+    // Remove setting location by default load all pins
 
-    // Attempt geolocation
     $.fn.setLocation();
 
     $directionsService = new google.maps.DirectionsService();
@@ -256,26 +263,69 @@ $hoverText = $('#hoverText').val();
 
         $id = $brandOptionSelected = $(ev.target).attr("id");
 
-        switch ($id) {
-          case "mack":
-            window.locatorConfig.dataSource = "https://www.macktrucks.com/simpleprox.ashx?https://mvservices.na.volvogroup.com/DealerJSON_new.ashx";
-            break;
-
-          case "volvo":
-            window.locatorConfig.dataSource = "https://www.macktrucks.com/simpleprox.ashx?https://mvservices.na.volvogroup.com/Volvo_DealerJSON.ashx";
-            break;
-
-          case "dual":
-            window.locatorConfig.dataSource = "https://www.macktrucks.com/simpleprox.ashx?https://mvservices.na.volvogroup.com/Dualbrand_DealerJSON.ashx";
-            break;
-        }
-
         $.fn.loadPins();
 
         $(".datasource-option").toggle();
       });
     }
 
+    // by default load pins
+    if (!window.locatorConfig.dataSource) {
+      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
+    }
+
+    // set the default location for country if there is no postcode in url or stored location
+    if (!$('#location').val() && ($location === null)) {
+      $geocoder = new google.maps.Geocoder;
+      $geocoder.geocode({ 'address':  $country }, function (results) {
+        if (!results || results.length == 0) {
+          $('.waiting-overlay').css('display', 'block');
+          console.log("results not found");
+        } else {
+          $('.waiting-overlay').css('display', 'none');
+          $map.viewtype = (results[0].types[0]);
+
+          $map.fitBounds(results[0].geometry.viewport);
+
+          position = results[0].geometry.location;
+
+          if (!$location) {
+            $location = [
+              position.lat(),
+              position.lng()
+            ];
+          }
+
+        $pin = {
+          url: $meIcon,
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(100, 100),
+
+          scaledSize: new google.maps.Size(30, 30),
+
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(30, 30)
+        };
+
+          $me = new google.maps.Marker({
+            position: { lat: $location[0], lng: $location[1] },
+            title: 'ME',
+            map: $map,
+            zIndex: 0,
+            icon: $pin
+          });
+
+          $me.setZIndex(0);
+          $me.setPosition({ lat: parseFloat($location[0]), lng: parseFloat($location[1]) });
+
+          $.fn.loadPins();
+          $.fn.switchSidebarPane('sidebar-pins');
+        }
+      });
+    }
   }
 })();
 
@@ -294,286 +344,155 @@ $.fn.initGoogleMaps = function () {
 $.fn.loadPins = function () {
 
 
-  $pins = [];
   $nearbyPins = [];
-  $markers = [];
 
-  if (!window.locatorConfig.dataSource) {
-    window.locatorConfig.dataSource = '/simpleprox.ashx?https://mvservices.na.volvogroup.com/Dualbrand_US_DealerJSON.ashx';
-  }
+  let dealers;
 
-  $.ajax({
-    url: window.locatorConfig.dataSource + '?' + ((window.locatorConfig.asist) ? 'asist=1%26' : '') + 'state=1',
-    type: "GET",
-    success: function (data) {
+  // fetch markers only if they are not present, as by default we load all markers
+  if (!$markers.length) {
+    $.ajax({
+      // use json file from franklin
+      url: '/buy-mack/find-a-dealer/market-export-dealer.json',
+      type: "GET",
+      success: function ({ data }) {
 
-      try {
-        data = JSON.parse(data);
-      } catch (e) {
-        // data is already an object, proceed.
-      }
+        try {
+          dealers = data;
+          for (var dealer of dealers) {
+            $dealer = dealer;
 
-      for (var country in data.countries) {
+            $marker = new google.maps.Marker({
+              id: $dealer.IDENTIFIER_VALUE,
+              position: { lat: parseFloat($dealer.MAIN_LATITUDE), lng: parseFloat($dealer.MAIN_LONGITUDE) },
+              title: $dealer.COMPANY_DBA_NAME,
+              map: $map,
+              icon: {
+                // by default use only one marker
+                url: "/blocks/dealer-locator/images/dealer.svg",
+                scaledSize: new google.maps.Size(17, 23), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0)
+              }
+            });
+            // Marker click event listener
+            $marker.addListener('click', function () {
 
-        if (data.countries.hasOwnProperty(country)) {
+              var index = $markers.indexOf(this);
 
-          $country = data.countries[country];
+              var marker = $markers[index];
 
-          for (var state in $country.states) {
+              $map.panTo(marker.position);
 
-            if ($country.states.hasOwnProperty(state)) {
+              if ($lastPane == 'sidebar-select-pins') {
 
-              $state = $country.states[state];
+                var details = null;
+                for (i = 0; i < $pins.length; i++) {
 
-              for (var dealer in $state.dealers) {
+                  if ($pins[i].IDENTIFIER_VALUE == marker.id) {
 
-                if ($state.dealers.hasOwnProperty(dealer)) {
-
-                  $dealer = $state.dealers[dealer];
-
-                  if ($dealer.services) {
-
-                    for (var service in $dealer.services) {
-
-                      if ($dealer.services.hasOwnProperty(service)) {
-
-                        $service = $dealer.services[service];
-
-                        if ($service.toLowerCase().indexOf("certified uptime") > -1) {
-                          $dealer.isCertifiedUptimeCenter = true;
-                          $electricDealer = false;
-                        }
-
-                        if ($service.toLowerCase().indexOf("certified") > -1) {
-                          $dealer.isCertifiedCenter = true;
-                        }
-
-                        if ($service.toLowerCase().indexOf('premium used') > -1) {
-                          $dealer.isPremiumUsedTruckDealer = true;
-                          $service = 'Premium Certified Used Truck Dealer';
-                        }
-
-                        if ($service.toLowerCase().indexOf('select part store') > -1) {
-                          $dealer.isPartsAssist = true;
-                          $dealer.services[service] = 'SELECT Part Store&reg;';
-                        }
-                      }
-
-                    }
-                    if (Object.values($dealer.services).includes('Mack Certified EV Dealer')) {
-                      $electricDealer = true;
+                    if ($.fn.isWaypoint($pins[i].waypoint)) {
+                      continue;
                     }
 
-                  }
-                  if ($dealer.isCertifiedUptimeCenter) {
-                    var pinIcon = {
-                      url: "/blocks/dealer-locator/images/uptime.svg",
-                      scaledSize: new google.maps.Size(17, 23), // scaled size
-                      origin: new google.maps.Point(0, 0), // origin
-                      anchor: new google.maps.Point(0, 0)
-                    }
-                    if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Mack Certified EV Dealer'))) {
-                      var pinIcon = {
-                        url: "/blocks/dealer-locator/images/uptime-electric.svg",
-                        scaledSize: new google.maps.Size(17, 23), // scaled size
-                        origin: new google.maps.Point(0, 0), // origin
-                        anchor: new google.maps.Point(0, 0)
-                      }
-                    }
-                  }
-                  else if ($electricDealer === true || ($dealer.services && Object.values($dealer.services).includes('Mack Certified EV Dealer'))) {
-                    var pinIcon = {
-                      url: "/blocks/dealer-locator/images/dealer-electric.svg",
-                      scaledSize: new google.maps.Size(17, 23), // scaled size
-                      origin: new google.maps.Point(0, 0), // origin
-                      anchor: new google.maps.Point(0, 0)
-                    }
-                  }
-                  else {
-                    var pinIcon = {
-                      url: "/blocks/dealer-locator/images/dealer.svg",
-                      scaledSize: new google.maps.Size(17, 23), // scaled size
-                      origin: new google.maps.Point(0, 0), // origin
-                      anchor: new google.maps.Point(0, 0)
-                    }
-                  }
-
-                  $marker = new google.maps.Marker({
-                    id: $dealer.IDENTIFIER_VALUE,
-                    position: { lat: parseFloat($dealer.MAIN_LATITUDE), lng: parseFloat($dealer.MAIN_LONGITUDE) },
-                    title: $dealer.COMPANY_DBA_NAME,
-                    map: $map,
-                    icon: pinIcon
-                  });
-
-                  // Marker click event listener
-                  $marker.addListener('click', function () {
-
-                    var index = $markers.indexOf(this);
-
-                    var marker = $markers[index];
-
-                    $map.panTo(marker.position);
-
-                    if ($lastPane == 'sidebar-select-pins') {
-
-                      var details = null;
-                      for (i = 0; i < $pins.length; i++) {
-
-                        if ($pins[i].IDENTIFIER_VALUE == marker.id) {
-
-                          if ($.fn.isWaypoint($pins[i].waypoint)) {
-                            continue;
-                          }
-
-                          $wayPoints.push($pins[i].waypoint);
-                          details = $pins[i];
-                          // minus icon
-                          var pinIcon = $.fn.drawPin('-', 38, 38, '808080');
-                          marker.setIcon(pinIcon);
-                          // update select-pins display with location
-                          $.fn.renderAddDirectionsPin(marker, details);
-
-                        }
-
-                      }
-
-                      return;
-                    }
-
-                    // reset all markers to basic
-                    $markers.forEach(function (marker) {
-
-                      var details = $.fn.getPinById(marker.ID);
-
-                      if (details.isCertifiedUptimeCenter) {
-                        var pinIcon = {
-                          url: "/blocks/dealer-locator/images/uptime.svg",
-                          scaledSize: new google.maps.Size(17, 23), // scaled size
-                          origin: new google.maps.Point(0, 0), // origin
-                          anchor: new google.maps.Point(0, 0)
-                        }
-                        if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-                          var pinIcon = {
-                            url: "/blocks/dealer-locator/images/uptime-electric.svg",
-                            scaledSize: new google.maps.Size(17, 23), // scaled size
-                            origin: new google.maps.Point(0, 0), // origin
-                            anchor: new google.maps.Point(0, 0)
-                          }
-                        }
-                      }
-                      else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-                        var pinIcon = {
-                          url: "/blocks/dealer-locator/images/dealer-electric.svg",
-                          scaledSize: new google.maps.Size(17, 23), // scaled size
-                          origin: new google.maps.Point(0, 0), // origin
-                          anchor: new google.maps.Point(0, 0)
-                        }
-                      }
-                      else {
-                        var pinIcon = {
-                          url: "/blocks/dealer-locator/images/dealer.svg",
-                          scaledSize: new google.maps.Size(17, 23), // scaled size
-                          origin: new google.maps.Point(0, 0), // origin
-                          anchor: new google.maps.Point(0, 0)
-                        }
-                      }
-
-                      marker.setIcon(pinIcon);
-
-                    });
-
-                    var details = $.fn.getPinById(marker.ID);
-                    if (details.isCertifiedUptimeCenter) {
-                      var pinIcon = {
-                        url: "/blocks/dealer-locator/images/uptime.svg",
-                        scaledSize: new google.maps.Size(58, 80), // scaled size
-                        origin: new google.maps.Point(0, 0), // origin
-                        anchor: new google.maps.Point(0, 0)
-                      }
-                      if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-                        var pinIcon = {
-                          url: "/blocks/dealer-locator/images/uptime-electric.svg",
-                          scaledSize: new google.maps.Size(58, 80), // scaled size
-                          origin: new google.maps.Point(0, 0), // origin
-                          anchor: new google.maps.Point(0, 0)
-                        }
-                      }
-                    }
-                    else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-                      var pinIcon = {
-                        url: "/blocks/dealer-locator/images/dealer-electric.svg",
-                        scaledSize: new google.maps.Size(58, 80), // scaled size
-                        origin: new google.maps.Point(0, 0), // origin
-                        anchor: new google.maps.Point(0, 0)
-                      }
-                    }
-                    else {
-                      var pinIcon = {
-                        url: "/blocks/dealer-locator/images/dealer.svg",
-                        scaledSize: new google.maps.Size(58, 80), // scaled size
-                        origin: new google.maps.Point(0, 0), // origin
-                        anchor: new google.maps.Point(0, 0)
-                      }
-                    }
-
+                    $wayPoints.push($pins[i].waypoint);
+                    details = $pins[i];
+                    // minus icon
+                    var pinIcon = $.fn.drawPin('-', 38, 38, '808080');
                     marker.setIcon(pinIcon);
+                    // update select-pins display with location
+                    $.fn.renderAddDirectionsPin(marker, details);
 
-                    $.fn.myDealer();
-
-                    $.fn.switchSidebarPane('sidebar-pin', marker.id);
-
-                  });
-
-                  $markers.push($marker);
-
-                  $marker.ID = $dealer.IDENTIFIER_VALUE;
-
-                  $dealer.waypoint = {
-                    id: $dealer.IDENTIFIER_VALUE,
-                    point: {
-                      location: new google.maps.LatLng($dealer.MAIN_LATITUDE, $dealer.MAIN_LONGITUDE),
-                      stopover: false
-                    }
-                  };
-
-                  $pins.push($dealer);
-
-                  $pins2.push($dealer);
+                  }
 
                 }
+
+                return;
+              }
+
+              // reset all markers to basic
+              // by default use only one marker
+              $markers.forEach(function (marker) {
+                marker.setIcon({
+                  url: "/blocks/dealer-locator/images/dealer.svg",
+                  scaledSize: new google.maps.Size(17, 23), // scaled size
+                  origin: new google.maps.Point(0, 0), // origin
+                  anchor: new google.maps.Point(0, 0)
+                });
+
+              });
+
+              marker.setIcon({
+                url: "/blocks/dealer-locator/images/dealer.svg",
+                scaledSize: new google.maps.Size(58, 80), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0)
+              });
+
+              $.fn.myDealer();
+
+              $.fn.switchSidebarPane('sidebar-pin', marker.id);
+
+            });
+
+            $markers.push($marker);
+
+            $marker.ID = $dealer.IDENTIFIER_VALUE;
+
+            $dealer.waypoint = {
+              id: $dealer.IDENTIFIER_VALUE,
+              point: {
+                location: new google.maps.LatLng($dealer.MAIN_LATITUDE, $dealer.MAIN_LONGITUDE),
+                stopover: false
+              }
+            };
+            $pins.push($dealer);
+
+            $pins2.push($dealer);
+          }
+
+          $.fn.myDealer();
+          $.fn.filterRadius();
+
+          var markerId = $.fn.getUrlParameter('view');
+          var viewMarker = $.fn.getPinById(markerId);
+          if (markerId && viewMarker) {
+
+            //setCenter
+            for (i = 0; i < $markers.length; i++) {
+
+              if ($markers[i].id == markerId) {
+
+                $.fn.switchSidebarPane('sidebar-pin', markerId);
 
               }
             }
           }
+
+        } catch (e) {
+          // data is already an object, proceed.
         }
       }
 
-      $.fn.myDealer();
-      $.fn.filterRadius();
+    });
+  } else {
+    $.fn.myDealer();
+    $.fn.filterRadius();
 
-      var markerId = $.fn.getUrlParameter('view');
-      var viewMarker = $.fn.getPinById(markerId);
-      if (markerId && viewMarker) {
+    var markerId = $.fn.getUrlParameter('view');
+    var viewMarker = $.fn.getPinById(markerId);
+    if (markerId && viewMarker) {
 
+      //setCenter
+      for (i = 0; i < $markers.length; i++) {
 
-        //setCenter
-        for (i = 0; i < $markers.length; i++) {
+        if ($markers[i].id == markerId) {
 
-          if ($markers[i].id == markerId) {
+          $.fn.switchSidebarPane('sidebar-pin', markerId);
 
-            $.fn.switchSidebarPane('sidebar-pin', markerId);
-
-          }
         }
-
-
       }
-
-
     }
-
-  });
+  }
 };
 $.fn.removeWaypoint = function (pin) {
 
@@ -612,34 +531,30 @@ $.fn.isWaypoint = function (waypoint) {
 };
 
 $.fn.getHours = function (dealer) {
-  var hours = null;
+  let hours = null;
+  let week = {};
 
-  if (dealer.hours['Parts']) {
-    hours = dealer.hours['Parts'];
-  }
+  const hoursArray = dealer.hours.split(',');
 
-  if (!hours && dealer.hours['Service']) {
-    hours = dealer.hours['Service'];
-  }
-
-  if (!hours && dealer.hours['Leasing']) {
-    hours = dealer.hours['Leasing'];
-  }
+  hoursArray.forEach((hours, idx) => {
+    if (hours.toLowerCase() === 'closed') {
+      week[idx] = { 'Start': 'Closed', 'End': 'Closed' }
+    } else {
+      const [start, end] = hours.split('-')
+      week[idx] = { 'Start': start, 'End': end }
+    }
+  });
+  if (dealer.hours) hours = week;
 
   return hours;
-
 };
 
 $.fn.isOpen = function (dealer, time) {
-
   var hours = $.fn.getHours(dealer);
-
   var zone = moment.tz.guess();
-
   var closeSoon = false;
 
   if (hours) {
-
     if (!time) {
       time = new Date();
     }
@@ -906,8 +821,11 @@ $.fn.renderPinDetails = function (markerId) {
   var driverAmenities = [];
   var newdriverAmenities = [];
   var serviceAmenities = [];
-  if (markerDetails.services) {
+  //  services can be array or string handle both cases here;
+  if (Array.isArray(markerDetails.services)) {
     var newMarkerDetail = Object.values(markerDetails.services);
+  } else {
+    serviceAmenities.push(markerDetails.services)
   }
   if (newMarkerDetail) {
     jQuery.grep(newMarkerDetail, function (el) {
@@ -1084,7 +1002,6 @@ $.fn.renderPinDetails = function (markerId) {
     }
   }
 
-
   if (!hasPartsHours && !hasServiceHours && !hasLeasingHours && !hasSalesHours) {
     isOpenHtml = "Call";
   }
@@ -1107,7 +1024,6 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var templateClone = $($('#sidebar-select-pin').clone(true).html());
 
   templateClone.find('.fa-close').attr('data-id', details.IDENTIFIER_VALUE);
-  console.log(details, "details")
 
   var isOpen = $.fn.isOpen(details);
   var isOpenHtml = "";
@@ -1119,7 +1035,6 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
     isOpenHtml = "Closed";
   }
 
-
   templateClone.find('.heading p').text($.fn.camelCase(details.COMPANY_DBA_NAME));
   templateClone.find('.hours').text(isOpenHtml);
   templateClone.find('.distance').text(details.distance.toFixed(2) + ' mi');
@@ -1129,12 +1044,9 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
   templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
 
-
   $("<div/>", {
     'html': templateClone
   }).appendTo('.nearby-select');
-
-
 };
 
 $.fn.setupAddDirectionsView = function () {
@@ -1174,7 +1086,6 @@ $.fn.switchSidebarPane = function (id, e) {
   var content = $('#' + id).html();
 
   var forceRefresh = false;
-  console.log(markerId, "markerId");
   if (e && id == 'sidebar-pin') {
     content = $.fn.renderPinDetails(markerId);
   }
@@ -1349,6 +1260,8 @@ $.fn.filterRadius = function () {
   var k = 1;
   for (var i = 0; i < $markers.length; i++) {
 
+    const postcode = $('#location').val() || $('#location2').val();
+
     if (google.maps.geometry.spherical.computeDistanceBetween($markers[i].getPosition(), $me.getPosition()) < radius) {
 
       bounds.extend($markers[i].getPosition())
@@ -1380,7 +1293,10 @@ $.fn.filterRadius = function () {
         return v['IDENTIFIER_VALUE'] === $markers[i].ID;
       })[0];
 
-      if ($.fn.showPin(pin)) {
+      if ($.fn.showPin(pin) && !postcode) {
+        $markers[i].setMap($map);
+        $nearbyPins.push($markers[i].ID);
+      } else {
         $markers[i].setMap($map);
       }
 
@@ -1388,41 +1304,12 @@ $.fn.filterRadius = function () {
         var pinIcon = $.fn.drawPin('', 43, 63, '328E04');
       }
       else {
-
-        if (details.isCertifiedUptimeCenter) {
-          var pinIcon = {
-            url: "/blocks/dealer-locator/images/uptime.svg",
-            scaledSize: new google.maps.Size(17, 23), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0)
-          }
-          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-            var pinIcon = {
-              url: "/blocks/dealer-locator/images/uptime-electric.svg",
-              scaledSize: new google.maps.Size(17, 23), // scaled size
-              origin: new google.maps.Point(0, 0), // origin
-              anchor: new google.maps.Point(0, 0)
-            }
-          }
+        var pinIcon = {
+          url: "/blocks/dealer-locator/images/dealer.svg",
+          scaledSize: new google.maps.Size(17, 23), // scaled size
+          origin: new google.maps.Point(0, 0), // origin
+          anchor: new google.maps.Point(0, 0)
         }
-        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
-          var pinIcon = {
-            url: "/blocks/dealer-locator/images/dealer-electric.svg",
-            scaledSize: new google.maps.Size(17, 23), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0)
-          }
-        }
-
-        else {
-          var pinIcon = {
-            url: "/blocks/dealer-locator/images/dealer.svg",
-            scaledSize: new google.maps.Size(17, 23), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0)
-          }
-        }
-
       }
       $markers[i].setIcon(pinIcon);
       $markers[i].pinIndex = null;
@@ -1432,12 +1319,17 @@ $.fn.filterRadius = function () {
     $map.fitBounds(bounds);
 
     $map.setZoom(8);
-
-
   }
 
   $map.setCenter($me.getPosition());
-  $map.setZoom(8);
+
+  // check for address and filter dealers based on postcode
+  const postcode = $('#location').val() || $('#location2').val();
+  if (!postcode) {
+    $map.setZoom(4);
+  } else {
+    $map.setZoom(8);
+  }
 
   $.fn.filterNearbyPins();
 };
@@ -1480,6 +1372,7 @@ $.fn.setCookie = function (name, value, days) {
   }
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
+
 $.fn.getCookie = function (name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
@@ -1532,16 +1425,23 @@ $.fn.showPin = function (pin) {
   if ($consolidateFilters) {
     switch (filter) {
       case 'all':
-        condition = pin.DEALER_TYPE_DESC.toLowerCase().indexOf('full line') > -1
-            || pin.DEALER_TYPE_DESC.toLowerCase().indexOf('parts & service') > -1
-            || pin.DEALER_TYPE_DESC.toLowerCase().indexOf('parts only') > -1
-            || pin.DEALER_TYPE_DESC.toLowerCase().indexOf('satellite') > -1
-            || pin.isCertifiedCenter
-            || pin.isCertifiedUptimeCenter;
+        condition = ['Sales, Service & Parts', 'Service and Parts', 'Customer Service Centre', 'Head office'].includes(pin.DEALER_TYPE_DESC);
         break;
 
-      case 'rental-leasing':
-        condition = pin.DEALER_TYPE_DESC.toLowerCase().indexOf('leasing') > -1;
+      case 'sales-service':
+        condition = pin.DEALER_TYPE_DESC.indexOf('Sales, Service & Parts') > -1;
+        break;
+
+      case 'services-parts':
+        condition = pin.DEALER_TYPE_DESC.indexOf('Service and Parts') > -1;
+        break;
+
+      case 'customer-service':
+        condition = pin.DEALER_TYPE_DESC.indexOf('Customer Service Centre') > -1;
+        break;
+
+      case 'head-office':
+        condition = pin.DEALER_TYPE_DESC.indexOf('Head office') > -1;
         break;
 
       default:
@@ -1586,6 +1486,7 @@ $.fn.showPin = function (pin) {
 
   return condition;
 };
+
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
@@ -1609,7 +1510,6 @@ $.fn.tmpPins = function (tmpPinList) {
     } else {
       isOpenHtml = "Closed";
     }
-
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
     templateClone.find('.hours').text(isOpenHtml);
@@ -1644,46 +1544,15 @@ $.fn.tmpPins = function (tmpPinList) {
           templateClone.find('#marker').css('height', 'auto');
         }
         else {
-
-          if (pin.isCertifiedUptimeCenter) {
-            var pinIcon = "/blocks/dealer-locator/images/uptime.svg";
-            var pinIcon2 = {
-              url: "/blocks/dealer-locator/images/uptime.svg",
-              scaledSize: new google.maps.Size(17, 23), // scaled size
-              origin: new google.maps.Point(0, 0), // origin
-              anchor: new google.maps.Point(0, 0)
-            }
-            if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
-              var pinIcon = "/blocks/dealer-locator/images/uptime-electric.svg";
-              var pinIcon2 = {
-                url: "/blocks/dealer-locator/images/uptime-electric.svg",
-                scaledSize: new google.maps.Size(17, 23), // scaled size
-                origin: new google.maps.Point(0, 0), // origin
-                anchor: new google.maps.Point(0, 0)
-              }
-            }
-          }
-          else if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
-            var pinIcon = "/blocks/dealer-locator/images/dealer-electric.svg";
-            var pinIcon2 = {
-              url: "/blocks/dealer-locator/images/dealer-electric.svg",
-              scaledSize: new google.maps.Size(17, 23), // scaled size
-              origin: new google.maps.Point(0, 0), // origin
-            }
-
-          }
-          else {
-            var pinIcon = "/blocks/dealer-locator/images/dealer.svg";
-            var pinIcon2 = {
-              url: "/blocks/dealer-locator/images/dealer.svg",
-              scaledSize: new google.maps.Size(17, 23), // scaled size
-              origin: new google.maps.Point(0, 0), // origin
-            }
-          }
+          var pinIcon = "/blocks/dealer-locator/images/dealer.svg";
         }
 
 
-        marker.setIcon(pinIcon2);
+        marker.setIcon({
+          url: "/blocks/dealer-locator/images/dealer.svg",
+          scaledSize: new google.maps.Size(17, 23), // scaled size
+          origin: new google.maps.Point(0, 0), // origin
+        });
 
         marker['pinIndex'] = pinIndex;
 
@@ -1796,6 +1665,7 @@ $.fn.tmpPins = function (tmpPinList) {
 
   });
 };
+
 // Creates pin result item
 $.fn.filterNearbyPins = function () {
 
@@ -2153,8 +2023,6 @@ $.fn.selectNearbyPins = function () {
 
         marker['pinIndex'] = pinIndex;
 
-
-
         templateClone.find('#marker').attr('src', pinIcon);
         templateClone.find('#marker').css('width', '31px');
         templateClone.find('#marker').css('height', '43px');
@@ -2436,6 +2304,7 @@ $.fn.setAddress2 = function () {
     }
   });
 };
+
 $.fn.setAddress = function () {
 
   if ($(window).width() < 992) {
@@ -2446,7 +2315,6 @@ $.fn.setAddress = function () {
     return null;
   }
 
-  $geocoder = new google.maps.Geocoder;
   $geocoder = new google.maps.Geocoder;
   $geocoder.geocode({ 'address': address }, function (results, status) {
     if (!results || results.length == 0) {
@@ -2545,8 +2413,7 @@ $.fn.setAddress = function () {
 };
 
 // Handles geolocation
-$.fn.setLocation = function () {
-
+$.fn.setLocation = function (e) {
   if (navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -2563,7 +2430,7 @@ $.fn.setLocation = function () {
 
       $map.setCenter(pos);
       $map.setZoom(8);
-
+      if ($me) $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
 
       if (!$radius) {
 
@@ -2588,7 +2455,6 @@ $.fn.setLocation = function () {
 
         // Set default sidebar pane
         $.fn.switchSidebarPane('sidebar-pins');
-
 
 
       } else {
@@ -2634,11 +2500,10 @@ $.fn.setLocation = function () {
 
       console.log('error with navigator');
       $.fn.handleLocationError(true);
-      const waiting = $('.sidebar #location').val() ? 'none' : 'block';
-      $('.waiting-overlay').css('display', waiting)
+
+      const waiting = $location ? 'none' : 'block';
+      $('.waiting-overlay').css('display', waiting);
     });
-
-
   } else {
     // Browser doesn't support Geolocation
 
@@ -2676,13 +2541,6 @@ $.fn.currentFilterHumanReadable = function () {
 };
 
 $.fn.setMyDealer = function (dealer) {
-
-  if ($myDealer != null && $myDealer.oldZIndex) {
-
-    //$myDealer.marker.setZIndex($myDealer.oldZIndex);
-
-  }
-
   $eventData = {
     dealer: '',
     dealerName: '',

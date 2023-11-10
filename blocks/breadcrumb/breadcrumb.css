@@ -4,7 +4,7 @@ main .section.breadcrumb-container {
 
 .breadcrumb-wrapper {
   font-size: var(--body-font-size-xs);
-  font-family: var(--subheadings-ff-medium);
+  font-family: var(--ff-subheadings-medium);
   margin: 0 auto;
 }
 
@@ -26,12 +26,12 @@ main .section.breadcrumb-container {
 }
 
 .breadcrumb-home a {
-  color: var(--secondary-dark-gold);
+  color: var(--c-secondary-dark-gold);
   text-decoration: none;
 }
 
 .breadcrumb-current {
-  color: var(--primary-black);
+  color: var(--c-primary-black);
   text-transform: capitalize;
 }
 

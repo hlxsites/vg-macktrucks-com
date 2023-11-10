@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/common.js';
 import fragmentBlock from '../fragment/fragment.js';
 
 /* Function checks if the content of the provied element is just a link to other doc */
@@ -19,13 +19,13 @@ export default async function decorate(block) {
       ':scope > div:nth-child(2)',
     );
 
-    const headerButton = createElement('button', 'accordion-header-button');
-    const headerEl = createElement('h2', 'accordion-header');
-    const plusEl = createElement('div', 'accordion-close');
+    const headerButton = createElement('button', { classes: 'accordion-header-button' });
+    const headerEl = createElement('h2', { classes: 'accordion-header' });
+    const plusEl = createElement('div', { classes: 'accordion-close' });
     headerEl.innerHTML = accordionHeader?.innerHTML;
     headerButton.append(headerEl, plusEl);
 
-    const contentEl = createElement('div', ['accordion-content', 'accordion-content-close']);
+    const contentEl = createElement('div', { classes: ['accordion-content', 'accordion-content-close'] });
 
     if (isContentLink(accordionContent)) {
       await fragmentBlock(accordionContent);
@@ -51,7 +51,7 @@ export default async function decorate(block) {
 
     contentEl.innerHTML = accordionContent.innerHTML;
 
-    const accordionEl = createElement('div', ['accordion-item', 'accordion-item-close']);
+    const accordionEl = createElement('div', { classes: ['accordion-item', 'accordion-item-close'] });
     accordionEl.append(headerButton);
     accordionEl.append(contentEl);
 
