@@ -5,6 +5,11 @@
     font-family: var(--ff-body);
 }
 
+/* cookie button position fix */
+#onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
+    bottom: 30px;
+}
+
 main .section.dealer-locator-container > div {
     margin: 0;
 }
