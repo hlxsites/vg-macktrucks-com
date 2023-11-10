@@ -62,17 +62,7 @@ main .section.dealer-locator-container > div {
     .dealer-locator {
       height: calc(100svh - var(--nav-height));
     }
-  }
-
-/* @media (max-width: 992px) {
-    .dealer-locator #map {
-        top: -40px;
-    }
-
-    .dealer-locator .gm-bundled-control .gmnoprint {
-        top: 40px !important;
-    }
-} */
+}
 
 .dealer-locator input[type=text],
 .dealer-locator select,
