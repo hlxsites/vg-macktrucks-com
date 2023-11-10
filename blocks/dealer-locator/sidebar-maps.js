@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-// these variable set the coords of where the map sould appear when the user does not allow the location set.
+// these variable set the coords of where the map should appear when the user does not allow the location set.
 // in this case it is set to AUSTRALIA
 var defaultCenterCoords = {
   lat: -25,
@@ -284,9 +284,9 @@ $country = window.locatorConfig.country;
         } else {
           $('.waiting-overlay').css('display', 'none');
           $map.viewtype = (results[0].types[0]);
-  
+
           $map.fitBounds(results[0].geometry.viewport);
-  
+
           position = results[0].geometry.location;
 
           if (!$location) {
@@ -320,10 +320,9 @@ $country = window.locatorConfig.country;
 
           $me.setZIndex(0);
           $me.setPosition({ lat: parseFloat($location[0]), lng: parseFloat($location[1]) });
-  
+
           $.fn.loadPins();
           $.fn.switchSidebarPane('sidebar-pins');
-          // $.fn.setLocation();
         }
       });
     }
@@ -356,7 +355,7 @@ $.fn.loadPins = function () {
       url: '/buy-mack/find-a-dealer/market-export-dealer.json',
       type: "GET",
       success: function ({ data }) {
-  
+
         try {
           dealers = data;
           for (var dealer of dealers) {
@@ -468,12 +467,12 @@ $.fn.loadPins = function () {
               }
             }
           }
-          
+
         } catch (e) {
           // data is already an object, proceed.
         }
       }
-  
+
     });
   } else {
     $.fn.myDealer();
@@ -537,7 +536,7 @@ $.fn.getHours = function (dealer) {
 
   const hoursArray = dealer.hours.split(',');
 
-  hoursArray.forEach((hours, idx) => {   
+  hoursArray.forEach((hours, idx) => {
     if (hours.toLowerCase() === 'closed') {
       week[idx] = { 'Start': 'Closed', 'End': 'Closed' }
     } else {
@@ -1113,7 +1112,7 @@ $.fn.switchSidebarPane = function (id, e) {
     $('.main-directions').css('display', 'none');
     $('.main-header').css('display', 'block');
     $.fn.clearDirections();
-    $map.setZoom(4);
+    $map.setZoom(8);
   }
   if ($lastPane) {
     $('#d-' + $lastPane).css('display', 'none');
@@ -1444,7 +1443,7 @@ $.fn.showPin = function (pin) {
       case 'head-office':
         condition = pin.DEALER_TYPE_DESC.indexOf('Head office') > -1;
         break;
-        
+
       default:
         condition = false;
         break;
@@ -2024,8 +2023,6 @@ $.fn.selectNearbyPins = function () {
 
         marker['pinIndex'] = pinIndex;
 
-
-
         templateClone.find('#marker').attr('src', pinIcon);
         templateClone.find('#marker').css('width', '31px');
         templateClone.find('#marker').css('height', '43px');
@@ -2433,7 +2430,7 @@ $.fn.setLocation = function (e) {
 
       $map.setCenter(pos);
       $map.setZoom(8);
-      $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
+      if ($me) $me.setPosition({ lat: parseFloat(pos.lat), lng: parseFloat(pos.lng) });
 
       if (!$radius) {
 
@@ -2544,13 +2541,6 @@ $.fn.currentFilterHumanReadable = function () {
 };
 
 $.fn.setMyDealer = function (dealer) {
-
-  if ($myDealer != null && $myDealer.oldZIndex) {
-
-    //$myDealer.marker.setZIndex($myDealer.oldZIndex);
-
-  }
-
   $eventData = {
     dealer: '',
     dealerName: '',
