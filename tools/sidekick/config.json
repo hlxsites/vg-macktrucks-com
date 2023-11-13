@@ -1,11 +1,11 @@
 {
-  "project": "Mack Trucks",
+  "project": "Mack Trucks AUS",
   "plugins": [
     {
       "id": "library",
       "title": "Library",
       "environments": [ "edit" ],
-      "url": "https://main--vg-macktrucks-com--hlxsites.hlx.live/tools/sidekick/library.html",
+      "url": "https://main--vg-macktrucks-com-au--hlxsites.hlx.live/tools/sidekick/library.html",
       "includePaths": [ "**.docx**" ]
     },
     {
