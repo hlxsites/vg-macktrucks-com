@@ -14,8 +14,30 @@ const scrollLeft = (el, leftPadding) => {
   });
 };
 
-const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList) => {
+const udpateArrowsState = (activeSlideIndex, itemsCount) => {
+  const arrowButtons = [...document.querySelectorAll(`.${blockClassName}__modal-arrows-wrapper button`)];
+
+  if (!arrowButtons.length) {
+    return;
+  }
+
+  if (activeSlideIndex === 0) {
+    arrowButtons[0].setAttribute('disabled', 'disabled');
+  } else {
+    arrowButtons[0].removeAttribute('disabled');
+  }
+
+  if (activeSlideIndex === itemsCount - 1) {
+    arrowButtons[1].setAttribute('disabled', 'disabled');
+  } else {
+    arrowButtons[1].removeAttribute('disabled');
+  }
+};
+
+const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList, modalContent) => {
   const itemWidth = carouselItemsList.getBoundingClientRect().width;
+
+  udpateArrowsState(activeSlideIndex, carouselItemsList.children.length, modalContent);
 
   scrollLeft(carouselImagesList, activeSlideIndex * 90);
   scrollLeft(carouselItemsList, activeSlideIndex * itemWidth);
@@ -63,6 +85,8 @@ const createModalContent = (content) => {
 
     const observer = new IntersectionObserver(() => {
       debouncedOnItemChange(index);
+
+      udpateArrowsState(index, carouselItemsList.children.length, el.closest(`${blockClassName}__carousel-items-wrapper`));
     }, options);
 
     observer.observe(carouselItem);
@@ -73,15 +97,11 @@ const createModalContent = (content) => {
 
   itemsWrapper.innerHTML = `
     <div class="${blockClassName}__modal-arrows-wrapper">
-      <button class="${blockClassName}__modal-arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path fill="var(--color-icon, #000)" d="M21 11C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13V11ZM2.29289 12.7071C1.90237 12.3166 1.90237 11.6834 2.29289 11.2929L8.65685 4.92893C9.04738 4.53841 9.68054 4.53841 10.0711 4.92893C10.4616 5.31946 10.4616 5.95262 10.0711 6.34315L4.41421 12L10.0711 17.6569C10.4616 18.0474 10.4616 18.6805 10.0711 19.0711C9.68054 19.4616 9.04738 19.4616 8.65685 19.0711L2.29289 12.7071ZM21 13L3 13V11L21 11V13Z" />
-        </svg>
+      <button class="${blockClassName}__modal-arrow" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
       </button>
-      <button class="${blockClassName}__modal-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill="var(--color-icon, #000)" d="M3 11C2.44772 11 2 11.4477 2 12C2 12.5523 2.44772 13 3 13L3 11ZM21.7071 12.7071C22.0976 12.3166 22.0976 11.6834 21.7071 11.2929L15.3431 4.92893C14.9526 4.53841 14.3195 4.53841 13.9289 4.92893C13.5384 5.31946 13.5384 5.95262 13.9289 6.34315L19.5858 12L13.9289 17.6569C13.5384 18.0474 13.5384 18.6805 13.9289 19.0711C14.3195 19.4616 14.9526 19.4616 15.3431 19.0711L21.7071 12.7071ZM3 13L21 13V11L3 11L3 13Z" />
-        </svg>
+      <button class="${blockClassName}__modal-arrow" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
       </button>
     </div>
   `;
@@ -92,24 +112,19 @@ const createModalContent = (content) => {
 
     el.addEventListener('click', () => {
       const itemWidth = carouselItemsList.getBoundingClientRect().width;
-      let index = Math.round(carouselItemsList.scrollLeft / itemWidth) + modifiers[elIndex];
+      const index = Math.round(carouselItemsList.scrollLeft / itemWidth) + modifiers[elIndex];
 
-      if (index < 0) {
-        index = carouselItemsList.children.length - 1;
-      }
-
-      if (index > carouselItemsList.children.length - 1) {
-        index = 0;
-      }
-
-      scrollLeft(carouselImagesList, index * 90);
-      scrollLeft(carouselItemsList, index * itemWidth);
+      setActiveSlide(index, carouselItemsList, carouselImagesList, content);
     });
   });
 
   wrapper.append(itemsWrapper, carouselImagesList);
 
   return wrapper;
+};
+
+const showImagesGridModal = async (modalContent) => {
+  await showModal(modalContent, { classes: ['modal-content--bottom'] });
 };
 
 export default function decorate(block) {
@@ -155,8 +170,8 @@ export default function decorate(block) {
         const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
         const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
 
-        await showModal(modalContent, { classes: ['modal-content--bottom'] });
-        setActiveSlide(idx, carouselItemsList, carouselImagesList);
+        await showImagesGridModal(modalContent);
+        setActiveSlide(idx, carouselItemsList, carouselImagesList, modalContent);
       });
 
       return;
@@ -168,8 +183,12 @@ export default function decorate(block) {
     classes: ['button', 'button--large', 'button--primary'],
   });
   button.textContent = getTextLabel('Open Gallery');
-  button.addEventListener('click', () => {
-    showModal(modalContent, { classes: ['modal-content--bottom'] });
+  button.addEventListener('click', async () => {
+    const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
+    const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
+
+    await showImagesGridModal(modalContent);
+    setActiveSlide(0, carouselItemsList, carouselImagesList, modalContent);
   });
 
   block.append(button);

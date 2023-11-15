@@ -109,6 +109,11 @@
     position: absolute;
     right: 0;
   }
+
+  .redesign-v2 .modal-background button.modal-close-button:hover,
+  .redesign-v2 .modal-background button.modal-close-button:focus-visible {
+    --color-icon: var(--c-accent-copper);
+  }
 }
 
 /* adjustments for soundcloud variant of modal, e.g. https://www.volvotrucks.us/trucks/powertrain/i-torque/ */

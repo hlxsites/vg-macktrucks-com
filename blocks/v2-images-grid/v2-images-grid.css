@@ -155,8 +155,20 @@
 
 .v2-images-grid__modal-arrow:hover,
 .v2-images-grid__modal-arrow:active,
-.v2-images-grid__modal-arrow:focus {
+.v2-images-grid__modal-arrow:focus
+.v2-images-grid__modal-arrow:focus-visible {
   background: var(--c-primary-white);
+
+  --color-icon: var(--c-accent-copper);
+}
+
+.v2-images-grid__modal-arrow svg {
+  height: 24px;
+  width: 24px;
+}
+
+.v2-images-grid__modal-arrow:disabled:hover svg {
+  --color-icon: var(--c-primary-black);
 }
 
 .v2-images-grid__carousel-items-wrapper {
@@ -175,6 +187,12 @@
   .v2-images-grid__modal-arrow:first-of-type {
   top: 50%;
   position: absolute;
+}
+
+.v2-images-grid__modal-arrows-wrapper
+  .v2-images-grid__modal-arrow:first-of-type
+  svg {
+  rotate: 180deg;
 }
 
 .v2-images-grid__modal-arrows-wrapper
