@@ -14,7 +14,7 @@ const updateActiveClass = (elements, entry) => {
   elements.forEach((el, index) => {
     if (el === entry.target) {
       el.classList.add('active');
-      let arrowControl = document.querySelector(`.${blockName}__button:disabled`);
+      let arrowControl = el.parentElement.previousElementSibling.querySelector(`.${blockName}__button:disabled`);
 
       if (arrowControl) {
         arrowControl.disabled = false;
@@ -22,9 +22,9 @@ const updateActiveClass = (elements, entry) => {
       }
       // disable arrow buttons
       if (index === 0) {
-        arrowControl = document.querySelector(`.${blockName}__button-prev`);
+        arrowControl = el.parentElement.previousElementSibling.querySelector(`.${blockName}__button-prev`);
       } else if (index === el.parentNode.children.length - 1) {
-        arrowControl = document.querySelector(`.${blockName}__button-next`);
+        arrowControl = el.parentElement.previousElementSibling.querySelector(`.${blockName}__button-next`);
       }
       if (arrowControl) {
         arrowControl.disabled = true;
@@ -35,7 +35,7 @@ const updateActiveClass = (elements, entry) => {
   });
 };
 
-const arrowFragment = document.createRange().createContextualFragment(`<li>
+const arrowFragment = () => document.createRange().createContextualFragment(`<li>
   <button aria-label="Previous" class="${blockName}__button ${blockName}__button-prev">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path d="M21 11C21.5523 11 22 11.4477 22 12C22 12.5523 21.5523 13 21 13V11ZM2.29289 12.7071C1.90237 12.3166 1.90237 11.6834 2.29289 11.2929L8.65685 4.92893C9.04738 4.53841 9.68054 4.53841 10.0711 4.92893C10.4616 5.31946 10.4616 5.95262 10.0711 6.34315L4.41421 12L10.0711 17.6569C10.4616 18.0474 10.4616 18.6805 10.0711 19.0711C9.68054 19.4616 9.04738 19.4616 8.65685 19.0711L2.29289 12.7071ZM21 13L3 13V11L21 11V13Z" fill="var(--color-icon, #000)"/>
@@ -84,7 +84,7 @@ export default async function decorate(block) {
   block.append(carouselRow);
 
   if (textElements.length > 1) {
-    createArrowControls(carouselList, `.${blockName}__list-item.active`, [`${blockName}__arrowcontrols`], arrowFragment);
+    createArrowControls(carouselList, `.${blockName}__list-item.active`, [`${blockName}__arrowcontrols`], arrowFragment());
     const elements = carouselList.querySelectorAll(`.${blockName}__list-item`);
     listenScroll(carouselList, elements, updateActiveClass, 0.75);
   } else {
