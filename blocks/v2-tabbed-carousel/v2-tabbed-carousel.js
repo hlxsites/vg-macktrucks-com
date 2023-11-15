@@ -1,4 +1,4 @@
-import { createElement, removeEmptyTags } from '../../scripts/common.js';
+import { createElement, unwrapDivs } from '../../scripts/common.js';
 
 const blockName = 'v2-tabbed-carousel';
 
@@ -11,41 +11,10 @@ const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
   });
 };
 
-function buildTabNavigation(tabItems, clickHandler) {
-  const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
-  const navigationLine = createElement('li', { classes: `${blockName}__navigation-line` });
-  let timeout;
-
-  [...tabItems].forEach((tabItem, i) => {
-    const listItem = createElement('li', { classes: `${blockName}__navigation-item` });
-    const button = createElement('button');
-    button.addEventListener('click', () => clickHandler(i));
-    button.addEventListener('mouseover', (e) => {
-      clearTimeout(timeout);
-      moveNavigationLine(navigationLine, e.currentTarget, tabNavigation);
-    });
-
-    button.addEventListener('mouseout', () => {
-      timeout = setTimeout(() => {
-        const activeItem = document.querySelector(`.${blockName}__navigation-item.active`);
-        moveNavigationLine(navigationLine, activeItem, tabNavigation);
-      }, 600);
-    });
-
-    button.innerHTML = tabItem.dataset.carousel;
-    listItem.append(button);
-    tabNavigation.append(listItem);
-  });
-
-  tabNavigation.append(navigationLine);
-
-  return tabNavigation;
-}
-
-const updateActiveItem = (index) => {
-  const carouselItems = document.querySelector(`.${blockName}__items`);
-  const navigation = document.querySelector(`.${blockName}__navigation`);
-  const navigationLine = document.querySelector(`.${blockName}__navigation-line`);
+const updateActiveItem = (index, block) => {
+  const carouselItems = block.querySelector(`.${blockName}__items`);
+  const navigation = block.querySelector(`.${blockName}__navigation`);
+  const navigationLine = block.querySelector(`.${blockName}__navigation-line`);
 
   [carouselItems, navigation].forEach((c) => c.querySelectorAll('.active').forEach((i) => i.classList.remove('active')));
   carouselItems.children[index].classList.add('active');
@@ -68,7 +37,7 @@ const updateActiveItem = (index) => {
   }
 };
 
-const listenScroll = (carousel) => {
+const listenScroll = (carousel, block) => {
   const elements = carousel.querySelectorAll(':scope > *');
 
   const io = new IntersectionObserver((entries) => {
@@ -79,7 +48,7 @@ const listenScroll = (carousel) => {
       ) {
         const activeItem = entry.target;
         const currentIndex = [...activeItem.parentNode.children].indexOf(activeItem);
-        updateActiveItem(currentIndex);
+        updateActiveItem(currentIndex, block);
       }
     });
   }, {
@@ -105,43 +74,69 @@ const setCarouselPosition = (carousel, index) => {
 };
 
 export default function decorate(block) {
-  const container = block.querySelector(':scope > div');
-  container.classList.add(`${blockName}__container`);
+  const carouselContainer = createElement('div', { classes: `${blockName}__container` });
+  const carouselItems = createElement('ul', { classes: `${blockName}__items` });
+  carouselContainer.append(carouselItems);
 
-  const carouselItems = createElement('div', { classes: `${blockName}__items` });
-  container.appendChild(carouselItems);
+  const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
+  const navigationLine = createElement('li', { classes: `${blockName}__navigation-line` });
+  let timeout;
 
-  const tabItems = block.querySelectorAll('.v2-tabbed-carousel__item');
+  function buildTabNavigation(buttonContent, index) {
+    const listItem = createElement('li', { classes: `${blockName}__navigation-item` });
+    const button = createElement('button');
 
-  tabItems.forEach((tabItem) => {
-    const tabContent = tabItem.querySelector(':scope > div');
+    button.addEventListener('click', () => setCarouselPosition(carouselItems, index));
+    button.addEventListener('mouseover', (e) => {
+      clearTimeout(timeout);
+      moveNavigationLine(navigationLine, e.currentTarget, tabNavigation);
+    });
 
+    button.addEventListener('mouseout', () => {
+      timeout = setTimeout(() => {
+        const activeItem = document.querySelector(`.${blockName}__navigation-item.active`);
+        moveNavigationLine(navigationLine, activeItem, tabNavigation);
+      }, 600);
+    });
+
+    button.innerHTML = buttonContent;
+    listItem.append(button);
+
+    return listItem;
+  }
+
+  const tabItems = block.querySelectorAll(':scope > div');
+  tabItems.forEach((tabItem, index) => {
+    const liItem = createElement('li', { classes: `${blockName}__item` });
     const figure = createElement('figure', { classes: `${blockName}__figure` });
-    const picture = tabItem.querySelector('picture');
-    figure.appendChild(picture);
+    const tabContent = tabItem.querySelector('p');
+
+    figure.append(tabContent.querySelector('picture'));
 
     const figureCaption = createElement('figcaption');
-    const text = tabContent?.querySelectorAll(':scope > *');
-    if (text) {
-      figureCaption.append(...text);
+    const lastItems = [...tabContent.childNodes].at(-1);
+    if (lastItems.nodeType === Node.TEXT_NODE) {
+      figureCaption.append(lastItems);
+      figure.append(figureCaption);
     }
 
-    tabContent.remove();
     figure.appendChild(figureCaption);
+    liItem.append(figure);
+    carouselItems.appendChild(liItem);
 
-    tabItem.prepend(figure);
-
-    carouselItems.appendChild(tabItem);
+    // navigation item
+    const tabTitle = tabItem.querySelector('h3');
+    const navItem = buildTabNavigation(tabTitle.innerHTML, index);
+    tabNavigation.append(navItem);
+    tabTitle.remove();
+    tabItem.innerHTML = '';
   });
 
-  removeEmptyTags(container);
+  tabNavigation.append(navigationLine);
+  carouselContainer.append(tabNavigation);
 
-  const tabNavigation = buildTabNavigation(tabItems, (index) => {
-    setCarouselPosition(carouselItems, index);
-  });
+  block.append(carouselContainer);
+  listenScroll(carouselItems, block);
 
-  container.append(tabNavigation);
-
-  // update the button indicator on scroll
-  listenScroll(carouselItems);
+  unwrapDivs(block);
 }
