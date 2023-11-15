@@ -155,7 +155,7 @@
 
 .v2-images-grid__modal-arrow:hover,
 .v2-images-grid__modal-arrow:active,
-.v2-images-grid__modal-arrow:focus
+.v2-images-grid__modal-arrow:focus,
 .v2-images-grid__modal-arrow:focus-visible {
   background: var(--c-primary-white);
 

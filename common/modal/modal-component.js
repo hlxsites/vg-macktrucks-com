@@ -121,9 +121,25 @@ const createModal = () => {
     document.querySelector('.modal-content video')?.pause();
     document.querySelector('.modal-content iframe')?.setAttribute('src', '');
 
-    modalContent.addEventListener('transitionend', () => {
-      clearModalContent();
-    }, { once: true });
+    let onHideTransitionCancel;
+    const onHideTransitionEnd = (event) => {
+      if (event.target === modalBackground) {
+        clearModalContent();
+
+        if (onHideTransitionCancel) {
+          modalBackground.removeEventListener('transitioncancel', onHideTransitionCancel);
+        }
+      }
+    };
+
+    onHideTransitionCancel = (event) => {
+      if (event.target === modalBackground) {
+        modalBackground.removeEventListener('transitionend', onHideTransitionEnd);
+      }
+    };
+
+    modalBackground.addEventListener('transitionend', onHideTransitionEnd, { once: true });
+    modalBackground.addEventListener('transitioncancel', onHideTransitionCancel, { once: true });
   }
 
   return {
