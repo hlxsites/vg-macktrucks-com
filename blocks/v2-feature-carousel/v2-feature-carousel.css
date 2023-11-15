@@ -1,13 +1,3 @@
-@keyframes slide-in {
-  0% {
-    opacity:0;
-  }
-
-  100% {
-    opacity:1;
-  }
-}
-
 .v2-feature-carousel {
   --v2-feature-carousel-content-gap: 12px;
   --v2-feature-carousel-size: 512px;
@@ -78,10 +68,6 @@
   flex: 0 0 100%;
   scroll-snap-align: start;
   justify-content: center;
-}
-
-.v2-feature-carousel__list-item.active {
-  animation: slide-in ease-in-out 2s;
 }
 
 .v2-feature-carousel__list::-webkit-scrollbar {
