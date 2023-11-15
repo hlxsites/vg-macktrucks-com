@@ -269,8 +269,8 @@ export function decorateLinks(block) {
       }
 
       const url = new URL(link.href);
-      const external = !url.host.match('macktrucks.com.ca') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
-      if (url.host.match('build.macktrucks.com.ca') || url.pathname.endsWith('.pdf') || external) {
+      const external = !url.host.match('macktrucks.ca') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
+      if (url.host.match('build.macktrucks.ca') || url.pathname.endsWith('.pdf') || external) {
         link.target = '_blank';
       }
     });
