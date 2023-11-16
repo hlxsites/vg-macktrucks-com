@@ -77,7 +77,7 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
 @supports (height: 1svh) {
