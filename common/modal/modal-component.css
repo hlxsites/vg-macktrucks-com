@@ -77,6 +77,14 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  margin-bottom: 60px;
+}
+
+@supports (height: 1svh) {
+  .modal-content--bottom {
+    height: 100svh;
+    margin-bottom: 0;
+  }
 }
 
 @media (min-width: 768px) {
