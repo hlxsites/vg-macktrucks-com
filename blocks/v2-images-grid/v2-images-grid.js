@@ -47,7 +47,23 @@ const createModalContent = (content) => {
   const carouselItemsList = createElement('ul', { classes: `${blockClassName}__carousel-items-list` });
   const carouselImagesList = createElement('ul', { classes: `${blockClassName}__carousel-preview-list` });
 
+  let isScrolling = false;
+  let stopScrolling;
+
+  carouselItemsList.addEventListener('scroll', () => {
+    isScrolling = true;
+
+    clearTimeout(stopScrolling);
+    stopScrolling = setTimeout(() => {
+      isScrolling = false;
+    }, 50);
+  });
+
   const debouncedOnItemChange = debounce((index) => {
+    if (isScrolling) {
+      return;
+    }
+
     scrollLeft(carouselImagesList, index * 90);
   }, 100);
 
@@ -83,7 +99,11 @@ const createModalContent = (content) => {
       threshold: 1.0,
     };
 
-    const observer = new IntersectionObserver(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) {
+        return;
+      }
+
       debouncedOnItemChange(index);
 
       udpateArrowsState(index, carouselItemsList.children.length, el.closest(`${blockClassName}__carousel-items-wrapper`));
