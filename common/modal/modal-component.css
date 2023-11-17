@@ -77,7 +77,7 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  height: 80vh;
+  height: 75vh;
 }
 
 @supports (height: 1svh) {
