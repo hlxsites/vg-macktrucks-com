@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: var(--c-secondary-graphite);
   z-index: 1051;
   transition: opacity 1s linear, height 1s linear;
@@ -54,6 +54,7 @@
   position: absolute;
   opacity: 1;
   cursor: auto;
+  height: 100%;
 }
 
 .modal-content .modal-video {
@@ -72,21 +73,47 @@
   cursor: default;
 }
 
+.modal-content--bottom {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  height: 100%;
+}
+
 @media (min-width: 768px) {
-  .modal-content {
+  :root:not(.redesign-v2) .modal-content {
     width: 726px;
   }
 }
 
 @media (min-width: 992px) {
-  .modal-content {
+  :root:not(.redesign-v2) .modal-content {
     width: 930px;
   }
 }
 
 @media (min-width: 1300px) {
-  .modal-content {
+  :root:not(.redesign-v2) .modal-content {
     width: 1170px;
+  }
+}
+
+@media (min-width: 768px) {
+  .redesign-v2 .modal-content {
+    max-width: 1040px;
+    height: auto;
+    position: relative;
+    aspect-ratio: unset;
+  }
+
+  .redesign-v2 .modal-background button.modal-close-button {
+    position: absolute;
+    right: 0;
+  }
+
+  .redesign-v2 .modal-background button.modal-close-button:hover,
+  .redesign-v2 .modal-background button.modal-close-button:focus-visible {
+    --color-icon: var(--c-accent-copper);
   }
 }
 
@@ -154,12 +181,16 @@
   opacity: 0.6;
 }
 
-.modal-content.modal-form .eloqua-form input[type="submit"] {
+.modal-content.modal-form .eloqua-form input[type='submit'] {
   opacity: 1;
 }
 
-.modal-content.modal-form .eloqua-form .elq-form input[type="checkbox"],
-.modal-content.modal-form .eloqua-form .single-checkbox-row input ~ label.checkbox-aligned.elq-item-label::before {
+.modal-content.modal-form .eloqua-form .elq-form input[type='checkbox'],
+.modal-content.modal-form
+  .eloqua-form
+  .single-checkbox-row
+  input
+  ~ label.checkbox-aligned.elq-item-label::before {
   background-color: transparent;
 }
 
@@ -168,7 +199,7 @@
   color: yellow;
 }
 
-.modal-content.modal-form.modal-red .eloqua-form input[type="submit"] {
+.modal-content.modal-form.modal-red .eloqua-form input[type='submit'] {
   background: var(--c-primary-black);
   color: var(--c-primary-white);
 }
@@ -176,17 +207,17 @@
 .modal-content.modal-red {
   min-height: 700px;
   background-color: #7d191b;
-  background-image: url("../../media/subscribe-to-bulldog-background.webp");
+  background-image: url('../../media/subscribe-to-bulldog-background.webp');
 }
 
-.modal-content.modal-form.modal-black .eloqua-form input[type="submit"] {
+.modal-content.modal-form.modal-black .eloqua-form input[type='submit'] {
   background: #af9866;
 }
 
 .modal-content.modal-black {
   min-height: 700px;
   background-color: #090909;
-  background-image: url("../../media/share-your-thoughts-background.webp");
+  background-image: url('../../media/share-your-thoughts-background.webp');
 }
 
 @media (min-width: 1200px) {
