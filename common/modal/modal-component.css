@@ -75,14 +75,14 @@
 
 .modal-content--bottom {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
+  height: 80vh;
 }
 
 @supports (height: 1svh) {
   .modal-content--bottom {
     height: 100svh;
-    justify-content: flex-end;
   }
 }
 
