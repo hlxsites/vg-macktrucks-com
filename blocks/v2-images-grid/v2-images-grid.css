@@ -136,6 +136,7 @@
 .v2-images-grid__modal-content .v2-images-grid__carousel-item img {
   aspect-ratio: 16/9;
   width: 100%;
+  object-fit: cover;
 }
 
 .v2-images-grid__carousel-preview-item {
