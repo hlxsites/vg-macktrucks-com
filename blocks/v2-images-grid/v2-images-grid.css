@@ -74,9 +74,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: auto;
   justify-content: flex-end;
   max-width: 100vw;
+  height: 100%;
 }
 
 .v2-images-grid__carousel-items-list,
@@ -128,6 +128,9 @@
 
 .v2-images-grid__carousel-item picture {
   display: flex;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .v2-images-grid__modal-content .v2-images-grid__carousel-item img {
@@ -171,6 +174,9 @@
 
 .v2-images-grid__carousel-items-wrapper {
   position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .v2-images-grid__modal-arrows-wrapper {
