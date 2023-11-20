@@ -30,11 +30,6 @@ const createModal = () => {
   modalBackground.style = 'height: 0; opacity: 0;';
   document.body.appendChild(modalBackground);
 
-  // don't close modal when clicking on modal content
-  modalContent.addEventListener('click', (event) => {
-    event.stopPropagation();
-  });
-
   // adding close modal button
   const closeButton = createElement('button', { classes: ['modal-close-button'] });
   const closeIcon = createElement('span', { classes: ['icon', 'icon-close'] });
@@ -108,6 +103,13 @@ const createModal = () => {
 
     // disable page scrolling
     document.body.classList.add('disable-scroll');
+
+    // don't close modal when clicking on modal content
+    [...modalContent.querySelectorAll(':scope > *')].forEach((el) => {
+      el.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
+    });
   }
 
   function hideModal() {
@@ -119,9 +121,25 @@ const createModal = () => {
     document.querySelector('.modal-content video')?.pause();
     document.querySelector('.modal-content iframe')?.setAttribute('src', '');
 
-    modalContent.addEventListener('transitionend', () => {
-      clearModalContent();
-    }, { once: true });
+    let onHideTransitionCancel;
+    const onHideTransitionEnd = (event) => {
+      if (event.target === modalBackground) {
+        clearModalContent();
+
+        if (onHideTransitionCancel) {
+          modalBackground.removeEventListener('transitioncancel', onHideTransitionCancel);
+        }
+      }
+    };
+
+    onHideTransitionCancel = (event) => {
+      if (event.target === modalBackground) {
+        modalBackground.removeEventListener('transitionend', onHideTransitionEnd);
+      }
+    };
+
+    modalBackground.addEventListener('transitionend', onHideTransitionEnd, { once: true });
+    modalBackground.addEventListener('transitioncancel', onHideTransitionCancel, { once: true });
   }
 
   return {

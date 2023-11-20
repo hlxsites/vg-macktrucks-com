@@ -21,7 +21,7 @@ main .section.v2-tabbed-carousel-container {
 }
 
 .v2-tabbed-carousel__items {
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   flex-flow: row nowrap;
   margin: 0;
@@ -81,6 +81,7 @@ main .section.v2-tabbed-carousel-container {
   list-style: none;
   margin: 0;
   overflow: auto;
+  scrollbar-width: none;
   padding: var(--navigation-padding);
   position: relative;
 }
@@ -130,12 +131,24 @@ main .section.v2-tabbed-carousel-container {
   padding: 20px 15px 10px;
   white-space: nowrap;
   width: 100%;
+  transition: var(--duration-small) var(--easing-standard);
+  z-index: 3;
+  position: relative;
 }
 
 .v2-tabbed-carousel__navigation-item.active button,
 .v2-tabbed-carousel__navigation-item button:hover,
-.v2-tabbed-carousel__navigation-item button:focus {
+.v2-tabbed-carousel__navigation-item button:active,
+.v2-tabbed-carousel__navigation-item button:focus-visible {
   color: var(--navigation-active-color);
+}
+
+.v2-tabbed-carousel__navigation-item button:focus {
+  outline: 0;
+}
+
+.v2-tabbed-carousel__navigation-item button:focus-visible {
+  outline: 3px solid var(--navigation-line-active-color);
 }
 
 @media (min-width: 1200px) {
