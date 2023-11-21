@@ -50,7 +50,7 @@ function addScrollToTopButton(mainEl) {
     },
   });
   const svgIcon = document.createRange().createContextualFragment(`
-    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>`);
+    <span class="icon icon-arrow-right" />`);
   scrollToTopButton.append(...svgIcon.children);
 
   scrollToTopButton.addEventListener('click', goToTopFunction);
@@ -206,6 +206,8 @@ export default async function decorate(block) {
 
   block.innerHTML = newFooter.innerHTML;
 
+  addScrollToTopButton(block);
+
   await decorateIcons(block);
   await loadBlocks(block);
 
@@ -280,6 +282,4 @@ export default async function decorate(block) {
       toggleExpand(e.target);
     }
   });
-
-  addScrollToTopButton(block);
 }
