@@ -128,7 +128,7 @@ function renderRecalls(recallsData) {
           </svg>
         </span>
         <h4 class="${blockName}__recalls-heading" >${getTextLabel('recalls')}  &nbsp; &nbsp;</h4>
-        <p class="${blockName}__recalls-refresh-date"> [${getTextLabel('published_info')}: ${recallsData.refresh_date} | ${getTextLabel('recall_oldest_info')}] </p>
+        <p class="${blockName}__recalls-refresh-date"> [${getTextLabel('recall_oldest_info')} ${recallsData.recalls_since}] </p>
       </div>
     `);
 
