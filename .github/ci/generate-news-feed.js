@@ -9,8 +9,8 @@ const feeds = [
     title: 'Mack News',
     targetFile: `../../mack-news/feed.xml`,
     source: 'https://main--vg-macktrucks-com-museum--hlxsites.hlx.live/mack-news/feed.json',
-    siteRoot: "https://www.macktrucks.com.museum",
-    link:	"https://www.macktrucks.com.museum/mack-news/",
+    siteRoot: "https://www.macktruckshistoricalmuseum.org",
+    link:	"https://www.macktruckshistoricalmuseum.org/mack-news/",
     language:	"en",
     description:	"Get the latest news from Mack® Trucks and see how we are taking our Born Ready " +
       "semi truck line to the next level with new innovations and technology."
@@ -19,8 +19,8 @@ const feeds = [
     title: 'Mack Body Builder News',
     targetFile: `../../parts-and-services/support/body-builders/news-and-events/feed.xml`,
     source: 'https://main--vg-macktrucks-com-museum--hlxsites.hlx.live/body-builder-news.json',
-    siteRoot: "https://www.macktrucks.com.museum",
-    link:	"https://www.macktrucks.com.museum/parts-and-services/support/body-builders/news-and-events/",
+    siteRoot: "https://www.macktruckshistoricalmuseum.org",
+    link:	"https://www.macktruckshistoricalmuseum.org/parts-and-services/support/body-builders/news-and-events/",
     language:	"en",
     description:	"Get the latest news from Mack® Trucks Body Builder Portal."
   },

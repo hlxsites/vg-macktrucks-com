@@ -269,8 +269,8 @@ export function decorateLinks(block) {
       }
 
       const url = new URL(link.href);
-      const external = !url.host.match('macktrucks.com.museum') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
-      if (url.host.match('build.macktrucks.com.museum') || url.pathname.endsWith('.pdf') || external) {
+      const external = !url.host.match('macktruckshistoricalmuseum.org') && !url.host.match('.hlx.(page|live)') && !url.host.match('localhost');
+      if (url.host.match('build.macktruckshistoricalmuseum.org') || url.pathname.endsWith('.pdf') || external) {
         link.target = '_blank';
       }
     });
