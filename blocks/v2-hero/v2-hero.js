@@ -1,12 +1,25 @@
+import {
+  processImagesToOptimizedPicture,
+} from '../../scripts/common.js';
+
 export default async function decorate(block) {
   const blockName = 'v2-hero';
-  const picture = block.querySelector('picture');
-  const img = picture.querySelector('img');
-  img.classList.add(`${blockName}__image`);
+  const BREAKPOINTS = {
+    0: '(min-width: 400px)',
+    1: '(min-width: 1200px)',
+  };
+  const images = block.querySelectorAll('p > picture');
 
-  if (picture.parentElement.tagName === 'P') {
-    picture.parentElement.remove();
-  }
+  processImagesToOptimizedPicture(images, true, BREAKPOINTS, (newPicture) => {
+    // Remove the original containers of the images
+    images.forEach((image) => image.parentNode.remove());
+
+    const img = newPicture.querySelector('img');
+    img.classList.add(`${blockName}__image`);
+
+    // Prepend the new picture element to the tab
+    block.prepend(newPicture);
+  });
 
   const contentWrapper = block.querySelector(':scope > div');
   contentWrapper.classList.add(`${blockName}__content-wrapper`);
@@ -27,6 +40,5 @@ export default async function decorate(block) {
     b.parentElement.classList.add(`${blockName}__cta-wrapper`);
   });
 
-  block.prepend(picture);
   block.parentElement.classList.add('full-width');
 }

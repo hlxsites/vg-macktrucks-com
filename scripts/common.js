@@ -5,6 +5,7 @@ import {
   loadBlocks,
   loadHeader,
   loadFooter,
+  getHref,
 } from './lib-franklin.js';
 
 let placeholders = null;
@@ -253,3 +254,88 @@ export const adjustPretitle = (element) => {
     }
   });
 };
+
+/**
+ * Returns a picture element with webp and fallbacks / allow multiple src paths for every breakpoint
+ * @param {string} src Default image URL (if no src is passed to breakpoints object)
+ * @param {boolean} eager load image eager
+ * @param {Array} breakpoints breakpoints and corresponding params (eg. src, width, media)
+ */
+export function createCustomOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 400px)', width: '2000' }, { width: '750' }]) {
+  const url = new URL(src, getHref());
+  const picture = document.createElement('picture');
+  let { pathname } = url;
+  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+  breakpoints.forEach((br) => {
+    // custom src path in breakpoint
+    if (br.src) {
+      const customUrl = new URL(br.src, getHref());
+      pathname = customUrl.pathname;
+    }
+
+    const source = document.createElement('source');
+    if (br.media) source.setAttribute('media', br.media);
+    source.setAttribute('type', 'image/webp');
+    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
+    picture.appendChild(source);
+  });
+
+  // fallback
+  breakpoints.forEach((br, j) => {
+    if (j < breakpoints.length - 1) {
+      const source = document.createElement('source');
+      if (br.media) source.setAttribute('media', br.media);
+      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+      picture.appendChild(source);
+    } else {
+      const image = document.createElement('img');
+      image.setAttribute('loading', eager ? 'eager' : 'lazy');
+      image.setAttribute('alt', alt);
+      picture.appendChild(image);
+      image.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+    }
+  });
+
+  return picture;
+}
+
+/**
+ * Processes multiple picture elements and uses a callback to handle the created picture element.
+ * @param {NodeList} images - NodeList of picture elements to be processed.
+ * @param {boolean} eager load image eager
+ * @param {Object} breakpoints - Object defining breakpoints for responsive images.
+ * @param {Function} callback - Callback function to handle the created picture element.
+ */
+export function processImagesToOptimizedPicture(images, eager, breakpoints, callback) {
+  if (!images || images.length === 0) {
+    return;
+  }
+
+  const imageBreakpoints = [];
+  const firstImage = images[0].lastElementChild;
+  const baseImageObj = {
+    src: firstImage?.src,
+    alt: firstImage?.alt,
+  };
+
+  images.forEach((pic, index) => {
+    const img = pic.lastElementChild;
+    imageBreakpoints.push({
+      src: img.src,
+      width: img.width,
+      height: img.height,
+      media: breakpoints[index],
+    });
+  });
+
+  imageBreakpoints.reverse(); // order first big and then small version
+  const newPicture = createCustomOptimizedPicture(
+    baseImageObj.src,
+    baseImageObj.alt,
+    eager,
+    imageBreakpoints,
+  );
+
+  callback(newPicture);
+}
