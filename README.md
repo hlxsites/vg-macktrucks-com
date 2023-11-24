@@ -1,9 +1,9 @@
 # Mack Trucks
-Franklin site redesign for macktrucks.com
+Franklin site redesign for macktruckshistoricalmuseum.org
 
 ## Environments
-- Preview: https://main--vg-macktrucks-com--hlxsites.hlx.page/
-- Live: https://main--vg-macktrucks-com--hlxsites.hlx.live/
+- Preview: https://main--vg-macktrucks-com-museum--hlxsites.hlx.page/
+- Live: https://main--vg-macktrucks-com-museum--hlxsites.hlx.live/
 
 ## Installation
 
