@@ -4,10 +4,13 @@ import {
 import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 
-const loginDomains = ['.com']; // domain examples: '.com', 'nicaragua.com', '.com.pa', '.ca'
+// domain examples: '.com', 'nicaragua.com', '.com.pa', '.ca'
+const loginDomains = ['.com'];
+const searchDomains = ['.com'];
 const url = new URL(window.location.href);
 const isDev = url.host.match('localhost') || url.host.match('hlx.(page|live)');
-const isMainBrand = !isDev && url.host.endsWith('macktrucks.com');
+const isSearchDomain = !isDev
+  && searchDomains.some((domain) => url.host.endsWith(`macktrucks${domain}`));
 const isLoginDomain = loginDomains.some((domain) => url.host.endsWith(`macktrucks${domain}`));
 
 const blockClass = 'header';
@@ -120,9 +123,9 @@ const mobileActions = () => {
 
   const actions = document.createRange().createContextualFragment(`
     <a
-      href="${isMainBrand ? '/search' : '#'}"
-      ${isMainBrand ? `aria-label="${searchLabel}"` : 'aria-hidden="true"'}
-      ${isMainBrand ? '' : 'style="visibility: hidden;"'}
+      href="${isSearchDomain ? '/search' : '#'}"
+      ${isSearchDomain ? `aria-label="${searchLabel}"` : 'aria-hidden="true"'}
+      ${isSearchDomain ? '' : 'style="visibility: hidden;"'}
       class="${blockClass}__search-button ${blockClass}__action-link ${blockClass}__link"
     >
       <span class="icon icon-search" aria-hidden="true"></span>
@@ -480,7 +483,7 @@ export default async function decorate(block) {
   };
 
   // add actions for search
-  if (isMainBrand) {
+  if (isSearchDomain) {
     navContent.querySelector(`.${blockClass}__search-button`).addEventListener('click', () => {
       window.location.href = '/search';
     });
