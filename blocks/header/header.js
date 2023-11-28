@@ -4,9 +4,11 @@ import {
 import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 
+const loginDomains = ['.com']; // domain examples: '.com', 'nicaragua.com', '.com.pa', '.ca'
 const url = new URL(window.location.href);
 const isDev = url.host.match('localhost') || url.host.match('hlx.(page|live)');
 const isMainBrand = !isDev && url.host.endsWith('macktrucks.com');
+const isLoginDomain = loginDomains.some((domain) => url.host.endsWith(`macktrucks${domain}`));
 
 const blockClass = 'header';
 
@@ -547,7 +549,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (!isMainBrand) loginLink.parentElement.style.display = 'none';
+    if (!isLoginDomain) loginLink.parentElement.style.display = 'none';
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
