@@ -253,3 +253,84 @@ export const adjustPretitle = (element) => {
     }
   });
 };
+
+/**
+ * Extracts the URL without query parameters of images from an array of picture elements
+ * @param {HTMLElement} images - An array of picture elements
+ * @returns {Array} Array of src strings
+ */
+export function getImageURLs(pictures) {
+  return pictures.map((picture) => {
+    const imgElement = picture.querySelector('img');
+    return imgElement.getAttribute('src').split('?')[0];
+  });
+}
+
+/**
+ * Creates a picture element based on provided image data and breakpoints
+ * @param {Array} images - Array of objects defining image data and breakpoints
+ * @param {boolean} eager - Whether to load images eagerly
+ * @param {string} alt - Alt text for the image
+ * @param {string[]|string} imageClass - Class for the image
+ * @returns {HTMLElement} The created picture element
+ */
+export function createResponsivePicture(images, eager, alt, imageClass) {
+  const picture = document.createElement('picture');
+  let fallbackWidth = '';
+  let fallbackSrc = '';
+
+  function constructSrcset(src, width, format) {
+    const baseUrl = `${src}?format=${format}&optimize=medium`;
+    return `${baseUrl}&width=${width} 1x, ${baseUrl}&width=${width * 2} 2x`;
+  }
+
+  images.forEach((image) => {
+    const originalFormat = image.src.split('.').pop();
+
+    image.breakpoints.forEach((bp) => {
+      if (!bp.media) return;
+
+      const srcsetWebp = constructSrcset(image.src, bp.width, 'webp');
+      const srcsetOriginal = constructSrcset(image.src, bp.width, originalFormat);
+
+      const webpSource = createElement('source', {
+        props: {
+          type: 'image/webp',
+          srcset: srcsetWebp,
+          media: bp.media,
+        },
+      });
+
+      const originalSource = createElement('source', {
+        props: {
+          type: `image/${originalFormat}`,
+          srcset: srcsetOriginal,
+          media: bp.media,
+        },
+      });
+
+      picture.insertBefore(originalSource, picture.firstChild);
+      picture.insertBefore(webpSource, originalSource);
+    });
+
+    const fallbackBreakpoint = image.breakpoints.find((bp) => !bp.media);
+    if (fallbackBreakpoint && !fallbackSrc) {
+      fallbackWidth = fallbackBreakpoint.width;
+      fallbackSrc = `${image.src}?width=${fallbackWidth}&format=${originalFormat}&optimize=medium`;
+    }
+  });
+
+  const img = createElement('img', {
+    classes: imageClass,
+    props: {
+      src: fallbackSrc,
+      alt,
+      loading: eager ? 'eager' : 'lazy',
+      width: fallbackWidth,
+    },
+  });
+
+  picture.appendChild(img);
+
+  return picture;
+}
