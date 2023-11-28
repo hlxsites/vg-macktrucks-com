@@ -4,6 +4,10 @@ import {
 import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 
+const url = new URL(window.location.href);
+const isDev = url.host.match('localhost') || url.host.match('hlx.(page|live)');
+const isMainBrand = !isDev && url.host.endsWith('macktrucks.com');
+
 const blockClass = 'header';
 
 const desktopMQ = window.matchMedia('(min-width: 1200px)');
@@ -114,8 +118,9 @@ const mobileActions = () => {
 
   const actions = document.createRange().createContextualFragment(`
     <a
-      href="/search"
-      aria-label="${searchLabel}"
+      href="${isMainBrand ? '/search' : '#'}"
+      ${isMainBrand ? `aria-label="${searchLabel}"` : 'aria-hidden="true"'}
+      ${isMainBrand ? '' : 'style="visibility: hidden;"'}
       class="${blockClass}__search-button ${blockClass}__action-link ${blockClass}__link"
     >
       <span class="icon icon-search" aria-hidden="true"></span>
@@ -473,9 +478,11 @@ export default async function decorate(block) {
   };
 
   // add actions for search
-  navContent.querySelector(`.${blockClass}__search-button`).addEventListener('click', () => {
-    window.location.href = '/search';
-  });
+  if (isMainBrand) {
+    navContent.querySelector(`.${blockClass}__search-button`).addEventListener('click', () => {
+      window.location.href = '/search';
+    });
+  }
 
   // add action for hamburger
   navContent.querySelector(`.${blockClass}__hamburger-menu`).addEventListener('click', () => {
@@ -538,6 +545,9 @@ export default async function decorate(block) {
     const actionsLinksDesktopMountPoint = document.querySelector('.header__actions');
     const headerMainNav = document.querySelector('.header__main-links'); // mobile actions links mount point
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
+    const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
+
+    if (!isMainBrand) loginLink.parentElement.style.display = 'none';
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
