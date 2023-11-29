@@ -95,19 +95,16 @@ function setStorageItem(key, value) {
 }
 
 async function fetchRefreshDate() {
-  const refreshDate = getStorageItem('refreshDate-MT');
-  if (!refreshDate) {
-    const { url, key } = getAPIConfig();
-    try {
-      const response = await getJsonFromUrl(`${url}refreshdate?api_key=${key}`);
-      setStorageItem('refreshDate-MT', response.refresh_date);
-      return response.refresh_date;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Error fetching refresh date:', error);
-    }
+  const { url, key } = getAPIConfig();
+  try {
+    const response = await getJsonFromUrl(`${url}refreshdate?api_key=${key}`);
+    setStorageItem('refreshDate-MT', response.refresh_date);
+    return response.refresh_date;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching refresh date:', error);
   }
-  return refreshDate;
+  return null;
 }
 
 function capitalize(text) {
@@ -213,66 +210,66 @@ async function fetchRecalls(e) {
 }
 
 export default async function decorate(block) {
-  fetchRefreshDate().then((response) => {
-    let refreshDate = response || 'XX-XX-XXXX';
-    if (response.refreshDate) {
-      refreshDate = new Date(response.refreshDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'short', day: 'numeric' });
-    }
-
-    const refresDateWrapper = createElement('div', {
-      classes: `${blockName}__refresh-date-wrapper`,
-    });
-    const refreshFragment = docRange.createContextualFragment(`<span>
-      ${getTextLabel('published_info')}:
-    </span>
-    <strong class="${blockName}__refresh-date">
-      ${refreshDate}
-    </strong>`);
-
-    const form = createElement('form', {
-      classes: [`${blockName}__form`],
-    });
-    const formChildren = document.createRange().createContextualFragment(`
-      <div class="${blockName}__input-wrapper">
-        <input
-          type="text"
-          name="vin"
-          id="vin_number"
-          autocomplete="off"
-          placeholder=" "
-          minlength="17"
-          maxlength="17"
-          required
-          class="${blockName}__input"
-          pattern="^[1,4][M][1,2,4,5][A,G,L,P,T,M][A-Za-z0-9]{13}$"
-        />
-        <label for="vin_number" class="${blockName}__label">${getTextLabel('vinlabel')}</label>
-      </div>
-      <button class="button primary ${blockName}__submit" type="submit" name="submit">${getTextLabel('submit')}</button>
-    `);
-
-    const vinResultsContainer = createElement('div', { classes: `${blockName}__results-container` });
-    const innerContent = docRange.createContextualFragment(`
-      <span class="${blockName}__results-text"></span>
-      <div class="${blockName}__recalls-wrapper"></div>
-    `);
-
-    vinResultsContainer.append(innerContent);
-
-    form.addEventListener('submit', fetchRecalls, false);
-    form.append(...formChildren.children);
-    refresDateWrapper.append(...refreshFragment.children);
-    block.append(form, refresDateWrapper);
-    block.append(vinResultsContainer);
-
-    const vinInput = block.querySelector(`.${blockName}__input`);
-
-    vinInput.oninvalid = (e) => {
-      e.target.setCustomValidity(getTextLabel('vinformat'));
-    };
-
-    vinInput.oninput = (e) => {
-      e.target.setCustomValidity('');
-    };
+  const refreshDate = getStorageItem('refreshDate-MT') || '';
+  const refresDateWrapper = createElement('div', {
+    classes: `${blockName}__refresh-date-wrapper`,
   });
+  const refreshFragment = docRange.createContextualFragment(`<span>
+    ${getTextLabel('published_info')}:
+    </span>
+    <strong class="${blockName}__refresh-date">${refreshDate}</strong>
+  `);
+
+  const form = createElement('form', {
+    classes: [`${blockName}__form`],
+  });
+  const formChildren = document.createRange().createContextualFragment(`
+    <div class="${blockName}__input-wrapper">
+      <input
+        type="text"
+        name="vin"
+        id="vin_number"
+        autocomplete="off"
+        placeholder=" "
+        minlength="17"
+        maxlength="17"
+        required
+        class="${blockName}__input"
+        pattern="^[1,4][M][1,2,4,5][A,G,L,P,T,M][A-Za-z0-9]{13}$"
+      />
+      <label for="vin_number" class="${blockName}__label">${getTextLabel('vinlabel')}</label>
+    </div>
+    <button class="button primary ${blockName}__submit" type="submit" name="submit">${getTextLabel('submit')}</button>
+  `);
+
+  const vinResultsContainer = createElement('div', { classes: `${blockName}__results-container` });
+  const innerContent = docRange.createContextualFragment(`
+    <span class="${blockName}__results-text"></span>
+    <div class="${blockName}__recalls-wrapper"></div>
+  `);
+
+  vinResultsContainer.append(innerContent);
+
+  form.addEventListener('submit', fetchRecalls, false);
+  form.append(...formChildren.children);
+  refresDateWrapper.append(...refreshFragment.children);
+  block.append(form, refresDateWrapper);
+  block.append(vinResultsContainer);
+
+  const vinInput = block.querySelector(`.${blockName}__input`);
+
+  vinInput.oninvalid = (e) => {
+    e.target.setCustomValidity(getTextLabel('vinformat'));
+  };
+
+  vinInput.oninput = (e) => {
+    e.target.setCustomValidity('');
+  };
+
+  if (!refreshDate) {
+    fetchRefreshDate().then((response) => {
+      const refreshEle = block.querySelector(`.${blockName}__refresh-date`);
+      refreshEle.textContent = response;
+    });
+  }
 }
