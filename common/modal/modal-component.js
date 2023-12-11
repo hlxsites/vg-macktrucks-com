@@ -104,11 +104,8 @@ const createModal = () => {
     // disable page scrolling
     document.body.classList.add('disable-scroll');
 
-    // don't close modal when clicking on modal content
-    [...modalContent.querySelectorAll(':scope > *')].forEach((el) => {
-      el.addEventListener('click', (event) => {
-        event.stopPropagation();
-      });
+    modalContent.addEventListener('click', (event) => {
+      event.stopPropagation();
     });
   }
 

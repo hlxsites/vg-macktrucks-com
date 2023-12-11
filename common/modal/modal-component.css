@@ -48,19 +48,21 @@
 }
 
 .modal-content {
-  aspect-ratio: 16/9;
   width: 100%;
+  height: auto;
   background-color: transparent;
-  position: absolute;
   opacity: 1;
   cursor: auto;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .modal-content .modal-video {
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: rgb(230 230 230 / 72%);
+  aspect-ratio: 16/9;
 }
 
 .modal-before-banner {
@@ -82,33 +84,49 @@
 
 @media (min-width: 768px) {
   :root:not(.redesign-v2) .modal-content {
-    width: 726px;
+    max-width: 726px;
+  }
+
+  :root:not(.redesign-v2) .modal-background button.modal-close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: unset;
+  }
+
+  :root:not(.redesign-v2) .modal-background button.modal-close-button:hover,
+  :root:not(.redesign-v2) .modal-background button.modal-close-button:focus-visible {
+    --color-icon: var(--c-accent-copper);
   }
 }
 
 @media (min-width: 992px) {
   :root:not(.redesign-v2) .modal-content {
-    width: 930px;
+    max-width: 930px;
   }
 }
 
 @media (min-width: 1300px) {
   :root:not(.redesign-v2) .modal-content {
-    width: 1170px;
+    max-width: 1170px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 744px) {
   .redesign-v2 .modal-content {
     max-width: 1040px;
     height: auto;
-    position: relative;
-    aspect-ratio: unset;
+  }
+
+  .redesign-v2 .modal-content .modal-video {
+    max-width: 1040px;
   }
 
   .redesign-v2 .modal-background button.modal-close-button {
     position: absolute;
     right: 0;
+    top: 0;
+    transition: unset;
   }
 
   .redesign-v2 .modal-background button.modal-close-button:hover,
@@ -155,7 +173,7 @@
   color: var(--c-primary-white);
   max-height: 80vh;
   overflow: auto;
-  aspect-ratio: unset;
+  height: auto;
 }
 
 .modal-content.modal-form h2,
@@ -223,16 +241,5 @@
 @media (min-width: 1200px) {
   .modal-background {
     background-color: rgb(0 0 0 / 80%);
-  }
-
-  .modal-background button.modal-close-button {
-    position: relative;
-    right: calc(-100% + 60px);
-    top: 0;
-    transition: unset;
-  }
-
-  .modal-video {
-    margin-top: -60px;
   }
 }
