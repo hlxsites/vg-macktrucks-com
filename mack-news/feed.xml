@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-12-04T00:00:00.000Z</updated>
+    <updated>2023-12-12T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2728,5 +2728,13 @@
         <updated>2023-12-04T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Dec. 4, 2023) – Mack Trucks announced today that Vanguard Truck Centers recently achieved Certified Electric Vehicle (EV) status at several of its locations, including in Phoenix, making it the first Mack Certified EV Dealer in Arizona.]]></content>
         <published>2023-12-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Chooses BAE Systems for Alternative Propulsion System on U.S. Army Common Tactical Truck Prototypes | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-defense-chooses-bae-systems-for-alternative-propulsion-system-on-us-army-common-tactical-truck-prototypes</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-defense-chooses-bae-systems-for-alternative-propulsion-system-on-us-army-common-tactical-truck-prototypes"/>
+        <updated>2023-12-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA — (Dec. 12, 2023)— Mack Defense announced today that it has teamed with BAE Systems, a leader in heavy-duty electric propulsion, to deliver an alternative-propulsion solution for the Common Tactical Truck (CTT) prototype vehicles to the U.S. Army for testing.]]></content>
+        <published>2023-12-12T00:00:00.000Z</published>
     </entry>
 </feed>
