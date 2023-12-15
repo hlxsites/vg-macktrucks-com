@@ -26,6 +26,7 @@
   padding: 0;
   position: fixed;
   transform: unset;
+  z-index: 1;
 }
 
 .modal-close-button .icon {
