@@ -508,7 +508,7 @@ export default async function decorate(block) {
 
   // add actions for search
   if (isSearchDomain) {
-    navContent.querySelector(`.${blockClass}__search-button`).addEventListener('click', () => {
+    navContent.querySelector(`.${blockClass}__search-button`)?.addEventListener('click', () => {
       window.location.href = '/search';
     });
   }
