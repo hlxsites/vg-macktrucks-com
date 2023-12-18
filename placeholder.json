@@ -182,6 +182,10 @@
     {
       "Key": "All trucks",
       "Text": "All trucks"
+    }, 
+    {
+      "Key": "recall_available_info",
+      "Text": "since:"
     }
   ],
   ":type": "sheet"

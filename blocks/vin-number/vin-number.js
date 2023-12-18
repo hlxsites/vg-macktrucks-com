@@ -113,7 +113,7 @@ function capitalize(text) {
 
 function renderRecalls(recallsData) {
   const resultText = document.querySelector(`.${blockName}__results-text`);
-  resultText.innerText = getTextLabel('result text').replace(/\${count}/, recallsData.number_of_recalls).replace(/\${vin}/, recallsData.vin);
+  let resultContent = getTextLabel('result text').replace(/\${count}/, recallsData.number_of_recalls).replace(/\${vin}/, recallsData.vin);
 
   if (recallsData.recalls_available) {
     const blockEl = document.querySelector(`.${blockName}__recalls-wrapper`);
@@ -163,7 +163,10 @@ function renderRecalls(recallsData) {
 
     blockEl.append(listWrapperFragment);
     blockEl.appendChild(list);
+  } else {
+    resultContent = `${resultContent} [${getTextLabel('recall_available_info')} ${recallsData.recalls_since}]`;
   }
+  resultText.innerText = resultContent;
 }
 
 async function fetchRecalls(e) {
