@@ -1386,17 +1386,15 @@ $.fn.filterRadius = function () {
 
       if ($myDealer != null && ($myDealer.IDENTIFIER_VALUE == $markers[i].id)) {
         var pinIcon = $.fn.drawPin('', 43, 63, '328E04');
-      }
-      else {
-
-        if (details.isCertifiedUptimeCenter) {
+      } else {
+        if (pin.isCertifiedUptimeCenter) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/uptime.svg",
             scaledSize: new google.maps.Size(17, 23), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0)
           }
-          if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
+          if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
             var pinIcon = {
               url: "/blocks/dealer-locator/images/uptime-electric.svg",
               scaledSize: new google.maps.Size(17, 23), // scaled size
@@ -1405,7 +1403,7 @@ $.fn.filterRadius = function () {
             }
           }
         }
-        else if ($electricDealer === true || (details.services && Object.values(details.services).includes('Mack Certified EV Dealer'))) {
+        else if ($electricDealer === true || (pin.services && Object.values(pin.services).includes('Mack Certified EV Dealer'))) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/dealer-electric.svg",
             scaledSize: new google.maps.Size(17, 23), // scaled size
