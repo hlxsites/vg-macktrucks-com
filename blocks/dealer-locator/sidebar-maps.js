@@ -2826,11 +2826,12 @@ $.fn.formatPhoneNumber = function (str) {
 }
 
 $.fn.formatWebAddress = function (str) {
-  var prefix = 'http://';
-  if (str.substr(0, prefix.length) !== prefix) {
-    return prefix + str.toLowerCase();
+  var prefixes = 'http';
+  if (str.length === 0) return;
+  if (str.substr(0, prefixes.length).toLowerCase() === prefixes) {
+    return str.toLowerCase();
   }
-  return str.toLowerCase();
+  return 'https://' + str.toLowerCase();
 }
 
 $.fn.clearDirections = function () {
