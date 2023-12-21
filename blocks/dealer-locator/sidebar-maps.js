@@ -630,13 +630,23 @@ $.fn.getHours = function (dealer) {
 
 };
 
-$.fn.isOpen = function (dealer, time) {
+$.fn.isOpen = async function (dealer, time) {
 
   var hours = $.fn.getHours(dealer);
-
-  var zone = moment.tz.guess();
-
   var closeSoon = false;
+
+  var latitude = dealer.MAIN_LATITUDE;
+  var longitude = dealer.MAIN_LONGITUDE;
+
+  async function getLocalTime(latitude, longitude) {
+    var apiUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${latitude},${longitude}&timestamp=${Math.floor(Date.now() / 1000)}&key=${$key}`;
+
+    var response = await fetch(apiUrl);
+    var locationObj = await response.json();
+
+    return locationObj.timeZoneId
+  }
+  var dealerZone = await getLocalTime(latitude, longitude)
 
   if (hours) {
 
@@ -695,7 +705,7 @@ $.fn.isOpen = function (dealer, time) {
         end.setDate(time.getDate() + 1);
       }
 
-      if (moment.tz(zone).isBetween(start, end)) {
+      if (moment.tz(dealerZone).isBetween(start, end)) {
 
         hours = Math.abs(time - end) / 36e5;
 
@@ -709,12 +719,8 @@ $.fn.isOpen = function (dealer, time) {
         return { open: false, endTime: end, closeSoon: closeSoon };
       }
     }
-
-
   }
-
   return 2;
-
 };
 
 $.fn.canDetermineHours = function (pin) {
