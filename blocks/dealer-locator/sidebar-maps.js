@@ -344,6 +344,8 @@ $.fn.loadPins = function () {
 
                   $dealer = $state.dealers[dealer];
 
+                  $dealer.timezone = getTimeZone($dealer);
+
                   if ($dealer.services) {
 
                     for (var service in $dealer.services) {
@@ -644,10 +646,13 @@ $.fn.getHours = function (dealer) {
 };
 
 $.fn.isOpen = function (dealer, time) {
+
   var hours = $.fn.getHours(dealer);
+
   var closeSoon = false;
 
   if (hours) {
+
     if (!time) {
       time = new Date();
     }
@@ -660,19 +665,24 @@ $.fn.isOpen = function (dealer, time) {
       if (startTime.toLowerCase() == 'midnight') {
         startTime = '12:00 AM';
       }
+
       var endTime = todayAtDealer.End;
       if (endTime.toLowerCase() == 'midnight') {
         endTime = '11:59 PM';
       }
+
       if (startTime.toLowerCase().indexOf('24') > -1) {
         startTime = '12:00 AM';
       }
+
       if (endTime.toLowerCase().indexOf('24') > -1) {
         endTime = '11:59 PM';
       }
+
       if (startTime.toLowerCase() == 'noon') {
         startTime = '12:00 PM';
       }
+
       if (endTime.toLowerCase() == 'noon') {
         endTime = '12:00 PM';
       }
@@ -705,16 +715,23 @@ $.fn.isOpen = function (dealer, time) {
 
       if (dealerTime >= openHour && dealerTime < closeHour) {
         hours = Math.abs(time - end) / 36e5;
+
         if (hours < 1) {
           closeSoon = true;
         }
+
         return { open: true, endTime: end, closeSoon: closeSoon };
+
       } else {
         return { open: false, endTime: end, closeSoon: closeSoon };
       }
     }
+
+
   }
+
   return 2;
+
 };
 
 $.fn.canDetermineHours = function (pin) {
@@ -1174,6 +1191,7 @@ $.fn.switchSidebarPane = function (id, e) {
   var content = $('#' + id).html();
 
   var forceRefresh = false;
+  console.log(markerId, "markerId");
   if (e && id == 'sidebar-pin') {
     content = $.fn.renderPinDetails(markerId);
   }
@@ -1385,7 +1403,9 @@ $.fn.filterRadius = function () {
 
       if ($myDealer != null && ($myDealer.IDENTIFIER_VALUE == $markers[i].id)) {
         var pinIcon = $.fn.drawPin('', 43, 63, '328E04');
-      } else {
+      }
+      else {
+
         if (pin.isCertifiedUptimeCenter) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/uptime.svg",
@@ -1586,7 +1606,7 @@ $.fn.showPin = function (pin) {
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
-  tmpPinList.forEach(async function (pin) {
+  tmpPinList.forEach(function (pin) {
     if (!$.fn.showPin(pin)) {
       return true;
     }
@@ -1596,8 +1616,6 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.teaser-top').attr('data-id', pin.IDENTIFIER_VALUE);
     templateClone.find('.more').attr('data-id', pin.IDENTIFIER_VALUE);
 
-    //Add timezone to each pin according its lat-long
-    pin.timezone = await getTimeZone(pin);
 
     var isOpen = $.fn.isOpen(pin);
     var isOpenHtml = "";
