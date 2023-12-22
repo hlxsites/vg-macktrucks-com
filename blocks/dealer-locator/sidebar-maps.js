@@ -291,6 +291,19 @@ $.fn.initGoogleMaps = function () {
   });
 };
 
+async function getTimeZone(pin) {
+
+  var lat = pin.MAIN_LATITUDE;
+  var long = pin.MAIN_LONGITUDE;
+
+  var apiUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${long}&timestamp=${Math.floor(Date.now() / 1000)}&key=${$key}`;
+
+  var response = await fetch(apiUrl);
+  var locationObj = await response.json();
+
+  return locationObj
+}
+
 $.fn.loadPins = function () {
 
 
@@ -630,26 +643,11 @@ $.fn.getHours = function (dealer) {
 
 };
 
-$.fn.isOpen = async function (dealer, time) {
-
+$.fn.isOpen = function (dealer, time) {
   var hours = $.fn.getHours(dealer);
   var closeSoon = false;
 
-  var latitude = dealer.MAIN_LATITUDE;
-  var longitude = dealer.MAIN_LONGITUDE;
-
-  async function getLocalTime(latitude, longitude) {
-    var apiUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${latitude},${longitude}&timestamp=${Math.floor(Date.now() / 1000)}&key=${$key}`;
-
-    var response = await fetch(apiUrl);
-    var locationObj = await response.json();
-
-    return locationObj.timeZoneId
-  }
-  var dealerZone = await getLocalTime(latitude, longitude)
-
   if (hours) {
-
     if (!time) {
       time = new Date();
     }
@@ -662,24 +660,19 @@ $.fn.isOpen = async function (dealer, time) {
       if (startTime.toLowerCase() == 'midnight') {
         startTime = '12:00 AM';
       }
-
       var endTime = todayAtDealer.End;
       if (endTime.toLowerCase() == 'midnight') {
         endTime = '11:59 PM';
       }
-
       if (startTime.toLowerCase().indexOf('24') > -1) {
         startTime = '12:00 AM';
       }
-
       if (endTime.toLowerCase().indexOf('24') > -1) {
         endTime = '11:59 PM';
       }
-
       if (startTime.toLowerCase() == 'noon') {
         startTime = '12:00 PM';
       }
-
       if (endTime.toLowerCase() == 'noon') {
         endTime = '12:00 PM';
       }
@@ -705,16 +698,17 @@ $.fn.isOpen = async function (dealer, time) {
         end.setDate(time.getDate() + 1);
       }
 
-      if (moment.tz(dealerZone).isBetween(start, end)) {
+      var openHour = start.getHours()
+      var closeHour = end.getHours()
 
+      var dealerTime = (moment.tz(dealer.timezone.timeZoneId)._d).getUTCHours();
+
+      if (dealerTime >= openHour && dealerTime < closeHour) {
         hours = Math.abs(time - end) / 36e5;
-
         if (hours < 1) {
           closeSoon = true;
         }
-
         return { open: true, endTime: end, closeSoon: closeSoon };
-
       } else {
         return { open: false, endTime: end, closeSoon: closeSoon };
       }
@@ -1180,7 +1174,6 @@ $.fn.switchSidebarPane = function (id, e) {
   var content = $('#' + id).html();
 
   var forceRefresh = false;
-  console.log(markerId, "markerId");
   if (e && id == 'sidebar-pin') {
     content = $.fn.renderPinDetails(markerId);
   }
@@ -1593,7 +1586,7 @@ $.fn.showPin = function (pin) {
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
-  tmpPinList.forEach(function (pin) {
+  tmpPinList.forEach(async function (pin) {
     if (!$.fn.showPin(pin)) {
       return true;
     }
@@ -1603,6 +1596,8 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.teaser-top').attr('data-id', pin.IDENTIFIER_VALUE);
     templateClone.find('.more').attr('data-id', pin.IDENTIFIER_VALUE);
 
+    //Add timezone to each pin according its lat-long
+    pin.timezone = await getTimeZone(pin);
 
     var isOpen = $.fn.isOpen(pin);
     var isOpenHtml = "";
