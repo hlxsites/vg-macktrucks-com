@@ -291,20 +291,19 @@ $.fn.initGoogleMaps = function () {
   });
 };
 
-async function getTimeZone(pin) {
-
-  var lat = pin.MAIN_LATITUDE;
-  var long = pin.MAIN_LONGITUDE;
+async function getTimeZoneId(dealer) {
+  var lat = dealer.MAIN_LATITUDE;
+  var long = dealer.MAIN_LONGITUDE;
 
   var apiUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${long}&timestamp=${Math.floor(Date.now() / 1000)}&key=${$key}`;
 
   var response = await fetch(apiUrl);
   var locationObj = await response.json();
 
-  return locationObj
-}
+  return locationObj.timeZoneId;
+};
 
-$.fn.loadPins = function () {
+$.fn.loadPins = async function () {
 
 
   $pins = [];
@@ -341,13 +340,11 @@ $.fn.loadPins = function () {
               for (var dealer in $state.dealers) {
 
                 if ($state.dealers.hasOwnProperty(dealer)) {
-
+                                  
                   $dealer = $state.dealers[dealer];
 
-                  $dealer.timezone = getTimeZone($dealer);
-
                   if ($dealer.services) {
-
+                    
                     for (var service in $dealer.services) {
 
                       if ($dealer.services.hasOwnProperty(service)) {
@@ -552,44 +549,35 @@ $.fn.loadPins = function () {
                     }
                   };
 
+                  getTimeZoneId($dealer).then(data => {
+                    $dealer.timeZoneId = data;
+                  });
+
                   $pins.push($dealer);
-
                   $pins2.push($dealer);
-
                 }
-
               }
             }
           }
         }
       }
-
       $.fn.myDealer();
       $.fn.filterRadius();
 
       var markerId = $.fn.getUrlParameter('view');
       var viewMarker = $.fn.getPinById(markerId);
       if (markerId && viewMarker) {
-
-
         //setCenter
         for (i = 0; i < $markers.length; i++) {
-
           if ($markers[i].id == markerId) {
-
             $.fn.switchSidebarPane('sidebar-pin', markerId);
-
           }
         }
-
-
       }
-
-
     }
-
   });
 };
+
 $.fn.removeWaypoint = function (pin) {
 
   var $this = $(pin);
@@ -645,11 +633,11 @@ $.fn.getHours = function (dealer) {
 
 };
 
-$.fn.isOpen = function (dealer, time) {
-
+$.fn.isOpen = async function (dealer, time) {
   var hours = $.fn.getHours(dealer);
-
   var closeSoon = false;
+
+  dealer.timeZoneId = await getTimeZoneId(dealer);
 
   if (hours) {
 
@@ -708,30 +696,29 @@ $.fn.isOpen = function (dealer, time) {
         end.setDate(time.getDate() + 1);
       }
 
-      var openHour = start.getHours()
-      var closeHour = end.getHours()
+      var openTime = (start.getHours() * 60) + start.getMinutes();
+      var closeTime = (end.getHours() * 60) + end.getMinutes();
 
-      var dealerTime = (moment.tz(dealer.timezone.timeZoneId)._d).getUTCHours();
+      var stringDealerDate = moment().tz(dealer.timeZoneId).format();
+      var hourPosition = stringDealerDate.indexOf('T');
+      var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
+      var [ hour, minutes ] = dealerLocalHour.split(':');
+      var dealerTime = (Number(hour) * 60) + Number(minutes);
+      
+      if (dealerTime >= openTime && dealerTime < closeTime) {
+        var difference = closeTime - dealerTime;
 
-      if (dealerTime >= openHour && dealerTime < closeHour) {
-        hours = Math.abs(time - end) / 36e5;
-
-        if (hours < 1) {
+        if ((difference > 0) && (difference < 60)) {
           closeSoon = true;
         }
 
         return { open: true, endTime: end, closeSoon: closeSoon };
-
       } else {
         return { open: false, endTime: end, closeSoon: closeSoon };
       }
     }
-
-
   }
-
   return 2;
-
 };
 
 $.fn.canDetermineHours = function (pin) {
@@ -830,32 +817,23 @@ $.fn.renderPinDirections = function (markerId) {
 
 // Creates sidebar-pini overview item
 $.fn.renderPinDetails = function (markerId) {
-
   var templateClone = $($('#sidebar-pin').clone(true).html());
-
-
   var markerDetails;
 
   for (i = 0; i < $sortedPins.length; i++) {
-
     if ($sortedPins[i].IDENTIFIER_VALUE == markerId) {
-
       markerDetails = $sortedPins[i];
     }
-
   }
 
   var marker;
   for (i = 0; i < $markers.length; i++) {
-
     if ($markers[i].id == markerId) {
-
       marker = $markers[i];
-
       $viewingPin = marker;
-
     }
   }
+
   $asistHtml = '<button title="Request Access" class="join-select" onclick="return false;">Request Access</button>';
   if ($isAsist) {
     templateClone.find('#partsasist-button').html($asistHtml);
@@ -906,7 +884,6 @@ $.fn.renderPinDetails = function (markerId) {
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
-
   var isOpen = $.fn.isOpen(markerDetails);
   var isOpenHtml = "";
   if (isOpen.open && !isOpen.closeSoon) {
@@ -916,7 +893,6 @@ $.fn.renderPinDetails = function (markerId) {
   } else {
     isOpenHtml = "Closed";
   }
-
 
   var servicesHtml = templateClone.find('#services');
   var driversHtml = templateClone.find('#drivers');
@@ -1185,13 +1161,12 @@ $.fn.setupAddDirectionsView = function () {
 
   $map.setZoom(8);
 };
+
 $.fn.switchSidebarPane = function (id, e) {
   var markerId = ($(e).data('id') ? $(e).data('id') : e);
-
   var content = $('#' + id).html();
 
   var forceRefresh = false;
-  console.log(markerId, "markerId");
   if (e && id == 'sidebar-pin') {
     content = $.fn.renderPinDetails(markerId);
   }
@@ -1403,9 +1378,7 @@ $.fn.filterRadius = function () {
 
       if ($myDealer != null && ($myDealer.IDENTIFIER_VALUE == $markers[i].id)) {
         var pinIcon = $.fn.drawPin('', 43, 63, '328E04');
-      }
-      else {
-
+      } else {
         if (pin.isCertifiedUptimeCenter) {
           var pinIcon = {
             url: "/blocks/dealer-locator/images/uptime.svg",
@@ -1496,7 +1469,8 @@ $.fn.setCookie = function (name, value, days) {
     expires = "; expires=" + date.toUTCString();
   }
   document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
+};
+
 $.fn.getCookie = function (name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
@@ -1506,11 +1480,11 @@ $.fn.getCookie = function (name) {
     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
-}
+};
 
 $.fn.deleteCookie = function (name) {
   document.cookie = name + '=; Max-Age=-99999999;';
-}
+};
 
 $.fn.sortedPins = function () {
 
@@ -1603,10 +1577,11 @@ $.fn.showPin = function (pin) {
 
   return condition;
 };
+
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
-  tmpPinList.forEach(function (pin) {
+  tmpPinList.forEach(async function (pin) {
     if (!$.fn.showPin(pin)) {
       return true;
     }
@@ -1616,8 +1591,7 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.teaser-top').attr('data-id', pin.IDENTIFIER_VALUE);
     templateClone.find('.more').attr('data-id', pin.IDENTIFIER_VALUE);
 
-
-    var isOpen = $.fn.isOpen(pin);
+    var isOpen = await $.fn.isOpen(pin);
     var isOpenHtml = "";
     if (isOpen.open && !isOpen.closeSoon) {
       isOpenHtml = "Open till " + moment(isOpen.endTime).format("h:mm A");
@@ -1626,7 +1600,6 @@ $.fn.tmpPins = function (tmpPinList) {
     } else {
       isOpenHtml = "Closed";
     }
-
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
     templateClone.find('.hours').text(isOpenHtml);
@@ -1813,6 +1786,7 @@ $.fn.tmpPins = function (tmpPinList) {
 
   });
 };
+
 // Creates pin result item
 $.fn.filterNearbyPins = function () {
 
@@ -2113,7 +2087,6 @@ $.fn.selectNearbyPins = function () {
 
     templateClone.find('.panel-container').parent().attr('data-id', pin.IDENTIFIER_VALUE);
 
-
     var isOpen = $.fn.isOpen(pin);
     var isOpenHtml = "";
     if (isOpen.open && !isOpen.closeSoon) {
@@ -2123,7 +2096,6 @@ $.fn.selectNearbyPins = function () {
     } else {
       isOpenHtml = "Closed";
     }
-
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
     templateClone.find('.hours').text(isOpenHtml);
@@ -2311,7 +2283,8 @@ $.fn.deg2rad = function ($deg) {
   return $deg * (Math.PI / 180);
 };
 
-$.fn.getTimezone = function (dealerId) {
+// Not using this function
+$.fn.getTimezoneDeprecated = function (dealerId) {
 
   var time = Date.now();
 
@@ -2453,6 +2426,7 @@ $.fn.setAddress2 = function () {
     }
   });
 };
+
 $.fn.setAddress = function () {
 
   if ($(window).width() < 992) {
@@ -2840,7 +2814,7 @@ $.fn.camelCase = function (str) {
 
 $.fn.formatPhoneNumber = function (str) {
   return str.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-}
+};
 
 $.fn.formatWebAddress = function (str) {
   var prefixes = 'http';
@@ -2849,7 +2823,7 @@ $.fn.formatWebAddress = function (str) {
     return str.toLowerCase();
   }
   return 'https://' + str.toLowerCase();
-}
+};
 
 $.fn.clearDirections = function () {
 
@@ -3097,6 +3071,7 @@ $('.go-back').on('click', function () {
   $('.sidebar').css("overflow", "hidden");
   $('.add-directions').text("Recalculate Directions");
 });
+
 $('.go-back-direction').on('click', function () {
   $.fn.switchSidebarPane('sidebar-pins');
   $wayPoints = [];
@@ -3112,6 +3087,7 @@ $("#location").on('keyup', function (e) {
     $.fn.setAddress();
   }
 });
+
 $("#location2").on('keyup', function (e) {
   if (e.keyCode == 13) {
     $.fn.setAddress2();
