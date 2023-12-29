@@ -291,7 +291,7 @@ $.fn.initGoogleMaps = function () {
   });
 };
 
-async function getTimeZoneId(dealer) {
+$.fn.getTimeZoneId = async function (dealer) {
   var lat = dealer.MAIN_LATITUDE;
   var long = dealer.MAIN_LONGITUDE;
 
@@ -303,8 +303,7 @@ async function getTimeZoneId(dealer) {
   return locationObj.timeZoneId;
 };
 
-$.fn.loadPins = async function () {
-
+$.fn.loadPins = function () {
 
   $pins = [];
   $nearbyPins = [];
@@ -549,10 +548,6 @@ $.fn.loadPins = async function () {
                     }
                   };
 
-                  getTimeZoneId($dealer).then(data => {
-                    $dealer.timeZoneId = data;
-                  });
-
                   $pins.push($dealer);
                   $pins2.push($dealer);
                 }
@@ -633,11 +628,23 @@ $.fn.getHours = function (dealer) {
 
 };
 
+$.fn.formatTime = function (timeString) {
+  var [ hour, minutes ] = timeString.split(':');
+  var period = 'AM';
+  if (hour >= 12) {
+    period = 'PM';
+    hour = hour - 12;
+  }
+  return `${hour}:${minutes} ${period}`
+}
+
 $.fn.isOpen = async function (dealer, time) {
   var hours = $.fn.getHours(dealer);
   var closeSoon = false;
 
-  dealer.timeZoneId = await getTimeZoneId(dealer);
+  if (!dealer.timeZoneId) {
+    dealer.timeZoneId = await $.fn.getTimeZoneId(dealer);
+  }
 
   if (hours) {
 
@@ -712,9 +719,12 @@ $.fn.isOpen = async function (dealer, time) {
           closeSoon = true;
         }
 
-        return { open: true, endTime: end, closeSoon: closeSoon };
+        var closing = end.getHours() + ':' + ((end.getMinutes() === 0) ? '00' : end.getMinutes());
+        closing = $.fn.formatTime(closing)
+
+        return { open: true, endTime: closing, closeSoon: closeSoon };
       } else {
-        return { open: false, endTime: end, closeSoon: closeSoon };
+        return { open: false, endTime: closing, closeSoon: closeSoon };
       }
     }
   }
@@ -816,7 +826,7 @@ $.fn.renderPinDirections = function (markerId) {
 }
 
 // Creates sidebar-pini overview item
-$.fn.renderPinDetails = function (markerId) {
+$.fn.renderPinDetails = async function (markerId) {
   var templateClone = $($('#sidebar-pin').clone(true).html());
   var markerDetails;
 
@@ -884,10 +894,10 @@ $.fn.renderPinDetails = function (markerId) {
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
-  var isOpen = $.fn.isOpen(markerDetails);
+  var isOpen = await $.fn.isOpen(markerDetails);
   var isOpenHtml = "";
   if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = "Open till " + moment(isOpen.endTime).format("h:mm A");
+    isOpenHtml = `Open till ${isOpen.endTime}`;
   } else if (isOpen.open && isOpen.closeSoon) {
     isOpenHtml = "Closing soon";
   } else {
@@ -1105,7 +1115,7 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var isOpen = $.fn.isOpen(details);
   var isOpenHtml = "";
   if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = "Open till " + moment(isOpen.endTime).format("h:mm A");
+    isOpenHtml = `Open till ${isOpen.endTime}`;
   } else if (isOpen.open && isOpen.closeSoon) {
     isOpenHtml = "Closing soon";
   } else {
@@ -1162,13 +1172,13 @@ $.fn.setupAddDirectionsView = function () {
   $map.setZoom(8);
 };
 
-$.fn.switchSidebarPane = function (id, e) {
+$.fn.switchSidebarPane = async function (id, e) {
   var markerId = ($(e).data('id') ? $(e).data('id') : e);
   var content = $('#' + id).html();
 
   var forceRefresh = false;
   if (e && id == 'sidebar-pin') {
-    content = $.fn.renderPinDetails(markerId);
+    content = await $.fn.renderPinDetails(markerId);
   }
   if ((e && id == 'sidebar-directions') || id == 'add-directions-return' || id == 'sidebar-direction-list') {
     content = $.fn.renderPinDirections(markerId);
@@ -1594,7 +1604,7 @@ $.fn.tmpPins = function (tmpPinList) {
     var isOpen = await $.fn.isOpen(pin);
     var isOpenHtml = "";
     if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = "Open till " + moment(isOpen.endTime).format("h:mm A");
+      isOpenHtml = `Open till ${isOpen.endTime}`;
     } else if (isOpen.open && isOpen.closeSoon) {
       isOpenHtml = "Closing soon";
     } else {
@@ -2090,7 +2100,7 @@ $.fn.selectNearbyPins = function () {
     var isOpen = $.fn.isOpen(pin);
     var isOpenHtml = "";
     if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = "Open till " + moment(isOpen.endTime).format("h:mm A");
+      isOpenHtml = `Open till ${isOpen.endTime}`;
     } else if (isOpen.open && isOpen.closeSoon) {
       isOpenHtml = "Closing soon";
     } else {
