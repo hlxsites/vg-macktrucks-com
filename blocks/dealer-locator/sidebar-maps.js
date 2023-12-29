@@ -699,7 +699,7 @@ $.fn.isOpen = async function (dealer, time) {
       end.setSeconds(0);
 
       if (~endTime.toLowerCase().indexOf("am")) {
-        console.log('end date is AM, add 1 day');
+        // console.log('end date is AM, add 1 day');
         end.setDate(time.getDate() + 1);
       }
 
@@ -1687,8 +1687,6 @@ $.fn.tmpPins = function (tmpPinList) {
 
         marker['pinIndex'] = pinIndex;
 
-
-
         templateClone.find('#marker').attr('src', pinIcon);
 
         pinIndex++;
@@ -1813,7 +1811,12 @@ $.fn.filterNearbyPins = function () {
   var tmpPinList = [];
   var sorted = $.fn.sortedPins();
 
-  $nearbyPins.forEach(function (pin) {
+  var allPinsIds = [];
+  $pins.forEach(pin => {
+    allPinsIds.push(pin.IDENTIFIER_VALUE);
+  });
+
+  allPinsIds.forEach(function (pin) {
     tmpPinList.push($.grep(sorted, function (v, i) {
       return v['IDENTIFIER_VALUE'] === pin;
     })[0]);
@@ -1860,6 +1863,7 @@ $.fn.filterNearbyPins = function () {
     if (!toggled) {
       $(this).css('background', '#484a4e');
       tmpPinList2 = filteredArray;
+      console.log(tmpPinList2);
       $.fn.tmpPins(tmpPinList2);
 
       newList.forEach(function (pin) {
