@@ -29,6 +29,9 @@ const valueDisplayList = [{
   key: 'nhtsa_recall_number',
 },
 {
+  key: 'tc_recall_nbr',
+},
+{
   key: 'mfr_recall_status',
 },
 {
