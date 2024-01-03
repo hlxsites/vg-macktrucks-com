@@ -186,6 +186,18 @@
     {
       "Key": "recall_available_info",
       "Text": "since:"
+    },
+    {
+      "Key": "model",
+      "Text": "Model"
+    },
+    {
+      "Key": "model year",
+      "Text": "Model Year"
+    },
+    {
+      "Key": "make",
+      "Text": "Make"
     }
   ],
   ":type": "sheet"
