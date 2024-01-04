@@ -29,6 +29,9 @@ const valueDisplayList = [{
   key: 'nhtsa_recall_number',
 },
 {
+  key: 'tc_recall_nbr',
+},
+{
   key: 'mfr_recall_status',
 },
 {
@@ -115,8 +118,28 @@ function renderRecalls(recallsData) {
   const resultText = document.querySelector(`.${blockName}__results-text`);
   let resultContent = getTextLabel('result text').replace(/\${count}/, recallsData.number_of_recalls).replace(/\${vin}/, recallsData.vin);
 
+  const blockEl = document.querySelector(`.${blockName}__recalls-wrapper`);
+
+  const recallsMake = createElement('div', { classes: `${blockName}__recalls-make-wrapper` });
+  const makeFragment = docRange.createContextualFragment(`
+    <div class="${blockName}__recalls-md-row">
+      <h5 class="${blockName}__recalls-md-title">${getTextLabel('model year')}</h5>
+      <span> ${recallsData.year}</span>
+    </div>
+    <div class="${blockName}__recalls-md-row">
+      <h5 class="${blockName}__recalls-md-title">${getTextLabel('make')}</h5>
+      <span> ${recallsData.make}</span>
+    </div>
+    <div class="${blockName}__recalls-md-row">
+      <h5 class="${blockName}__recalls-md-title">${getTextLabel('model')}</h5>
+      <span> ${recallsData.model}</span>
+    </div>
+  `);
+
+  recallsMake.append(...makeFragment.children);
+  blockEl.append(recallsMake);
+
   if (recallsData.recalls_available) {
-    const blockEl = document.querySelector(`.${blockName}__recalls-wrapper`);
     const listWrapperFragment = docRange.createContextualFragment(`
       <div class="${blockName}__recalls-heading-wrapper">
         <span class="${blockName}__recalls-alert-icon">
