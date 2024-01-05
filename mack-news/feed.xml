@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2023-11-15T00:00:00.000Z</updated>
+    <updated>2023-12-18T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2712,5 +2712,37 @@
         <updated>2023-11-15T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Nov. 15, 2023) – Mack Trucks today announced that members of the United Auto Workers union ratified a new five-year collective bargaining agreement with the company covering about 3,900 employees at facilities in Pennsylvania, Maryland and Florida.]]></content>
         <published>2023-11-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Adds Two New Full-Service EV Infrastructure Partners to its Turnkey Solutions Program | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-trucks-adds-two-new-full-service-ev-infrastructure-partners-to-its-turnkey-solutions-program</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-trucks-adds-two-new-full-service-ev-infrastructure-partners-to-its-turnkey-solutions-program"/>
+        <updated>2023-11-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, N.C. (Nov. 20, 2023) – Mack Trucks announced today that it expanded its comprehensive Turnkey Solutions program for Mack® battery-electric vehicle (BEV) customers with the addition of two new full-service partners, InCharge Energy and Blink Charging.]]></content>
+        <published>2023-11-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vanguard Truck Centers in Austin, Houston and Phoenix are Now Mack Certified EV Dealers | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/vanguard-truck-centers-in-austin-houston-and-phoenix-are-now-mack-certified-ev-dealers</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/vanguard-truck-centers-in-austin-houston-and-phoenix-are-now-mack-certified-ev-dealers"/>
+        <updated>2023-12-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 4, 2023) – Mack Trucks announced today that Vanguard Truck Centers recently achieved Certified Electric Vehicle (EV) status at several of its locations, including in Phoenix, making it the first Mack Certified EV Dealer in Arizona.]]></content>
+        <published>2023-12-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Chooses BAE Systems for Alternative Propulsion System on U.S. Army Common Tactical Truck Prototypes | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-defense-chooses-bae-systems-for-alternative-propulsion-system-on-us-army-common-tactical-truck-prototypes</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-defense-chooses-bae-systems-for-alternative-propulsion-system-on-us-army-common-tactical-truck-prototypes"/>
+        <updated>2023-12-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA — (Dec. 12, 2023)— Mack Defense announced today that it has teamed with BAE Systems, a leader in heavy-duty electric propulsion, to deliver an alternative-propulsion solution for the Common Tactical Truck (CTT) prototype vehicles to the U.S. Army for testing.]]></content>
+        <published>2023-12-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Customer WIN Waste Innovations Uses Waste Collected by Mack LR Electric Vehicles to Power Trucks | Mack Trucks]]></title>
+        <id>https://www.macktrucks.com/mack-news/2023/mack-customer-win-waste-innovations-uses-waste-collected-by-mack-lr-electric-vehicles-to-power-trucks</id>
+        <link href="https://www.macktrucks.com/mack-news/2023/mack-customer-win-waste-innovations-uses-waste-collected-by-mack-lr-electric-vehicles-to-power-trucks"/>
+        <updated>2023-12-18T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Dec. 18, 2023) – Mack Trucks customer WIN Waste Innovations, a leader in the recycling and waste industry, recently received two Mack LR Electric Class 8 refuse vehicles to become the first company in Massachusetts to power electric trucks exclusively by the waste collected by the trucks themselves.]]></content>
+        <published>2023-12-18T00:00:00.000Z</published>
     </entry>
 </feed>
