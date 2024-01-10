@@ -1,10 +1,17 @@
 import {
   getImageURLs,
   createResponsivePicture,
+  variantsClassesToBEM,
 } from '../../scripts/common.js';
 
+const variantClasses = ['dark', 'light'];
+const blockName = 'v2-hero';
+
 export default async function decorate(block) {
-  const blockName = 'v2-hero';
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
+  const blockContainer = block.parentElement.parentElement;
+  const isPdp = blockContainer.dataset.page === 'pdp';
+
   const images = [...block.querySelectorAll('p > picture')];
   const imageURLs = getImageURLs(images);
   const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
@@ -36,7 +43,11 @@ export default async function decorate(block) {
   const newPicture = createResponsivePicture(imageData, true, altText, `${blockName}__image`);
   images.forEach((image) => image.parentNode.remove());
 
-  block.prepend(newPicture);
+  if (images.length !== 0) {
+    block.prepend(newPicture);
+  } else {
+    block.classList.add('no-image');
+  }
 
   const contentWrapper = block.querySelector(':scope > div');
   contentWrapper.classList.add(`${blockName}__content-wrapper`);
@@ -50,9 +61,17 @@ export default async function decorate(block) {
   const firstHeading = headings[0];
   firstHeading.classList.add('with-marker');
 
+  const button = content.querySelector('a');
+  const allTexts = content.querySelectorAll('p');
+
+  if (!button && (allTexts.length > 0)) {
+    content.classList.add('with-text');
+    allTexts.forEach((p) => p.classList.add(`${blockName}__text`));
+  }
+
   const ctaButtons = content.querySelectorAll('.button-container > a');
   [...ctaButtons].forEach((b) => {
-    b.classList.add(`${blockName}__cta`, 'button--cta');
+    b.classList.add((isPdp ? `${blockName}__cta` : 'button--large'), 'button--cta');
     b.classList.remove('button--primary');
     b.parentElement.classList.add(`${blockName}__cta-wrapper`);
   });
