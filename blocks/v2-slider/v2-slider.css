@@ -1,0 +1,119 @@
+.section.v2-slider-container,
+.section.v2-slider-container .v2-slider-wrapper {
+  padding: 0;
+}
+
+.v2-slider {
+  --text-color: var(--c-primary-black);
+
+  padding: 68px 0 40px;
+}
+
+.v2-slider .button-container,
+.v2-slider__models,
+.v2-slider__header {
+  padding: 0 16px;
+}
+
+.v2-slider__title {
+  font-family: var(--ff-headline-medium);
+  font-size: var(--heading-font-size-m);
+  margin: 0;
+}
+
+.v2-slider__subtitle {
+  margin: 24px 0 0;
+}
+
+.v2-slider__images {
+  margin: 24px 0;
+  position: relative;
+}
+
+.v2-slider__images .image-2 {
+  --exposure: 50%;
+  
+  display: block;
+  position: absolute;
+  top: 0;
+  clip-path: polygon(
+    var(--exposure) 0,
+    100% 0,
+    100% 100%,
+    var(--exposure) 100%
+  );
+}
+
+.bg-light-gray .v2-slider__images {
+  background-color: var(--c-tertiary-light-cool-gray);
+}
+
+.v2-slider__label {
+  display: flex;
+  justify-content: center;
+}
+
+.v2-slider__input {
+  padding: 0;
+  margin: 0;
+  max-width: unset;
+}
+
+
+.v2-slider-container[data-image-background='Light-gray'] {
+  background-color: var(--c-tertiary-light-cool-gray);
+}
+
+.v2-slider .button-container,
+.v2-slider .button-container a {
+  margin: 0;
+}
+
+.v2-slider__models {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.v2-slider__models .model{
+  color: var(--text-color);
+  font-family: var(--ff-subheadings-medium);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; 
+  letter-spacing: 1.92px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@media (min-width: 1200px) {
+  .v2-slider {
+    --text-color: var(--c-primary-black);
+
+    padding: 68px 0 80px;
+  }
+
+  .v2-slider__header {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .v2-slider__title {
+    max-width: 50%;
+  }
+
+  .v2-slider__subtitle {
+    margin: 0;
+    max-width: 40%;
+  }
+
+  .v2-slider__images {
+    margin: 40px 0;
+  }
+}
