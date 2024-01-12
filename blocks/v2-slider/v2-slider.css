@@ -9,6 +9,10 @@
   padding: 68px 0 40px;
 }
 
+.v2-slider__content {
+  position: relative;
+}
+
 .v2-slider .button-container,
 .v2-slider__models,
 .v2-slider__header {
@@ -28,20 +32,27 @@
 .v2-slider__images {
   margin: 24px 0;
   position: relative;
+  clip-path: inset(10px);
 }
 
 .v2-slider__images .image-2 {
   --exposure: 50%;
   
   display: block;
-  position: absolute;
-  top: 0;
   clip-path: polygon(
-    var(--exposure) 0,
+    calc(var(--exposure) + 1px) 0,
     100% 0,
     100% 100%,
-    var(--exposure) 100%
+    calc(var(--exposure) + 1px) 100%
   );
+}
+
+.v2-slider__images .v2-slider__image-wrapper.image-2-wrapper {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  filter: drop-shadow(-4px 0 0 var(--c-primary-gold));
 }
 
 .bg-light-gray .v2-slider__images {
@@ -49,16 +60,46 @@
 }
 
 .v2-slider__label {
+  --factor: calc(-28.1vw - 24px - 20.5px - 8.5px);
+
+  overflow: hidden;
+  align-items: stretch;
   display: flex;
-  justify-content: center;
+  position: absolute;
+  transform: translateY(var(--factor));
+  left: 0;
+  right: 0;
 }
 
 .v2-slider__input {
-  padding: 0;
-  margin: 0;
+  --thumb-size: 41px;
+  
+  margin: 0 calc(var(--thumb-size) / -2);
+  width: calc(100% + var(--thumb-size));
+  cursor: col-resize;
+  appearance: none;
+  background: none;
+  border: none;
   max-width: unset;
+  padding: 0;
 }
 
+.v2-slider__input:hover {
+  border: none;
+}
+
+.v2-slider__input::-webkit-slider-thumb {
+  /* stylelint-disable-next-line */
+  -webkit-appearance: none;
+  border: none;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  background-color: var(--c-primary-gold);
+  cursor: pointer;
+  margin-top: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><path transform="translate(-18, -12)" d="M49.2887 31.9605C49.4567 31.7925 49.4567 31.52 49.2887 31.352L46.55 28.6133C46.382 28.4453 46.1095 28.4453 45.9415 28.6133C45.7734 28.7814 45.7734 29.0539 45.9415 29.2219L48.3758 31.6562L45.9415 34.0906C45.7734 34.2586 45.7734 34.5311 45.9415 34.6992C46.1095 34.8672 46.382 34.8672 46.55 34.6992L49.2887 31.9605ZM28.0241 31.352C27.8561 31.52 27.8561 31.7925 28.0241 31.9605L30.7627 34.6992C30.9308 34.8672 31.2033 34.8672 31.3713 34.6992C31.5394 34.5311 31.5394 34.2586 31.3713 34.0906L28.937 31.6563L31.3713 29.2219C31.5394 29.0539 31.5394 28.7814 31.3713 28.6133C31.2033 28.4453 30.9308 28.4453 30.7627 28.6133L28.0241 31.352ZM48.9844 31.2259L28.3284 31.2259V32.0866L48.9844 32.0866V31.2259Z" fill="black"/></svg>');
+  box-shadow: 0 8px 16px rgb(0 0 0 / 20%);
+}
 
 .v2-slider-container[data-image-background='Light-gray'] {
   background-color: var(--c-tertiary-light-cool-gray);
@@ -75,6 +116,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
+  position: absolute;
+  bottom: -30px;
 }
 
 .v2-slider__models .model{
@@ -115,5 +159,19 @@
 
   .v2-slider__images {
     margin: 40px 0;
+  }
+
+  .v2-slider__label {
+    --factor: calc(-292.54px - 40px - 20.5px - 8.5px);
+  }
+
+  .v2-slider__models {
+    bottom: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .v2-slider__label {
+    --factor: calc(-292.54px - 40px - 20.5px - 8.5px);
   }
 }

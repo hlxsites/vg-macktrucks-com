@@ -45,19 +45,29 @@ export default async function decorate(block) {
   if (has2Images) {
     images.forEach((img, idx) => {
       img.classList.add('image', `image-${idx + 1}`);
-      img.parentElement.classList.add('model', `model-${idx + 1}`);
+
       const model = img.parentElement;
       if (model.textContent.trim().length > 0) {
+        model.classList.add('model', `model-${idx + 1}`);
         models.appendChild(model);
       }
-      slider.appendChild(img);
+
+      if (idx === 0) {
+        slider.appendChild(img);
+      } else {
+        const imgWrapper = createElement('span', { classes: [`${blockName}__image-wrapper`, `image-${idx + 1}-wrapper`] });
+        img.style.setProperty('clip-path', '');
+        imgWrapper.appendChild(img);
+        slider.appendChild(imgWrapper);
+      }
     });
 
     const label = createElement('label', { classes: [`${blockName}__label`, 'image-compare-label'] });
     const input = createElement('input', { classes: [`${blockName}__input`, 'image-compare-input'] });
     input.type = 'range';
-    input.min = 0;
-    input.max = 100;
+    input.min = '0';
+    input.max = '100';
+    input.value = '50';
     label.appendChild(input);
     content.append(slider, label, models);
 
