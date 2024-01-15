@@ -27,11 +27,12 @@ export default async function decorate(block) {
     const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
 
     const breakpoints0 = [
-      { media: '(min-width: 600px)', width: 600 },
-      { width: 750 },
+      { media: '(min-width: 600px)', width: 800 },
+      { width: 600 },
     ];
 
     const breakpoints1 = [
+      { media: '(min-width: 744px)', width: 800 },
       { media: '(min-width: 1200px)', width: 1200 },
       { media: '(min-width: 1440px)', width: 1440 },
       { media: '(min-width: 1920px)', width: 1920 },
