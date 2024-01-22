@@ -711,24 +711,68 @@ $.fn.isOpen = async function (dealer, time) {
       var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
       var [ hour, minutes ] = dealerLocalHour.split(':');
       var dealerTime = (Number(hour) * 60) + Number(minutes);
-      
+
       if (dealerTime >= openTime && dealerTime < closeTime) {
-        var difference = closeTime - dealerTime;
-
-        if ((difference > 0) && (difference < 60)) {
-          closeSoon = true;
-        }
-
-        var closing = end.getHours() + ':' + ((end.getMinutes() === 0) ? '00' : end.getMinutes());
-        closing = $.fn.formatTime(closing)
-
-        return { open: true, endTime: closing, closeSoon: closeSoon };
+        return { open: true };
       } else {
-        return { open: false, endTime: closing, closeSoon: closeSoon };
+        return { open: false };
       }
     }
   }
-  return 2;
+};
+
+$.fn.getOpenHours = function (pin) {
+  var time = new Date();
+  var today = time.getDay();
+  
+  var { Parts: parts, Sales: sales, Service: service } = pin.hours;
+  var allTimes = [ parts[today], sales[today], service[today] ];
+
+  var earliestHour;
+  var latestHour;
+  
+  allTimes.forEach((time, idx) => {
+    var { Start: start, End: end } = time;
+    var compareDate = '1/1/2000 '
+
+    if (start.toLowerCase() == 'midnight') {
+      start = '12:00 AM';
+    }
+
+    if (end.toLowerCase() == 'midnight') {
+      end = '11:59 PM';
+    }
+
+    if (start.toLowerCase().indexOf('24') > -1) {
+      start = '12:00 AM';
+    }
+
+    if (end.toLowerCase().indexOf('24') > -1) {
+      end = '11:59 PM';
+    }
+
+    if (start.toLowerCase() == 'noon') {
+      start = '12:00 PM';
+    }
+
+    if (end.toLowerCase() == 'noon') {
+      end = '12:00 PM';
+    }
+
+    if (idx === 0) {
+      earliestHour = start;
+      latestHour = end;
+    } else {
+      if (start != '' && new Date (compareDate + start) < new Date (compareDate + earliestHour) || earliestHour === '') {
+        earliestHour = start;
+      }
+      if (end != '' && new Date (compareDate + end) > new Date (compareDate + latestHour)) {
+        latestHour = end;
+      }
+    }
+  });
+
+  return { open: earliestHour, close: latestHour }
 };
 
 $.fn.canDetermineHours = function (pin) {
@@ -895,13 +939,13 @@ $.fn.renderPinDetails = async function (markerId) {
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
   var isOpen = await $.fn.isOpen(markerDetails);
+  var openHours = $.fn.getOpenHours(markerDetails);
+
   var isOpenHtml = "";
-  if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = `Open till ${isOpen.endTime}`;
-  } else if (isOpen.open && isOpen.closeSoon) {
-    isOpenHtml = "Closing soon";
+  if (openHours.open === '' && openHours.close === '') {
+    isOpenHtml = "No schedule information available";
   } else {
-    isOpenHtml = "Closed";
+    isOpenHtml = `${isOpen.open ? 'Open' : 'Closed' } - ${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
 
   var servicesHtml = templateClone.find('#services');
@@ -1110,7 +1154,6 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var templateClone = $($('#sidebar-select-pin').clone(true).html());
 
   templateClone.find('.fa-close').attr('data-id', details.IDENTIFIER_VALUE);
-  console.log(details, "details")
 
   var isOpen = $.fn.isOpen(details);
   var isOpenHtml = "";
@@ -1591,7 +1634,7 @@ $.fn.showPin = function (pin) {
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
-  tmpPinList.forEach(async function (pin) {
+  tmpPinList.forEach(function (pin) {
     if (!$.fn.showPin(pin)) {
       return true;
     }
@@ -1601,14 +1644,12 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.teaser-top').attr('data-id', pin.IDENTIFIER_VALUE);
     templateClone.find('.more').attr('data-id', pin.IDENTIFIER_VALUE);
 
-    var isOpen = await $.fn.isOpen(pin);
+    var openHours = $.fn.getOpenHours(pin);
     var isOpenHtml = "";
-    if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = `Open till ${isOpen.endTime}`;
-    } else if (isOpen.open && isOpen.closeSoon) {
-      isOpenHtml = "Closing soon";
+    if (openHours.open === '' && openHours.close === '') {
+      isOpenHtml = "No schedule information available";
     } else {
-      isOpenHtml = "Closed";
+      isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
@@ -1863,7 +1904,6 @@ $.fn.filterNearbyPins = function () {
     if (!toggled) {
       $(this).css('background', '#484a4e');
       tmpPinList2 = filteredArray;
-      console.log(tmpPinList2);
       $.fn.tmpPins(tmpPinList2);
 
       newList.forEach(function (pin) {
