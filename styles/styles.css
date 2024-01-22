@@ -135,33 +135,33 @@
   --ff-accents-regular: "GT America Mono Regular", var(--fallback-ff-accents);
 
   /* Body font sizes */
-  --body-font-size-xxl: 2.4rem; /* 24px */
-  --body-font-size-xl: 2.2rem; /* 22px */
-  --body-font-size-l: 2rem; /* 20px */
-  --body-font-size-m: 1.8rem; /* 18px */
-  --body-font-size-s: 1.6rem; /* 16px */
-  --body-font-size-xs: 1.4rem; /* 14px */
-  --body-font-size-xxs: 1.3rem; /* 13px */
+  --body-font-size-xxl: 2.4rem;
+  --body-font-size-xl: 2.2rem;
+  --body-font-size-l: 2rem;
+  --body-font-size-m: 1.8rem;
+  --body-font-size-s: 1.6rem;
+  --body-font-size-xs: 1.4rem;
+  --body-font-size-xxs: 1.3rem;
 
   /* Heading font sizes */
   --heading-font-size-scale: 0.5;
-  --heading-font-size-xxl: calc(10rem * var(--heading-font-size-scale)); /* 50px */
-  --heading-font-size-xl: calc(8rem * var(--heading-font-size-scale)); /* 40px */
-  --heading-font-size-l: calc(6.4rem * var(--heading-font-size-scale)); /* 32px */
-  --heading-font-size-ml: calc(6rem * var(--heading-font-size-scale)); /* 30px */
-  --heading-font-size-m: calc(4rem * var(--heading-font-size-scale)); /* 20px */
-  --heading-font-size-s: calc(3.6rem * var(--heading-font-size-scale)); /* 18px */
-  --heading-font-size-xs: calc(3.2rem * var(--heading-font-size-scale)); /* 16px */
-  --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale)); /* 10px */
+  --heading-font-size-xxl: calc(10rem * var(--heading-font-size-scale));
+  --heading-font-size-xl: calc(8rem * var(--heading-font-size-scale));
+  --heading-font-size-l: calc(6.4rem * var(--heading-font-size-scale));
+  --heading-font-size-ml: calc(6rem * var(--heading-font-size-scale));
+  --heading-font-size-m: calc(4rem * var(--heading-font-size-scale));
+  --heading-font-size-s: calc(3.6rem * var(--heading-font-size-scale));
+  --heading-font-size-xs: calc(3.2rem * var(--heading-font-size-scale));
+  --heading-font-size-xxs: calc(2rem * var(--heading-font-size-scale));
 
   /* Heading font sizes DESKTOP */
   --heading-desktop-font-size-scale: 0.5;
-  --heading-1-desktop-size-xl: calc(9rem * var(--heading-font-size-scale)); /* 45px */
+  --heading-1-desktop-size-xl: calc(9rem * var(--heading-font-size-scale));
 
   /* Heading font sizes MOBILE */
   --heading-mobile-font-size-scale: 0.5;
-  --heading-3-mobile-size-m: calc(5.2rem * var(--heading-font-size-scale)); /* 26px */
-  --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale)); /* 24px */
+  --heading-3-mobile-size-m: calc(5.2rem * var(--heading-font-size-scale));
+  --heading-4-mobile-size-s: calc(4.8rem * var(--heading-font-size-scale));
 
   /* nav sizes */
   --nav-width: 1376px;
@@ -1049,6 +1049,13 @@ main .section.responsive-title h1 {
 
   color: var(--text-color);
   background-color: var(--c-secondary-silver);
+}
+
+.redesign-v2 .section--light-gray-background {
+  --text-color: var(--c-primary-black);
+
+  color: var(--text-color);
+  background-color: var(--c-tertiary-light-cool-gray);
 }
 
 .redesign-v2 .section--background-with-dots {
