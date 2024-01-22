@@ -640,7 +640,6 @@ $.fn.formatTime = function (timeString) {
 
 $.fn.isOpen = async function (dealer, time) {
   var hours = $.fn.getHours(dealer);
-  var closeSoon = false;
 
   if (!dealer.timeZoneId) {
     dealer.timeZoneId = await $.fn.getTimeZoneId(dealer);
