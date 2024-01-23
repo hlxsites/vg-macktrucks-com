@@ -638,6 +638,7 @@ $.fn.formatTime = function (timeString) {
 }
 
 $.fn.isOpen = async function (dealer, time) {
+  console.log(dealer)
   var hours = $.fn.getHours(dealer);
 
   if (!dealer.timeZoneId) {
@@ -710,9 +711,15 @@ $.fn.isOpen = async function (dealer, time) {
       var [ hour, minutes ] = dealerLocalHour.split(':');
       var dealerTime = (Number(hour) * 60) + Number(minutes);
 
+      console.log(openTime)
+      console.log(closeTime)
+      console.log(dealerTime)
+
       if (dealerTime >= openTime && dealerTime < closeTime) {
+        console.log('open')
         return { open: true };
       } else {
+        console.log('close')
         return { open: false };
       }
     }
@@ -729,24 +736,48 @@ $.fn.getOpenHours = function (pin) {
   var earliestHour;
   var latestHour;
   
-  allTimes.forEach((time) => {
+  allTimes.forEach((time, idx) => {
     var { Start: start, End: end } = time;
+    var compareDate = '1/1/2000 '
 
-    const processTime = (timeValue) => {
-      switch (timeValue.toLowerCase()) {
-        case 'midnight':
-          return timeValue.includes('24') ? '12:00 AM' : '11:59 PM';
-        case 'noon':
-          return '12:00 PM';
-        default:
-          return timeValue;
+    if (start.toLowerCase() == 'midnight') {
+      start = '12:00 AM';
+    }
+
+    if (end.toLowerCase() == 'midnight') {
+      end = '11:59 PM';
+    }
+
+    if (start.toLowerCase().indexOf('24') > -1) {
+      start = '12:00 AM';
+    }
+
+    if (end.toLowerCase().indexOf('24') > -1) {
+      end = '11:59 PM';
+    }
+
+    if (start.toLowerCase() == 'noon') {
+      start = '12:00 PM';
+    }
+
+    if (end.toLowerCase() == 'noon') {
+      end = '12:00 PM';
+    }
+
+    if (idx === 0) {
+      earliestHour = start;
+      latestHour = end;
+    } else {
+      if (start != '' && new Date (compareDate + start) < new Date (compareDate + earliestHour) || earliestHour === '') {
+        earliestHour = start;
       }
-    };
-
-    earliestHour = processTime(start);
-    latestHour = processTime(end);
+      if (end != '' && new Date (compareDate + end) > new Date (compareDate + latestHour)) {
+        latestHour = end;
+      }
+    }
 
   });
+  console.log(earliestHour, latestHour)
 
   return { open: earliestHour, close: latestHour }
 };
