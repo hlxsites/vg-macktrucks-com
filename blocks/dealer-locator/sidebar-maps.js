@@ -730,45 +730,23 @@ $.fn.getOpenHours = function (pin) {
   var earliestHour;
   var latestHour;
   
-  allTimes.forEach((time, idx) => {
+  allTimes.forEach((time) => {
     var { Start: start, End: end } = time;
-    var compareDate = '1/1/2000 '
 
-    if (start.toLowerCase() == 'midnight') {
-      start = '12:00 AM';
-    }
-
-    if (end.toLowerCase() == 'midnight') {
-      end = '11:59 PM';
-    }
-
-    if (start.toLowerCase().indexOf('24') > -1) {
-      start = '12:00 AM';
-    }
-
-    if (end.toLowerCase().indexOf('24') > -1) {
-      end = '11:59 PM';
-    }
-
-    if (start.toLowerCase() == 'noon') {
-      start = '12:00 PM';
-    }
-
-    if (end.toLowerCase() == 'noon') {
-      end = '12:00 PM';
-    }
-
-    if (idx === 0) {
-      earliestHour = start;
-      latestHour = end;
-    } else {
-      if (start != '' && new Date (compareDate + start) < new Date (compareDate + earliestHour) || earliestHour === '') {
-        earliestHour = start;
+    const processTime = (timeValue) => {
+      switch (timeValue.toLowerCase()) {
+        case 'midnight':
+          return timeValue.includes('24') ? '12:00 AM' : '11:59 PM';
+        case 'noon':
+          return '12:00 PM';
+        default:
+          return timeValue;
       }
-      if (end != '' && new Date (compareDate + end) > new Date (compareDate + latestHour)) {
-        latestHour = end;
-      }
-    }
+    };
+
+    earliestHour = processTime(start);
+    latestHour = processTime(end);
+
   });
 
   return { open: earliestHour, close: latestHour }
@@ -1154,14 +1132,12 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
 
   templateClone.find('.fa-close').attr('data-id', details.IDENTIFIER_VALUE);
 
-  var isOpen = $.fn.isOpen(details);
+  var openHours = $.fn.getOpenHours(pin);
   var isOpenHtml = "";
-  if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = `Open till ${isOpen.endTime}`;
-  } else if (isOpen.open && isOpen.closeSoon) {
-    isOpenHtml = "Closing soon";
+  if (openHours.open === '' && openHours.close === '') {
+    isOpenHtml = "No schedule information available";
   } else {
-    isOpenHtml = "Closed";
+    isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
 
 
@@ -2140,14 +2116,12 @@ $.fn.selectNearbyPins = function () {
 
     templateClone.find('.panel-container').parent().attr('data-id', pin.IDENTIFIER_VALUE);
 
-    var isOpen = $.fn.isOpen(pin);
+    var openHours = $.fn.getOpenHours(pin);
     var isOpenHtml = "";
-    if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = `Open till ${isOpen.endTime}`;
-    } else if (isOpen.open && isOpen.closeSoon) {
-      isOpenHtml = "Closing soon";
+    if (openHours.open === '' && openHours.close === '') {
+      isOpenHtml = "No schedule information available";
     } else {
-      isOpenHtml = "Closed";
+      isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
