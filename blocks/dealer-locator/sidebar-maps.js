@@ -638,7 +638,6 @@ $.fn.formatTime = function (timeString) {
 }
 
 $.fn.isOpen = async function (dealer, time) {
-  console.log(dealer)
   var hours = $.fn.getHours(dealer);
 
   if (!dealer.timeZoneId) {
@@ -711,15 +710,9 @@ $.fn.isOpen = async function (dealer, time) {
       var [ hour, minutes ] = dealerLocalHour.split(':');
       var dealerTime = (Number(hour) * 60) + Number(minutes);
 
-      console.log(openTime)
-      console.log(closeTime)
-      console.log(dealerTime)
-
       if (dealerTime >= openTime && dealerTime < closeTime) {
-        console.log('open')
         return { open: true };
       } else {
-        console.log('close')
         return { open: false };
       }
     }
@@ -777,7 +770,6 @@ $.fn.getOpenHours = function (pin) {
     }
 
   });
-  console.log(earliestHour, latestHour)
 
   return { open: earliestHour, close: latestHour }
 };
