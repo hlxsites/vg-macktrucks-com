@@ -304,7 +304,6 @@ $.fn.getTimeZoneId = async function (dealer) {
 };
 
 $.fn.loadPins = function () {
-  console.log('entered loadPins')
   $pins = [];
   $nearbyPins = [];
   $markers = [];
@@ -1191,7 +1190,6 @@ $.fn.setupAddDirectionsView = function () {
 };
 
 $.fn.switchSidebarPane = async function (id, e) {
-  console.log('entered switchSidebarPane')
   var markerId = ($(e).data('id') ? $(e).data('id') : e);
   var content = $('#' + id).html();
 
@@ -1516,8 +1514,6 @@ $.fn.deleteCookie = function (name) {
 };
 
 $.fn.sortedPins = function () {
-
-  console.log('entered sortedPins')
 
   $pinLength = $pins.length;
 
@@ -2653,9 +2649,7 @@ $.fn.setLocation = function () {
 
     }, function () {
 
-// check here
-      
-console.log('error with navigator');
+      console.log('error with navigator');
       $.fn.handleLocationError(true);
       const waiting = $('.sidebar #location').val() ? 'none' : 'block';
       $('.waiting-overlay').css('display', waiting)
