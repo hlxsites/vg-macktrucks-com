@@ -941,13 +941,17 @@ $.fn.renderPinDetails = async function (markerId) {
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
-  var isOpen = await $.fn.isOpen(markerDetails);
   var openHours = $.fn.getOpenHours(markerDetails);
 
   var isOpenHtml = "";
   if (openHours.open === '' && openHours.close === '') {
     isOpenHtml = "No schedule information available";
+  } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+    isOpenHtml = openHours.open
+  } else if (openHours.open.toLowerCase() === 'closed') {
+    isOpenHtml = openHours.open
   } else {
+    var isOpen = await $.fn.isOpen(markerDetails);
     isOpenHtml = `${isOpen.open ? 'Open' : 'Closed' } - ${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
 
@@ -1145,8 +1149,6 @@ $.fn.renderPinDetails = async function (markerId) {
     templateClone.find('.toggle-arrow').css('display', 'none');
   }
 
-  $.fn.isOpen(markerDetails);
-
   $map.panTo(marker.position);
 
   return templateClone;
@@ -1162,6 +1164,10 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var isOpenHtml = "";
   if (openHours.open === '' && openHours.close === '') {
     isOpenHtml = "No schedule information available";
+  } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+    isOpenHtml = `${openHours.open}`;
+  } else if (openHours.open.toLowerCase() === 'closed') {
+    isOpenHtml = `${openHours.open}`;
   } else {
     isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
@@ -1649,6 +1655,10 @@ $.fn.tmpPins = function (tmpPinList) {
     var isOpenHtml = "";
     if (openHours.open === '' && openHours.close === '') {
       isOpenHtml = "No schedule information available";
+    } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+      isOpenHtml = `${openHours.open}`;
+    } else if (openHours.open.toLowerCase() === 'closed') {
+      isOpenHtml = `${openHours.open}`;
     } else {
       isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
@@ -2146,6 +2156,10 @@ $.fn.selectNearbyPins = function () {
     var isOpenHtml = "";
     if (openHours.open === '' && openHours.close === '') {
       isOpenHtml = "No schedule information available";
+    } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+      isOpenHtml = `${openHours.open}`;
+    } else if (openHours.open.toLowerCase() === 'closed') {
+      isOpenHtml = `${openHours.open}`;
     } else {
       isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
