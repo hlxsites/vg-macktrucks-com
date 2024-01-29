@@ -608,23 +608,27 @@ $.fn.isWaypoint = function (waypoint) {
   return false;
 };
 
-$.fn.getHours = function (dealer) {
+// Deprecated function
+$.fn.getHoursDeprecated = function (dealer) {
   var hours = null;
 
   if (dealer.hours['Parts']) {
     hours = dealer.hours['Parts'];
   }
 
-  if (!hours && dealer.hours['Service']) {
+  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Sales']) {
+    hours = dealer.hours['Sales'];
+  }
+
+  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Service']) {
     hours = dealer.hours['Service'];
   }
 
-  if (!hours && dealer.hours['Leasing']) {
+  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Leasing']) {
     hours = dealer.hours['Leasing'];
   }
 
   return hours;
-
 };
 
 $.fn.formatTime = function (timeString) {
@@ -637,101 +641,27 @@ $.fn.formatTime = function (timeString) {
   return `${hour}:${minutes} ${period}`
 }
 
-$.fn.isOpen = async function (dealer, time) {
-  var hours = $.fn.getHours(dealer);
-
-  if (!dealer.timeZoneId) {
-    dealer.timeZoneId = await $.fn.getTimeZoneId(dealer);
-  }
-
-  if (hours) {
-
-    if (!time) {
-      time = new Date();
-    }
-
-    var todayAtDealer = hours[time.getDay()];
-
-    if (todayAtDealer) {
-
-      var startTime = todayAtDealer.Start;
-      if (startTime.toLowerCase() == 'midnight') {
-        startTime = '12:00 AM';
-      }
-
-      var endTime = todayAtDealer.End;
-      if (endTime.toLowerCase() == 'midnight') {
-        endTime = '11:59 PM';
-      }
-
-      if (startTime.toLowerCase().indexOf('24') > -1) {
-        startTime = '12:00 AM';
-      }
-
-      if (endTime.toLowerCase().indexOf('24') > -1) {
-        endTime = '11:59 PM';
-      }
-
-      if (startTime.toLowerCase() == 'noon') {
-        startTime = '12:00 PM';
-      }
-
-      if (endTime.toLowerCase() == 'noon') {
-        endTime = '12:00 PM';
-      }
-
-      var start = new Date();
-      start.setFullYear(time.getFullYear());
-      start.setMonth(time.getMonth());
-      start.setDate(time.getDate());
-      start.setHours(moment(startTime, ["h:mm A"]).format("HH"));
-      start.setMinutes(moment(startTime, ["h:mm A"]).format("mm"));
-      start.setSeconds(0);
-
-      var end = new Date();
-      end.setFullYear(time.getFullYear());
-      end.setMonth(time.getMonth());
-      end.setDate(time.getDate());
-      end.setHours(moment(endTime, ["h:mm A"]).format("HH"));
-      end.setMinutes(moment(endTime, ["h:mm A"]).format("mm"));
-      end.setSeconds(0);
-
-      if (~endTime.toLowerCase().indexOf("am")) {
-        // console.log('end date is AM, add 1 day');
-        end.setDate(time.getDate() + 1);
-      }
-
-      var openTime = (start.getHours() * 60) + start.getMinutes();
-      var closeTime = (end.getHours() * 60) + end.getMinutes();
-
-      var stringDealerDate = moment().tz(dealer.timeZoneId).format();
-      var hourPosition = stringDealerDate.indexOf('T');
-      var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
-      var [ hour, minutes ] = dealerLocalHour.split(':');
-      var dealerTime = (Number(hour) * 60) + Number(minutes);
-
-      if (dealerTime >= openTime && dealerTime < closeTime) {
-        return { open: true };
-      } else {
-        return { open: false };
-      }
-    }
-  }
-};
-
 $.fn.getOpenHours = function (pin) {
   var time = new Date();
   var today = time.getDay();
-  
-  var { Parts: parts, Sales: sales, Service: service } = pin.hours;
-  var allTimes = [ parts[today], sales[today], service[today] ];
+
+  var isLeasing = Object.keys(pin.hours)[0].toLowerCase() === 'leasing';
+  var allTimes;
+
+  if (!isLeasing) {
+    var { Parts: parts, Sales: sales, Service: service } = pin.hours;
+    allTimes = [ parts[today], sales[today], service[today] ];
+  } else if (isLeasing) {
+    var { Leasing: leasing } = pin.hours;
+    allTimes = [ leasing[today] ];
+  }
 
   var earliestHour;
   var latestHour;
-  
+
   allTimes.forEach((time, idx) => {
     var { Start: start, End: end } = time;
-    var compareDate = new Date('1/1/2000');
+    var compareDate = '1/1/2000 '
 
     switch (start.toLowerCase()) {
       case 'midnight':
@@ -753,29 +683,54 @@ $.fn.getOpenHours = function (pin) {
         break;
     }
 
-    var startDate = new Date(compareDate.getTime());
-    startDate.setHours(...start.split(':').map((val, idx) => idx === 0 ? parseInt(val) : parseInt(val.split(' ')[0])));
-    startDate.setMinutes(start.includes('PM') ? startDate.getMinutes() + 12 * 60 : startDate.getMinutes());
-
-    var endDate = new Date(compareDate.getTime());
-    endDate.setHours(...end.split(':').map((val, idx) => idx === 0 ? parseInt(val) : parseInt(val.split(' ')[0])));
-    endDate.setMinutes(end.includes('PM') ? endDate.getMinutes() + 12 * 60 : endDate.getMinutes());
-
     if (idx === 0) {
       earliestHour = start;
       latestHour = end;
     } else {
-      if (start !== '' && startDate < new Date (compareDate.getTime() + earliestHour) || earliestHour === '') {
+      if (start != '' && new Date (compareDate + start) < new Date (compareDate + earliestHour) || earliestHour === '') {
         earliestHour = start;
       }
-      if (end !== '' && endDate > new Date (compareDate.getTime() + latestHour)) {
+      if (end != '' && new Date (compareDate + end) > new Date (compareDate + latestHour)) {
         latestHour = end;
       }
     }
-
   });
 
   return { open: earliestHour, close: latestHour }
+};
+
+$.fn.isOpen = async function (dealer, time) {
+  var hours = $.fn.getOpenHours(dealer);
+  var compareDate = '1/1/2000 '
+  
+  if (!dealer.timeZoneId) {
+    dealer.timeZoneId = await $.fn.getTimeZoneId(dealer);
+  }
+
+  if (hours) {
+    var start = new Date(compareDate + hours.open);
+    var end = new Date(compareDate + hours.close);
+
+    if (~hours.close.toLowerCase().indexOf("am")) {
+      // console.log('end date is AM, add 1 day');
+      end.setDate(compareDate.getDate() + 1);
+    }
+
+    var openTime = (start.getHours() * 60) + start.getMinutes();
+    var closeTime = (end.getHours() * 60) + end.getMinutes();
+
+    var stringDealerDate = moment().tz(dealer.timeZoneId).format();
+    var hourPosition = stringDealerDate.indexOf('T');
+    var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
+    var [ hour, minutes ] = dealerLocalHour.split(':');
+    var dealerTime = (Number(hour) * 60) + Number(minutes);
+
+    if (dealerTime >= openTime && dealerTime < closeTime) {
+      return { open: true };
+    } else {
+      return { open: false };
+    }
+  }
 };
 
 $.fn.canDetermineHours = function (pin) {
@@ -788,6 +743,10 @@ $.fn.canDetermineHours = function (pin) {
 
   if (!hours && pin.hours['Service']) {
     hours = pin.hours['Service'];
+  }
+
+  if (!hours && pin.hours['Sales']) {
+    hours = pin.hours['Sales'];
   }
 
   if (!hours && pin.hours['Leasing']) {
@@ -1137,7 +1096,6 @@ $.fn.renderPinDetails = async function (markerId) {
       }
     }
   }
-
 
   if (!hasPartsHours && !hasServiceHours && !hasLeasingHours && !hasSalesHours) {
     isOpenHtml = "Call";
