@@ -284,7 +284,7 @@ function addMobileTabNavigation(block, title, hotspotAreaId) {
   }
 
   const link = createElement('a', { props: { href: `#${title.textContent}` } });
-  link.textContent = title.innerHTML;
+  link.innerHTML = title.innerHTML;
   li.append(link);
   mobileNav.firstElementChild.append(li);
 
