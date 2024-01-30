@@ -608,29 +608,6 @@ $.fn.isWaypoint = function (waypoint) {
   return false;
 };
 
-// Deprecated function
-$.fn.getHoursDeprecated = function (dealer) {
-  var hours = null;
-
-  if (dealer.hours['Parts']) {
-    hours = dealer.hours['Parts'];
-  }
-
-  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Sales']) {
-    hours = dealer.hours['Sales'];
-  }
-
-  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Service']) {
-    hours = dealer.hours['Service'];
-  }
-
-  if (!hours || (hours[1].Start.length === 0) && (hours[1].End.length === 0) && dealer.hours['Leasing']) {
-    hours = dealer.hours['Leasing'];
-  }
-
-  return hours;
-};
-
 $.fn.formatTime = function (timeString) {
   var [ hour, minutes ] = timeString.split(':');
   var period = 'AM';
@@ -2306,40 +2283,6 @@ $.fn.getDistanceInKm = function ($b) {
 
 $.fn.deg2rad = function ($deg) {
   return $deg * (Math.PI / 180);
-};
-
-// Not using this function
-$.fn.getTimezoneDeprecated = function (dealerId) {
-
-  var time = Date.now();
-
-  var dealerLength = $dealers.length;
-  var dealer = null;
-  for (var i = 0; i < dealerLength; i++) {
-
-    if ($dealers[i].IDENTIFIER_VALUE == dealerId) {
-
-      dealer = $dealers[i];
-      break;
-    }
-  }
-
-  if (!dealer.timezone) {
-
-    $.ajax({
-
-      url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + dealer.MAIN_LATITUDE + "," + dealer.MAIN_LONGITUDE + "&timestamp=" + Math.floor(time / 1000) + '&key=' + $key,
-      type: "GET",
-      success: function (data) {
-        dealer.hourOffset = (data.rawOffset + data.dstOffset) / 60 / 60;
-        dealer.timezone = data.timeZoneId;
-        $.fn.isCurrentlyOpen(dealer);
-      }
-    });
-  } else {
-
-    $.fn.isCurrentlyOpen(dealer);
-  }
 };
 
 // Fires when a client types a location manually
