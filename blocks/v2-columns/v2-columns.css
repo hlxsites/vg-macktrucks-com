@@ -1,3 +1,7 @@
+.v2-columns-container.section--with-background {
+  position: relative;
+}
+
 .v2-columns__row {
   flex-direction: column;
   display: flex;
@@ -32,6 +36,7 @@
   display: flex;
   flex-direction: column;
   padding: 40px 0;
+  gap: 12px;
 }
 
 .v2-columns__heading {
@@ -44,12 +49,17 @@
 }
 
 .v2-columns__column--with-text .v2-columns__heading {
-  margin: 12px 0;
+  margin: 0;
+}
+
+.v2-columns__column--with-text .pretitle {
+  margin-bottom: 12px;
 }
 
 .v2-columns__column--with-text .v2-columns__body {
   font-size: var(--body-1-font-size);
-  margin: 0 0 32px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .v2-columns__column--with-text .v2-columns__body a {
@@ -58,50 +68,20 @@
   text-decoration: none;
 }
 
+.v2-columns__column--with-text .button-container {
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
 .v2-columns__column--with-text a.button {
-  width: fit-content;
-  margin-top: 12px;
+  min-width: auto;
+  margin: 0;
 }
 
-.v2-columns__column--with-text a.button:not(a.button:first-of-type) {
+.v2-columns-container:not(.v2-columns-container--with-background-image) .v2-columns__column--with-text a.button:not(a.button:first-of-type) {
   margin: 5px 0 0;
-}
-
-.v2-columns--info .v2-columns__column {
-  gap: 8px;
-}
-
-.v2-columns--info .icon {
-  margin-bottom: 8px;
-}
-
-.v2-columns--info .v2-columns__heading {
-  margin: 0;
-}
-
-.v2-columns--info .v2-columns__body {
-  margin: 0 0 22px;
-}
-
-.v2-columns--info .v2-columns__column--info-main {
-  gap: 24px;
-}
-
-.v2-columns--info .v2-columns__column--info-main .v2-columns__heading {
-  padding-top: 24px;
-  margin: 0;
-}
-
-.v2-columns--info .v2-columns__column--with-text {
-  padding: 0;
-}
-
-.v2-columns--info .v2-columns__row {
-  gap: 40px;
-}
-
-.v2-columns--info .v2-columns__button {
-  margin-bottom: 16px;
 }
 
 @media (min-width: 744px) {
@@ -123,42 +103,73 @@
     order: unset;
   }
 
-  .v2-columns:not(.v2-columns--info) .v2-columns__column--with-text {
+  .v2-columns .v2-columns__column--with-text {
     padding: 0 56px;
   }
 
-  .v2-columns:not(.v2-columns--info) .v2-columns__column--with-text .v2-columns__heading {
-    margin: 24px 0 12px;
+  .v2-columns .v2-columns__column--with-text .v2-columns__heading {
     font-size: var(--headline-1-font-size);
   }
 
-  .v2-columns__column--with-text .v2-columns__body {
-    margin: 0 0 14px;
-  }
-
-  .v2-columns--info .v2-columns__row {
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .v2-columns--info .v2-columns__body:last-child {
+  .v2-columns__column--with-text ul.v2-columns__body {
     margin: 0;
   }
+}
 
-  .v2-columns--info .v2-columns__column {
-    max-width: 245px;
+/* TRUCKS VARIATIONS STYLING */
+
+.redesign-v2 .v2-columns-container--with-background-image .v2-columns-wrapper {
+  padding: 40px 16px;
+  width: 100%;
+}
+
+.redesign-v2 .section--with-background.v2-columns-container--with-background-image > picture img {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.v2-columns-container--with-background-image .v2-columns__column--with-text {
+  padding: 24px 0 0;
+}
+
+.v2-columns.v2-columns--with-background-image .v2-columns__heading.with-marker::before {
+  top: -24px;
+}
+
+
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-columns.v2-columns--with-background-image .button-container a.button,
+.v2-columns.v2-columns--with-background-image .button-container a.button:not(a.button:first-of-type) {
+  width: 100%;
+}
+
+@media (min-width: 744px) {
+  .v2-columns__column--with-text .button-container {
+    margin: 20px 0 0;
   }
 
-  .v2-columns--info .v2-columns__column--info-main {
-    align-self: center;
-    max-width: 329px;
-    width: 100%;
+  .redesign-v2 .v2-columns-container--with-background-image .v2-columns-wrapper {
+    background-color: var(--c-primary-white);
+    position: absolute;
+    top: calc(200% * 0.125);
+    max-width: 485px;
+    padding: 40px;
+    margin-left: 72px;
+  }
+
+  .v2-columns.v2-columns--with-background-image .button-container a.button,
+  .v2-columns.v2-columns--with-background-image .button-container a.button:not(a.button:first-of-type) {
+    max-width: 140px;
   }
 }
 
 @media (min-width: 1200px) {
-  .v2-columns--info {
-    padding: 20px 40px;
-    background: var(--c-primary-white);
+  .redesign-v2 .v2-columns-container--with-background-image .v2-columns-wrapper {
+    left: calc(calc(100% - var(--wrapper-width)) / 2);
+    margin-left: 56px;
+  }
+
+  .redesign-v2 .section--with-background.v2-columns-container--with-background-image > picture img {
+    aspect-ratio: 12 / 7;
   }
 }

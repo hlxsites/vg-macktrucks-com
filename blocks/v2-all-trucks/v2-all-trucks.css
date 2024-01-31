@@ -4,13 +4,6 @@
   margin-top: 35px;
 }
 
-.v2-all-trucks__title {
-  font-family: var(--ff-headline-medium);
-  letter-spacing: -.02em;
-  margin-bottom: 24px;
-  padding-top: 42px;
-}
-
 .redesign-v2 .section.v2-all-trucks-container .default-content-wrapper h1 + p {
   letter-spacing: .01rem;
   margin-bottom: 30px;
@@ -37,7 +30,6 @@
   text-align: left;
   width: 100%;
 }
-
 
 /* Trucks */
 .v2-all-trucks-container div.v2-all-trucks-wrapper {
@@ -285,7 +277,6 @@
 
   .v2-all-trucks .v2-all-trucks__truck .v2-all-trucks__truck-image picture:last-child {
     display: flex;
-    align-items: center;
     justify-content: center;
     overflow: hidden;
     width: 100%;
@@ -352,7 +343,7 @@
     width: auto;
   }
 
-  .v2-all-trucks__selected-item-wrapper { 
+  .v2-all-trucks__selected-item-wrapper {
     display: none;
   }
 

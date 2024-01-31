@@ -233,6 +233,10 @@
     --v2-images-grid-padding-space: 40px;
   }
 
+  .v2-images-grid__modal-content {
+    max-width: 1040px;
+  }
+
   .v2-images-grid__figcaption {
     display: block;
     text-align: center;

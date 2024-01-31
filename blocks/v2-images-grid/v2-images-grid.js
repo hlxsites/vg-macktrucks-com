@@ -7,10 +7,10 @@ import { showModal } from '../../common/modal/modal-component.js';
 
 const blockClassName = 'v2-images-grid';
 
-const scrollLeft = (el, leftPadding) => {
+const scrollLeft = (el, leftPadding, behavior = 'smooth') => {
   el.scrollTo({
     left: leftPadding,
-    behavior: 'smooth',
+    behavior,
   });
 };
 
@@ -34,13 +34,14 @@ const udpateArrowsState = (activeSlideIndex, itemsCount) => {
   }
 };
 
-const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList, modalContent) => {
+// eslint-disable-next-line max-len
+const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList, modalContent, behavior) => {
   const itemWidth = carouselItemsList.getBoundingClientRect().width;
 
   udpateArrowsState(activeSlideIndex, carouselItemsList.children.length, modalContent);
 
-  scrollLeft(carouselImagesList, activeSlideIndex * 90);
-  scrollLeft(carouselItemsList, activeSlideIndex * itemWidth);
+  scrollLeft(carouselImagesList, activeSlideIndex * 90, behavior);
+  scrollLeft(carouselItemsList, activeSlideIndex * itemWidth, behavior);
 };
 
 const createModalContent = (content) => {
@@ -191,7 +192,7 @@ export default function decorate(block) {
         const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
 
         await showImagesGridModal(modalContent);
-        setActiveSlide(idx, carouselItemsList, carouselImagesList, modalContent);
+        setActiveSlide(idx, carouselItemsList, carouselImagesList, modalContent, 'instant');
       });
 
       return;
