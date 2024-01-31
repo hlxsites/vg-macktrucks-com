@@ -177,11 +177,31 @@
     },
     {
       "Key": "recall_oldest_info",
-      "Text": "Recall information available since: Jan 15,2008"
+      "Text": "Recall information available since:"
     },
     {
       "Key": "All trucks",
       "Text": "All trucks"
+    }, 
+    {
+      "Key": "recall_available_info",
+      "Text": "since:"
+    },
+    {
+      "Key": "model",
+      "Text": "Model"
+    },
+    {
+      "Key": "model year",
+      "Text": "Model Year"
+    },
+    {
+      "Key": "make",
+      "Text": "Make"
+    },
+    {
+      "Key": "tc_recall_nbr",
+      "Text": "Transport Canada Number"
     }
   ],
   ":type": "sheet"
