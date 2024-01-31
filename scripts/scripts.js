@@ -16,7 +16,6 @@ import {
   toCamelCase,
   toClassName,
   loadScript,
-  getHref,
   createOptimizedPicture,
 } from './lib-franklin.js';
 
@@ -152,50 +151,6 @@ export function findAndCreateImageLink(node) {
     }
   });
 }
-/**
- * Returns a picture element with webp and fallbacks / allow multiple src paths for every breakpoint
- * @param {string} src Default image URL (if no src is passed to breakpoints object)
- * @param {boolean} eager load image eager
- * @param {Array} breakpoints breakpoints and corresponding params (eg. src, width, media)
- */
-export function createCustomOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 400px)', width: '2000' }, { width: '750' }]) {
-  const url = new URL(src, getHref());
-  const picture = document.createElement('picture');
-  let { pathname } = url;
-  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
-
-  breakpoints.forEach((br) => {
-    // custom src path in breakpoint
-    if (br.src) {
-      const customUrl = new URL(br.src, getHref());
-      pathname = customUrl.pathname;
-    }
-
-    const source = document.createElement('source');
-    if (br.media) source.setAttribute('media', br.media);
-    source.setAttribute('type', 'image/webp');
-    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
-    picture.appendChild(source);
-  });
-
-  // fallback
-  breakpoints.forEach((br, j) => {
-    if (j < breakpoints.length - 1) {
-      const source = document.createElement('source');
-      if (br.media) source.setAttribute('media', br.media);
-      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
-      picture.appendChild(source);
-    } else {
-      const image = document.createElement('img');
-      image.setAttribute('loading', eager ? 'eager' : 'lazy');
-      image.setAttribute('alt', alt);
-      picture.appendChild(image);
-      image.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
-    }
-  });
-
-  return picture;
-}
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -277,7 +232,7 @@ export function decorateLinks(block) {
 }
 
 function decorateSectionBackgrounds(main) {
-  const variantClasses = ['black-background', 'gray-background', 'background-with-dots'];
+  const variantClasses = ['black-background', 'gray-background', 'background-with-dots', 'light-gray-background'];
 
   main.querySelectorAll(':scope > .section').forEach((section) => {
     // transform background color variants into BEM classnames
@@ -323,13 +278,10 @@ const createInpageNavigation = (main) => {
 
   // Sort the object by order
   const sortedObject = tabItemsObj.slice().sort((obj1, obj2) => {
-    if (!obj1.order) {
-      return 1; // Move 'a' to the end
-    }
-    if (!obj2.order) {
-      return -1; // Move 'b' to the end
-    }
-    return obj1.order - obj2.order;
+    const order1 = obj1.order ?? Infinity; // Fallback to a large number if 'order' is not present
+    const order2 = obj2.order ?? Infinity;
+
+    return order1 - order2;
   });
 
   // From the array of objects create the DOM
