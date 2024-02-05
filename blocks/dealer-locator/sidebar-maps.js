@@ -304,7 +304,6 @@ $.fn.getTimeZoneId = async function (dealer) {
 };
 
 $.fn.loadPins = function () {
-
   $pins = [];
   $nearbyPins = [];
   $markers = [];
@@ -609,25 +608,6 @@ $.fn.isWaypoint = function (waypoint) {
   return false;
 };
 
-$.fn.getHours = function (dealer) {
-  var hours = null;
-
-  if (dealer.hours['Parts']) {
-    hours = dealer.hours['Parts'];
-  }
-
-  if (!hours && dealer.hours['Service']) {
-    hours = dealer.hours['Service'];
-  }
-
-  if (!hours && dealer.hours['Leasing']) {
-    hours = dealer.hours['Leasing'];
-  }
-
-  return hours;
-
-};
-
 $.fn.formatTime = function (timeString) {
   var [ hour, minutes ] = timeString.split(':');
   var period = 'AM';
@@ -638,97 +618,96 @@ $.fn.formatTime = function (timeString) {
   return `${hour}:${minutes} ${period}`
 }
 
-$.fn.isOpen = async function (dealer, time) {
-  var hours = $.fn.getHours(dealer);
-  var closeSoon = false;
+$.fn.getOpenHours = function (pin) {
+  var time = new Date();
+  var today = time.getDay();
 
+  var isLeasing = Object.keys(pin.hours)[0].toLowerCase() === 'leasing';
+  var allTimes;
+
+  if (!isLeasing) {
+    var { Parts: parts, Sales: sales, Service: service } = pin.hours;
+    allTimes = [ parts[today], sales[today], service[today] ];
+  } else if (isLeasing) {
+    var { Leasing: leasing } = pin.hours;
+    allTimes = [ leasing[today] ];
+  }
+
+  var earliestHour;
+  var latestHour;
+
+  allTimes.forEach((time, idx) => {
+    var { Start: start, End: end } = time;
+    var compareDate = '1/1/2000 '
+
+    switch (start.toLowerCase()) {
+      case 'midnight':
+      case '24':
+        start = '12:00 AM';
+        break;
+      case 'noon':
+        start = '12:00 PM';
+        break;
+    }
+
+    switch (end.toLowerCase()) {
+      case 'midnight':
+      case '24':
+        end = '11:59 PM';
+        break;
+      case 'noon':
+        end = '12:00 PM';
+        break;
+    }
+
+    if (idx === 0) {
+      earliestHour = start;
+      latestHour = end;
+    } else {
+      if (start != '' && new Date (compareDate + start) < new Date (compareDate + earliestHour) || earliestHour === '') {
+        earliestHour = start;
+      }
+      if (end != '' && new Date (compareDate + end) > new Date (compareDate + latestHour)) {
+        latestHour = end;
+      }
+    }
+  });
+
+  return { open: earliestHour, close: latestHour }
+};
+
+$.fn.isOpen = async function (dealer, time) {
+  var hours = $.fn.getOpenHours(dealer);
+  var compareDate = '1/1/2000 '
+  
   if (!dealer.timeZoneId) {
     dealer.timeZoneId = await $.fn.getTimeZoneId(dealer);
   }
 
   if (hours) {
+    var start = new Date(compareDate + hours.open);
+    var end = new Date(compareDate + hours.close);
 
-    if (!time) {
-      time = new Date();
+    if (~hours.close.toLowerCase().indexOf("am")) {
+      // console.log('end date is AM, add 1 day');
+      end.setDate(compareDate.getDate() + 1);
     }
 
-    var todayAtDealer = hours[time.getDay()];
+    var openTime = (start.getHours() * 60) + start.getMinutes();
+    var closeTime = (end.getHours() * 60) + end.getMinutes();
 
-    if (todayAtDealer) {
+    var stringDealerDate = moment().tz(dealer.timeZoneId).format();
+    var hourPosition = stringDealerDate.indexOf('T');
+    var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
+    var [ hour, minutes ] = dealerLocalHour.split(':');
+    var dealerTime = (Number(hour) * 60) + Number(minutes);
 
-      var startTime = todayAtDealer.Start;
-      if (startTime.toLowerCase() == 'midnight') {
-        startTime = '12:00 AM';
-      }
-
-      var endTime = todayAtDealer.End;
-      if (endTime.toLowerCase() == 'midnight') {
-        endTime = '11:59 PM';
-      }
-
-      if (startTime.toLowerCase().indexOf('24') > -1) {
-        startTime = '12:00 AM';
-      }
-
-      if (endTime.toLowerCase().indexOf('24') > -1) {
-        endTime = '11:59 PM';
-      }
-
-      if (startTime.toLowerCase() == 'noon') {
-        startTime = '12:00 PM';
-      }
-
-      if (endTime.toLowerCase() == 'noon') {
-        endTime = '12:00 PM';
-      }
-
-      var start = new Date();
-      start.setFullYear(time.getFullYear());
-      start.setMonth(time.getMonth());
-      start.setDate(time.getDate());
-      start.setHours(moment(startTime, ["h:mm A"]).format("HH"));
-      start.setMinutes(moment(startTime, ["h:mm A"]).format("mm"));
-      start.setSeconds(0);
-
-      var end = new Date();
-      end.setFullYear(time.getFullYear());
-      end.setMonth(time.getMonth());
-      end.setDate(time.getDate());
-      end.setHours(moment(endTime, ["h:mm A"]).format("HH"));
-      end.setMinutes(moment(endTime, ["h:mm A"]).format("mm"));
-      end.setSeconds(0);
-
-      if (~endTime.toLowerCase().indexOf("am")) {
-        // console.log('end date is AM, add 1 day');
-        end.setDate(time.getDate() + 1);
-      }
-
-      var openTime = (start.getHours() * 60) + start.getMinutes();
-      var closeTime = (end.getHours() * 60) + end.getMinutes();
-
-      var stringDealerDate = moment().tz(dealer.timeZoneId).format();
-      var hourPosition = stringDealerDate.indexOf('T');
-      var dealerLocalHour = stringDealerDate.substring(hourPosition + 1, hourPosition + 6);
-      var [ hour, minutes ] = dealerLocalHour.split(':');
-      var dealerTime = (Number(hour) * 60) + Number(minutes);
-      
-      if (dealerTime >= openTime && dealerTime < closeTime) {
-        var difference = closeTime - dealerTime;
-
-        if ((difference > 0) && (difference < 60)) {
-          closeSoon = true;
-        }
-
-        var closing = end.getHours() + ':' + ((end.getMinutes() === 0) ? '00' : end.getMinutes());
-        closing = $.fn.formatTime(closing)
-
-        return { open: true, endTime: closing, closeSoon: closeSoon };
-      } else {
-        return { open: false, endTime: closing, closeSoon: closeSoon };
-      }
+    if (dealerTime >= openTime && dealerTime < closeTime) {
+      return { open: true };
+    } else {
+      return { open: false };
     }
   }
-  return 2;
 };
 
 $.fn.canDetermineHours = function (pin) {
@@ -741,6 +720,10 @@ $.fn.canDetermineHours = function (pin) {
 
   if (!hours && pin.hours['Service']) {
     hours = pin.hours['Service'];
+  }
+
+  if (!hours && pin.hours['Sales']) {
+    hours = pin.hours['Sales'];
   }
 
   if (!hours && pin.hours['Leasing']) {
@@ -894,14 +877,18 @@ $.fn.renderPinDetails = async function (markerId) {
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
-  var isOpen = await $.fn.isOpen(markerDetails);
+  var openHours = $.fn.getOpenHours(markerDetails);
+
   var isOpenHtml = "";
-  if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = `Open till ${isOpen.endTime}`;
-  } else if (isOpen.open && isOpen.closeSoon) {
-    isOpenHtml = "Closing soon";
+  if (openHours.open === '' && openHours.close === '') {
+    isOpenHtml = "No schedule information available";
+  } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+    isOpenHtml = openHours.open
+  } else if (openHours.open.toLowerCase() === 'closed') {
+    isOpenHtml = openHours.open
   } else {
-    isOpenHtml = "Closed";
+    var isOpen = await $.fn.isOpen(markerDetails);
+    isOpenHtml = `${isOpen.open ? 'Open' : 'Closed' } - ${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
 
   var servicesHtml = templateClone.find('#services');
@@ -1087,7 +1074,6 @@ $.fn.renderPinDetails = async function (markerId) {
     }
   }
 
-
   if (!hasPartsHours && !hasServiceHours && !hasLeasingHours && !hasSalesHours) {
     isOpenHtml = "Call";
   }
@@ -1097,8 +1083,6 @@ $.fn.renderPinDetails = async function (markerId) {
   if ($.isEmptyObject(hours)) {
     templateClone.find('.toggle-arrow').css('display', 'none');
   }
-
-  $.fn.isOpen(markerDetails);
 
   $map.panTo(marker.position);
 
@@ -1110,16 +1094,17 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   var templateClone = $($('#sidebar-select-pin').clone(true).html());
 
   templateClone.find('.fa-close').attr('data-id', details.IDENTIFIER_VALUE);
-  console.log(details, "details")
 
-  var isOpen = $.fn.isOpen(details);
+  var openHours = $.fn.getOpenHours(pin);
   var isOpenHtml = "";
-  if (isOpen.open && !isOpen.closeSoon) {
-    isOpenHtml = `Open till ${isOpen.endTime}`;
-  } else if (isOpen.open && isOpen.closeSoon) {
-    isOpenHtml = "Closing soon";
+  if (openHours.open === '' && openHours.close === '') {
+    isOpenHtml = "No schedule information available";
+  } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+    isOpenHtml = `${openHours.open}`;
+  } else if (openHours.open.toLowerCase() === 'closed') {
+    isOpenHtml = `${openHours.open}`;
   } else {
-    isOpenHtml = "Closed";
+    isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
   }
 
 
@@ -1591,7 +1576,7 @@ $.fn.showPin = function (pin) {
 $.fn.tmpPins = function (tmpPinList) {
   var pinIndex = 1;
   var nearbyHtml = $('.nearby-pins').empty();
-  tmpPinList.forEach(async function (pin) {
+  tmpPinList.forEach(function (pin) {
     if (!$.fn.showPin(pin)) {
       return true;
     }
@@ -1601,14 +1586,16 @@ $.fn.tmpPins = function (tmpPinList) {
     templateClone.find('.teaser-top').attr('data-id', pin.IDENTIFIER_VALUE);
     templateClone.find('.more').attr('data-id', pin.IDENTIFIER_VALUE);
 
-    var isOpen = await $.fn.isOpen(pin);
+    var openHours = $.fn.getOpenHours(pin);
     var isOpenHtml = "";
-    if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = `Open till ${isOpen.endTime}`;
-    } else if (isOpen.open && isOpen.closeSoon) {
-      isOpenHtml = "Closing soon";
+    if (openHours.open === '' && openHours.close === '') {
+      isOpenHtml = "No schedule information available";
+    } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+      isOpenHtml = `${openHours.open}`;
+    } else if (openHours.open.toLowerCase() === 'closed') {
+      isOpenHtml = `${openHours.open}`;
     } else {
-      isOpenHtml = "Closed";
+      isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
@@ -1863,7 +1850,6 @@ $.fn.filterNearbyPins = function () {
     if (!toggled) {
       $(this).css('background', '#484a4e');
       tmpPinList2 = filteredArray;
-      console.log(tmpPinList2);
       $.fn.tmpPins(tmpPinList2);
 
       newList.forEach(function (pin) {
@@ -2101,14 +2087,16 @@ $.fn.selectNearbyPins = function () {
 
     templateClone.find('.panel-container').parent().attr('data-id', pin.IDENTIFIER_VALUE);
 
-    var isOpen = $.fn.isOpen(pin);
+    var openHours = $.fn.getOpenHours(pin);
     var isOpenHtml = "";
-    if (isOpen.open && !isOpen.closeSoon) {
-      isOpenHtml = `Open till ${isOpen.endTime}`;
-    } else if (isOpen.open && isOpen.closeSoon) {
-      isOpenHtml = "Closing soon";
+    if (openHours.open === '' && openHours.close === '') {
+      isOpenHtml = "No schedule information available";
+    } else if (openHours.open.toLowerCase() === 'open 24 hours') {
+      isOpenHtml = `${openHours.open}`;
+    } else if (openHours.open.toLowerCase() === 'closed') {
+      isOpenHtml = `${openHours.open}`;
     } else {
-      isOpenHtml = "Closed";
+      isOpenHtml = `${openHours.open.toLowerCase()} - ${openHours.close.toLowerCase()}`;
     }
 
     templateClone.find('.heading p').text($.fn.camelCase(pin.COMPANY_DBA_NAME));
@@ -2295,40 +2283,6 @@ $.fn.getDistanceInKm = function ($b) {
 
 $.fn.deg2rad = function ($deg) {
   return $deg * (Math.PI / 180);
-};
-
-// Not using this function
-$.fn.getTimezoneDeprecated = function (dealerId) {
-
-  var time = Date.now();
-
-  var dealerLength = $dealers.length;
-  var dealer = null;
-  for (var i = 0; i < dealerLength; i++) {
-
-    if ($dealers[i].IDENTIFIER_VALUE == dealerId) {
-
-      dealer = $dealers[i];
-      break;
-    }
-  }
-
-  if (!dealer.timezone) {
-
-    $.ajax({
-
-      url: "https://maps.googleapis.com/maps/api/timezone/json?location=" + dealer.MAIN_LATITUDE + "," + dealer.MAIN_LONGITUDE + "&timestamp=" + Math.floor(time / 1000) + '&key=' + $key,
-      type: "GET",
-      success: function (data) {
-        dealer.hourOffset = (data.rawOffset + data.dstOffset) / 60 / 60;
-        dealer.timezone = data.timeZoneId;
-        $.fn.isCurrentlyOpen(dealer);
-      }
-    });
-  } else {
-
-    $.fn.isCurrentlyOpen(dealer);
-  }
 };
 
 // Fires when a client types a location manually
