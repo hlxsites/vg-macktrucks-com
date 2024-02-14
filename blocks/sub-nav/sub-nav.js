@@ -1,5 +1,5 @@
 import {
-  decorateButtons, getAllElWithChildren, loadAsBlock,
+  decorateButtons, getAllElWithChildren,
 } from '../../scripts/scripts.js';
 import { createElement, getTextLabel } from '../../scripts/common.js';
 
@@ -94,8 +94,6 @@ async function buildMagazineSubNav(block, ref) {
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
-  const modalId = 'id-modal-subscribe-magazine';
-  const modalBlockEl = fragment.querySelector(`.${modalId}`);
   // bar main section
   const mainTitleImg = mainTitleImgWrapper.querySelector('picture');
   const mainTitleLink = mainTitleImgWrapper.querySelector('a');
@@ -134,6 +132,7 @@ async function buildMagazineSubNav(block, ref) {
   listSubscribeBtnContainer.appendChild(listSubscribeBtn);
   listWrapper.appendChild(closeBtn);
   listContainer.append(listWrapper, listSubscribeBtnContainer);
+  mainList.nextElementSibling.remove();
 
   // adding it to the block
   mainTitleLink.textContent = '';
@@ -146,25 +145,26 @@ async function buildMagazineSubNav(block, ref) {
   subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
   block.appendChild(subNavContainer);
 
-  if (modalBlockEl) {
-    await loadAsBlock('modal', modalBlockEl.innerHTML, { variantsClasses: [...modalBlockEl.classList] });
-    modalBlockEl.remove();
-  }
-
-  const showBulldogSubscribeForm = async () => {
-    if (modalBlockEl) {
-      const modalEvent = new CustomEvent('open-modal', {
-        detail: {
-          modalId,
-        },
-      });
-
-      document.dispatchEvent(modalEvent, { bubbles: true });
-    }
-  };
-
   const allSubscribeButtons = document.querySelectorAll('.magazine-subscribe-button');
-  allSubscribeButtons.forEach((btn) => btn.addEventListener('click', showBulldogSubscribeForm));
+  allSubscribeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Detecting the magazine form and the H's element associated with it coords
+      const iframeSection = document.querySelector('[data-form-type="Subscribe-magazine"]');
+      const allTitles = [...iframeSection.querySelectorAll('h1, h2, h3, h4, h5, h6')];
+      const formTitleCoords = allTitles[0].getBoundingClientRect();
+      const yCoord = formTitleCoords.y;
+      // Offsetting both navbars height
+      const navHeight = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sub-nav-height-xl'), 10);
+      const subnavHeight = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height'), 10);
+      const totalOffset = navHeight + subnavHeight;
+      // Scrolling to the top of the heading section
+      window.scrollTo({
+        top: yCoord - totalOffset,
+        left: 0,
+        behavior: 'smooth',
+      });
+    });
+  });
 
   window.onresize = () => {
     const isDesktop = MQ.matches;
