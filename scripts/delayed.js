@@ -70,12 +70,31 @@ async function loadHotjar() {
 }
 
 // Account Engagement Tracking Code
+const trackingScript = () => {
+  piAId = '1039343';
+  piCId = '122594';
+  piHostname = 'pi.pardot.com';
+
+  (function() {
+    function async_load() {
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js';
+      var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); 
+    } if(window.attachEvent) {
+      window.attachEvent('onload', async_load);
+    } else {
+      window.addEventListener('load', async_load, false);
+    }
+  })();
+}
+
 const loadAccountEngagementTracking = () => {
   const body = document.querySelector('body');
   const script = document.createElement('script');
   script.type = 'text/javascript';
 
-  script.text = "piAId = '1039343'; piCId = '122594'; piHostname = 'pi.pardot.com'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); } if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } })();";
+  script.textContent = `(${trackingScript.toString()})();`;
 
   body.append(script);
 };
