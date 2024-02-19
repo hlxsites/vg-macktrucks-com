@@ -120,6 +120,7 @@ export async function loadLazy(doc) {
 export function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => {
+    // eslint-disable-next-line import/no-cycle
     import('./delayed.js');
   }, 3000);
   // load anything that can be postponed to the latest here
@@ -199,7 +200,6 @@ export function isTargetingAllowed() {
 export function isSocialAllowed() {
   return checkOneTrustGroup(social);
 }
-
 
 /**
  * Helper for delaying a function

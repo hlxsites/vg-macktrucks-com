@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM, loadScript } from './lib-franklin.js';
-import { isPerformanceAllowed, isSocialAllowed, isTargetingAllowed } from './common.js.js';
-import { 
+// eslint-disable-next-line import/no-cycle
+import { isPerformanceAllowed, isTargetingAllowed } from './common.js';
+import {
   ACCOUNT_ENGAGEMENT_TRACKING_CONSTANTS,
   HOTJAR_ID,
   DATA_DOMAIN_SCRIPT,
@@ -19,10 +20,6 @@ if (isPerformanceAllowed()) {
 
 if (isTargetingAllowed()) {
   loadAccountEngagementTracking();
-}
-
-if (isSocialAllowed()) {
-  loadFacebookPixel();
 }
 
 // add more delayed functionality here
@@ -78,7 +75,7 @@ async function loadHotjar() {
 }
 
 // Account Engagement Tracking Code
-const loadAccountEngagementTracking = () => {
+async function loadAccountEngagementTracking() {
   const body = document.querySelector('body');
   const script = document.createElement('script');
   script.type = 'text/javascript';
@@ -88,4 +85,4 @@ const loadAccountEngagementTracking = () => {
   script.text = `piAId = '${piAId}'; piCId = '${piCId}'; piHostname = '${piHostname}'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); } if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } })();`;
 
   body.append(script);
-};
+}
