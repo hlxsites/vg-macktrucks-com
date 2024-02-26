@@ -1,10 +1,10 @@
-import { variantsClassesToBEM, createElement } from '../../scripts/common.js';
+import { createElement, variantsClassesToBEM } from '../../scripts/common.js';
 
 export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
   const blockName = 'v2-columns';
 
-  const variantClasses = ['with-background-image'];
+  const variantClasses = ['with-background-image', 'background-plane'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
