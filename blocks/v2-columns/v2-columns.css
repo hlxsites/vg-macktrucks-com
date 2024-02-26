@@ -1,3 +1,13 @@
+.v2-columns-container {
+  overflow: hidden;
+}
+
+/* TODO: refactor generic section/block paddings */
+.v2-columns-container.padding-0 > div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .v2-columns-container.section--with-background {
   position: relative;
 }
@@ -18,11 +28,23 @@
 }
 
 .v2-columns__column--with-image {
+  position: relative;
   order: 0;
 }
 
 .v2-columns__column--with-image img {
   display: block;
+}
+
+.v2-columns--background-plane .v2-columns__column--with-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -16px;
+  right: -16px;
+  z-index: -1;
+  height: 50%;
+  background-color: var(--c-secondary-silver);
 }
 
 .v2-columns__column--with-text .icon,
@@ -76,7 +98,6 @@
 }
 
 .v2-columns__column--with-text a.button {
-  min-width: auto;
   margin: 0;
 }
 
@@ -101,6 +122,18 @@
     width: 100%;
     padding: 0;
     order: unset;
+  }
+
+  .v2-columns--background-plane .v2-columns__column--with-image::after {
+    right: 50%;
+    left: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .v2-columns--background-plane .v2-columns__column--with-text + .v2-columns__column--with-image::after {
+    right: auto;
+    left: 50%;
   }
 
   .v2-columns .v2-columns__column--with-text {

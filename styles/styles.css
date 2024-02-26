@@ -1072,7 +1072,7 @@ main .section.responsive-title h1 {
   height: 60%;
   height: round(60%, 24px);
   width: 40%;
-  width: round(40%, 24px);;
+  width: round(40%, 24px);
   position: absolute;
   right: 0;
   z-index: 1;
