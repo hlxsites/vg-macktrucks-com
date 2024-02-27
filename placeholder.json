@@ -92,11 +92,11 @@
       "Text": "Open Gallery"
     },
     {
-      "Key": "no eloqua message",
+      "Key": "no form message",
       "Text": "We cannot show the content because you have not given us permission to store cookie files"
     },
     {
-      "Key": "no eloqua link message",
+      "Key": "no form link message",
       "Text": "Change cookie settings"
     },
     {

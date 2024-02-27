@@ -1,0 +1,64 @@
+/* on load states */
+.v2-forms__validation-message,
+.v2-newsletter__container .hidden {
+  display: none;
+}
+
+/* Footer styles */
+.footer-newsletter {
+  --c-invalid: #f66;
+}
+
+.footer-newsletter .v2-newsletter__text {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* Footer form */
+.footer-newsletter .pdt-form {
+  display: block;
+  position: relative;
+  max-width: 320px;
+  margin-bottom: 5px;
+}
+
+/* Email input */
+.footer-newsletter .pdt-form input[type="email"] {
+  background-color: var(--c-primary-white);
+  border: none;
+  color: var(--c-secondary-graphite);
+  font-family: var(--ff-body);
+  font-size: 13px;
+  height: 48px;
+  width: 100%;
+  line-height: 13px;
+  padding: 14px 48px 14px 14px;
+}
+
+.footer-newsletter .pdt-form input[type="email"]::placeholder {
+  color: var(--c-secondary-graphite);
+}
+
+.footer-newsletter .pdt-form input[type="email"].invalid {
+  outline: 1px solid var(--c-invalid);
+}
+
+/* Submit input button */
+.footer-newsletter .pdt-form .submit-button {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--button-secondary-gold-enabled) url("../../icons/arrow-right.svg") no-repeat center;
+  border: none;
+}
+
+.footer-newsletter .pdt-form .submit-button:hover {
+  background-color: var(--button-secondary-gold-hover);
+}
+
+.footer-newsletter .pdt-form .submit-button:active {
+  background-color: var(--button-secondary-gold-pressed);
+}

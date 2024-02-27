@@ -5,7 +5,7 @@ import {
   getMetadata,
 } from '../../scripts/lib-franklin.js';
 import {
-  createElement, getTextLabel, isEloquaFormAllowed,
+  createElement, getTextLabel, isTargetingAllowed,
 } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
@@ -17,12 +17,18 @@ const addClassToTitle = (block, className) => {
   [...headings].forEach((h) => h.classList.add(className));
 };
 
-const blockName = 'footer';
-const blockNamePrefooter = 'prefooter';
-const blockNameTruckList = 'footer-truck-list';
-const blockNameMenu = 'footer-menu';
-const blockNameNewsletter = 'footer-newsletter';
-const blockNameLegal = 'footer-legal';
+const blockNames = {
+  blockName: 'footer',
+  prefooter: 'prefooter',
+  truckList: 'footer-truck-list',
+  menu: 'footer-menu',
+  newsletter: 'footer-newsletter',
+  legal: 'footer-legal',
+};
+
+const {
+  blockName, prefooter, truckList, menu, newsletter, legal,
+} = blockNames;
 
 function displayScrollToTop(buttonEl) {
   const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -59,7 +65,7 @@ function addScrollToTopButton(mainEl) {
 }
 
 function findList(ele) {
-  if (ele.classList.contains(blockNameTruckList)) {
+  if (ele.classList.contains(truckList)) {
     return ele;
   }
   return findList(ele.parentElement);
@@ -68,8 +74,8 @@ function findList(ele) {
 function toggleExpand(targetH3) {
   const clickedColumn = findList(targetH3);
   const isExpanded = clickedColumn.classList.contains('expand');
-  const wrapper = targetH3.closest(`.${blockNameTruckList}`);
-  const content = wrapper.querySelector(`.${blockNameTruckList}__items`);
+  const wrapper = targetH3.closest(`.${truckList}`);
+  const content = wrapper.querySelector(`.${truckList}__items`);
   if (wrapper === clickedColumn && !isExpanded) {
     wrapper.classList.add('expand');
     content.style.maxHeight = `${content.scrollHeight}px`;
@@ -85,51 +91,53 @@ export default async function decorate(block) {
 
   let footerPath = cfg.footer || '/footer';
   const isCustomFooter = getMetadata('custom-footer');
+  const cfgMetadata = getMetadata('cfg-footer');
 
   if (isCustomFooter) {
     footerPath = isCustomFooter;
     block.classList.add(`${blockName}__custom`);
   }
 
+  if (cfgMetadata) footerPath = cfgMetadata;
+
   const resp = await fetch(`${footerPath}.plain.html`);
   const html = await resp.text();
 
   block.innerHTML = html;
 
-  // Eloqua form necessary variables
+  // Pardot form necessary variables
   let observer = null;
   let submitButtonFixed = false;
-  let checkboxFixed = false;
 
   const footerItems = block.querySelectorAll(`:scope > div .${blockName} > div`);
 
-  const prefooter = footerItems?.[0].querySelector(':scope > div');
-  const truckList = footerItems?.[1].querySelector(':scope > div');
-  const footerMenu = footerItems?.[2];
-  const footerLegal = footerItems?.[3].querySelector(':scope > div');
+  const prefooterEl = footerItems?.[0].querySelector(':scope > div');
+  const truckListEl = footerItems?.[1].querySelector(':scope > div');
+  const footerMenuEl = footerItems?.[2];
+  const footerLegalEl = footerItems?.[3].querySelector(':scope > div');
 
   const newFooter = createElement('div');
 
   // Prefooter
-  if (prefooter) {
-    prefooter.classList.add(blockNamePrefooter);
-    newFooter.append(prefooter);
+  if (prefooterEl) {
+    prefooterEl.classList.add(prefooter);
+    newFooter.append(prefooterEl);
   }
 
   // Truck list
-  if (truckList) {
-    truckList.classList.add(`${blockNameTruckList}__wrapper`);
-    truckList.querySelector('ul')?.classList.add(`${blockNameTruckList}__items`);
-    addClassToTitle(truckList, `${blockNameTruckList}__title`);
-    const truckListContent = createElement('div', { classes: blockNameTruckList });
-    truckListContent.appendChild(truckList);
+  if (truckListEl) {
+    truckListEl.classList.add(`${truckList}__wrapper`);
+    truckListEl.querySelector('ul')?.classList.add(`${truckList}__items`);
+    addClassToTitle(truckListEl, `${truckList}__title`);
+    const truckListContent = createElement('div', { classes: truckList });
+    truckListContent.appendChild(truckListEl);
 
     newFooter.append(truckListContent);
   }
 
   // Menu: social media + logo + menu list + newsletter form
-  if (footerMenu) {
-    const newMenu = createElement('div', { classes: blockNameMenu });
+  if (footerMenuEl) {
+    const newMenu = createElement('div', { classes: menu });
 
     // Logo
     const logo = createElement('div');
@@ -153,55 +161,55 @@ export default async function decorate(block) {
     `);
     logo.appendChild(logoLink);
     logoLink.appendChild(svgLogo);
-    logo.classList.add(`${blockNameMenu}__logo`);
+    logo.classList.add(`${menu}__logo`);
     newMenu.appendChild(logo);
 
     // Social media
-    const socialMedia = footerMenu.querySelector(':scope > div ul');
-    socialMedia.classList.add(`${blockNameMenu}__socialmedia`);
+    const socialMedia = footerMenuEl.querySelector(':scope > div ul');
+    socialMedia.classList.add(`${menu}__socialmedia`);
     const socialLinks = socialMedia.querySelectorAll('a');
     [...socialLinks].forEach((a) => { a.target = '_blank'; });
     newMenu.appendChild(socialMedia);
 
     // remove div which contained logo and social media
-    footerMenu.firstElementChild.remove();
+    footerMenuEl.firstElementChild.remove();
 
     // Menu Columns: Newsletter form
-    const newsletter = createElement('div', { classes: blockNameNewsletter });
-    const oldNews = footerMenu.querySelector(':scope > div:last-child');
+    const newsletterEl = createElement('div', { classes: newsletter });
+    const oldNews = footerMenuEl.querySelector(':scope > div:last-child');
 
     if (oldNews) {
-      newsletter.appendChild(oldNews);
+      newsletterEl.appendChild(oldNews);
     }
 
-    const eloquaForm = block.querySelector('.eloqua-form');
-    if (eloquaForm) {
-      eloquaForm?.setAttribute('data-block-name', 'eloqua-form');
-      newsletter.append(eloquaForm);
+    const pardotForm = block.querySelector('.v2-newsletter');
+    if (pardotForm) {
+      pardotForm?.setAttribute('data-block-name', 'v2-newsletter');
+      newsletterEl.append(pardotForm);
     }
-    addClassToTitle(newsletter, `${blockNameNewsletter}__title`);
+    addClassToTitle(newsletterEl, `${newsletter}__title`);
 
     // Menu Columns: menu
-    const menu = createElement('div', { classes: `${blockNameMenu}__columns` });
-    menu.innerHTML = footerMenu.innerHTML;
-    const menuList = menu.querySelectorAll(':scope > div');
-    menuList.forEach((item) => item.classList.add(`${blockNameMenu}__column`));
+    const menuEl = createElement('div', { classes: `${menu}__columns` });
+    menuEl.innerHTML = footerMenuEl.innerHTML;
+    const menuList = menuEl.querySelectorAll(':scope > div');
+    menuList.forEach((item) => item.classList.add(`${menu}__column`));
 
-    if (menu.children.length) {
-      newMenu.appendChild(menu);
+    if (menuEl.children.length) {
+      newMenu.appendChild(menuEl);
     }
 
-    if (newsletter.children.length) {
-      newMenu.appendChild(newsletter);
+    if (newsletterEl.children.length) {
+      newMenu.appendChild(newsletterEl);
     }
 
     newFooter.append(newMenu);
   }
 
-  if (footerLegal) {
-    footerLegal.classList.add(blockNameLegal);
+  if (footerLegalEl) {
+    footerLegalEl.classList.add(legal);
 
-    newFooter.append(footerLegal);
+    newFooter.append(footerLegalEl);
   }
 
   block.innerHTML = newFooter.innerHTML;
@@ -211,66 +219,59 @@ export default async function decorate(block) {
   await decorateIcons(block);
   await loadBlocks(block);
 
+  const addNoCookieMessage = (messageContainer) => {
+    const messageText = getTextLabel('no form message');
+    const messageLinkText = getTextLabel('no form link message');
+
+    const messageEl = createElement('div', { classes: 'no-cookie-message' });
+    messageEl.innerHTML = `
+      <span>${messageText}</span>
+      <button>${messageLinkText}</button>
+    `;
+
+    messageEl.querySelector('button').addEventListener('click', () => {
+      window.OneTrust.ToggleInfoDisplay();
+    });
+
+    messageContainer.replaceChildren(messageEl);
+  };
+
   const onFormLoaded = (mutationList) => {
-    if (!isEloquaFormAllowed()) {
+    // FIXME: added for test purposes to remove the cookie consent check
+    const isTesting = true;
+    if (!isTesting && !isTargetingAllowed()) {
+    // if (!isTargetingAllowed()) {
+      // show the cookie consent banner
+      addNoCookieMessage(mutationList[0].target);
+      observer.disconnect();
       return;
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const mutation of mutationList) {
-      if (submitButtonFixed && checkboxFixed) {
+      if (submitButtonFixed) return;
+
+      if (mutation.type !== 'childList') return;
+      const submitButton = block.querySelector('input[type="submit"]');
+      const emailInput = block.querySelector('input[name="emailAddress"]');
+      const pdtForm = block.querySelector(':scope form');
+
+      if (pdtForm) pdtForm.className = 'pdt-form';
+
+      // change the submit button to arrow button
+      // and display it sticked to the right side of email input
+      if (submitButton && emailInput) {
+        submitButton.value = '';
+        submitButton.ariaLabel = `${PLACEHOLDERS.subscribe}`;
+        submitButtonFixed = true;
         observer.disconnect();
-        return;
-      }
-
-      if (mutation.type === 'childList') {
-        const submitButton = block.querySelector('input[type="submit"]');
-        const emailInput = block.querySelector('input[name="emailAddress"]');
-        const label = emailInput.parentElement.querySelector('label');
-        const emailAndSubmitContainer = createElement('span', { classes: ['email-and-submit-container'] });
-
-        // change the submit button to arrow button
-        // and display it sticked to the right side of email input
-        if (submitButton && emailInput) {
-          const parent = emailInput.parentElement;
-          submitButton.value = '';
-          submitButton.ariaLabel = `${PLACEHOLDERS.subscribe}`;
-          emailAndSubmitContainer.append(emailInput, submitButton);
-          parent.append(emailAndSubmitContainer);
-
-          if (label) {
-            emailInput.setAttribute('placeholder', label.innerText.replace('*', '').trim());
-            label.remove();
-          }
-
-          submitButtonFixed = true;
-        }
-
-        const checkbox = block.querySelector('.checkbox-span input[type="checkbox"]');
-        const checkboxLabel = block.querySelector('.checkbox-span .checkbox-label');
-        // customization of the checkbox
-        if (checkbox && checkboxLabel) {
-          const checkboxId = 'footer-subscribe-checkbox';
-          const checkboxParent = checkbox.parentElement;
-          checkbox.setAttribute('id', checkboxId);
-          checkboxLabel.setAttribute('for', checkboxId);
-          checkboxParent.classList.add('confirm-checkbox');
-
-          if (emailInput) {
-            // showing the checkbox only when the user start typing
-            emailInput.addEventListener('input', () => { checkboxParent.classList.add('show'); }, { once: true });
-          }
-
-          checkboxFixed = true;
-        }
       }
     }
   };
 
-  const eloquaForm = block.querySelector('.eloqua-form');
-  if (eloquaForm) {
+  const pardotForm = block.querySelector('.footer-newsletter');
+  if (pardotForm) {
     observer = new MutationObserver(onFormLoaded);
-    observer.observe(eloquaForm, {
+    observer.observe(pardotForm, {
       childList: true,
       attributes: false,
       subtree: true,
@@ -278,7 +279,7 @@ export default async function decorate(block) {
   }
 
   block.addEventListener('click', (e) => {
-    if (e.target.classList.contains(`${blockNameTruckList}__title`)) {
+    if (e.target.classList.contains(`${truckList}__title`)) {
       toggleExpand(e.target);
     }
   });
