@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-02-22T00:00:00.000Z</updated>
+    <updated>2024-02-27T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2783,5 +2783,13 @@
         <updated>2024-02-22T00:00:00.000Z</updated>
         <content type="html"><![CDATA[POMPANO BEACH, Florida (Feb. 22, 2024) – Coastal Waste & Recycling took delivery today of its first battery-electric refuse vehicle, the Mack® LR Electric model.  Mack executives handed over the vehicle during an e-mobility event with the company, Volvo Construction Equipment, Nextran Truck Centers and local officials.]]></content>
         <published>2024-02-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Features the Mack Anthem® at the American Trucking Associations Technology & Maintenance Council]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-trucks-features-the-mack-anthem-at-the-american-trucking-associations-technology-maintenance-council</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-trucks-features-the-mack-anthem-at-the-american-trucking-associations-technology-maintenance-council"/>
+        <updated>2024-02-27T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 27, 2024) – Mack Trucks announced today that three Mack Anthem® models will be spotlighted at the American Trucking Associations (ATA) Technology & Maintenance Council (TMC) 2024 annual meeting March 4-7 at the Ernest N. Morial Convention Center in New Orleans.]]></content>
+        <published>2024-02-27T00:00:00.000Z</published>
     </entry>
 </feed>
