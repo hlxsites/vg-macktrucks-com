@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-02-09T00:00:00.000Z</updated>
+    <updated>2024-02-22T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2767,5 +2767,21 @@
         <updated>2024-02-09T00:00:00.000Z</updated>
         <content type="html"><![CDATA[ROANOKE VALLEY, Virginia (Feb. 9, 2024) – Mack Trucks is investing $14.5 million to expand its Roanoke Valley Operations (RVO) manufacturing facility in Virginia to prepare the plant for higher demand for the Mack® MD Series and Mack MD Electric vehicles.]]></content>
         <published>2024-02-09T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Supplies Mack Granite to Begin U.S. Army Vehicle Testing Phase of Common Tactical Truck (CTT) Program]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-defense-supplies-mack-granite-to-begin-u-s-army-vehicle-testing-phase-of-common-tactical-truck-ctt-program</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-defense-supplies-mack-granite-to-begin-u-s-army-vehicle-testing-phase-of-common-tactical-truck-ctt-program"/>
+        <updated>2024-02-20T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (Feb. 20, 2024) – Mack Defense recently delivered three Common Tactical Truck (CTT) prototype vehicles to the U.S. Army for testing and soldier evaluations to determine final requirements to modernize and replace the Army’s fleet of 35,000 heavy tactical trucks.]]></content>
+        <published>2024-02-20T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Coastal Waste & Recycling Takes Delivery of the Mack® LR Electric Refuse Vehicle During E-Mobility Event]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/coastal-waste-recycling-takes-delivery-of-the-mack-lr-electric-refuse-vehicle-during-e-mobility-event</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/coastal-waste-recycling-takes-delivery-of-the-mack-lr-electric-refuse-vehicle-during-e-mobility-event"/>
+        <updated>2024-02-22T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[POMPANO BEACH, Florida (Feb. 22, 2024) – Coastal Waste & Recycling took delivery today of its first battery-electric refuse vehicle, the Mack® LR Electric model.  Mack executives handed over the vehicle during an e-mobility event with the company, Volvo Construction Equipment, Nextran Truck Centers and local officials.]]></content>
+        <published>2024-02-22T00:00:00.000Z</published>
     </entry>
 </feed>

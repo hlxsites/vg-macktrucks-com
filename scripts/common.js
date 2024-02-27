@@ -6,7 +6,9 @@ import {
   loadHeader,
   loadFooter,
 } from './lib-franklin.js';
+import { COOKIE_VALUES } from './constants.js';
 
+const { performance, targeting, social } = COOKIE_VALUES;
 let placeholders = null;
 
 export async function getPlaceholders() {
@@ -118,6 +120,7 @@ export async function loadLazy(doc) {
 export function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => {
+    // eslint-disable-next-line import/no-cycle
     import('./delayed.js');
   }, 3000);
   // load anything that can be postponed to the latest here
@@ -181,17 +184,21 @@ export const slugify = (text) => (
  * Check if one trust group is checked.
  * @param {String} groupName the one trust group like: C0002
  */
-export function checkOneTruckGroup(groupName) {
+export function checkOneTrustGroup(groupName) {
   const oneTrustCookie = decodeURIComponent(document.cookie.split(';').find((cookie) => cookie.trim().startsWith('OptanonConsent=')));
   return oneTrustCookie.includes(`${groupName}:1`);
 }
 
-/**
- * Check if targeting cookie (group C0004) is allowed.
- * @returns {Boolean} true if targeting is set to 1
- */
+export function isPerformanceAllowed() {
+  return checkOneTrustGroup(performance);
+}
+
 export function isTargetingAllowed() {
-  return checkOneTruckGroup('C0004');
+  return checkOneTrustGroup(targeting);
+}
+
+export function isSocialAllowed() {
+  return checkOneTrustGroup(social);
 }
 
 /**
