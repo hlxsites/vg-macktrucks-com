@@ -8,6 +8,7 @@ import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   subscribe: getTextLabel('SUBSCRIBE TO BULLDOG'),
+  emailAddress: getTextLabel('Email Address'),
 };
 
 const addClassToTitle = (block, className) => {
@@ -105,7 +106,7 @@ export default async function decorate(block) {
 
   // Pardot form necessary variables
   let observer = null;
-  let submitButtonFixed = false;
+  let formFieldsFixed = false;
 
   const footerItems = block.querySelectorAll(`:scope > div .${blockName} > div`);
 
@@ -230,7 +231,7 @@ export default async function decorate(block) {
 
   const onFormLoaded = (mutationList) => {
     for (const mutation of mutationList) {
-      if (submitButtonFixed) return;
+      if (formFieldsFixed) return;
 
       if (mutation.type !== 'childList') return;
       const submitButton = block.querySelector('input[type="submit"]');
@@ -242,9 +243,10 @@ export default async function decorate(block) {
       // change the submit button to arrow button
       // and display it sticked to the right side of email input
       if (submitButton && emailInput) {
+        emailInput.placeholder = PLACEHOLDERS.emailAddress;
         submitButton.value = '';
         submitButton.ariaLabel = `${PLACEHOLDERS.subscribe}`;
-        submitButtonFixed = true;
+        formFieldsFixed = true;
         observer.disconnect();
       }
     }

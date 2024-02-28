@@ -1,7 +1,7 @@
 {
-  "total": 52,
+  "total": 53,
   "offset": 0,
-  "limit": 52,
+  "limit": 53,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -14,6 +14,10 @@
     {
       "Key": "SUBSCRIBE TO BULLDOG",
       "Text": "SUBSCRIBE TO BULLDOG"
+    },
+    {
+      "Key": "Email Address",
+      "Text": "Email Address"
     },
     {
       "Key": "Overview",
@@ -104,10 +108,6 @@
       "Text": "Enter your 17-digit VIN (Vehicle Identification Number)"
     },
     {
-      "Key": "submit",
-      "Text": "Submit"
-    },
-    {
       "Key": "vinformat",
       "Text": "Please provide correct vin number format"
     },
@@ -168,6 +168,10 @@
       "Text": "Next steps"
     },
     {
+      "Key": "submit",
+      "Text": "Submit"
+    },
+    {
       "Key": "mfr_recall_number",
       "Text": "Brand Recall Number"
     },
@@ -180,12 +184,12 @@
       "Text": "Recall information available since:"
     },
     {
-      "Key": "All trucks",
-      "Text": "All trucks"
-    },
-    {
       "Key": "recall_available_info",
       "Text": "since:"
+    },
+    {
+      "Key": "make",
+      "Text": "Make"
     },
     {
       "Key": "model",
@@ -196,12 +200,12 @@
       "Text": "Model Year"
     },
     {
-      "Key": "make",
-      "Text": "Make"
-    },
-    {
       "Key": "tc_recall_nbr",
       "Text": "Transport Canada Number"
+    },
+    {
+      "Key": "Open Gallery",
+      "Text": "Open Gallery"
     },
     {
       "Key": "home",
@@ -210,6 +214,10 @@
     {
       "Key": "breadcrumb",
       "Text": "Breadcrumb"
+    },
+    {
+      "Key": "All trucks",
+      "Text": "All trucks"
     }
   ],
   ":type": "sheet"

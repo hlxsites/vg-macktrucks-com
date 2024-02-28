@@ -4,7 +4,7 @@ const formContent = `
     <input
       class="email-input"
       name="emailAddress"
-      placeholder="Email Address"
+      placeholder=""
       type="email"
       inputmode="email"
       autocomplete="off"
@@ -14,7 +14,7 @@ const formContent = `
       maxlength="254"
       required
     />
-    <input class="submit-button" type="submit" aria-label="SUBSCRIBE TO BULLDOG" />
+    <input class="submit-button" type="submit" aria-label="" />
   </span>
   <span class="v2-forms__validation-message">
       This field is required
