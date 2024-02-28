@@ -174,12 +174,6 @@ export default async function decorate(block) {
 
     // Menu Columns: Newsletter form
     const newsletterEl = createElement('div', { classes: newsletter });
-    const oldNews = footerMenuEl.querySelector(':scope > div:last-child');
-
-    if (oldNews) {
-      newsletterEl.appendChild(oldNews);
-    }
-
     const pardotForm = block.querySelector('.v2-newsletter');
     if (pardotForm) {
       pardotForm?.setAttribute('data-block-name', 'v2-newsletter');
