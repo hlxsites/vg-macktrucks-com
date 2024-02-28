@@ -1,5 +1,5 @@
 .v2-breadcrumb-wrapper{
-  background-color: #333;
+  background-color: var(--c-secondary-graphite);
 }
 
 .v2-breadcrumb {

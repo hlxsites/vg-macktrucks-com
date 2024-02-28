@@ -47,7 +47,7 @@ const setContentWrapperHeight = (wrapper, slidesCount) => {
 export default async function decorate(block) {
   const activeSlideClass = `${blockName}__slide--active`;
   const activeSlideImageClass = `${blockName}__slide-image--active`;
-  const variantClasses = ['image-left'];
+  const variantClasses = ['image-left', 'image-shadow'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   [...block.querySelectorAll(':scope > div')].forEach(unwrapDivs);

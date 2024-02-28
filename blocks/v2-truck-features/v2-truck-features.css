@@ -80,7 +80,7 @@
   content: '';
   display: block;
   position: absolute;
-  background: var(--c-primary-white);
+  background: var(--navigation-line-default-color);
   left: 16px;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .v2-truck-features .v2-truck-features__slide--active h4::before {
-  background: var(--c-accent-red);
+  background: var(--navigation-line-active-color);
 }
 
 .v2-truck-features
@@ -100,7 +100,7 @@
   position: relative;
 }
 
-.v2-truck-features__slide-image--active::after {
+.v2-truck-features--image-shadow .v2-truck-features__slide-image--active::after {
   content: '';
   display: block;
   height: 100%;
@@ -108,7 +108,7 @@
   background: radial-gradient(
     52.65% 52.65% at 50% 56%,
     #fff0 31.16%,
-    #dfdfdf 89.49%
+    var(--section-background) 89.49%
   );
   width: 298px;
   max-width: 800px;
@@ -176,7 +176,7 @@
     transform: translateY(-50%);
   }
 
-  .v2-truck-features__slide-image--active::after {
+  .v2-truck-features--image-shadow .v2-truck-features__slide-image--active::after {
     width: 51vw;
   }
 
@@ -211,7 +211,7 @@
     padding-left: 36px;
   }
 
-  .v2-truck-features__slide-image--active::after {
+  .v2-truck-features--image-shadow .v2-truck-features__slide-image--active::after {
     margin-right: var(--image-margin);
   }
 
@@ -224,8 +224,7 @@
     margin-right: unset;
   }
 
-  .v2-truck-features--image-left
-    .v2-truck-features__slide-image--active::after {
+  .v2-truck-features--image-left .v2-truck-features__slide-image--active::after {
     margin-left: var(--image-margin);
     margin-right: unset;
   }
@@ -234,7 +233,7 @@
 @media (min-width: 1440px) {
   .v2-truck-features__slide-image--active picture,
   .v2-truck-features__slide-image--active img,
-  .v2-truck-features__slide-image--active::after {
+  .v2-truck-features--image-shadow .v2-truck-features__slide-image--active::after {
     min-width: 800px;
   }
 }

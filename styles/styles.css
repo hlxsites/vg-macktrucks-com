@@ -41,6 +41,7 @@
   --header-color: var(--c-primary-white);
   --header-background-color: var(--c-primary-white);
   --overlay-background-color: var(--c-secondary-silver);
+  --media-background: var(--c-secondary-silver);
 
   /* BUTTONS */
 
@@ -55,6 +56,7 @@
   --button-secondary-gold-hover: #d9b781;
   --button-secondary-gold-pressed: #a18860;
   --button-secondary-gold-disabled: #e1dfdd;
+  --button-disabled-color: var(--c-tertiary-cool-gray);
 
   /* Tertiary */
   --button-tertiary-white-enabled: var(--c-primary-white);
@@ -792,11 +794,16 @@ main .section.responsive-title h1 {
 /* REDESIGN GLOBAL STYLES */
 .redesign-v2 {
   --v2-space-small: 16px;
+  --text-subtle: #767676;
   --color-icon: var(--c-primary-black);
   --color-icon-accent: var(--c-primary-gold);
   --section-max-width: 1920px;
   --section-padding: 40px 0;
   --section-div-padding: 24px var(--v2-space-small);
+  --navigation-line-default-color: var(--c-secondary-steel);
+  --navigation-line-active-color: var(--c-accent-red);
+  --card-background: var(--c-tertiary-light-warm-gray);
+  --card-text: var(--c-primary-black);
 
   font-size: 16px;
 
@@ -1032,30 +1039,46 @@ main .section.responsive-title h1 {
 
 /* Section Background colors */
 .redesign-v2 .section--black-background,
-.redesign-v2 .section--gray-background {
+.redesign-v2 .section--graphite-background,
+.redesign-v2 .section--gray-background,
+.redesign-v2 .section--light-gray-background,
+.redesign-v2 .section--with-background {
   --card-background: var(--c-primary-white);
   --card-text: var(--c-primary-black);
+
+  color: var(--text-color);
+  background-color: var(--section-background);
+}
+
+.redesign-v2 .section--black-background,
+.redesign-v2 .section--graphite-background {
+  --navigation-line-default-color: #393939;
+  --text-color: var(--c-primary-white);
+  --color-icon: var(--c-primary-white);
+  --text-subtle: #8D8D8D;
 }
 
 .redesign-v2 .section--black-background {
-  --text-color: var(--c-primary-white);
+  --section-background: var(--c-primary-black);
+}
 
-  color: var(--text-color);
-  background-color: var(--c-secondary-graphite);
+.redesign-v2 .section--graphite-background {
+  --section-background: var(--c-secondary-graphite);
+}
+
+.redesign-v2 .section--gray-background,
+.redesign-v2 .section--light-gray-background {
+  --navigation-line-default-color: var(--c-primary-white);
+  --text-color: var(--c-primary-black);
+  --text-subtle: #636363;
 }
 
 .redesign-v2 .section--gray-background {
-  --text-color: var(--c-primary-black);
-
-  color: var(--text-color);
-  background-color: var(--c-secondary-silver);
+  --section-background: var(--c-secondary-silver);
 }
 
 .redesign-v2 .section--light-gray-background {
-  --text-color: var(--c-primary-black);
-
-  color: var(--text-color);
-  background-color: var(--c-tertiary-light-cool-gray);
+  --section-background: var(--c-tertiary-light-cool-gray);
 }
 
 .redesign-v2 .section--background-with-dots {
@@ -1253,7 +1276,7 @@ main .section.responsive-title h1 {
     --text-color: var(--c-primary-black);
   }
 
-  .section--with-background .default-content-wrapper {
+  .redesign-v2 .section--with-background .default-content-wrapper {
     background-color: transparent;
   }
 }
