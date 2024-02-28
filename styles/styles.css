@@ -1197,24 +1197,21 @@ main .section.responsive-title h1 {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.redesign-v2 ul {
+.redesign-v2 :where(ul) {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.redesign-v2 li {
-  line-height: 150%;
-  margin-bottom: 8px;
-}
-
-.redesign-v2 li:last-of-type {
-  margin-bottom: 0;
-}
-
 .redesign-v2 .li--hyphen {
   padding-left: 20px;
+  margin-bottom: 8px;
   position: relative;
+  line-height: 150%;
+}
+
+.redesign-v2 .li--hyphen:last-of-type {
+  margin-bottom: 0;
 }
 
 .redesign-v2 .li--hyphen::before {
