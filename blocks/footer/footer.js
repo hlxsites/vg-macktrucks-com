@@ -4,9 +4,7 @@ import {
   loadBlocks,
   getMetadata,
 } from '../../scripts/lib-franklin.js';
-import {
-  createElement, getTextLabel, isTargetingAllowed,
-} from '../../scripts/common.js';
+import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   subscribe: getTextLabel('SUBSCRIBE TO BULLDOG'),
@@ -219,34 +217,7 @@ export default async function decorate(block) {
   await decorateIcons(block);
   await loadBlocks(block);
 
-  const addNoCookieMessage = (messageContainer) => {
-    const messageText = getTextLabel('no form message');
-    const messageLinkText = getTextLabel('no form link message');
-
-    const messageEl = createElement('div', { classes: 'no-cookie-message' });
-    messageEl.innerHTML = `
-      <span>${messageText}</span>
-      <button>${messageLinkText}</button>
-    `;
-
-    messageEl.querySelector('button').addEventListener('click', () => {
-      window.OneTrust.ToggleInfoDisplay();
-    });
-
-    messageContainer.replaceChildren(messageEl);
-  };
-
   const onFormLoaded = (mutationList) => {
-    // FIXME: added for test purposes to remove the cookie consent check
-    const isTesting = true;
-    if (!isTesting && !isTargetingAllowed()) {
-    // if (!isTargetingAllowed()) {
-      // show the cookie consent banner
-      addNoCookieMessage(mutationList[0].target);
-      observer.disconnect();
-      return;
-    }
-
     for (const mutation of mutationList) {
       if (submitButtonFixed) return;
 
