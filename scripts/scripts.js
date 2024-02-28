@@ -632,7 +632,16 @@ function buildTruckLineupBlock(main, classname) {
   }
 }
 
-/* REDESING CLASS CHECK */
-if (getMetadata('style') === 'redesign-v2') {
-  document.querySelector('html').classList.add('redesign-v2');
-}
+const globalClasses = getMetadata('style').split(',').map((el) => el.trim());
+
+const moveClassToHtmlEl = (className) => {
+  if (globalClasses.includes(className)) {
+    document.querySelector('html').classList.add(className);
+  }
+};
+
+/* REDESIGN CLASS CHECK */
+moveClassToHtmlEl('redesign-v2');
+
+/* EXTERNAL APP CLASS CHECK */
+moveClassToHtmlEl('external-app');
