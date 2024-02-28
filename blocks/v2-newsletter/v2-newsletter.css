@@ -15,7 +15,7 @@
 }
 
 /* Footer form */
-.footer-newsletter .pdt-form {
+.footer-newsletter .pardot-form {
   display: block;
   position: relative;
   max-width: 320px;
@@ -23,7 +23,7 @@
 }
 
 /* Email input */
-.footer-newsletter .pdt-form input[type="email"] {
+.footer-newsletter .pardot-form input[type="email"] {
   background-color: var(--c-primary-white);
   border: none;
   color: var(--c-secondary-graphite);
@@ -35,16 +35,16 @@
   padding: 14px 48px 14px 14px;
 }
 
-.footer-newsletter .pdt-form input[type="email"]::placeholder {
+.footer-newsletter .pardot-form input[type="email"]::placeholder {
   color: var(--c-secondary-graphite);
 }
 
-.footer-newsletter .pdt-form input[type="email"].invalid {
+.footer-newsletter .pardot-form input[type="email"].invalid {
   outline: 1px solid var(--c-invalid);
 }
 
 /* Submit input button */
-.footer-newsletter .pdt-form .submit-button {
+.footer-newsletter .pardot-form .submit-button {
   padding: 0;
   position: absolute;
   right: 0;
@@ -55,10 +55,10 @@
   border: none;
 }
 
-.footer-newsletter .pdt-form .submit-button:hover {
+.footer-newsletter .pardot-form .submit-button:hover {
   background-color: var(--button-secondary-gold-hover);
 }
 
-.footer-newsletter .pdt-form .submit-button:active {
+.footer-newsletter .pardot-form .submit-button:active {
   background-color: var(--button-secondary-gold-pressed);
 }

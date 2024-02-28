@@ -109,10 +109,21 @@ export default async function decorate(block) {
 
   const footerItems = block.querySelectorAll(`:scope > div .${blockName} > div`);
 
-  const prefooterEl = footerItems?.[0].querySelector(':scope > div');
-  const truckListEl = footerItems?.[1].querySelector(':scope > div');
-  const footerMenuEl = footerItems?.[2];
-  const footerLegalEl = footerItems?.[3].querySelector(':scope > div');
+  // The footer is divided into 4 sections in the block
+  let prefooterEl; // row 1
+  let truckListEl; // row 2
+  let footerMenuEl; // row 3
+  let footerLegalEl; // row 4
+
+  // Footer items
+  // 4 items: prefooter, truck list, menu, legal
+  if (footerItems.length === 4) {
+    const [row1, row2, row3, row4] = footerItems;
+    prefooterEl = row1.querySelector(':scope > div');
+    truckListEl = row2.querySelector(':scope > div');
+    footerMenuEl = row3;
+    footerLegalEl = row4.querySelector(':scope > div');
+  }
 
   const newFooter = createElement('div');
 
@@ -174,6 +185,12 @@ export default async function decorate(block) {
 
     // Menu Columns: Newsletter form
     const newsletterEl = createElement('div', { classes: newsletter });
+    const newsletterCol = footerMenuEl.querySelector(':scope > div:last-child');
+
+    if (newsletterCol) {
+      newsletterEl.appendChild(newsletterCol);
+    }
+
     const pardotForm = block.querySelector('.v2-newsletter');
     if (pardotForm) {
       pardotForm?.setAttribute('data-block-name', 'v2-newsletter');
@@ -220,7 +237,7 @@ export default async function decorate(block) {
       const emailInput = block.querySelector('input[name="emailAddress"]');
       const pdtForm = block.querySelector(':scope form');
 
-      if (pdtForm) pdtForm.className = 'pdt-form';
+      if (pdtForm) pdtForm.className = 'pardot-form';
 
       // change the submit button to arrow button
       // and display it sticked to the right side of email input
