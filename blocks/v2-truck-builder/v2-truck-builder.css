@@ -1,0 +1,233 @@
+.section > .v2-truck-builder-wrapper.full-width {
+  padding: 0 16px;
+}
+
+.v2-truck-builder__header-container h2 {
+  font-family: var(--ff-headline-medium);
+}
+
+.v2-truck-builder__items-container {
+  display: flex;
+  margin: 1em auto;
+  flex: none;
+  overflow: auto;
+  width: 100%;
+  flex-flow: row nowrap;
+  scroll-snap-type: x mandatory;
+  column-gap: 15px;
+  scroll-behavior: smooth;
+}
+
+.v2-truck-builder__items-container::-webkit-scrollbar {
+  display: none;
+}
+
+.v2-truck-builder__items-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.v2-truck-builder__items-container > div {
+  scroll-snap-align: center;
+  flex: none;
+  width: 80%;
+}
+
+.v2-truck-builder__item {
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 85vw;
+  color: var(--c-secondary-steel);
+}
+
+.v2-truck-builder__item.active {
+  color: var(--c-primary-black);
+}
+
+.v2-truck-builder__item-header-button {
+  background: transparent;
+  color: var(--c-secondary-steel);
+  display: flex;
+  justify-content: space-between;
+  margin: 100px 0 0;
+  padding: 30px 0 0;
+  order: 2;
+  position: relative;
+}
+
+.v2-truck-builder__item-header-button:hover,
+.v2-truck-builder__item-header-button:focus {
+  background: transparent;
+  cursor: pointer;
+}
+
+.v2-truck-builder__item.active .v2-truck-builder__item-header-button {
+  color: var(--c-primary-black);
+}
+
+.v2-truck-builder__item .v2-truck-builder__item-header-button::before {
+  content: '';
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 0;
+  background-color: var(--c-secondary-steel);
+}
+
+.v2-truck-builder__item.active .v2-truck-builder__item-header-button::before {
+  content: '';
+  width: 100%;
+  height: 4px;
+  top: 0;
+  position: absolute;
+  background-color: var(--c-primary-black);
+}
+
+.v2-truck-builder__item-title {
+  font-family: var(--ff-subheadings-medium);
+  font-size: var(--headline-5-font-size);
+  letter-spacing: var(--headline-1-letter-spacing);
+  line-height: var(--headline-1-line-height);
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.v2-truck-builder__item-description {
+  order: 3;
+  padding: 0 0 24px;
+}
+
+.v2-truck-builder__item-description > p {
+  margin: 0;
+  padding: 16px 0 0;
+  width: 90%;
+  text-wrap: balance;
+  font-size: var(--body-font-size-xs);
+}
+
+.v2-truck-builder__item-description .button-container:hover .button svg,
+.v2-truck-builder__item-description .button-container:focus-within .button svg{
+  translate: 3px;
+  transition: translate ease-out 0.2s;
+}
+
+.v2-truck-builder__item-image {
+  order: 1;
+  position: relative;
+
+}
+
+.v2-truck-builder__item-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.v2-truck-builder__builder-button {
+  width: 100%;
+  margin: 0;
+}
+
+.v2-truck-builder__bg-image {
+  opacity: 0;
+  transition: opacity .2s linear;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  clip-path: inset(0 50% 0 0);
+}
+
+.v2-truck-builder__item-image:hover .v2-truck-builder__bg-image {
+  opacity: 1;
+}
+
+@media (min-width: 1200px) {
+  .section.v2-truck-builder-container {
+    height: 780px;
+  }
+
+  .section > .v2-truck-builder-wrapper.full-width {
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .v2-truck-builder__item-header-button {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .v2-truck-builder__item:not(.active) .v2-truck-builder__item-header-button {
+    padding: 0 0 12px;
+  }
+
+  .v2-truck-builder__header-container {
+    max-width: var(--wrapper-width);
+    margin: 0 auto 4em;
+  }
+
+  .v2-truck-builder__header-container h2 {
+    font-size: var(--headline-1-font-size);
+  }
+
+  .v2-truck-builder__accordion-container {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    max-width: var(--wrapper-width);
+    margin: 0 auto;
+  }
+
+  .v2-truck-builder__items-container {
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0;
+    width: 32%;
+    flex: 1 0 50%;
+  }
+
+  .v2-truck-builder__items-container > div {
+    width: 100%;
+  }
+
+  .v2-truck-builder__item {
+    min-width: unset;
+  }
+
+  .v2-truck-builder__item-image {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 107px;
+    width: calc(55% + 80px);
+  }
+
+  .v2-truck-builder__item:not(.active) .v2-truck-builder__item-image,
+  .v2-truck-builder__item:not(.active) .v2-truck-builder__item-description {
+    display: none;
+  }
+
+  .v2-truck-builder__item-header-button .v2-truck-builder__item-title {
+    margin: 0;
+    padding: 30px 0 0;
+  }
+
+  .v2-truck-builder__item-description > p {
+    padding: 10px 0 0; 
+    text-wrap: unset;
+  }
+
+  .v2-truck-builder__builder-button {
+    width: 32%;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .v2-truck-builder__item-image {
+    top: 120px;
+    flex: 0 1 50%;
+  }
+}
