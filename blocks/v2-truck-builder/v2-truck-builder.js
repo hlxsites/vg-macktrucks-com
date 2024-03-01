@@ -1,10 +1,8 @@
 import { createElement } from '../../scripts/common.js';
 
-const windowBreakpoint = 744;
+const windowBreakpoint = 1200;
 const getDevice = () => window.innerWidth >= windowBreakpoint;
-
 const blockName = 'v2-truck-builder';
-const isDesktop = getDevice();
 
 const addAccordionClass = (item, idx) => {
   const hasPicture = item.querySelector('picture');
@@ -27,7 +25,7 @@ const watchScroll = (container) => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       const intersecting = entry.isIntersecting;
-      if (intersecting) {
+      if (intersecting && !getDevice()) {
         entry.target.classList.add('active');
       } else {
         entry.target.classList.remove('active');
@@ -35,7 +33,7 @@ const watchScroll = (container) => {
     });
   }, { threshold: 0.5 });
   items.forEach((item) => {
-    if (!isDesktop) {
+    if (!getDevice()) {
       observer.observe(item);
     } else {
       observer.disconnect();
@@ -58,6 +56,18 @@ const getIdxNumber = (item) => {
     }
   });
   return Number(num);
+};
+
+const handleResize = (container) => {
+  if (getDevice()) {
+    const allItems = container.querySelectorAll(`.${blockName}__item`);
+    allItems.forEach((item) => {
+      item.classList.remove('active');
+    });
+    allItems[0].classList.add('active');
+  } else {
+    watchScroll(container);
+  }
 };
 
 export default function decorate(block) {
@@ -84,11 +94,11 @@ export default function decorate(block) {
 
     // add the proper classes to each accordion item
     item.classList.add(`${blockName}__item`, `number-item-${i + 1}`);
-    if ((i === 0) && (isDesktop)) item.classList.add('active');
+    if ((i === 0) && (getDevice())) item.classList.add('active');
     colItems.forEach((col) => addAccordionClass(col, i));
     colBtnTitle.prepend(item.querySelector(`.${blockName}__item-title`));
     colBtnTitle.onclick = (e) => {
-      if (!isDesktop) {
+      if (!getDevice()) {
         const clickedNum = getIdxNumber(e.target);
         const selectedItem = itemsContainer.querySelector(`.number-title-${clickedNum}`);
         const { x: itemWidth } = selectedItem.getBoundingClientRect();
@@ -108,5 +118,7 @@ export default function decorate(block) {
 
   accordionContainer.append(itemsContainer, button);
   block.appendChild(accordionContainer);
+
+  window.addEventListener('resize', () => handleResize(itemsContainer));
   watchScroll(itemsContainer);
 }

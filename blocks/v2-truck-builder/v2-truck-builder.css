@@ -16,15 +16,12 @@
   scroll-snap-type: x mandatory;
   column-gap: 15px;
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .v2-truck-builder__items-container::-webkit-scrollbar {
   display: none;
-}
-
-.v2-truck-builder__items-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .v2-truck-builder__items-container > div {
@@ -116,7 +113,6 @@
 .v2-truck-builder__item-image {
   order: 1;
   position: relative;
-
 }
 
 .v2-truck-builder__item-image img {
@@ -139,7 +135,7 @@
   clip-path: inset(0 50% 0 0);
 }
 
-.v2-truck-builder__item-image:hover .v2-truck-builder__bg-image {
+.v2-truck-builder__item.active .v2-truck-builder__bg-image {
   opacity: 1;
 }
 
@@ -222,6 +218,19 @@
   .v2-truck-builder__builder-button {
     width: 32%;
     margin: 0;
+  }
+
+  .v2-truck-builder__bg-image {
+    clip-path: inset(0 45% 0 0);
+  }
+
+  .v2-truck-builder__bg-image,
+  .v2-truck-builder__item.active .v2-truck-builder__bg-image {
+    opacity: 0;
+  }
+  
+  .v2-truck-builder__item-image:hover .v2-truck-builder__bg-image {
+    opacity: 1;
   }
 }
 
