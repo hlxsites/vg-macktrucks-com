@@ -1,3 +1,21 @@
+.v2-truck-builder-container {
+  /* --v2-space-small: 0;
+  --bg-color: var(--c-secondary-graphite);
+  --caption-text-color: var(--c-primary-white);
+  --navigation-color: #8D8D8D;
+  --navigation-active-color: var(--c-primary-white);
+  --navigation-line-default-color: #393939;
+  --navigation-line-active-color: var(--c-accent-red);
+  --navigation-padding: 24px 16px;
+  --navigation-line-top: 21px;
+  --navigation-line-height: 3px;
+
+  background-color: var(--bg-color); */
+
+  --subtle-text-color: var(--c-secondary-steel);
+
+}
+
 .section > .v2-truck-builder-wrapper.full-width {
   padding: 0 16px;
 }
@@ -35,16 +53,16 @@
   display: flex;
   flex-direction: column;
   min-width: 85vw;
-  color: var(--c-secondary-steel);
+  color: var(--subtle-text-color);
 }
 
 .v2-truck-builder__item.active {
-  color: var(--c-primary-black);
+  color: var(--text-color);
 }
 
 .v2-truck-builder__item-header-button {
   background: transparent;
-  color: var(--c-secondary-steel);
+  color: var(--subtle-text-color);
   display: flex;
   justify-content: space-between;
   margin: 100px 0 0;
@@ -60,7 +78,7 @@
 }
 
 .v2-truck-builder__item.active .v2-truck-builder__item-header-button {
-  color: var(--c-primary-black);
+  color: var(--text-color);
 }
 
 .v2-truck-builder__item .v2-truck-builder__item-header-button::before {
@@ -69,7 +87,7 @@
   height: 1px;
   position: absolute;
   top: 0;
-  background-color: var(--c-secondary-steel);
+  background-color: var(--subtle-text-color);
 }
 
 .v2-truck-builder__item.active .v2-truck-builder__item-header-button::before {
@@ -78,7 +96,7 @@
   height: 4px;
   top: 0;
   position: absolute;
-  background-color: var(--c-primary-black);
+  background-color: var(--text-color);
 }
 
 .v2-truck-builder__item-title {
