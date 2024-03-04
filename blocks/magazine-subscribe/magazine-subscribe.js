@@ -4,10 +4,7 @@ import {
   loadBlock,
 } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/common.js';
-import {
-  FORM_MAGAZINE_SUBSCRIBE,
-  FORM_MAGAZINE_SUBSCRIBE_SIZE,
-} from '../../scripts/constants.js';
+import { FORM_MAGAZINE_SUBSCRIBE } from '../../scripts/constants.js';
 
 export default async function decorate(block) {
   const children = block.querySelectorAll('p');
@@ -23,7 +20,7 @@ export default async function decorate(block) {
 
   const iframeLink = createElement('a', {
     classes: 'iframe-link',
-    props: { href: FORM_MAGAZINE_SUBSCRIBE },
+    props: { href: FORM_MAGAZINE_SUBSCRIBE.href },
   });
 
   generalSection.append(heading, text);
@@ -35,7 +32,7 @@ export default async function decorate(block) {
 
   const iframeForm = buildBlock('iframe', { elems: [iframeLink] });
   block.insertAdjacentElement('afterend', iframeForm);
-  iframeForm.classList.add(FORM_MAGAZINE_SUBSCRIBE_SIZE);
+  iframeForm.classList.add(FORM_MAGAZINE_SUBSCRIBE.iframeSize);
   decorateBlock(iframeForm);
   loadBlock(iframeForm);
 }
