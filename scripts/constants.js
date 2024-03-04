@@ -20,3 +20,6 @@ export const ACCOUNT_ENGAGEMENT_TRACKING_CONSTANTS = {
   piCId: 122594,
   piHostname: 'pi.pardot.com',
 };
+
+export const FORM_MAGAZINE_SUBSCRIBE = 'https://go.pardot.com/l/1038343/2023-12-12/3m4w2c';
+export const FORM_MAGAZINE_SUBSCRIBE_SIZE = '900px';
