@@ -3,30 +3,27 @@ import {
   decorateBlock,
   loadBlock,
 } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/common.js';
+import {
+  createElement,
+  getTextLabel,
+} from '../../scripts/common.js';
 import { FORM_MAGAZINE_SUBSCRIBE } from '../../scripts/constants.js';
 
 export default async function decorate(block) {
-  const children = block.querySelectorAll('p');
-  // eslint-disable-next-line no-unused-vars
-  const [picture, title, subtitle, text] = children;
-
-  const generalSection = createElement('div', { classes: 'default-content-wrapper' });
-
-  const heading = createElement('h2', { props: { id: 'subscribe-to-bulldog-magazine' } });
-  heading.textContent = subtitle.textContent;
-
-  text.classList.add('magazine-subscribe-text');
+  const content = document.createRange().createContextualFragment(`
+    <div class="default-content-wrapper">
+      <h2 id="subscribe-to-bulldog-magazine">${getTextLabel('form-subscribe-magazine:heading')}</h2>
+      <p>${getTextLabel('form-subscribe-magazine:text')}</p>
+    </div>
+  `);
 
   const iframeLink = createElement('a', {
     classes: 'iframe-link',
     props: { href: FORM_MAGAZINE_SUBSCRIBE.href },
   });
 
-  generalSection.append(heading, text);
-
   block.textContent = '';
-  block.append(generalSection);
+  block.append(content);
   block.parentElement.classList.add('section', 'center', 'padding-0');
   block.parentElement.setAttribute('data-form-type', 'Subscribe-magazine');
 
