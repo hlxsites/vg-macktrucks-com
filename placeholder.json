@@ -1,7 +1,7 @@
 {
-  "total": 53,
+  "total": 54,
   "offset": 0,
-  "limit": 53,
+  "limit": 54,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -218,6 +218,14 @@
     {
       "Key": "All trucks",
       "Text": "All trucks"
+    },
+    {
+      "Key": "form-subscribe-magazine:heading",
+      "Text": "Subscribe to Bulldog<sup>®</sup> Magazine"
+    },
+    {
+      "Key": "form-subscribe-magazine:text",
+      "Text": "Be the first to know all the news about Mack Trucks and our products, plus other exciting activities."
     }
   ],
   ":type": "sheet"

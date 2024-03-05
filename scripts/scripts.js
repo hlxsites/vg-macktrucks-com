@@ -157,6 +157,11 @@ export function findAndCreateImageLink(node) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  // switching off hero autoblock for redesign
+  if (getMetadata('style') === 'redesign-v2') {
+    return;
+  }
+
   const header = main.querySelector('h1');
   const picture = main.querySelector('picture');
   const heroBlock = main.querySelector('.hero, .v2-hero');
