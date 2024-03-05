@@ -1,3 +1,7 @@
+/* stylelint-disable max-line-length */
+/* stylelint-disable value-list-comma-newline-after */
+/* stylelint-disable selector-list-comma-newline-after */
+/* stylelint-disable number-no-trailing-zeros */
 /* stylelint-disable selector-class-pattern */
 
 @font-face {
@@ -65,6 +69,10 @@
   /* Focus */
   --border-focus: red;
 
+  /* Error */
+  --c-error: #f66;
+  --c-error-inverted: #099;
+
   /* Font family */
 
   /* Alternate fonts */
@@ -117,7 +125,7 @@
 
   /* COLORS START */
   --c-primary-gray: #f1f1f1;
-  --c-secondary-light-gray: #F4F5F6;
+  --c-secondary-light-gray: #f4f5f6;
 
   /* COLORS END */
 
@@ -856,7 +864,7 @@ main .section.responsive-title h1 {
   /* GT America, Extended Roman, 24px, 120%, -2% / 18px, 120%, -2% */
   --testimonial-font-size: 1.125rem; /* 18px */
   --testimonial-line-height: 120%;
-  --testimonial-letter-spacing: -.0225rem;
+  --testimonial-letter-spacing: -0.0225rem;
 
   /* Motions */
   --duration-small: 160ms;
@@ -867,7 +875,7 @@ main .section.responsive-title h1 {
   --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /* In page navigation */
-  --inpage-navigation-height: 0px;
+  --inpage-navigation-height: 0;
 }
 
 .redesign-v2 body {
@@ -953,9 +961,10 @@ main .section.responsive-title h1 {
   padding: 12px 20px 8px;
   text-align: center;
   text-decoration: none;
-  transition: background-color var(--duration-small) var(--easing-standard),
-  color var(--duration-small) var(--easing-standard),
-  border-color var(--duration-small) var(--easing-standard);
+  transition:
+    background-color var(--duration-small) var(--easing-standard),
+    color var(--duration-small) var(--easing-standard),
+    border-color var(--duration-small) var(--easing-standard);
 }
 
 .redesign-v2 a.button:focus,
@@ -1021,13 +1030,13 @@ main .section.responsive-title h1 {
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
-  background-color: #F1F1F1;
+  background-color: #f1f1f1;
   border-color: var(--button-tertiary-white-hover);
 }
 
 .redesign-v2 .button--secondary:active {
   background-color: var(--button-tertiary-white-pressed);
-  border-color: #D9D9D9;
+  border-color: #d9d9d9;
 }
 
 /* Section Background colors */
@@ -1064,10 +1073,10 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 .section--background-with-dots::after {
-  background-image: url('../../media/dots.svg');
+  background-image: url("../../media/dots.svg");
   background-position: top right 10px;
   bottom: 0;
-  content: '';
+  content: "";
   display: block;
   height: 60%;
   height: round(60%, 24px);
@@ -1164,7 +1173,7 @@ main .section.responsive-title h1 {
 .section.header-with-mark > .default-content-wrapper:first-of-type > h1:first-child::before,
 .section.header-with-mark > .default-content-wrapper:first-of-type > h2:first-child::before,
 .redesign-v2 .with-marker::before {
-  content: '';
+  content: "";
   margin: 0;
   height: 0;
   width: 45px;
@@ -1218,7 +1227,7 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 .li--hyphen::before {
-  content: '-';
+  content: "-";
   position: absolute;
   left: 5px;
 }
@@ -1269,7 +1278,7 @@ main .section.responsive-title h1 {
     --headline-2-font-size: 2rem; /* 32px */
     --headline-3-font-size: 2rem; /* 32px */
     --testimonial-font-size: 1.5rem; /* 24px */
-    --testimonial-letter-spacing: -.03rem;
+    --testimonial-letter-spacing: -0.03rem;
     --section-div-padding: 24px 0;
     --section-padding: 56px 0;
   }

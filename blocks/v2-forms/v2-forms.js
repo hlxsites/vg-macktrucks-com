@@ -41,7 +41,6 @@ async function handleSubmit(form) {
     form.setAttribute('data-submitting', 'true');
     try {
       await prepareRequest(form);
-      window.logResult({ result: logResults.success, log: 'form submitted' });
     } catch (error) {
       window.logResult({ result: logResults.success, log: error });
     }
@@ -62,7 +61,6 @@ const addForm = async (block) => {
       method="post"
       name="form-${formName}"
       action="${formAction}"
-      novalidate
     >${formContent.default}
 
       <div style="position:absolute; left:-9999px; top: -9999px;" aria-hidden="true">
@@ -87,6 +85,7 @@ const addForm = async (block) => {
   block.style.display = displayValue;
 
   const formObj = document.querySelector('form');
+
   formObj.addEventListener('submit', (e) => {
     if (formContent.onSubmit) {
       e.preventDefault();

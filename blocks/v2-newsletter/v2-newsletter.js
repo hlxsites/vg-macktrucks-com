@@ -8,53 +8,40 @@ export const logResults = {
   success: 'success',
   error: 'error',
 };
-
-function updateForm(result) {
-  const newsText = document.querySelector(`.${blockName}__text`);
-  const formContainer = document.querySelector(`.${blockName}__form-container`);
-  if (result === logResults.success) {
-    newsText.classList.remove('hidden');
-    formContainer.classList.add('hidden');
-  } else if (result === logResults.error) {
-    newsText.classList.add('hidden');
-    formContainer.classList.remove('hidden');
-  }
-}
+let thanksMessageEl;
+let errorMessageEl;
 
 //* init response handling *
-async function submissionSuccess() {
-  sampleRUM('form:submit');
-  updateForm(logResults.success);
-}
-
-async function submissionFailure() {
+async function handleSubmissionResult(isSuccess) {
   const form = document.querySelector('form[data-submitting=true]');
+  const message = isSuccess ? thanksMessageEl : errorMessageEl;
+  message.className = `${blockName}__message`;
+
+  if (isSuccess) {
+    sampleRUM('form:submit');
+  }
+
   form.setAttribute('data-submitting', 'false');
-  updateForm(logResults.error);
+  form.replaceWith(message);
 }
 //* end response handling *
 
 window.logResult = function logResult(json) {
-  if (json.result === logResults.success) {
-    submissionSuccess();
-  } else if (json.result === logResults.error) {
-    submissionFailure();
-  }
+  handleSubmissionResult(json.result === logResults.success);
 };
 
 export default async function decorate(block) {
   const formLink = block.firstElementChild.innerText.trim();
-  const html = block.firstElementChild.nextElementSibling.firstElementChild.innerHTML;
+  const thanksEl = block.firstElementChild.nextElementSibling.firstElementChild;
+  const errorEl = block.firstElementChild.nextElementSibling.lastElementChild;
 
   const container = createElement('div', { classes: `${blockName}__container` });
 
-  const textContainer = createElement('div', { classes: [`${blockName}__text`, 'hidden'] });
-  textContainer.innerHTML = html;
+  thanksMessageEl = thanksEl.cloneNode(true);
+  errorMessageEl = errorEl.cloneNode(true);
+  thanksEl.remove();
+  errorEl.remove();
 
-  const headings = textContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  [...headings].forEach((heading) => heading.classList.add(`${blockName}__title`));
-
-  const formContainer = createElement('div', { classes: `${blockName}__form-container` });
   const form = document.createRange().createContextualFragment(`
     <div class="v2-forms block" data-block-name="v2-forms" data-block-status="">
       <div>
@@ -65,12 +52,8 @@ export default async function decorate(block) {
       </div>
     </div>`);
 
-  formContainer.append(...form.children);
-  container.append(textContainer, formContainer);
-
+  container.append(...form.children);
   block.replaceWith(container);
 
-  await loadBlock(formContainer.firstElementChild);
+  await loadBlock(container.querySelector('.v2-forms'));
 }
-
-// Same form in page is not working.

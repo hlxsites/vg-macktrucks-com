@@ -234,7 +234,7 @@ export default async function decorate(block) {
       if (formFieldsFixed) return;
 
       if (mutation.type !== 'childList') return;
-      const submitButton = block.querySelector('input[type="submit"]');
+      const submitButton = block.querySelector('button[type="submit"]');
       const emailInput = block.querySelector('input[name="emailAddress"]');
       const pdtForm = block.querySelector(':scope form');
 

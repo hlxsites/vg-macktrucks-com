@@ -14,7 +14,7 @@ const formContent = `
       maxlength="254"
       required
     />
-    <input class="submit-button" type="submit" aria-label="" />
+    <button class="submit-button" type="submit" aria-label=""></button>
   </span>
   <span class="v2-forms__validation-message">
       This field is required
