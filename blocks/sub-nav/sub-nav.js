@@ -2,6 +2,7 @@ import {
   decorateButtons, getAllElWithChildren,
 } from '../../scripts/scripts.js';
 import { createElement, getTextLabel } from '../../scripts/common.js';
+import { FORM_MAGAZINE_SUBSCRIBE } from '../../scripts/constants.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
@@ -148,21 +149,12 @@ async function buildMagazineSubNav(block, ref) {
   const allSubscribeButtons = document.querySelectorAll('.magazine-subscribe-button');
   allSubscribeButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      // Detecting the magazine form and the H's element associated with it coords
-      const iframeSection = document.querySelector('[data-form-type="Subscribe-magazine"]');
-      const allTitles = [...iframeSection.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-      const formTitleCoords = allTitles[0].getBoundingClientRect();
-      const yCoord = formTitleCoords.y;
-      // Offsetting both navbars height
-      const navHeight = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sub-nav-height-xl'), 10);
-      const subnavHeight = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height'), 10);
-      const totalOffset = navHeight + subnavHeight;
-      // Scrolling to the top of the heading section
-      window.scrollTo({
-        top: yCoord - totalOffset,
-        left: 0,
-        behavior: 'smooth',
-      });
+      const container = document.querySelector('[data-form-type="Subscribe-magazine"]');
+      if (container) {
+        container.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      } else {
+        window.location.href = FORM_MAGAZINE_SUBSCRIBE.href;
+      }
     });
   });
 
