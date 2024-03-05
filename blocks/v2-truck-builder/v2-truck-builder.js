@@ -1,4 +1,8 @@
-import { createElement } from '../../scripts/common.js';
+import {
+  createElement,
+  removeEmptyTags,
+  unwrapDivs,
+} from '../../scripts/common.js';
 
 const windowBreakpoint = 1200;
 const getDevice = () => window.innerWidth >= windowBreakpoint;
@@ -8,11 +12,6 @@ const addAccordionClass = (item, idx) => {
   const hasPicture = item.querySelector('picture');
   if (hasPicture) {
     item.classList.add(`${blockName}__item-image`);
-    const allImages = [...item.querySelectorAll('picture')];
-    if (allImages.length > 1) {
-      const bgImage = allImages[allImages.length - 1];
-      bgImage.classList.add(`${blockName}__bg-image`);
-    }
   } else {
     const header = item.querySelector(':is(h1, h2, h3, h4, h5, h6)');
     if (header) header.classList.add(`${blockName}__item-title`, `number-title-${idx + 1}`);
@@ -72,8 +71,12 @@ const handleResize = (container) => {
 
 export default function decorate(block) {
   const header = block.querySelector(':scope > div:first-child > div > :first-child');
-  const button = block.querySelector(':scope > div:last-child > div > :last-child');
-  const accordionItems = [...block.querySelectorAll(':scope > div:not(:first-child):not(:last-child')];
+  const button = block.querySelector(':scope > div:nth-child(2) > div > :last-child');
+  const backgroundImage = block.querySelector(':scope > div:nth-child(3) > div > :last-child');
+
+  backgroundImage.classList.add(`${blockName}__bg-image`);
+
+  const accordionItems = [...block.querySelectorAll(':scope > div:nth-child(n+4)')];
 
   const accordionContainer = createElement('div', { classes: `${blockName}__accordion-container` });
   const itemsContainer = createElement('div', { classes: `${blockName}__items-container` });
@@ -116,9 +119,12 @@ export default function decorate(block) {
   button.classList.add(`${blockName}__builder-button`);
   button.classList.replace('button--primary', 'button--large');
 
-  accordionContainer.append(itemsContainer, button);
+  accordionContainer.append(backgroundImage, itemsContainer, button);
   block.appendChild(accordionContainer);
 
   window.addEventListener('resize', () => handleResize(itemsContainer));
   watchScroll(itemsContainer);
+
+  unwrapDivs(block, { ignoreDataAlign: true });
+  removeEmptyTags(block);
 }

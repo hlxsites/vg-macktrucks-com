@@ -24,6 +24,11 @@
   font-family: var(--ff-headline-medium);
 }
 
+.v2-truck-builder__accordion-container {
+  margin: 0 -16px;
+  position: relative;
+}
+
 .v2-truck-builder__items-container {
   display: flex;
   margin: 1em auto;
@@ -63,9 +68,10 @@
 .v2-truck-builder__item-header-button {
   background: transparent;
   color: var(--subtle-text-color);
+  border: 0;
   display: flex;
   justify-content: space-between;
-  margin: 100px 0 0;
+  margin: 16px 0 0;
   padding: 30px 0 0;
   order: 2;
   position: relative;
@@ -131,6 +137,13 @@
 .v2-truck-builder__item-image {
   order: 1;
   position: relative;
+  width: 100vw;
+  height: 100vw;
+  max-height: 512px;
+  max-width: 512px;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 16/9;
 }
 
 .v2-truck-builder__item-image img {
@@ -145,16 +158,14 @@
 }
 
 .v2-truck-builder__bg-image {
-  opacity: 0;
-  transition: opacity .2s linear;
   position: absolute;
   top: 0;
+  left: -200px; /* (1440px - 1040px) / 2 */
   z-index: -1;
-  clip-path: inset(0 50% 0 0);
-}
-
-.v2-truck-builder__item.active .v2-truck-builder__bg-image {
-  opacity: 1;
+  aspect-ratio: 1;
+  height: 100vw;
+  max-height: 512px;
+  max-width: 512px;
 }
 
 @media (min-width: 1200px) {
@@ -198,7 +209,7 @@
     flex-direction: column;
     align-items: flex-end;
     margin: 0;
-    width: 32%;
+    width: calc(1040px - (910px - 200px));
     flex: 1 0 50%;
   }
 
@@ -211,11 +222,9 @@
   }
 
   .v2-truck-builder__item-image {
-    display: block;
     position: absolute;
-    left: 0;
-    top: 107px;
-    width: calc(55% + 80px);
+    left: -200px;
+    top: 0;
   }
 
   .v2-truck-builder__item:not(.active) .v2-truck-builder__item-image,
@@ -237,24 +246,12 @@
     width: 32%;
     margin: 0;
   }
-
-  .v2-truck-builder__bg-image {
-    clip-path: inset(0 45% 0 0);
-  }
-
-  .v2-truck-builder__bg-image,
-  .v2-truck-builder__item.active .v2-truck-builder__bg-image {
-    opacity: 0;
-  }
-  
-  .v2-truck-builder__item-image:hover .v2-truck-builder__bg-image {
-    opacity: 1;
-  }
 }
 
 @media (min-width: 1200px) {
   .v2-truck-builder__item-image {
-    top: 120px;
     flex: 0 1 50%;
+    width: auto;
+    max-width: none;
   }
 }
