@@ -1,6 +1,9 @@
 .v2-feature-carousel {
   --v2-feature-carousel-content-gap: 12px;
   --v2-feature-carousel-size: 512px;
+
+  /* TODO: utilise section--with-background instead */
+  --card-background: var(--c-primary-white);
 }
 
 .v2-feature-carousel__arrowcontrols, 
@@ -28,7 +31,8 @@
 .v2-feature-carousel__list-container {
   padding: 40px 16px;
   position: relative;
-  background-color: var(--c-primary-white);
+  background: var(--card-background);
+  color: var(--card-text);
 }
 
 .v2-feature-carousel__arrowcontrols {
@@ -37,7 +41,8 @@
   top: 0;
 }
 
-.v2-feature-carousel__button {
+.v2-feature-carousel__button,
+.v2-feature-carousel__button:focus {
   width: 60px;
   height: 60px;
   padding: 15px 10px;
@@ -45,13 +50,22 @@
   background-color: var(--c-primary-gold);
 }
 
-.v2-feature-carousel__button:hover,
-.v2-feature-carousel__button:focus {
+.v2-feature-carousel__button:disabled {
+  --color-icon: var(--button-disabled-color);
+
+  background-color: var(--button-secondary-gold-disabled);
+}
+
+.v2-feature-carousel__button:hover {
   background-color: var(--button-secondary-gold-hover);
 }
 
 .v2-feature-carousel__button:active {
   background-color: var(--button-secondary-gold-pressed);
+}
+
+.v2-feature-carousel__button:focus-visible {
+  outline: 2px solid var(--border-focus);
 }
 
 .v2-feature-carousel__list {
@@ -89,7 +103,7 @@
 @media (min-width: 1200px) {
   .v2-feature-carousel {
     --v2-feature-carousel-content-gap: 24px;
-    --v2-feature-carousel-padding: calc((60% - 512px)/2); /* calculate paading based on parents width */
+    --v2-feature-carousel-padding: calc((60% - 512px)/2); /* calculate padding based on parents width */
 
     display: flex;
     flex-direction: row-reverse;
@@ -103,7 +117,6 @@
     padding: 0;
     width: var(--v2-feature-carousel-size);
     height: var(--v2-feature-carousel-size);
-    background-color: var(--c-primary-white);
     display: flex;
     flex-direction: column;
     z-index: 2;

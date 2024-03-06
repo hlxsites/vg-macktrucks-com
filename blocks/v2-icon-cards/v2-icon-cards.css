@@ -116,7 +116,7 @@
 @media (min-width: 1200px) {
   .v2-icon-cards {
     padding: 20px 40px;
-    background: var(--c-primary-white);
+    background: var(--card-background);
   }
 }
 
