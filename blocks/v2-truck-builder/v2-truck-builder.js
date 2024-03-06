@@ -2,11 +2,13 @@ import {
   createElement,
   removeEmptyTags,
   unwrapDivs,
+  variantsClassesToBEM,
 } from '../../scripts/common.js';
 
 const windowBreakpoint = 1200;
 const getDevice = () => window.innerWidth >= windowBreakpoint;
 const blockName = 'v2-truck-builder';
+const variantClasses = ['hide-description'];
 
 const addAccordionClass = (item, idx) => {
   const hasPicture = item.querySelector('picture');
@@ -28,6 +30,7 @@ const watchScroll = (container) => {
         entry.target.classList.add('active');
       } else {
         entry.target.classList.remove('active');
+        console.log('remove1');
       }
     });
   }, { threshold: 0.5 });
@@ -62,6 +65,7 @@ const handleResize = (container) => {
     const allItems = container.querySelectorAll(`.${blockName}__item`);
     allItems.forEach((item) => {
       item.classList.remove('active');
+      console.log('remove2');
     });
     allItems[0].classList.add('active');
   } else {
@@ -70,8 +74,11 @@ const handleResize = (container) => {
 };
 
 export default function decorate(block) {
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
+
   const header = block.querySelector(':scope > div:first-child > div > :first-child');
   const button = block.querySelector(':scope > div:nth-child(2) > div > :last-child');
+  const buttonContainer = block.querySelector(':scope > div:nth-child(2) > div');
   const backgroundImage = block.querySelector(':scope > div:nth-child(3) > div > :last-child');
 
   backgroundImage.classList.add(`${blockName}__bg-image`);
@@ -119,7 +126,7 @@ export default function decorate(block) {
   button.classList.add(`${blockName}__builder-button`);
   button.classList.replace('button--primary', 'button--large');
 
-  accordionContainer.append(backgroundImage, itemsContainer, button);
+  accordionContainer.append(backgroundImage, itemsContainer, buttonContainer);
   block.appendChild(accordionContainer);
 
   window.addEventListener('resize', () => handleResize(itemsContainer));
