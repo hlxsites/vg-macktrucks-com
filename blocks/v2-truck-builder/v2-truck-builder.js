@@ -30,7 +30,6 @@ const watchScroll = (container) => {
         entry.target.classList.add('active');
       } else {
         entry.target.classList.remove('active');
-        console.log('remove1');
       }
     });
   }, { threshold: 0.5 });
@@ -65,7 +64,6 @@ const handleResize = (container) => {
     const allItems = container.querySelectorAll(`.${blockName}__item`);
     allItems.forEach((item) => {
       item.classList.remove('active');
-      console.log('remove2');
     });
     allItems[0].classList.add('active');
   } else {
