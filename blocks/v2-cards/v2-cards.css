@@ -8,16 +8,12 @@
 }
 
 .v2-cards__card-item {
-  background: var(--c-primary-white);
-  color: var(--c-primary-black);
+  background: var(--card-background);
+  color: var(--card-text);
 }
 
 .v2-cards--no-background .v2-cards__card-item {
-  background: transparent;
-}
-
-.v2-cards--gray-cards .v2-cards__card-item {
-  background: var(--c-tertiary-light-warm-gray);
+  --card-background: transparent;
 }
 
 .v2-cards__picture-wrapper {
@@ -37,7 +33,7 @@
 }
 
 .v2-cards__image {
-  background: var(--c-tertiary-light-cool-gray);
+  background: var(--media-background);
   aspect-ratio: 16/9;
   width: 100%;
   object-fit: cover;
@@ -61,7 +57,6 @@
 
 .v2-cards__text-wrapper p {
   margin: 0;
-  color: var(--c-primary-black);
   font-family: var(--ff-body);
   font-size: var(--body-1-font-size);
   font-style: normal;

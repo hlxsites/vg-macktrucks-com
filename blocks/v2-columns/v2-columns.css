@@ -1,5 +1,8 @@
 .v2-columns-container {
   overflow: hidden;
+
+  /* TODO: utilise section--with-background instead */
+  --card-background: var(--c-primary-white);
 }
 
 /* TODO: refactor generic section/block paddings */
@@ -19,7 +22,7 @@
   width: 100%;
   justify-content: center;
   align-items: flex-start;
-  color: var(--c-primary-black);
+  color: var(--card-text);
 }
 
 .v2-columns__column--with-image,
@@ -182,7 +185,7 @@
   }
 
   .redesign-v2 .v2-columns-container--with-background-image .v2-columns-wrapper {
-    background-color: var(--c-primary-white);
+    background-color: var(--card-background);
     position: absolute;
     top: calc(200% * 0.125);
     max-width: 485px;

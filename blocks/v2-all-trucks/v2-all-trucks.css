@@ -22,7 +22,7 @@
 
 .v2-all-trucks__segment-button {
   background: transparent;
-  color: var(--c-primary-black);
+  color: var(--text-color);
   text-transform: capitalize;
   font: var(--body-font-size-xxs)/1.6 var(--ff-body-bold);
   padding: 14px 8px 14px 24px;
@@ -175,7 +175,7 @@
 .v2-all-trucks__selected-item-wrapper {
   background: none;
   border: 0;
-  color: var(--c-primary-black);
+  color: var(--text-color);
   cursor: pointer;
   display: flex;
   margin: 0;
