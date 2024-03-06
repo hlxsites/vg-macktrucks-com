@@ -33,7 +33,7 @@ window.logResult = function logResult(json) {
 export default async function decorate(block) {
   const formLink = block.firstElementChild.innerText.trim();
   const thanksEl = block.firstElementChild.nextElementSibling.firstElementChild;
-  const errorEl = block.firstElementChild.nextElementSibling.lastElementChild;
+  const errorEl = block.lastElementChild.firstElementChild;
 
   const container = createElement('div', { classes: `${blockName}__container` });
 

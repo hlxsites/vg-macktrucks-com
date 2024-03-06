@@ -235,7 +235,7 @@ export default async function decorate(block) {
 
       if (mutation.type !== 'childList') return;
       const submitButton = block.querySelector('button[type="submit"]');
-      const emailInput = block.querySelector('input[name="emailAddress"]');
+      const emailInput = block.querySelector('input[name="email"]');
       const pdtForm = block.querySelector(':scope form');
 
       if (pdtForm) pdtForm.className = 'pardot-form';
@@ -244,7 +244,6 @@ export default async function decorate(block) {
       // and display it sticked to the right side of email input
       if (submitButton && emailInput) {
         emailInput.placeholder = PLACEHOLDERS.emailAddress;
-        submitButton.value = '';
         submitButton.ariaLabel = `${PLACEHOLDERS.subscribe}`;
         formFieldsFixed = true;
         observer.disconnect();

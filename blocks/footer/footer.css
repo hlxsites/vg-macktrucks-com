@@ -181,6 +181,10 @@
   grid-area: newsletter;
 }
 
+.footer-newsletter a:hover {
+  color: var(--button-secondary-gold-hover);
+}
+
 .footer-newsletter__title {
   margin-bottom: 12px;
 }
