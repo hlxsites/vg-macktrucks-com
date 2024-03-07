@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-03-05T00:00:00.000Z</updated>
+    <updated>2024-03-06T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2823,5 +2823,13 @@
         <updated>2024-03-05T00:00:00.000Z</updated>
         <content type="html"><![CDATA[NEW ORLEANS, Louisiana (March 5, 2024) – Mack Truck customers say they are taking advantage of the many benefits offered by Mack® Connect, Mack’s newly introduced comprehensive fleet management portal that enables customers to digitally access information about Mack-powered trucks in their fleet.]]></content>
         <published>2024-03-05T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Begins Production of Mack® MD Electric, Customers Begin Receiving Delivery]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-begins-production-of-mack-md-electric-customers-begin-receiving-delivery</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-begins-production-of-mack-md-electric-customers-begin-receiving-delivery"/>
+        <updated>2024-03-06T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[INDIANAPOLIS (March 6, 2024) – Mack Trucks recently began production of its second battery-electric vehicle (BEV), the Mack® MD Electric, and delivered units to several customers, who are using the truck in a variety of applications. Mack delivered the Mack MD Electric to ABF Freight, DC Logistics, Mission Linen and Pronto Freight Ways to begin operations and testing.]]></content>
+        <published>2024-03-06T00:00:00.000Z</published>
     </entry>
 </feed>
