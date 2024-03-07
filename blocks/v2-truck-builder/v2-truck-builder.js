@@ -8,7 +8,7 @@ import {
 const windowBreakpoint = 1200;
 const getDevice = () => window.innerWidth >= windowBreakpoint;
 const blockName = 'v2-truck-builder';
-const variantClasses = ['hide-description'];
+const variantClasses = ['hide-description', 'media-right'];
 
 const addAccordionClass = (item, idx) => {
   const hasPicture = item.querySelector('picture');
