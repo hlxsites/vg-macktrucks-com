@@ -230,10 +230,6 @@
     margin: 0 auto 4em;
   }
 
-  .v2-truck-builder__header-container h2 {
-    /* font-size: var(--headline-2-font-size); */
-  }
-
   .v2-truck-builder__accordion-container {
     display: flex;
     flex-flow: row;
