@@ -150,6 +150,12 @@
   margin-left: -24px;
 }
 
+/* fix to show image in Sidekick Library */
+.v2-truck-builder__item-image picture {
+  width: 100%;
+  height: 100%;
+}
+
 .v2-truck-builder__item-image img {
   width: 100%;
   height: auto;
