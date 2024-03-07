@@ -13,7 +13,7 @@ const variantClasses = ['hide-description', 'media-right'];
 const addAccordionClass = (item, idx) => {
   const hasPicture = item.querySelector('picture');
   if (hasPicture) {
-    item.classList.add(`${blockName}__item-image`);
+    hasPicture.classList.add(`${blockName}__item-image`);
   } else {
     const header = item.querySelector(':is(h1, h2, h3, h4, h5, h6)');
     if (header) header.classList.add(`${blockName}__item-title`, `number-title-${idx + 1}`);
@@ -124,7 +124,8 @@ export default function decorate(block) {
   button.classList.add(`${blockName}__builder-button`);
   button.classList.replace('button--primary', 'button--large');
 
-  accordionContainer.append(backgroundImage, itemsContainer, buttonContainer);
+  itemsContainer.append(buttonContainer);
+  accordionContainer.append(backgroundImage, itemsContainer);
   block.appendChild(accordionContainer);
 
   window.addEventListener('resize', () => handleResize(itemsContainer));

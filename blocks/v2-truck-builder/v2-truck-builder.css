@@ -20,6 +20,7 @@
 
 .v2-truck-builder__accordion-container {
   position: relative;
+  padding-bottom: 64px;
 }
 
 .v2-truck-builder__items-container {
@@ -147,17 +148,10 @@
   display: flex;
   align-items: center;
   aspect-ratio: 16/9;
-  margin-left: -24px;
-}
-
-/* fix to show image in Sidekick Library */
-.v2-truck-builder__item-image picture {
-  width: 100%;
-  height: 100%;
+  margin-left: -16px;
 }
 
 .v2-truck-builder__item-image img {
-  width: 100%;
   height: auto;
   max-height: 512px;
   display: block;
@@ -165,14 +159,20 @@
 
 .v2-truck-builder .button-container {
   padding: 0 16px;
+  position: absolute;
+  right: 0;
+  bottom: 16px;
+  left: 0;
 }
 
 .v2-truck-builder .button-container .v2-truck-builder__builder-button {
   width: 100%;
+  max-width: 512px;
   margin: 0;
 }
 
 .v2-truck-builder__bg-image {
+  display: block;
   position: absolute;
   top: 0;
   left: -50vw;
@@ -198,7 +198,8 @@
   }
 
   .v2-truck-builder__item-image {
-    max-width: none;
+    margin: 0;
+    max-width: 100vw;
     width: auto;
   }
 }
@@ -215,13 +216,9 @@
 }
 
 @media (min-width: 1200px) {
-  .section.v2-truck-builder-container {
-    height: 780px;
-  }
-
   .section > .v2-truck-builder-wrapper.full-width {
     max-width: 1440px;
-    margin: 0 auto;
+    margin: 0 auto 4em;
     position: relative;
   }
 
@@ -236,14 +233,15 @@
 
   .v2-truck-builder__accordion-container {
     display: flex;
-    flex-flow: column;
-    align-items: flex-end;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-between;
     max-width: var(--wrapper-width);
     margin: 0 auto;
   }
 
   .v2-truck-builder--media-right .v2-truck-builder__accordion-container {
-    align-items: flex-start;
+    flex-flow: row-reverse;
   }
 
   .v2-truck-builder__items-container {
@@ -252,8 +250,7 @@
     margin: 0;
     overflow: visible;
     gap: 8px;
-    width: calc(1040px - (910px - 200px));
-    flex: 1 0 50%;
+    flex: 0 0 32%;
   }
 
   .v2-truck-builder__items-container::before,
@@ -312,14 +309,15 @@
 
   .v2-truck-builder .button-container {
     padding: 2px 0 0;
+    position: static;
   }
 
   .v2-truck-builder .button-container .v2-truck-builder__builder-button {
-    width: calc(1040px - (910px - 200px));
     margin: 0;
   }
 
   .v2-truck-builder__bg-image {
+    position: relative;
     left: -200px; /* (1440px - 1040px) / 2 */
   }
 
