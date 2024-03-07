@@ -144,7 +144,6 @@
   width: 100vw;
   height: 100vw;
   max-height: 512px;
-  max-width: 512px;
   display: flex;
   align-items: center;
   aspect-ratio: 16/9;
@@ -297,6 +296,10 @@
   .v2-truck-builder__item:not(.active) .v2-truck-builder__item-image,
   .v2-truck-builder--hide-description .v2-truck-builder__item:not(.active) .v2-truck-builder__item-description {
     display: none;
+  }
+
+  .v2-truck-builder__item-image img {
+    width: 100%;
   }
 
   .v2-truck-builder__item-header-button .v2-truck-builder__item-title {
