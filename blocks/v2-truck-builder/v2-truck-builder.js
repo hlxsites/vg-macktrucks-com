@@ -28,7 +28,7 @@ const watchScroll = (container) => {
       const intersecting = entry.isIntersecting;
       if (intersecting && !getDevice()) {
         entry.target.classList.add('active');
-      } else {
+      } else if (!getDevice()) {
         entry.target.classList.remove('active');
       }
     });
