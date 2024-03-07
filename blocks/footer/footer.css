@@ -181,8 +181,13 @@
   grid-area: newsletter;
 }
 
+.footer-newsletter a {
+  color: currentcolor;
+  text-decoration: underline;
+}
+
 .footer-newsletter a:hover {
-  color: var(--button-secondary-gold-hover);
+  color: var(--c-primary-white);
 }
 
 .footer-newsletter__title {
