@@ -19,8 +19,7 @@ const addAccordionClass = (item) => {
 };
 
 export default function decorate(block) {
-  const header = block.querySelector(':scope > div:first-child > div > :first-child');
-  const accordionItems = [...block.querySelectorAll(':scope > div:not(:first-child)')];
+  const accordionItems = [...block.querySelectorAll(':scope > div')];
   const accordionContainer = createElement('div', { classes: `${blockName}__accordion-container` });
   const itemsContainer = createElement('div', { classes: `${blockName}__items-container` });
   const hasLeftClass = block.classList.contains(left); // accordion at left side
@@ -30,11 +29,6 @@ export default function decorate(block) {
   if (!hasLeftClass && isLeftVariant) block.classList.add(left);
   variantsClassesToBEM(block.classList, variants, blockName);
   block.parentElement.classList.add('full-width');
-  header.parentElement.classList.add(`${blockName}__header-wrapper`);
-  header.parentElement.parentElement.classList.add(`${blockName}__header-container`);
-
-  // style the header as an h2 with red marker over it
-  header.classList.add(`${blockName}__header`, 'with-marker');
 
   // is responsibility of the author to add the proper amount of images and text
   accordionItems.forEach((item, i) => {

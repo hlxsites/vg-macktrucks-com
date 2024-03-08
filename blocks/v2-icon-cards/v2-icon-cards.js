@@ -1,8 +1,13 @@
-import { createElement } from '../../scripts/common.js';
+import {
+  createElement,
+  variantsClassesToBEM,
+} from '../../scripts/common.js';
+
+const blockName = 'v2-icon-cards';
+const variantClasses = ['no-background', 'alt-font-size'];
 
 export default async function decorate(block) {
-  const blockName = 'v2-icon-cards';
-
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
   const rows = [...block.querySelectorAll(':scope > div')];
   const columns = [...block.querySelectorAll(':scope > div > div')];
 
@@ -34,10 +39,28 @@ export default async function decorate(block) {
     });
     bodyElmts.forEach((e) => e.classList.add(`${blockName}__body`));
 
-    const buttons = [...col.querySelectorAll('.button-container a')];
+    const buttons = [...block.querySelectorAll('.button-container a')];
     buttons.forEach((btn) => {
-      if (btn.parentElement.classList.contains('button-container')) {
-        btn.parentElement.replaceWith(btn);
+      const buttonContainer = btn.closest('.button-container');
+      if (buttonContainer) {
+        buttonContainer.replaceWith(btn);
+      }
+
+      const up = btn.parentElement;
+      if (
+        up.childNodes.length === 1
+        && up.tagName === 'STRONG'
+      ) {
+        btn.className = 'button button--small button--primary';
+      }
+      if (
+        up.childNodes.length === 1
+        && up.tagName === 'EM'
+      ) {
+        btn.className = 'button button--small button--secondary';
+      } else {
+        btn.classList.add('standalone-link', `${blockName}__button`);
+        btn.classList.remove('button', 'button--primary');
       }
     });
 
@@ -88,10 +111,5 @@ export default async function decorate(block) {
     const newHeadingEl = createElement('strong', { classes: [...heading.classList] });
     newHeadingEl.innerHTML = heading.innerHTML;
     heading.replaceWith(newHeadingEl);
-  });
-
-  const buttons = [...block.querySelectorAll('.button-container a')];
-  buttons.forEach((button) => {
-    button.classList.add('standalone-link', `${blockName}__button`);
   });
 }

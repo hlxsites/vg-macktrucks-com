@@ -68,6 +68,15 @@
   outline: 2px solid var(--border-focus);
 }
 
+.v2-feature-carousel__button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.v2-feature-carousel__button-prev svg {
+  rotate: 180deg;
+}
+
 .v2-feature-carousel__list {
   flex-direction: row;
   overflow: scroll;
@@ -75,6 +84,7 @@
   scroll-behavior: smooth;
   scroll-snap-align: start;
   scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 
 .v2-feature-carousel__list-item {
@@ -96,7 +106,8 @@
   margin: 0;
 }
 
-.v2-feature-carousel__list-item p {
+.v2-feature-carousel__list-item p,
+.v2-feature-carousel__list-item a.button {
   margin: 0;
 }
 

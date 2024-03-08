@@ -73,7 +73,12 @@
 
 .v2-accordion-column__item {
   margin: 0 0 16px;
-  border-bottom: 1px solid var(--navigation-line-default-color);
+  border-bottom: 1px solid var(--c-secondary-steel);
+}
+
+.section--graphite-background .v2-accordion-column__item,
+.section--black-background .v2-accordion-column__item {
+  border-color: var(--navigation-line-default-color);
 }
 
 .v2-accordion-column__item.active {
@@ -180,8 +185,8 @@
 
   .v2-accordion-column__item-image {
     position: absolute;
+    top: 0;
     left: 0;
-    top: 6em;
     width: calc(50% + 80px);
   }
 
