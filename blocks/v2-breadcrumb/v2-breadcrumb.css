@@ -31,6 +31,7 @@
 
 .v2-breadcrumb .v2-breadcrumb__crumb {
   text-transform: capitalize;
+  white-space: nowrap;
   color: inherit;
   display: flex;
 }

@@ -1,3 +1,7 @@
+.redesign-v2 .v2-tabbed-carousel-wrapper + .v2-tabbed-carousel-wrapper {
+  margin-top: 120px;
+}
+
 .v2-tabbed-carousel-container {
   /* Full width in mobile */
   --v2-space-small: 0;
@@ -8,10 +12,6 @@
   --navigation-line-height: 3px;
 
   color: var(--text-color);
-}
-
-main .section.v2-tabbed-carousel-container {
-  padding: 0;
 }
 
 .v2-tabbed-carousel__items {
@@ -152,7 +152,7 @@ main .section.v2-tabbed-carousel-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 40px 0;
+  padding: 0 0 40px;
 }
 
 .v2-tabbed-carousel__title,
@@ -194,7 +194,7 @@ main .section.v2-tabbed-carousel-container {
   }
 
   .v2-tabbed-carousel-container {
-    --navigation-padding: 40px 0;
+    --navigation-padding: 40px 0 0;
     --navigation-line-top: 37px;
   }
 

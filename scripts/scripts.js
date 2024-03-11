@@ -237,7 +237,15 @@ export function decorateLinks(block) {
 }
 
 function decorateSectionBackgrounds(main) {
-  const variantClasses = ['light-gray-background', 'gray-background', 'graphite-background', 'black-background', 'background-with-dots'];
+  const variantClasses = [
+    'light-gray-background',
+    'gray-background',
+    'graphite-background',
+    'black-background',
+    'background-with-dots',
+    'no-gap',
+    'no-vertical-padding',
+  ];
 
   main.querySelectorAll(':scope > .section').forEach((section) => {
     // transform background color variants into BEM classnames

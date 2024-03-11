@@ -48,8 +48,8 @@
 
 .v2-testimonial__image {
   width: 100%;
-  display: flex;
-  aspect-ratio: 16/9;
+  display: block;
+  aspect-ratio: 16/10;
   object-fit: cover;
   object-position: center;
 }
