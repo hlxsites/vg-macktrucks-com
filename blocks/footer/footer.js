@@ -160,8 +160,10 @@ export default async function decorate(block) {
     newsletter.appendChild(oldNews);
 
     const eloquaForm = block.querySelector('.eloqua-form');
-    eloquaForm?.setAttribute('data-block-name', 'eloqua-form');
-    newsletter.append(eloquaForm);
+    if (eloquaForm) {
+      eloquaForm.setAttribute('data-block-name', 'eloqua-form');
+      newsletter.append(eloquaForm);
+    }
     addClassToTitle(newsletter, `${blockNameNewsletter}__title`);
 
     // Menu Columns: menu
