@@ -46,13 +46,11 @@
   }
 
   .v2-intro-section-wrapper.with-background-image > picture:first-of-type img {
-    left: 50%;
     object-fit: cover;
     object-position: top;
     position: absolute;
     top: 0;
     bottom: 0;
-    transform: translateX(-50%);
     width: 100%;
     z-index: -1;
     height: 90%;
