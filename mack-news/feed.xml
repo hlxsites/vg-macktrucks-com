@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-03-06T00:00:00.000Z</updated>
+    <updated>2024-03-12T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2831,5 +2831,13 @@
         <updated>2024-03-06T00:00:00.000Z</updated>
         <content type="html"><![CDATA[INDIANAPOLIS (March 6, 2024) – Mack Trucks recently began production of its second battery-electric vehicle (BEV), the Mack® MD Electric, and delivered units to several customers, who are using the truck in a variety of applications. Mack delivered the Mack MD Electric to ABF Freight, DC Logistics, Mission Linen and Pronto Freight Ways to begin operations and testing.]]></content>
         <published>2024-03-06T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Awarded Contract by U.S. Marine Corps to Develop Medium Tactical Truck (MTT)]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-defense-awarded-contract-by-u-s-marine-corps-to-develop-medium-tactical-truck-mtt</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-defense-awarded-contract-by-u-s-marine-corps-to-develop-medium-tactical-truck-mtt"/>
+        <updated>2024-03-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (March 12, 2024) – The U.S. Marine Corps awarded Mack Defense a 12-month contract for the initial development of a new Medium Tactical Truck (MTT) fleet.]]></content>
+        <published>2024-03-12T00:00:00.000Z</published>
     </entry>
 </feed>
