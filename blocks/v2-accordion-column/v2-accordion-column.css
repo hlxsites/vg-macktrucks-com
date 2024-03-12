@@ -13,7 +13,7 @@
 .v2-accordion-column__item-header-button {
   background: transparent;
   border: 0;
-  color: var(--c-primary-black);
+  color: var(--text-color);
   display: flex;
   justify-content: space-between;
   margin: 0;
@@ -76,6 +76,11 @@
   border-bottom: 1px solid var(--c-secondary-steel);
 }
 
+.section--graphite-background .v2-accordion-column__item,
+.section--black-background .v2-accordion-column__item {
+  border-color: var(--navigation-line-default-color);
+}
+
 .v2-accordion-column__item.active {
   margin: 40px 0;
   display: flex;
@@ -115,7 +120,7 @@
 }
 
 .v2-accordion-column__item-image {
-  background-color: var(--c-primary-gray);
+  background-color: var(--media-background);
 }
 
 .v2-accordion-column__item-image img {
@@ -180,10 +185,9 @@
 
   .v2-accordion-column__item-image {
     position: absolute;
+    top: 0;
     left: 0;
-    top: 6em;
     width: calc(50% + 80px);
-    background-color: var(--c-primary-gray);
   }
 
   .v2-accordion-column__item-description > p:not(.button-container) {

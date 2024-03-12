@@ -182,7 +182,7 @@ export const slugify = (text) => (
 
 /**
  * Check if one trust group is checked.
- * @param {String} groupName the one trust croup like: C0002
+ * @param {String} groupName the one trust group like: C0002
  */
 export function checkOneTrustGroup(groupName) {
   const oneTrustCookie = decodeURIComponent(document.cookie.split(';').find((cookie) => cookie.trim().startsWith('OptanonConsent=')));

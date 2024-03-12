@@ -1,23 +1,17 @@
+.redesign-v2 .v2-tabbed-carousel-wrapper + .v2-tabbed-carousel-wrapper {
+  margin-top: 120px;
+}
+
 .v2-tabbed-carousel-container {
   /* Full width in mobile */
   --v2-space-small: 0;
 
   /* Block colors */
-  --bg-color: var(--c-secondary-graphite);
-  --caption-text-color: var(--c-primary-white);
-  --navigation-color: #8D8D8D;
-  --navigation-active-color: var(--c-primary-white);
-  --navigation-line-default-color: #393939;
-  --navigation-line-active-color: var(--c-accent-red);
   --navigation-padding: 24px 16px;
   --navigation-line-top: 21px;
   --navigation-line-height: 3px;
 
-  background-color: var(--bg-color);
-}
-
-main .section.v2-tabbed-carousel-container {
-  padding: 0;
+  color: var(--text-color);
 }
 
 .v2-tabbed-carousel__items {
@@ -56,7 +50,7 @@ main .section.v2-tabbed-carousel-container {
 }
 
 .v2-tabbed-carousel__figure figcaption {
-  color: var(--caption-text-color);
+  color: var(--text-color);
   max-width: 560px;
   padding: 24px 16px 0;
   text-align: left;
@@ -121,7 +115,7 @@ main .section.v2-tabbed-carousel-container {
 .v2-tabbed-carousel__navigation button {
   background: 0 0;
   border: none;
-  color: var(--navigation-color);
+  color: var(--text-subtle);
   display: flex;
   font-family: var(--ff-body);
   font-size: var(--body-1-font-size);
@@ -141,7 +135,7 @@ main .section.v2-tabbed-carousel-container {
 .v2-tabbed-carousel__navigation-item button:hover,
 .v2-tabbed-carousel__navigation-item button:active,
 .v2-tabbed-carousel__navigation-item button:focus-visible {
-  color: var(--navigation-active-color);
+  color: var(--text-color);
 }
 
 .v2-tabbed-carousel__navigation-item button:focus {
@@ -158,8 +152,7 @@ main .section.v2-tabbed-carousel-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  color: var(--caption-text-color);
-  padding: 40px 0;
+  padding: 0 0 40px;
 }
 
 .v2-tabbed-carousel__title,
@@ -183,7 +176,7 @@ main .section.v2-tabbed-carousel-container {
   }
 
   .v2-tabbed-carousel__figure::before {
-    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 70%, #000 100%);
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 70%, var(--section-background, #fff) 100%);
     content: '';
     display: block;
     height: 100%;
@@ -201,7 +194,7 @@ main .section.v2-tabbed-carousel-container {
   }
 
   .v2-tabbed-carousel-container {
-    --navigation-padding: 40px 0;
+    --navigation-padding: 40px 0 0;
     --navigation-line-top: 37px;
   }
 
