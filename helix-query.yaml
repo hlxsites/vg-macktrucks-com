@@ -114,6 +114,8 @@ indices:
       - '/footer'
       - '/**/nav'
       - '/nav'
+      - '/**/nav-*'
+      - '/nav-*'
       - '/fragments/**'
       - '/**/sub-nav'
       - '/block-library/**'
