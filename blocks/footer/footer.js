@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons, loadBlocks } from '../../scripts/lib-franklin.js';
 import {
-  createElement, getTextLabel, isEloquaFormAllowed,
+  createElement, getTextLabel, isTargetingAllowed,
 } from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
@@ -187,7 +187,7 @@ export default async function decorate(block) {
   await loadBlocks(block);
 
   const onFormLoaded = (mutationList) => {
-    if (!isEloquaFormAllowed()) {
+    if (!isTargetingAllowed()) {
       return;
     }
 
