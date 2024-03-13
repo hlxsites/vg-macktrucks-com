@@ -302,7 +302,8 @@ pre {
 
 /* buttons */
 
-a.button:any-link, button {
+:where(html:not(.redesign-v2)) a.button:any-link,
+:where(html:not(.redesign-v2)) button {
   font-family: var(--ff-body);
   display: inline-block;
   box-sizing: border-box;
@@ -320,12 +321,16 @@ a.button:any-link, button {
   transition: all 500ms;
 }
 
-a.button:hover, a.button:focus, button:hover, button:focus {
+:where(html:not(.redesign-v2)) a.button:hover,
+:where(html:not(.redesign-v2)) a.button:focus,
+:where(html:not(.redesign-v2)) button:hover,
+:where(html:not(.redesign-v2)) button:focus {
   background-color: var(--link-hover-color);
   cursor: pointer;
 }
 
-button:disabled, button:disabled:hover {
+:where(html:not(.redesign-v2)) button:disabled,
+:where(html:not(.redesign-v2)) button:disabled:hover {
   background-color: var(--overlay-background-color);
   cursor: unset;
 }
@@ -364,7 +369,7 @@ a.button.arrowed:focus, button.arrowed:focus {
   color: #5d5d5d;
 }
 
-main input {
+:where(html:not(.redesign-v2)) main input {
   font-size: 1.25rem;
   width: 100%;
   max-width: 50rem;
@@ -378,7 +383,7 @@ main input {
   background-color: var(--background-color);
 }
 
-main input:hover {
+:where(html:not(.redesign-v2)) main input:hover {
   border: 1px solid var(--text-color);
 }
 
