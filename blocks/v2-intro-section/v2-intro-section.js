@@ -11,16 +11,15 @@ export default function decorate(block) {
   const button = content.querySelector('.button-container');
 
   const parent = block.parentElement;
-  parent.classList.add(button ? 'with-button' : 'with-background-image');
+  parent.classList.add(button ? `${blockName}__with-button` : 'full-width');
 
   content.classList.add(`${blockName}__text-content`);
 
   const heading = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  heading[0].classList.add(`${blockName}__heading`);
+  heading[0].classList.add(`${blockName}__heading`, (button && 'with-marker'));
 
   if (button) {
     const texts = createElement('div', { classes: `${blockName}__content` });
-    heading[0].classList.add('header-with-mark');
     texts.append(content, button);
     block.append(texts);
   }
