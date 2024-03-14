@@ -1228,6 +1228,8 @@ main .section.responsive-title h1 {
   padding-top: 18px;
 }
 
+.section h1.header-with-mark::before,
+.section h2.header-with-mark::before,
 .section.header-with-mark > .default-content-wrapper > h1:first-child::before,
 .section.header-with-mark > .default-content-wrapper > h2:first-child::before,
 .redesign-v2 .with-marker::before {
