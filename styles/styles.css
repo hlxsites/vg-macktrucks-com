@@ -46,6 +46,7 @@
   --header-background-color: var(--c-primary-white);
   --overlay-background-color: var(--c-secondary-silver);
   --media-background: var(--c-secondary-silver);
+  --section-background: var(--c-primary-white);
 
   /* BUTTONS */
 
@@ -1183,6 +1184,7 @@ main .section.responsive-title h1 {
 .redesign-v2 .section:first-child,
 .redesign-v2 .v2-testimonial-container,
 .redesign-v2 .v2-feature-carousel-container,
+.redesign-v2 .v2-intro-section-container,
 .redesign-v2 .section + .section--with-background,
 .redesign-v2 .section--light-gray-background:has(.v2-pencil-promo__pencil-banner),
 .redesign-v2 .section--gray-background:has(.v2-pencil-promo__pencil-banner),
@@ -1194,6 +1196,7 @@ main .section.responsive-title h1 {
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .section--with-background,
 .redesign-v2 .v2-feature-carousel-container,
+.redesign-v2 .v2-intro-section-container,
 .redesign-v2 .v2-testimonial-container {
   --section-padding-bottom: 0;
 }
