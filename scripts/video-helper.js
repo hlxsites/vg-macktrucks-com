@@ -167,3 +167,22 @@ export const createVideo = (src, className = '', props = {}) => {
 
   return video;
 };
+
+/* v2 embed */
+export const standardVideoConfig = {
+  poster: '',
+  autoplay: false,
+  muted: true,
+  controlBar: {
+    playToggle: true,
+    remainingTimeDisplay: true,
+    progressControl: {
+      seekBar: true,
+    },
+    fullscreenToggle: true,
+  },
+  // aspectRatio: '16:9',
+  disablePictureInPicture: false,
+  currentTime: 0,
+  playsinline: true,
+};
