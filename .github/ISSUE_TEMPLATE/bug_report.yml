@@ -1,6 +1,6 @@
 name: 'Report 🐛 bug or 🕳️ defect'
 description: Please fill out this form to report a bug or defect.
-labels: [bugfix, Needs Triage]
+labels: ["Bugfix, Triage"]
 projects: ["hlxsites/8"]
 body:
   - type: dropdown

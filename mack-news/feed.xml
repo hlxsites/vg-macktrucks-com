@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-02-27T00:00:00.000Z</updated>
+    <updated>2024-03-12T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2791,5 +2791,53 @@
         <updated>2024-02-27T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Feb. 27, 2024) – Mack Trucks announced today that three Mack Anthem® models will be spotlighted at the American Trucking Associations (ATA) Technology & Maintenance Council (TMC) 2024 annual meeting March 4-7 at the Ernest N. Morial Convention Center in New Orleans.]]></content>
         <published>2024-02-27T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Announces Product Lineup and Juan Ibarra Appearances for Work Truck Week 2024]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-trucks-announces-product-lineup-and-juan-ibarra-appearances-for-work-truck-week-2024</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-trucks-announces-product-lineup-and-juan-ibarra-appearances-for-work-truck-week-2024"/>
+        <updated>2024-02-29T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Feb. 29, 2024) – Mack Trucks announced today it will feature the Mack® Granite®, a Mack MD7 and a Mack MD Electric in its booth during the NTEA – Work Truck Association’s Work Truck Week 2024, March 5-8, at the Indiana Convention Center, Indianapolis, Indiana.]]></content>
+        <published>2024-02-29T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Names Nextran Truck Centers 2023 North American Dealer of the Year]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-names-nextran-truck-centers-2023-north-american-dealer-of-the-year</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-names-nextran-truck-centers-2023-north-american-dealer-of-the-year"/>
+        <updated>2024-03-04T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 4, 2024) – Nextran Truck Centers of Tuscumbia, Alabama, is the Mack Trucks 2023 North American Dealer of the Year. Mack named Nextran the winner during the recent Mack annual dealer executive meeting in Indian Wells, California.]]></content>
+        <published>2024-03-04T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Introduces Mobile Off-Grid Charging System to Help Customers Test Electric Vehicles]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-introduces-mobile-off-grid-charging-system-to-help-customers-test-electric-vehicles</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-introduces-mobile-off-grid-charging-system-to-help-customers-test-electric-vehicles"/>
+        <updated>2024-03-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[NEW ORLEANS, Louisiana (March 5, 2024) – In an effort to help customers investigating e-mobility for Class 6-8 vehicles and the feasibility for their fleets, Mack Trucks has built a mobile off-grid charging system that will be integrated into the body of a Mack® MD Electric truck.]]></content>
+        <published>2024-03-05T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® Connect Comprehensive Fleet Management Portal is Delivering for Customers]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-connect-comprehensive-fleet-management-portal-is-delivering-for-customers</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-connect-comprehensive-fleet-management-portal-is-delivering-for-customers"/>
+        <updated>2024-03-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[NEW ORLEANS, Louisiana (March 5, 2024) – Mack Truck customers say they are taking advantage of the many benefits offered by Mack® Connect, Mack’s newly introduced comprehensive fleet management portal that enables customers to digitally access information about Mack-powered trucks in their fleet.]]></content>
+        <published>2024-03-05T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Begins Production of Mack® MD Electric, Customers Begin Receiving Delivery]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-begins-production-of-mack-md-electric-customers-begin-receiving-delivery</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-begins-production-of-mack-md-electric-customers-begin-receiving-delivery"/>
+        <updated>2024-03-06T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[INDIANAPOLIS (March 6, 2024) – Mack Trucks recently began production of its second battery-electric vehicle (BEV), the Mack® MD Electric, and delivered units to several customers, who are using the truck in a variety of applications. Mack delivered the Mack MD Electric to ABF Freight, DC Logistics, Mission Linen and Pronto Freight Ways to begin operations and testing.]]></content>
+        <published>2024-03-06T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Defense Awarded Contract by U.S. Marine Corps to Develop Medium Tactical Truck (MTT)]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-defense-awarded-contract-by-u-s-marine-corps-to-develop-medium-tactical-truck-mtt</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-defense-awarded-contract-by-u-s-marine-corps-to-develop-medium-tactical-truck-mtt"/>
+        <updated>2024-03-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[ALLENTOWN, PA (March 12, 2024) – The U.S. Marine Corps awarded Mack Defense a 12-month contract for the initial development of a new Medium Tactical Truck (MTT) fleet.]]></content>
+        <published>2024-03-12T00:00:00.000Z</published>
     </entry>
 </feed>

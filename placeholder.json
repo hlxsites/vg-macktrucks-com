@@ -16,6 +16,10 @@
       "Text": "SUBSCRIBE TO BULLDOG"
     },
     {
+      "Key": "Email Address",
+      "Text": "Email Address"
+    },
+    {
       "Key": "Overview",
       "Text": "Overview"
     },
@@ -92,20 +96,16 @@
       "Text": "Open Gallery"
     },
     {
-      "Key": "no eloqua message",
+      "Key": "no form message",
       "Text": "We cannot show the content because you have not given us permission to store cookie files"
     },
     {
-      "Key": "no eloqua link message",
+      "Key": "no form link message",
       "Text": "Change cookie settings"
     },
     {
       "Key": "vinlabel",
       "Text": "Enter your 17-digit VIN (Vehicle Identification Number)"
-    },
-    {
-      "Key": "submit",
-      "Text": "Submit"
     },
     {
       "Key": "vinformat",
@@ -168,6 +168,10 @@
       "Text": "Next steps"
     },
     {
+      "Key": "submit",
+      "Text": "Submit"
+    },
+    {
       "Key": "mfr_recall_number",
       "Text": "Brand Recall Number"
     },
@@ -180,12 +184,12 @@
       "Text": "Recall information available since:"
     },
     {
-      "Key": "All trucks",
-      "Text": "All trucks"
-    },
-    {
       "Key": "recall_available_info",
       "Text": "since:"
+    },
+    {
+      "Key": "make",
+      "Text": "Make"
     },
     {
       "Key": "model",
@@ -196,12 +200,12 @@
       "Text": "Model Year"
     },
     {
-      "Key": "make",
-      "Text": "Make"
-    },
-    {
       "Key": "tc_recall_nbr",
       "Text": "Transport Canada Number"
+    },
+    {
+      "Key": "Open Gallery",
+      "Text": "Open Gallery"
     },
     {
       "Key": "home",
@@ -210,6 +214,10 @@
     {
       "Key": "breadcrumb",
       "Text": "Breadcrumb"
+    },
+    {
+      "Key": "All trucks",
+      "Text": "All trucks"
     },
     {
       "Key": "form-subscribe-magazine:heading",
