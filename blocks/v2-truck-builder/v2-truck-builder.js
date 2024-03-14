@@ -17,7 +17,7 @@ const addAccordionClass = (item) => {
   } else {
     const header = item.querySelector(':is(h1, h2, h3, h4, h5, h6)');
     if (header) header.classList.add(`${blockName}__item-title`);
-    item.querySelector('p')?.classList.add(`${blockName}__item-description`);
+    item.querySelectorAll('p').forEach((p) => p.classList.add(`${blockName}__item-description`));
   }
 };
 
