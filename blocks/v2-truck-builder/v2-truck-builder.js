@@ -10,14 +10,14 @@ const getDevice = () => window.innerWidth >= windowBreakpoint;
 const blockName = 'v2-truck-builder';
 const variantClasses = ['hide-description', 'media-right'];
 
-const addAccordionClass = (item, idx) => {
+const addAccordionClass = (item) => {
   const hasPicture = item.querySelector('picture');
   if (hasPicture) {
     hasPicture.classList.add(`${blockName}__item-image`);
   } else {
     const header = item.querySelector(':is(h1, h2, h3, h4, h5, h6)');
-    if (header) header.classList.add(`${blockName}__item-title`, `number-title-${idx + 1}`);
-    item.classList.add(`${blockName}__item-description`);
+    if (header) header.classList.add(`${blockName}__item-title`);
+    item.querySelector('p')?.classList.add(`${blockName}__item-description`);
   }
 };
 
@@ -43,14 +43,9 @@ const watchScroll = (container) => {
 };
 
 const getIdxNumber = (item) => {
-  let selected;
-  if (item.tagName === 'BUTTON') {
-    selected = item.querySelector(`.${blockName}__item-title`);
-  } else {
-    selected = item;
-  }
+  const selectedItem = item.closest('button').parentElement;
   let num;
-  const classes = [...selected.classList];
+  const classes = [...selectedItem.classList];
   classes.forEach((el) => {
     if (el.substring(0, 7) === 'number-') {
       num = el.split('-').pop();
@@ -104,11 +99,11 @@ export default function decorate(block) {
     item.classList.add(`${blockName}__item`, `number-item-${i + 1}`);
     if ((i === 0) && (getDevice())) item.classList.add('active');
     colItems.forEach((col) => addAccordionClass(col, i));
-    colBtnTitle.prepend(item.querySelector(`.${blockName}__item-title`));
+    colBtnTitle.prepend(item.querySelector(`.${blockName}__item-title`), item.querySelector(`.${blockName}__item-description`));
     colBtnTitle.onclick = (e) => {
       if (!getDevice()) {
         const clickedNum = getIdxNumber(e.target);
-        const selectedItem = itemsContainer.querySelector(`.number-title-${clickedNum}`);
+        const selectedItem = itemsContainer.querySelector(`.${blockName}__item.number-item-${clickedNum}`);
         const { x: itemWidth } = selectedItem.getBoundingClientRect();
         itemsContainer.scrollLeft += itemWidth;
       } else {
