@@ -303,7 +303,7 @@ function decorateImageAndTitle(mainDiv, firstPicture, title) {
   hotspot.innerHTML = `
       <picture class="hotspot-bg-img desktop"></picture>
       <div class="hotspot-content content-wrapper ">
-          <h1 class="hotspot-header header-with-mark"></h1>
+          <h1 class="hotspot-header with-marker"></h1>
           <p class="hotspot-text reduced-width"></p>
       </div>
 
