@@ -16,6 +16,7 @@
 /* TODO: apply to all H2 */
 .v2-truck-builder__header-container h2 {
   font-family: var(--ff-headline-medium);
+  font-size: var(--headline-1-font-size);
 }
 
 .v2-truck-builder__accordion-container {
