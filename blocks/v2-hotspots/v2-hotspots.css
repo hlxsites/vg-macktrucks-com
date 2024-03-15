@@ -3,6 +3,7 @@
       transform: scale(1);
       opacity: 1;
   }
+
   100% {
       transform: scale(1.5);
       opacity: 0;
@@ -89,12 +90,6 @@
   display: none;
 }
 
-/* @media (min-width: 480px) {
-  .v2-hotspots-container .first .hotspot .hotspot-content h1 {
-    font: 80px/62px var(--ff-headline-medium);
-  }
-} */
-
 .v2-hotspots-container .text-black .hotspot-content * {
   color: var(--c-primary-black);
 }
@@ -147,9 +142,12 @@
   transition: 0.5s ease-in-out;
   z-index: -1;
   animation: pulse 2.5s infinite;
-  -webkit-box-shadow: 0px 0px 3px 4px rgba(205, 26, 10, 0.2); 
-  -moz-box-shadow: 0px 0px 3px 4px rgba(205, 26, 10, 0.2);
-  box-shadow: 0px 0px 3px 4px rgba(205, 26, 10, 0.2); /* var(--c-accent-red) with opacity */
+  /* stylelint-disable-next-line  */
+  -webkit-box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%); 
+  /* stylelint-disable-next-line  */
+  -moz-box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%);
+  /* stylelint-disable-next-line  */
+  box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%); /* var(--c-accent-red) with opacity */
 }
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon:hover::after {
@@ -158,7 +156,6 @@
   transform: scale(1.2);
   box-shadow: unset;
 }
-
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon:hover {
   text-decoration: none;
@@ -182,11 +179,6 @@
 }
 
 @media (max-width: 1023px) {
-
-  /* .v2-hotspots-container .hotspot {
-    padding-bottom: 18vw;
-  } */
-
   .v2-hotspots-container .hotspot.truck {
     margin-bottom: 0;
   }
@@ -237,12 +229,6 @@
 
 .v2-hotspots-container .hotspot-mobile {
   width: 100%;
-}
-
-@media (min-width: 1023px) {
-  .v2-hotspots-container .hotspot-mobile {
-    display: none;
-  }
 }
 
 .v2-hotspots-container .hotspot-layover {
@@ -323,28 +309,6 @@
 
 .v2-hotspots-container .hotspot-layover a {
   font: 16px/16px var(--ff-body-bold);
-}
-
-@media (max-width: 896px) {
-  .v2-hotspots-container .hotspot-layover :is(h1, h2) {
-    font: 40px/40px var(--ff-headline-medium);
-  }
-
-  .v2-hotspots-container .hotspot-layover h3 {
-    font: 28px/28px var(--ff-body-bold);
-  }
-
-  .v2-hotspots-container .hotspot-layover :is(h4, h5) {
-    font: 14px/14px var(--ff-headline-medium);
-  }
-
-  .v2-hotspots-container .hotspot-layover p {
-    font: 16px/16px var(--ff-body);
-  }
-
-  .v2-hotspots-container .hotspot-layover p.large {
-    font: 16px/16px var(--ff-subheadings-medium);
-  }
 }
 
 .v2-hotspots-container .hotspot-layover.is-active {
@@ -434,10 +398,59 @@
   z-index: 2;
 }
 
+@media (min-width: 1023px) {
+  .v2-hotspots-container .hotspot-mobile {
+    display: none;
+  }
+}
+
 @media (max-width: 1023px) {
+  .v2-hotspots-container .content-wrapper {
+    width: 100%;
+    padding: 0 48px;
+  }
+
+  .v2-hotspots-wrapper {
+    padding-bottom: 24px !important;
+  }
+  
+  .v2-hotspots .hotspot-mobile .features {
+    display: none;
+  }
+
+  .v2-hotspots .hotspot-mobile .features.is-active {
+    display: block;
+  }
+ 
+
+  .v2-hotspots .hotspot-mobile {
+    position: relative;
+  }
+
+  .v2-hotspots .features:not(.is-active) {
+    position: absolute;
+    top: 0;
+  }
+
   .v2-hotspots .features {
+    min-height: 485px;
+    height: 100vw;
     padding: 24px;
     background-color: var(--c-primary-white);
+  }
+
+  .v2-hotspots .features .row {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .v2-hotspots .feature {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
   }
   
   .v2-hotspots .features .feature-title {
@@ -445,22 +458,30 @@
     line-height: var(--headline-3-line-height);
     margin: 0;
   }
+
   .v2-hotspots .features img {
     display: block;
-    margin: 24px 0;
   }
 
-  /* .v2-hotspots-container .hotspot.truck {
-    margin-bottom: 0;
-  } */
-
-  /* .v2-hotspots-container .hotspot-layover {
-    display: block;
+  .v2-hotspots .features .feature-text {
+    max-height: 100px;
+    overflow-y: scroll;
   }
 
-  .v2-hotspots-container .hotspot-layover .hotspot-layover-box {
-    transform: translateX(0);
-  } */
+  .v2-hotspots .feature-text p {
+    margin: 0;
+  }
+
+  .v2-hotspots .features .feature-pagination {
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+
+  .v2-hotspots .features .hotspot-mobile-pagination {
+    margin: 0 12px;
+  }
 }
 
 .v2-hotspots-container .content-wrapper {
@@ -469,103 +490,4 @@
   max-width: 1376px;
   margin: 0 auto;
   padding: 40px 16px 0;
-}
-
-@media (max-width: 1280px) {
-  .v2-hotspots-container .content-wrapper {
-    width: 100%;
-    padding: 0 48px;
-  }
-}
-
-/* #hotspots-mobile-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background-color: #1b1b1b;
-  z-index: 10;
-} */
-
-/* #hotspots-mobile-nav .featurenav-list {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  list-style: none;
-  display: inline;
-} */
-
-/* #hotspots-mobile-nav .featurenav-list .featurenav-list-item {
-  width: 33.333%;
-  position: relative;
-  display: block;
-  float: left;
-  height: 100%;
-  border-right: 1px solid #1d1d1d;
-  cursor: pointer;
-} */
-
-/* #hotspots-mobile-nav .featurenav-list .featurenav-list-item.active::before,
-#hotspots-mobile-nav .featurenav-list .featurenav-list-item:hover::before {
-  display: none;
-} */
-
-/* overlay a gray box over the non-active buttons */
-/* #hotspots-mobile-nav .featurenav-list .featurenav-list-item::before {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0 0 0 / 50%);
-} */
-
-/* #hotspots-mobile-nav .featurenav-list .featurenav-list-item a:any-link {
-  position: absolute;
-  padding: 0;
-  color: var(--c-primary-white);
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--ff-body-bold), serif;
-  font-size: 0.85em;
-} */
-
-/* @media (min-width: 1023px) {
-  #hotspots-mobile-nav {
-    display: none;
-  }
-} */
-
-/* moving one trust floating button and scroll to top button - on mobile */
-/* #onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
-  bottom: 80px;
-} */
-
-footer .block.footer {
-  padding-bottom: 110px;
-}
-
-footer .block.footer .scroll-to-top {
-  bottom: 55px;
-}
-
-@media (min-width: 897px) {
-  #onetrust-consent-sdk #ot-sdk-btn-floating.ot-floating-button {
-    bottom: 10px;
-  }
-
-  footer .block.footer {
-    padding-bottom: 10px;
-  }
-
-  footer .block.footer .scroll-to-top {
-    bottom: 20px;
-  }
 }
