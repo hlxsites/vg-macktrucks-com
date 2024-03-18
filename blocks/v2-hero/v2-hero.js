@@ -46,7 +46,7 @@ export default async function decorate(block) {
   if (images.length !== 0) {
     block.prepend(newPicture);
   } else {
-    block.classList.add('no-image');
+    block.classList.add(`${blockName}--no-image`);
   }
 
   const contentWrapper = block.querySelector(':scope > div');
@@ -58,8 +58,10 @@ export default async function decorate(block) {
   const headings = [...content.querySelectorAll('h1, h2, h3, h4, h5, h6')];
   headings.forEach((h) => h.classList.add(`${blockName}__heading`));
 
-  const firstHeading = headings[0];
-  firstHeading.classList.add('with-marker');
+  if (!isPdp) {
+    const firstHeading = headings[0];
+    firstHeading.classList.add('with-marker');
+  }
 
   const button = content.querySelector('a');
   const allTexts = content.querySelectorAll('p');

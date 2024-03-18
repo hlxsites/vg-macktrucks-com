@@ -157,6 +157,11 @@ export function findAndCreateImageLink(node) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  // switching off hero autoblock for redesign
+  if (getMetadata('style') === 'redesign-v2') {
+    return;
+  }
+
   const header = main.querySelector('h1');
   const picture = main.querySelector('picture');
   const heroBlock = main.querySelector('.hero, .v2-hero');
@@ -232,7 +237,15 @@ export function decorateLinks(block) {
 }
 
 function decorateSectionBackgrounds(main) {
-  const variantClasses = ['black-background', 'gray-background', 'background-with-dots', 'light-gray-background'];
+  const variantClasses = [
+    'light-gray-background',
+    'gray-background',
+    'graphite-background',
+    'black-background',
+    'background-with-dots',
+    'no-gap',
+    'no-vertical-padding',
+  ];
 
   main.querySelectorAll(':scope > .section').forEach((section) => {
     // transform background color variants into BEM classnames
