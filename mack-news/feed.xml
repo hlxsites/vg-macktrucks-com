@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-03-12T00:00:00.000Z</updated>
+    <updated>2024-03-18T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2839,5 +2839,13 @@
         <updated>2024-03-12T00:00:00.000Z</updated>
         <content type="html"><![CDATA[ALLENTOWN, PA (March 12, 2024) – The U.S. Marine Corps awarded Mack Defense a 12-month contract for the initial development of a new Medium Tactical Truck (MTT) fleet.]]></content>
         <published>2024-03-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks 2025 Calendar Contest Now Open for Submissions]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-trucks-2025-calendar-contest-now-open-for-submissions</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-trucks-2025-calendar-contest-now-open-for-submissions"/>
+        <updated>2024-03-18T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (March 18, 2024) – The Mack Trucks Calendar Contest is on the hunt for the best-looking Mack® trucks for the 2025 calendar edition. A dozen beautiful Bulldogs will grace next year’s edition, courtesy of a professional photo shoot provided by Mack.]]></content>
+        <published>2024-03-18T00:00:00.000Z</published>
     </entry>
 </feed>
