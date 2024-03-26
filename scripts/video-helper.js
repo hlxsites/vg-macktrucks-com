@@ -1,4 +1,8 @@
-import { createElement, getTextLabel } from './common.js';
+import {
+  createElement,
+  deepMerge,
+  getTextLabel,
+} from './common.js';
 
 export const videoTypes = {
   youtube: 'youtube',
@@ -172,7 +176,7 @@ export const createVideo = (src, className = '', props = {}) => {
 export const standardVideoConfig = {
   poster: '',
   autoplay: false,
-  muted: true,
+  muted: false,
   controlBar: {
     playToggle: true,
     remainingTimeDisplay: true,
@@ -186,3 +190,14 @@ export const standardVideoConfig = {
   currentTime: 0,
   playsinline: true,
 };
+
+export const videoConfigs = {};
+
+export const addVideoConfig = (videoId, options = {}) => {
+  if (!videoConfigs[videoId]) {
+    videoConfigs[videoId] = deepMerge({}, standardVideoConfig);
+  }
+  deepMerge(videoConfigs[videoId], options);
+};
+
+export const getVideoConfig = (videoId) => videoConfigs[videoId];
