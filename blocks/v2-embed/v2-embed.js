@@ -55,7 +55,7 @@ export default function decorate(block) {
   }
 
   if (isDisableControls) {
-    addVideoConfig(block.videoId, { controls: false });
+    addVideoConfig(block.videoId, { controls: false, controlBar: false });
   }
 
   if (isDisablePictureInPicture) {
