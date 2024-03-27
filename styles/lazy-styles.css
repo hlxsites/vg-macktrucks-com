@@ -295,3 +295,45 @@
   display: flex;
   justify-content: center;
 }
+
+.truck-configurator {
+  --transition-min-height: min-height var(--duration-medium) var(--duration-large) var(--easing-exit);
+  --transition-opacity: opacity var(--duration-medium) var(--duration-small) var(--easing-exit);
+  --transition-translate: translate var(--duration-medium) var(--easing-exit);
+}
+
+
+.truck-configurator,
+.truck-configurator body,
+.truck-configurator main {
+  height: 100%;
+}
+
+.truck-configurator #configurator {
+  translate: 0 var(--nav-height);
+  height: calc(100% - var(--nav-height));
+  transition: var(--transition-min-height);
+}
+
+.truck-configurator .header-wrapper {
+  position: fixed;
+  transition: var(--transition-min-height), var(--transition-translate);
+}
+
+.truck-configurator .header {
+  box-sizing: border-box;
+  position: static;
+  transition: var(--transition-opacity), var(--transition-translate);
+}
+
+.truck-configurator--detail-page {
+  --nav-height: 0px;
+}
+
+.truck-configurator--detail-page .header-wrapper {
+  translate: 0 -100%;
+}
+
+.truck-configurator--detail-page .header {
+  opacity: 0;
+}

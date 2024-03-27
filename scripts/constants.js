@@ -25,3 +25,27 @@ export const FORM_MAGAZINE_SUBSCRIBE = {
   href: 'https://go.pardot.com/l/1038343/2023-12-12/3m4w2c',
   iframeSize: '900px',
 };
+
+export const TRUCK_CONFIGURATOR_URLS = {
+  js: [
+    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/runtime~configurator.bundle.js',
+    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/865.bundle.js',
+    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.bundle.js',
+  ],
+  css: [
+    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/865.css',
+    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.css',
+  ],
+};
+
+export const TRUCK_CONFIGURATOR_CURATED_CHOICES_URLS = {
+  js: [
+    '/vendor/truck-configurator/runtime-curated.bundle.js',
+    '/vendor/truck-configurator/147.bundle.js',
+    '/vendor/truck-configurator/curated.bundle.js',
+  ],
+  css: [
+    '/vendor/truck-configurator/147.css',
+    '/vendor/truck-configurator/curated.css',
+  ],
+};
