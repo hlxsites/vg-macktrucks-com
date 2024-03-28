@@ -421,6 +421,7 @@ export default async function decorate(block) {
   let navPath = `${langCodeMatch ? langCodeMatch[1] : '/'}nav`;
 
   const isCustomHeader = getMetadata('custom-header');
+  const isMobileMenuDisabled = getMetadata('custom-header-mobile-menu').toLowerCase() === 'false';
   if (isCustomHeader) {
     navPath = `${langCodeMatch ? langCodeMatch[1] : ''}${isCustomHeader}`;
     block.classList.add(`${blockClass}__custom`);
@@ -455,8 +456,8 @@ export default async function decorate(block) {
       ${createMainLinks(navigationContainer).outerHTML}
     </div>` : ''}
     <div class="${blockClass}__actions">
-      ${isCustomHeader ? '' : mobileActions().outerHTML}
-      ${isCustomHeader ? decorateCTA(actionsContainer).outerHTML : createActions(actionsContainer).outerHTML}
+      ${isMobileMenuDisabled ? '' : mobileActions().outerHTML}
+      ${isMobileMenuDisabled ? decorateCTA(actionsContainer).outerHTML : createActions(actionsContainer).outerHTML}
     </div>
   `);
 
@@ -609,7 +610,7 @@ export default async function decorate(block) {
     }
   };
 
-  if (!isCustomHeader) {
+  if (!isMobileMenuDisabled) {
     desktopMQ.addEventListener('change', (e) => {
       const isDesktop = e.matches;
 
