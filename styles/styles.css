@@ -38,17 +38,27 @@
   --c-accent-copper: #8f654d;
 
   /* Applied colors */
+  --color-icon: var(--c-primary-black);
+  --color-icon-accent: var(--c-primary-gold);
   --background-color: var(--c-primary-white);
   --text-color: var(--c-primary-black);
+  --text-subtle: #767676;
   --link-color: var(--c-accent-red);
   --link-hover-color: var(--c-primary-black);
-  --header-color: var(--c-primary-white);
+  --header-color: var(--c-primary-black);
   --header-background-color: var(--c-primary-white);
   --overlay-background-color: var(--c-secondary-silver);
   --media-background: var(--c-secondary-silver);
   --section-background: var(--c-primary-white);
+  --line-subtle: var(--c-secondary-silver);
+  --navigation-line-default-color: var(--c-secondary-steel);
+  --navigation-line-active-color: var(--c-accent-red);
+  --card-background: var(--c-tertiary-light-warm-gray);
+  --card-text: var(--c-primary-black);
 
   /* BUTTONS */
+
+  /* TODO: remove color from button variable names; align with Core Design Kit */
 
   /* Primary */
   --button-primary-red-enabled: var(--c-accent-red);
@@ -65,7 +75,8 @@
 
   /* Tertiary */
   --button-tertiary-white-enabled: var(--c-primary-white);
-  --button-tertiary-white-hover: #a7a8a9;
+  --button-tertiary-white-hover: #f1f1f1;
+  --button-tertiary-white-border-hover: #a7a8a9;
   --button-tertiary-white-pressed: #e1dfdd;
   --button-tertiary-white-disabled: var(--c-primary-white);
 
@@ -803,18 +814,11 @@ main .section.responsive-title h1 {
 /* REDESIGN GLOBAL STYLES */
 .redesign-v2 {
   --v2-space-small: 16px;
-  --text-subtle: #767676;
-  --color-icon: var(--c-primary-black);
-  --color-icon-accent: var(--c-primary-gold);
   --section-max-width: 1920px;
   --section-padding-top: 40px;
   --section-padding-bottom: 40px;
   --section-gap: 40px;
   --section-div-padding: 0 var(--v2-space-small);
-  --navigation-line-default-color: var(--c-secondary-steel);
-  --navigation-line-active-color: var(--c-accent-red);
-  --card-background: var(--c-tertiary-light-warm-gray);
-  --card-text: var(--c-primary-black);
 
   font-size: 16px;
 
@@ -1047,7 +1051,7 @@ main .section.responsive-title h1 {
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
-  background-color: #f1f1f1;
+  background-color: var(--button-tertiary-white-hover);
   border-color: var(--button-tertiary-white-hover);
 }
 
