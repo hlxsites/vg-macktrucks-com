@@ -321,6 +321,8 @@ const buildMenuContent = (menuData, navEl) => {
 
   [...menus.children].forEach((menuItemData) => {
     const tabName = menuItemData.querySelector(':scope > p > a');
+    if (!tabName) return;
+
     const categories = [...menuItemData.querySelectorAll(':scope > div')];
     const navLink = navLinks.find((el) => el.textContent.trim() === tabName.textContent.trim());
     const accordionContentWrapper = navLink?.closest(`.${blockClass}__main-nav-item`).querySelector(`.${blockClass}__accordion-content-wrapper`);
@@ -578,7 +580,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (!isLoginDomain) loginLink.parentElement.style.display = 'none';
+    if (loginLink && !isLoginDomain) loginLink.parentElement.style.display = 'none';
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
