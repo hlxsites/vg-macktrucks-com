@@ -232,6 +232,7 @@ export const createVideo = (src, className = '', props = {}, localVideo = true, 
     video = createElement('iframe', {
       classes: className,
       props: {
+        allow: 'autoplay; fullscreen',
         allowfullscreen: 'allowfullscreen',
         title: props.title,
         src,
