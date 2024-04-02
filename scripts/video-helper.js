@@ -162,7 +162,7 @@ export function createIframe(url, { parentEl, classes = [] }) {
     classes: Array.isArray(classes) ? classes : [classes],
     props: {
       frameborder: '0',
-      allowfullscreen: 'allowfullscreen',
+      allowfullscreen: true,
       src: url,
     },
   });
@@ -225,7 +225,7 @@ export const createVideo = (src, className = '', props = {}, localVideo = true, 
       classes: className,
       props: {
         allow: 'autoplay; fullscreen',
-        allowfullscreen: 'allowfullscreen',
+        allowfullscreen: true,
         title: props.title,
         src,
       },

@@ -39,13 +39,23 @@ export function createElement(tagName, options = {}) {
 
   if (props) {
     Object.keys(props).forEach((propName) => {
-      const value = propName === props[propName] ? '' : props[propName];
-      elem.setAttribute(propName, value);
+      const isBooleanAttribute = propName === 'allowfullscreen' || propName === 'autoplay' || propName === 'muted' || propName === 'controls';
+
+      // For boolean attributes, add the attribute without a value if it's truthy
+      if (isBooleanAttribute) {
+        if (props[propName]) {
+          elem.setAttribute(propName, '');
+        }
+      } else {
+        const value = props[propName];
+        elem.setAttribute(propName, value);
+      }
     });
   }
 
   return elem;
 }
+
 /**
  * Adds the favicon.
  * @param {string} href The favicon URL
@@ -363,15 +373,24 @@ export function createResponsivePicture(images, eager, alt, imageClass) {
   return picture;
 }
 
-export const deepMerge = (target, source) => {
+export const deepMerge = (originalTarget, source) => {
+  let target = originalTarget;
+  // Initialize target as an empty object if it's undefined or null
+  if (typeof target !== 'object' || target === null) {
+    target = {};
+  }
+
   Object.keys(source).forEach((key) => {
-    if (source[key] && typeof source[key] === 'object') {
-      if (!target[key]) {
-        target[key] = {};
-      }
-      deepMerge(target[key], source[key]);
+    const sourceValue = source[key];
+    const targetValue = target[key];
+    const sourceIsPlainObject = Object.prototype.toString.call(sourceValue) === '[object Object]';
+    const targetIsPlainObject = Object.prototype.toString.call(targetValue) === '[object Object]';
+
+    if (sourceIsPlainObject && targetIsPlainObject) {
+      target[key] = target[key] || {};
+      deepMerge(target[key], sourceValue);
     } else {
-      target[key] = source[key];
+      target[key] = sourceValue;
     }
   });
   return target;
