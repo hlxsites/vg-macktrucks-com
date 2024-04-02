@@ -22,14 +22,6 @@ export const standardVideoConfig = {
   autoplay: false,
   muted: false,
   controls: true,
-  controlBar: {
-    playToggle: true,
-    remainingTimeDisplay: true,
-    progressControl: {
-      seekBar: true,
-    },
-    fullscreenToggle: true,
-  },
   disablePictureInPicture: false,
   currentTime: 0,
   playsinline: true,

@@ -38,7 +38,6 @@ const retrieveVideoConfig = (block, aspectRatio) => ({
   muted: block.classList.contains('autoplay'),
   loop: block.classList.contains('loop'),
   controls: !block.classList.contains('disable-controls'),
-  controlBar: !block.classList.contains('disable-controls'),
   disablePictureInPicture: block.classList.contains('disable-picture-in-picture'),
   language: document.documentElement.lang,
 });
