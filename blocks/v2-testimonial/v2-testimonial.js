@@ -1,65 +1,62 @@
 import {
-  isVideoLink, selectVideoLink,
+  isVideoLink,
+  selectVideoLink,
 } from '../../scripts/video-helper.js';
 import { variantsClassesToBEM } from '../../scripts/common.js';
 
-const blockClass = 'v2-testimonial';
+const blockName = 'v2-testimonial';
+const variantClasses = ['media-left', 'media-right', 'overlap'];
 
-const handleVideoLinks = (videosLinks) => {
-  const selectedVideo = selectVideoLink(videosLinks);
+const handleVideoLinks = (videoLinks) => {
+  const selectedVideo = selectVideoLink(videoLinks);
 
-  if (!videosLinks.length) {
-    return;
-  }
-
-  videosLinks.forEach((link) => {
+  videoLinks.forEach((link) => {
     if (link !== selectedVideo) {
       link.parentElement.remove();
     }
   });
 
   if (selectedVideo) {
-    selectedVideo.classList.add(`${blockClass}__video-link`);
-  } else {
-    // eslint-disable-next-line no-console
-    console.warn('No proper video link provided for current cookie settings!');
-  }
-};
-
-const createVideoSection = (col, block) => {
-  const videosLinks = [...col.querySelectorAll('a')].filter((link) => isVideoLink(link));
-
-  if (!videosLinks.length) {
+    selectedVideo.classList.add(`${blockName}__video-link`);
     return;
   }
 
-  handleVideoLinks(videosLinks, block);
-  col.classList.add(`${blockClass}__video-section`);
+  // eslint-disable-next-line no-console
+  console.warn(`[${blockName}]: No proper video link provided for current cookie settings!`);
+};
+
+const createVideoSection = (col) => {
+  const videoLinks = [...col.querySelectorAll('a')].filter(isVideoLink);
+
+  if (videoLinks.length === 0) {
+    return;
+  }
+
+  handleVideoLinks(videoLinks);
+  col.classList.add(`${blockName}__video-section`);
   col.setAttribute('data-theme', 'gold');
-  col.querySelector('p').classList.add(`${blockClass}__author`);
-  const videoLinkEl = col.querySelector(`.${blockClass}__video-link`);
-  videoLinkEl.parentElement.classList.add(`${blockClass}__video-link-wrapper`);
+  col.querySelector('p').classList.add(`${blockName}__author`);
+  const videoLinkEl = col.querySelector(`.${blockName}__video-link`);
+  videoLinkEl.parentElement.classList.add(`${blockName}__video-link-wrapper`);
 };
 
 export default async function decorate(block) {
-  const variantClasses = ['media-left', 'media-right', 'overlap'];
-  variantsClassesToBEM(block.classList, variantClasses, blockClass);
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const columns = block.querySelectorAll(':scope > div > div');
   block.parentElement.classList.add('full-width');
 
   columns.forEach((col) => {
-    col.classList.add(`${blockClass}__column`);
+    col.classList.add(`${blockName}__column`);
 
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-    headings.forEach((h) => h.classList.add(`${blockClass}__heading`));
-
+    headings.forEach((h) => h.classList.add(`${blockName}__heading`));
     headings[0]?.classList.add('with-marker');
 
     const images = [...col.querySelectorAll('img')];
     images.forEach((img) => {
-      img.classList.add(`${blockClass}__image`);
-      col.parentElement.classList.add(`${blockClass}__image-row`);
+      img.classList.add(`${blockName}__image`);
+      col.parentElement.classList.add(`${blockName}__image-row`);
     });
 
     const blockquotes = [...col.querySelectorAll('blockquote')];
@@ -70,19 +67,11 @@ export default async function decorate(block) {
         em.outerHTML = em.innerHTML;
       }
 
-      bq.classList.add(`${blockClass}__blockquote`);
+      bq.classList.add(`${blockName}__blockquote`);
+      bq.closest(`.${blockName}__column`)?.classList.add(`${blockName}__blockquote-column`);
+      col.parentElement.classList.add(`${blockName}__text-row`);
     });
 
-    // recognizing the column with blockquotes
-    blockquotes.forEach((bq) => {
-      bq.closest(`.${blockClass}__column`)?.classList.add(`${blockClass}__blockquote-column`);
-      col.parentElement.classList.add(`${blockClass}__text-row`);
-    });
-
-    // recognizing the column with video
-    const hasVideo = [...col.querySelectorAll('a')].some((link) => isVideoLink(link));
-    if (hasVideo) {
-      createVideoSection(col, block);
-    }
+    createVideoSection(col, block);
   });
 }
