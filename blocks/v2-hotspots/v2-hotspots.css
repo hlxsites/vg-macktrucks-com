@@ -121,14 +121,28 @@
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon {
   position: absolute;
-  transform: rotate(45deg);
-  height: 24px;
-  width: 24px;
+  height: 44px;
+  width: 44px;
+  outline: 20px solid transparent;
   background-color: var(--c-accent-red);
   border-radius: 50%;
   color: var(--c-primary-white);
   font-size: var(--body-font-size-xxl);
-  transition: 0.3s;
+  transition-property: all;
+  transition-timing-function: var(--easing-standard);
+  transition-duration: var(--duration-medium);
+}
+
+.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon img {
+  fill: white;
+}
+
+.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon svg {
+  --color-icon: var(--c-primary-white);
+
+  margin: 5px;
+  height: 34px;
+  width: 34px;
 }
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon::after {
@@ -136,16 +150,12 @@
   display: block;
   position: absolute;
   top: 0;
-  height: 24px;
-  width: 24px;
+  height: 44px;
+  width: 44px;
   border-radius: 50%;
   transition: 0.5s ease-in-out;
   z-index: -1;
   animation: pulse 2.5s infinite;
-  /* stylelint-disable-next-line  */
-  -webkit-box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%); 
-  /* stylelint-disable-next-line  */
-  -moz-box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%);
   /* stylelint-disable-next-line  */
   box-shadow: 0px 0px 3px 4px rgb(205 26 10 / 20%); /* var(--c-accent-red) with opacity */
 }
@@ -166,7 +176,7 @@
 }
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot {
-  transform: rotate(0);
+  transform: rotate(45deg);
 }
 
 .v2-hotspots-container .hotspot.truck .hotspot-content .hotspot-header {
@@ -359,8 +369,11 @@
   z-index: 3;
 }
 
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close svg {
-  width: 36px;
+.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close img {
+  --color-icon: var(--c-primary-black);
+
+  width: 44px;
+  height: 44px;
   background-color: var(--c-primary-gold);
 }
 
@@ -378,6 +391,11 @@
 .v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button {
   vertical-align: middle;
   cursor: pointer;
+}
+
+.v2-hotspots-container  .hotspot-mobile-button.prev img,
+.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev img {
+  transform: rotate(180deg)
 }
 
 .v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:hover {

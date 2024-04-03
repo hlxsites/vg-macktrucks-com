@@ -111,17 +111,15 @@ function switchToOtherHotspot(block, index) {
 function addDesktopHotspotIcon(hotspot, block, main) {
   const iconLink = createElement('a', {
     classes: 'hotspot-icon',
-    props: { href: '#' },
+    props: {
+      href: '#',
+      'data-spot': hotspot.id,
+      style: `left: ${hotspot.positionLeft}; top: ${hotspot.positionTop};`,
+    },
   });
-  iconLink.dataset.spot = hotspot.id;
-  iconLink.style.left = hotspot.positionLeft;
-  iconLink.style.top = hotspot.positionTop;
-  iconLink.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36" fill="none">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3444 25.0722L25.0723 12.3443L23.6581 10.9301L10.9302 23.658L12.3444 25.0722Z" fill="var(--c-primary-white)"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3444 10.9301L10.9302 12.3443L23.6581 25.0722L25.0723 23.658L12.3444 10.9301Z" fill="var(--c-primary-white)"/>
-    </svg>
-  `;
+
+  const plusIcon = createElement('img', { props: { src: '/icons/plus.svg' } });
+  iconLink.appendChild(plusIcon);
 
   iconLink.onclick = (event) => handleClickHotspot(
     event,
@@ -137,48 +135,40 @@ function addDesktopLayover(hotspot, block) {
   const container = document.createElement('div');
   container.innerHTML = `
     <div class="hotspot-layover-box" data-hotspot-content="1">
-        <div class="hotspot-layover-title">
-          <h3></h3>
-        </div>
-          <div class="hotspot-layover-thumb" style="background-image: url();"></div>
-          <div class="hotspot-layover-close">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3444 25.0722L25.0723 12.3443L23.6581 10.9301L10.9302 23.658L12.3444 25.0722Z" fill="var(--c-primary-black)"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3444 10.9301L10.9302 12.3443L23.6581 25.0722L25.0723 23.658L12.3444 10.9301Z" fill="var(--c-primary-black)"/>
-            </svg>
-          </div>
-        <div class="hotspot-layover-text">
-        </div>
-        <div class="hotspot-layover-controls">
-            <a class="hotspot-layover-button prev">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none">
-                    <path d="M21.6298 9.03663C21.6298 9.36032 21.4981 9.67075 21.2636 9.89963C21.0292 10.1285 20.7113 10.2571 20.3797 10.2571H5.06695L10.4316 15.495C10.5482 15.6083 10.6406 15.7431 10.7037 15.8914C10.7668 16.0398 10.7993 16.1988 10.7993 16.3595C10.7993 16.5201 10.7668 16.6791 10.7037 16.8275C10.6406 16.9758 10.5482 17.1106 10.4316 17.224C10.1957 17.4513 9.87764 17.5787 9.5462 17.5787C9.21476 17.5787 8.89665 17.4513 8.66077 17.224L1.16063 9.90113C1.04409 9.78774 0.951628 9.65301 0.888537 9.50466C0.825446 9.35631 0.792969 9.19726 0.792969 9.03663C0.792969 8.876 0.825446 8.71695 0.888537 8.56859C0.951628 8.42024 1.04409 8.28551 1.16063 8.17213L8.66077 0.849299C8.8956 0.620019 9.2141 0.491211 9.5462 0.491211C9.71064 0.491211 9.87347 0.522834 10.0254 0.584275C10.1773 0.645716 10.3154 0.735771 10.4316 0.849299C10.5479 0.962827 10.6401 1.0976 10.7031 1.24594C10.766 1.39427 10.7984 1.55325 10.7984 1.7138C10.7984 1.87435 10.766 2.03333 10.7031 2.18166C10.6401 2.33 10.5479 2.46477 10.4316 2.5783L5.06695 7.81616H20.3797C20.7113 7.81616 21.0292 7.94474 21.2636 8.17362C21.4981 8.40251 21.6298 8.71294 21.6298 9.03663Z" fill="#09161F"/>
-                </svg>
-            </a>
-            <span class="hotspot-layover-pagination"></span>
-            <a class="hotspot-layover-button next">
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 21 18" fill="none">
-                    <path d="M20.2006 9.90113L12.9348 17.224C12.7063 17.4513 12.3981 17.5787 12.077 17.5787C11.756 17.5787 11.4478 17.4513 11.2193 17.224C11.1064 17.1106 11.0168 16.9758 10.9557 16.8275C10.8946 16.6791 10.8631 16.5201 10.8631 16.3595C10.8631 16.1988 10.8946 16.0398 10.9557 15.8914C11.0168 15.7431 11.1064 15.6083 11.2193 15.495L16.4163 10.2571H1.58205C1.26089 10.2571 0.952875 10.1285 0.725776 9.89963C0.498677 9.67075 0.371094 9.36032 0.371094 9.03663C0.371094 8.71294 0.498677 8.40251 0.725776 8.17362C0.952875 7.94474 1.26089 7.81616 1.58205 7.81616H16.4163L11.2193 2.5783C10.9918 2.34902 10.864 2.03805 10.864 1.7138C10.864 1.55325 10.8954 1.39427 10.9563 1.24594C11.0173 1.0976 11.1066 0.962827 11.2193 0.849299C11.3319 0.735771 11.4656 0.645716 11.6128 0.584275C11.76 0.522834 11.9177 0.491211 12.077 0.491211C12.3988 0.491211 12.7073 0.620019 12.9348 0.849299L20.2006 8.17213C20.3134 8.28551 20.403 8.42024 20.4641 8.56859C20.5253 8.71695 20.5567 8.876 20.5567 9.03663C20.5567 9.19726 20.5253 9.35631 20.4641 9.50466C20.403 9.65301 20.3134 9.78774 20.2006 9.90113Z" fill="#09161F"/>
-                </svg>
-            </a>
-        </div>
+      <h3></h3>
+      <div class="hotspot-layover-thumb" style="background-image: url();"></div>
+      <div class="hotspot-layover-close"></div>
+      <div class="hotspot-layover-text"></div>
+      <div class="hotspot-layover-controls">
+        <a class="hotspot-layover-button prev"></a>
+        <span class="hotspot-layover-pagination"></span>
+        <a class="hotspot-layover-button next"></a>
+      </div>
     </div>`;
 
   const dialog = container.querySelector('.hotspot-layover-box');
   dialog.dataset.hotspotContent = hotspot.id.toString();
   dialog.querySelector('.hotspot-layover-thumb').style.backgroundImage = `url(${hotspot.picture.querySelector('img').src})`;
-  dialog.querySelector('.hotspot-layover-title h3').innerHTML = hotspot.title.innerHTML;
+  dialog.querySelector('h3').innerHTML = hotspot.title.innerHTML;
   hotspot.text.forEach((p) => {
     const pEl = createElement('p', { classes: 'large' });
     pEl.innerHTML = p.innerHTML;
     dialog.querySelector('.hotspot-layover-text').appendChild(pEl);
   });
 
+  dialog.querySelectorAll('.hotspot-layover-button').forEach((arrow) => {
+    const image = createElement('img', { props: { src: '/icons/arrow-right.svg' } });
+    arrow.appendChild(image);
+  });
+
   // don't close if clicked on sidebar
   dialog.addEventListener('click', (event) => event.stopPropagation());
 
-  dialog.querySelector('.hotspot-layover-close')
-    .addEventListener('click', (event) => handleCloseLayover(event, dialog, block));
+  const closeBtn = dialog.querySelector('.hotspot-layover-close');
+  closeBtn.addEventListener('click', (event) => handleCloseLayover(event, dialog, block));
+
+  const closeIcon = createElement('img', { props: { src: '/icons/close.svg' } });
+  closeBtn.appendChild(closeIcon);
 
   block.querySelector('.hotspot-layover').append(...container.childNodes);
 }
@@ -232,20 +222,16 @@ function addPaginationButtonsOnMobile(block) {
   const allFeatures = block.querySelectorAll('.features');
   allFeatures.forEach((feature, idx) => {
     const paginationStructure = `
-      <a class="hotspot-mobile-button prev">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none">
-            <path d="M21.6298 9.03663C21.6298 9.36032 21.4981 9.67075 21.2636 9.89963C21.0292 10.1285 20.7113 10.2571 20.3797 10.2571H5.06695L10.4316 15.495C10.5482 15.6083 10.6406 15.7431 10.7037 15.8914C10.7668 16.0398 10.7993 16.1988 10.7993 16.3595C10.7993 16.5201 10.7668 16.6791 10.7037 16.8275C10.6406 16.9758 10.5482 17.1106 10.4316 17.224C10.1957 17.4513 9.87764 17.5787 9.5462 17.5787C9.21476 17.5787 8.89665 17.4513 8.66077 17.224L1.16063 9.90113C1.04409 9.78774 0.951628 9.65301 0.888537 9.50466C0.825446 9.35631 0.792969 9.19726 0.792969 9.03663C0.792969 8.876 0.825446 8.71695 0.888537 8.56859C0.951628 8.42024 1.04409 8.28551 1.16063 8.17213L8.66077 0.849299C8.8956 0.620019 9.2141 0.491211 9.5462 0.491211C9.71064 0.491211 9.87347 0.522834 10.0254 0.584275C10.1773 0.645716 10.3154 0.735771 10.4316 0.849299C10.5479 0.962827 10.6401 1.0976 10.7031 1.24594C10.766 1.39427 10.7984 1.55325 10.7984 1.7138C10.7984 1.87435 10.766 2.03333 10.7031 2.18166C10.6401 2.33 10.5479 2.46477 10.4316 2.5783L5.06695 7.81616H20.3797C20.7113 7.81616 21.0292 7.94474 21.2636 8.17362C21.4981 8.40251 21.6298 8.71294 21.6298 9.03663Z" fill="#09161F"/>
-        </svg>
-      </a>
+      <a class="hotspot-mobile-button prev"></a>
       <span class="hotspot-mobile-pagination">${idx + 1}/${allFeatures.length}</span>
-      <a class="hotspot-mobile-button next">
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="18" viewBox="0 0 21 18" fill="none">
-            <path d="M20.2006 9.90113L12.9348 17.224C12.7063 17.4513 12.3981 17.5787 12.077 17.5787C11.756 17.5787 11.4478 17.4513 11.2193 17.224C11.1064 17.1106 11.0168 16.9758 10.9557 16.8275C10.8946 16.6791 10.8631 16.5201 10.8631 16.3595C10.8631 16.1988 10.8946 16.0398 10.9557 15.8914C11.0168 15.7431 11.1064 15.6083 11.2193 15.495L16.4163 10.2571H1.58205C1.26089 10.2571 0.952875 10.1285 0.725776 9.89963C0.498677 9.67075 0.371094 9.36032 0.371094 9.03663C0.371094 8.71294 0.498677 8.40251 0.725776 8.17362C0.952875 7.94474 1.26089 7.81616 1.58205 7.81616H16.4163L11.2193 2.5783C10.9918 2.34902 10.864 2.03805 10.864 1.7138C10.864 1.55325 10.8954 1.39427 10.9563 1.24594C11.0173 1.0976 11.1066 0.962827 11.2193 0.849299C11.3319 0.735771 11.4656 0.645716 11.6128 0.584275C11.76 0.522834 11.9177 0.491211 12.077 0.491211C12.3988 0.491211 12.7073 0.620019 12.9348 0.849299L20.2006 8.17213C20.3134 8.28551 20.403 8.42024 20.4641 8.56859C20.5253 8.71695 20.5567 8.876 20.5567 9.03663C20.5567 9.19726 20.5253 9.35631 20.4641 9.50466C20.403 9.65301 20.3134 9.78774 20.2006 9.90113Z" fill="#09161F"/>
-        </svg>
-      </a>
+      <a class="hotspot-mobile-button next"></a>
     `;
-
     feature.querySelector('.feature-pagination').innerHTML = paginationStructure;
+
+    feature.querySelectorAll('.hotspot-mobile-button').forEach((arrow) => {
+      const image = createElement('img', { props: { src: '/icons/arrow-right.svg' } });
+      arrow.appendChild(image);
+    });
   });
 }
 
