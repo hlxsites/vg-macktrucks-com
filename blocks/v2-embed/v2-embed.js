@@ -1,93 +1,57 @@
+/* eslint-disable no-console */
 import {
-  addVideoConfig,
-  createVideo,
-  handleVideoMessage,
+  standardVideoConfig,
 } from '../../scripts/video-helper.js';
-import {
-  AEM_ASSETS,
-} from '../../scripts/constants.js';
 
 const blockName = 'v2-embed';
 
-const extractAspectRatio = (block) => {
-  const aspectRatioRegex = /aspect-ratio-(\d+)-(\d+)/;
-  const aspectRatioClass = Array.from(block.classList)
-    .find((className) => aspectRatioRegex.test(className));
-
-  if (!aspectRatioClass) {
-    return null;
-  }
-
-  const match = aspectRatioClass.match(aspectRatioRegex);
-  if (match) {
-    return {
-      width: parseInt(match[1], 10),
-      height: parseInt(match[2], 10),
-    };
-  }
-
-  return null;
-};
-
-const retrieveVideoConfig = (block, aspectRatio) => ({
-  ...(aspectRatio ? { aspectRatio: `${aspectRatio.width}:${aspectRatio.height}` } : {}),
-  ...(block.querySelector('img')?.getAttribute('src')
-    ? { poster: new URL(block.querySelector('img').getAttribute('src'), window.location.href).href }
-    : {}),
-  autoplay: block.classList.contains('autoplay') ? 'any' : false,
-  muted: block.classList.contains('autoplay'),
-  loop: block.classList.contains('loop'),
-  controls: !block.classList.contains('disable-controls'),
-  disablePictureInPicture: block.classList.contains('disable-picture-in-picture'),
-  language: document.documentElement.lang,
-});
-
-const configureVideo = (block, videoId) => {
-  const config = retrieveVideoConfig(block);
-  Object.entries(config).forEach(([key, value]) => {
-    if (value !== undefined) {
-      addVideoConfig(videoId, { [key]: value });
-    }
-  });
-};
-
 export default function decorate(block) {
-  const linkElement = block.querySelector('a');
-  const link = linkElement?.getAttribute('href');
-  const title = linkElement?.textContent;
-  const match = link?.match(AEM_ASSETS.videoIdRegex);
+  const link = block.querySelector('a').getAttribute('href');
+  const title = block.querySelector('a').textContent;
 
   if (!link) {
-    // eslint-disable-next-line no-console
-    console.warn(`[${blockName}]: There is no video link`);
+    /* eslint-disable-next-line no-console */
+    console.warn('V2 Video Embed block: There is no video link. Please check if the fallback video link is provided.');
     return;
   }
 
-  if (!match) {
-    // eslint-disable-next-line no-console
-    console.warn(`[${blockName}]: Video link is incorrect: ${link}`);
-    return;
-  }
+  window.addEventListener('message', (event) => {
+    if (event.data.name === 'video-config') {
+      event.source.postMessage(JSON.stringify(standardVideoConfig), '*');
+    }
 
-  const [videoId] = match;
-  block.videoId = videoId;
+    if (event.data.type === 'embedded-video-player-event') {
+      switch (event.data.name) {
+        case 'video-playing':
+          /* eslint-disable-next-line no-console */
+          console.info(`[parent] [playing] ${event.data.name} for ${event.data.videoId} ${Date.now()}`);
+          break;
+        case 'video-play':
+          /* eslint-disable-next-line no-console */
+          console.info(`[parent] [play] ${event.data.name} for ${event.data.videoId} ${Date.now()}`);
+          break;
+        case 'video-ended':
+          /* eslint-disable-next-line no-console */
+          console.info(`[parent] [ended] ${event.data.name} for ${event.data.videoId} ${Date.now()}`);
+          break;
+        case 'video-loadedmetadata':
+          /* eslint-disable-next-line no-console */
+          console.info(`[parent] [loadedmetadata] ${event.data.name} for ${event.data.videoId} ${Date.now()}`);
+          break;
+        default:
+          break;
+      }
+    }
+  });
 
-  const aspectRatio = extractAspectRatio(block);
-  if (aspectRatio) {
-    block.style.setProperty('--video-aspect-ratio', `${aspectRatio.width}/${aspectRatio.height}`);
-  }
+  const videoFrame = document.createRange().createContextualFragment(`
+  <iframe class="${blockName}__frame"
+    allowfullscreen
+    title="${title}"
+    src="${link}">
+  </iframe>
+  `);
 
-  const videoConfig = retrieveVideoConfig(block, aspectRatio);
-  const videoProps = {
-    ...videoConfig,
-    title,
-  };
-
-  const videoElement = createVideo(link, `${blockName}__frame`, videoProps, false, videoId);
-
-  configureVideo(block, videoId);
-
-  window.addEventListener('message', (event) => handleVideoMessage(event, block.videoId, blockName));
   block.innerHTML = '';
-  block.append(videoElement);
+  block.append(videoFrame);
 }

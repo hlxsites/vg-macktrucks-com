@@ -25,10 +25,3 @@ export const FORM_MAGAZINE_SUBSCRIBE = {
   href: 'https://go.pardot.com/l/1038343/2023-12-12/3m4w2c',
   iframeSize: '900px',
 };
-
-// videoURLRegex: verify if a given string follows a specific pattern indicating it is a video URL
-// videoIdRegex: extract the video ID from the URL
-export const AEM_ASSETS = {
-  videoURLRegex: /\/assets\/urn:aaid:aem:[\w-]+\/play/,
-  videoIdRegex: /urn:aaid:aem:[0-9a-fA-F-]+/,
-};

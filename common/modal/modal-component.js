@@ -1,18 +1,7 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
-import {
-  createIframe,
-  createVideo,
-  handleVideoMessage,
-  isAEMVideoUrl,
-  isLowResolutionVideoUrl,
-} from '../../scripts/video-helper.js';
+import { createIframe, isLowResolutionVideoUrl } from '../../scripts/video-helper.js';
 import { createElement } from '../../scripts/common.js';
-import {
-  AEM_ASSETS,
-} from '../../scripts/constants.js';
-
-const { videoIdRegex } = AEM_ASSETS;
 
 const styles$ = new Promise((r) => {
   loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
@@ -103,22 +92,6 @@ const createModal = () => {
           },
         });
         modalContent.append(videoOrIframe);
-      } else if (isAEMVideoUrl) {
-        let videoId;
-        const match = newContent.match(videoIdRegex);
-        if (match) {
-          [videoId] = match;
-        }
-        videoOrIframe = createVideo(newContent, 'modal-video', {
-          autoplay: 'any',
-          disablePictureInPicture: true,
-          loop: false,
-          muted: false,
-          playsinline: true,
-          title: 'video',
-        }, false, videoId);
-        modalContent.append(videoOrIframe);
-        window.addEventListener('message', (event) => handleVideoMessage(event, videoId, 'modal'));
       } else {
         // otherwise load it as iframe
         videoOrIframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });
