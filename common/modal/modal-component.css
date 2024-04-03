@@ -6,7 +6,7 @@
   height: 100%;
   background-color: var(--c-secondary-graphite);
   z-index: 1051;
-  transition: opacity 1s linear, height 1s linear;
+  transition: opacity 1s var(--easing-entrance);
   opacity: 1;
   display: flex;
   align-items: center;
@@ -63,7 +63,8 @@
   width: 100%;
   height: auto;
   background-color: rgb(230 230 230 / 72%);
-  aspect-ratio: 16/9;
+  aspect-ratio: var(--video-aspect-ratio, 16/9);
+  border: 0;
 }
 
 .modal-before-banner {
@@ -133,6 +134,12 @@
   .redesign-v2 .modal-background button.modal-close-button:hover,
   .redesign-v2 .modal-background button.modal-close-button:focus-visible {
     --color-icon: var(--c-accent-copper);
+  }
+
+  .redesign-v2 .modal-background button.modal-close-button:focus-visible {
+    outline: 2px solid var(--border-focus);
+    border-radius: 2px;
+    outline-offset: 2px;
   }
 }
 

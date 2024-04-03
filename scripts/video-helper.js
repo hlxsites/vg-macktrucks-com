@@ -1,37 +1,73 @@
-import { createElement, getTextLabel } from './common.js';
+import {
+  checkOneTrustGroup,
+  createElement,
+  deepMerge,
+  getTextLabel,
+} from './common.js';
+import {
+  AEM_ASSETS,
+  COOKIE_VALUES,
+} from './constants.js';
+
+const { videoURLRegex } = AEM_ASSETS;
 
 export const videoTypes = {
+  aem: 'aem',
   youtube: 'youtube',
   local: 'local',
   both: 'both',
 };
 
-/* video helpers */
+export const standardVideoConfig = {
+  autoplay: false,
+  muted: false,
+  controls: true,
+  disablePictureInPicture: false,
+  currentTime: 0,
+  playsinline: true,
+};
+
+export const videoConfigs = {};
+
+export const addVideoConfig = (videoId, props = {}) => {
+  if (!videoConfigs[videoId]) {
+    videoConfigs[videoId] = deepMerge({}, standardVideoConfig);
+  }
+  deepMerge(videoConfigs[videoId], props);
+};
+
+export const getVideoConfig = (videoId) => videoConfigs[videoId];
+
 export function isLowResolutionVideoUrl(url) {
   return url.split('?')[0].endsWith('.mp4');
+}
+
+export function isAEMVideoUrl(url) {
+  return videoURLRegex.test(url);
 }
 
 export function isVideoLink(link) {
   const linkString = link.getAttribute('href');
   return (linkString.includes('youtube.com/embed/')
+    || videoURLRegex.test(linkString)
     || isLowResolutionVideoUrl(linkString))
     && link.closest('.block.embed') === null;
 }
 
 export function selectVideoLink(links, preferredType, videoType = videoTypes.both) {
-  const isDefault = videoType === videoTypes.both;
-  const linksList = [...links];
-  const optanonConsentCookieValue = decodeURIComponent(document.cookie.split(';')
-    .find((cookie) => cookie.trim().startsWith('OptanonConsent=')));
-  const cookieConsentForExternalVideos = optanonConsentCookieValue.includes('C0005:1');
-  const shouldUseYouTubeLinks = (cookieConsentForExternalVideos && preferredType !== 'local')
-    || (!isDefault && videoType === videoTypes.youtube);
-  const youTubeLink = linksList.find((link) => link.getAttribute('href').includes('youtube.com/embed/'));
-  const localMediaLink = linksList.find((link) => link.getAttribute('href').split('?')[0].endsWith('.mp4'));
+  const hasConsentForSocialVideos = checkOneTrustGroup(COOKIE_VALUES.social);
+  const isTypeBoth = videoType === videoTypes.both;
+  const prefersYouTube = (hasConsentForSocialVideos && preferredType !== 'local')
+                      || (!isTypeBoth && videoType === videoTypes.youtube);
 
-  if (shouldUseYouTubeLinks && youTubeLink) {
-    return youTubeLink;
-  }
+  const findLinkByCondition = (conditionFn) => links.find((link) => conditionFn(link.getAttribute('href')));
+
+  const aemVideoLink = findLinkByCondition((href) => videoURLRegex.test(href));
+  const youTubeLink = findLinkByCondition((href) => href.includes('youtube.com/embed/'));
+  const localMediaLink = findLinkByCondition((href) => href.split('?')[0].endsWith('.mp4'));
+
+  if (aemVideoLink) return aemVideoLink;
+  if (prefersYouTube && youTubeLink) return youTubeLink;
   return localMediaLink;
 }
 
@@ -126,7 +162,7 @@ export function createIframe(url, { parentEl, classes = [] }) {
     classes: Array.isArray(classes) ? classes : [classes],
     props: {
       frameborder: '0',
-      allowfullscreen: 'allowfullscreen',
+      allowfullscreen: true,
       src: url,
     },
   });
@@ -138,51 +174,101 @@ export function createIframe(url, { parentEl, classes = [] }) {
   return iframe;
 }
 
-export const createVideo = (src, className = '', props = {}) => {
-  const video = createElement('video', {
-    classes: className,
-  });
-  if (props.muted) {
-    video.muted = props.muted;
-  }
+/**
+ * Creates a video element or an iframe for a video, depending on whether the video is local
+ * or not. Configures the element with specified classes, properties, and source.
+ *
+ * @param {string} src The source URL of the video.
+ * @param {string} [className=''] Optional. CSS class names to apply to the video element or iframe.
+ * @param {Object} [props={}] Optional. Properties and attributes for the video element or iframe,
+ *                            including attributes like 'muted', 'autoplay', 'title'. All properties
+ *                            are applied as attributes.
+ * @param {boolean} [localVideo=true] Optional. Indicates if the video is a local file. If true,
+ *                                    creates a <video> element with a <source> child. If false,
+ *                                    creates an iframe for an external video.
+ * @param {string} [videoId=''] Optional. Identifier for the video, used for external video sources.
+ * @returns {HTMLElement} The created video element (<video> or <iframe>) with specified configs.
+ */
+export const createVideo = (src, className = '', props = {}, localVideo = true, videoId = '') => {
+  let video = '';
 
-  if (props.autoplay) {
-    video.autoplay = props.autoplay;
-  }
+  if (localVideo) {
+    video = createElement('video', {
+      classes: className,
+    });
+    if (props.muted) {
+      video.muted = props.muted;
+    }
 
-  if (props) {
-    Object.keys(props).forEach((propName) => {
-      video.setAttribute(propName, props[propName]);
+    if (props.autoplay) {
+      video.autoplay = props.autoplay;
+    }
+
+    if (props) {
+      Object.keys(props).forEach((propName) => {
+        video.setAttribute(propName, props[propName]);
+      });
+    }
+
+    const source = createElement('source', {
+      props: {
+        src,
+        type: 'video/mp4',
+      },
+    });
+
+    video.appendChild(source);
+  } else {
+    addVideoConfig(videoId, props);
+
+    video = createElement('iframe', {
+      classes: className,
+      props: {
+        allow: 'autoplay; fullscreen',
+        allowfullscreen: true,
+        title: props.title,
+        src,
+      },
     });
   }
-
-  const source = createElement('source', {
-    props: {
-      src,
-      type: 'video/mp4',
-    },
-  });
-
-  video.appendChild(source);
 
   return video;
 };
 
-/* v2 embed */
-export const standardVideoConfig = {
-  poster: '',
-  autoplay: false,
-  muted: true,
-  controlBar: {
-    playToggle: true,
-    remainingTimeDisplay: true,
-    progressControl: {
-      seekBar: true,
-    },
-    fullscreenToggle: true,
-  },
-  // aspectRatio: '16:9',
-  disablePictureInPicture: false,
-  currentTime: 0,
-  playsinline: true,
+const logVideoEvent = (eventName, videoId, timeStamp, blockName = 'video') => {
+  // eslint-disable-next-line no-console
+  console.info(`[${blockName}] ${eventName} for ${videoId} at ${timeStamp}`);
+};
+
+const formatDebugTime = (date) => {
+  const timeOptions = {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
+  const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+  const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
+
+  return `${formattedTime}.${milliseconds}`;
+};
+
+export const handleVideoMessage = (event, videoId, blockName = 'video') => {
+  if (event.data.type === 'embedded-video-player-event') {
+    const timeStamp = formatDebugTime(new Date());
+    switch (event.data.name) {
+      case 'video-playing':
+      case 'video-play':
+      case 'video-ended':
+      case 'video-loadedmetadata':
+        logVideoEvent(event.data.name, event.data.videoId, timeStamp, blockName);
+        break;
+      default:
+        break;
+    }
+  } if (event.data.name === 'video-config' && event.data.videoId === videoId) {
+    // eslint-disable-next-line no-console
+    console.info('Sending video config:', getVideoConfig(videoId));
+    event.source.postMessage(JSON.stringify(getVideoConfig(videoId)), '*');
+  }
 };
