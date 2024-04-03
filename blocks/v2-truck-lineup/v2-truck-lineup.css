@@ -281,7 +281,7 @@ ul.v2-truck-lineup__navigation {
 
 .v2-truck-lineup__arrow-controls button:hover {
   background-color: var(--c-primary-gray);
-  border-color: var(--button-tertiary-white-hover);
+  border-color: var(--button-tertiary-white-border-hover);
 }
 
 .v2-truck-lineup__arrow-controls button:active {
