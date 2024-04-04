@@ -708,7 +708,14 @@ if (document.documentElement.classList.contains('curated-choices')) {
 }
 
 if (getMetadata('truck-configurator-page')) {
-  const page = getMetadata('truck-configurator-page').toLowerCase();
-  document.location.hash = `${page}/`;
+  const currentHash = window.location.hash;
+  // eslint-disable-next-line no-console
+  console.log(currentHash);
+  if (currentHash.startsWith('#/config/')) {
+    document.location.hash = currentHash;
+  } else {
+    const page = getMetadata('truck-configurator-page').toLowerCase();
+    document.location.hash = `${page}/`;
+  }
   document.documentElement.classList.add('truck-configurator--detail-page');
 }
