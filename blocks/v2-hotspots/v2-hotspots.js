@@ -140,21 +140,24 @@ function addPaginationButtons(block) {
   });
 }
 
-function updateLayoutSlide(event, clickedNum) {
+function updateActiveHotspot(event, clickedNum, block) {
   const slideNumber = ((clickedNum > 3) && 1) || ((clickedNum < 1) && 3) || clickedNum;
 
   const clickedElmt = event.target.closest('.features');
   clickedElmt.classList.remove('is-active');
 
   clickedElmt.parentElement.querySelector(`.features.number-${slideNumber}`).classList.add('is-active');
+
+  block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
+  block.querySelector(`.hotspot-icon[data-spot="${slideNumber}"]`).classList.add('active-spot');
 }
 
 function updateFeature(block) {
-  const dialogs = block.querySelectorAll('.features');
+  const features = block.querySelectorAll('.features');
 
-  dialogs.forEach((dialog, idx) => {
-    dialog.querySelector(`.features.number-${idx + 1} .hotspot-feature-button.prev`).onclick = (e) => updateLayoutSlide(e, idx);
-    dialog.querySelector(`.features.number-${idx + 1} .hotspot-feature-button.next`).onclick = (e) => updateLayoutSlide(e, idx + 2);
+  features.forEach((feat, idx) => {
+    feat.querySelector(`.features.number-${idx + 1} .hotspot-feature-button.prev`).onclick = (e) => updateActiveHotspot(e, idx, block);
+    feat.querySelector(`.features.number-${idx + 1} .hotspot-feature-button.next`).onclick = (e) => updateActiveHotspot(e, idx + 2, block);
   });
 }
 
