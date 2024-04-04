@@ -98,7 +98,7 @@ const createModal = () => {
           props: {
             src: newContent,
             controls: '',
-            autoplay: '',
+            autoplay: 'autoplay',
             playsinline: '',
           },
         });
