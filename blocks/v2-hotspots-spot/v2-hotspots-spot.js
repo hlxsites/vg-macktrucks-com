@@ -25,9 +25,6 @@ function parseHotspotContent(block) {
   block.querySelector('picture').closest('p').remove();
 
   // this is based on order, not header level
-  const category = block.querySelector('p, h1, h2, h3, h4, h5, h6');
-  category?.remove();
-
   const title = block.querySelector('p, h1, h2, h3, h4, h5, h6');
   title?.remove();
 
@@ -42,7 +39,6 @@ function parseHotspotContent(block) {
 
   return {
     picture,
-    category,
     title,
     text,
     positionLeft,

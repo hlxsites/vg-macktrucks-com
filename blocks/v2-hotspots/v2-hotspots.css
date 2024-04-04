@@ -53,9 +53,9 @@
   display: block;
 }
 
-.v2-hotspots-container .hotspot .hotspot-bg-img.mobile img {
+/* .v2-hotspots-container .hotspot .hotspot-bg-img img {
   display: none;
-}
+} */
 
 .v2-hotspots-container .hotspot .hotspot-content {
   position: absolute;
@@ -121,8 +121,8 @@
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon {
   position: absolute;
-  height: 44px;
-  width: 44px;
+  height: 24px;
+  width: 24px;
   outline: 20px solid transparent;
   background-color: var(--c-accent-red);
   border-radius: 50%;
@@ -133,25 +133,19 @@
   transition-duration: var(--duration-medium);
 }
 
-.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon img {
-  fill: white;
-}
-
-.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon svg {
-  --color-icon: var(--c-primary-white);
-
+/* .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon svg {
   margin: 5px;
   height: 34px;
   width: 34px;
-}
+} */
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon::after {
   content: '';
   display: block;
   position: absolute;
   top: 0;
-  height: 44px;
-  width: 44px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
   transition: 0.5s ease-in-out;
   z-index: -1;
@@ -166,6 +160,15 @@
   transform: scale(1.2);
   box-shadow: unset;
 }
+
+.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot:hover {
+  cursor: unset;
+}
+
+.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot:hover::after {
+  display: none;
+}
+
 
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon:hover {
   text-decoration: none;
@@ -218,13 +221,13 @@
     display: none;
   }
 
-  .v2-hotspots-container .hotspot-mobile .feature-block .feature .feature-title {
+  .v2-hotspots-container .hotspot-features .feature-block .feature .feature-title {
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 10px;
   }
 
-  .v2-hotspots-container .hotspot-mobile .feature-block .feature p {
+  .v2-hotspots-container .hotspot-features .feature-block .feature p {
     max-width: none;
     font-size: 16px;
     line-height: 20px;
@@ -237,269 +240,13 @@
   }
 }
 
-.v2-hotspots-container .hotspot-mobile {
+.v2-hotspots-container .hotspot-features {
   width: 100%;
 }
 
-.v2-hotspots-container .hotspot-layover {
-  display: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  position: fixed;
-  z-index: 102;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgb(0 0 0 / 0%);
-}
-
-.v2-hotspots-container .hotspot-layover a:link {
-  color: var(--c-primary-white);
-}
-
-.v2-hotspots-container .hotspot-layover a:hover {
-  color: var(--c-tertiary-cool-gray);
-}
-
-.v2-hotspots-container .hotspot-layover a:visited {
-  color: var(--c-primary-white);
-}
-
-.v2-hotspots-container .hotspot-layover h1 {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  font: 50px/50px var(--ff-headline-medium);
-  text-align: center;
-}
-
-.v2-hotspots-container .hotspot-layover h2 {
-  font: 44px/44px var(--ff-headline-medium);
-}
-
-.v2-hotspots-container .hotspot-layover h3 {
-  font: 32px/36px var(--ff-headline-medium);
-  margin: 0;
-}
-
-.v2-hotspots-container .hotspot-layover h4 {
-  font: 18px/18px var(--ff-headline-medium);
-}
-
-.v2-hotspots-container .hotspot-layover h5 {
-  margin: 10px 0 8px;
-  font: 12px/12px var(--ff-body-bold);
-  text-transform: uppercase;
-}
-
-.v2-hotspots-container .hotspot-layover h6 {
-  font-family: var(--ff-body-bold);
-}
-
-.v2-hotspots-container .hotspot-layover p,
-.v2-hotspots-container .hotspot-layover p.large {
-  font: 16px/150% var(--ff-body);
-  letter-spacing: 0.16px;
-}
-
-.v2-hotspots-container .hotspot-layover p {
-  margin: 0;
-}
-
-.v2-hotspots-container .hotspot-layover p.fine-print {
-  margin: 5px 0;
-  font-size: 10px;
-  color: var(--c-tertiary-cool-gray);
-}
-
-.v2-hotspots-container .hotspot-layover p.reduced-width {
-  max-width: 500px;
-}
-
-.v2-hotspots-container .hotspot-layover a {
-  font: 16px/16px var(--ff-body-bold);
-}
-
-.v2-hotspots-container .hotspot-layover.is-active {
-  transition: background-color 0.3s linear;
-  background-color: rgb(0 0 0 / 50%);
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease-out;
-  position: absolute;
-  top: 5%;
-  right: 14%;
-  width: 424px;
-  height: 80%;
-  max-height: 666px;
-  margin-top: var(--nav-height);
-  background: var(--c-primary-white);
-  padding: 80px 64px 30px;
-  transform: translateX(200%);
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box.is-active {
-  transform: translateX(0);
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box.no-animation {
-  transition: none !important;
-  transition-property: none !important;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-thumb {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding-bottom: 70%;
-  background-position: center;
-  background-size: cover;
-  margin: 24px 0;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close {
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-close img {
-  --color-icon: var(--c-primary-black);
-
-  width: 44px;
-  height: 44px;
-  background-color: var(--c-primary-gold);
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-text {
-  position: relative;
-  z-index: 2;
-  max-height: calc(100% - 340px);
-  overflow-y: auto;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls {
-  margin-top: auto;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button {
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-.v2-hotspots-container  .hotspot-mobile-button.prev img,
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button.prev img {
-  transform: rotate(180deg)
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls .hotspot-layover-button:hover {
-  text-decoration: none;
-  color: unset;
-}
-
-.v2-hotspots-container .hotspot-layover .hotspot-layover-box .hotspot-layover-controls span.hotspot-layover-pagination {
-  font: 18px/150% var(--ff-accents);
-  margin: 0 12px;
-}
-
-.v2-hotspots-container .hotspot.truck {
-  margin-bottom: -160px;
-}
 
 .v2-hotspots-container .hotspot.truck ~ .feature-block {
   z-index: 2;
-}
-
-@media (min-width: 1023px) {
-  .v2-hotspots-container .hotspot-mobile {
-    display: none;
-  }
-}
-
-@media (max-width: 1023px) {
-  .v2-hotspots-container .content-wrapper {
-    width: 100%;
-    padding: 0 48px;
-  }
-
-  .v2-hotspots-wrapper {
-    padding-bottom: 24px !important;
-  }
-  
-  .v2-hotspots .hotspot-mobile .features {
-    display: none;
-  }
-
-  .v2-hotspots .hotspot-mobile .features.is-active {
-    display: block;
-  }
- 
-
-  .v2-hotspots .hotspot-mobile {
-    position: relative;
-  }
-
-  .v2-hotspots .features:not(.is-active) {
-    position: absolute;
-    top: 0;
-  }
-
-  .v2-hotspots .features {
-    min-height: 485px;
-    height: 100vw;
-    padding: 24px;
-    background-color: var(--c-primary-white);
-  }
-
-  .v2-hotspots .features .row {
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-    justify-content: space-between;
-    height: 100%;
-  }
-
-  .v2-hotspots .feature {
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-  }
-  
-  .v2-hotspots .features .feature-title {
-    font-size: var(--headline-3-font-size);
-    line-height: var(--headline-3-line-height);
-    margin: 0;
-  }
-
-  .v2-hotspots .features img {
-    display: block;
-  }
-
-  .v2-hotspots .features .feature-text {
-    max-height: 100px;
-    overflow-y: scroll;
-  }
-
-  .v2-hotspots .feature-text p {
-    margin: 0;
-  }
-
-  .v2-hotspots .features .feature-pagination {
-    height: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-  }
-
-  .v2-hotspots .features .hotspot-mobile-pagination {
-    margin: 0 12px;
-  }
 }
 
 .v2-hotspots-container .content-wrapper {
@@ -508,4 +255,122 @@
   max-width: 1376px;
   margin: 0 auto;
   padding: 40px 16px 0;
+}
+
+.v2-hotspots-wrapper {
+  padding-bottom: 24px !important;
+}
+
+.v2-hotspots .hotspot-features .features {
+  display: none;
+}
+
+.v2-hotspots .hotspot-features .features.is-active {
+  display: block;
+}
+
+
+.v2-hotspots .hotspot-features {
+  position: relative;
+}
+
+.v2-hotspots .features:not(.is-active) {
+  position: absolute;
+  top: 0;
+}
+
+.v2-hotspots .features {
+  height: 700px;
+  padding: 24px;
+  background-color: var(--c-primary-white);
+}
+
+.v2-hotspots .features .row {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.v2-hotspots .feature {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.v2-hotspots .features .feature-title {
+  font-size: var(--headline-3-font-size);
+  line-height: var(--headline-3-line-height);
+  margin: 0;
+}
+
+.v2-hotspots .features img {
+  display: block;
+}
+
+.v2-hotspots .features .feature-text {
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+.v2-hotspots .feature-text p {
+  margin: 0;
+}
+
+.v2-hotspots .features .hotspot-feature-button:hover {
+  cursor: pointer;
+}
+
+.v2-hotspots .features .hotspot-feature-button.prev {
+  transform: rotate(180deg);
+}
+
+.v2-hotspots .features .feature-pagination {
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.v2-hotspots .features .feature-close {
+  display: none;
+}
+
+.v2-hotspots .features .hotspot-feature-pagination {
+  margin: 0 12px;
+}
+
+@media (min-width: 1023px) {
+  .v2-hotspots .hotspot-features {
+    --feature-height: 666px;
+
+    position: absolute;
+    z-index: 1;
+    top: calc(50% - calc((var(--feature-height) - var(--nav-height)) * 0.5));
+    right: 10%;
+    width: 424px;
+    transform: translateX(200%)
+  }
+
+  .v2-hotspots .hotspot-features .features {
+    height: var(--feature-height);
+    position: relative;
+    min-height: unset;
+    padding: 80px 60px 24px;
+  }
+
+  .v2-hotspots .features .feature-close {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    width: 44px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--c-primary-gold);
+  }
 }
