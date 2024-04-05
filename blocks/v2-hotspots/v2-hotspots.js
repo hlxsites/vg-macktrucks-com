@@ -23,14 +23,10 @@ export default function decorate(block) {
   // every instance of this block needs a unique id.
   hotspotBlockCounter += 1;
   block.closest(`.section.${blockName}-container`).dataset.hotspotAreaId = hotspotBlockCounter;
-  // first hotspots group is active by default
-  if (hotspotBlockCounter === 1) {
-    block.closest(`.section.${blockName}-container`).classList.add('active');
-  }
 
   block.innerHTML = `
     <div class="main">
-        <div class="hotspot-features"></div>
+      <div class="hotspot-features"></div>
     </div>
     <div class="hotspot-layover" style="display: none;"></div>
   `;
@@ -94,7 +90,7 @@ function addCards(hotspot, main) {
       <button class="feature-close"></button>
       <div class="row">
         <div class="feature">
-          <h4 class="feature-title"></h4>
+          <h3 class="feature-title"></h3>
           <picture></picture>
           <div class="feature-text"></div>
         </div>
@@ -194,8 +190,7 @@ function decorateImageAndTitle(mainDiv, firstPicture, title) {
   hotspot.innerHTML = `
       <picture class="hotspot-bg-img desktop"></picture>
       <div class="hotspot-content content-wrapper ">
-          <h1 class="hotspot-header with-marker"></h1>
-          <p class="hotspot-text reduced-width"></p>
+        <h1 class="hotspot-header with-marker"></h1>
       </div>
 
       <div class="hotspot-icon-set"></div>`;
