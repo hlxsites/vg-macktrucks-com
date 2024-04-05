@@ -109,6 +109,7 @@ const createModal = () => {
         if (match) {
           [videoId] = match;
         }
+        window.addEventListener('message', (event) => handleVideoMessage(event, videoId, 'modal'));
         videoOrIframe = createVideo(newContent, 'modal-video', {
           autoplay: 'any',
           disablePictureInPicture: true,
@@ -118,7 +119,6 @@ const createModal = () => {
           title: 'video',
         }, false, videoId);
         modalContent.append(videoOrIframe);
-        window.addEventListener('message', (event) => handleVideoMessage(event, videoId, 'modal'));
       } else {
         // otherwise load it as iframe
         videoOrIframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });

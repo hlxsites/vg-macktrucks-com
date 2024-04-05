@@ -83,11 +83,12 @@ export default function decorate(block) {
     title,
   };
 
-  const videoElement = createVideo(link, `${blockName}__frame`, videoProps, false, videoId);
+  window.addEventListener('message', (event) => handleVideoMessage(event, block.videoId, blockName));
 
   configureVideo(block, videoId);
 
-  window.addEventListener('message', (event) => handleVideoMessage(event, block.videoId, blockName));
+  const videoElement = createVideo(link, `${blockName}__frame`, videoProps, false, videoId);
+
   block.innerHTML = '';
   block.append(videoElement);
 }
