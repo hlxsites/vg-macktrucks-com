@@ -24,6 +24,10 @@
   margin: 0;
 }
 
+.v2-hotspots-spot-wrapper {
+  display: none;
+}
+
 .v2-hotspots-container .main p.reduced-width {
   max-width: 500px;
   margin: 0 auto;
