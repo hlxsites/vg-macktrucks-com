@@ -254,8 +254,8 @@ const formatDebugTime = (date) => {
 };
 
 export const handleVideoMessage = (event, videoId, blockName = 'video') => {
+  const timeStamp = formatDebugTime(new Date());
   if (event.data.type === 'embedded-video-player-event') {
-    const timeStamp = formatDebugTime(new Date());
     switch (event.data.name) {
       case 'video-playing':
       case 'video-play':
@@ -268,7 +268,9 @@ export const handleVideoMessage = (event, videoId, blockName = 'video') => {
     }
   } if (event.data.name === 'video-config' && event.data.videoId === videoId) {
     // eslint-disable-next-line no-console
-    console.info('Sending video config:', getVideoConfig(videoId));
+    console.info('Sending video config:', getVideoConfig(videoId), timeStamp);
     event.source.postMessage(JSON.stringify(getVideoConfig(videoId)), '*');
+  } else {
+    logVideoEvent(event.data.name, event.data.videoId, timeStamp, blockName);
   }
 };
