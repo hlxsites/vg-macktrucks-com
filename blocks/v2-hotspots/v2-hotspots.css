@@ -14,9 +14,10 @@
 
 .section.v2-hotspots-container {
   padding: unset;
-  background-color: var(--c-tertiary-light-cool-gray);
   width: 100%;
   color: var(--c-text-color);
+  position: relative;
+  overflow-x: clip;
 }
 
 .v2-hotspots-container .v2-hotspots-wrapper {
@@ -54,10 +55,6 @@
   text-align: left;
 }
 
-.v2-hotspots-container .hotspot .hotspot-content.invert {
-  color: var(--c-primary-black);
-}
-
 .v2-hotspots-container .hotspot .hotspot-content h1,
 .hotspot .hotspot-content p {
   max-width: 600px;
@@ -72,14 +69,6 @@
 
 .v2-hotspots-container .first .hotspot .hotspot-content h1 {
   font: 50px/42px var(--ff-headline-medium);
-}
-
-.v2-hotspots-container .text-black .hotspot-content * {
-  color: var(--c-primary-black);
-}
-
-.v2-hotspots-container .text-white .hotspot-content * {
-  color: var(--c-primary-white);
 }
 
 .v2-hotspots-container .hotspot .hotspot-content p {
@@ -197,7 +186,7 @@
 
 .v2-hotspots .features {
   padding: 24px;
-  background-color: var(--c-primary-white);
+  background-color: var(--card-background);
 }
 
 .v2-hotspots .features .row {
