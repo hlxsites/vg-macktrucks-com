@@ -3,6 +3,8 @@
 
   /* TODO: utilise section--with-background instead */
   --card-background: var(--c-primary-white);
+
+  z-index: 2;
 }
 
 .v2-columns__row {
