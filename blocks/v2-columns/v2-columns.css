@@ -117,21 +117,7 @@
 }
 
 .v2-columns--icon-list .v2-columns--icons a {
-  color: var(--text-color);
-  line-height: var(--accent-2-line-height);
-  font-size: var(--accent-2-font-size);
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 1.12px;
-  padding: 6px 0 6px 16px;
-}
-
-.v2-columns--icon-list .v2-columns--icons a::after {
-  display: inline-block;
-  content: url('/icons/caret.svg');
-  height: 16px;
-  width: 16px;
-  transform: translateY(4px);
+  padding: 5px 0 0 16px;
 }
 
 @media (min-width: 744px) {
@@ -220,7 +206,6 @@
   }
 
   .redesign-v2 .v2-columns-container--with-background-image .v2-columns--icon-list .v2-columns__column--with-text {
-    top: calc(40% * 0.125);
     padding: 64px 90px;
   }
 
