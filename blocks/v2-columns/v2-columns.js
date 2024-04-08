@@ -42,7 +42,7 @@ export default async function decorate(block) {
       if (!isPretitle && !isButton && !isIconList) {
         bodyElmts.push(e);
       } else if (isIconList) {
-        e.querySelectorAll('a').forEach(anchor => anchor.classList.add('standalone-link'));
+        e.querySelectorAll('a').forEach((anchor) => anchor.classList.add('standalone-link'));
         iconList.append(e);
       }
     });
