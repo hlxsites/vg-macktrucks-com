@@ -321,6 +321,8 @@ const buildMenuContent = (menuData, navEl) => {
 
   [...menus.children].forEach((menuItemData) => {
     const tabName = menuItemData.querySelector(':scope > p > a');
+    if (!tabName) return;
+
     const categories = [...menuItemData.querySelectorAll(':scope > div')];
     const navLink = navLinks.find((el) => el.textContent.trim() === tabName.textContent.trim());
     const accordionContentWrapper = navLink?.closest(`.${blockClass}__main-nav-item`).querySelector(`.${blockClass}__accordion-content-wrapper`);
@@ -419,6 +421,7 @@ export default async function decorate(block) {
   let navPath = `${langCodeMatch ? langCodeMatch[1] : '/'}nav`;
 
   const isCustomHeader = getMetadata('custom-header');
+  const isMobileMenuDisabled = getMetadata('custom-header-mobile-menu').toLowerCase() === 'false';
   if (isCustomHeader) {
     navPath = `${langCodeMatch ? langCodeMatch[1] : ''}${isCustomHeader}`;
     block.classList.add(`${blockClass}__custom`);
@@ -453,8 +456,8 @@ export default async function decorate(block) {
       ${createMainLinks(navigationContainer).outerHTML}
     </div>` : ''}
     <div class="${blockClass}__actions">
-      ${isCustomHeader ? '' : mobileActions().outerHTML}
-      ${isCustomHeader ? decorateCTA(actionsContainer).outerHTML : createActions(actionsContainer).outerHTML}
+      ${isMobileMenuDisabled ? '' : mobileActions().outerHTML}
+      ${isMobileMenuDisabled ? decorateCTA(actionsContainer).outerHTML : createActions(actionsContainer).outerHTML}
     </div>
   `);
 
@@ -578,7 +581,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (!isLoginDomain) loginLink.parentElement.style.display = 'none';
+    if (loginLink && !isLoginDomain) loginLink.parentElement.style.display = 'none';
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
@@ -607,7 +610,7 @@ export default async function decorate(block) {
     }
   };
 
-  if (!isCustomHeader) {
+  if (!isMobileMenuDisabled) {
     desktopMQ.addEventListener('change', (e) => {
       const isDesktop = e.matches;
 
