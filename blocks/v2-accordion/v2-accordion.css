@@ -25,12 +25,12 @@
   margin: 0;
 }
 
-.v2-accordion__close {
+.v2-accordion__icon {
   transform: rotate(180deg);
   transition: transform var(--duration-small) var(--easing-standard);
 }
 
-.v2-accordion__item-close .v2-accordion__close {
+.v2-accordion__item-close .v2-accordion__icon {
   transform: rotate(0);
 }
 
@@ -42,7 +42,7 @@
   padding: 0;
 }
 
-.v2-accordion__close svg {
+.v2-accordion__icon svg {
   display: flex;
   height: 24px;
   width: 24px;
