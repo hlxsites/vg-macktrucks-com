@@ -55,12 +55,13 @@ export function isVideoLink(link) {
 }
 
 export function selectVideoLink(links, preferredType, videoType = videoTypes.both) {
+  const linksArray = Array.isArray(links) ? links : [...links];
   const hasConsentForSocialVideos = checkOneTrustGroup(COOKIE_VALUES.social);
   const isTypeBoth = videoType === videoTypes.both;
   const prefersYouTube = (hasConsentForSocialVideos && preferredType !== 'local')
                       || (!isTypeBoth && videoType === videoTypes.youtube);
 
-  const findLinkByCondition = (conditionFn) => links.find((link) => conditionFn(link.getAttribute('href')));
+  const findLinkByCondition = (conditionFn) => linksArray.find((link) => conditionFn(link.getAttribute('href')));
 
   const aemVideoLink = findLinkByCondition((href) => videoURLRegex.test(href));
   const youTubeLink = findLinkByCondition((href) => href.includes('youtube.com/embed/'));
