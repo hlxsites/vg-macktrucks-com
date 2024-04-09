@@ -131,14 +131,6 @@
   box-shadow: unset;
 }
 
-.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot:hover {
-  cursor: unset;
-}
-
-.v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon.active-spot:hover::after {
-  display: none;
-}
-
 .v2-hotspots-container .hotspot .hotspot-icon-set a.hotspot-icon:hover {
   text-decoration: none;
 }

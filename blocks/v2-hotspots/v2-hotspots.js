@@ -13,6 +13,7 @@ import { createElement } from '../../scripts/common.js';
  */
 
 let hotspotBlockCounter = 0;
+let previousSpot = 0;
 const blockName = 'v2-hotspots';
 
 export default function decorate(block) {
@@ -36,8 +37,32 @@ export default function decorate(block) {
   decorateIcons(block);
 }
 
+/**
+ *
+ * @param block {HTMLDivElement}
+ */
+function handleClose(block) {
+  block.querySelector('.hotspot-features').style = 'transform: translateX(200%)';
+  block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
+}
+
+/**
+ *
+ * @param event {click event}
+ * @param iconLink {clicked anchor element}
+ * @param hotspotId {anchor element's id}
+ * @param block {HTMLDivElement}
+ */
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
+
+  if ((previousSpot > 0) && (hotspotId === previousSpot)) {
+    handleClose(block);
+    previousSpot = 0;
+    return;
+  }
+
+  previousSpot = hotspotId;
 
   block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
   block.querySelector('.hotspot-features').style = 'transform: translateX(0)';
@@ -46,18 +71,6 @@ function handleClickHotspot(event, iconLink, hotspotId, block) {
 
   block.querySelector('.features.is-active').classList.remove('is-active');
   block.querySelector(`.features.number-${hotspotId}`).classList.add('is-active');
-}
-
-/**
- *
- * @param event
- * @param layoverDialog {HTMLDialogElement}
- * @param block {HTMLDivElement}
- */
-function handleClose(block) {
-  // block.querySelector('.features.is-active').classList.remove('is-active');
-  block.querySelector('.hotspot-features').style = 'transform: translateX(200%)';
-  block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
 }
 
 function addDesktopHotspotIcon(hotspot, block, main) {
