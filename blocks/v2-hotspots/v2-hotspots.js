@@ -42,6 +42,7 @@ export default function decorate(block) {
  * @param block {HTMLDivElement}
  */
 function handleClose(block) {
+  previousSpot = 0;
   block.querySelector('.hotspot-features').style = 'transform: translateX(200%)';
   block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
 }
@@ -56,13 +57,12 @@ function handleClose(block) {
 function handleClickHotspot(event, iconLink, hotspotId, block) {
   event.preventDefault();
 
-  if ((previousSpot > 0) && (hotspotId === previousSpot)) {
+  if ((previousSpot > 0) && (Number(hotspotId) === previousSpot)) {
     handleClose(block);
-    previousSpot = 0;
     return;
   }
 
-  previousSpot = hotspotId;
+  previousSpot = Number(hotspotId);
 
   block.querySelectorAll('.hotspot-icon').forEach((icon) => icon.classList.remove('active-spot'));
   block.querySelector('.hotspot-features').style = 'transform: translateX(0)';
@@ -151,6 +151,8 @@ function addPaginationButtons(block) {
 
 function updateActiveHotspot(event, clickedNum, block) {
   const slideNumber = ((clickedNum > 3) && 1) || ((clickedNum < 1) && 3) || clickedNum;
+
+  previousSpot = clickedNum;
 
   const clickedElmt = event.target.closest('.features');
   clickedElmt.classList.remove('is-active');
