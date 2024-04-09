@@ -6,7 +6,7 @@ import {
   loadHeader,
   loadFooter,
 } from './lib-franklin.js';
-import { COOKIE_VALUES } from './constants.js';
+import { COOKIE_CHECK, COOKIE_VALUES } from './constants.js';
 
 const { performance, targeting, social } = COOKIE_VALUES;
 let placeholders = null;
@@ -211,21 +211,21 @@ export const slugify = (text) => (
  * Check if one trust group is checked.
  * @param {String} groupName the one trust group like: C0002
  */
-export function checkOneTrustGroup(groupName) {
+export function checkOneTrustGroup(groupName, cookieCheck = false) {
   const oneTrustCookie = decodeURIComponent(document.cookie.split(';').find((cookie) => cookie.trim().startsWith('OptanonConsent=')));
-  return oneTrustCookie.includes(`${groupName}:1`);
+  return cookieCheck || oneTrustCookie.includes(`${groupName}:1`);
 }
 
 export function isPerformanceAllowed() {
-  return checkOneTrustGroup(performance);
+  return checkOneTrustGroup(performance, COOKIE_CHECK);
 }
 
 export function isTargetingAllowed() {
-  return checkOneTrustGroup(targeting);
+  return checkOneTrustGroup(targeting, COOKIE_CHECK);
 }
 
 export function isSocialAllowed() {
-  return checkOneTrustGroup(social);
+  return checkOneTrustGroup(social, COOKIE_CHECK);
 }
 
 /**
