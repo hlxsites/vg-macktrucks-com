@@ -697,13 +697,13 @@ if (document.documentElement.classList.contains('truck-configurator')) {
 
 if (getMetadata('truck-configurator-page')) {
   const currentHash = window.location.hash;
+  const currentSearch = window.location.search;
+  const page = getMetadata('truck-configurator-page').toLowerCase();
+
+  document.documentElement.classList.add('truck-configurator--detail-page');
   // eslint-disable-next-line no-console
   console.log(currentHash);
-  if (currentHash.startsWith('#/config/')) {
-    document.location.hash = currentHash;
-  } else {
-    const page = getMetadata('truck-configurator-page').toLowerCase();
+  if (!currentHash.startsWith(`#/${page}/`) || !currentSearch.startsWith('?config')) {
     document.location.hash = `${page}/`;
   }
-  document.documentElement.classList.add('truck-configurator--detail-page');
 }
