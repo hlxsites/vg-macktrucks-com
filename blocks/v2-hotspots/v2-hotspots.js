@@ -201,16 +201,16 @@ export function addSpot(block, hotspot) {
 //  * @param description {HTMLElement}
  */
 function decorateImageAndTitle(mainDiv, firstPicture, title) {
-  const hotspot = createElement('div', { classes: ['hotspot', 'animated'] });
+  const hotspot = createElement('div', { classes: 'hotspot' });
   hotspot.innerHTML = `
-      <picture class="hotspot-bg-img desktop"></picture>
+      <picture class="hotspot-bg-img"></picture>
       <div class="hotspot-content content-wrapper ">
         <h1 class="hotspot-header with-marker"></h1>
       </div>
 
       <div class="hotspot-icon-set"></div>`;
 
-  hotspot.querySelector('.hotspot-bg-img.desktop').innerHTML = firstPicture.innerHTML;
+  hotspot.querySelector('.hotspot-bg-img').innerHTML = firstPicture.innerHTML;
   hotspot.querySelector('.hotspot-header').innerHTML = title.innerHTML;
 
   mainDiv.prepend(hotspot);
