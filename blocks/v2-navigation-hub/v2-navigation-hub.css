@@ -84,11 +84,11 @@
     max-width: 568px;
   }
 
-  .v2-navigation-hub__card-nav-list li:nth-child(-n+3) {
+  .v2-navigation-hub__card-nav-list li {
     grid-column: 1;
   }
 
-  .v2-navigation-hub__card-nav-list li:nth-child(n+4) {
+  .v2-navigation-hub__card-nav-list:has(> :nth-child(6)) li:nth-child(n+4) {
     grid-column: 2;
   }
 }
