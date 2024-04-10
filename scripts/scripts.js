@@ -33,7 +33,6 @@ import {
 } from './video-helper.js';
 import {
   TRUCK_CONFIGURATOR_URLS,
-  TRUCK_CONFIGURATOR_CURATED_CHOICES_URLS,
 } from './constants.js';
 
 const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
@@ -671,7 +670,6 @@ const moveClassToHtmlEl = (className, elementSelector = 'main') => {
 
 moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
-moveClassToHtmlEl('curated-choices');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
   const container = createElement('div', { props: { id: 'configurator' } });
@@ -695,16 +693,6 @@ if (document.documentElement.classList.contains('truck-configurator')) {
       document.documentElement.classList.remove('truck-configurator--detail-page');
     }
   });
-}
-
-if (document.documentElement.classList.contains('curated-choices')) {
-  const container = createElement('div', { props: { id: 'curated-choices' } });
-  const main = document.querySelector('main');
-  main.innerHTML = '';
-  main.append(container);
-
-  TRUCK_CONFIGURATOR_CURATED_CHOICES_URLS.js.forEach((url) => loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' }));
-  TRUCK_CONFIGURATOR_CURATED_CHOICES_URLS.css.forEach((url) => loadCSS(url));
 }
 
 if (getMetadata('truck-configurator-page')) {
