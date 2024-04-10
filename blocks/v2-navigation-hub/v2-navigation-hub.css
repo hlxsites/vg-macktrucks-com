@@ -119,7 +119,7 @@
   .v2-navigation-hub-wrapper {
     --navigation-hub-column-width: calc(50% + 80px);
     --navigation-hub-max-content-width: 510px;
-    --navigation-hub-card-padding: 40px 90px;
+    --navigation-hub-card-padding: 54px 90px;
   }
 
   .v2-navigation-hub {
@@ -154,7 +154,7 @@
   }
 
   .v2-navigation-hub__media-right {
-    --navigation-hub-card-padding: 40px 90px 40px 200px;
+    --navigation-hub-card-padding: 54px 90px 54px 200px;
   }
 
   .v2-navigation-hub__media-right .v2-navigation-hub__media-container {
