@@ -1,0 +1,48 @@
+{
+  "total": 8,
+  "offset": 0,
+  "limit": 8,
+  "data": [
+    {
+      "model": "anthem",
+      "pdp path": "/trucks/anthem/",
+      "configurator path": "/trucks/anthem/configurator/"
+    },
+    {
+      "model": "granite",
+      "pdp path": "/trucks/granite-series/",
+      "configurator path": "/trucks/granite-series/configurator/"
+    },
+    {
+      "model": "lr",
+      "pdp path": "/trucks/lr-series/",
+      "configurator path": "/trucks/lr-series/configurator/"
+    },
+    {
+      "model": "lr electric",
+      "pdp path": "/trucks/lr-electric/",
+      "configurator path": "/trucks/lr-electric/configurator/"
+    },
+    {
+      "model": "md series",
+      "pdp path": "/trucks/md/",
+      "configurator path": "/trucks/md/configurator/"
+    },
+    {
+      "model": "md electric",
+      "pdp path": "/trucks/md-electric/",
+      "configurator path": "/trucks/md-electric/configurator/"
+    },
+    {
+      "model": "pinnacle",
+      "pdp path": "/trucks/pinnacle-series/",
+      "configurator path": "/trucks/pinnacle-series/configurator/"
+    },
+    {
+      "model": "terrapro",
+      "pdp path": "/trucks/terrapro-series/",
+      "configurator path": "/trucks/terrapro-series/configurator/"
+    }
+  ],
+  ":type": "sheet"
+}
