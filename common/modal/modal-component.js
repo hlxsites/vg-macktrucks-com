@@ -6,6 +6,7 @@ import {
   handleVideoMessage,
   isAEMVideoUrl,
   isLowResolutionVideoUrl,
+  VideoEventManager,
 } from '../../scripts/video-helper.js';
 import { createElement } from '../../scripts/common.js';
 import {
@@ -13,6 +14,22 @@ import {
 } from '../../scripts/constants.js';
 
 const { videoIdRegex } = AEM_ASSETS;
+const videoEventManager = new VideoEventManager();
+function VideoComponent(videoId) {
+  this.videoId = videoId;
+  this.blockName = 'modal';
+
+  // Directly use the shared handleVideoMessage function when registering
+  videoEventManager.register(
+    this.videoId,
+    this.blockName,
+    (event) => handleVideoMessage(event, this.videoId, this.blockName),
+  );
+
+  this.unregister = function unregister() {
+    videoEventManager.unregister(this.videoId, this.blockName);
+  };
+}
 
 const styles$ = new Promise((r) => {
   loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
@@ -109,7 +126,9 @@ const createModal = () => {
         if (match) {
           [videoId] = match;
         }
-        window.addEventListener('message', (event) => handleVideoMessage(event, videoId, 'modal'));
+
+        // eslint-disable-next-line no-unused-vars
+        const myVideoComponent = new VideoComponent(videoId);
         videoOrIframe = createVideo(newContent, 'modal-video', {
           autoplay: 'any',
           disablePictureInPicture: true,
