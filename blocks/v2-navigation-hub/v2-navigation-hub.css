@@ -97,8 +97,9 @@
   align-items: flex-start;
 }
 
-.v2-navigation-hub__card-nav-list .icon {
-  stroke: currentcolor;
+.v2-navigation-hub__card-nav-list a:hover,
+.v2-navigation-hub__card-nav-list a:focus-visible {
+  --color-icon: currentcolor;
 }
 
 .v2-navigation-hub__card-nav-list .icon,
