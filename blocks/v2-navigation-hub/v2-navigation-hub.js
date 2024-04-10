@@ -21,6 +21,7 @@ export default function decorate(block) {
   // Card elements
   const cardContainer = block.querySelector(':scope > div:first-child');
   const cardContent = cardContainer.querySelector(':scope > div:first-child');
+  const cardButton = cardContent.querySelector(':scope .button-container a');
   const cardNavigation = cardContainer.querySelector(':scope > div:last-child');
   const cardNavTitle = cardNavigation.querySelector(':scope > :first-child');
   const cardNavList = cardNavigation.querySelector(':scope > ul');
@@ -35,6 +36,7 @@ export default function decorate(block) {
   blockWrapper.classList.add('full-width');
   cardContainer.className = `${blockNames.card} ${blockNames.column}`;
   cardContent.className = blockNames.cardContent;
+  cardButton.classList.add('button--large');
   cardNavigation.className = blockNames.cardNavigation;
   cardNavTitle.className = blockNames.cardNavTitle;
   cardNavList.className = blockNames.cardNavList;
