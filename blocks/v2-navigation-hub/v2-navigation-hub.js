@@ -3,6 +3,7 @@ import { unwrapDivs, variantsClassesToBEM } from '../../scripts/common.js';
 const blockName = 'v2-navigation-hub';
 const variantClasses = ['media-left', 'media-right', 'overlap'];
 const blockNames = {
+  column: `${blockName}__column`,
   card: `${blockName}__card-container`,
   cardContent: `${blockName}__card-content`,
   cardNavigation: `${blockName}__card-navigation`,
@@ -10,6 +11,8 @@ const blockNames = {
   cardNavList: `${blockName}__card-nav-list`,
   media: `${blockName}__media-container`,
   mediaRight: `${blockName}__media-right`,
+  mediaLeft: `${blockName}__media-left`,
+  mediaImage: `${blockName}__image`,
 };
 
 export default function decorate(block) {
@@ -24,18 +27,22 @@ export default function decorate(block) {
   const cardNavLinks = [...cardNavList.querySelectorAll('a')];
   // Media element
   const mediaContainer = block.querySelector(':scope > div:last-child');
-  // By default, media is on the left side
+  const mediaImage = mediaContainer.querySelector('img');
   const isMediaLeft = mediaContainer.firstElementChild.children.length > 0;
+  // By default, media is on the left side
+  const mediaPosition = isMediaLeft ? blockNames.mediaLeft : blockNames.mediaRight;
 
   blockWrapper.classList.add('full-width');
-  cardContainer.className = blockNames.card;
+  cardContainer.className = `${blockNames.card} ${blockNames.column}`;
   cardContent.className = blockNames.cardContent;
   cardNavigation.className = blockNames.cardNavigation;
   cardNavTitle.className = blockNames.cardNavTitle;
   cardNavList.className = blockNames.cardNavList;
   cardNavLinks.forEach((link) => { link.className = 'standalone-link'; });
-  mediaContainer.className = blockNames.media;
-  if (!isMediaLeft) mediaContainer.classList.add(blockNames.mediaRight);
+  mediaContainer.className = `${blockNames.media} ${blockNames.column}`;
+  mediaImage.className = blockNames.mediaImage;
+
+  block.classList.add(mediaPosition);
 
   unwrapDivs(mediaContainer);
 }
