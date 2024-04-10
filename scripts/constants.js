@@ -35,6 +35,7 @@ export const AEM_ASSETS = {
   aemCloudDomain: '.adobeaemcloud.com',
   videoURLRegex: /\/assets\/urn:aaid:aem:[\w-]+\/play/,
   videoIdRegex: /urn:aaid:aem:[0-9a-fA-F-]+/,
+};
 
 export const TRUCK_CONFIGURATOR_URLS = {
   js: [
