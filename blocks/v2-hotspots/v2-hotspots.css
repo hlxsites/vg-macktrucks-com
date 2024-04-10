@@ -41,6 +41,10 @@
   padding-top: 100px;
 }
 
+.v2-hotspots-container .hotspot .hotspot-content .hotspot-header {
+ color: var(--text-color);
+}
+
 .v2-hotspots-container .hotspot .hotspot-bg-img img {
   width: 100%;
   margin: 0 auto;
@@ -248,6 +252,7 @@
 @media (min-width: 1200px) {
   .v2-hotspots-wrapper {
     height: calc(100vh - var(--nav-height));
+    max-height: 800px;
   }
 
   .v2-hotspots-container .hotspot .hotspot-content .hotspot-header {
@@ -268,7 +273,7 @@
 
     position: absolute;
     z-index: 1;
-    top: calc(50% - calc((var(--feature-height) - var(--nav-height)) * 0.5));
+    top: calc(50% - calc((var(--feature-height)) * 0.5));
     right: 10%;
     width: 424px;
     transform: translateX(200%);
