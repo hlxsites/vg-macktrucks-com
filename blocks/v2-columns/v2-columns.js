@@ -42,6 +42,7 @@ export default async function decorate(block) {
       if (!isPretitle && !isButton && !isIconList) {
         bodyElmts.push(e);
       } else if (isIconList) {
+    
         iconList.append(e);
       }
     });
@@ -63,7 +64,10 @@ export default async function decorate(block) {
         btnSection.append(btn);
       });
       if (!picture) col.append(btnSection);
-      if (isIconListVariant) col.append(iconList);
+      if (isIconListVariant) {
+        iconList.querySelectorAll('a').forEach((e) => e.classList.add('standalone-link'));
+        col.append(iconList);
+      }
 
       if (hasHeader) {
         const defaultContent = blockParent.querySelector('.default-content-wrapper');
@@ -80,14 +84,6 @@ export default async function decorate(block) {
 
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
     headings.forEach((heading) => heading.classList.add(`${blockName}__heading`, 'h2'));
-
-    // icons
-    [...col.querySelectorAll('.icon')].forEach((icon) => {
-      const iconParentEl = icon.parentElement;
-      if (!isIconListVariant && iconParentEl.children.length === 1) {
-        iconParentEl.replaceWith(icon);
-      }
-    });
 
     const prevEl = headings[0]?.previousElementSibling;
     const pretitleText = prevEl && !prevEl.classList.contains('icon') && prevEl.textContent;

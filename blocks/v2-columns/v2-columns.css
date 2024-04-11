@@ -105,12 +105,6 @@
   margin: 28px 0 64px;
 }
 
-.v2-columns--icon-list .v2-columns--icons a svg {
-  margin-top: 6px;
-  height: 50%;
-  width: 50%;
-}
-
 .v2-columns--icon-list .v2-columns--icons ul {
   display: flex;
   flex-direction: column;
@@ -124,6 +118,12 @@
 
 .v2-columns--icon-list .v2-columns--icons a {
   padding: 5px 0 0 16px;
+}
+
+.v2-columns--icon-list .v2-columns--icons a svg {
+  margin-top: 6px;
+  height: 50%;
+  width: 50%;
 }
 
 @media (min-width: 744px) {
