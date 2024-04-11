@@ -42,7 +42,6 @@ export default async function decorate(block) {
       if (!isPretitle && !isButton && !isIconList) {
         bodyElmts.push(e);
       } else if (isIconList) {
-    
         iconList.append(e);
       }
     });
