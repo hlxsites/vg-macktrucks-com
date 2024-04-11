@@ -1,3 +1,6 @@
+// check if an active campaign is running or OneTrust needs scan the active scripts
+export const COOKIE_CHECK = false;
+
 // ONE TRUST COOKIE CONSENT
 export const DATA_DOMAIN_SCRIPT = 'bf50d0a6-e209-4fd4-ad2c-17da5f9e66a5';
 
@@ -29,6 +32,7 @@ export const FORM_MAGAZINE_SUBSCRIBE = {
 // videoURLRegex: verify if a given string follows a specific pattern indicating it is a video URL
 // videoIdRegex: extract the video ID from the URL
 export const AEM_ASSETS = {
+  aemCloudDomain: '.adobeaemcloud.com',
   videoURLRegex: /\/assets\/urn:aaid:aem:[\w-]+\/play/,
   videoIdRegex: /urn:aaid:aem:[0-9a-fA-F-]+/,
 };
