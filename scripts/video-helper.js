@@ -9,7 +9,7 @@ import {
   COOKIE_VALUES,
 } from './constants.js';
 
-const { videoURLRegex } = AEM_ASSETS;
+const { aemCloudDomain, videoURLRegex } = AEM_ASSETS;
 
 export const videoTypes = {
   aem: 'aem',
@@ -255,21 +255,55 @@ const formatDebugTime = (date) => {
 };
 
 export const handleVideoMessage = (event, videoId, blockName = 'video') => {
+  if (!event.origin.endsWith(aemCloudDomain)) return;
   if (event.data.type === 'embedded-video-player-event') {
     const timeStamp = formatDebugTime(new Date());
-    switch (event.data.name) {
-      case 'video-playing':
-      case 'video-play':
-      case 'video-ended':
-      case 'video-loadedmetadata':
-        logVideoEvent(event.data.name, event.data.videoId, timeStamp, blockName);
-        break;
-      default:
-        break;
+
+    logVideoEvent(event.data.name, event.data.videoId, timeStamp, blockName);
+
+    if (event.data.name === 'video-config' && event.data.videoId === videoId) {
+      // eslint-disable-next-line no-console
+      console.info('Sending video config:', getVideoConfig(videoId), timeStamp);
+      event.source.postMessage(JSON.stringify(getVideoConfig(videoId)), '*');
     }
-  } if (event.data.name === 'video-config' && event.data.videoId === videoId) {
-    // eslint-disable-next-line no-console
-    console.info('Sending video config:', getVideoConfig(videoId));
-    event.source.postMessage(JSON.stringify(getVideoConfig(videoId)), '*');
+
+    // TODO: handle events when needed in a block
+    // switch (event.data.name) {
+    //   case 'video-playing':
+    //   case 'video-play':
+    //   case 'video-ended':
+    //   case 'video-loadedmetadata':
+    //     logVideoEvent(event.data.name, event.data.videoId, timeStamp, blockName);
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 };
+
+class VideoEventManager {
+  constructor() {
+    this.registrations = [];
+    window.addEventListener('message', this.handleMessage.bind(this));
+  }
+
+  register(videoId, blockName, callback) {
+    this.registrations.push({ videoId, blockName, callback });
+  }
+
+  unregister(videoId, blockName) {
+    this.registrations = this.registrations.filter(
+      (reg) => reg.videoId !== videoId || reg.blockName !== blockName,
+    );
+  }
+
+  handleMessage(event) {
+    this.registrations.forEach(({ videoId, blockName, callback }) => {
+      if (event.data.type === 'embedded-video-player-event' && event.data.videoId === videoId) {
+        callback(event, videoId, blockName);
+      }
+    });
+  }
+}
+
+export { VideoEventManager };

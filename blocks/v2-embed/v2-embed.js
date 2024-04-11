@@ -2,12 +2,30 @@ import {
   addVideoConfig,
   createVideo,
   handleVideoMessage,
+  VideoEventManager,
 } from '../../scripts/video-helper.js';
 import {
   AEM_ASSETS,
 } from '../../scripts/constants.js';
 
 const blockName = 'v2-embed';
+const videoEventManager = new VideoEventManager();
+
+class VideoComponent {
+  constructor(videoId) {
+    this.videoId = videoId;
+
+    videoEventManager.register(
+      this.videoId,
+      blockName,
+      (event) => handleVideoMessage(event, this.videoId, blockName),
+    );
+  }
+
+  unregister() {
+    videoEventManager.unregister(this.videoId, blockName);
+  }
+}
 
 const extractAspectRatio = (block) => {
   const aspectRatioRegex = /aspect-ratio-(\d+)-(\d+)/;
@@ -83,11 +101,12 @@ export default function decorate(block) {
     title,
   };
 
-  const videoElement = createVideo(link, `${blockName}__frame`, videoProps, false, videoId);
-
   configureVideo(block, videoId);
 
-  window.addEventListener('message', (event) => handleVideoMessage(event, block.videoId, blockName));
+  // eslint-disable-next-line no-unused-vars
+  const embedVideoComponent = new VideoComponent(block.videoId);
+  const videoElement = createVideo(link, `${blockName}__frame`, videoProps, false, videoId);
+
   block.innerHTML = '';
   block.append(videoElement);
 }

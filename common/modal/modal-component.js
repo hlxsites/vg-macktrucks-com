@@ -6,13 +6,30 @@ import {
   handleVideoMessage,
   isAEMVideoUrl,
   isLowResolutionVideoUrl,
+  VideoEventManager,
 } from '../../scripts/video-helper.js';
 import { createElement } from '../../scripts/common.js';
-import {
-  AEM_ASSETS,
-} from '../../scripts/constants.js';
+import { AEM_ASSETS } from '../../scripts/constants.js';
 
 const { videoIdRegex } = AEM_ASSETS;
+const videoEventManager = new VideoEventManager();
+
+class VideoComponent {
+  constructor(videoId) {
+    this.videoId = videoId;
+    this.blockName = 'modal';
+
+    videoEventManager.register(
+      this.videoId,
+      this.blockName,
+      (event) => handleVideoMessage(event, this.videoId, this.blockName),
+    );
+  }
+
+  unregister() {
+    videoEventManager.unregister(this.videoId, this.blockName);
+  }
+}
 
 const styles$ = new Promise((r) => {
   loadCSS(`${window.hlx.codeBasePath}/common/modal/modal-component.css`, r);
@@ -64,16 +81,16 @@ const createModal = () => {
   async function showModal(newContent, { beforeBanner, beforeIframe, classes = [] } = {}) {
     await styles$;
     await new Promise((resolve) => {
-      // beacues the styels$ is based on the on load event it's waiting for the file to be loaded
+      // because the styles$ is based on the on load event it's waiting for the file to be loaded
       // but it is not waiting for the style to be applied
       // (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#stylesheet_load_events)
       // here were check if the styles are already applied by checking the calculated styles
       // for one of the element
-      const inverval = setInterval(() => {
+      const interval = setInterval(() => {
         const modalBackgroundStyles = window.getComputedStyle(modalBackground);
         // the position should be set to 'fixed' by modal css file
         if (modalBackgroundStyles.getPropertyValue('position') === 'fixed') {
-          clearInterval(inverval);
+          clearInterval(interval);
           resolve();
         }
       }, 100);
@@ -109,6 +126,9 @@ const createModal = () => {
         if (match) {
           [videoId] = match;
         }
+
+        // eslint-disable-next-line no-unused-vars
+        const modalVideoComponent = new VideoComponent(videoId);
         videoOrIframe = createVideo(newContent, 'modal-video', {
           autoplay: 'any',
           disablePictureInPicture: true,
@@ -116,9 +136,9 @@ const createModal = () => {
           muted: false,
           playsinline: true,
           title: 'video',
+          language: document.documentElement.lang,
         }, false, videoId);
         modalContent.append(videoOrIframe);
-        window.addEventListener('message', (event) => handleVideoMessage(event, videoId, 'modal'));
       } else {
         // otherwise load it as iframe
         videoOrIframe = createIframe(newContent, { parentEl: modalContent, classes: 'modal-video' });
