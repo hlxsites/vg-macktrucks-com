@@ -42,7 +42,6 @@ export default async function decorate(block) {
       if (!isPretitle && !isButton && !isIconList) {
         bodyElmts.push(e);
       } else if (isIconList) {
-        e.querySelectorAll('a').forEach((anchor) => anchor.classList.add('standalone-link'));
         iconList.append(e);
       }
     });
@@ -85,7 +84,7 @@ export default async function decorate(block) {
     // icons
     [...col.querySelectorAll('.icon')].forEach((icon) => {
       const iconParentEl = icon.parentElement;
-      if (iconParentEl.children.length === 1) {
+      if (!isIconListVariant && iconParentEl.children.length === 1) {
         iconParentEl.replaceWith(icon);
       }
     });
