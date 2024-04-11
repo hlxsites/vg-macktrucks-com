@@ -2777,16 +2777,18 @@ $.fn.handleLocationError = function (browserHasGeolocation, infoWindow, pos) {
 };
 
 $.fn.camelCase = function (str) {
+  if (!str || (str.length === 0)) return;
   return str.toLowerCase().replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 };
 
 $.fn.formatPhoneNumber = function (str) {
+  if (!str || (str.length === 0)) return;
   return str.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 };
 
 $.fn.formatWebAddress = function (str) {
   var prefixes = 'http';
-  if (str.length === 0) return;
+  if (!str || (str.length === 0)) return;
   if (str.substr(0, prefixes.length).toLowerCase() === prefixes) {
     return str.toLowerCase();
   }
