@@ -105,6 +105,11 @@
   margin: 28px 0 64px;
 }
 
+.v2-columns--icon-list .button-container {
+  width: 50%;
+  max-width: 160px;
+}
+
 .v2-columns--icon-list .v2-columns--icons ul {
   display: flex;
   flex-direction: column;
@@ -212,6 +217,7 @@
   }
 
   .redesign-v2 .v2-columns-container--with-background-image .v2-columns--icon-list .v2-columns__column--with-text {
+    top: calc(50% * 0.125);
     padding: 64px 90px;
   }
 
@@ -231,5 +237,9 @@
 
   .redesign-v2 .section--with-background.v2-columns-container--with-background-image > picture img {
     aspect-ratio: 12 / 7;
+  }
+
+  .redesign-v2 .v2-columns-container--with-background-image .v2-columns--icon-list .v2-columns__column--with-text {
+    top: calc(40% * 0.125);
   }
 }
