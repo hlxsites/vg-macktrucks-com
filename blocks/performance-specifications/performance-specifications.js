@@ -2,6 +2,7 @@ import {
   a, button, div, domEl, p,
 } from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
+import { getTextLabel } from '../../scripts/common.js';
 
 /**
  * as multiple blocks might be on the same page, the data is accessed using they block node as the
@@ -152,6 +153,9 @@ function renderCategoryDetail(block, categoryData, selectEngineId = null) {
 }
 
 function renderEngineSpecs(engineDetails) {
+  const downloadSpecs = engineDetails.facts.filter((fact) => fact[0] === 'download specs')[0]?.[1] || null;
+  // remove download specs from facts
+  engineDetails.facts = engineDetails.facts.filter((fact) => fact[0] !== 'download specs');
   // noinspection JSCheckFunctionSignatures
   return div({ class: 'key-specs' },
     domEl('dl', {}, ...engineDetails.facts.map((cells) => [
@@ -160,7 +164,11 @@ function renderEngineSpecs(engineDetails) {
     ])
       .flat()),
     p({ class: 'button-container' },
-      a({ class: 'button secondary download-specs', href: engineDetails['learn more'], target: '_blank' }, 'Learn More')),
+      a({
+        class: 'button secondary download-specs',
+        href: downloadSpecs,
+        target: '_blank',
+      }, getTextLabel('Download Specs'))),
   );
 }
 
@@ -285,7 +293,6 @@ async function updateChart(chartContainer, performanceData) {
     series: getEchartsSeries(1300, 1700),
     // Global palette:
     color: [
-      '#ffffff',
       '#b3976b',
       '#275fa6',
     ],
