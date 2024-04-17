@@ -1,14 +1,25 @@
 import { createElement, variantsClassesToBEM } from '../../scripts/common.js';
 
+const blockName = 'v2-columns';
+
+const getLastTextElmts = (block) => {
+  const allTexts = block.querySelectorAll('p');
+  const linksTitle = allTexts[allTexts.length - 1];
+  linksTitle.classList.add('list-title');
+  return linksTitle;
+}
+
 export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
-  const blockName = 'v2-columns';
 
-  const variantClasses = ['with-background-image', 'background-plane', 'icon-list'];
+  const variantClasses = ['with-background-image', 'background-plane', 'icon-list', '3-links'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
   const isIconListVariant = block.classList.contains(`${blockName}--icon-list`);
+  const is3LinksVariant = block.classList.contains(`${blockName}--3-links`);
+  
+  const isListVariant = isIconListVariant || is3LinksVariant;
   const hasHeader = blockParent.classList.contains('header-with-mark');
 
   const rows = [...block.querySelectorAll(':scope > div')];
@@ -24,7 +35,8 @@ export default async function decorate(block) {
     const picture = col.querySelector('picture');
     const allTextElmts = col.querySelectorAll('p, ul, ol');
     const bodyElmts = [];
-    const iconList = createElement('div', { classes: `${blockName}--icons` });
+
+    const linkList = createElement('div', { classes: `${blockName}--links` });
 
     if (picture) {
       col.classList.add(`${blockName}__column--with-image`);
@@ -37,15 +49,18 @@ export default async function decorate(block) {
 
       const isButton = [...e.classList].includes('button-container');
       const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
-      const isIconList = isIconListVariant && (e.tagName.toLowerCase() === 'ul' || e.tagName.toLowerCase() === 'ol');
+      const hasLinkList = isListVariant && (e.tagName.toLowerCase() === 'ul' || e.tagName.toLowerCase() === 'ol');
 
-      if (!isPretitle && !isButton && !isIconList) {
+      if (!isPretitle && !isButton && !hasLinkList) {
         bodyElmts.push(e);
-      } else if (isIconList) {
-        iconList.append(e);
+      } else if (hasLinkList) {
+        if (is3LinksVariant) linkList.append(getLastTextElmts(col));
+        linkList.append(e);
       }
     });
-    bodyElmts.forEach((e) => e.classList.add(`${blockName}__body`));
+    bodyElmts.forEach((e) => {
+      if (!e.classList.contains('list-title')) e.classList.add(`${blockName}__body`);
+    });
 
     block.querySelectorAll(`ul.${blockName}__body li`).forEach((item) => {
       item.classList.add('li--hyphen');
@@ -63,9 +78,9 @@ export default async function decorate(block) {
         btnSection.append(btn);
       });
       if (!picture) col.append(btnSection);
-      if (isIconListVariant) {
-        iconList.querySelectorAll('a').forEach((e) => e.classList.add('standalone-link'));
-        col.append(iconList);
+      if (isListVariant) {
+        linkList.querySelectorAll('a').forEach((e) => e.classList.add('standalone-link'));
+        col.append(linkList);
       }
 
       if (hasHeader) {
