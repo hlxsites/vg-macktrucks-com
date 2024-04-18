@@ -7,7 +7,7 @@ const getLastTextElmts = (block) => {
   const linksTitle = allTexts[allTexts.length - 1];
   linksTitle.classList.add('list-title');
   return linksTitle;
-}
+};
 
 export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
@@ -18,7 +18,6 @@ export default async function decorate(block) {
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
   const isIconListVariant = block.classList.contains(`${blockName}--icon-list`);
   const is3LinksVariant = block.classList.contains(`${blockName}--3-links`);
-  
   const isListVariant = isIconListVariant || is3LinksVariant;
   const hasHeader = blockParent.classList.contains('header-with-mark');
 
@@ -35,8 +34,6 @@ export default async function decorate(block) {
     const picture = col.querySelector('picture');
     const allTextElmts = col.querySelectorAll('p, ul, ol');
     const bodyElmts = [];
-    const iconList = createElement('div', { classes: `${blockName}--icons` });
-
     const linkList = createElement('div', { classes: `${blockName}--links` });
 
     if (picture) {

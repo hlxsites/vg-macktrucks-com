@@ -138,6 +138,7 @@
 }
 
 .v2-columns--3-links .v2-columns--links li,
+.v2-columns--icon-list .v2-columns--links li {
   display: flex;
   align-items: center;
 }
@@ -270,10 +271,6 @@
   .v2-columns.v2-columns--with-background-image .button-container a.button,
   .v2-columns.v2-columns--with-background-image .button-container a.button:not(a.button:first-of-type) {
     max-width: 140px;
-  }
-
-  .redesign-v2 .v2-columns-container--with-background-image .v2-columns--icon-list .v2-columns__column--with-text {
-    padding: 64px 90px;
   }
 
   .v2-columns.v2-columns--3-links .v2-columns__column--with-text .v2-columns__heading,
