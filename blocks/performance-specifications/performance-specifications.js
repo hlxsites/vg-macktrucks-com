@@ -18,6 +18,8 @@ const engineData = new Map();
  * @property {Object<string, Object<number, number>>} performanceData
  */
 
+const MQ = window.matchMedia('(min-width: 768px)');
+
 export default async function decorate(block) {
   engineData.set(block, {});
 
@@ -124,13 +126,7 @@ function renderCategoryDetail(block, categoryData, selectEngineId = null) {
   handleKeyboardNavigation(tabList);
 
   Object.keys(categoryData.engines).forEach((engineId, index) => {
-    let isSelected;
-    if (selectEngineId) {
-      isSelected = engineId === selectEngineId;
-    } else {
-      isSelected = index === 0;
-    }
-
+    const isSelected = selectEngineId ? engineId === selectEngineId : index === 0;
     const engineButton = button({ role: 'tab', 'aria-selected': isSelected }, engineId);
 
     engineButton.addEventListener('click', () => {
@@ -165,7 +161,7 @@ function renderEngineSpecs(engineDetails) {
       .flat()),
     p({ class: 'button-container' },
       a({
-        class: 'button secondary download-specs',
+        class: 'button button--primary download-specs',
         href: downloadSpecs,
         target: '_blank',
       }, getTextLabel('Download Specs'))),
@@ -280,7 +276,6 @@ async function updateChart(chartContainer, performanceData) {
     legend: {
       icon: 'circle',
       top: 'top',
-      right: 0,
       fontFamily: 'Helvetica Neue LT Pro 55 Roman',
       itemHeight: 25,
       itemGap: 10,
@@ -372,6 +367,8 @@ async function updateChart(chartContainer, performanceData) {
     animation: true,
     animationDuration: 400,
   };
+  option.legend.left = MQ.matches ? 'auto' : '0';
+  option.legend.right = MQ.matches ? '0' : 'auto';
   myChart.setOption(option, {
     // https://github.com/apache/echarts/issues/6202
     notMerge: true,
