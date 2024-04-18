@@ -35,6 +35,7 @@ export default async function decorate(block) {
     const picture = col.querySelector('picture');
     const allTextElmts = col.querySelectorAll('p, ul, ol');
     const bodyElmts = [];
+    const iconList = createElement('div', { classes: `${blockName}--icons` });
 
     const linkList = createElement('div', { classes: `${blockName}--links` });
 

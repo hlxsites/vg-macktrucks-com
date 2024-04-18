@@ -138,7 +138,6 @@
 }
 
 .v2-columns--3-links .v2-columns--links li,
-.v2-columns--icon-list .v2-columns--links li {
   display: flex;
   align-items: center;
 }
