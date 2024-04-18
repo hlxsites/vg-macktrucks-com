@@ -4,10 +4,11 @@ export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
   const blockName = 'v2-columns';
 
-  const variantClasses = ['with-background-image', 'background-plane'];
+  const variantClasses = ['with-background-image', 'background-plane', 'icon-list'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
+  const isIconListVariant = block.classList.contains(`${blockName}--icon-list`);
   const hasHeader = blockParent.classList.contains('header-with-mark');
 
   const rows = [...block.querySelectorAll(':scope > div')];
@@ -23,6 +24,7 @@ export default async function decorate(block) {
     const picture = col.querySelector('picture');
     const allTextElmts = col.querySelectorAll('p, ul, ol');
     const bodyElmts = [];
+    const iconList = createElement('div', { classes: `${blockName}--icons` });
 
     if (picture) {
       col.classList.add(`${blockName}__column--with-image`);
@@ -35,8 +37,13 @@ export default async function decorate(block) {
 
       const isButton = [...e.classList].includes('button-container');
       const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
+      const isIconList = isIconListVariant && (e.tagName.toLowerCase() === 'ul' || e.tagName.toLowerCase() === 'ol');
 
-      if (!isPretitle && !isButton) bodyElmts.push(e);
+      if (!isPretitle && !isButton && !isIconList) {
+        bodyElmts.push(e);
+      } else if (isIconList) {
+        iconList.append(e);
+      }
     });
     bodyElmts.forEach((e) => e.classList.add(`${blockName}__body`));
 
@@ -56,6 +63,10 @@ export default async function decorate(block) {
         btnSection.append(btn);
       });
       if (!picture) col.append(btnSection);
+      if (isIconListVariant) {
+        iconList.querySelectorAll('a').forEach((e) => e.classList.add('standalone-link'));
+        col.append(iconList);
+      }
 
       if (hasHeader) {
         const defaultContent = blockParent.querySelector('.default-content-wrapper');
@@ -72,14 +83,6 @@ export default async function decorate(block) {
 
     const headings = [...col.querySelectorAll('h1, h2, h3, h4, h5, h6')];
     headings.forEach((heading) => heading.classList.add(`${blockName}__heading`, 'h2'));
-
-    // icons
-    [...col.querySelectorAll('.icon')].forEach((icon) => {
-      const iconParentEl = icon.parentElement;
-      if (iconParentEl.children.length === 1) {
-        iconParentEl.replaceWith(icon);
-      }
-    });
 
     const prevEl = headings[0]?.previousElementSibling;
     const pretitleText = prevEl && !prevEl.classList.contains('icon') && prevEl.textContent;
