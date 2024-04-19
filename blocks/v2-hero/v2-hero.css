@@ -28,10 +28,14 @@
   padding: 0 16px var(--section-padding-bottom);
 }
 
-[data-page='pdp'] .v2-hero__content-wrapper,
-.v2-hero--no-image .v2-hero__content-wrapper {
+[data-page='pdp'] .v2-hero__content-wrapper {
   padding: 0;
 }
+
+.v2-hero--no-image .v2-hero__content-wrapper {
+  padding: 40px 16px;
+}
+
 
 .v2-hero__content {
   color: var(--text-color);
@@ -40,6 +44,42 @@
   gap: 24px;
   max-width: var(--wrapper-width);
   width: 100%;
+}
+
+.v2-hero.v2-hero--half-height,
+.section.text-black .v2-hero.v2-hero--half-height {
+  --text-color: var(--c-primary-black);
+}
+
+.section.text-white .v2-hero.v2-hero--half-height {
+  --text-color: var(--c-primary-white);
+}
+
+.v2-hero.v2-hero--half-height {
+  height: unset;
+}
+
+.v2-hero--half-height .v2-hero__image {
+  position: unset;
+  display: block;
+  height: calc(100vw * 0.7);
+}
+
+.section.text-white .v2-hero--half-height .v2-hero__content-wrapper {
+  background-color: var(--c-primary-black);
+}
+
+.v2-hero--half-height .v2-hero__content-wrapper {
+  background-color: var(--c-tertiary-light-warm-gray);
+  padding: 40px 16px;
+}
+
+.v2-hero--half-height .v2-hero__heading {
+  font-size: var(--headline-2-font-size);
+}
+
+.v2-hero--half-height .button-container {
+  margin: 0;
 }
 
 .v2-hero-container:not([data-page='pdp']) .v2-hero__content * {
@@ -81,6 +121,29 @@
 @media (min-width: 1200px) {
   .v2-hero__content {
     margin: 0 auto;
+  }
+
+  .v2-hero.v2-hero--half-height {
+    height: unset;
+  }
+  
+  .v2-hero--half-height .v2-hero__image {
+    position: absolute;
+    top: -50%;
+  }
+
+  .section.text-white .v2-hero--half-height .v2-hero__content-wrapper,
+  .v2-hero--half-height .v2-hero__content-wrapper {
+    background-color: unset;
+    padding: 80px 16px;
+  }
+
+  .v2-hero--half-height .v2-hero__heading {
+    text-wrap: balance;
+  }
+
+  .v2-hero--half-height .button-container {
+    margin: 0;
   }
 }
 
@@ -282,11 +345,11 @@
   --text-color: var(--c-primary-black);
 }
 
-.v2-hero--dark .v2-hero__content-wrapper {
+.v2-hero--dark:not(.v2-hero--half-height) .v2-hero__content-wrapper {
   background: linear-gradient(180deg, transparent 56.46%, rgba(0 0 0 / 50%) 100%);
 }
 
-.v2-hero--light .v2-hero__content-wrapper {
+.v2-hero--light:not(.v2-hero--half-height) .v2-hero__content-wrapper {
   background: linear-gradient(180deg, transparent 56.46%, rgba(255 255 255 / 50%) 100%);
 }
 
@@ -318,8 +381,8 @@
     padding-left: 0;
   }
 
-  .v2-hero-wrapper:last-child .v2-hero--no-image {
-    padding-bottom: 40px;
+  .v2-hero--no-image .v2-hero__content-wrapper {
+    padding: 50px 16px;
   }
 }
 

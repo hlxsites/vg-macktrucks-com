@@ -450,7 +450,7 @@ main .block.line-separator {
 
 /* less padding in sections */
 main .section.padding-0 {
-  padding: 0 16px;
+  padding: 0;
 }
 
 main .section.padding-16 {
@@ -463,7 +463,7 @@ main .section.padding-32 {
 
 @media (min-width: 600px) {
   main .section.padding-0 {
-    padding: 0 32px;
+    padding: 0;
   }
 
   main .section.padding-16 {
