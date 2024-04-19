@@ -12,14 +12,14 @@ const getLastTextElmts = (block) => {
 export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
 
-  const variantClasses = ['with-background-image', 'background-plane', 'icon-list', '3-links'];
+  const variantClasses = ['with-background-image', 'background-plane', 'icon-list', 'navigation-links'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
   const isIconListVariant = block.classList.contains(`${blockName}--icon-list`);
-  const is3LinksVariant = block.classList.contains(`${blockName}--3-links`);
+  const is3LinksVariant = block.classList.contains(`${blockName}--navigation-links`);
   const isListVariant = isIconListVariant || is3LinksVariant;
-  const hasHeader = blockParent.classList.contains('header-with-mark');
+  const hasHeader = blockParent.classList.contains('header-with-mark') || blockParent.classList.contains('header-no-mark');
 
   const rows = [...block.querySelectorAll(':scope > div')];
   const columns = [...block.querySelectorAll(':scope > div > div')];
@@ -49,11 +49,11 @@ export default async function decorate(block) {
       const isPretitle = nextElmt?.tagName.toLowerCase()[0] === 'h';
       const hasLinkList = isListVariant && (e.tagName.toLowerCase() === 'ul' || e.tagName.toLowerCase() === 'ol');
 
-      if (!isPretitle && !isButton && !hasLinkList) {
-        bodyElmts.push(e);
-      } else if (hasLinkList) {
+      if (hasLinkList) {
         if (is3LinksVariant) linkList.append(getLastTextElmts(col));
         linkList.append(e);
+      } else if (!isPretitle && !isButton) {
+        bodyElmts.push(e);
       }
     });
     bodyElmts.forEach((e) => {
@@ -84,7 +84,7 @@ export default async function decorate(block) {
       if (hasHeader) {
         const defaultContent = blockParent.querySelector('.default-content-wrapper');
         const header = [...defaultContent.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-        header[0].classList.add(`${blockName}__body-header`, 'with-marker');
+        header[0].classList.add(`${blockName}__body-header`, (!blockParent.classList.contains('header-no-mark') && 'with-marker'));
         bodyElmts[0].insertAdjacentElement('beforebegin', header[0]);
         defaultContent.remove();
       }
