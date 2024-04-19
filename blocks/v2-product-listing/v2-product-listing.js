@@ -25,47 +25,46 @@ function getActiveFilterButton() {
   });
 }
 
+function getPictures(imageWrapper) {
+  const pictures = [...imageWrapper.querySelectorAll('picture')];
+  const imageURLs = getImageURLs(pictures);
+  const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
+
+  if (imageData.length === 2) {
+    imageData[0].breakpoints = [
+      { media: '(min-width: 600px)', width: 600 },
+      { media: '(min-width: 1200px)', width: 1200 },
+      { media: '(min-width: 1440px)', width: 1440 },
+      { width: 750 },
+    ];
+  }
+
+  if (imageData.length > 2) {
+    imageData[0].breakpoints = [
+      { media: '(min-width: 600px)', width: 600 },
+      { width: 750 },
+    ];
+
+    imageData[1].breakpoints = [
+      { media: '(min-width: 1200px)', width: 1200 },
+      { media: '(min-width: 1440px)', width: 1440 },
+    ];
+  }
+  const newPicture = createResponsivePicture(imageData, true, 'small image', `${blockName}__image`);
+  return [newPicture, pictures[pictures.length - 1]];
+}
+
 function buildProductImageDom(block) {
   const productImageWrapper = block.querySelectorAll(`.${blockName}__product > div:first-child`);
-
   productImageWrapper.forEach((imageWrapper) => {
     imageWrapper.classList.add(`${blockName}__product-image`);
-    const pictures = imageWrapper.querySelectorAll('picture');
+    const pictures = getPictures(imageWrapper);
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
     link.classList.remove('button', 'button--primary');
+
     link.append(...pictures);
-
-    const images = [...link.querySelectorAll('picture')];
-    const imageURLs = getImageURLs(images);
-    const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
-
-    if (imageData.length === 2) {
-      imageData[0].breakpoints = [
-        { media: '(min-width: 600px)', width: 600 },
-        { media: '(min-width: 1200px)', width: 1200 },
-        { media: '(min-width: 1440px)', width: 1440 },
-        { width: 750 },
-      ];
-      images[0].remove();
-    }
-
-    if (imageData.length > 2) {
-      imageData[0].breakpoints = [
-        { media: '(min-width: 600px)', width: 600 },
-        { width: 750 },
-      ];
-
-      imageData[1].breakpoints = [
-        { media: '(min-width: 1200px)', width: 1200 },
-        { media: '(min-width: 1440px)', width: 1440 },
-      ];
-      images[0].remove();
-      images[1].remove();
-    }
-    const newPicture = createResponsivePicture(imageData, true, 'small image', `${blockName}__image`);
-    link.prepend(newPicture);
     imageWrapper.innerHTML = '';
     imageWrapper.append(link);
   });
