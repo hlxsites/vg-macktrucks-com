@@ -108,18 +108,19 @@
 
 .details-panel .loading-spinner {
   pointer-events: none;
-  width: 2.5em;
-  height: 2.5em;
-  border: 0.4em solid #eee;
-  border-top-color: #3e67ec;
+  width: 2em;
+  height: 2em;
+  border: 0.2em solid var(--button-secondary-gold-hover);
+  border-top-color: var(--c-primary-gold);
+  border-left-color: var(--c-primary-gold);
   border-radius: 50%;
-  animation: loadingspin 1s linear infinite;
+  animation: loading-spin 3s linear infinite;
   position: relative;
   top: 50%;
   left: 50%;
 }
 
-@keyframes loadingspin {
+@keyframes loading-spin {
   100% {
     transform: rotate(360deg);
   }
