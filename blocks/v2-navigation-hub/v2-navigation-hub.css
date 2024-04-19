@@ -145,6 +145,7 @@
 
   .v2-navigation-hub__media-container {
     background-color: unset;
+    width: 50%;
     max-height: calc(100% - 100px);
     position: absolute;
     overflow: hidden;
