@@ -25,7 +25,7 @@ function getActiveFilterButton() {
   });
 }
 
-function getPictures(imageWrapper) {
+function getPictures(imageWrapper, isDotsVariant) {
   const pictures = [...imageWrapper.querySelectorAll('picture')];
   const imageURLs = getImageURLs(pictures);
   const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
@@ -51,32 +51,39 @@ function getPictures(imageWrapper) {
     ];
   }
   const newPicture = createResponsivePicture(imageData, true, 'small image', `${blockName}__image`);
+
+  if (isDotsVariant) {
+    return [newPicture];
+  }
+
   return [newPicture, pictures[pictures.length - 1]];
 }
 
-function buildProductImageDom(block) {
-  const productImageWrapper = block.querySelectorAll(`.${blockName}__product > div:first-child`);
+function buildProductImageDom(prodEle, isDotsVariant) {
+  const productImageWrapper = prodEle.querySelectorAll(`.${blockName}__product > div:first-child`);
+
   productImageWrapper.forEach((imageWrapper) => {
     imageWrapper.classList.add(`${blockName}__product-image`);
-    const pictures = getPictures(imageWrapper);
+    const pictures = getPictures(imageWrapper, isDotsVariant);
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
     link.classList.remove('button', 'button--primary');
-
     link.append(...pictures);
     imageWrapper.innerHTML = '';
     imageWrapper.append(link);
   });
 }
 
-function buildProductInfoDom(block) {
-  const productInfoWrapper = block.querySelectorAll(`.${blockName}__product> div:last-child`);
+function buildProductInfoDom(prodEle) {
+  const productInfoWrapper = prodEle.querySelectorAll(`.${blockName}__product> div:last-child`);
   productInfoWrapper.forEach((info) => {
     info.classList.add(`${blockName}__product-info`);
-    const secondaryButton = info.querySelector('.button-container:last-of-type a');
-    secondaryButton?.classList.remove('button--primary');
-    secondaryButton?.classList.add('button--secondary');
+    if (info.querySelectorAll('.button-container').length > 1) {
+      const secondaryButton = info.querySelector('.button-container:last-of-type a');
+      secondaryButton?.classList.remove('button--primary');
+      secondaryButton?.classList.add('button--secondary');
+    }
 
     const primaryButton = info.querySelector('.button--primary');
     primaryButton?.addEventListener('mouseover', () => {
@@ -192,14 +199,15 @@ function handleListeners(dropdownWrapper) {
 }
 
 export default function decorate(block) {
-  const variantClasses = ['with-filter'];
+  const variantClasses = ['with-filter', 'with-dots'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
+  const isDotsVariant = block.classList.contains(`${blockName}--with-dots`);
 
   const productElement = block.querySelectorAll(`.${blockName} > div`);
-  productElement.forEach((div) => {
-    div.classList.add(`${blockName}__product`);
-    buildProductImageDom(block);
-    buildProductInfoDom(block);
+  productElement.forEach((prodEle) => {
+    prodEle.classList.add(`${blockName}__product`);
+    buildProductImageDom(prodEle, isDotsVariant);
+    buildProductInfoDom(prodEle);
   });
 
   const productsWrapper = document.querySelector(`.${blockName}-wrapper`);
