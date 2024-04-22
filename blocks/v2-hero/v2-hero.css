@@ -84,7 +84,13 @@
 
 /* Half height variant */
 .v2-hero.v2-hero--half-height {
+  max-width: var(--section-max-width);
+  margin: 0 auto;
   height: unset;
+}
+
+.v2-hero.v2-hero--half-height .v2-hero__content {
+  margin: 0 auto;
 }
 
 .v2-hero.v2-hero--half-height,
@@ -99,7 +105,7 @@
 .v2-hero--half-height .v2-hero__image {
   position: unset;
   display: block;
-  height: calc(100vw * 0.7);
+  aspect-ratio: 16/9;
 }
 
 .v2-hero--half-height .v2-hero__content-wrapper {
@@ -131,6 +137,7 @@
   .v2-hero--half-height .v2-hero__image {
     position: absolute;
     top: -50%;
+    height: auto;
   }
 
   .v2-hero--half-height .v2-hero__content-wrapper,
@@ -162,6 +169,7 @@
   }
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 [data-page='pdp'] .v2-hero__content {
   flex-direction: row;
   height: 68px;
