@@ -25,7 +25,7 @@ function getActiveFilterButton() {
   });
 }
 
-function getPictures(imageWrapper, isDotsVariant) {
+function getPictures(imageWrapper) {
   const pictures = [...imageWrapper.querySelectorAll('picture')];
   const imageURLs = getImageURLs(pictures);
   const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
@@ -52,19 +52,15 @@ function getPictures(imageWrapper, isDotsVariant) {
   }
   const newPicture = createResponsivePicture(imageData, true, 'small image', `${blockName}__image`);
 
-  if (isDotsVariant) {
-    return [newPicture];
-  }
-
   return [newPicture, pictures[pictures.length - 1]];
 }
 
-function buildProductImageDom(prodEle, isDotsVariant) {
+function buildProductImageDom(prodEle) {
   const productImageWrapper = prodEle.querySelectorAll(`.${blockName}__product > div:first-child`);
 
   productImageWrapper.forEach((imageWrapper) => {
     imageWrapper.classList.add(`${blockName}__product-image`);
-    const pictures = getPictures(imageWrapper, isDotsVariant);
+    const pictures = getPictures(imageWrapper);
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
@@ -201,12 +197,11 @@ function handleListeners(dropdownWrapper) {
 export default function decorate(block) {
   const variantClasses = ['with-filter', 'with-dots'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
-  const isDotsVariant = block.classList.contains(`${blockName}--with-dots`);
 
   const productElement = block.querySelectorAll(`.${blockName} > div`);
   productElement.forEach((prodEle) => {
     prodEle.classList.add(`${blockName}__product`);
-    buildProductImageDom(prodEle, isDotsVariant);
+    buildProductImageDom(prodEle);
     buildProductInfoDom(prodEle);
   });
 
@@ -215,12 +210,11 @@ export default function decorate(block) {
   // Add product name to product element class list
   getProductName();
 
-  // Create menu buttons from product segments
-  const segmentList = document.querySelectorAll(`.${blockName}__product > div > ul`);
-  const allSegmentNames = [getTextLabel('All Products')];
-  buildSegments(segmentList, allSegmentNames);
-
   if (block.classList.contains(`${blockName}--with-filter`)) {
+    // Create menu buttons from product segments
+    const segmentList = document.querySelectorAll(`.${blockName}__product > div > ul`);
+    const allSegmentNames = [getTextLabel('All Products')];
+    buildSegments(segmentList, allSegmentNames);
     const dropdownWrapper = buildFilter(allSegmentNames);
     block.prepend(dropdownWrapper);
 
