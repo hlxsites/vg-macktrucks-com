@@ -275,12 +275,17 @@ async function updateChart(chartContainer, performanceData) {
   const option = {
     legend: {
       icon: 'circle',
+      fontFamily: 'Helvetica Neue LT Pro 75 Bold',
       top: 'top',
-      fontFamily: 'Helvetica Neue LT Pro 55 Roman',
+      left: MQ.matches ? 'auto' : '0',
+      right: MQ.matches ? '0' : 'auto',
       itemHeight: 25,
-      itemGap: 10,
+      itemGap: MQ.matches ? 50 : 10,
       textStyle: {
+        letterSpacing: 1.5,
         fontSize: 15,
+        lineHeight: 16,
+        fontWeight: 700,
         color: '#ffffff',
       },
     },
@@ -289,7 +294,7 @@ async function updateChart(chartContainer, performanceData) {
     // Global palette:
     color: [
       '#b3976b',
-      '#275fa6',
+      '#ffffff',
     ],
     backgroundColor: '#1d1d1d',
 
@@ -367,8 +372,7 @@ async function updateChart(chartContainer, performanceData) {
     animation: true,
     animationDuration: 400,
   };
-  option.legend.left = MQ.matches ? 'auto' : '0';
-  option.legend.right = MQ.matches ? '0' : 'auto';
+
   myChart.setOption(option, {
     // https://github.com/apache/echarts/issues/6202
     notMerge: true,

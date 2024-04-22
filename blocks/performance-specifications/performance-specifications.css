@@ -81,6 +81,7 @@
 .performance-specifications .details-panel {
   display: grid;
   grid-template-columns: var(--specs-grid-template-columns);
+  font-family: var(--ff-body-bold);
 }
 
 .performance-specifications .details-panel dl dt {
