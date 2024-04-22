@@ -239,19 +239,6 @@
     position: relative;
   }
 
-  .v2-product-listing::before {
-    content: '';
-    height: 1px;
-    width: 100%;
-    max-width: 1440px;
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--c-secondary-silver);
-  }
-
-
   .v2-product-listing__product {
     height: 400px;
     display: flex;
