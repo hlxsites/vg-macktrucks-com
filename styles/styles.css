@@ -1086,6 +1086,7 @@ main .section.responsive-title h1 {
 
   color: var(--text-color);
   background-color: var(--section-background);
+  z-index: 1;
 }
 
 .redesign-v2 .section--black-background,
