@@ -1399,6 +1399,14 @@ main .section.responsive-title h1 {
   height: calc(100vh - var(--nav-height));
 }
 
+.v2-inpage-navigation {
+  opacity: 0;
+}
+
+.v2-inpage-navigation[data-block-status="loaded"] {
+  opacity: 1;
+}
+
 .screenreader {
   border: 0;
   clip: rect(0 0 0 0);
