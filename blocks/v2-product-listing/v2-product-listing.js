@@ -74,14 +74,21 @@ function buildProductImageDom(prodEle) {
 function buildProductInfoDom(prodEle) {
   const productInfoWrapper = prodEle.querySelectorAll(`.${blockName}__product> div:last-child`);
   productInfoWrapper.forEach((info) => {
-    info.classList.add(`${blockName}__product-info`);
-    if (info.querySelectorAll('.button-container').length > 1) {
-      const secondaryButton = info.querySelector('.button-container:last-of-type a');
-      secondaryButton?.classList.remove('button--primary');
-      secondaryButton?.classList.add('button--secondary');
-    }
-
+    const buttonContainer = createElement('div', { classes: `${blockName}__button-container` });
+    const buttons = info.querySelectorAll('.button-container a');
     const primaryButton = info.querySelector('.button--primary');
+
+    info.classList.add(`${blockName}__product-info`);
+
+    [...buttons].forEach((b) => {
+      if (b.parentElement.tagName === 'EM') {
+        b.parentElement.parentElement.remove();
+      }
+      b.parentElement.remove();
+      buttonContainer.appendChild(b);
+    });
+    info.appendChild(buttonContainer);
+
     primaryButton?.addEventListener('mouseover', () => {
       info.previousElementSibling.classList.add(`${blockName}__product-image--show-background`);
     });
@@ -220,6 +227,11 @@ export default function decorate(block) {
 
     handleListeners(dropdownWrapper);
     getActiveFilterButton();
+  } else {
+    const detailList = document.querySelectorAll(`.${blockName}__product > div > ul`);
+    detailList.forEach((ul) => {
+      ul.classList.add(`${blockName}__detail-list`);
+    });
   }
 }
 
