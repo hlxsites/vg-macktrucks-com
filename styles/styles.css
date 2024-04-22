@@ -1067,7 +1067,7 @@ main .section.responsive-title h1 {
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
   background-color: var(--button-tertiary-white-hover);
-  border-color: var(--button-tertiary-white-hover);
+  border-color: var(--button-tertiary-white-border-hover);
 }
 
 .redesign-v2 .button--secondary:active {
