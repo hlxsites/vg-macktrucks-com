@@ -163,7 +163,7 @@ function buildFilter(allSegmentNames) {
 
   // Create a dropdown icon fragment
   const dropdownArrowIcon = document.createRange().createContextualFragment(`<span class="${blockName}__svg-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-dropdown-caret"></use></svg>
+  <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-chevron-right"></use></svg>
   </span>`);
   selectedItemWrapper.append(selectedItem);
   selectedItemWrapper.appendChild(...dropdownArrowIcon.children);
