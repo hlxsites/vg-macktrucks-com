@@ -4,13 +4,14 @@ import {
   variantsClassesToBEM,
 } from '../../scripts/common.js';
 
-const variantClasses = ['dark', 'light'];
+const variantClasses = ['dark', 'light', 'half-height'];
 const blockName = 'v2-hero';
 
 export default async function decorate(block) {
   variantsClassesToBEM(block.classList, variantClasses, blockName);
   const blockContainer = block.parentElement.parentElement;
   const isPdp = blockContainer.dataset.page === 'pdp';
+  const isHalfHeight = block.classList.contains(`${blockName}--half-height`);
 
   const images = [...block.querySelectorAll('p > picture')];
   const imageURLs = getImageURLs(images);
@@ -74,7 +75,7 @@ export default async function decorate(block) {
   const ctaButtons = content.querySelectorAll('.button-container > a');
   [...ctaButtons].forEach((b) => {
     b.classList.add((isPdp ? `${blockName}__cta` : 'button--large'), 'button--cta');
-    b.classList.remove('button--primary');
+    if (!isHalfHeight) b.classList.remove('button--primary');
     b.parentElement.classList.add(`${blockName}__cta-wrapper`);
   });
 
