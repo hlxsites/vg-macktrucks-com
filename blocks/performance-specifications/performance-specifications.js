@@ -29,10 +29,9 @@ const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
   });
 };
 
-const centerCategoryTab = (tabList, buttonTab) => {
-  const { width: tabListWidth } = tabList.getBoundingClientRect();
-  const { width: buttonTabWidth, x: buttonTabX } = buttonTab.getBoundingClientRect();
-  const scrollPosition = buttonTabX - (tabListWidth - buttonTabWidth) / 2;
+const centerCategoryTab = (tabList, itemTab) => {
+  const { clientWidth: itemWidth, offsetLeft } = itemTab;
+  const scrollPosition = offsetLeft - (tabList.clientWidth - itemWidth) / 2;
   tabList.scrollTo({
     left: scrollPosition,
     behavior: 'smooth',
@@ -148,7 +147,7 @@ function renderCategoryTabList({ block, categoryData, activeCategory }) {
     buttonTab.setAttribute('aria-selected', true);
     buttonTab.parentElement.classList.add('active');
 
-    if (!MQ.matches) centerCategoryTab(tabList, buttonTab);
+    if (!MQ.matches) centerCategoryTab(tabList, buttonTab.parentElement);
 
     block.querySelector('.category-detail').replaceWith(
       renderCategoryDetail(block, engineData.get(block)[buttonTab.dataset.categoryId]),
