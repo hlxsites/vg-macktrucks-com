@@ -75,7 +75,7 @@
 }
 
 .v2-product-listing__product-image:hover picture:last-child img {
-  transition: opacity .2s linear;
+  transition: opacity var(--duration-medium) var(--easing-standard);
 }
 
 .v2-product-listing .v2-product-listing__product-image picture:last-child img {
@@ -385,7 +385,7 @@
   .v2-product-listing .v2-product-listing__product-image:hover picture:last-child img {
     position: relative;
     opacity: 1;
-    transition: opacity .2s linear;
+    transition: opacity var(--duration-medium) var(--easing-standard);
     flex: 1;
   }
 
