@@ -1024,7 +1024,7 @@ a.header__link {
     top: 20px;
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.2s linear;
+    transition: opacity var(--duration-medium) var(--easing-standard);
   }
 
   .header__main-link-wrapper--tabs-with-cards
@@ -1040,7 +1040,7 @@ a.header__link {
     .header__category-item
     .standalone-link {
     opacity: 0;
-    transition: opacity 0.2s linear;
+    transition: opacity var(--duration-medium) var(--easing-standard);
   }
 
   .header__main-link-wrapper--tabs-with-cards
