@@ -1,5 +1,5 @@
 import {
-  a, button, div, domEl, p,
+  a, button, div, domEl, p, ul, li,
 } from '../../scripts/scripts.js';
 import { loadScript } from '../../scripts/lib-franklin.js';
 import { getTextLabel } from '../../scripts/common.js';
@@ -20,7 +20,27 @@ const engineData = new Map();
 
 const MQ = window.matchMedia('(min-width: 768px)');
 
+const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
+  const { x: navigationX } = tabNavigation.getBoundingClientRect();
+  const { x, width } = activeTab.getBoundingClientRect();
+  Object.assign(navigationLine.style, {
+    left: `${x + tabNavigation.scrollLeft - navigationX}px`,
+    width: `${width}px`,
+  });
+};
+
+const centerCategoryTab = (tabList, buttonTab) => {
+  const { width: tabListWidth } = tabList.getBoundingClientRect();
+  const { width: buttonTabWidth, x: buttonTabX } = buttonTab.getBoundingClientRect();
+  const scrollPosition = buttonTabX - (tabListWidth - buttonTabWidth) / 2;
+  tabList.scrollTo({
+    left: scrollPosition,
+    behavior: 'smooth',
+  });
+};
+
 export default async function decorate(block) {
+  const blockSection = block.closest('.section');
   engineData.set(block, {});
 
   let jsonUrl;
@@ -49,7 +69,28 @@ export default async function decorate(block) {
   const initialEngineId = Object.keys(engineData.get(block)[initialCategoryId].engines)[0];
 
   // add tabs
-  block.append(renderCategoryTabs(block, engineData.get(block), initialCategoryId));
+  block.append(
+    renderCategoryTabList({
+      block,
+      categoryData: engineData.get(block),
+      activeCategory: initialCategoryId,
+    }),
+  );
+
+  // Render the navigation line below the active tab when the section is loaded
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type !== 'attributes') return;
+      const { sectionStatus } = mutation.target.dataset;
+      if (sectionStatus !== 'loaded') return;
+      const tabList = block.querySelector('.category-tablist');
+      const tabLine = block.querySelector('.active-line');
+      moveNavigationLine(tabLine, tabList.querySelector('.active'), tabList);
+      observer.disconnect();
+    });
+  });
+
+  observer.observe(blockSection, { attributes: true, attributeFilter: ['data-section-status'] });
 
   // add category details and engine selection ("XY HP")
   block.append(
@@ -70,46 +111,59 @@ export default async function decorate(block) {
   updateChart(chartContainer, engineDetails.performanceData);
 }
 
-/**
- * @typedef {Object} CategoryData
- * @property {string} nameHTML
- * @property {string} descriptionHTML
- * @property {Object.<string, EngineDetail>} engines
- */
+function renderCategoryTabList({ block, categoryData, activeCategory }) {
+  const tabListWrapper = div({ class: 'category-tablist-wrapper' });
+  const tabList = ul({ role: 'tablist', class: 'category-tablist' });
+  const activeLine = li({ class: 'active-line' });
 
-function renderCategoryTabs(block, categoryData, categoryId) {
-  const tabList = div({ role: 'tablist', class: 'category-tablist' });
-  Object.keys(categoryData)
-    .forEach((aCategoryId) => {
-      const { nameHTML } = categoryData[aCategoryId];
-      const tabButton = button({
-        class: 'tab',
-        role: 'tab',
-        'aria-selected': aCategoryId === categoryId,
-        'data-category-id': aCategoryId,
-      });
-      tabButton.innerHTML = nameHTML;
-
-      tabButton.addEventListener('click', () => {
-        if (tabButton.getAttribute('aria-selected') === 'true') {
-          // ignore click if already selected
-          return;
-        }
-        // Remove all current selected tabs and set this tab as selected
-        tabList.querySelectorAll('[aria-selected="true"]')
-          .forEach((tab) => tab.setAttribute('aria-selected', false));
-        tabButton.setAttribute('aria-selected', true);
-
-        block.querySelector('.category-detail').replaceWith(
-          renderCategoryDetail(block, engineData.get(block)[tabButton.dataset.categoryId]),
-        );
-
-        refreshDetailView(block);
-      });
-      tabList.append(tabButton);
+  Object.keys(categoryData).forEach((categoryId) => {
+    const isActive = categoryId === activeCategory;
+    const { nameHTML } = categoryData[categoryId];
+    const tabItem = li({ class: `category-tab${isActive ? ' active' : ''}` });
+    const tabButton = button({
+      class: 'tab',
+      role: 'tab',
+      'aria-selected': isActive,
+      'data-category-id': categoryId,
     });
-  handleKeyboardNavigation(tabList);
-  return tabList;
+    tabButton.innerHTML = nameHTML;
+    tabItem.append(tabButton);
+    tabList.append(tabItem);
+  });
+  tabList.append(activeLine);
+  tabListWrapper.append(tabList);
+
+  tabList.addEventListener('click', (e) => {
+    const isIcon = e.target.parentElement.tagName === 'BUTTON';
+    const isButton = e.target.tagName === 'BUTTON' || isIcon;
+    const isActiveBtn = e.target.getAttribute('aria-selected') === 'true';
+    if (!isButton || isActiveBtn) return;
+
+    const buttonTab = isIcon ? e.target.parentElement : e.target;
+    const activeTab = tabList.querySelectorAll('.active');
+    [...activeTab].forEach((tab) => {
+      tab.classList.remove('active');
+      tab.firstElementChild.setAttribute('aria-selected', false);
+    });
+    buttonTab.setAttribute('aria-selected', true);
+    buttonTab.parentElement.classList.add('active');
+
+    if (!MQ.matches) centerCategoryTab(tabList, buttonTab);
+
+    block.querySelector('.category-detail').replaceWith(
+      renderCategoryDetail(block, engineData.get(block)[buttonTab.dataset.categoryId]),
+    );
+
+    refreshDetailView(block);
+  });
+
+  tabList.addEventListener('mouseover', (e) => {
+    const isButton = e.target.tagName === 'BUTTON';
+    if (!isButton) return;
+    moveNavigationLine(activeLine, e.target, tabList);
+  });
+
+  return tabListWrapper;
 }
 
 function renderCategoryDetail(block, categoryData, selectEngineId = null) {
@@ -123,7 +177,6 @@ function renderCategoryDetail(block, categoryData, selectEngineId = null) {
     </div>`;
 
   const tabList = categoryDetails.querySelector('.engine-tablist');
-  handleKeyboardNavigation(tabList);
 
   Object.keys(categoryData.engines).forEach((engineId, index) => {
     const isSelected = selectEngineId ? engineId === selectEngineId : index === 0;
@@ -169,8 +222,9 @@ function renderEngineSpecs(engineDetails) {
 }
 
 function refreshDetailView(block) {
-  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]').dataset;
-  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]').textContent;
+  const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]')?.dataset || null;
+  const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]')?.textContent || null;
+  if (!categoryId || !engineId) return;
   const engineDetails = engineData.get(block)[categoryId].engines[engineId];
 
   // replace key specs
@@ -180,38 +234,6 @@ function refreshDetailView(block) {
   const chartContainer = block.querySelector('.performance-chart');
   // noinspection JSIgnoredPromiseFromCall
   updateChart(chartContainer, engineDetails.performanceData);
-}
-
-function handleKeyboardNavigation(tabList) {
-  // from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
-  tabList.addEventListener('keydown', (e) => {
-    const tabs = [...tabList.children];
-    let tabFocus = tabs.indexOf(e.target);
-
-    // Move right
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      tabs[tabFocus].setAttribute('tabindex', -1);
-      if (e.key === 'ArrowRight') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus++;
-        // If we're at the end, go to the start
-        if (tabFocus >= tabs.length) {
-          tabFocus = 0;
-        }
-        // Move left
-      } else if (e.key === 'ArrowLeft') {
-        // eslint-disable-next-line no-plusplus
-        tabFocus--;
-        // If we're at the start, move to the end
-        if (tabFocus < 0) {
-          tabFocus = tabs.length - 1;
-        }
-      }
-
-      tabs[tabFocus].setAttribute('tabindex', 0);
-      tabs[tabFocus].focus();
-    }
-  });
 }
 
 /**

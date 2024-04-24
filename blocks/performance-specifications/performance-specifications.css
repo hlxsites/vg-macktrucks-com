@@ -1,33 +1,80 @@
 .performance-specifications {
   --gold-button-background: var(--c-primary-gold);
   --specs-grid-template-columns: 1fr;
+  --navigation-line-height: 3px;
 }
 
-.performance-specifications .category-tablist[role="tablist"] {
+/* START category tab list */
+
+.performance-specifications .category-tablist-wrapper {
+  overflow: hidden;
+}
+
+.performance-specifications .category-tablist {
   display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  scrollbar-width: none;
+  padding: var(--navigation-padding);
+  position: relative;
 }
 
-.performance-specifications .category-tablist [role="tab"] {
-  color: var(--c-secondary-steel);
-  width: 33vw;
-  transition: 0.5s all;
-  border-bottom: 3px solid var(--navigation-line-default-color);
-  padding-bottom: 0.7em;
-  padding-left: 0;
-  padding-right: 0;
-  cursor: pointer;
+.performance-specifications .category-tablist .category-tab {
+  flex-grow: 1;
+  position: relative;
   text-align: center;
-  background-color: transparent;
-  font-size: var(--body-font-size-s);
-  font-family: var(--ff-subheadings-medium);
-  font-weight: normal;
 }
 
-.performance-specifications .category-tablist [role="tab"][aria-selected="true"],
-.performance-specifications .category-tablist [role="tab"]:hover {
-  color: var(--c-primary-white);
-  border-bottom: 3px solid var(--c-accent-red);
+.performance-specifications .category-tab [role="tab"] {
+  background: 0 0;
+  border: none;
+  color: var(--text-subtle);
+  display: flex;
+  font-family: var(--ff-body);
+  font-size: var(--body-1-font-size);
+  justify-content: center;
+  line-height: var(--body-1-line-height);
+  margin: 0;
+  min-width: 160px;
+  padding: 20px 15px 10px;
+  white-space: nowrap;
+  width: 100%;
+  transition: var(--duration-small) var(--easing-standard);
+  z-index: 3;
+  position: relative;
 }
+
+.performance-specifications .category-tab [role="tab"]::after {
+  background: var(--navigation-line-default-color);
+  content: "";
+  height: var(--navigation-line-height);
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.performance-specifications .category-tab [role="tab"][aria-selected="true"],
+.performance-specifications .category-tab [role="tab"]:hover {
+  color: var(--text-primary);
+}
+
+.performance-specifications .category-tablist .active-line {
+  background: var(--navigation-line-active-color);
+  height: var(--navigation-line-height);
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  margin: 0;
+  position: absolute;
+  transition: all var(--duration-small) var(--easing-standard);
+  width: 0;
+}
+
+/* END category tab list */
 
 .performance-specifications .category-detail {
   padding-bottom: 10px;
