@@ -772,7 +772,7 @@ $.fn.renderPinDirections = function (markerId) {
     MAIN_POSTAL_CD: postalCd,
    } = markerDetails;
 
-  $destination = `${address1 ? address1 : address2} ${mainCity} ${mainState} ${postalCd}`
+  $destination = `${address1 || address2} ${mainCity} ${mainState} ${postalCd}`
 
   if ($('.from-directions input').val()) {
     $origin = $('.from-directions input').val();
