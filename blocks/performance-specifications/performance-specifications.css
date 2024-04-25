@@ -1,5 +1,5 @@
 .performance-specifications {
-  --gold-button-background: var(--c-primary-gold);
+  --gold-button-background: var(--button-secondary-gold-enabled);
   --specs-grid-template-columns: 1fr;
   --navigation-line-height: 3px;
   --key-specs-margin: 0 0 1.5em;
