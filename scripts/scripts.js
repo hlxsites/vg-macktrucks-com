@@ -670,12 +670,13 @@ moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
+  const config = getMetadata('truck-configurator');
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');
   main.innerHTML = '';
   main.append(container);
 
-  fetch('/truck-configurator.json?sheet=urls')
+  fetch(`${config}?sheet=urls`)
     .then((response) => response.json())
     .then((data) => {
       const urls = data.data[0];
@@ -701,7 +702,7 @@ if (document.documentElement.classList.contains('truck-configurator')) {
     // eslint-disable-next-line no-console
     console.info('[truck-configurator]: React Router location changed:', newLocation);
 
-    if (newLocation.pathname && newLocation.pathname !== '/') {
+    if (newLocation.pathname && newLocation.pathname !== '/' && disableHeader) {
       document.documentElement.classList.add('truck-configurator--detail-page');
     }
     if (newLocation.pathname && (newLocation.pathname === '/' || newLocation.pathname === '')) {
@@ -714,7 +715,9 @@ if (getMetadata('truck-configurator-page')) {
   const page = getMetadata('truck-configurator-page').toLowerCase();
   const currentHash = window.location.hash;
 
-  document.documentElement.classList.add('truck-configurator--detail-page');
+  if (disableHeader) {
+    document.documentElement.classList.add('truck-configurator--detail-page');
+  }
   if (!currentHash.startsWith(`#/${page}`)) {
     document.location.hash = `#/${page}`;
   }
