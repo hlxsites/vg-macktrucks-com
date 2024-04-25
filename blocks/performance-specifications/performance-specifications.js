@@ -273,28 +273,8 @@ const renderCategoryDetail = (block, categoryData, selectEngineId = null) => {
   return categoryDetails;
 };
 
-const renderCategoryTabList = ({ block, categoryData, activeCategory }) => {
-  const tabListWrapper = div({ class: 'category-tablist-wrapper' });
-  const tabList = ul({ role: 'tablist', class: 'category-tablist' });
-  const activeLine = li({ class: 'active-line' });
-
-  Object.keys(categoryData).forEach((categoryId) => {
-    const isActive = categoryId === activeCategory;
-    const { nameHTML } = categoryData[categoryId];
-    const tabItem = li({ class: `category-tab${isActive ? ' active' : ''}` });
-    const tabButton = button({
-      class: 'tab',
-      role: 'tab',
-      'aria-selected': isActive,
-      'data-category-id': categoryId,
-    });
-    tabButton.innerHTML = nameHTML;
-    tabItem.append(tabButton);
-    tabList.append(tabItem);
-  });
-  tabList.append(activeLine);
-  tabListWrapper.append(tabList);
-
+const tabListClickHandler = ({ ...params }) => {
+  const { tabList, activeLine, block } = params;
   tabList.addEventListener('click', (e) => {
     const isIcon = e.target.parentElement.tagName === 'BUTTON';
     const isButton = e.target.tagName === 'BUTTON' || isIcon;
@@ -319,12 +299,41 @@ const renderCategoryTabList = ({ block, categoryData, activeCategory }) => {
 
     refreshDetailView(block);
   });
+};
 
+const tabListHoverHandler = ({ ...params }) => {
+  const { tabList, activeLine } = params;
   tabList.addEventListener('mouseover', (e) => {
     const isButton = e.target.tagName === 'BUTTON';
     if (!isButton) return;
     moveNavigationLine(activeLine, e.target, tabList);
   });
+};
+
+const renderCategoryTabList = ({ block, categoryData, activeCategory }) => {
+  const tabListWrapper = div({ class: 'category-tablist-wrapper' });
+  const tabList = ul({ role: 'tablist', class: 'category-tablist' });
+  const activeLine = li({ class: 'active-line' });
+
+  Object.keys(categoryData).forEach((categoryId) => {
+    const isActive = categoryId === activeCategory;
+    const { nameHTML } = categoryData[categoryId];
+    const tabItem = li({ class: `category-tab${isActive ? ' active' : ''}` });
+    const tabButton = button({
+      class: 'tab',
+      role: 'tab',
+      'aria-selected': isActive,
+      'data-category-id': categoryId,
+    });
+    tabButton.innerHTML = nameHTML;
+    tabItem.append(tabButton);
+    tabList.append(tabItem);
+  });
+  tabList.append(activeLine);
+  tabListWrapper.append(tabList);
+
+  tabListClickHandler({ tabList, activeLine, block });
+  tabListHoverHandler({ tabList, activeLine });
 
   return tabListWrapper;
 };
