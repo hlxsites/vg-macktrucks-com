@@ -105,11 +105,11 @@
 /* stylelint-disable-next-line no-descending-specificity */
 .performance-specifications .engine-tablist [role="tab"] {
   background-color: var(--c-primary-white);
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-xs);
   color: var(--c-primary-black);
   border-radius: 2px;
-  padding: 0.4em 0.7em;
-  line-height: 1em;
+  padding: 0.4em 0.7em 0.2em;
+  line-height: 18px;
   margin-right: 1em;
   margin-top: 0;
 }
