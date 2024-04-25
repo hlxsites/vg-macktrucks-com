@@ -58,9 +58,18 @@
   width: 100%;
 }
 
+.performance-specifications .category-tab [role="tab"]:focus {
+  outline: 0;
+}
+
+.performance-specifications .category-tab [role="tab"]:focus-visible {
+  outline: var(--navigation-line-active-color) auto 3px;
+}
+
 .performance-specifications .category-tab [role="tab"][aria-selected="true"],
+.performance-specifications .category-tab [role="tab"]:focus-visible,
 .performance-specifications .category-tab [role="tab"]:hover {
-  color: var(--text-primary);
+  color: var(--c-primary-white);
 }
 
 .performance-specifications .category-tablist .active-line {
