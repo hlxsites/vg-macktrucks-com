@@ -128,11 +128,11 @@
 .performance-specifications .details-panel {
   display: grid;
   grid-template-columns: var(--specs-grid-template-columns);
-  font-family: var(--ff-body-bold);
 }
 
 .performance-specifications .details-panel dl dt {
-  font-size: var(--body-font-size-xs);
+  font-family: var(--ff-body-bold);
+  font-size: var(--body-font-size-xxs);
   text-transform: uppercase;
   line-height: 1em;
   letter-spacing: 0.1em;
@@ -143,7 +143,7 @@
 
 .performance-specifications .details-panel dl dd {
   line-height: 1em;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
   letter-spacing: -0.015em;
   padding: 0.5em 0 0;
   margin-left: 0;
