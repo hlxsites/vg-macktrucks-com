@@ -2,6 +2,7 @@
   --gold-button-background: var(--c-primary-gold);
   --specs-grid-template-columns: 1fr;
   --navigation-line-height: 3px;
+  --key-specs-margin: 0 0 1.5em;
 }
 
 /* START category tab list */
@@ -136,9 +137,6 @@
   text-transform: uppercase;
   line-height: 1em;
   letter-spacing: 0.1em;
-  padding-top: 1.2em;
-  padding-right: 0;
-  padding-left: 0;
 }
 
 .performance-specifications .details-panel dl dd {
@@ -146,8 +144,7 @@
   font-size: var(--body-font-size-s);
   letter-spacing: -0.015em;
   padding: 0.5em 0 0;
-  margin-left: 0;
-  margin-bottom: 1.2em;
+  margin: var(--key-specs-margin);
 }
 
 .details-panel .key-specs {
@@ -182,6 +179,7 @@
 @media (min-width: 768px) {
   .performance-specifications {
     --specs-grid-template-columns: 1fr 3fr;
+    --key-specs-margin: 0 0 2.5em;
   }
 }
 
