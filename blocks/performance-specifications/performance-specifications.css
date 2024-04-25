@@ -19,8 +19,14 @@
   margin: 0;
   overflow: auto;
   scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   padding: var(--navigation-padding);
   position: relative;
+}
+
+.performance-specifications .category-tablist::-webkit-scrollbar {
+  display: none;
 }
 
 .performance-specifications .category-tablist .category-tab {
