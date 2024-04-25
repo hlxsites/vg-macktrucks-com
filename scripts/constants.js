@@ -36,15 +36,3 @@ export const AEM_ASSETS = {
   videoURLRegex: /\/assets\/urn:aaid:aem:[\w-]+\/play/,
   videoIdRegex: /urn:aaid:aem:[0-9a-fA-F-]+/,
 };
-
-export const TRUCK_CONFIGURATOR_URLS = {
-  js: [
-    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/runtime~configurator.bundle.js',
-    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/893.bundle.js',
-    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.bundle.js',
-  ],
-  css: [
-    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/893.css',
-    'https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.css',
-  ],
-};

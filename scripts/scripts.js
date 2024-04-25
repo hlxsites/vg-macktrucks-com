@@ -20,10 +20,11 @@ import {
 } from './lib-franklin.js';
 
 import {
-  createElement,
   addFavIcon,
-  loadDelayed,
+  createElement,
+  formatStringToArray,
   getPlaceholders,
+  loadDelayed,
   slugify,
   variantsClassesToBEM,
 } from './common.js';
@@ -31,9 +32,6 @@ import {
   isVideoLink,
   addVideoShowHandler,
 } from './video-helper.js';
-import {
-  TRUCK_CONFIGURATOR_URLS,
-} from './constants.js';
 
 const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
 const disableFooter = getMetadata('disable-footer').toLowerCase() === 'true';
@@ -677,14 +675,31 @@ if (document.documentElement.classList.contains('truck-configurator')) {
   main.innerHTML = '';
   main.append(container);
 
-  TRUCK_CONFIGURATOR_URLS.js.forEach((url) => loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' }));
-  TRUCK_CONFIGURATOR_URLS.css.forEach((url) => loadCSS(url));
+  fetch('/truck-configurator.json?sheet=urls')
+    .then((response) => response.json())
+    .then((data) => {
+      const urls = data.data[0];
+      const jsUrls = formatStringToArray(urls.js);
+      const cssUrls = formatStringToArray(urls.css);
+
+      jsUrls.forEach((url) => {
+        loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
+      });
+
+      cssUrls.forEach((url) => {
+        loadCSS(url);
+      });
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('[truck-configurator]: Failed to load configurator data:', error);
+    });
 
   window.addEventListener('reactRouterChange', (e) => {
     const newLocation = e.detail;
 
     // eslint-disable-next-line no-console
-    console.info('React Router location changed:', newLocation);
+    console.info('[truck-configurator]: React Router location changed:', newLocation);
 
     if (newLocation.pathname && newLocation.pathname !== '/') {
       document.documentElement.classList.add('truck-configurator--detail-page');

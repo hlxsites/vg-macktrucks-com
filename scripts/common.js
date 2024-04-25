@@ -260,6 +260,27 @@ export const getJsonFromUrl = async (route) => {
   return null;
 };
 
+/**
+ * See https://www.aem.live/developer/spreadsheets#arrays
+ * Converts a string representation of an array, removing all brackets, backslashes, and quotes,
+ * into an actual JavaScript array. Splits on commas, trims each string, and filters out empty
+ * strings to ensure all elements contain valid data.
+ *
+ * @param {string} inputString - The string to be converted. It should mimic a serialized array,
+ *                               often found in JSON-like structures where arrays are represented
+ *                               as strings due to data transmission constraints.
+ * @returns {string[]} An array of strings derived from the cleaned input string. Each element
+ *                     is a trimmed, non-empty string that was separated by a comma in the
+ *                     original input.
+ */
+export const formatStringToArray = (inputString) => {
+  // eslint-disable-next-line no-useless-escape
+  const cleanedString = inputString.replace(/[\[\]\\'"]+/g, '');
+  return cleanedString.split(',')
+    .map((item) => item.trim())
+    .filter((item) => item);
+};
+
 /*
   The generateId function should be used only
   for generating the id for UI elements
