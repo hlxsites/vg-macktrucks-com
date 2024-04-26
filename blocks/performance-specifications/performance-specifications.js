@@ -204,9 +204,19 @@ const updateChart = async (chartContainer, performanceData) => {
 };
 
 const renderEngineSpecs = (engineDetails) => {
-  const downloadSpecs = engineDetails.facts.filter((fact) => fact[0] === 'download specs')[0]?.[1] || null;
+  const factsDownloadSpecs = engineDetails.facts.filter((fact) => fact[0] === 'download specs')[0]?.[1] || null;
   // remove download specs from facts
-  engineDetails.facts = engineDetails.facts.filter((fact) => fact[0] !== 'download specs');
+  if (factsDownloadSpecs) engineDetails.facts = engineDetails.facts.filter((fact) => fact[0] !== 'download specs');
+  const downloadSpecs = factsDownloadSpecs || engineDetails['download specs'] || '#';
+  // check if the download specs share the same domain as the current page
+  const isSameDomain = downloadSpecs.includes(window.location.origin);
+  const specsLink = new URL(downloadSpecs);
+  if (!isSameDomain) {
+    specsLink.hostname = window.location.hostname;
+    specsLink.protocol = window.location.protocol;
+    if (window.location.port) specsLink.port = window.location.port;
+  }
+
   // noinspection JSCheckFunctionSignatures
   return div({ class: 'key-specs' },
     domEl('dl', {}, ...engineDetails.facts.map((cells) => [
@@ -217,7 +227,7 @@ const renderEngineSpecs = (engineDetails) => {
     p({ class: 'button-container' },
       a({
         class: 'button button--primary download-specs',
-        href: downloadSpecs,
+        href: specsLink.toString(),
         target: '_blank',
       }, getTextLabel('Download Specs'))),
   );
