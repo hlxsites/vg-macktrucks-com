@@ -14,6 +14,37 @@ const engineData = new Map();
 
 const MQ = window.matchMedia('(min-width: 768px)');
 const blockName = 'performance-specifications';
+// Selected engine doesn't have data available in the JSON file
+const NoDataEngineDetail = {
+  'download specs': null,
+  facts: [
+    ['peak power', 'No Data'],
+    ['peak power rpm', 'No Data'],
+    ['max torque', 'No Data'],
+    ['max torque rpm', 'No Data'],
+  ],
+  model: 'No Data',
+  performanceData: {
+    'Standard Torque': {
+      800: 0,
+      900: 0,
+      1000: 0,
+      1100: 0,
+      1200: 0,
+      1300: 0,
+      1400: 0,
+      1500: 0,
+      1600: 0,
+      1700: 0,
+      1800: 0,
+      1900: 0,
+      1950: 0,
+      2000: 0,
+      2100: 0,
+    },
+  },
+  series: 'No Data',
+};
 
 const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
   const { x: navigationX } = tabNavigation.getBoundingClientRect();
@@ -207,11 +238,11 @@ const renderEngineSpecs = (engineDetails) => {
   const factsDownloadSpecs = engineDetails.facts.filter((fact) => fact[0] === 'download specs')[0]?.[1] || null;
   // remove download specs from facts
   if (factsDownloadSpecs) engineDetails.facts = engineDetails.facts.filter((fact) => fact[0] !== 'download specs');
-  const downloadSpecs = factsDownloadSpecs || engineDetails['download specs'] || '#';
+  const downloadSpecs = factsDownloadSpecs || engineDetails['download specs'] || null;
   // check if the download specs share the same domain as the current page
-  const isSameDomain = downloadSpecs.includes(window.location.origin);
-  const specsLink = new URL(downloadSpecs);
-  if (!isSameDomain) {
+  const isSameDomain = downloadSpecs && downloadSpecs.includes(window.location.origin);
+  const specsLink = downloadSpecs && new URL(downloadSpecs);
+  if (downloadSpecs && !isSameDomain) {
     specsLink.hostname = window.location.hostname;
     specsLink.protocol = window.location.protocol;
     if (window.location.port) specsLink.port = window.location.port;
@@ -227,7 +258,7 @@ const renderEngineSpecs = (engineDetails) => {
     p({ class: 'button-container' },
       a({
         class: 'button button--primary download-specs',
-        href: specsLink.toString(),
+        href: downloadSpecs ? specsLink.toString() : '#',
         target: '_blank',
       }, getTextLabel('Download Specs'))),
   );
@@ -236,8 +267,8 @@ const renderEngineSpecs = (engineDetails) => {
 const refreshDetailView = (block) => {
   const { categoryId } = block.querySelector('.category-tablist button[aria-selected="true"]')?.dataset || null;
   const engineId = block.querySelector('.engine-tablist button[aria-selected="true"]')?.textContent || null;
-  if (!categoryId || !engineId) return;
-  const engineDetails = engineData.get(block)[categoryId].engines[engineId];
+  const engineDetail = engineData.get(block)[categoryId]?.engines[engineId];
+  const engineDetails = engineDetail || NoDataEngineDetail || {};
 
   // replace key specs
   block.querySelector('.key-specs').replaceWith(renderEngineSpecs(engineDetails));
@@ -259,6 +290,10 @@ const renderCategoryDetail = (block, categoryData, selectEngineId = null) => {
     </div>`;
 
   const tabList = categoryDetails.querySelector('.engine-tablist');
+
+  if (Object.keys(categoryData.engines).length === 0) {
+    categoryData.engines = { 'No Data': NoDataEngineDetail };
+  }
 
   Object.keys(categoryData.engines).forEach((engineId, index) => {
     const isSelected = selectEngineId ? engineId === selectEngineId : index === 0;
