@@ -11,6 +11,15 @@
     <base href="/" />
 
     <style>
+      :root {
+        --sk-block-table-background-color: #fbe4d5;
+        --sk-block-table-foreground-color: #000;
+        --sk-section-metadata-table-background-color: #d9e2f3;
+        --sk-section-metadata-table-foreground-color: #000;
+        --sk-metadata-table-background-color: #d9e2f3;
+        --sk-metadata-table-foreground-color: #000;
+      }
+
       html,
       body {
         margin: 0;
@@ -31,7 +40,10 @@
       src="https://www.hlx.live/tools/sidekick/library/index.js"
     ></script>
     <script>
-      const library = document.createElement('sidekick-library')
+      const library = document.createElement('sidekick-library');
+      const currentUrl = window.location.href;
+      const mainUrl = '--vg-macktrucks-com--hlxsites.hlx';
+
       library.config = {
         base: '/block-library/library.json',
         plugins: {
@@ -61,6 +73,10 @@
             ],
           }
         }
+      }
+
+      if (!currentUrl.includes(mainUrl) && !currentUrl.includes('localhost')) {
+        library.config.extends = 'https://main--vg-macktrucks-com--hlxsites.hlx.page/block-library/library.json';
       }
 
       document.body.prepend(library)
