@@ -14,7 +14,7 @@
   --gold-button-background: var(--button-secondary-gold-enabled);
   --specs-grid-template-columns: 1fr;
   --navigation-line-height: 3px;
-  --category-tablist-margin: 0 0 24px;
+  --category-tablist-margin: 0 -16px 24px 0;
   --category-detail-padding: 24px 0;
   --category-detail-margin: 0 0 24px;
   --category-detail-gap: 24px;
@@ -223,6 +223,7 @@
 @media (min-width: 768px) {
   .performance-specifications {
     --specs-grid-template-columns: 1fr 3fr;
+    --category-tablist-margin: 0 0 24px;
     --key-specs-margin: 0 0 2.5em;
   }
 }
