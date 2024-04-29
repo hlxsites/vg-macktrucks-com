@@ -12,13 +12,8 @@ import { getTextLabel } from '../../scripts/common.js';
  */
 const engineData = new Map();
 
-/**
- * @typedef {Object} EngineDetail
- * @property {Array<Array<string>>} facts
- * @property {Object<string, Object<number, number>>} performanceData
- */
-
 const MQ = window.matchMedia('(min-width: 768px)');
+const blockName = 'performance-specifications';
 
 const moveNavigationLine = (navigationLine, activeTab, tabNavigation) => {
   const { x: navigationX } = tabNavigation.getBoundingClientRect();
@@ -203,6 +198,11 @@ const updateChart = async (chartContainer, performanceData) => {
   });
 };
 
+/**
+ * @typedef {Object} EngineDetail
+ * @property {Array<Array<string>>} facts
+ * @property {Object<string, Object<number, number>>} performanceData
+ */
 const renderEngineSpecs = (engineDetails) => {
   const factsDownloadSpecs = engineDetails.facts.filter((fact) => fact[0] === 'download specs')[0]?.[1] || null;
   // remove download specs from facts
@@ -414,6 +414,8 @@ const parseEngineJsonData = (data, block) => {
 
 export default async function decorate(block) {
   const blockSection = block.closest('.section');
+  const sectionTitle = blockSection.querySelector('h2');
+  if (sectionTitle) sectionTitle.classList.add(`${blockName}__section-title`);
   engineData.set(block, {});
 
   let jsonUrl;
