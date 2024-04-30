@@ -5,8 +5,7 @@ import { createOptimizedPicture, decorateIcons, getMetadata } from '../../script
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 import { HEADER_BUTTONS } from '../../scripts/constants.js';
 
-const isLoginDomain = HEADER_BUTTONS.login;
-const isSearchDomain = HEADER_BUTTONS.search;
+const { hasLoginDisabled, hasSearchDisabled } = HEADER_BUTTONS;
 
 const blockClass = 'header';
 
@@ -119,7 +118,7 @@ const mobileActions = () => {
   const openMenuLabel = getTextLabel('Open menu');
 
   const actions = document.createRange().createContextualFragment(`
-    ${isSearchDomain ? `
+    ${!hasSearchDisabled ? `
     <a
       href="/search"
       aria-label="${searchLabel}"
@@ -428,7 +427,6 @@ export default async function decorate(block) {
   }
 
   const testHeader = getMetadata('test-header');
-  // if (testHeader) navPath = testHeader;
   if (testHeader) navPath = testHeader;
 
   const resp = await fetch(`${navPath}.plain.html`);
@@ -509,7 +507,7 @@ export default async function decorate(block) {
   };
 
   // add actions for search
-  if (isSearchDomain) {
+  if (!hasSearchDisabled) {
     navContent.querySelector(`.${blockClass}__search-button`)?.addEventListener('click', () => {
       window.location.href = '/search';
     });
@@ -580,7 +578,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (loginLink && !isLoginDomain) loginLink.remove();
+    if (loginLink && hasLoginDisabled) loginLink.remove();
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);

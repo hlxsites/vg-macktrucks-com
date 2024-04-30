@@ -40,9 +40,9 @@ export const AEM_ASSETS = {
 };
 
 // check if the header has to have a login and/or a search button
-const isLoginDomain = getMetadata('login') !== '';
-const isSearchDomain = getMetadata('search') !== '';
+const hasLoginDisabled = getMetadata('disable-login') === 'true';
+const hasSearchDisabled = getMetadata('disable-search') === 'true';
 export const HEADER_BUTTONS = {
-  login: isLoginDomain,
-  search: isSearchDomain,
+  hasLoginDisabled,
+  hasSearchDisabled,
 };
