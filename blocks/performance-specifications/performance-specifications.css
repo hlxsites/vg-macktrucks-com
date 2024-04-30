@@ -129,7 +129,8 @@
 }
 
 .performance-specifications .engine-ratings {
-  font-size: var(--body-font-size-xs);
+  font-family: var(--ff-body-bold);
+  font-size: var(--body-font-size-xxs);
   text-transform: uppercase;
   margin: 0;
 }
@@ -150,7 +151,7 @@
 /* stylelint-disable-next-line no-descending-specificity */
 .performance-specifications .engine-tablist [role="tab"] {
   background-color: var(--c-primary-white);
-  font-size: var(--body-font-size-xxs);
+  font-size: var(--body-font-size-xs);
   color: var(--c-primary-black);
   border-radius: 2px;
   padding: 0.4em 0.7em 0.2em;
