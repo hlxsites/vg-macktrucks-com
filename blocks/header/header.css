@@ -243,6 +243,10 @@ a.header__link {
   justify-content: space-between;
 }
 
+.header__mobile-actions:only-child {
+  justify-content: flex-end;
+}
+
 .header__link-description {
   display: none;
 }

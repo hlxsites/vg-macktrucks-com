@@ -3,15 +3,10 @@ import {
 } from '../../scripts/common.js';
 import { createOptimizedPicture, decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
+import { HEADER_BUTTONS } from '../../scripts/constants.js';
 
-// domain examples: '.com', 'nicaragua.com', '.com.pa', '.ca'
-const loginDomains = ['.com'];
-const searchDomains = ['.com'];
-const url = new URL(window.location.href);
-const isDev = url.host.match('localhost') || url.host.match('hlx.(page|live)');
-const isSearchDomain = !isDev
-  && searchDomains.some((domain) => url.host.endsWith(`macktrucks${domain}`));
-const isLoginDomain = loginDomains.some((domain) => url.host.endsWith(`macktrucks${domain}`));
+const isLoginDomain = HEADER_BUTTONS.login;
+const isSearchDomain = HEADER_BUTTONS.search;
 
 const blockClass = 'header';
 
@@ -124,14 +119,14 @@ const mobileActions = () => {
   const openMenuLabel = getTextLabel('Open menu');
 
   const actions = document.createRange().createContextualFragment(`
+    ${isSearchDomain ? `
     <a
-      href="${isSearchDomain ? '/search' : '#'}"
-      ${isSearchDomain ? `aria-label="${searchLabel}"` : 'aria-hidden="true"'}
-      ${isSearchDomain ? '' : 'style="visibility: hidden;"'}
+      href="/search"
+      aria-label="${searchLabel}"
       class="${blockClass}__search-button ${blockClass}__action-link ${blockClass}__link"
     >
       <span class="icon icon-search" aria-hidden="true"></span>
-    </a>
+    </a>` : ''}
     <button
       aria-label="${openMenuLabel}"
       class="${blockClass}__hamburger-menu ${blockClass}__action-link ${blockClass}__link"
@@ -432,6 +427,10 @@ export default async function decorate(block) {
     }
   }
 
+  const testHeader = getMetadata('test-header');
+  // if (testHeader) navPath = testHeader;
+  if (testHeader) navPath = testHeader;
+
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (!resp.ok) {
@@ -581,7 +580,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (loginLink && !isLoginDomain) loginLink.parentElement.style.display = 'none';
+    if (loginLink && !isLoginDomain) loginLink.remove();
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
