@@ -151,6 +151,15 @@ export const removeEmptyTags = (block) => {
   });
 };
 
+/**
+ * This function recursively traverses the child elements of a given element
+ * and removes all <div> elements that have no attributes,
+ * moving their children to the parent element.
+ * @param {HTMLElement} element the parent element to remove its children
+ * @param {Object} options the unwrap options
+ * @param {boolean} [options.ignoreDataAlign=false] whether to ignore divs with data-align attribute
+ * @returns {void}
+ */
 export const unwrapDivs = (element, options = {}) => {
   const stack = [element];
   const { ignoreDataAlign = false } = options;

@@ -876,6 +876,10 @@ main .section.responsive-title h1 {
   --label-font-size: 0.875rem; /* 14px */
   --label-line-height: 16px;
 
+  /* Helvetica Neue LT Pro, 75 Bold, 14px, 16px */
+  --label-font-size-small: 0.75rem; /* 12px */
+  --label-line-height-small: 16px;
+
   /* Helvetica Neue LT Pro, 55 Roman, 14px, 18px */
   --button-font-size: 0.875rem; /* 14px */
   --button-line-height: 18px;
@@ -1068,7 +1072,7 @@ main .section.responsive-title h1 {
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
   background-color: var(--button-tertiary-white-hover);
-  border-color: var(--button-tertiary-white-hover);
+  border-color: var(--button-tertiary-white-border-hover);
 }
 
 .redesign-v2 .button--secondary:active {
@@ -1087,6 +1091,7 @@ main .section.responsive-title h1 {
 
   color: var(--text-color);
   background-color: var(--section-background);
+  z-index: 1;
 }
 
 .redesign-v2 .section--black-background,
@@ -1398,6 +1403,14 @@ main .section.responsive-title h1 {
 /* CLS OPTIMIZATION */
 .v2-hero {
   height: calc(100vh - var(--nav-height));
+}
+
+.v2-inpage-navigation {
+  opacity: 0;
+}
+
+.v2-inpage-navigation[data-block-status="loaded"] {
+  opacity: 1;
 }
 
 .screenreader {
