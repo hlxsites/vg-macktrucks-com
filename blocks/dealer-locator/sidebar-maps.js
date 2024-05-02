@@ -258,7 +258,7 @@ $hoverText = $('#hoverText').val();
 
         switch ($id) {
           case "mack":
-            window.locatorConfig.dataSource = "https://www.macktrucks.com/simpleprox.ashx?https://as-dealerloc-endpoint-prod-001.azurewebsites.net/Mack_DealerJSON.ashx ";
+            window.locatorConfig.dataSource = "https://www.macktrucks.com/simpleprox.ashx?https://as-dealerloc-endpoint-prod-001.azurewebsites.net/Mack_DealerJSON.ashx";
             break;
 
           case "volvo":
