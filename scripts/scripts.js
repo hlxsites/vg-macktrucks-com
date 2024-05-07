@@ -20,10 +20,11 @@ import {
 } from './lib-franklin.js';
 
 import {
-  createElement,
   addFavIcon,
-  loadDelayed,
+  createElement,
+  formatStringToArray,
   getPlaceholders,
+  loadDelayed,
   slugify,
   variantsClassesToBEM,
 } from './common.js';
@@ -31,6 +32,9 @@ import {
   isVideoLink,
   addVideoShowHandler,
 } from './video-helper.js';
+
+const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
+const disableFooter = getMetadata('disable-footer').toLowerCase() === 'true';
 
 /**
  * Add the image as background
@@ -340,6 +344,12 @@ function buildInpageNavigationBlock(main, classname) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main, head) {
+  const pageStyle = head.querySelector('[name="style"]')?.content;
+  if (pageStyle) {
+    pageStyle.split(',')
+      .map((style) => toClassName(style.trim()))
+      .forEach((style) => main.classList.add(style));
+  }
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
@@ -416,8 +426,12 @@ async function loadLazy(doc) {
   const header = doc.querySelector('header');
   const subnav = header.querySelector('.block.sub-nav');
 
-  loadHeader(header);
-  loadFooter(doc.querySelector('footer'));
+  if (!disableHeader) {
+    loadHeader(header);
+  }
+  if (!disableFooter) {
+    loadFooter(doc.querySelector('footer'));
+  }
 
   if (subnav) {
     loadBlock(subnav);
@@ -645,7 +659,66 @@ function buildTruckLineupBlock(main, classname) {
   }
 }
 
-/* REDESING CLASS CHECK */
-if (getMetadata('style') === 'redesign-v2') {
-  document.querySelector('html').classList.add('redesign-v2');
+const moveClassToHtmlEl = (className, elementSelector = 'main') => {
+  if (document.querySelector(elementSelector).classList.contains(className)) {
+    document.documentElement.classList.add(className);
+    document.querySelector(elementSelector).classList.remove(className);
+  }
+};
+
+moveClassToHtmlEl('redesign-v2');
+moveClassToHtmlEl('truck-configurator');
+
+if (document.documentElement.classList.contains('truck-configurator')) {
+  const config = getMetadata('truck-configurator');
+  const container = createElement('div', { props: { id: 'configurator' } });
+  const main = document.querySelector('main');
+  main.innerHTML = '';
+  main.append(container);
+
+  fetch(`${config}?sheet=urls`)
+    .then((response) => response.json())
+    .then((data) => {
+      const urls = data.data[0];
+      const jsUrls = formatStringToArray(urls.js);
+      const cssUrls = formatStringToArray(urls.css);
+
+      jsUrls.forEach((url) => {
+        loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
+      });
+
+      cssUrls.forEach((url) => {
+        loadCSS(url);
+      });
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('[truck-configurator]: Failed to load configurator data:', error);
+    });
+
+  window.addEventListener('reactRouterChange', (e) => {
+    const newLocation = e.detail;
+
+    // eslint-disable-next-line no-console
+    console.info('[truck-configurator]: React Router location changed:', newLocation);
+
+    if (newLocation.pathname && newLocation.pathname !== '/' && disableHeader) {
+      document.documentElement.classList.add('truck-configurator--detail-page');
+    }
+    if (newLocation.pathname && (newLocation.pathname === '/' || newLocation.pathname === '')) {
+      document.documentElement.classList.remove('truck-configurator--detail-page');
+    }
+  });
+}
+
+if (getMetadata('truck-configurator-page')) {
+  const page = getMetadata('truck-configurator-page').toLowerCase();
+  const currentHash = window.location.hash;
+
+  if (disableHeader) {
+    document.documentElement.classList.add('truck-configurator--detail-page');
+  }
+  if (!currentHash.startsWith(`#/${page}`)) {
+    document.location.hash = `#/${page}`;
+  }
 }
