@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-04-29T00:00:00.000Z</updated>
+    <updated>2024-05-07T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2863,5 +2863,13 @@
         <updated>2024-04-29T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (April 29, 2024) – Mack Trucks is showcasing its breadth of offerings for the waste industry during WasteExpo 2024. Mack announced it will feature the Mack® LR Electric, a Mack MD7 and a Mack TerraPro® in its booth and will also have two Mack LR electric vehicles in a ride-and-drive in the parking lot of the Las Vegas Convention Center during the show, May 6-9.]]></content>
         <published>2024-04-29T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Evergreen Waste Services Orders Five Mack® LR Electric Models, Plans to Utilize Vehicle-to-Grid]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/evergreen-waste-services-orders-five-mack-lr-electric-models-plans-to-utilize-vehicle-to-grid</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/evergreen-waste-services-orders-five-mack-lr-electric-models-plans-to-utilize-vehicle-to-grid"/>
+        <updated>2024-05-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS (May 7, 2024) – Evergreen Waste Services recently took delivery of the first of five ordered Mack® LR Electric models, making its battery-electric vehicle (BEV) the first fully electric Class 8 refuse vehicle in operation in the State of Delaware.]]></content>
+        <published>2024-05-07T00:00:00.000Z</published>
     </entry>
 </feed>
