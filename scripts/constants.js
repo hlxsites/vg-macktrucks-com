@@ -1,3 +1,5 @@
+import { getMetadata } from './lib-franklin.js';
+
 // check if an active campaign is running or OneTrust needs scan the active scripts
 export const COOKIE_CHECK = false;
 
@@ -35,4 +37,12 @@ export const AEM_ASSETS = {
   aemCloudDomain: '.adobeaemcloud.com',
   videoURLRegex: /\/assets\/urn:aaid:aem:[\w-]+\/play/,
   videoIdRegex: /urn:aaid:aem:[0-9a-fA-F-]+/,
+};
+
+// check if the header has to have a login and/or a search button
+const hasLoginDisabled = getMetadata('disable-login') === 'true';
+const hasSearchDisabled = getMetadata('disable-search') === 'true';
+export const HEADER_BUTTONS = {
+  hasLoginDisabled,
+  hasSearchDisabled,
 };
