@@ -268,7 +268,8 @@ export default async function decorate(block) {
                         <br/>
                         <div id="address2">
                             <div></div>
-                        </div>
+                            </div>
+                        <br/>
                         <div id="city-state-zip">
                             <div></div>
                         </div>
@@ -289,9 +290,9 @@ export default async function decorate(block) {
                                     class="tooltiptext link">Open website</span></i>
                         </div>
                     </li>
-                    <li id="email">
-
-                        <div></div>
+                    <li>
+                        <img src="/blocks/dealer-locator/images/Mail.svg"/>
+                        <div id="email" ></div>
                     </li>
 
 
@@ -311,7 +312,7 @@ export default async function decorate(block) {
     <div class="panel-card">
         <div class="panel-container">
             <article class="teaser">
-                <div class="marker-main" style="width: 15%;">
+                <div class="marker-main">
                     <img id="marker" src=""/>
                 </div>
                 <div class="dealerPanelContainer">
