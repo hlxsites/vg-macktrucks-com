@@ -344,11 +344,13 @@ function buildInpageNavigationBlock(main, classname) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main, head) {
-  const pageStyle = head.querySelector('[name="style"]')?.content;
-  if (pageStyle) {
-    pageStyle.split(',')
-      .map((style) => toClassName(style.trim()))
-      .forEach((style) => main.classList.add(style));
+  if (head) {
+    const pageStyle = head.querySelector('[name="style"]')?.content;
+    if (pageStyle) {
+      pageStyle.split(',')
+        .map((style) => toClassName(style.trim()))
+        .forEach((style) => main.classList.add(style));
+    }
   }
   // hopefully forward compatible button decoration
   decorateButtons(main);
