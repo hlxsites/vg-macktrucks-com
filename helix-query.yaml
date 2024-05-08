@@ -23,6 +23,14 @@ indices:
       - '/trucks/md-electric/configurator/'
       - '/trucks/pinnacle-series/configurator/'
       - '/trucks/terrapro-series/configurator/'
+      - '/trucks/anthem/configurator/**'
+      - '/trucks/granite-series/configurator/**'
+      - '/trucks/lr-series/configurator/**'
+      - '/trucks/lr-electric/configurator/**'
+      - '/trucks/md/configurator/**'
+      - '/trucks/md-electric/configurator/**'
+      - '/trucks/pinnacle-series/configurator/**'
+      - '/trucks/terrapro-series/configurator/**'
     target: /query-index.json
     properties:
       lastModified:
@@ -146,6 +154,14 @@ indices:
       - '/trucks/md-electric/configurator/'
       - '/trucks/pinnacle-series/configurator/'
       - '/trucks/terrapro-series/configurator/'
+      - '/trucks/anthem/configurator/**'
+      - '/trucks/granite-series/configurator/**'
+      - '/trucks/lr-series/configurator/**'
+      - '/trucks/lr-electric/configurator/**'
+      - '/trucks/md/configurator/**'
+      - '/trucks/md-electric/configurator/**'
+      - '/trucks/pinnacle-series/configurator/**'
+      - '/trucks/terrapro-series/configurator/**'
     target: /query-index.json
     properties:
       lastModified:
