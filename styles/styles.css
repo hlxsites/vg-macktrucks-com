@@ -970,8 +970,16 @@ main .section.responsive-title h1 {
   --color-icon-accent: var(--c-primary-black);
 }
 
+.redesign-v2 [data-theme="silver"] {
+  --background-color: var(--c-secondary-silver);
+  --text-color: var(--c-primary-black);
+  --color-icon: var(--c-primary-black);
+}
+
 /* icons on black background */
 .redesign-v2 [data-theme="black"] {
+  --background-color: var(--c-primary-black);
+  --text-color: var(--c-primary-white);
   --color-icon: var(--c-primary-white);
 }
 
