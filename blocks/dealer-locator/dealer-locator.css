@@ -402,8 +402,14 @@ main .section.dealer-locator-container > div {
 }
 
 .dealer-locator .nearby-pins article.teaser .dealerPanelContainer {
-    width: 70% !important; 
+    width: unset; 
 }
+
+@media (min-width: 496px) and (max-width: 992px) {
+    .sidebar .dealerPanelContainer {
+      width: 70% !important;
+    }
+  }
 
 .dealer-locator .nearby-pins article.teaser .teaser-top {
     cursor: pointer
@@ -2430,7 +2436,7 @@ main .section.dealer-locator-container > div {
     }
 
     .sidebar .dealerPanelContainer {
-        width: 100%!important
+        width: 100% !important;
     }
 
     .sidebar .sidebar-content {
