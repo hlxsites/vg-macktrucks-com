@@ -78,7 +78,7 @@
           backLink.setAttribute('onclick', 'history.go(-1)');
           backLink.href = "#";
         } else {
-          console.warn('No links with title "BACK" found.');
+          console.warn('No back link found.');
         }
       } catch (error) {
         console.error('Error during fragment loading and back link configuration:', error);
