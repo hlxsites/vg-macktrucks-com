@@ -64,6 +64,7 @@
   <footer></footer>
   <script type="module">
     import { decorateBlock, loadBlock } from '/scripts/lib-franklin.js';
+    import { getTextLabel } from '/scripts/common.js';
 
     const loadFragmentAndConfigureBackLink = async () => {
       try {
@@ -71,7 +72,8 @@
         decorateBlock(fragment);
         await loadBlock(fragment);
 
-        const backLink = Array.from(fragment.querySelectorAll('a[title]')).find(link => link.title.toLowerCase() === 'back');
+        const backLinkTitle = getTextLabel('404 Back link title');
+        const backLink = Array.from(fragment.querySelectorAll('a[title]')).find(link => link.title === backLinkTitle);
         if (backLink) {
           backLink.title = "Go back";
           backLink.setAttribute('onclick', 'history.go(-1)');
