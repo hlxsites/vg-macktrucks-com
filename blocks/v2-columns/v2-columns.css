@@ -282,7 +282,7 @@
   .v2-columns.v2-columns--inset .v2-columns__column--with-text {
     justify-content: center;
     align-self: center;
-    padding: 60px;
+    padding: 24px 60px;
     min-height: 520px;
   }
 
