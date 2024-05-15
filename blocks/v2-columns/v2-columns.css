@@ -276,13 +276,14 @@
 
   .v2-columns.v2-columns--inset .v2-columns__column--with-image,
   .v2-columns.v2-columns--inset .v2-columns__column--with-text {
-    max-width: 512px;
+    max-width: 520px;
   }
 
   .v2-columns.v2-columns--inset .v2-columns__column--with-text {
+    justify-content: center;
     align-self: center;
-    padding: 64px 47px 64px 88px;
-    min-height: 512px;
+    padding: 60px;
+    min-height: 520px;
   }
 
   .v2-columns .v2-columns__column--with-text .v2-columns__heading {
