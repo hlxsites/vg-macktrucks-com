@@ -53,27 +53,35 @@
 <body>
   <header></header>
   <main class="error">
-    <div class="container main-content">
-      <h1 id="social-feed">Sorry, we've looked high and low and can't find the page you're looking
-        for.</h1>
-      <h2>You might try searching for it or try some of our most commonly visited pages.</h2>
-      <h3>Possible reasons:</h3>
-      <ul>
-        <li>The page has moved</li>
-        <li>The page no longer exists</li>
-        <li>The web address was not entered correctly</li>
-        <li>The page was accessed from an expired search result</li>
-      </ul>
-      <h3>Suggested actions</h3>
-      <ul>
-        <li>Make sure the web address has been entered correctly</li>
-        <li>Go <a title="Go back" onclick="history.go(-1)" href="#"><b>BACK</b></a> to the previous page</li>
-        <li>Visit the <a title="Home page" href="/"><b>MACK HOMEPAGE</b></a></li>
-        <li>Search the MackTrucks.com site (search box above)</li>
-      </ul>
+    <div class="fragment">
+      <a href="/404" style="visibility: hidden;">https://main--vg-macktrucks-com--hlxsites.hlx.page/404</a>
     </div>
   </main>
   <footer></footer>
+  <script type="module">
+    import { decorateBlock, loadBlock } from '/scripts/lib-franklin.js';
+
+    const loadFragmentAndConfigureBackLink = async () => {
+      try {
+        const fragment = document.querySelector('.fragment');
+        decorateBlock(fragment);
+        await loadBlock(fragment);
+
+        const backLink = Array.from(fragment.querySelectorAll('a[title]')).find(link => link.title.toLowerCase() === 'back');
+        if (backLink) {
+          backLink.title = "Go back";
+          backLink.setAttribute('onclick', 'history.go(-1)');
+          backLink.href = "#";
+        } else {
+          console.warn('No links with title "BACK" found.');
+        }
+      } catch (error) {
+        console.error('Error during fragment loading and back link configuration:', error);
+      }
+    };
+
+    loadFragmentAndConfigureBackLink();
+  </script>
 </body>
 
 </html>
