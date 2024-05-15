@@ -75,7 +75,6 @@
         const backLinkTitle = getTextLabel('404 Back link title');
         const backLink = Array.from(fragment.querySelectorAll('a[title]')).find(link => link.title === backLinkTitle);
         if (backLink) {
-          backLink.title = "Go back";
           backLink.setAttribute('onclick', 'history.go(-1)');
           backLink.href = "#";
         } else {
