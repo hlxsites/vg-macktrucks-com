@@ -436,7 +436,7 @@ main .section.dealer-locator-container > div {
     display: block;
     font-weight: 700;
     margin: 10px 0 0;
-    max-width: 75%;
+    max-width: 230px;
 }
 
 .dealer-locator .nearby-pins article.teaser .teaser-top .heading div.distance {
