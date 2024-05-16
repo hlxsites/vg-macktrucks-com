@@ -12,7 +12,7 @@ const getLastTextElmts = (block) => {
 export default async function decorate(block) {
   const blockParent = block.parentElement.parentElement;
 
-  const variantClasses = ['with-background-image', 'background-plane', 'icon-list', 'navigation-links'];
+  const variantClasses = ['with-background-image', 'background-plane', 'icon-list', 'navigation-links', 'inset'];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const isBackgroundImageVariant = block.classList.contains(`${blockName}--with-background-image`);
