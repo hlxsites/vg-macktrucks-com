@@ -220,9 +220,13 @@
   max-width: unset;
 }
 
-.v2-columns.v2-columns--inset .v2-columns__column--with-image img {
+.v2-columns.v2-columns--inset .v2-columns__column--with-image {
   aspect-ratio: 1;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-image img {
   object-fit: cover;
+  height: 100%;
 }
 
 .v2-columns.v2-columns--inset .v2-columns__column--with-text svg {
