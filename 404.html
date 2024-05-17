@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="redesign-v2">
 
 <head>
   <title>Page not found</title>
@@ -12,81 +12,41 @@
   <script src="/scripts/scripts.js" type="module" crossorigin="use-credentials"></script>
   <script type="module">
     import { sampleRUM } from '/scripts/lib-franklin.js';
+    import { getTextLabel } from '/scripts/common.js';
 
     window.addEventListener('load', () => {
       if (document.referrer) {
         const { origin, pathname } = new URL(document.referrer);
         if (origin === window.location.origin) {
+          const backLinkTitle = getTextLabel('404 Back link title');
+          const fragmentContainer = document.querySelector('.fragment');
+          const btnContainer = document.createElement('p');
           const backBtn = document.createElement('a');
-          backBtn.classList.add('button', 'error-button-back');
+          backBtn.classList.add('button', 'button--primary');
           backBtn.href = pathname;
-          backBtn.textContent = 'Go back';
-          backBtn.title = 'Go back';
-          const btnContainer = document.querySelector('.button-container');
+          backBtn.textContent = backLinkTitle;
+          backBtn.title = backLinkTitle;
           btnContainer.append(backBtn);
+          fragmentContainer.append(btnContainer);
         }
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
     });
   </script>
   <link rel="stylesheet" href="/styles/styles.css">
-  <style>
-    :root {
-      --heading-font-size-xxl: 46px;
-      --heading-font-size-xl: 22px;
-      --heading-font-size-xl: 25px;
-      --body-font-size-m: 16px;
-    }
-
-    main.error {
-      display: flex;
-      justify-content: center;
-    }
-
-    main.error .section {
-      padding: 32px;
-    }
-  </style>
   <link rel="stylesheet" href="/styles/lazy-styles.css">
 </head>
 
 <body>
   <header></header>
   <main class="error">
-    <div class="container main-content">
-      <div class="section">
-        <div class="fragment">
-          <a href="/404" style="visibility: hidden;">https://main--vg-macktrucks-com--hlxsites.hlx.page/404</a>
-        </div>
+    <div>
+      <div class="fragment" style="--section-padding-top: ">
+        <a href="/404" style="visibility: hidden;">https://main--vg-macktrucks-com--hlxsites.hlx.page/404</a>
       </div>
     </div>
   </main>
   <footer></footer>
-  <script type="module">
-    import { decorateBlock, loadBlock } from '/scripts/lib-franklin.js';
-    import { getTextLabel } from '/scripts/common.js';
-
-    const loadFragmentAndConfigureBackLink = async () => {
-      try {
-        const fragment = document.querySelector('.fragment');
-        decorateBlock(fragment);
-        await loadBlock(fragment);
-
-        const backLinkTitle = getTextLabel('404 Back link title');
-        const backLink = Array.from(fragment.querySelectorAll('a[title]')).find(link => link.title === backLinkTitle);
-        if (backLink) {
-          backLink.setAttribute('onclick', 'history.go(-1)');
-          backLink.href = "#";
-        } else {
-          console.warn('No back link found.');
-        }
-      } catch (error) {
-        console.error('Error during fragment loading and back link configuration:', error);
-      }
-    };
-
-    loadFragmentAndConfigureBackLink();
-  </script>
 </body>
 
 </html>
