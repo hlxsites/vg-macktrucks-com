@@ -1103,3 +1103,7 @@ a.header__link {
 .header__custom--black.block a.standalone-link:focus {
   color: #878787;
 }
+
+.header__custom--black .header__logo-image-wrapper:has(.icon-bulldog)::after {
+  filter: invert(1);
+}
