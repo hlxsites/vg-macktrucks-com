@@ -1,10 +1,13 @@
 import {
   readBlockConfig,
-  decorateIcons,
   loadBlocks,
   getMetadata,
 } from '../../scripts/lib-franklin.js';
-import { createElement, getTextLabel } from '../../scripts/common.js';
+import {
+  createElement,
+  decorateIcons,
+  getTextLabel,
+} from '../../scripts/common.js';
 
 const PLACEHOLDERS = {
   subscribe: getTextLabel('SUBSCRIBE TO BULLDOG'),

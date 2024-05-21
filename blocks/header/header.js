@@ -1,7 +1,13 @@
 import {
-  createElement, generateId, getTextLabel,
+  createElement,
+  decorateIcons,
+  generateId,
+  getTextLabel,
 } from '../../scripts/common.js';
-import { createOptimizedPicture, decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
+import {
+  createOptimizedPicture,
+  getMetadata,
+} from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 import { HEADER_BUTTONS } from '../../scripts/constants.js';
 

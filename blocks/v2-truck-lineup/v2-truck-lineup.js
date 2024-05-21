@@ -1,6 +1,12 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/common.js';
-import { listenScroll, createArrowControls, setCarouselPosition } from '../../scripts/carousel-helper.js';
+import {
+  createElement,
+  decorateIcons,
+} from '../../scripts/common.js';
+import {
+  createArrowControls,
+  listenScroll,
+  setCarouselPosition,
+} from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-truck-lineup';
 
