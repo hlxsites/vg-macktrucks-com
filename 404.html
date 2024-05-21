@@ -19,7 +19,6 @@
         const { origin, pathname } = new URL(document.referrer);
         if (origin === window.location.origin) {
           const backLinkTitle = getTextLabel('404 Back link title');
-          const fragmentContainer = document.querySelector('.fragment');
           const btnContainer = document.createElement('p');
           const backBtn = document.createElement('a');
           backBtn.classList.add('button', 'button--primary');
@@ -27,7 +26,23 @@
           backBtn.textContent = backLinkTitle;
           backBtn.title = backLinkTitle;
           btnContainer.append(backBtn);
-          fragmentContainer.append(btnContainer);
+
+          const main = document.querySelector('main.error');
+
+          if (main) {
+            const observer = new MutationObserver((mutations, obs) => {
+              const fragmentContainer = document.querySelector('.fragment');
+              if (fragmentContainer) {
+                fragmentContainer.append(btnContainer);
+                observer.disconnect();
+              }
+            });
+
+            observer.observe(main, {
+              childList: true,
+              subtree: true
+            });
+          }
         }
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
