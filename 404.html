@@ -18,31 +18,29 @@
       if (document.referrer) {
         const { origin, pathname } = new URL(document.referrer);
         if (origin === window.location.origin) {
-          const backLinkTitle = getTextLabel('404 Back link title');
-          const btnContainer = document.createElement('p');
-          const backBtn = document.createElement('a');
-          backBtn.classList.add('button', 'button--primary');
-          backBtn.href = pathname;
-          backBtn.textContent = backLinkTitle;
-          backBtn.title = backLinkTitle;
-          btnContainer.append(backBtn);
-
           const main = document.querySelector('main.error');
 
-          if (main) {
-            const observer = new MutationObserver((mutations, obs) => {
-              const fragmentContainer = document.querySelector('.fragment');
-              if (fragmentContainer) {
-                fragmentContainer.append(btnContainer);
-                observer.disconnect();
-              }
-            });
+          const observer = new MutationObserver((mutations, observer) => {
+            const fragmentContainer = document.querySelector('.fragment');
+            if (fragmentContainer) {
+              const backLinkTitle = getTextLabel('404 Back link title');
+              const btnContainer = document.createElement('p');
+              const backBtn = document.createElement('a');
+              backBtn.classList.add('button', 'button--primary');
+              backBtn.href = pathname;
+              backBtn.textContent = backLinkTitle;
+              backBtn.title = backLinkTitle;
+              btnContainer.append(backBtn);
 
-            observer.observe(main, {
-              childList: true,
-              subtree: true
-            });
-          }
+              fragmentContainer.append(btnContainer);
+              observer.disconnect();
+            }
+          });
+
+          observer.observe(main, {
+            childList: true,
+            subtree: true
+          });
         }
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
