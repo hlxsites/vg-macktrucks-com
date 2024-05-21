@@ -16,13 +16,10 @@
   position: relative;
 }
 
-.redesign-v2 .vin-number__form .vin-number__submit {
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-
 .vin-number__input {
   margin: 0;
+  padding: 0.625rem 0.6rem;
+  width: 100%;
   max-width: 100%;
   font-size: var(--body-font-size-xs);
 }

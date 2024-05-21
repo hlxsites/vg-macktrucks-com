@@ -261,7 +261,7 @@ export default async function decorate(block) {
       />
       <label for="vin_number" class="${blockName}__label">${getTextLabel('vinlabel')}</label>
     </div>
-    <button class="button primary ${blockName}__submit" type="submit" name="submit">${getTextLabel('submit')}</button>
+    <button class="button button--primary ${blockName}__submit" type="submit" name="submit">${getTextLabel('submit')}</button>
   `);
 
   const vinResultsContainer = createElement('div', { classes: `${blockName}__results-container` });
