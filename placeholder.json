@@ -64,6 +64,14 @@
       "Text": "All Categories,All Trucks"
     },
     {
+      "Key": "Close menu",
+      "Text": "Close menu"
+    },
+    {
+      "Key": "Close modal",
+      "Text": "Close modal"
+    },
+    {
       "Key": "Next",
       "Text": "Next"
     },

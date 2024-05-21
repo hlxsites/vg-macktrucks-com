@@ -39,7 +39,7 @@
   margin: 0;
 }
 
-.v2-accordion-column__close {
+.v2-accordion-column__item .icon-dropdown-caret {
   transform: rotate(0);
   transition: transform var(--duration-small) var(--easing-standard);
 }
@@ -60,7 +60,7 @@
   stroke: currentcolor;
 }
 
-.v2-accordion-column__item.active .v2-accordion-column__close {
+.v2-accordion-column__item.active .icon-dropdown-caret {
   transform: rotate(180deg);
   transition: transform var(--duration-small) var(--easing-standard);
 }
