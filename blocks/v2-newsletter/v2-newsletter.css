@@ -31,6 +31,14 @@
   padding: 14px 48px 14px 14px;
 }
 
+.footer-newsletter .pardot-form input[type="email"]:focus {
+  outline: 0;
+}
+
+.footer-newsletter .pardot-form input[type="email"]:focus-visible {
+  outline: 2px solid var(--button-secondary-gold-enabled);
+}
+
 .footer-newsletter .pardot-form input[type="email"]::placeholder {
   color: var(--c-secondary-graphite);
 }
@@ -59,4 +67,12 @@
 
 .footer-newsletter .pardot-form .submit-button:active {
   background-color: var(--button-secondary-gold-pressed);
+}
+
+.footer-newsletter .pardot-form .submit-button:focus {
+  outline: 0;
+}
+
+.footer-newsletter .pardot-form .submit-button:focus-visible {
+  outline: 2px solid var(--border-focus);
 }
