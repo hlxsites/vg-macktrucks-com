@@ -230,6 +230,10 @@
     {
       "Key": "All Products",
       "Text": "All Products"
+    },
+    {
+      "Key": "404 Back link title",
+      "Text": "Go Back"
     }
   ],
   ":type": "sheet"

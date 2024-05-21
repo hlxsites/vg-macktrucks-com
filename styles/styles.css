@@ -898,7 +898,7 @@ main .section.responsive-title h1 {
   --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /* In page navigation */
-  --inpage-navigation-height: 0;
+  --inpage-navigation-height: 0px;
 }
 
 .redesign-v2 body {
@@ -970,8 +970,16 @@ main .section.responsive-title h1 {
   --color-icon-accent: var(--c-primary-black);
 }
 
+.redesign-v2 [data-theme="silver"] {
+  --background-color: var(--c-secondary-silver);
+  --text-color: var(--c-primary-black);
+  --color-icon: var(--c-primary-black);
+}
+
 /* icons on black background */
 .redesign-v2 [data-theme="black"] {
+  --background-color: var(--c-primary-black);
+  --text-color: var(--c-primary-white);
   --color-icon: var(--c-primary-white);
 }
 
@@ -1206,7 +1214,7 @@ main .section.responsive-title h1 {
 }
 
 /* Remove padding top of consecutive sections with background image or colors */
-.redesign-v2 .section:first-child,
+.redesign-v2:not:has(main.error) .section:first-child,
 .redesign-v2 .v2-testimonial-container,
 .redesign-v2 .v2-feature-carousel-container,
 .redesign-v2 .v2-intro-section-container,

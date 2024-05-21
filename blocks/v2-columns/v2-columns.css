@@ -187,6 +187,54 @@
   min-width: 32px;
 }
 
+.v2-columns.v2-columns--inset {
+  margin: 0 -16px;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__body,
+.v2-columns.v2-columns--inset .v2-columns__heading {
+  color: var(--text-color);
+}
+
+.v2-columns.v2-columns--inset .v2-columns__row {
+  gap: 0;
+}
+
+.v2-columns.v2-columns--inset .button-container {
+  margin: 0;
+}
+
+.v2-columns.v2-columns--inset .button-container a {
+  font-style: normal;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-text {
+  background-color: var(--background-color);
+  padding: 64px 16px;
+  gap: 24px;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-text,
+.v2-columns.v2-columns--inset .v2-columns__column--with-image {
+  width: 100%;
+  max-width: unset;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-image {
+  aspect-ratio: 1;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-image img {
+  object-fit: cover;
+  height: 100%;
+}
+
+.v2-columns.v2-columns--inset .v2-columns__column--with-text svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 12px;
+}
+
 @media (min-width: 744px) {
   .v2-columns {
     width: 100%;
@@ -220,6 +268,26 @@
 
   .v2-columns .v2-columns__column--with-text {
     padding: 0 56px;
+  }
+
+  .v2-columns.v2-columns--inset {
+    margin: unset;
+  }
+
+  .v2-columns.v2-columns--inset .v2-columns__column {
+    width: 50%;
+  }
+
+  .v2-columns.v2-columns--inset .v2-columns__column--with-image,
+  .v2-columns.v2-columns--inset .v2-columns__column--with-text {
+    max-width: 520px;
+  }
+
+  .v2-columns.v2-columns--inset .v2-columns__column--with-text {
+    justify-content: center;
+    align-self: center;
+    padding: 24px 60px;
+    min-height: 520px;
   }
 
   .v2-columns .v2-columns__column--with-text .v2-columns__heading {
