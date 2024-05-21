@@ -344,7 +344,7 @@ function buildInpageNavigationBlock(main, classname) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main, head) {
-  const pageStyle = head.querySelector('[name="style"]')?.content;
+  const pageStyle = head?.querySelector('[name="style"]')?.content;
   if (pageStyle) {
     pageStyle.split(',')
       .map((style) => toClassName(style.trim()))

@@ -1214,7 +1214,7 @@ main .section.responsive-title h1 {
 }
 
 /* Remove padding top of consecutive sections with background image or colors */
-.redesign-v2 .section:first-child,
+.redesign-v2:not:has(main.error) .section:first-child,
 .redesign-v2 .v2-testimonial-container,
 .redesign-v2 .v2-feature-carousel-container,
 .redesign-v2 .v2-intro-section-container,
