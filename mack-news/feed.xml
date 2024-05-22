@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-05-16T00:00:00.000Z</updated>
+    <updated>2024-05-22T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2879,5 +2879,13 @@
         <updated>2024-05-16T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (May 16, 2024) – Mack Trucks will have three battery-electric vehicles (BEVs) covering Class 6 and Class 8 on display in its booth at Advanced Clean Transportation (ACT) Expo 2024, highlighting its focus on advanced technologies and total ecosystem support of the customer.]]></content>
         <published>2024-05-16T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack® MY 2024 MD Electric and Mack LR Electric Models are Now Eligible for the California HVIP]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-my-2024-md-electric-and-mack-lr-electric-models-are-now-eligible-for-the-california-hvip</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-my-2024-md-electric-and-mack-lr-electric-models-are-now-eligible-for-the-california-hvip"/>
+        <updated>2024-05-22T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[LAS VEGAS (May 21, 2024) – Mack Trucks announced today that its 2024 Model Year Mack® MD Electric and LR Electric models qualify for the California Air Resources Board (CARB) Clean Truck and Bus Voucher Incentive Project (HVIP). This brings the total number of Mack battery-electric vehicles (BEVs) that qualify for HVIP to three.]]></content>
+        <published>2024-05-22T00:00:00.000Z</published>
     </entry>
 </feed>
