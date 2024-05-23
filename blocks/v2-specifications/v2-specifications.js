@@ -91,7 +91,7 @@ export default async function decorate(block) {
 
       const buttons = item.querySelectorAll('.button');
       buttons.forEach((bt) => {
-        bt.classList.remove('button--primary', 'button');
+        bt.classList.remove('button--red', 'button');
         bt.classList.add('standalone-link');
       });
     }

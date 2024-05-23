@@ -75,6 +75,7 @@ export default async function decorate(block) {
   const bannerLinks = block.querySelectorAll('a');
 
   bannerLinks.forEach((link) => {
+    link.classList.remove('button', 'button--red');
     const closestParent = link.closest(`.${blockName}`);
     closestParent.addEventListener('click', () => {
       const linkHref = link.getAttribute('href');

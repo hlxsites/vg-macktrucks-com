@@ -46,21 +46,11 @@ export default async function decorate(block) {
         buttonContainer.replaceWith(btn);
       }
 
-      const up = btn.parentElement;
-      if (
-        up.childNodes.length === 1
-        && up.tagName === 'STRONG'
-      ) {
-        btn.className = 'button button--small button--primary';
-      }
-      if (
-        up.childNodes.length === 1
-        && up.tagName === 'EM'
-      ) {
-        btn.className = 'button button--small button--secondary';
+      if (btn.classList.contains('button--primary') || btn.classList.contains('button--secondary')) {
+        btn.classList.add('button--small');
       } else {
         btn.classList.add('standalone-link', `${blockName}__button`);
-        btn.classList.remove('button', 'button--primary');
+        btn.classList.remove('button', 'button--red');
       }
     });
 

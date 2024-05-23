@@ -28,7 +28,7 @@ const inpageNavigationButton = () => {
     const titleMobile = getMetadata('inpage-button');
     const url = getMetadata('inpage-link');
     const link = createElement('a', {
-      classes: ['button', 'button--large', 'button--cta', `${blockName}__cta`],
+      classes: ['button', 'button--large', 'button--red', `${blockName}__cta`],
       props: {
         href: url,
         title: titleMobile,

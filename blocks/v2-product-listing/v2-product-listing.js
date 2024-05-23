@@ -64,7 +64,7 @@ function buildProductImageDom(prodEle) {
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
-    link.classList.remove('button', 'button--primary');
+    link.classList.remove('button', 'button--red');
     link.append(...pictures);
     imageWrapper.innerHTML = '';
     imageWrapper.append(link);
@@ -81,10 +81,6 @@ function buildProductInfoDom(prodEle) {
     info.classList.add(`${blockName}__product-info`);
 
     [...buttons].forEach((b) => {
-      if (b.parentElement.tagName === 'EM') {
-        b.parentElement.parentElement.remove();
-      }
-      b.parentElement.remove();
       buttonContainer.appendChild(b);
     });
     info.appendChild(buttonContainer);

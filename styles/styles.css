@@ -899,6 +899,28 @@ main .section.responsive-title h1 {
 
   /* In page navigation */
   --inpage-navigation-height: 0px;
+
+  /* Buttons */
+  --button-primary-color: var(--c-primary-black);
+  --button-primary-bg: var(--c-primary-gold);
+  --button-primary-bg-hover: #d9b781;
+  --button-primary-bg-active: #a18860;
+  --button-secondary-color: var(--c-primary-black);
+  --button-secondary-border: var(--c-primary-black);
+  --button-secondary-bg: var(--c-primary-white);
+  --button-secondary-bg-hover: #f1f1f1;
+  --button-secondary-border-hover: #a7a8a9;
+  --button-secondary-bg-active: #e1dfdd;
+  --button-secondary-border-active: #d9d9d9;
+  --button-red-color: var(--c-primary-white);
+  --button-red-bg: var(--c-accent-red);
+  --button-red-bg-hover: #e11d0b;
+  --button-red-bg-active: #b91709;
+
+  /* Standalone link */
+  --standalone-link-color: var(--c-primary-black);
+  --standalone-link-color-active: #555;
+  --standalone-link-color-hover: #555;
 }
 
 .redesign-v2 body {
@@ -1039,53 +1061,53 @@ main .section.responsive-title h1 {
   padding: 16px 20px 12px;
 }
 
-.redesign-v2 .button--cta {
-  background-color: var(--button-primary-red-enabled);
-  color: var(--c-primary-white);
+.redesign-v2 .button--red {
+  background-color: var(--button-red-bg);
+  color: var(--button-red-color);
 }
 
-.redesign-v2 .button--cta:hover,
-.redesign-v2 .button--cta:focus {
-  background-color: var(--button-primary-red-hover);
+.redesign-v2 .button--red:hover,
+.redesign-v2 .button--red:focus {
+  background-color: var(--button-red-bg-hover);
 }
 
-.redesign-v2 .button--cta:active {
-  background-color: var(--button-primary-red-pressed);
+.redesign-v2 .button--red:active {
+  background-color: var(--button-red-bg-active);
 }
 
 .redesign-v2 a.button--primary,
 .redesign-v2 button.button--primary {
-  background-color: var(--button-secondary-gold-enabled);
-  color: var(--c-primary-black);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
 }
 
 .redesign-v2 .button--primary:hover,
 .redesign-v2 .button--primary:focus {
-  background-color: var(--button-secondary-gold-hover);
+  background-color: var(--button-primary-bg-hover);
 }
 
 .redesign-v2 .button--primary:active {
-  background-color: var(--button-secondary-gold-pressed);
+  background-color: var(--button-primary-bg-active);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 a.button--secondary,
 .redesign-v2 button.button--secondary {
-  background-color: var(--button-tertiary-white-enabled);
-  border-color: var(--c-primary-black);
-  color: var(--c-primary-black);
+  background-color: var(--button-secondary-bg);
+  border-color: var(--button-secondary-border);
+  color: var(--button-secondary-color);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .redesign-v2 .button--secondary:hover,
 .redesign-v2 .button--secondary:focus {
-  background-color: var(--button-tertiary-white-hover);
-  border-color: var(--button-tertiary-white-border-hover);
+  background-color: var(--button-secondary-bg-hover);
+  border-color: var(--button-secondary-border-hover);
 }
 
 .redesign-v2 .button--secondary:active {
-  background-color: var(--button-tertiary-white-pressed);
-  border-color: #d9d9d9;
+  background-color: var(--button-secondary-bg-active);
+  border-color: var(--button-secondary-border-active);
 }
 
 /* Section Background colors */
@@ -1279,7 +1301,7 @@ main .section.responsive-title h1 {
 
 .redesign-v2 a.standalone-link {
   align-items: center;
-  color: var(--c-primary-black);
+  color: var(--standalone-link-color);
   display: inline-flex;
   font-family: var(--ff-subheadings-medium);
   font-size: var(--button-font-size);
@@ -1290,12 +1312,12 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 a.standalone-link:active {
-  color: var(--c-tertiary-cool-gray);
+  color: var(--standalone-link-color-active);
 }
 
 .redesign-v2 a.standalone-link:hover,
 .redesign-v2 a.standalone-link:focus {
-  color: var(--c-tertiary-cool-gray);
+  color: var(--standalone-link-color-hover);
   text-decoration: underline;
 }
 
