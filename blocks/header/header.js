@@ -3,9 +3,14 @@ import {
 } from '../../scripts/common.js';
 import { createOptimizedPicture, decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
-import { HEADER_BUTTONS } from '../../scripts/constants.js';
 
-const { hasLoginDisabled, hasSearchDisabled } = HEADER_BUTTONS;
+// check if the header has to have a login and/or a search button
+const hasLoginDisabled = getMetadata('disable-login') === 'true';
+const hasSearchDisabled = getMetadata('disable-search') === 'true';
+export const HEADER_BUTTONS = {
+  hasLoginDisabled,
+  hasSearchDisabled,
+};
 
 const blockClass = 'header';
 
