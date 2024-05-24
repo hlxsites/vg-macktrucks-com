@@ -64,7 +64,6 @@ function buildProductImageDom(prodEle) {
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
-    link.classList.remove('button', 'button--red');
     link.append(...pictures);
     imageWrapper.innerHTML = '';
     imageWrapper.append(link);

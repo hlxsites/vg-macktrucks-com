@@ -116,7 +116,7 @@ export default function decorate(block) {
     item.prepend(colBtnTitle);
     itemsContainer.appendChild(item);
   });
-  button.classList.add('button--large', `${blockName}__builder-button`);
+  button.classList.add('button--large', 'button--red', `${blockName}__builder-button`);
 
   itemsContainer.append(buttonContainer);
   accordionContainer.append(backgroundImage, itemsContainer);

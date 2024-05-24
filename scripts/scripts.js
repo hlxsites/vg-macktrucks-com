@@ -113,9 +113,9 @@ const getButtonClass = (up, twoUp) => {
   const twoUpTag = twoUp.tagName;
 
   if (isSingleChild(twoUp)) {
-    if (upTag === 'STRONG' && twoUpTag === 'P') return 'button--primary';
-    if (upTag === 'STRONG' && twoUpTag === 'LI') return 'arrowed';
-    if (upTag === 'EM' && twoUpTag === 'P') return 'button--secondary';
+    if (upTag === 'STRONG' && twoUpTag === 'P') return 'button button--primary';
+    if (upTag === 'STRONG' && twoUpTag === 'LI') return 'button arrowed';
+    if (upTag === 'EM' && twoUpTag === 'P') return 'button button--secondary';
   }
 
   if (
@@ -127,7 +127,14 @@ const getButtonClass = (up, twoUp) => {
     return 'arrowed';
   }
 
-  return 'button--red';
+  if (
+    (upTag === 'STRONG' || upTag === 'EM')
+    && (twoUpTag === 'STRONG' || twoUpTag === 'EM')
+  ) {
+    return 'button button--red';
+  }
+
+  return '';
 };
 
 /**
@@ -152,7 +159,7 @@ const handleLinkDecoration = (link) => {
   if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
 
   const buttonClass = getButtonClass(up, twoUp);
-  link.className = `button ${buttonClass}`;
+  if (buttonClass) link.className = `${buttonClass}`;
 
   if (buttonClass === 'arrowed') {
     const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });

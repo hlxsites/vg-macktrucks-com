@@ -50,7 +50,6 @@ export default async function decorate(block) {
         btn.classList.add('button--small');
       } else {
         btn.classList.add('standalone-link', `${blockName}__button`);
-        btn.classList.remove('button', 'button--red');
       }
     });
 

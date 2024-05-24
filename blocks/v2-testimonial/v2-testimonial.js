@@ -21,7 +21,6 @@ const handleVideoLinks = (videoLinks) => {
   });
 
   if (selectedVideo) {
-    selectedVideo.classList.remove('button', 'button--red');
     selectedVideo.classList.add(`${blockName}__video-link`);
     return;
   }

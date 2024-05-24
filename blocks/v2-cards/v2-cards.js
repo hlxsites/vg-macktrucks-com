@@ -34,7 +34,6 @@ export default async function decorate(block) {
         link.classList.add('button--small');
       } else {
         link.classList.add('standalone-link', `${blockName}__button`);
-        link.classList.remove('button', 'button--red');
       }
     });
   });
