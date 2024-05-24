@@ -91,6 +91,21 @@
             }
         ]
     },
+    "headerConfig": {
+        "total": 2,
+        "offset": 0,
+        "limit": 2,
+        "data": [
+            {
+                "name": "SEARCH_DISABLED",
+                "value": "true"
+            },
+            {
+                "name": "LOGIN_DISABLED",
+                "value": "true"
+            }
+        ]
+    },
     "truckConfigurator": {
         "total": 0,
         "offset": 0,

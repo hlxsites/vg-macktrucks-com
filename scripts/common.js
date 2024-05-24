@@ -232,6 +232,7 @@ const {
   cookieValues,
   magazineConfig,
   fgrep,
+  headerConfig,
   truckConfigurator,
 } = await getConstantValues();
 
@@ -240,6 +241,7 @@ export const SEARCH_URLS = formatValues(searchUrls.data);
 export const COOKIE_CONFIGS = formatValues(cookieValues.data);
 export const MAGAZINE_CONFIGS = formatValues(magazineConfig.data);
 export const FGREP_VALUES = formatValues(fgrep.data);
+export const HEADER_CONFIGS = formatValues(headerConfig.data);
 export const TRUCK_CONFIGURATOR = formatValues(truckConfigurator.data);
 
 /**
