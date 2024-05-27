@@ -1,10 +1,10 @@
 import {
   createElement,
+  createResponsivePicture,
+  decorateIcons,
+  getImageURLs,
   getTextLabel,
   variantsClassesToBEM,
-  getImageURLs,
-  createResponsivePicture,
-
 } from '../../scripts/common.js';
 
 // Define break point/s
@@ -161,12 +161,9 @@ function buildFilter(allSegmentNames) {
   const selectedItem = createElement('div', { classes: `${blockName}__selected-item` });
   const segmentNamesList = createElement('ul', { classes: `${blockName}__button-list` });
 
-  // Create a dropdown icon fragment
-  const dropdownArrowIcon = document.createRange().createContextualFragment(`<span class="${blockName}__svg-wrapper">
-  <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-chevron-right"></use></svg>
-  </span>`);
+  const dropdownArrowIcon = createElement('span', { classes: [`${blockName}__icon`, 'icon', 'icon-dropdown-caret'] });
   selectedItemWrapper.append(selectedItem);
-  selectedItemWrapper.appendChild(...dropdownArrowIcon.children);
+  selectedItemWrapper.appendChild(dropdownArrowIcon);
 
   dropdownWrapper.append(selectedItemWrapper);
   dropdownWrapper.append(segmentNamesList);
@@ -233,6 +230,8 @@ export default function decorate(block) {
       ul.classList.add(`${blockName}__detail-list`);
     });
   }
+
+  decorateIcons(block);
 }
 
 function getProductName() {

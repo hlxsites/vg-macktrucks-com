@@ -1,12 +1,12 @@
 import {
   createElement,
+  decorateIcons,
   generateId,
   getTextLabel,
   HEADER_CONFIGS,
 } from '../../scripts/common.js';
 import {
   createOptimizedPicture,
-  decorateIcons,
   getMetadata,
 } from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
@@ -37,10 +37,11 @@ const createLogo = (logoWrapper) => {
   (logoLink || logoImage).classList.add(`${blockClass}__logo-image-wrapper`);
 
   if (logoLink) {
-    const logoLinkText = createElement('span', { classes: ['screenreader'] });
-    logoLinkText.append('Go to Mack Trucks homepage');
+    const logoLinkTextContainer = createElement('span', { classes: ['screenreader'] });
+    const logoLinkText = getTextLabel('Logo link');
+    logoLinkTextContainer.append(logoLinkText);
 
-    logoLink.append(logoLinkText);
+    logoLink.append(logoLinkTextContainer);
   }
 
   return logoLink || logoImage;

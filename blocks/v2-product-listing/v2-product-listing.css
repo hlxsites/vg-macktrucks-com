@@ -22,6 +22,7 @@
   margin: 0;
   text-align: left;
   width: 100%;
+  border: 0;
 }
 
 .v2-product-listing-wrapper {
@@ -201,7 +202,7 @@
   cursor: pointer;
   display: flex;
   margin: 0;
-  padding: 14px 0 14px 24px;
+  padding: 14px 16px 14px 24px;
   width: 100%;
   box-shadow: 0 8px 8px 0 rgb(0 0 0 / 8%);
   max-height: 48px;
@@ -228,6 +229,7 @@
   transform: rotate(90deg);
 }
 
+.v2-product-listing__selected-item-wrapper .icon,
 .v2-product-listing__selected-item-wrapper svg {
   --color-icon: var(--c-accent-red);
 

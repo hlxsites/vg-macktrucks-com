@@ -1,6 +1,8 @@
-import { createElement } from '../../scripts/common.js';
+import {
+  createElement,
+  decorateIcons,
+} from '../../scripts/common.js';
 import fragmentBlock from '../fragment/fragment.js';
-import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 const blockName = 'v2-accordion';
 

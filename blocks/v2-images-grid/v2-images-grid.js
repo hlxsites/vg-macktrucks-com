@@ -1,6 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import {
   createElement, removeEmptyTags, getTextLabel, debounce,
+  decorateIcons,
 } from '../../scripts/common.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 import { showModal } from '../../common/modal/modal-component.js';
@@ -116,16 +117,14 @@ const createModalContent = (content) => {
   const itemsWrapper = createElement('div', { classes: `${blockClassName}__carousel-items-wrapper` });
   const wrapper = createElement('div', { classes: `${blockClassName}__modal-content` });
 
-  itemsWrapper.innerHTML = `
-    <div class="${blockClassName}__modal-arrows-wrapper">
-      <button class="${blockClassName}__modal-arrow" aria-label="Previous">
-        <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
-      </button>
-      <button class="${blockClassName}__modal-arrow" aria-label="Next">
-        <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
-      </button>
-    </div>
-  `;
+  itemsWrapper.innerHTML = `<div class="${blockClassName}__modal-arrows-wrapper">
+    <button class="${blockClassName}__modal-arrow" aria-label="${getTextLabel('Previous')}">
+      <span class="icon icon-arrow-left" />
+    </button>
+    <button class="${blockClassName}__modal-arrow" aria-label="${getTextLabel('Next')}">
+      <span class="icon icon-arrow-right" />
+    </button>
+  </div>`;
   itemsWrapper.append(carouselItemsList);
 
   [...itemsWrapper.querySelectorAll('button')].forEach((el, elIndex) => {
@@ -138,6 +137,8 @@ const createModalContent = (content) => {
       setActiveSlide(index, carouselItemsList, carouselImagesList, content);
     });
   });
+
+  decorateIcons(itemsWrapper);
 
   wrapper.append(itemsWrapper, carouselImagesList);
 
