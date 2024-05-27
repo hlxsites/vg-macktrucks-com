@@ -1,0 +1,123 @@
+{
+    "searchUrls": {
+        "total": 2,
+        "offset": 0,
+        "limit": 2,
+        "data": [
+            {
+                "name": "SEARCH_URL_PROD",
+                "value": "https://kb3ko4nzt2.execute-api.eu-west-1.amazonaws.com/prod/search"
+            },
+            {
+                "name": "SEARCH_URL_DEV",
+                "value": "https://search-api-dev.aws.43636.vnonprod.com/search"
+            }
+        ]
+    },
+    "cookieValues": {
+        "total": 9,
+        "offset": 0,
+        "limit": 9,
+        "data": [
+            {
+                "name": "PERFORMANCE_COOKIE",
+                "value": "C0002"
+            },
+            {
+                "name": "FUNCTIONAL_COOKIE",
+                "value": "C0003"
+            },
+            {
+                "name": "TARGETING_COOKIE",
+                "value": "C0004"
+            },
+            {
+                "name": "SOCIAL_COOKIE",
+                "value": "C0005"
+            },
+            {
+                "name": "HOTJAR_ID",
+                "value": "597204"
+            },
+            {
+                "name": "GTM_ID",
+                "value": "GTM-NDMV8BN"
+            },
+            {
+                "name": "DATA_DOMAIN_SCRIPT",
+                "value": "bf50d0a6-e209-4fd4-ad2c-17da5f9e66a5"
+            },
+            {
+                "name": "ACC_ENG_TRACKING",
+                "value": "[\"piAId: 1039343\",\"piCId: 122594\",\"piHostname: pi.pardot.com\"]"
+            },
+            {
+                "name": "COOKIE_CHECK",
+                "value": "false"
+            }
+        ]
+    },
+    "magazineConfig": {
+        "total": 2,
+        "offset": 0,
+        "limit": 2,
+        "data": [
+            {
+                "name": "HREF",
+                "value": "https://go.pardot.com/l/1038343/2023-12-12/3m4w2c"
+            },
+            {
+                "name": "IFRAME_SIZE",
+                "value": "900px"
+            }
+        ]
+    },
+    "fgrep": {
+        "total": 3,
+        "offset": 0,
+        "limit": 3,
+        "data": [
+            {
+                "name": "GIT_OWNER",
+                "value": "hlxsites"
+            },
+            {
+                "name": "GIT_REPO",
+                "value": "vg-macktrucks-com"
+            },
+            {
+                "name": "GLOBAL_SITEMAP_URL",
+                "value": "/sitemap.xml"
+            }
+        ]
+    },
+    "headerConfig": {
+        "total": 2,
+        "offset": 0,
+        "limit": 2,
+        "data": [
+            {
+                "name": "SEARCH_DISABLED",
+                "value": "false"
+            },
+            {
+                "name": "LOGIN_DISABLED",
+                "value": "false"
+            }
+        ]
+    },
+    "truckConfigurator": {
+        "total": 0,
+        "offset": 0,
+        "limit": 0,
+        "data": []
+    },
+    ":version": 3,
+    ":names": [
+        "searchUrls",
+        "cookieValues",
+        "magazineConfig",
+        "truckConfigurator"
+    ],
+    ":type": "multi-sheet"
+}

@@ -6,8 +6,8 @@ import {
 import {
   createElement,
   getTextLabel,
+  MAGAZINE_CONFIGS,
 } from '../../scripts/common.js';
-import { FORM_MAGAZINE_SUBSCRIBE } from '../../scripts/constants.js';
 
 export default async function decorate(block) {
   const content = document.createRange().createContextualFragment(`
@@ -19,7 +19,7 @@ export default async function decorate(block) {
 
   const iframeLink = createElement('a', {
     classes: 'iframe-link',
-    props: { href: FORM_MAGAZINE_SUBSCRIBE.href },
+    props: { href: MAGAZINE_CONFIGS.HREF },
   });
 
   block.textContent = '';
@@ -29,7 +29,7 @@ export default async function decorate(block) {
 
   const iframeForm = buildBlock('iframe', { elems: [iframeLink] });
   block.insertAdjacentElement('afterend', iframeForm);
-  iframeForm.classList.add(FORM_MAGAZINE_SUBSCRIBE.iframeSize);
+  iframeForm.classList.add(MAGAZINE_CONFIGS.IFRAME_SIZE);
   decorateBlock(iframeForm);
   loadBlock(iframeForm);
 }

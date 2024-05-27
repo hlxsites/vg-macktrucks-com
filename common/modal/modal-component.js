@@ -7,9 +7,9 @@ import {
   isAEMVideoUrl,
   isLowResolutionVideoUrl,
   VideoEventManager,
+  AEM_ASSETS,
 } from '../../scripts/video-helper.js';
 import { createElement } from '../../scripts/common.js';
-import { AEM_ASSETS } from '../../scripts/constants.js';
 
 const { videoIdRegex } = AEM_ASSETS;
 const videoEventManager = new VideoEventManager();

@@ -3,10 +3,8 @@ import {
   createVideo,
   handleVideoMessage,
   VideoEventManager,
-} from '../../scripts/video-helper.js';
-import {
   AEM_ASSETS,
-} from '../../scripts/constants.js';
+} from '../../scripts/video-helper.js';
 
 const blockName = 'v2-embed';
 const videoEventManager = new VideoEventManager();
