@@ -6,9 +6,7 @@ import {
   loadHeader,
   loadFooter,
 } from './lib-franklin.js';
-import { COOKIE_CHECK, COOKIE_VALUES } from './constants.js';
 
-const { performance, targeting, social } = COOKIE_VALUES;
 let placeholders = null;
 
 export async function getPlaceholders() {
@@ -216,6 +214,34 @@ export const slugify = (text) => (
     .replace(/--+/g, '-')
 );
 
+async function getConstantValues() {
+  const url = '/constants.json';
+  const constants = await fetch(url).then((resp) => resp.json());
+  return constants;
+}
+
+const formatValues = (values) => {
+  const obj = {};
+  /* eslint-disable-next-line */
+  values.forEach(({ name, value }) => obj[name] = value);
+  return obj;
+};
+
+const {
+  searchUrls,
+  cookieValues,
+  magazineConfig,
+  headerConfig,
+  truckConfigurator,
+} = await getConstantValues();
+
+// This data comes from the sharepoint 'constants.xlsx' file
+export const SEARCH_URLS = formatValues(searchUrls.data);
+export const COOKIE_CONFIGS = formatValues(cookieValues.data);
+export const MAGAZINE_CONFIGS = formatValues(magazineConfig.data);
+export const HEADER_CONFIGS = formatValues(headerConfig.data);
+export const TRUCK_CONFIGURATOR = formatValues(truckConfigurator.data);
+
 /**
  * Check if one trust group is checked.
  * @param {String} groupName the one trust group like: C0002
@@ -225,16 +251,27 @@ export function checkOneTrustGroup(groupName, cookieCheck = false) {
   return cookieCheck || oneTrustCookie.includes(`${groupName}:1`);
 }
 
+const {
+  PERFORMANCE_COOKIE = false,
+  FUNCTIONAL_COOKIE = false,
+  TARGETING_COOKIE = false,
+  SOCIAL_COOKIE = false,
+} = COOKIE_CONFIGS;
+
 export function isPerformanceAllowed() {
-  return checkOneTrustGroup(performance, COOKIE_CHECK);
+  return checkOneTrustGroup(PERFORMANCE_COOKIE);
+}
+
+export function isFunctionalAllowed() {
+  return checkOneTrustGroup(FUNCTIONAL_COOKIE);
 }
 
 export function isTargetingAllowed() {
-  return checkOneTrustGroup(targeting, COOKIE_CHECK);
+  return checkOneTrustGroup(TARGETING_COOKIE);
 }
 
 export function isSocialAllowed() {
-  return checkOneTrustGroup(social, COOKIE_CHECK);
+  return checkOneTrustGroup(SOCIAL_COOKIE);
 }
 
 /**
