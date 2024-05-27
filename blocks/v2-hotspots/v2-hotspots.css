@@ -218,6 +218,11 @@
   margin: 0;
 }
 
+.v2-hotspots .hotspot-feature-button img {
+  width: 24px;
+  height: 24px;
+}
+
 .v2-hotspots .features .hotspot-feature-button:hover {
   cursor: pointer;
 }
@@ -301,5 +306,6 @@
     top: 0;
     right: 0;
     background-color: var(--c-primary-gold);
+    border: 0;
   }
 }

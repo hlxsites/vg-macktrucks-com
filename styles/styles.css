@@ -205,6 +205,8 @@
 }
 
 html {
+  min-height: 100%;
+  position: relative;
   font-size: 10px;
 }
 
@@ -826,6 +828,7 @@ main .section.responsive-title h1 {
   --section-div-padding: 0 var(--v2-space-small);
 
   font-size: 16px;
+  scroll-behavior: smooth;
 
   /* Font sizes */
 
