@@ -25,6 +25,7 @@ import {
   formatStringToArray,
   getPlaceholders,
   loadDelayed,
+  loadTemplate,
   slugify,
   variantsClassesToBEM,
 } from './common.js';
@@ -339,9 +340,9 @@ const createInpageNavigation = (main) => {
   [...main.querySelectorAll(':scope > div')].forEach((section) => {
     const title = section.dataset.inpage;
     if (title) {
-      const countDuplcated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
+      const countDuplicated = tabItemsObj.filter((item) => item.title === title)?.length || 0;
       const order = parseFloat(section.dataset.inpageOrder);
-      const anchorID = (countDuplcated > 0) ? slugify(`${section.dataset.inpage}-${countDuplcated}`) : slugify(section.dataset.inpage);
+      const anchorID = (countDuplicated > 0) ? slugify(`${section.dataset.inpage}-${countDuplicated}`) : slugify(section.dataset.inpage);
       const obj = {
         title,
         id: anchorID,
@@ -379,7 +380,7 @@ const createInpageNavigation = (main) => {
     subnavLink.textContent = item.title;
 
     subnavItem.append(subnavLink);
-    navItems.push(subnavItem);
+    navItems.push(subnavLink);
   });
 
   return navItems;
@@ -432,45 +433,25 @@ export function decorateMain(main, head) {
   buildInpageNavigationBlock(main, 'v2-inpage-navigation');
 }
 
-async function loadTemplate(doc, templateName) {
-  try {
-    const cssLoaded = new Promise((resolve) => {
-      loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`, resolve);
-    });
-    const decorationComplete = new Promise((resolve) => {
-      (async () => {
-        try {
-          const mod = await import(`../templates/${templateName}/${templateName}.js`);
-          if (mod.default) {
-            await mod.default(doc);
-          }
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log(`failed to load module for ${templateName}`, error);
-        }
-        resolve();
-      })();
-    });
-    await Promise.all([cssLoaded, decorationComplete]);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(`failed to load block ${templateName}`, error);
-  }
-}
-
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+
   const main = doc.querySelector('main');
   const { head } = doc;
   if (main) {
     decorateMain(main, head);
     document.body.classList.add('appear');
+    const language = getMetadata('locale') || 'en';
+    document.documentElement.lang = language;
+    const templateName = getMetadata('template');
+    if (templateName) await loadTemplate(doc, templateName);
     await waitForLCP(LCP_BLOCKS);
+  } else {
+    document.documentElement.lang = 'en';
   }
 
   await getPlaceholders();
@@ -481,9 +462,6 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  const templateName = getMetadata('template');
-  if (templateName) await loadTemplate(doc, templateName);
-
   const main = doc.querySelector('main');
   await loadBlocks(main);
 

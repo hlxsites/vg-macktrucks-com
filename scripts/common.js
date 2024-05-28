@@ -160,9 +160,7 @@ export async function decorateIcons(element) {
 
 export async function loadTemplate(doc, templateName) {
   try {
-    const cssLoaded = new Promise((resolve) => {
-      loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`, resolve);
-    });
+    await loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`);
     const decorationComplete = new Promise((resolve) => {
       (async () => {
         try {
@@ -177,7 +175,7 @@ export async function loadTemplate(doc, templateName) {
         resolve();
       })();
     });
-    await Promise.all([cssLoaded, decorationComplete]);
+    await decorationComplete;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(`failed to load block ${templateName}`, error);
