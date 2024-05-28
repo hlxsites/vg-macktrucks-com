@@ -157,6 +157,7 @@
   padding: 0.4em 0.7em 0.2em;
   line-height: 18px;
   margin: 0;
+  border-style: none;
 }
 
 .performance-specifications .engine-tablist [role="tab"][aria-selected="true"] {
