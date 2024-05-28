@@ -44,7 +44,18 @@
 }
 
 .header__menu-overlay {
-  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  background-color: var(--overlay-background-color);
+  opacity: 0;
+  transition:
+    opacity var(--duration-small) var(--duration-small) ease-in-out,
+    top 0ms calc(var(--duration-small) * 2) ease-in-out,
+    width 0ms calc(var(--duration-small) * 2) ease-in-out,
+    height 0ms calc(var(--duration-small) * 2) ease-in-out;
 }
 
 .header__logo-image-wrapper {
@@ -54,6 +65,10 @@
   width: var(--logo-wrapper-width);
   display: flex;
   place-content: center;
+}
+
+.header--hamburger-open .header__logo-image-wrapper {
+  pointer-events: none;
 }
 
 .header__logo-image,
@@ -110,6 +125,7 @@ a.header__link {
   font-size: 36px;
   align-items: center;
   margin: 0;
+  cursor: pointer;
 }
 
 .header__close-menu:focus,
@@ -130,6 +146,10 @@ a.header__link {
 .header__main-nav-item {
   padding: 0;
   margin: 0;
+}
+
+.header__link-accordion {
+  cursor: pointer;
 }
 
 .header__link.header__main-nav-link.header__link-accordion {
@@ -219,13 +239,14 @@ a.header__link {
 }
 
 .header__link.header__action-link {
+  --color-icon: var(--header-color);
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 8px 0;
   text-wrap: nowrap;
-
-  --color-icon: var(--header-color);
+  cursor: pointer;
 }
 
 .header__action-link.header__action-link--button {
@@ -253,13 +274,10 @@ a.header__link {
 }
 
 .header--hamburger-open .header__menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgb(20 20 20 / 40%);
-  width: 100vw;
+  opacity: 0.24;
+  width: 100%;
   height: 100vh;
-  display: block;
+  transition: opacity var(--duration-small) ease-in-out;
 }
 
 .header--hamburger-open .header__action-link-text {
@@ -472,6 +490,7 @@ a.header__link {
 
   .header__link-accordion::after {
     display: none;
+    cursor: unset;
   }
 
   .header__main-nav {
@@ -621,6 +640,7 @@ a.header__link {
     letter-spacing: 1.92px;
     text-transform: uppercase;
     padding: 0 0 16px;
+    cursor: unset;
   }
 
   .header .header__menu-content .header__menu-heading:hover {
