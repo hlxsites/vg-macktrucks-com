@@ -116,8 +116,8 @@ indices:
       image:
         select: head > meta[property="og:image"]
         value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
-      date:
-        select: head > meta[property="date"]
+      publ-date:
+        select: head > meta[property="publ-date"]
         value: attribute(el, "content")
       lastModified:
         select: none
