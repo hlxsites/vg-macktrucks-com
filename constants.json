@@ -58,9 +58,9 @@
         ]
     },
     "magazineConfig": {
-        "total": 2,
+        "total": 4,
         "offset": 0,
-        "limit": 2,
+        "limit": 4,
         "data": [
             {
                 "name": "HREF",
@@ -69,6 +69,14 @@
             {
                 "name": "IFRAME_SIZE",
                 "value": "900px"
+            },
+            {
+                "name": "DATE_LANGUAGE",
+                "value": "en-US"
+            },
+            {
+                "name": "DATE_OPTIONS",
+                "value": "[\"month: long\",\"day: numeric\",\"year: numeric\"]"
             }
         ]
     },

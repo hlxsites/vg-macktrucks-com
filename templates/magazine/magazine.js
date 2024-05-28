@@ -2,7 +2,11 @@ import {
   getMetadata,
   createOptimizedPicture,
 } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/common.js';
+import {
+  createElement,
+  MAGAZINE_CONFIGS,
+  extractObjectFromArray,
+} from '../../scripts/common.js';
 
 async function buildArticleHero() {
   const title = getMetadata('og:title');
@@ -112,6 +116,18 @@ export default async function decorate(doc) {
   const authorName = getMetadata('author');
   const author = createElement('p', { classes: 'author-text' });
   author.innerText = authorName;
+
+  // This is where to get the date already formatted to the correct language
+  // date changes start here:
+  const date = new Date(getMetadata('date'));
+  const { DATE_LANGUAGE, DATE_OPTIONS } = MAGAZINE_CONFIGS;
+
+  const parsedOptions = JSON.parse(DATE_OPTIONS);
+  const extractedOptions = extractObjectFromArray(parsedOptions);
+
+  // eslint-disable-next-line no-unused-vars
+  const localeDate = date.toLocaleDateString(DATE_LANGUAGE, extractedOptions);
+  // date changes end here.
 
   const defaultContent = container.querySelector('.default-content-wrapper');
   const subscribeContent = container.querySelector('.magazine-subscribe-wrapper');

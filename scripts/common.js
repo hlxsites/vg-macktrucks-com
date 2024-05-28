@@ -288,6 +288,16 @@ async function getConstantValues() {
   return constants;
 }
 
+export const extractObjectFromArray = (data) => {
+  const values = Object.values(data);
+  const obj = {};
+  values.forEach((value) => {
+    const split = value.split(':');
+    obj[split[0]] = split[1].trim();
+  });
+  return obj;
+};
+
 const formatValues = (values) => {
   const obj = {};
   /* eslint-disable-next-line */
