@@ -15,7 +15,6 @@ import {
   getTextLabel,
 } from '../../scripts/common.js';
 
-
 const { videoIdRegex } = AEM_ASSETS;
 const videoEventManager = new VideoEventManager();
 
