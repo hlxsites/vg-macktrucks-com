@@ -117,18 +117,15 @@ export default async function decorate(doc) {
   const author = createElement('p', { classes: 'author-text' });
   author.innerText = authorName;
 
-  // This is where to get the date already formatted to the correct language
-  // date changes start here:
   const date = new Date(getMetadata('date'));
+  const locale = getMetadata('locale');
   const { DATE_LANGUAGE, DATE_OPTIONS } = MAGAZINE_CONFIGS;
 
   const parsedOptions = JSON.parse(DATE_OPTIONS);
   const extractedOptions = extractObjectFromArray(parsedOptions);
-  const dateFormat = new Intl.DateTimeFormat(DATE_LANGUAGE, extractedOptions);
-
+  const dateFormat = new Intl.DateTimeFormat(locale || DATE_LANGUAGE, extractedOptions);
   // eslint-disable-next-line no-unused-vars
   const localeDate = dateFormat.format(date);
-  // date changes end here.
 
   const defaultContent = container.querySelector('.default-content-wrapper');
   const subscribeContent = container.querySelector('.magazine-subscribe-wrapper');
