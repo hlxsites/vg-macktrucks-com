@@ -289,12 +289,19 @@ async function getConstantValues() {
 }
 
 export const extractObjectFromArray = (data) => {
-  const values = Object.values(data);
   const obj = {};
-  values.forEach((value) => {
-    const split = value.split(':');
-    obj[split[0]] = split[1].trim();
-  });
+  for (const item of data) {
+    try {
+      if (typeof item !== 'string' || !item.includes(':')) {
+        throw new TypeError(`Invalid input: "${item}". Expected a string: "key: value".`);
+      }
+      const [key, value] = item.split(':', 2);
+      obj[key.trim()] = value.trim();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(`Error with item: "${item}"`, error);
+    }
+  }
   return obj;
 };
 
