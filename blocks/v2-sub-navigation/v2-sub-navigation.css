@@ -54,7 +54,7 @@
 .v2-sub-navigation__active-item-wrapper {
   background: none;
   border: 2px solid transparent;
-  color: var(--c-primary-black);
+  color: var(--text-color);
   cursor: pointer;
   display: block;
   font-family: var(--ff-body-bold);
@@ -77,7 +77,7 @@
 .v2-sub-navigation__active-item-wrapper:focus,
 .v2-sub-navigation__dropdown--open
   .v2-sub-navigation__active-item-wrapper {
-  background-color: #f1f1f1;
+  background-color: var(--c-primary-gray);
   text-decoration: none;
 }
 
