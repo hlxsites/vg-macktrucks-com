@@ -447,7 +447,6 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
   const header = doc.querySelector('header');
   const subnav = header.querySelector('.block.sub-nav');
-  const v2SubNavigation = header.querySelector('.block.v2-sub-navigation');
 
   if (!disableHeader) {
     loadHeader(header);
@@ -459,11 +458,6 @@ async function loadLazy(doc) {
   if (subnav) {
     loadBlock(subnav);
     header.appendChild(subnav);
-  }
-
-  if (v2SubNavigation) {
-    loadBlock(v2SubNavigation);
-    header.appendChild(v2SubNavigation);
   }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
