@@ -1199,7 +1199,7 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 .section--no-gap,
-.redesign-v2 .v2-icon-cards-container {
+.redesign-v2 .v2-icon-cards-container:not(.section--with-background) {
   gap: 0;
 }
 
