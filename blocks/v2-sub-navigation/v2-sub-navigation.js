@@ -111,21 +111,35 @@ const createSubNavAnchor = (anchorsAttributes) => {
 
 /**
  * Finds and sets the active item based on the current URL.
+ * If no item's href matches the current URL, sets the first item's anchor as active.
  * @param {NodeList} items - The list of navigation items.
  * @param {string} className - The class name to set on the active item.
- * @returns {string|null} The text content of the active item or null if not found.
+ * @returns {string|null} The text content of the active item
+ * or the text content of the first anchor if no match is found.
  */
 const findAndSetActiveItem = (items, className) => {
   const currentUrl = window.location.href;
+  let firstAnchor = null;
 
   for (const item of items) {
     const anchor = item.querySelector('a');
-    const anchorHref = new URL(anchor.getAttribute('href'), window.location.origin).href;
+    if (anchor) {
+      const anchorHref = new URL(anchor.getAttribute('href'), window.location.origin).href;
 
-    if (anchor && anchorHref === currentUrl) {
-      item.classList.add(className);
-      return anchor.textContent;
+      if (!firstAnchor) {
+        firstAnchor = anchor;
+      }
+
+      if (anchorHref === currentUrl) {
+        item.classList.add(className);
+        return anchor.textContent;
+      }
     }
+  }
+
+  if (firstAnchor) {
+    firstAnchor.closest('li').classList.add(className);
+    return firstAnchor.textContent;
   }
 
   return null;
