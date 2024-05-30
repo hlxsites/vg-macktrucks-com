@@ -19,6 +19,21 @@
   padding: 0;
 }
 
+.v2-sub-navigation__image-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 27px;
+}
+
+.v2-sub-navigation__image-wrapper picture {
+  height: 40px;
+}
+
+.v2-sub-navigation__image-wrapper img {
+  height: 40px;
+  object-fit: contain;
+}
+
 .v2-sub-navigation__wrapper {
   border-bottom: solid 1px transparent;
   border-top: solid 1px transparent;
@@ -135,6 +150,16 @@ a.v2-sub-navigation__cta:any-link {
 
   .section.v2-sub-navigation-container {
     padding: 0 clamp(32px, 2.8vw, 40px);
+  }
+
+  .v2-sub-navigation__image-wrapper {
+    padding-bottom: 28px;
+    padding-top: 44px;
+  }
+
+  .v2-sub-navigation__image-wrapper picture,
+  .v2-sub-navigation__image-wrapper img {
+    height: 48px;
   }
   
   .v2-sub-navigation__wrapper {
