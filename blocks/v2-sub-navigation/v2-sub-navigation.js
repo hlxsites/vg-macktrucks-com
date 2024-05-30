@@ -94,7 +94,7 @@ const extractAnchorAttributes = (fragment) => {
  */
 const createSubNavAnchor = (anchorsAttributes) => {
   const anchor = createElement('a', {
-    classes: ['button', 'button--large', 'button--cta', `${blockName}__cta`],
+    classes: ['button', 'button--large', 'button--red', `${blockName}__cta`],
     props: { href: anchorsAttributes.anchorHref, title: anchorsAttributes.anchorTitle },
   });
 
