@@ -48,22 +48,27 @@
   padding: 15px 10px;
   margin: 0;
   background-color: var(--c-primary-gold);
+  border: 0;
 }
 
-.v2-feature-carousel__button:disabled {
+.v2-feature-carousel__button:disabled,
+.v2-feature-carousel__button:disabled:hover {
   --color-icon: var(--button-disabled-color);
 
   background-color: var(--button-secondary-gold-disabled);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-feature-carousel__button:hover {
   background-color: var(--button-secondary-gold-hover);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-feature-carousel__button:active {
   background-color: var(--button-secondary-gold-pressed);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .v2-feature-carousel__button:focus-visible {
   outline: 2px solid var(--border-focus);
 }

@@ -7,9 +7,13 @@ import {
   isAEMVideoUrl,
   isLowResolutionVideoUrl,
   VideoEventManager,
+  AEM_ASSETS,
 } from '../../scripts/video-helper.js';
-import { createElement } from '../../scripts/common.js';
-import { AEM_ASSETS } from '../../scripts/constants.js';
+import {
+  createElement,
+  decorateIcons,
+  getTextLabel,
+} from '../../scripts/common.js';
 
 const { videoIdRegex } = AEM_ASSETS;
 const videoEventManager = new VideoEventManager();
@@ -59,19 +63,15 @@ const createModal = () => {
   document.body.appendChild(modalBackground);
 
   // adding close modal button
-  const closeButton = createElement('button', { classes: 'modal-close-button' });
+  const closeModalLabel = getTextLabel('Close modal');
+  const closeButton = createElement('button', { classes: 'modal-close-button', props: { 'aria-label': `${closeModalLabel}` } });
   const closeIcon = createElement('span', { classes: ['icon', 'icon-close'] });
-  const svgCloseIcon = document.createRange().createContextualFragment(`
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5.00195 5L19.1441 19.1421" stroke="var(--color-icon, #000)" stroke-width="2" stroke-linecap="round"/>
-      <path d="M19.1426 5L5.00044 19.1421" stroke="var(--color-icon, #000)" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  `);
-  closeIcon.append(...svgCloseIcon.children);
   closeButton.append(closeIcon);
   modalBackground.appendChild(closeButton);
   // eslint-disable-next-line no-use-before-define
   closeButton.addEventListener('click', () => hideModal());
+
+  decorateIcons(closeButton);
 
   const clearModalContent = () => {
     modalContent.innerHTML = '';

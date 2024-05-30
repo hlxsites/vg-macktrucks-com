@@ -5,6 +5,9 @@
   justify-content: center;
   z-index: 100;
 
+  --logo-height: 30px;
+  --logo-wrapper-width: 96px;
+  --logo-animation: opacity var(--duration-small) ease-in-out;
   --menu-cards-gutter: 16px;
   --menu-animation: right 450ms ease-in-out;
 }
@@ -12,6 +15,7 @@
 @media (prefers-reduced-motion) {
   .header-wrapper {
     --menu-animation: right 0 ease-in-out;
+    --logo-animation: none;
   }
 }
 
@@ -40,23 +44,39 @@
 }
 
 .header__menu-overlay {
-  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  background-color: var(--overlay-background-color);
+  opacity: 0;
+  transition:
+    opacity var(--duration-small) var(--duration-small) ease-in-out,
+    top 0ms calc(var(--duration-small) * 2) ease-in-out,
+    width 0ms calc(var(--duration-small) * 2) ease-in-out,
+    height 0ms calc(var(--duration-small) * 2) ease-in-out;
 }
 
 .header__logo-image-wrapper {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.header__logo-image {
-  width: 32px;
+  width: var(--logo-wrapper-width);
   display: flex;
+  place-content: center;
 }
 
+.header--hamburger-open .header__logo-image-wrapper {
+  pointer-events: none;
+}
+
+.header__logo-image,
 .header__logo-image.icon svg {
-  height: 30px;
-  width: 30px;
+  display: block;
+  height: var(--logo-height);
+  width: var(--logo-height);
+  transition: var(--logo-animation) calc(var(--duration-small) * 1.5);
 }
 
 a.header__link {
@@ -105,6 +125,7 @@ a.header__link {
   font-size: 36px;
   align-items: center;
   margin: 0;
+  cursor: pointer;
 }
 
 .header__close-menu:focus,
@@ -125,6 +146,10 @@ a.header__link {
 .header__main-nav-item {
   padding: 0;
   margin: 0;
+}
+
+.header__link-accordion {
+  cursor: pointer;
 }
 
 .header__link.header__main-nav-link.header__link-accordion {
@@ -214,13 +239,14 @@ a.header__link {
 }
 
 .header__link.header__action-link {
+  --color-icon: var(--header-color);
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 8px 0;
   text-wrap: nowrap;
-
-  --color-icon: var(--header-color);
+  cursor: pointer;
 }
 
 .header__action-link.header__action-link--button {
@@ -248,13 +274,10 @@ a.header__link {
 }
 
 .header--hamburger-open .header__menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgb(20 20 20 / 40%);
-  width: 100vw;
+  opacity: 0.24;
+  width: 100%;
   height: 100vh;
-  display: block;
+  transition: opacity var(--duration-small) ease-in-out;
 }
 
 .header--hamburger-open .header__action-link-text {
@@ -358,6 +381,11 @@ a.header__link {
 }
 
 @media (min-width: 1200px) {
+  .header-wrapper {
+    --logo-height: 51px;
+    --logo-wrapper-width: 164px;
+  }
+
   .header {
     width: 100%;
     justify-content: center;
@@ -374,10 +402,27 @@ a.header__link {
     justify-content: space-between;
   }
 
-  .header__logo-image,
-  .header__logo-image.icon svg {
-    height: 51px;
-    width: 51px;
+  .header__logo-image-wrapper:has(.icon-bulldog):hover svg {
+    opacity: 0;
+    transition-delay: 0s;
+  }
+
+  .header__logo-image-wrapper:has(.icon-bulldog)::after {
+    content: '';
+    background: url('/icons/logo.svg') center no-repeat;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    inset: 0;
+    transition: var(--logo-animation);
+    transition-delay: 0s;
+    opacity: 0;
+  }
+
+  .header__logo-image-wrapper:has(.icon-bulldog):hover::after {
+    opacity: 1;
+    transition-delay: calc(var(--duration-small) * 1.25);
   }
 
   .header__actions {
@@ -445,6 +490,7 @@ a.header__link {
 
   .header__link-accordion::after {
     display: none;
+    cursor: unset;
   }
 
   .header__main-nav {
@@ -594,6 +640,7 @@ a.header__link {
     letter-spacing: 1.92px;
     text-transform: uppercase;
     padding: 0 0 16px;
+    cursor: unset;
   }
 
   .header .header__menu-content .header__menu-heading:hover {
@@ -1075,4 +1122,8 @@ a.header__link {
 .header__custom--black.block a.standalone-link:hover,
 .header__custom--black.block a.standalone-link:focus {
   color: #878787;
+}
+
+.header__custom--black .header__logo-image-wrapper:has(.icon-bulldog)::after {
+  filter: invert(1);
 }

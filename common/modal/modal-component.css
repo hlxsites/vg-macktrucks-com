@@ -18,25 +18,30 @@
 .modal-background button.modal-close-button {
   text-decoration: none;
   border: none;
-  background: transparent;
-  font-size: 24px;
+  background: white;
   top: 0;
   right: 0;
   margin: 0;
   padding: 0;
+  width: 60px;
+  height: 60px;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transform: unset;
   z-index: 1;
 }
 
-.modal-close-button .icon {
-  padding: 30px 20px;
-  background: white;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.modal-background button.modal-close-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+}
+
+.modal-close-button .icon,
+.modal-close-button .icon svg {
+  width: 36px;
+  height: 36px;
+  display: block;
 }
 
 .modal-background button.modal-close-button:hover {

@@ -1,4 +1,8 @@
-import { createElement, variantsClassesToBEM } from '../../scripts/common.js';
+import {
+  createElement,
+  decorateIcons,
+  variantsClassesToBEM,
+} from '../../scripts/common.js';
 
 const CLASSES = {
   blockName: 'v2-accordion-column',
@@ -36,17 +40,14 @@ export default function decorate(block) {
       classes: `${blockName}__item-header-button`,
       props: { type: 'button' },
     });
-    const arrowEl = createElement('div', { classes: [`${blockName}__close`, 'icon'] });
-    const dropdownArrowIcon = document.createRange().createContextualFragment(`
-      <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-dropdown-caret"></use></svg>`);
+    const dropdownArrowIcon = createElement('span', { classes: [`${blockName}__icon`, 'icon', 'icon-dropdown-caret'] });
     const colItems = [...item.querySelectorAll(':scope > div')];
 
     // add the proper classes to each accordion item
     item.classList.add(`${blockName}__item`);
     if (i === 0) item.classList.add('active');
     colItems.forEach((col) => addAccordionClass(col));
-    arrowEl.appendChild(...dropdownArrowIcon.children);
-    colBtnTitle.prepend(item.querySelector(`.${blockName}__item-title`), arrowEl);
+    colBtnTitle.prepend(item.querySelector(`.${blockName}__item-title`), dropdownArrowIcon);
     colBtnTitle.onclick = () => {
       const active = accordionContainer.querySelector('.active');
       if (active && active !== item) active.classList.remove('active');
@@ -59,4 +60,5 @@ export default function decorate(block) {
   accordionContainer.append(itemsContainer);
 
   block.appendChild(accordionContainer);
+  decorateIcons(block);
 }

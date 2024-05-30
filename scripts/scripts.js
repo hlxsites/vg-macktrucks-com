@@ -3,7 +3,6 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateIcons,
   decorateBlocks,
   decorateBlock,
   decorateTemplateAndTheme,
@@ -22,6 +21,7 @@ import {
 import {
   addFavIcon,
   createElement,
+  decorateIcons,
   formatStringToArray,
   getPlaceholders,
   loadDelayed,

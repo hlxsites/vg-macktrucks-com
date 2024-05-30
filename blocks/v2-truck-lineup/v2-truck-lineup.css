@@ -297,6 +297,11 @@ ul.v2-truck-lineup__navigation {
   outline: 2px solid var(--border-focus);
 }
 
+.v2-truck-lineup__arrow-controls button .icon svg {
+  height: 24px;
+  width: 24px;
+}
+
 @media screen and (min-width: 744px) {
   .v2-truck-lineup__navigation-item button {
     font-size: var(--headline-4-font-size);

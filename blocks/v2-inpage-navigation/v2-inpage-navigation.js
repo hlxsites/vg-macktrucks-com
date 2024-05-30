@@ -1,5 +1,9 @@
 import { getMetadata } from '../../scripts/lib-franklin.js';
-import { createElement, debounce } from '../../scripts/common.js';
+import {
+  createElement,
+  debounce,
+  decorateIcons,
+} from '../../scripts/common.js';
 
 const blockName = 'v2-inpage-navigation';
 
@@ -138,10 +142,9 @@ export default async function decorate(block) {
     list.appendChild(listItem);
   });
 
-  const dropdownArrowIcon = document.createRange().createContextualFragment(`
-    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-dropdown-caret"></use></svg>`);
+  const dropdownArrowIcon = createElement('span', { classes: [`${blockName}__icon`, 'icon', 'icon-dropdown-caret'] });
   selectedItemWrapper.append(selectedItem);
-  selectedItemWrapper.appendChild(...dropdownArrowIcon.children);
+  selectedItemWrapper.appendChild(dropdownArrowIcon);
 
   dropdownWrapper.append(selectedItemWrapper);
   dropdownWrapper.append(list);
@@ -196,4 +199,6 @@ export default async function decorate(block) {
     const isStuck = block.getBoundingClientRect().top <= navHeight;
     block.classList[isStuck ? 'add' : 'remove']('v2-inpage-navigation--stuck');
   }));
+
+  decorateIcons(block);
 }

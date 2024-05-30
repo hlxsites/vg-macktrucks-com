@@ -1,8 +1,11 @@
 import {
   decorateButtons, getAllElWithChildren,
 } from '../../scripts/scripts.js';
-import { createElement, getTextLabel } from '../../scripts/common.js';
-import { FORM_MAGAZINE_SUBSCRIBE } from '../../scripts/constants.js';
+import {
+  createElement,
+  getTextLabel,
+  MAGAZINE_CONFIGS,
+} from '../../scripts/common.js';
 
 const MQ = window.matchMedia('(min-width: 1140px)');
 const subscribeText = getTextLabel('SUBSCRIBE TO BULLDOG');
@@ -153,7 +156,7 @@ async function buildMagazineSubNav(block, ref) {
       if (container) {
         container.scrollIntoView({ block: 'start', behavior: 'smooth' });
       } else {
-        window.location.href = FORM_MAGAZINE_SUBSCRIBE.href;
+        window.location.href = MAGAZINE_CONFIGS.HREF;
       }
     });
   });

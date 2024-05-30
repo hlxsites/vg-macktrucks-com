@@ -47,7 +47,8 @@
   --link-hover-color: var(--c-primary-black);
   --header-color: var(--c-primary-black);
   --header-background-color: var(--c-primary-white);
-  --overlay-background-color: var(--c-secondary-silver);
+  --overlay-background-color: var(--c-primary-black);
+  --overlay-opacity: 24%;
   --media-background: var(--c-secondary-silver);
   --section-background: var(--c-primary-white);
   --line-subtle: var(--c-secondary-silver);
@@ -205,6 +206,8 @@
 }
 
 html {
+  min-height: 100%;
+  position: relative;
   font-size: 10px;
 }
 
@@ -331,7 +334,7 @@ pre {
 
 :where(html:not(.redesign-v2)) button:disabled,
 :where(html:not(.redesign-v2)) button:disabled:hover {
-  background-color: var(--overlay-background-color);
+  background-color: var(--c-secondary-silver);
   cursor: unset;
 }
 
@@ -496,7 +499,7 @@ main .section.padding-32 {
 }
 
 main pre {
-  background-color: var(--overlay-background-color);
+  background-color: var(--c-secondary-silver);
   padding: 1em;
   border-radius: 0.25em;
   overflow-x: auto;
@@ -524,7 +527,7 @@ hr {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   border: 0;
-  border-bottom: 1px solid var(--overlay-background-color);
+  border-bottom: 1px solid var(--c-secondary-silver);
 }
 
 main img {
@@ -826,6 +829,7 @@ main .section.responsive-title h1 {
   --section-div-padding: 0 var(--v2-space-small);
 
   font-size: 16px;
+  scroll-behavior: smooth;
 
   /* Font sizes */
 

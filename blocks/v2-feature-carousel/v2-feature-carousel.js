@@ -1,7 +1,9 @@
 import {
-  createElement,
-  unwrapDivs,
   adjustPretitle,
+  createElement,
+  decorateIcons,
+  getTextLabel,
+  unwrapDivs,
 } from '../../scripts/common.js';
 import {
   listenScroll,
@@ -36,13 +38,13 @@ const updateActiveClass = (elements, entry) => {
 };
 
 const arrowFragment = () => document.createRange().createContextualFragment(`<li>
-  <button aria-label="Previous" class="${blockName}__button ${blockName}__button-prev">
-    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
+  <button aria-label="${getTextLabel('Previous')}" class="${blockName}__button ${blockName}__button-prev">
+    <span class="icon icon-arrow-right" />
   </button>
 </li>
 <li>
-  <button aria-label="Next" class="${blockName}__button ${blockName}__button-next">
-    <svg xmlns="http://www.w3.org/2000/svg"><use href="#icons-sprite-arrow-right"></use></svg>
+  <button aria-label="${getTextLabel('Next')}" class="${blockName}__button ${blockName}__button-next">
+    <span class="icon icon-arrow-right" />
   </button>
 </li>`);
 
@@ -93,4 +95,5 @@ export default async function decorate(block) {
   }
 
   unwrapDivs(block, { ignoreDataAlign: true });
+  decorateIcons(block);
 }

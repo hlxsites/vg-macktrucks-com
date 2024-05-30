@@ -1,25 +1,46 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM, loadScript } from './lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
-import { isPerformanceAllowed, isTargetingAllowed } from './common.js';
 import {
-  ACCOUNT_ENGAGEMENT_TRACKING_CONSTANTS,
-  HOTJAR_ID,
-  DATA_DOMAIN_SCRIPT,
-  GTM_ID,
-} from './constants.js';
+  isPerformanceAllowed,
+  isTargetingAllowed,
+  COOKIE_CONFIGS,
+} from './common.js';
+
+// COOKIE ACCEPTANCE AND IDs default to false in case no ID is present
+const {
+  HOTJAR_ID = false,
+  GTM_ID = false,
+  DATA_DOMAIN_SCRIPT = false,
+  ACC_ENG_TRACKING = false,
+} = COOKIE_CONFIGS;
+
+const extractValues = (data) => {
+  const values = Object.values(data);
+  const obj = {};
+  values.forEach((value) => {
+    const split = value.split(':');
+    obj[split[0]] = split[1].trim();
+  });
+  return obj;
+};
+
+const parsedData = JSON.parse(ACC_ENG_TRACKING);
+const splitData = extractValues(parsedData);
+
+const { piAId, piCId, piHostname } = splitData;
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
 
 // COOKIE ACCEPTANCE CHECKING
 if (isPerformanceAllowed()) {
-  loadGoogleTagManager();
-  loadHotjar();
+  if (GTM_ID) loadGoogleTagManager();
+  if (HOTJAR_ID) loadHotjar();
 }
 
 if (isTargetingAllowed()) {
-  loadAccountEngagementTracking();
+  if (ACC_ENG_TRACKING) loadAccountEngagementTracking();
 }
 
 // add more delayed functionality here
@@ -79,8 +100,6 @@ async function loadAccountEngagementTracking() {
   const body = document.querySelector('body');
   const script = document.createElement('script');
   script.type = 'text/javascript';
-
-  const { piAId, piCId, piHostname } = ACCOUNT_ENGAGEMENT_TRACKING_CONSTANTS;
 
   script.text = `piAId = '${piAId}'; piCId = '${piCId}'; piHostname = '${piHostname}'; (function() { function async_load(){ var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js'; var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c); } if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); } })();`;
 

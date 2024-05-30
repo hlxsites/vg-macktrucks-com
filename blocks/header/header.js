@@ -1,11 +1,18 @@
 import {
-  createElement, generateId, getTextLabel,
+  createElement,
+  decorateIcons,
+  generateId,
+  getTextLabel,
+  HEADER_CONFIGS,
 } from '../../scripts/common.js';
-import { createOptimizedPicture, decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
+import {
+  createOptimizedPicture,
+  getMetadata,
+} from '../../scripts/lib-franklin.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
-import { HEADER_BUTTONS } from '../../scripts/constants.js';
 
-const { hasLoginDisabled, hasSearchDisabled } = HEADER_BUTTONS;
+// check if the header has to have a login and/or a search button
+const { SEARCH_DISABLED, LOGIN_DISABLED } = HEADER_CONFIGS;
 
 const blockClass = 'header';
 
@@ -30,10 +37,11 @@ const createLogo = (logoWrapper) => {
   (logoLink || logoImage).classList.add(`${blockClass}__logo-image-wrapper`);
 
   if (logoLink) {
-    const logoLinkText = createElement('span', { classes: ['screenreader'] });
-    logoLinkText.append('Go to Mack Trucks homepage');
+    const logoLinkTextContainer = createElement('span', { classes: ['screenreader'] });
+    const logoLinkText = getTextLabel('Logo link');
+    logoLinkTextContainer.append(logoLinkText);
 
-    logoLink.append(logoLinkText);
+    logoLink.append(logoLinkTextContainer);
   }
 
   return logoLink || logoImage;
@@ -118,7 +126,7 @@ const mobileActions = () => {
   const openMenuLabel = getTextLabel('Open menu');
 
   const actions = document.createRange().createContextualFragment(`
-    ${!hasSearchDisabled ? `
+    ${SEARCH_DISABLED === 'false' ? `
     <a
       href="/search"
       aria-label="${searchLabel}"
@@ -507,7 +515,7 @@ export default async function decorate(block) {
   };
 
   // add actions for search
-  if (!hasSearchDisabled) {
+  if (SEARCH_DISABLED === 'false') {
     navContent.querySelector(`.${blockClass}__search-button`)?.addEventListener('click', () => {
       window.location.href = '/search';
     });
@@ -578,7 +586,7 @@ export default async function decorate(block) {
     const buttonsWithoutIcons = getAllElWithChildren([...actionsLinks.querySelectorAll('a')], '.icon', true);
     const loginLink = actionsLinks.querySelector('.header__action-item a[href*="login"]');
 
-    if (loginLink && hasLoginDisabled) loginLink.remove();
+    if (loginLink && LOGIN_DISABLED === 'true') loginLink.remove();
 
     if (isDesktop) {
       actionsLinksDesktopMountPoint.append(actionsLinks);
