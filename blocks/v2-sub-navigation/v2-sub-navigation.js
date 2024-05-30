@@ -2,6 +2,9 @@ import {
   createElement,
   decorateIcons,
 } from '../../scripts/common.js';
+import {
+  getMetadata,
+} from '../../scripts/lib-franklin.js';
 
 const blockName = 'v2-sub-navigation';
 
@@ -148,6 +151,18 @@ const initializeResizeObserver = () => {
 };
 
 /**
+ * Applies custom styles to the block's parent elements.
+ * @param {HTMLElement} block - The block element to apply styles to.
+ * @param {string} style - The custom style to apply.
+ */
+const applyCustomStyles = (block, style) => {
+  if (style) {
+    const twoUp = block.parentElement.parentElement;
+    twoUp.classList.add(`${blockName}__custom--${style}`);
+  }
+};
+
+/**
  * Sets up the sub-navigation block by fetching the sub-navigation HTML,
  * setting up the list and items, and managing the dropdown and picture elements.
  * @param {HTMLElement} block - The block element where the sub-navigation will be appended.
@@ -185,6 +200,9 @@ const setupSubNavigation = async (block, content) => {
       block.append(subNavWrapper);
     }
 
+    const customStyles = getMetadata('custom-subnav-style');
+    applyCustomStyles(block, customStyles);
+
     document.addEventListener('click', toggleDropdown(dropdownWrapper));
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -201,9 +219,8 @@ const decorate = async (block) => {
 
   if (metaContent) {
     await setupSubNavigation(block, metaContent.content);
+    decorateIcons(block);
   }
-
-  decorateIcons(block);
 };
 
 export default decorate;
