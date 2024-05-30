@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-05-21T00:00:00.000Z</updated>
+    <updated>2024-05-30T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2903,5 +2903,13 @@
         <updated>2024-05-21T00:00:00.000Z</updated>
         <content type="html"><![CDATA[LAS VEGAS (May 21, 2023) Mack Trucks announced today that 24 dealerships across the United States and Canada have recently achieved Certified Electric Vehicle (EV) status. With these additions, nine more states and one province joined the network, bringing the total number of EV certified dealerships to 53, a significant milestone in the journey to sustainable mobility.]]></content>
         <published>2024-05-21T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[The City of Kingston, Ontario, Orders Two Mack® LR Electric Refuse Vehicles]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/the-city-of-kingston-ontario-orders-two-mack-lr-electric-refuse-vehicles</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/the-city-of-kingston-ontario-orders-two-mack-lr-electric-refuse-vehicles"/>
+        <updated>2024-05-30T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (May 30, 2024) – To help the City of Kingston, Ontario, achieve its sustainability goals, its municipal leaders recently ordered two Mack® LR Electric battery-electric vehicle (BEV) refuse models.]]></content>
+        <published>2024-05-30T00:00:00.000Z</published>
     </entry>
 </feed>
