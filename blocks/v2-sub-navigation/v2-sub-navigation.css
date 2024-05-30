@@ -184,11 +184,19 @@ a.v2-sub-navigation__cta:any-link {
 
   .section.v2-sub-navigation-container {
     padding: 0 clamp(32px, 2.8vw, 40px);
+    background-color: var(--v2-sub-navigation-bg);
+    position: unset;
+    top: var(--nav-height);
   }
 
   .v2-sub-navigation__image-wrapper {
-    padding-bottom: 28px;
-    padding-top: 44px;
+    padding: 44px 0 28px;
+    margin: 0 -2.8vw;
+    position: fixed;
+    top: var(--nav-height);
+    z-index: 1;
+    background-color: var(--v2-sub-navigation-bg);
+    width: 100%;
   }
 
   .v2-sub-navigation__image-wrapper picture,
@@ -203,6 +211,7 @@ a.v2-sub-navigation__cta:any-link {
     gap: 24px;
     max-width: 1440px;
     padding: 24px 0;
+    margin-top: calc(44px + 48px + 28px);
   }
 
   .v2-sub-navigation__active-item-wrapper {
