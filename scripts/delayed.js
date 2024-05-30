@@ -4,6 +4,7 @@ import { sampleRUM, loadScript } from './lib-franklin.js';
 import {
   isPerformanceAllowed,
   isTargetingAllowed,
+  extractObjectFromArray,
   COOKIE_CONFIGS,
 } from './common.js';
 
@@ -15,18 +16,8 @@ const {
   ACC_ENG_TRACKING = false,
 } = COOKIE_CONFIGS;
 
-const extractValues = (data) => {
-  const values = Object.values(data);
-  const obj = {};
-  values.forEach((value) => {
-    const split = value.split(':');
-    obj[split[0]] = split[1].trim();
-  });
-  return obj;
-};
-
 const parsedData = JSON.parse(ACC_ENG_TRACKING);
-const splitData = extractValues(parsedData);
+const splitData = extractObjectFromArray(parsedData);
 
 const { piAId, piCId, piHostname } = splitData;
 
