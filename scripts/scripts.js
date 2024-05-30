@@ -87,46 +87,111 @@ export function decorateSections(main) {
     }
   });
 }
+
 /**
- * Decorates paragraphs containing a single link as buttons.
- * @param {Element} element container element
+ * Reparents all child elements of a given element to its parent element.
+ * @param {Element} element - The element whose children need to be reparented.
  */
-export function decorateButtons(element) {
+const reparentChildren = (element) => {
+  const parent = element.parentNode;
+  while (element.firstChild) {
+    parent.insertBefore(element.firstChild, element);
+  }
+  element.remove();
+};
+
+/**
+ * Determines the appropriate button class based on the element hierarchy.
+ * @param {Element} up - The parent element of the anchor tag.
+ * @param {Element} twoUp - The grandparent element of the anchor tag.
+ * @returns {string} - The button class to be applied.
+ */
+const getButtonClass = (up, twoUp) => {
+  const isSingleChild = (element) => element.childNodes.length === 1;
+
+  const upTag = up.tagName;
+  const twoUpTag = twoUp.tagName;
+
+  if (isSingleChild(twoUp)) {
+    if (upTag === 'STRONG' && twoUpTag === 'P') return 'button button--primary';
+    if (upTag === 'STRONG' && twoUpTag === 'LI') return 'button arrowed';
+    if (upTag === 'EM' && twoUpTag === 'P') return 'button button--secondary';
+  }
+
+  if (
+    upTag === 'LI'
+    && twoUp.children.length === 1
+    && up.firstElementChild
+    && up.firstElementChild.tagName === 'STRONG'
+  ) {
+    return 'arrowed';
+  }
+
+  if (
+    (upTag === 'STRONG' || upTag === 'EM')
+    && (twoUpTag === 'STRONG' || twoUpTag === 'EM')
+  ) {
+    return 'button button--red';
+  }
+
+  return '';
+};
+
+/**
+ * Adds the 'button-container' class to an element if it meets certain criteria.
+ * @param {Element} element - The element to add the class to.
+ */
+const addClassToContainer = (element) => {
+  if (element.childNodes.length === 1 && ['P', 'DIV', 'LI'].includes(element.tagName)) {
+    element.classList.add('button-container');
+  }
+};
+
+/**
+ * Handles the decoration of a single link element.
+ * @param {HTMLAnchorElement} link - The anchor tag to decorate.
+ */
+const handleLinkDecoration = (link) => {
+  const up = link.parentElement;
+  const twoUp = up.parentElement;
+
+  if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
+  if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
+
+  const buttonClass = getButtonClass(up, twoUp);
+  if (buttonClass) link.className = `${buttonClass}`;
+
+  if (buttonClass === 'arrowed') {
+    const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
+    link.appendChild(arrow);
+  }
+
+  addClassToContainer(up);
+  addClassToContainer(twoUp);
+};
+
+/**
+ * Checks if an anchor tag should be decorated as a button.
+ * @param {HTMLAnchorElement} link - The anchor tag to check.
+ * @returns {boolean} - Returns true if the link should be decorated, otherwise false.
+ */
+const shouldDecorateLink = (link) => {
+  link.title = link.title || link.textContent;
+  return link.href !== link.textContent && !link.querySelector('img');
+};
+
+/**
+ * Applies button styling to anchor tags within a specified element,
+ * decorating them as button-like if they meet certain criteria.
+ * @param {Element} element - The container element within which to search and style anchor tags.
+ */
+export const decorateButtons = (element) => {
   element.querySelectorAll('a').forEach((link) => {
-    link.title = link.title || link.textContent;
-    if (link.href !== link.textContent) {
-      const up = link.parentElement;
-      const twoup = link.parentElement.parentElement;
-      if (!link.querySelector('img') && up.childNodes.length === 1) {
-        if (up.tagName === 'P' || up.tagName === 'DIV') {
-          link.className = 'button button--primary'; // default
-          up.className = 'button-container';
-        }
-        if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          link.className = 'button button--primary';
-          twoup.className = 'button-container';
-        }
-        if (up.tagName === 'EM' && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          link.className = 'button button--secondary';
-          twoup.className = 'button-container';
-        }
-        if (up.tagName === 'STRONG' && twoup.childNodes.length === 1 && twoup.tagName === 'LI') {
-          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
-          link.className = 'button arrowed';
-          twoup.parentElement.className = 'button-container';
-          link.appendChild(arrow);
-        }
-        if (up.tagName === 'LI' && twoup.children.length === 1
-          && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
-          const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
-          link.className = 'button arrowed';
-          twoup.className = 'button-container';
-          link.appendChild(arrow);
-        }
-      }
+    if (shouldDecorateLink(link)) {
+      handleLinkDecoration(link);
     }
   });
-}
+};
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
