@@ -25,7 +25,6 @@ export default async function decorate(block) {
     if (tagName === 'p' && isButton) {
       const link = el.querySelector('a');
       link.classList.add('standalone-link');
-      link.classList.remove('button--primary', 'button');
       contentElmts[idx - 1].insertAdjacentElement('afterend', link);
       el.remove();
     }
