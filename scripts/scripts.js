@@ -189,7 +189,7 @@ const handleLinkDecoration = (link) => {
  */
 const shouldDecorateLink = (link) => {
   link.title = link.title || link.textContent;
-  return link.href !== link.textContent && !link.querySelector('img');
+  return link.href !== link.textContent && !link.querySelector('img') && link.parentElement.childNodes.length === 1;
 };
 
 /**
