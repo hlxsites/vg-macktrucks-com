@@ -191,6 +191,7 @@
   --nav-height-m: 60px;
   --nav-height-l: 80px;
   --nav-height: var(--nav-height-m);
+  --breadcrumb-height: 56px;
 }
 
 @media (min-width: 1200px) {
@@ -1221,7 +1222,8 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 .section--no-gap,
-.redesign-v2 .v2-icon-cards-container {
+.redesign-v2 .v2-icon-cards-container,
+.v2-breadcrumb-container.v2-hero-container {
   gap: 0;
 }
 
@@ -1437,6 +1439,21 @@ main .section.responsive-title h1 {
 /* CLS OPTIMIZATION */
 .v2-hero {
   height: calc(100vh - var(--nav-height));
+}
+
+.v2-breadcrumb-container.v2-hero-container .v2-hero {
+  height: calc(100vh - (var(--nav-height) + var(--breadcrumb-height)));
+}
+
+@supports (height: 1svh) {
+  .v2-hero {
+    height: calc(100svh - var(--nav-height));
+  }
+
+  .v2-breadcrumb-container.v2-hero-container .v2-hero {
+    height: calc(100svh - (var(--nav-height) + var(--breadcrumb-height)));
+  }
+
 }
 
 .v2-inpage-navigation {
