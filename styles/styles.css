@@ -192,6 +192,14 @@
   --nav-height-l: 80px;
   --nav-height: var(--nav-height-m);
   --breadcrumb-height: 56px;
+
+  /* Motions */
+  --duration-small: 160ms;
+  --duration-medium: 240ms;
+  --duration-large: 320ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
+  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 }
 
 @media (min-width: 1200px) {
@@ -893,14 +901,6 @@ main .section.responsive-title h1 {
   --testimonial-font-size: 1.125rem; /* 18px */
   --testimonial-line-height: 120%;
   --testimonial-letter-spacing: -0.0225rem;
-
-  /* Motions */
-  --duration-small: 160ms;
-  --duration-medium: 240ms;
-  --duration-large: 320ms;
-  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
-  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
-  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
 
   /* In page navigation */
   --inpage-navigation-height: 0px;
