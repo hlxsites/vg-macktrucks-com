@@ -256,6 +256,25 @@ function buildSubNavigation(main, head) {
 }
 
 /**
+ * Builds and inserts a v2-sub-navigation block as the first child of the element preceding
+ * the main element if the v2-sub-navigation meta tag is present and its content starts with a '/'.
+ *
+ * @param {HTMLElement} main - The main element, used to find the preceding sibling element where
+ * the block will be inserted.
+ * @param {HTMLElement} head - The head element where the meta tag is located.
+ */
+const buildV2SubNavigation = (main, head) => {
+  const v2SubNavigation = head.querySelector('meta[name="v2-sub-navigation"]');
+  if (v2SubNavigation && v2SubNavigation.content.startsWith('/')) {
+    const block = buildBlock('v2-sub-navigation', []);
+    const v2SubNavigationContainer = createElement('div');
+    v2SubNavigationContainer.append(block);
+    decorateBlock(v2SubNavigationContainer);
+    main.prepend(v2SubNavigationContainer);
+  }
+};
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -264,6 +283,7 @@ function buildAutoBlocks(main, head) {
     buildHeroBlock(main);
     if (head) {
       buildSubNavigation(main, head);
+      buildV2SubNavigation(main, head);
     }
   } catch (error) {
     // eslint-disable-next-line no-console
