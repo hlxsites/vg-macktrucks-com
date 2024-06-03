@@ -142,6 +142,7 @@ const addClassToContainer = (element) => {
 const handleLinkDecoration = (link) => {
   const up = link.parentElement;
   const twoUp = up.parentElement;
+  const threeUp = twoUp.parentElement;
 
   if (getMetadata('style') === 'redesign-v2') {
     if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
@@ -152,6 +153,7 @@ const handleLinkDecoration = (link) => {
 
     addClassToContainer(up);
     addClassToContainer(twoUp);
+    addClassToContainer(threeUp);
   } else {
     // TODO: remove v1 button decoration logic when v2 is fully used
     if (up.tagName === 'P' || up.tagName === 'DIV') {
