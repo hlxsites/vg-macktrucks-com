@@ -24,6 +24,7 @@ import {
   decorateIcons,
   formatStringToArray,
   getPlaceholders,
+  TRUCK_CONFIGURATOR_URLS,
   loadDelayed,
   slugify,
   variantsClassesToBEM,
@@ -757,31 +758,21 @@ moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
-  const config = getMetadata('truck-configurator');
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');
   main.innerHTML = '';
   main.append(container);
 
-  fetch(`${config}?sheet=urls`)
-    .then((response) => response.json())
-    .then((data) => {
-      const urls = data.data[0];
-      const jsUrls = formatStringToArray(urls.js);
-      const cssUrls = formatStringToArray(urls.css);
+  const jsUrls = formatStringToArray(TRUCK_CONFIGURATOR_URLS.JS);
+  const cssUrls = formatStringToArray(TRUCK_CONFIGURATOR_URLS.CSS);
 
-      jsUrls.forEach((url) => {
-        loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
-      });
+  jsUrls.forEach((url) => {
+    loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
+  });
 
-      cssUrls.forEach((url) => {
-        loadCSS(url);
-      });
-    })
-    .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error('[truck-configurator]: Failed to load configurator data:', error);
-    });
+  cssUrls.forEach((url) => {
+    loadCSS(url);
+  });
 
   window.addEventListener('reactRouterChange', (e) => {
     const newLocation = e.detail;
