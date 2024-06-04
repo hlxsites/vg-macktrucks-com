@@ -93,17 +93,6 @@
   display: initial;
 }
 
-.v2-accordion-column__item-description .button-container .button {
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  translate: none;
-}
-
 .v2-accordion-column__item-description {
   padding: 0 0 24px;
 }
@@ -111,12 +100,6 @@
 .v2-accordion-column__item-description > p {
   margin: 0;
   padding: 16px 0 0;
-}
-
-.v2-accordion-column__item-description .button-container:hover .button svg,
-.v2-accordion-column__item-description .button-container:focus-within .button svg{
-  translate: 3px;
-  transition: translate ease-out 0.2s;
 }
 
 .v2-accordion-column__item-image {
