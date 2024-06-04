@@ -45,7 +45,6 @@ indices:
       description:
         select: head > meta[name="description"]
         value: attribute(el, "content")
-
   news-feed:
     include:
       - '/mack-news/*/**'
@@ -113,12 +112,12 @@ indices:
       author:
         select: head > meta[name="author"]
         value: attribute(el, "content")
+      date:
+        select: head > meta[name="date"]
+        value: attribute(el, "content")
       image:
         select: head > meta[property="og:image"]
         value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
-      date:
-        select: head > meta[property="date"]
-        value: attribute(el, "content")
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")

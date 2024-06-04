@@ -42,6 +42,11 @@ export default async function decorate(block) {
       item.textContent = '';
       item.append(figure);
     });
+  } else {
+    block.querySelectorAll('li').forEach((item) => {
+      item.classList.add('li--hyphen');
+    });
   }
+
   unwrapDivs(block);
 }
