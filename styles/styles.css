@@ -1223,7 +1223,7 @@ main .section.responsive-title h1 {
 
 .redesign-v2 .section--no-gap,
 .redesign-v2 .v2-icon-cards-container,
-.v2-breadcrumb-container.v2-hero-container 
+.v2-breadcrumb-container.v2-hero-container,
 .redesign-v2 .v2-icon-cards-container:not(.section--with-background) {
   gap: 0;
 }
