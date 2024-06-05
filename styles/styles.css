@@ -1094,7 +1094,8 @@ main .section.responsive-title h1 {
 
 /* Play/pause button */
 .v2-video__playback-button {
-  background: transparent;
+  --color-icon: #b3976b;
+
   border: 0;
   cursor: pointer;
   height: 48px;
@@ -1112,8 +1113,8 @@ main .section.responsive-title h1 {
   justify-content: center;
 }
 
-.v2-video__playback-button:hover svg > rect:first-of-type {
-  fill: var(--button-secondary-gold-hover);
+.v2-video__playback-button:hover {
+  --color-icon: #d9b781;
 }
 
 .v2-video__playback-button .icon {

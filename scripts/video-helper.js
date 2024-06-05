@@ -253,20 +253,9 @@ const createPlayPauseButton = () => {
   const button = createElement('button', {
     props: { type: 'button', class: 'v2-video__playback-button' },
   });
-  button.innerHTML = `
-    <span class="icon icon-pause-video">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" fill="#B3976B"/>
-        <rect x="17" y="15" width="3" height="18" rx="1.5" fill="#1D1D1D"/>
-        <rect x="28" y="15" width="3" height="18" rx="1.5" fill="#1D1D1D"/>
-      </svg>
-    </span>
-    <span class="icon icon-play-video">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" fill="#B3976B"/>
-        <path d="M34.2222 23.7778L17.2222 33.5927L17.2222 13.9628L34.2222 23.7778Z" fill="#1D1D1D"/>
-      </svg>
-    </span>`;
+  const pauseIcon = createElement('span', { classes: ['icon', 'icon-pause-video'] });
+  const playIcon = createElement('span', { classes: ['icon', 'icon-play-video'] });
+  button.append(pauseIcon, playIcon);
   return button;
 };
 
