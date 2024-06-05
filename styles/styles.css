@@ -1092,6 +1092,41 @@ main .section.responsive-title h1 {
   border-color: #d9d9d9;
 }
 
+/* Play/pause button */
+.v2-video__playback-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  height: 48px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48px;
+  z-index: 1;
+}
+
+.v2-video__playback-button .icon-play-video,
+.v2-video__playback-button .icon-pause-video {
+  display: none;
+  justify-content: center;
+}
+
+.v2-video__playback-button:hover svg > rect:first-of-type {
+  fill: var(--button-secondary-gold-hover);
+}
+
+.v2-video__playback-button .icon {
+  align-items: center;
+  height: 100%;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-video__playback-button .icon svg {
+  height: 48px;
+  width: 48px;
+}
+
 /* Section Background colors */
 .redesign-v2 .section--black-background,
 .redesign-v2 .section--graphite-background,

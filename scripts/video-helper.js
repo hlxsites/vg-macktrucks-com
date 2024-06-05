@@ -180,65 +180,181 @@ export function createIframe(url, { parentEl, classes = [] }) {
 }
 
 /**
+ * Set playback controls for video elements.
+ * This function selects all button elements that are direct children of video elements,
+ * and re-assigns them to their grandparent elements (the parent of their parent).
+ */
+export const setPlaybackControls = () => {
+  const playbackControls = document.querySelectorAll('video > button');
+  playbackControls.forEach((control) => {
+    const { parentElement } = control.parentElement;
+    parentElement.append(control);
+  });
+};
+
+/**
+ * Applies attributes to an element.
+ *
+ * @param {HTMLElement} element - The element to which attributes will be applied.
+ * @param {Object} attributes - The attributes to apply.
+ */
+const applyAttributes = (element, attributes) => {
+  Object.keys(attributes).forEach((attr) => {
+    element[attr] = attributes[attr];
+    element.setAttribute(attr, attributes[attr]);
+  });
+};
+
+/**
+ * Creates a video element with a source.
+ *
+ * @param {string} src - The source URL of the video.
+ * @param {string} className - CSS class names to apply to the video element.
+ * @param {Object} props - Properties and attributes for the video element.
+ * @returns {HTMLElement} - The created video element with a source child.
+ */
+const createVideoElement = (src, className, props) => {
+  const video = createElement('video', { classes: className });
+  applyAttributes(video, props);
+  const source = createElement('source', { props: { src, type: 'video/mp4' } });
+  video.appendChild(source);
+  return video;
+};
+
+/**
+ * Creates an iframe element with specified attributes.
+ *
+ * @param {string} src - The source URL of the iframe.
+ * @param {string} className - CSS class names to apply to the iframe.
+ * @param {Object} props - Properties and attributes for the iframe element.
+ * @param {string} videoId - The video ID of the iframe.
+ * @returns {HTMLElement} - The created iframe element.
+ */
+const createIframeElement = (src, className, props, videoId) => {
+  addVideoConfig(videoId, props);
+
+  return createElement('iframe', {
+    classes: className,
+    props: {
+      ...props,
+      allow: 'autoplay; fullscreen',
+      allowfullscreen: true,
+      src,
+    },
+  });
+};
+
+/**
+ * Creates a play/pause button with icons.
+ *
+ * @returns {HTMLElement} - The created play/pause button.
+ */
+const createPlayPauseButton = () => {
+  const button = createElement('button', {
+    props: { type: 'button', class: 'v2-video__playback-button' },
+  });
+  button.innerHTML = `
+    <span class="icon icon-pause-video">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" fill="#B3976B"/>
+        <rect x="17" y="15" width="3" height="18" rx="1.5" fill="#1D1D1D"/>
+        <rect x="28" y="15" width="3" height="18" rx="1.5" fill="#1D1D1D"/>
+      </svg>
+    </span>
+    <span class="icon icon-play-video">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" fill="#B3976B"/>
+        <path d="M34.2222 23.7778L17.2222 33.5927L17.2222 13.9628L34.2222 23.7778Z" fill="#1D1D1D"/>
+      </svg>
+    </span>`;
+  return button;
+};
+
+/**
+ * Toggles the display of play and pause icons.
+ *
+ * @param {boolean} isPaused - Whether the video is paused.
+ * @param {HTMLElement} playIcon - The play icon element.
+ * @param {HTMLElement} pauseIcon - The pause icon element.
+ * @param {HTMLElement} playPauseButton - The play/pause button element.
+ */
+const togglePlayPauseIcon = (isPaused, playIcon, pauseIcon, playPauseButton) => {
+  playIcon.style.display = isPaused ? 'flex' : 'none';
+  pauseIcon.style.display = isPaused ? 'none' : 'flex';
+  playPauseButton.setAttribute('aria-label', getTextLabel(isPaused ? 'Play video' : 'Pause video'));
+};
+
+/**
+ * Sets up event listeners for the video element and play/pause button.
+ *
+ * @param {HTMLElement} video - The video element.
+ * @param {HTMLElement} playPauseButton - The play/pause button element.
+ * @param {Object} props - Properties and attributes for the video element.
+ */
+const setVideoEvents = (video, playPauseButton, props) => {
+  const playIcon = playPauseButton.querySelector('.icon-play-video');
+  const pauseIcon = playPauseButton.querySelector('.icon-pause-video');
+
+  playPauseButton.addEventListener('click', () => {
+    video[video.paused ? 'play' : 'pause']();
+  });
+
+  video.addEventListener('playing', () => togglePlayPauseIcon(false, playIcon, pauseIcon, playPauseButton));
+  video.addEventListener('pause', () => togglePlayPauseIcon(true, playIcon, pauseIcon, playPauseButton));
+
+  // Fallback to make sure the video is automatically played
+  if (props.autoplay) {
+    video.addEventListener('loadedmetadata', () => {
+      setTimeout(() => {
+        if (video.paused) {
+          // eslint-disable-next-line no-console
+          console.warn('Failed to autoplay video, fallback code executed');
+          video.play();
+        }
+      }, 500);
+    }, { once: true });
+  }
+};
+
+/**
+ * Creates and configures a video element with play/pause controls.
+ *
+ * @param {string} src - The source URL of the video.
+ * @param {string} className - CSS class names to apply to the video element.
+ * @param {Object} props - Properties and attributes for the video element.
+ * @param {HTMLElement} block - The block to which the video element will be appended.
+ * @returns {HTMLElement} - The created and configured video element.
+ */
+const createAndConfigureVideo = (src, className, props, block) => {
+  const video = createVideoElement(src, className, props);
+  const playPauseButton = createPlayPauseButton();
+  block.prepend(video);
+  block.insertBefore(playPauseButton, video.nextSibling);
+  setVideoEvents(video, playPauseButton, props);
+  return video;
+};
+
+/**
  * Creates a video element or an iframe for a video, depending on whether the video is local
  * or not. Configures the element with specified classes, properties, and source.
  *
- * @param {string} src The source URL of the video.
- * @param {string} [className=''] Optional. CSS class names to apply to the video element or iframe.
- * @param {Object} [props={}] Optional. Properties and attributes for the video element or iframe,
- *                            including attributes like 'muted', 'autoplay', 'title'. All properties
- *                            are applied as attributes.
- * @param {boolean} [localVideo=true] Optional. Indicates if the video is a local file. If true,
- *                                    creates a <video> element with a <source> child. If false,
- *                                    creates an iframe for an external video.
- * @param {string} [videoId=''] Optional. Identifier for the video, used for external video sources.
- * @returns {HTMLElement} The created video element (<video> or <iframe>) with specified configs.
+ * @param {HTMLElement} block - The block to which the video element or iframe will be appended.
+ * @param {string} src - The source URL of the video.
+ * @param {string} [className=''] - CSS class names to apply to the video element or iframe.
+ * @param {Object} [props={}] - Properties and attributes for the video element or iframe,
+ *                              including attributes like 'muted', 'autoplay', 'title'. All
+ *                              properties are applied as attributes.
+ * @param {boolean} [localVideo=true] - Indicates if the video is a local file. If true, creates
+ *                                      a <video> element with a <source> child. If false,
+ *                                      creates an iframe for an external video.
+ * @param {string} [videoId=''] - Identifier for the video, used for external video sources.
+ * @returns {HTMLElement} - The created video element (<video> or <iframe>) with specified configs.
  */
-export const createVideo = (src, className = '', props = {}, localVideo = true, videoId = '') => {
-  let video = '';
-
-  if (localVideo) {
-    video = createElement('video', {
-      classes: className,
-    });
-    if (props.muted) {
-      video.muted = props.muted;
-    }
-
-    if (props.autoplay) {
-      video.autoplay = props.autoplay;
-    }
-
-    if (props) {
-      Object.keys(props).forEach((propName) => {
-        video.setAttribute(propName, props[propName]);
-      });
-    }
-
-    const source = createElement('source', {
-      props: {
-        src,
-        type: 'video/mp4',
-      },
-    });
-
-    video.appendChild(source);
-  } else {
-    addVideoConfig(videoId, props);
-
-    video = createElement('iframe', {
-      classes: className,
-      props: {
-        allow: 'autoplay; fullscreen',
-        allowfullscreen: true,
-        title: props.title,
-        src,
-      },
-    });
-  }
-
-  return video;
-};
+export const createVideo = (block, src, className = '', props = {}, localVideo = true, videoId = '') => (
+  localVideo
+    ? createAndConfigureVideo(src, className, props, block)
+    : createIframeElement(src, className, props, videoId)
+);
 
 const logVideoEvent = (eventName, videoId, timeStamp, blockName = 'video') => {
   // eslint-disable-next-line no-console

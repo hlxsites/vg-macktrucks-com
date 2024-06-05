@@ -3,6 +3,10 @@ import {
   createResponsivePicture,
   variantsClassesToBEM,
 } from '../../scripts/common.js';
+import {
+  isVideoLink,
+  createVideo,
+} from '../../scripts/video-helper.js';
 
 const variantClasses = ['dark', 'light', 'half-height'];
 const blockName = 'v2-hero';
@@ -16,6 +20,18 @@ export default async function decorate(block) {
   const images = [...block.querySelectorAll('p > picture')];
   const imageURLs = getImageURLs(images);
   const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
+
+  const link = block.querySelector('a');
+  const isVideo = link ? isVideoLink(link) : false;
+  if (isVideo) {
+    createVideo(block, link.getAttribute('href'), `${blockName}__video`, {
+      muted: true,
+      autoplay: true,
+      loop: true,
+      playsinline: true,
+    });
+    link.remove();
+  }
 
   if (imageData.length === 1) {
     imageData[0].breakpoints = [
@@ -46,7 +62,7 @@ export default async function decorate(block) {
 
   if (images.length !== 0) {
     block.prepend(newPicture);
-  } else {
+  } else if (!isVideo) {
     block.classList.add(`${blockName}--no-image`);
   }
 

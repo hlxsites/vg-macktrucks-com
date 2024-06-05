@@ -10,7 +10,8 @@
   overflow: hidden;
 }
 
-.v2-hero__image {
+.v2-hero__image,
+.v2-hero__video {
   position: absolute;
   object-fit: cover;
   height: 100%;
