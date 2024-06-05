@@ -903,6 +903,9 @@ main .section.responsive-title h1 {
 
   /* In page navigation */
   --inpage-navigation-height: 0px;
+
+  /* Playback button */
+  --playback-button-size: 80px;
 }
 
 .redesign-v2 body {
@@ -1098,12 +1101,12 @@ main .section.responsive-title h1 {
 
   border: 0;
   cursor: pointer;
-  height: 48px;
+  height: var(--playback-button-size);
   padding: 0;
   position: absolute;
   right: 0;
   top: 0;
-  width: 48px;
+  width: var(--playback-button-size);
   z-index: 1;
 }
 
@@ -1133,8 +1136,8 @@ main .section.responsive-title h1 {
 
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-video__playback-button .icon svg {
-  height: 48px;
-  width: 48px;
+  height: var(--playback-button-size);
+  width: var(--playback-button-size);
 }
 
 /* Section Background colors */
