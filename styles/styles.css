@@ -1107,6 +1107,15 @@ main .section.responsive-title h1 {
   z-index: 1;
 }
 
+.v2-video__playback-button:focus {
+  outline: 0;
+}
+
+.v2-video__playback-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
 .v2-video__playback-button .icon-play-video,
 .v2-video__playback-button .icon-pause-video {
   display: none;
