@@ -36,6 +36,20 @@ export default function decorate(block) {
 
   // is responsibility of the author to add the proper amount of images and text
   accordionItems.forEach((item, i) => {
+    const buttons = [...block.querySelectorAll('.button-container')];
+    buttons.forEach((el) => {
+      el.classList.add(`${blockName}__button-container`);
+      [...el.querySelectorAll('a')].forEach((link) => {
+        if (link.classList.contains('button--primary')
+            || link.classList.contains('button--secondary')
+            || link.classList.contains('button--red')) {
+          link.classList.add('button--small');
+        } else {
+          link.classList.add('standalone-link', `${blockName}__button`);
+        }
+      });
+    });
+
     const colBtnTitle = createElement('button', {
       classes: `${blockName}__item-header-button`,
       props: { type: 'button' },
