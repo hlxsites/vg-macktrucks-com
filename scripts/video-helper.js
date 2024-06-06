@@ -201,9 +201,24 @@ export const setPlaybackControls = () => {
  * @returns {HTMLElement} - The created video element with a source child.
  */
 const createVideoElement = (src, className, props) => {
-  const video = createElement('video', { classes: className, props });
+  const video = createElement('video', { classes: className });
   const source = createElement('source', { props: { src, type: 'video/mp4' } });
   video.appendChild(source);
+
+  if (props.muted) {
+    video.muted = props.muted;
+  }
+
+  if (props.autoplay) {
+    video.autoplay = props.autoplay;
+  }
+
+  if (props) {
+    Object.keys(props).forEach((propName) => {
+      video.setAttribute(propName, props[propName]);
+    });
+  }
+
   return video;
 };
 
