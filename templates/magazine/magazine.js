@@ -124,8 +124,10 @@ export default async function decorate(doc) {
   const parsedOptions = JSON.parse(DATE_OPTIONS);
   const extractedOptions = extractObjectFromArray(parsedOptions);
   const dateFormat = new Intl.DateTimeFormat(locale || DATE_LANGUAGE, extractedOptions);
+
+  let localeDate;
   // eslint-disable-next-line no-unused-vars
-  const localeDate = dateFormat.format(date);
+  if (date) localeDate = dateFormat.format(date);
 
   const defaultContent = container.querySelector('.default-content-wrapper');
   const subscribeContent = container.querySelector('.magazine-subscribe-wrapper');
