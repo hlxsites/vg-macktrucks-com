@@ -91,7 +91,7 @@ export default async function decorate(block) {
 
   const ctaButtons = content.querySelectorAll('.button-container > a');
   [...ctaButtons].forEach((b) => {
-    b.classList.add((isPdp ? `${blockName}__cta` : 'button--large'), 'button--cta');
+    b.classList.add((isPdp ? `${blockName}__cta` : 'button--large'), 'button--red', 'button');
     if (!isHalfHeight) b.classList.remove('button--primary');
     b.parentElement.classList.add(`${blockName}__cta-wrapper`);
   });

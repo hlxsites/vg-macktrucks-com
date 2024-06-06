@@ -64,7 +64,6 @@ function buildProductImageDom(prodEle) {
     const link = imageWrapper.querySelector('a');
     link.text = '';
     link.classList.add(`${blockName}__product-image-link`);
-    link.classList.remove('button', 'button--primary');
     link.append(...pictures);
     imageWrapper.innerHTML = '';
     imageWrapper.append(link);
@@ -81,10 +80,6 @@ function buildProductInfoDom(prodEle) {
     info.classList.add(`${blockName}__product-info`);
 
     [...buttons].forEach((b) => {
-      if (b.parentElement.tagName === 'EM') {
-        b.parentElement.parentElement.remove();
-      }
-      b.parentElement.remove();
       buttonContainer.appendChild(b);
     });
     info.appendChild(buttonContainer);
@@ -209,8 +204,7 @@ export default function decorate(block) {
     buildProductInfoDom(prodEle);
   });
 
-  const productsWrapper = document.querySelector(`.${blockName}-wrapper`);
-  productsWrapper.classList.add('full-width');
+  block.parentElement.classList.add('full-width');
   // Add product name to product element class list
   getProductName();
 

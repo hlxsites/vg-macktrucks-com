@@ -116,7 +116,6 @@ export default function decorate(block) {
     item.prepend(colBtnTitle);
     itemsContainer.appendChild(item);
   });
-  button.classList.replace('button--primary', 'button--cta');
   button.classList.add('button--large', `${blockName}__builder-button`);
 
   itemsContainer.append(buttonContainer);

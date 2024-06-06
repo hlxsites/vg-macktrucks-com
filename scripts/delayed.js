@@ -5,6 +5,7 @@ import {
   isPerformanceAllowed,
   isSocialAllowed,
   isTargetingAllowed,
+  extractObjectFromArray,
   COOKIE_CONFIGS,
 } from './common.js';
 
@@ -18,18 +19,8 @@ const {
   LINKEDIN_PARTNER_ID = false,
 } = COOKIE_CONFIGS;
 
-const extractValues = (data) => {
-  const values = Object.values(data);
-  const obj = {};
-  values.forEach((value) => {
-    const split = value.split(':');
-    obj[split[0]] = split[1].trim();
-  });
-  return obj;
-};
-
 const parsedData = JSON.parse(ACC_ENG_TRACKING);
-const splitData = extractValues(parsedData);
+const splitData = extractObjectFromArray(parsedData);
 
 const { piAId, piCId, piHostname } = splitData;
 
