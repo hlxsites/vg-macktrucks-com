@@ -193,19 +193,6 @@ export const setPlaybackControls = () => {
 };
 
 /**
- * Applies attributes to an element.
- *
- * @param {HTMLElement} element - The element to which attributes will be applied.
- * @param {Object} attributes - The attributes to apply.
- */
-const applyAttributes = (element, attributes) => {
-  Object.keys(attributes).forEach((attr) => {
-    element[attr] = attributes[attr];
-    element.setAttribute(attr, attributes[attr]);
-  });
-};
-
-/**
  * Creates a video element with a source.
  *
  * @param {string} src - The source URL of the video.
@@ -214,8 +201,7 @@ const applyAttributes = (element, attributes) => {
  * @returns {HTMLElement} - The created video element with a source child.
  */
 const createVideoElement = (src, className, props) => {
-  const video = createElement('video', { classes: className });
-  applyAttributes(video, props);
+  const video = createElement('video', { classes: className, props });
   const source = createElement('source', { props: { src, type: 'video/mp4' } });
   video.appendChild(source);
   return video;

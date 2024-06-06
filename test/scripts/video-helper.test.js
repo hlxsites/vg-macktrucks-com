@@ -385,8 +385,8 @@ describe('createVideo function', () => {
     expect(video.tagName).to.equal('VIDEO', 'The created element should be a video tag');
     expect(source.src).to.equal(videoSrc);
     expect(video.className).to.equal('');
-    expect(video.muted).to.be.false;
-    expect(video.autoplay).to.be.false;
+    expect(video.hasAttribute('muted')).to.be.false;
+    expect(video.hasAttribute('autoplay')).to.be.false;
   });
 
   it('should create a video element with custom attributes', () => {
@@ -401,9 +401,9 @@ describe('createVideo function', () => {
     expect(video.tagName).to.equal('VIDEO', 'The created element should be a video tag');
     expect(source.src).to.equal(videoSrc);
     expect(video.className).to.equal('custom-class');
-    expect(video.muted).to.be.true;
-    expect(video.autoplay).to.be.true;
-    expect(video.controls).to.be.true;
+    expect(video.hasAttribute('muted')).to.be.true;
+    expect(video.hasAttribute('autoplay')).to.be.true;
+    expect(video.hasAttribute('controls')).to.be.true;
   });
 
   it('should set additional attributes', () => {
