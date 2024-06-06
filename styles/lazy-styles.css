@@ -17,6 +17,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'GT America Compressed Regular';
+  src: url('../fonts/GT-America-Compressed-Regular.woff2') format('woff2'),
+  url('../fonts/GT-America-Compressed-Regular.woff') format('woff'),
+  url('../fonts/GT-America-Compressed-Regular.ttf') format('ttf'),
+  url('../fonts/GT-America-Compressed-Regular.otf') format('otf');
+  font-display: swap;
+}
+
 /* Subheads, Body Copy, & Legal Copy */
 @font-face {
   font-family: 'Helvetica Neue LT Pro 55 Roman';
