@@ -1120,9 +1120,8 @@ main .section.responsive-title h1 {
 
 /* Play/pause button */
 .v2-video__playback-button {
-  --color-icon: #b3976b;
-
   border: 0;
+  color: var(--c-primary-black);
   cursor: pointer;
   height: var(--playback-button-size);
   padding: 0;
@@ -1146,10 +1145,6 @@ main .section.responsive-title h1 {
 .v2-video__playback-button .icon-pause-video {
   display: none;
   justify-content: center;
-}
-
-.v2-video__playback-button:hover {
-  --color-icon: #d9b781;
 }
 
 .v2-video__playback-button .icon {

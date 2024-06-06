@@ -21,6 +21,12 @@
 
 .v2-hero .v2-video__playback-button {
   --playback-button-size: 48px;
+
+  background-color: #b3976b;
+}
+
+.v2-hero .v2-video__playback-button:hover {
+  background-color: #d9b781;
 }
 
 .v2-hero__content-wrapper {
