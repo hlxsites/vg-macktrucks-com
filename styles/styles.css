@@ -926,9 +926,6 @@ main .section.responsive-title h1 {
   --standalone-link-color: var(--c-primary-black);
   --standalone-link-color-active: #555;
   --standalone-link-color-hover: #555;
-
-  /* Playback button */
-  --playback-button-size: 80px;
 }
 
 .redesign-v2 body {
@@ -1118,8 +1115,10 @@ main .section.responsive-title h1 {
   border-color: var(--button-secondary-border-active);
 }
 
-/* Play/pause button */
+/* Play/pause buttons */
 .v2-video__playback-button {
+  --playback-button-size: 80px;
+
   border: 0;
   color: var(--c-primary-black);
   cursor: pointer;
@@ -1485,6 +1484,10 @@ main .section.responsive-title h1 {
   height: calc(100vh - var(--nav-height));
 }
 
+.v2-sub-navigation-container + .v2-hero-container .v2-hero {
+  height: calc(100vh - var(--nav-height) - var(--v2-sub-navigation-height));
+}
+
 .v2-breadcrumb-container.v2-hero-container .v2-hero:not(.v2-hero--no-image) {
   height: calc(100vh - (var(--nav-height) + var(--breadcrumb-height)));
 }
@@ -1494,10 +1497,13 @@ main .section.responsive-title h1 {
     height: calc(100svh - var(--nav-height));
   }
 
+  .v2-sub-navigation-container + .v2-hero-container .v2-hero {
+    height: calc(100svh - var(--nav-height) - var(--v2-sub-navigation-height));
+  }
+
   .v2-breadcrumb-container.v2-hero-container .v2-hero:not(.v2-hero--no-image) {
     height: calc(100svh - (var(--nav-height) + var(--breadcrumb-height)));
   }
-
 }
 
 .v2-inpage-navigation {
