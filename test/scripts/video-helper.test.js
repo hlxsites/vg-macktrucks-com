@@ -367,17 +367,19 @@ describe('createIframe', () => {
   });
 });
 
-describe('createVideo', () => {
+describe('createVideo function', () => {
+  let createVideo;
   let block;
   const videoSrc = 'https://example.com/example-video.mp4';
   const externalVideoSrc = 'https://external.example.com/frame';
 
-  beforeEach(() => {
+  before(async () => {
+    createVideo = videoHelper.createVideo;
     block = document.createElement('div');
   });
 
   it('should create a video element with default attributes', () => {
-    const video = videoHelper.createVideo(block, videoSrc);
+    const video = createVideo(block, videoSrc);
     const source = video.querySelector('source');
 
     expect(video.tagName).to.equal('VIDEO', 'The created element should be a video tag');
@@ -393,7 +395,7 @@ describe('createVideo', () => {
       autoplay: true,
       controls: true,
     };
-    const video = videoHelper.createVideo(block, videoSrc, 'custom-class', props);
+    const video = createVideo(block, videoSrc, 'custom-class', props);
     const source = video.querySelector('source');
 
     expect(video.tagName).to.equal('VIDEO', 'The created element should be a video tag');
@@ -409,14 +411,14 @@ describe('createVideo', () => {
       loop: true,
       preload: 'auto',
     };
-    const video = videoHelper.createVideo(block, videoSrc, 'extra-attributes', props);
+    const video = createVideo(block, videoSrc, 'extra-attributes', props);
 
     expect(video.loop).to.be.true;
     expect(video.preload).to.equal('auto');
   });
 
   it('should create a source element with correct attributes', () => {
-    const video = videoHelper.createVideo(block, videoSrc);
+    const video = createVideo(block, videoSrc);
     const source = video.querySelector('source');
 
     expect(source).to.exist;
@@ -426,17 +428,18 @@ describe('createVideo', () => {
   });
 
   it('should create an iframe for an external video with default attributes', () => {
-    const video = videoHelper.createVideo(block, externalVideoSrc, '', {}, false);
+    const video = createVideo(block, externalVideoSrc, '', {}, false);
     expect(video.tagName).to.equal('IFRAME');
     expect(video.src).to.include(externalVideoSrc);
     expect(video.className).to.equal('');
+    // Check for the presence of the attribute, which is a boolean
     expect(video.hasAttribute('allowfullscreen')).to.be.true;
   });
 
   it('should create an iframe with custom classes and properties for an external video', () => {
     const className = 'external-video-class';
     const props = { title: 'External Video Title' };
-    const video = videoHelper.createVideo(block, externalVideoSrc, className, props, false);
+    const video = createVideo(block, externalVideoSrc, className, props, false);
     expect(video.tagName).to.equal('IFRAME');
     expect(video.className).to.equal(className);
     expect(video.title).to.equal(props.title);
@@ -445,14 +448,15 @@ describe('createVideo', () => {
   it('should apply video configurations for external videos using videoId', () => {
     const videoId = 'externalVideo123';
     const props = { title: 'Configured Video' };
-    videoHelper.createVideo(block, externalVideoSrc, '', props, false, videoId);
+    createVideo(block, externalVideoSrc, '', props, false, videoId);
 
     const config = videoHelper.getVideoConfig(videoId);
     expect(config).to.deep.include(props);
   });
 
+  // Ensure that createVideo can gracefully handle calls without a videoId for external videos
   it('should handle empty or undefined videoId for external videos', () => {
-    const video = videoHelper.createVideo(block, externalVideoSrc, 'no-id-class', { title: 'No ID' }, false);
+    const video = createVideo(block, externalVideoSrc, 'no-id-class', { title: 'No ID' }, false);
     expect(video.tagName).to.equal('IFRAME');
     expect(video.className).to.equal('no-id-class');
     expect(video.title).to.equal('No ID');
