@@ -46,7 +46,9 @@ export default async function decorate(block) {
         buttonContainer.replaceWith(btn);
       }
 
-      if (btn.classList.contains('button--primary') || btn.classList.contains('button--secondary')) {
+      if (btn.classList.contains('button--primary')
+          || btn.classList.contains('button--secondary')
+          || btn.classList.contains('button--red')) {
         btn.classList.add('button--small');
       } else {
         btn.classList.add('standalone-link', `${blockName}__button`);

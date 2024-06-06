@@ -119,19 +119,7 @@ const getButtonClass = (up, twoUp) => {
     if (upTag === 'EM' && twoUpTag === 'P') return 'button button--secondary';
   }
 
-  if (
-    upTag === 'LI'
-    && twoUp.children.length === 1
-    && up.firstElementChild
-    && up.firstElementChild.tagName === 'STRONG'
-  ) {
-    return 'arrowed';
-  }
-
-  if (
-    (upTag === 'STRONG' || upTag === 'EM')
-    && (twoUpTag === 'STRONG' || twoUpTag === 'EM')
-  ) {
+  if ((upTag === 'STRONG' || upTag === 'EM') && (twoUpTag === 'STRONG' || twoUpTag === 'EM')) {
     return 'button button--red';
   }
 
@@ -155,20 +143,46 @@ const addClassToContainer = (element) => {
 const handleLinkDecoration = (link) => {
   const up = link.parentElement;
   const twoUp = up.parentElement;
+  const threeUp = twoUp.parentElement;
 
-  if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
-  if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
+  if (getMetadata('style') === 'redesign-v2') {
+    if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
+    if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
 
-  const buttonClass = getButtonClass(up, twoUp);
-  if (buttonClass) link.className = `${buttonClass}`;
+    const buttonClass = getButtonClass(up, twoUp);
+    if (buttonClass) link.className = `${buttonClass}`;
 
-  if (buttonClass === 'arrowed') {
-    const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
-    link.appendChild(arrow);
+    addClassToContainer(up);
+    addClassToContainer(twoUp);
+    addClassToContainer(threeUp);
+  } else {
+    // TODO: remove v1 button decoration logic when v2 is fully used
+    if (up.tagName === 'P' || up.tagName === 'DIV') {
+      link.className = 'button button--primary'; // default
+      up.className = 'button-container';
+    }
+    if (up.tagName === 'STRONG' && twoUp.childNodes.length === 1 && twoUp.tagName === 'P') {
+      link.className = 'button button--primary';
+      twoUp.className = 'button-container';
+    }
+    if (up.tagName === 'EM' && twoUp.childNodes.length === 1 && twoUp.tagName === 'P') {
+      link.className = 'button button--secondary';
+      twoUp.className = 'button-container';
+    }
+    if (up.tagName === 'STRONG' && twoUp.childNodes.length === 1 && twoUp.tagName === 'LI') {
+      const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
+      link.className = 'button arrowed';
+      twoUp.parentElement.className = 'button-container';
+      link.appendChild(arrow);
+    }
+    if (up.tagName === 'LI' && twoUp.children.length === 1
+      && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
+      const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
+      link.className = 'button arrowed';
+      twoUp.className = 'button-container';
+      link.appendChild(arrow);
+    }
   }
-
-  addClassToContainer(up);
-  addClassToContainer(twoUp);
 };
 
 /**
@@ -178,7 +192,7 @@ const handleLinkDecoration = (link) => {
  */
 const shouldDecorateLink = (link) => {
   link.title = link.title || link.textContent;
-  return link.href !== link.textContent && !link.querySelector('img');
+  return link.href !== link.textContent && !link.querySelector('img') && link.parentElement.childNodes.length === 1;
 };
 
 /**

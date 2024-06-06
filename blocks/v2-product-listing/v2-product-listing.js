@@ -204,8 +204,7 @@ export default function decorate(block) {
     buildProductInfoDom(prodEle);
   });
 
-  const productsWrapper = document.querySelector(`.${blockName}-wrapper`);
-  productsWrapper.classList.add('full-width');
+  block.parentElement.classList.add('full-width');
   // Add product name to product element class list
   getProductName();
 
