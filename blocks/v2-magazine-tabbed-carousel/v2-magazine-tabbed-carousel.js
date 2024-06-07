@@ -5,6 +5,7 @@ const blockName = 'v2-magazine-tabbed-carousel';
 let autoScroll = true;
 let scrollIntervalID;
 const autoScrollInterval = 2000;
+let isFirstLoad = true;
 
 const updateActiveItem = (elements, entry) => {
   elements.forEach((el, index) => {
@@ -142,7 +143,10 @@ export default async function decorate(block) {
   carouselContainer.append(tabNavigation, autoScrollSwitch);
   block.append(carouselContainer);
 
-  window.addEventListener('load', () => handleAutoScroll(autoScroll));
+  if (isFirstLoad) {
+    handleAutoScroll(autoScroll);
+    isFirstLoad = false;
+  }
 
   // update the button indicator on scroll
   const elements = carouselItems.querySelectorAll(':scope > *');
