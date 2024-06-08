@@ -2,8 +2,11 @@ import { createElement, unwrapDivs, getJsonFromUrl } from '../../scripts/common.
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-magazine-tabbed-carousel';
-const autoScrollInterval = 2000;
 let autoScrollEnabled = true;
+
+const url = '/magazine-articles.json';
+const allArticles = await getJsonFromUrl(url);
+const articleArray = Object.values(allArticles.data);
 
 const updateActiveItem = (elements, entry) => {
   elements.forEach((el, index) => {
@@ -31,40 +34,26 @@ const updateActiveItem = (elements, entry) => {
   });
 };
 
-export default async function decorate(block) {
-  let isFirstLoad = true;
-  let scrollIntervalID;
+const buildTabNavigation = (carousel, title, category, index) => {
+  const listItem = document.createRange().createContextualFragment(`
+    <li class='${blockName}__navigation-item item-${index + 1}'>
+      <p class='pretitle'>${category}</p>
+      <p class='title'>${title}</p>
+    </li>
+  `);
+  listItem.querySelector('li').addEventListener('click', () => setCarouselPosition(carousel, index));
 
-  const url = '/magazine-articles.json';
-  const allArticles = await getJsonFromUrl(url);
-  const articleArray = Object.values(allArticles.data);
+  return listItem;
+};
 
-  const carouselContainer = createElement('div', { classes: `${blockName}__container` });
-  const carouselItems = createElement('ul', { classes: `${blockName}__items` });
-  carouselContainer.append(carouselItems);
-
-  const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
-
-  function buildTabNavigation(title, category, index) {
-    const listItem = document.createRange().createContextualFragment(`
-      <li class='${blockName}__navigation-item item-${index + 1}'>
-        <p class='pretitle'>${category}</p>
-        <p class='title'>${title}</p>
-      </li>
-    `);
-    listItem.querySelector('li').addEventListener('click', () => setCarouselPosition(carouselItems, index));
-
-    return listItem;
-  }
-
-  const tabItems = block.querySelectorAll(':scope > div');
-  tabItems.forEach((tabItem, index) => {
+const buildTabItems = (carousel, navigation, items, itemsLength, articles) => {
+  items.forEach((item, index) => {
     if (index <= 3) {
-      const picture = tabItem.querySelector('picture');
+      const picture = item.querySelector('picture');
 
       const liItem = createElement('li', { classes: [`${blockName}__item`, `item-${index + 1}`] });
       const figure = createElement('figure', { classes: `${blockName}__figure` });
-      const tabContent = tabItem.querySelector('a');
+      const tabContent = item.querySelector('a');
       const articlePath = tabContent.href;
 
       figure.append(picture);
@@ -74,50 +63,76 @@ export default async function decorate(block) {
       figure.append(figureCaption);
 
       liItem.append(figure);
-      carouselItems.appendChild(liItem);
+      carousel.appendChild(liItem);
 
-      const fullArticleObj = articleArray.find((path) => {
+      const fullArticleObj = articles.find((path) => {
         const shortUrl = articlePath.split('/magazine/')[1];
         const shortPath = path.path.split('/magazine/')[1];
         return shortPath === shortUrl;
       });
       const { title, category } = fullArticleObj;
 
-      const navItem = buildTabNavigation(title, category, index);
-      tabNavigation.append(navItem);
+      const navItem = buildTabNavigation(carousel, title, category, index);
+      navigation.append(navItem);
     }
-    tabItem.innerHTML = '';
+    item.innerHTML = '';
   });
+};
+
+export default async function decorate(block) {
+  let isFirstLoad = true;
+  let scrollIntervalID;
+
+  const carouselContainer = createElement('div', { classes: `${blockName}__container` });
+  const carouselItems = createElement('ul', { classes: `${blockName}__items` });
+  carouselContainer.append(carouselItems);
+
+  const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
+
+  const tabItems = block.querySelectorAll(':scope > div');
+  const totalTabs = tabItems.length;
+
+  buildTabItems(carouselItems, tabNavigation, tabItems, totalTabs, articleArray);
 
   const handleAutoScroll = (enabled) => {
+    const interval = 2000;
+
     const autoScrollFunction = () => {
       const amountOfSlides = carouselContainer.querySelectorAll(`.${blockName}__item`).length;
-      const activeSlide = carouselContainer.querySelectorAll('.active');
-      const classlistArray = [...activeSlide[0].classList];
+      const activeSlide = carouselContainer.querySelector('.active');
+      const classlistArray = [...activeSlide.classList];
       const item = classlistArray.find((el) => el.slice(0, 5) === 'item-');
       const itemNum = Number(item.split('-')[1]);
 
-      activeSlide.forEach((el) => el.classList.remove('active'));
+      activeSlide.classList.remove('active');
 
       const nextNum = itemNum === amountOfSlides ? 1 : itemNum + 1;
-      const nextSlide = carouselContainer.querySelectorAll(`.item-${nextNum}`);
+      const nextSlide = carouselContainer.querySelector(`.item-${nextNum}`);
 
-      nextSlide.forEach((el) => {
-        el.classList.add('active');
-        if (el.classList.contains(`${blockName}__item`)) {
-          const itemsContainer = el.parentElement;
-          const { x: itemWidth } = el.getBoundingClientRect();
-          itemsContainer.scrollLeft += itemWidth;
-        }
-      });
+      nextSlide.classList.add('active');
+      if (nextSlide.classList.contains(`${blockName}__item`)) {
+        const itemsContainer = nextSlide.parentElement;
+        const { x: itemWidth } = nextSlide.getBoundingClientRect();
+        itemsContainer.scrollLeft += itemWidth;
+      }
     };
 
     if (enabled) {
-      scrollIntervalID = setInterval(autoScrollFunction, autoScrollInterval);
+      scrollIntervalID = setInterval(autoScrollFunction, interval);
     } else if (!enabled) {
       clearInterval(scrollIntervalID);
       scrollIntervalID = null;
     }
+  };
+
+  const handleSwitch = (e) => {
+    const slider = e.target.parentElement.querySelector('.switch-slider');
+    const isOff = e.target.id === 'off';
+    if (autoScrollEnabled === isOff) {
+      autoScrollEnabled = !isOff;
+    }
+    slider.style.left = isOff ? '53px' : '0';
+    handleAutoScroll(autoScrollEnabled);
   };
 
   const autoScrollSwitch = document.createRange().createContextualFragment(`
@@ -130,16 +145,6 @@ export default async function decorate(block) {
       </div>
     </div>
   `);
-
-  const handleSwitch = (e) => {
-    const slider = e.target.parentElement.querySelector('.switch-slider');
-    const isOff = e.target.id === 'off';
-    if (autoScrollEnabled === isOff) {
-      autoScrollEnabled = !isOff;
-    }
-    slider.style.left = isOff ? '53px' : '0';
-    handleAutoScroll(autoScrollEnabled);
-  };
 
   autoScrollSwitch.querySelectorAll('button').forEach((btn) => btn.addEventListener('click', (e) => handleSwitch(e)));
 
