@@ -2,10 +2,8 @@ import { createElement, unwrapDivs, getJsonFromUrl } from '../../scripts/common.
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-magazine-tabbed-carousel';
-let autoScroll = true;
-let scrollIntervalID;
 const autoScrollInterval = 2000;
-let isFirstLoad = true;
+let autoScrollEnabled = true;
 
 const updateActiveItem = (elements, entry) => {
   elements.forEach((el, index) => {
@@ -34,6 +32,9 @@ const updateActiveItem = (elements, entry) => {
 };
 
 export default async function decorate(block) {
+  let isFirstLoad = true;
+  let scrollIntervalID;
+
   const url = '/magazine-articles.json';
   const allArticles = await getJsonFromUrl(url);
   const articleArray = Object.values(allArticles.data);
@@ -90,6 +91,7 @@ export default async function decorate(block) {
 
   const handleAutoScroll = (enabled) => {
     const autoScrollFunction = () => {
+      const amountOfSlides = carouselContainer.querySelectorAll(`.${blockName}__item`).length;
       const activeSlide = carouselContainer.querySelectorAll('.active');
       const classlistArray = [...activeSlide[0].classList];
       const item = classlistArray.find((el) => el.slice(0, 5) === 'item-');
@@ -97,7 +99,7 @@ export default async function decorate(block) {
 
       activeSlide.forEach((el) => el.classList.remove('active'));
 
-      const nextNum = itemNum === 4 ? 1 : itemNum + 1;
+      const nextNum = itemNum === amountOfSlides ? 1 : itemNum + 1;
       const nextSlide = carouselContainer.querySelectorAll(`.item-${nextNum}`);
 
       nextSlide.forEach((el) => {
@@ -109,9 +111,10 @@ export default async function decorate(block) {
         }
       });
     };
+
     if (enabled) {
       scrollIntervalID = setInterval(autoScrollFunction, autoScrollInterval);
-    } else {
+    } else if (!enabled) {
       clearInterval(scrollIntervalID);
       scrollIntervalID = null;
     }
@@ -131,11 +134,11 @@ export default async function decorate(block) {
   const handleSwitch = (e) => {
     const slider = e.target.parentElement.querySelector('.switch-slider');
     const isOff = e.target.id === 'off';
-    if (autoScroll === isOff) {
-      autoScroll = !isOff;
-      slider.style.left = isOff ? '53px' : '0';
+    if (autoScrollEnabled === isOff) {
+      autoScrollEnabled = !isOff;
     }
-    handleAutoScroll(autoScroll);
+    slider.style.left = isOff ? '53px' : '0';
+    handleAutoScroll(autoScrollEnabled);
   };
 
   autoScrollSwitch.querySelectorAll('button').forEach((btn) => btn.addEventListener('click', (e) => handleSwitch(e)));
@@ -144,7 +147,7 @@ export default async function decorate(block) {
   block.append(carouselContainer);
 
   if (isFirstLoad) {
-    handleAutoScroll(autoScroll);
+    handleAutoScroll(autoScrollEnabled);
     isFirstLoad = false;
   }
 
