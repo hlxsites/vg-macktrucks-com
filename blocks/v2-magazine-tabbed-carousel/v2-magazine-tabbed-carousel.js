@@ -3,6 +3,8 @@ import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper
 
 const blockName = 'v2-magazine-tabbed-carousel';
 let autoScrollEnabled = true;
+const maxAmountOfTabs = 4;
+const intervalTime = 2000;
 
 const url = '/magazine-articles.json';
 const allArticles = await getJsonFromUrl(url);
@@ -46,9 +48,9 @@ const buildTabNavigation = (carousel, title, category, index) => {
   return listItem;
 };
 
-const buildTabItems = (carousel, navigation, items, itemsLength, articles) => {
+const buildTabItems = (carousel, navigation, items, articles) => {
   items.forEach((item, index) => {
-    if (index <= 3) {
+    if (index <= (maxAmountOfTabs - 1)) {
       const picture = item.querySelector('picture');
 
       const liItem = createElement('li', { classes: [`${blockName}__item`, `item-${index + 1}`] });
@@ -90,13 +92,10 @@ export default async function decorate(block) {
   const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
 
   const tabItems = block.querySelectorAll(':scope > div');
-  const totalTabs = tabItems.length;
 
-  buildTabItems(carouselItems, tabNavigation, tabItems, totalTabs, articleArray);
+  buildTabItems(carouselItems, tabNavigation, tabItems, articleArray);
 
-  const handleAutoScroll = (enabled) => {
-    const interval = 2000;
-
+  const handleAutoScroll = (isEnabled) => {
     const autoScrollFunction = () => {
       const amountOfSlides = carouselContainer.querySelectorAll(`.${blockName}__item`).length;
       const activeSlide = carouselContainer.querySelector('.active');
@@ -117,9 +116,9 @@ export default async function decorate(block) {
       }
     };
 
-    if (enabled) {
-      scrollIntervalID = setInterval(autoScrollFunction, interval);
-    } else if (!enabled) {
+    if (isEnabled) {
+      scrollIntervalID = setInterval(autoScrollFunction, intervalTime);
+    } else {
       clearInterval(scrollIntervalID);
       scrollIntervalID = null;
     }
