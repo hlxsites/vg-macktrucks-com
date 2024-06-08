@@ -89,9 +89,10 @@
 }
 
 .v2-magazine-tabbed-carousel__navigation-item {
-  --text-color: var(--c-secondary-steel);
+  --text-color: var(--c-primary-black);
 
   color: var(--text-color);
+  opacity: 0.55;
   border-top: 8px solid var(--text-color);
   min-width: calc(var(--wrapper-width) / 4);
   height: 210px;
@@ -100,7 +101,7 @@
 }
 
 .v2-magazine-tabbed-carousel__navigation-item.active {
-  --text-color: var(--c-primary-black);
+  opacity: 1;
 }
 
 .v2-magazine-tabbed-carousel__navigation-item .pretitle {
