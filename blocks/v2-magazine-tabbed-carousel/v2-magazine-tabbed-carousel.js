@@ -38,7 +38,7 @@ const updateActiveItem = (elements, entry) => {
 
 const buildTabNavigation = (carousel, title, category, index) => {
   const listItem = document.createRange().createContextualFragment(`
-    <li class='${blockName}__navigation-item item-${index + 1}'>
+    <li tabindex="0" class='${blockName}__navigation-item item-${index + 1}'>
       <p class='pretitle'>${category}</p>
       <p class='title'>${title}</p>
     </li>

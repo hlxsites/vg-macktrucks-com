@@ -131,14 +131,6 @@
   cursor: default;
 }
 
-.v2-magazine-tabbed-carousel__navigation-item button:focus {
-  outline: 0;
-}
-
-.v2-magazine-tabbed-carousel__navigation-item button:focus-visible {
-  outline: 3px solid var(--navigation-line-active-color);
-}
-
 .v2-magazine-tabbed-carousel .switch {
   position: absolute;
   bottom: 210px;
@@ -174,6 +166,18 @@
 
 .v2-magazine-tabbed-carousel .switch-buttons button:first-of-type {
   margin-right: 4px;
+}
+
+.v2-magazine-tabbed-carousel .v2-magazine-tabbed-carousel__figure a:focus,
+.v2-magazine-tabbed-carousel .v2-magazine-tabbed-carousel__navigation-item:focus,
+.v2-magazine-tabbed-carousel .switch-buttons button:focus {
+  outline: 0;
+}
+
+.v2-magazine-tabbed-carousel .v2-magazine-tabbed-carousel__figure a:focus-visible,
+.v2-magazine-tabbed-carousel .v2-magazine-tabbed-carousel__navigation-item:focus-visible,
+.v2-magazine-tabbed-carousel .switch-buttons button:focus-visible {
+  outline: 3px solid var(--navigation-line-active-color);
 }
 
 .v2-magazine-tabbed-carousel .switch-buttons .switch-slider  {
