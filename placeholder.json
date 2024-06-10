@@ -1,7 +1,7 @@
 {
-  "total": 54,
+  "total": 55,
   "offset": 0,
-  "limit": 54,
+  "limit": 55,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -250,6 +250,10 @@
     {
       "Key": "404 Back link title",
       "Text": "Go Back"
+    },
+    {
+      "Key": "autoscroll_switch",
+      "Text": "Auto:,On,Off"
     }
   ],
   ":type": "sheet"

@@ -1,10 +1,15 @@
-import { createElement, unwrapDivs, getJsonFromUrl } from '../../scripts/common.js';
+import {
+  createElement,
+  unwrapDivs,
+  getJsonFromUrl,
+  getTextLabel,
+} from '../../scripts/common.js';
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-magazine-tabbed-carousel';
 let autoScrollEnabled = true;
 const maxAmountOfTabs = 4;
-const intervalTime = 2000;
+const intervalTime = 4000;
 
 const url = '/magazine-articles.json';
 const allArticles = await getJsonFromUrl(url);
@@ -37,15 +42,15 @@ const updateActiveItem = (elements, entry) => {
 };
 
 const buildTabNavigation = (carousel, title, category, index) => {
-  const listItem = document.createRange().createContextualFragment(`
-    <li tabindex="0" class='${blockName}__navigation-item item-${index + 1}'>
-      <p class='pretitle'>${category}</p>
-      <p class='title'>${title}</p>
-    </li>
+  const item = document.createRange().createContextualFragment(`
+    <button tabindex="0" class="${blockName}__navigation-item item-${index + 1}">
+      <p class="pretitle">${category}</p>
+      <p class="title">${title}</p>
+    </button>
   `);
-  listItem.querySelector('li').addEventListener('click', () => setCarouselPosition(carousel, index));
+  item.querySelector('button').addEventListener('click', () => setCarouselPosition(carousel, index));
 
-  return listItem;
+  return item;
 };
 
 const buildTabItems = (carousel, navigation, items, articles) => {
@@ -115,11 +120,13 @@ export default async function decorate(block) {
   let isFirstLoad = true;
   let scrollIntervalID;
 
+  const switchFullTexts = getTextLabel('autoscroll_switch');
+
   const carouselContainer = createElement('div', { classes: `${blockName}__container` });
   const carouselItems = createElement('ul', { classes: `${blockName}__items` });
   carouselContainer.append(carouselItems);
 
-  const tabNavigation = createElement('ul', { classes: `${blockName}__navigation` });
+  const tabNavigation = createElement('nav', { classes: `${blockName}__navigation` });
 
   const tabItems = block.querySelectorAll(':scope > div');
 
@@ -136,23 +143,25 @@ export default async function decorate(block) {
     }
   };
 
+  const switchSplittedTexts = switchFullTexts.split(',');
   const autoScrollSwitch = document.createRange().createContextualFragment(`
-    <div class='switch'>
-      <p class='switch-label'>Auto:</p>
-      <div class='switch-buttons'>
-        <button id='on'>On</button>
-        <button id='off'>Off</button>
-        <div class='switch-slider'></div>
+    <div class="switch">
+      <p class="switch-label">${switchSplittedTexts[0]}</p>
+      <div class="switch-buttons">
+        <button id="on">${switchSplittedTexts[1]}</button>
+        <button id="off">${switchSplittedTexts[2]}</button>
+        <div class="switch-slider"></div>
       </div>
     </div>
   `);
 
   autoScrollSwitch.querySelectorAll('button').forEach((btn) => btn.addEventListener('click', (e) => handleSwitch(e, handleAutoScroll)));
 
-  carouselContainer.append(tabNavigation, autoScrollSwitch);
+  carouselContainer.append(tabNavigation);
   block.append(carouselContainer);
 
-  if (isFirstLoad) {
+  if (isFirstLoad && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    carouselContainer.append(autoScrollSwitch);
     handleAutoScroll(autoScrollEnabled);
     isFirstLoad = false;
   }

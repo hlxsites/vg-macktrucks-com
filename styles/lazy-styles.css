@@ -4,9 +4,7 @@
 @font-face {
   font-family: 'GT America Extended Medium';
   src: url('../fonts/GT-America-Extended-Medium.woff2') format('woff2'),
-  url('../fonts/GT-America-Extended-Medium.woff') format('woff'),
-  url('../fonts/GT-America-Extended-Medium.otf') format('opentype'),
-  url('../fonts/GT-America-Extended-Medium.ttf') format('truetype');
+  url('../fonts/GT-America-Extended-Medium.woff') format('woff');
   font-display: swap;
 }
 
@@ -20,9 +18,7 @@
 @font-face {
   font-family: 'GT America Compressed Regular';
   src: url('../fonts/GT-America-Compressed-Regular.woff2') format('woff2'),
-  url('../fonts/GT-America-Compressed-Regular.woff') format('woff'),
-  url('../fonts/GT-America-Compressed-Regular.ttf') format('ttf'),
-  url('../fonts/GT-America-Compressed-Regular.otf') format('otf');
+  url('../fonts/GT-America-Compressed-Regular.woff') format('woff');
   font-display: swap;
 }
 
@@ -75,9 +71,7 @@
 @font-face {
   font-family: 'GT America Mono Regular';
   src: url('../fonts/GT-America-Mono-Regular.woff2') format('woff2'),
-  url('../fonts/GT-America-Mono-Regular.woff') format('woff'),
-  url('../fonts/GT-America-Mono-Regular.otf') format('opentype'),
-  url('../fonts/GT-America-Mono-Regular.ttf') format('truetype');
+  url('../fonts/GT-America-Mono-Regular.woff') format('woff');
   letter-spacing: -4%;
   font-display: swap;
 }
@@ -85,9 +79,7 @@
 @font-face {
   font-family: 'GT America Mono Medium';
   src: url('../fonts/GT-America-Mono-Medium.woff2') format('woff2'),
-  url('../fonts/GT-America-Mono-Medium.woff') format('woff'),
-  url('../fonts/GT-America-Mono-Medium.otf') format('opentype'),
-  url('../fonts/GT-America-Mono-Medium.ttf') format('truetype');
+  url('../fonts/GT-America-Mono-Medium.woff') format('woff');
   letter-spacing: -4%;
   font-display: swap;
 }

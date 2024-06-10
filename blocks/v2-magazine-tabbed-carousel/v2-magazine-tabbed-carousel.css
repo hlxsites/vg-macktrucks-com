@@ -69,8 +69,8 @@
 
 .v2-magazine-tabbed-carousel__figure figcaption svg {
   margin: 5px 10px;
-  height: 25px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
 }
 
 .v2-magazine-tabbed-carousel__navigation {
@@ -79,6 +79,7 @@
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  scroll-snap-align: center;
   gap: 16px;
   padding: 0 16px;
   max-width: var(--wrapper-width);
@@ -89,19 +90,31 @@
 }
 
 .v2-magazine-tabbed-carousel__navigation-item {
-  --text-color: var(--c-primary-black);
+  --text-color: var(--text-subtle);
 
   color: var(--text-color);
-  opacity: 0.55;
-  border-top: 8px solid var(--text-color);
+  border: none;
+  text-align: left;
+  border-top: 8px solid;
+  border-color: var(--text-color);
   min-width: calc(var(--wrapper-width) / 4);
   height: 210px;
+  display: flex;
+  flex-flow: column;
+  gap: 12px;
   padding: 12px 10px 10px;
   overflow: hidden;
+  scroll-snap-align: center;
+  background-color: var(--background-color);
+  transition: 
+    color,
+    border-color;
+  transition-duration: var(--duration-large);
+  transition-timing-function: var(--easing-standard);
 }
 
 .v2-magazine-tabbed-carousel__navigation-item.active {
-  opacity: 1;
+  --text-color: var(--c-primary-black);
 }
 
 .v2-magazine-tabbed-carousel__navigation-item .pretitle {
@@ -110,7 +123,7 @@
 }
 
 .v2-magazine-tabbed-carousel__navigation-item .title {
-  margin: 12px 0 0;
+  margin: 0;
   font-family: var(--ff-headline-medium);
   font-size: var(--headline-4-font-size);
   line-height: 115%;
@@ -122,8 +135,13 @@
 }
 
 .v2-magazine-tabbed-carousel__navigation-item:not(.active):hover {
-  background-color: var(--c-tertiary-light-cool-gray);
-  transition: var(--duration-small) var(--easing-standard);
+  --text-color: var(--c-primary-black);
+
+  transition: 
+    color,
+    border-color;
+  transition-duration: var(--duration-large);
+  transition-timing-function: var(--easing-standard);
   cursor: pointer;
 }
 
@@ -189,7 +207,7 @@
   background-color: var(--c-secondary-silver);
   border-radius: 2px;
   margin-bottom: 1px;
-  transition: var(--duration-small) var(--easing-standard);
+  transition: left var(--duration-small) var(--easing-standard);
 }
 
 @media (min-width: 744px) {
@@ -199,8 +217,8 @@
 
   .v2-magazine-tabbed-carousel__figure figcaption svg {
     margin: 5px 10px;
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
   }
 
   .v2-magazine-tabbed-carousel__figure figcaption a {
@@ -209,7 +227,7 @@
   }
 
   .v2-magazine-tabbed-carousel__item img {
-    aspect-ratio: 1.5 / 1;
+    aspect-ratio: 3 / 2;
     height: unset;
   }
 }
@@ -223,7 +241,7 @@
   }
 
   .v2-magazine-tabbed-carousel__item img {
-    aspect-ratio: 2.4 / 1;
+    aspect-ratio: 12 / 5;
   }
 
   .v2-magazine-tabbed-carousel__navigation {
