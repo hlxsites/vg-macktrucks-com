@@ -158,6 +158,8 @@ export default async function decorate(block) {
   autoScrollSwitch.querySelectorAll('button').forEach((btn) => btn.addEventListener('click', (e) => handleSwitch(e, handleAutoScroll)));
 
   carouselContainer.append(tabNavigation);
+
+  block.parentElement.classList.add('full-width');
   block.append(carouselContainer);
 
   if (isFirstLoad && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

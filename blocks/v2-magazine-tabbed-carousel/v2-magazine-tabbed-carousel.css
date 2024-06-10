@@ -211,10 +211,6 @@
 }
 
 @media (min-width: 744px) {
-  .v2-magazine-tabbed-carousel__container {
-    width: 100vw;
-  }
-
   .v2-magazine-tabbed-carousel__figure figcaption svg {
     margin: 5px 10px;
     height: 48px;
