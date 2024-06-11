@@ -108,7 +108,7 @@ const autoScrollFunction = (container) => {
 
 const handleSwitch = (e, setAutoScroll) => {
   const slider = e.target.parentElement.querySelector('.switch-slider');
-  const isOff = e.target.id === 'off';
+  const isOff = e.target.matches('[data-autoscroll="off"]');
   if (autoScrollEnabled === isOff) {
     autoScrollEnabled = !isOff;
   }
@@ -148,8 +148,8 @@ export default async function decorate(block) {
     <div class="switch">
       <p class="switch-label">${switchSplittedTexts[0]}</p>
       <div class="switch-buttons">
-        <button id="on">${switchSplittedTexts[1]}</button>
-        <button id="off">${switchSplittedTexts[2]}</button>
+        <button>${switchSplittedTexts[1]}</button>
+        <button data-autoscroll="off">${switchSplittedTexts[2]}</button>
         <div class="switch-slider"></div>
       </div>
     </div>
