@@ -113,7 +113,7 @@
   transition-timing-function: var(--easing-standard);
 }
 
-.v2-magazine-tabbed-carousel__navigation-item.active {
+.v2-magazine-tabbed-carousel__navigation-item.v2-magazine-tabbed-carousel__navigation-item--active {
   --text-color: var(--c-primary-black);
 }
 
@@ -134,7 +134,7 @@
   text-overflow: ellipsis;
 }
 
-.v2-magazine-tabbed-carousel__navigation-item:not(.active):hover {
+.v2-magazine-tabbed-carousel__navigation-item:not(.v2-magazine-tabbed-carousel__navigation-item--active):hover {
   --text-color: var(--c-primary-black);
 
   transition: 
@@ -145,7 +145,7 @@
   cursor: pointer;
 }
 
-.v2-magazine-tabbed-carousel__navigation-item.active:hover {
+.v2-magazine-tabbed-carousel__navigation-item.v2-magazine-tabbed-carousel__navigation-item--active:hover {
   cursor: default;
 }
 

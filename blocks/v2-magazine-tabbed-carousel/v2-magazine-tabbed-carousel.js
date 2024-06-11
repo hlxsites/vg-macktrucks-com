@@ -7,6 +7,9 @@ import {
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 
 const blockName = 'v2-magazine-tabbed-carousel';
+const activeTabClass = `${blockName}__navigation-item--active`;
+const activeCarouselClass = `${blockName}__carousel-item--active`;
+
 let autoScrollEnabled = true;
 const maxAmountOfTabs = 4;
 const intervalTime = 4000;
@@ -21,12 +24,16 @@ const updateActiveItem = (elements, entry) => {
       const carouselItems = el.parentElement;
       const navigation = el.parentElement.nextElementSibling;
 
-      [carouselItems, navigation].forEach((c) => c.querySelectorAll('.active').forEach((i) => i.classList.remove('active')));
-      carouselItems.children[index].classList.add('active');
-      navigation.children[index].classList.add('active');
+      [carouselItems, navigation].forEach((c) => {
+        c.querySelectorAll(`.${activeTabClass}, .${activeCarouselClass}`).forEach((i) => {
+          i.classList.remove(`${activeTabClass}`, `${activeCarouselClass}`);
+        });
+      });
+      carouselItems.children[index].classList.add(activeCarouselClass);
+      navigation.children[index].classList.add(activeTabClass);
 
       // Center navigation item
-      const navigationActiveItem = navigation.querySelector('.active');
+      const navigationActiveItem = navigation.querySelector(`.${activeTabClass}`);
 
       if (navigation && navigationActiveItem) {
         const { clientWidth: itemWidth, offsetLeft } = navigationActiveItem;
@@ -88,17 +95,17 @@ const buildTabItems = (carousel, navigation, items, articles) => {
 
 const autoScrollFunction = (container) => {
   const amountOfSlides = container.querySelectorAll(`.${blockName}__item`).length;
-  const activeSlide = container.querySelector('.active');
+  const activeSlide = container.querySelector(`.${activeCarouselClass}`);
   const classlistArray = [...activeSlide.classList];
   const item = classlistArray.find((el) => el.slice(0, 5) === 'item-');
   const itemNum = Number(item.split('-')[1]);
 
-  activeSlide.classList.remove('active');
+  activeSlide.classList.remove(`${activeCarouselClass}`);
 
   const nextNum = itemNum === amountOfSlides ? 1 : itemNum + 1;
   const nextSlide = container.querySelector(`.item-${nextNum}`);
 
-  nextSlide.classList.add('active');
+  nextSlide.classList.add(`${activeCarouselClass}`);
   if (nextSlide.classList.contains(`${blockName}__item`)) {
     const itemsContainer = nextSlide.parentElement;
     const { x: itemWidth } = nextSlide.getBoundingClientRect();
