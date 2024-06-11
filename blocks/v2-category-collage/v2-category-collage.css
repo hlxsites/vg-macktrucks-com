@@ -45,7 +45,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  scale: 1;
   transition: scale 0.5s ease;
 }
 
