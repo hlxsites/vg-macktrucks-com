@@ -18,6 +18,7 @@
   transition: scale 0.5s ease;
 }
 
+.v2-category-collage__item-container:has(:focus-visible) img,
 .v2-category-collage__item-container:has(:hover) img {
   scale: 1.1;
 }
@@ -45,6 +46,11 @@
   font-family: var(--ff-testimonial);
   font-size: 20px;
   text-decoration: none;
+}
+
+.v2-category-collage__item-content a:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }
 
 .v2-category-collage__item-content .icon svg {
