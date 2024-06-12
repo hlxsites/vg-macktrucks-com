@@ -1,5 +1,5 @@
 .v2-category-collage {
-  --background-color: var(--text-subtle);
+  --background-color: var(--media-background);
   --text-color: var(--c-primary-white);
 
   display: flex;
