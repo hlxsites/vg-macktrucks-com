@@ -20,8 +20,8 @@ const decorateCollageItem = (items) => {
 };
 
 export default function decorate(block) {
-  const blockWrapper = block.closest(`.${blockName}-wrapper`);
+  const blockWrapper = block.parentElement;
   blockWrapper.classList.add('full-width');
-  const collageItemContainers = block.querySelectorAll(`.${blockName} > div`);
+  const collageItemContainers = block.querySelectorAll(':scope > div');
   decorateCollageItem([...collageItemContainers]);
 }
