@@ -3,7 +3,7 @@ import { createElement } from '../../scripts/common.js';
 const blockName = 'v2-category-collage';
 
 const decorateCollageItem = (items) => {
-  items.forEach((item, i) => {
+  items.forEach((item) => {
     const itemImage = item.firstElementChild;
     const itemContent = item.lastElementChild;
     const itemLink = item.querySelector('a');
@@ -14,8 +14,6 @@ const decorateCollageItem = (items) => {
     itemLink.innerHTML = '';
     itemLink.append(itemText, itemIcon);
     item.classList.add(`${blockName}__item-container`);
-    item.dataset.collageItem = i + 1;
-    item.dataset.collageRow = Math.floor(i / 3) + 1;
     itemImage.classList.add(`${blockName}__item-image`);
     itemContent.classList.add(`${blockName}__item-content`);
   });
