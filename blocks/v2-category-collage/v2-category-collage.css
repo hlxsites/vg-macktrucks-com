@@ -15,7 +15,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: scale 0.5s ease;
+  transition: scale var(--duration-large) var(--easing-standard);
 }
 
 .v2-category-collage__item-container:has(:focus-visible) img,
