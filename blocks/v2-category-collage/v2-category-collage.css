@@ -20,7 +20,6 @@
 
 .v2-category-collage__item-container:has(:hover) img {
   scale: 1.1;
-  transition: scale 0.5s ease;
 }
 
 .v2-category-collage__item-image {
