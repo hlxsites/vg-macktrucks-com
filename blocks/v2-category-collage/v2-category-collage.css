@@ -1,44 +1,14 @@
 .v2-category-collage {
   --background-color: var(--text-subtle);
   --text-color: var(--c-primary-white);
-  --collage-item-height: 280px;
 
-  display: grid;
-  grid-template:
-    "item-1" var(--collage-item-height)
-    "item-2" var(--collage-item-height)
-    "item-3" var(--collage-item-height)
-    "item-4" var(--collage-item-height)
-    "item-5" var(--collage-item-height)
-    "item-6" var(--collage-item-height);
+  display: flex;
+  flex-direction: column;
 }
 
 .v2-category-collage__item-container {
   position: relative;
-}
-
-.v2-category-collage__item-container[data-collage-item="1"] {
-  grid-area: item-1;
-}
-
-.v2-category-collage__item-container[data-collage-item="2"] {
-  grid-area: item-2;
-}
-
-.v2-category-collage__item-container[data-collage-item="3"] {
-  grid-area: item-3;
-}
-
-.v2-category-collage__item-container[data-collage-item="4"] {
-  grid-area: item-4;
-}
-
-.v2-category-collage__item-container[data-collage-item="5"] {
-  grid-area: item-5;
-}
-
-.v2-category-collage__item-container[data-collage-item="6"] {
-  grid-area: item-6;
+  height: 280px;
 }
 
 .v2-category-collage__item-container img {
@@ -87,9 +57,38 @@
   .v2-category-collage {
     max-width: 1440px;
     margin: 0 auto;
+    display: grid;
     grid-template:
       "item-1 item-1 item-1 item-2 item-2 item-2" 272px
       "item-1 item-1 item-1 item-3 item-3 item-3" 272px
       "item-4 item-4 item-5 item-5 item-6 item-6" 398px;
+  }
+
+  .v2-category-collage__item-container {
+    height: auto;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="1"] {
+    grid-area: item-1;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="2"] {
+    grid-area: item-2;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="3"] {
+    grid-area: item-3;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="4"] {
+    grid-area: item-4;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="5"] {
+    grid-area: item-5;
+  }
+
+  .v2-category-collage__item-container[data-collage-item="6"] {
+    grid-area: item-6;
   }
 }
