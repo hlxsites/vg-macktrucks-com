@@ -52,7 +52,7 @@
   width: 24px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 744px) {
   .v2-category-collage {
     max-width: 1440px;
     margin: 0 auto;
