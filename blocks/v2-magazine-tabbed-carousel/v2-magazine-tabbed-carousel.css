@@ -175,12 +175,13 @@
 
 .v2-magazine-tabbed-carousel .switch-buttons button {
   color: var(--text-color);
-  position: relative;
   font-size: var(--body-font-size-xs);
+  position: relative;
   background-color: transparent;
   border: none;
-  padding: 5px 14px 4px;
   z-index: 1;
+  padding: 5px 14px 4px;
+  margin: 0;
 }
 
 .v2-magazine-tabbed-carousel .switch-buttons button:first-of-type {
@@ -201,13 +202,12 @@
 
 .v2-magazine-tabbed-carousel .switch-buttons .switch-slider  {
   position: absolute;
-  bottom: 0;
+  top: 2px;
   left: 0;
   height: 24px;
   width: 48px;
   background-color: var(--c-secondary-silver);
   border-radius: 2px;
-  margin-bottom: 1px;
   transition: left var(--duration-small) var(--easing-standard);
 }
 
