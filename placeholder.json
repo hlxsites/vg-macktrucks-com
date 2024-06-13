@@ -250,6 +250,14 @@
     {
       "Key": "404 Back link title",
       "Text": "Go Back"
+    },
+    {
+      "Key": "Play video",
+      "Text": "Play video"
+    },
+    {
+      "Key": "Pause video",
+      "Text": "Pause video"
     }
   ],
   ":type": "sheet"

@@ -10,12 +10,23 @@
   overflow: hidden;
 }
 
-.v2-hero__image {
+.v2-hero__image,
+.v2-hero__video {
   position: absolute;
   object-fit: cover;
   height: 100%;
   object-position: center;
   width: 100%;
+}
+
+.v2-hero .v2-video__playback-button {
+  --playback-button-size: 48px;
+
+  background-color: var(--button-primary-bg);
+}
+
+.v2-hero .v2-video__playback-button:hover {
+  background-color: var(--button-primary-bg-hover);
 }
 
 .v2-hero__content-wrapper {
