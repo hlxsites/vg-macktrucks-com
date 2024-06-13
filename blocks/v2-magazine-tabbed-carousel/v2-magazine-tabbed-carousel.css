@@ -174,6 +174,7 @@
 }
 
 .v2-magazine-tabbed-carousel .switch-buttons button {
+  color: var(--text-color);
   position: relative;
   font-size: var(--body-font-size-xs);
   background-color: transparent;
