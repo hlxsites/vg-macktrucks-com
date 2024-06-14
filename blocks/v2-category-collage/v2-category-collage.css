@@ -21,12 +21,18 @@
   transition: scale var(--duration-large) var(--easing-standard);
 }
 
-.v2-category-collage__item-container:has(:focus-visible) img,
-.v2-category-collage__item-container:has(:hover) img {
+.v2-category-collage__item-container:focus-visible {
+  outline: 2px auto var(--border-focus);
+  outline-offset: 2px;
+}
+
+.v2-category-collage__item-container:focus-visible img,
+.v2-category-collage__item-container:hover img {
   scale: 1.1;
 }
 
 .v2-category-collage__item-image {
+  display: block;
   height: 100%;
   width: 100%;
   background-color: var(--background-color);
@@ -34,26 +40,18 @@
 }
 
 .v2-category-collage__item-content {
+  --color-icon: var(--text-color);
+
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 16px;
-}
-
-.v2-category-collage__item-content a {
-  --color-icon: var(--text-color);
-
   display: flex;
   justify-content: space-between;
   color: var(--text-color);
   font-family: var(--ff-testimonial);
   font-size: 20px;
-  text-decoration: none;
-}
-
-.v2-category-collage__item-content a:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
+  margin: 0;
 }
 
 .v2-category-collage__item-content .icon svg {

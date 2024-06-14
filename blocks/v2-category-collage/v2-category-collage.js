@@ -2,26 +2,51 @@ import { createElement } from '../../scripts/common.js';
 
 const blockName = 'v2-category-collage';
 
-const decorateCollageItem = (items) => {
-  items.forEach((item) => {
-    const itemImage = item.firstElementChild;
-    const itemContent = item.lastElementChild;
-    const itemLink = item.querySelector('a');
-    const itemText = createElement('span', { classes: `${blockName}__item-text` });
-    const itemIcon = itemLink.firstElementChild;
-    const itemLinkText = itemLink?.textContent;
-    itemText.textContent = itemLinkText;
-    itemLink.innerHTML = '';
-    itemLink.append(itemText, itemIcon);
-    item.classList.add(`${blockName}__item-container`);
+const decorateImage = (item, itemContainer) => {
+  const itemImage = item.querySelector('picture');
+  const hasImageContainer = itemImage.parentElement === item;
+  if (!hasImageContainer) {
+    const imageContainer = itemImage.parentElement;
     itemImage.classList.add(`${blockName}__item-image`);
-    itemContent.classList.add(`${blockName}__item-content`);
+    itemContainer.prepend(itemImage);
+    imageContainer.remove();
+  }
+};
+
+const decorateText = (item) => {
+  const itemLink = item.querySelector('a');
+  itemLink.parentElement.classList.add(`${blockName}__item-content`);
+  return itemLink;
+};
+
+const removeInnerLink = (link) => {
+  if (!link) return;
+  const text = link.parentElement;
+  const linkText = link.innerHTML;
+  text.innerHTML = linkText;
+};
+
+const decorateCollageItems = (items) => {
+  items.forEach((item) => {
+    const itemContainer = item.firstElementChild;
+    const innerLink = decorateText(item);
+    const { href, title } = innerLink || { href: '#', title: '' };
+    const newItemContainer = createElement('a', {
+      classes: `${blockName}__item-container`,
+      props: { href, title },
+    });
+    removeInnerLink(innerLink);
+    item.classList.add(`${blockName}__item-container`); // decorate container
+    decorateImage(item, itemContainer);
+    newItemContainer.innerHTML = itemContainer.innerHTML; // move content
+    itemContainer.remove();
+    item.append(newItemContainer);
   });
 };
 
 export default function decorate(block) {
   const blockWrapper = block.parentElement;
-  blockWrapper.classList.add('full-width');
   const collageItemContainers = block.querySelectorAll(':scope > div');
-  decorateCollageItem([...collageItemContainers]);
+  blockWrapper.classList.add('full-width');
+  decorateCollageItems([...collageItemContainers]);
 }
