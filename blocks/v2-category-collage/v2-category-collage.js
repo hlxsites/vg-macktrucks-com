@@ -11,16 +11,17 @@ const decorateImage = (item, itemContainer) => {
     itemContainer.prepend(itemImage);
     imageContainer.remove();
   }
+  itemImage.setAttribute('tabindex', 0);
 };
 
-const decorateText = (item) => {
+const getTextLink = (item) => {
   const itemLink = item.querySelector('a');
+  if (!itemLink) return null;
   itemLink.parentElement.classList.add(`${blockName}__item-content`);
   return itemLink;
 };
 
 const removeInnerLink = (link) => {
-  if (!link) return;
   const text = link.parentElement;
   const linkText = link.innerHTML;
   text.innerHTML = linkText;
@@ -29,13 +30,13 @@ const removeInnerLink = (link) => {
 const decorateCollageItems = (items) => {
   items.forEach((item) => {
     const itemContainer = item.firstElementChild;
-    const innerLink = decorateText(item);
+    const innerLink = getTextLink(item);
     const { href, title } = innerLink || { href: '#', title: '' };
     const newItemContainer = createElement('a', {
       classes: `${blockName}__item-link`,
-      props: { href, title },
+      props: { href, title, tabindex: -1 },
     });
-    removeInnerLink(innerLink);
+    if (innerLink) removeInnerLink(innerLink);
     item.classList.add(`${blockName}__item-container`); // decorate container
     decorateImage(item, itemContainer);
     newItemContainer.innerHTML = itemContainer.innerHTML; // move content
