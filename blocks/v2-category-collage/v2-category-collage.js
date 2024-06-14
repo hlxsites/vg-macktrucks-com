@@ -32,7 +32,7 @@ const decorateCollageItems = (items) => {
     const innerLink = decorateText(item);
     const { href, title } = innerLink || { href: '#', title: '' };
     const newItemContainer = createElement('a', {
-      classes: `${blockName}__item-container`,
+      classes: `${blockName}__item-link`,
       props: { href, title },
     });
     removeInnerLink(innerLink);
