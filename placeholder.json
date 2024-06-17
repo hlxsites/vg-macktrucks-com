@@ -1,7 +1,7 @@
 {
-  "total": 54,
+  "total": 60,
   "offset": 0,
-  "limit": 54,
+  "limit": 60,
   "data": [
     {
       "Key": "Low resolution video message",
@@ -258,6 +258,10 @@
     {
       "Key": "Pause video",
       "Text": "Pause video"
+    },
+    {
+      "Key": "autoscroll_switch",
+      "Text": "Auto:,On,Off"
     }
   ],
   ":type": "sheet"

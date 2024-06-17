@@ -97,6 +97,7 @@
 
   /* Headlines */
   --ff-headline-medium: "GT America Extended Medium", var(--fallback-ff-headlines);
+  --ff-headline-compressed: "GT America Compressed Regular", var(--fallback-ff-headlines);
   --ff-subheadings-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
 
   /* Body */
