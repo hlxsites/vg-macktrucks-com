@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# Define colors and styles
+RED='\033[0;31m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
 # Dynamic calculation of maximum branch name length based on gitUrl.repo
 REPO_NAME=$(git remote get-url origin | awk -F'/' '{print $NF}' | sed 's/.git$//')
 OWNER_LENGTH=8  # Fixed length for "hlxsites"
@@ -13,7 +19,7 @@ BRANCH_LENGTH=${#BRANCH_NAME}
 
 # Check if the branch name exceeds the maximum length
 if [ $BRANCH_LENGTH -gt $MAX_REF_LENGTH ]; then
-    echo "Error: Branch name will exceed the 63 character limit for DNS labels."
-    echo "Please use a shorter branch name or a shorter repository name."
+    echo "\n${RED}${BOLD}Error: Branch name will exceed the 63 character limit for DNS labels.${RESET}"
+    echo "  ${RED}Please use a shorter branch name or a shorter repository name.${RESET}\n"
     exit 1
 fi

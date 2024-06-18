@@ -1,14 +1,21 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Define colors and styles
+BLUE='\033[1;34m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
 # If package.json OR package-lock.json has changed, run npm install
 if git diff --name-only $1 $2 | grep -E '^(package\.json|package-lock\.json)$'; then
     # Check specifically for package.json and exclude version field changes
     if git diff -U0 $1 $2 -- package.json | grep -v '"version":' | grep -qE '^[+-][^+-]'; then
-        echo "Detected changes in package.json excluding version. Running npm install…"
+        echo "\n${BLUE}${BOLD}Detected changes in package.json (excluding version).${RESET}"
+        echo "  ${BLUE}Running npm install…"
         npm install
     elif git diff --name-only $1 $2 | grep -qE '^package-lock\.json$'; then
-        echo "Detected changes in package-lock.json. Running npm install…"
+        echo "\n${BLUE}${BOLD}Detected changes in package-lock.json.${RESET}"
+        echo "  ${BLUE}Running npm install…${RESET}"
         npm install
     fi
 fi
