@@ -1,0 +1,2 @@
+# Run branch name check before pushing
+sh .husky/check-branch-name.sh

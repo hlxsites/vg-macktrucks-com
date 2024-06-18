@@ -1,3 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 # If package.json OR package-lock.json has changed, run npm install
 if git diff --name-only $1 $2 | grep -E '^(package\.json|package-lock\.json)$'; then
     # Check specifically for package.json and exclude version field changes
@@ -9,3 +12,9 @@ if git diff --name-only $1 $2 | grep -E '^(package\.json|package-lock\.json)$'; 
         npm install
     fi
 fi
+
+# Check if this was a branch checkout, then run branch name check
+if [ "$3" -eq 1 ]; then
+    sh .husky/check-branch-name.sh
+fi
+
