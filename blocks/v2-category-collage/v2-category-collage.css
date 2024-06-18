@@ -37,6 +37,16 @@
   outline-offset: -2px;
 }
 
+.v2-category-collage .v2-video__playback-button {
+  --playback-button-size: 48px;
+
+  background-color: var(--button-primary-bg);
+}
+
+.v2-category-collage .v2-video__playback-button:hover {
+  background-color: var(--button-primary-bg-hover);
+}
+
 .v2-category-collage__item-content {
   --color-icon: var(--text-color);
 

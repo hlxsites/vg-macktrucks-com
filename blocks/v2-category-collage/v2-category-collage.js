@@ -1,4 +1,4 @@
-import { createElement } from '../../scripts/common.js';
+import { createElement, decorateIcons } from '../../scripts/common.js';
 import {
   isVideoLink,
   createVideo,
@@ -26,10 +26,17 @@ const decorateMedia = (item, itemContainer, imageEl) => {
   }
   const videoLink = item.querySelector('a');
   if (videoLink && isVideoLink(videoLink)) {
-    const video = createVideo(item, videoLink.getAttribute('href'), itemMedia);
+    const video = createVideo(item, videoLink.getAttribute('href'), itemMedia, {
+      muted: true,
+      autoplay: true,
+      loop: true,
+      playsinline: true,
+    });
     itemContainer.prepend(video);
     videoLink.remove();
-    video.nextElementSibling.remove();
+    if (video.nextElementSibling.textContent.trim() === '') {
+      video.nextElementSibling.remove();
+    }
   }
 };
 
@@ -73,4 +80,5 @@ export default function decorate(block) {
   const collageItemContainers = block.querySelectorAll(':scope > div');
   blockWrapper.classList.add('full-width');
   decorateCollageItems([...collageItemContainers]);
+  decorateIcons(block);
 }
