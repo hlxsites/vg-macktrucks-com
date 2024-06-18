@@ -314,7 +314,7 @@ export const extractObjectFromArray = (data) => {
   return obj;
 };
 
-const formatValues = (values) => {
+export const formatValues = (values) => {
   const obj = {};
   if (values) {
     /* eslint-disable-next-line */
