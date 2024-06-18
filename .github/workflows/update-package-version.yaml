@@ -2,8 +2,8 @@ name: Update Package Version
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   update-version:
@@ -22,7 +22,6 @@ jobs:
       - name: Update package version by release tag
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          version: "v19"
           keep-v: "true"
           ignore-semver-check: "true"
           encoding: "utf8"
