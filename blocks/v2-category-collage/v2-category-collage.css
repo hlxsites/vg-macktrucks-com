@@ -28,6 +28,8 @@
   width: 100%;
   background-color: var(--background-color);
   overflow: hidden;
+  object-fit: cover;
+  object-position: center;
 }
 
 .v2-category-collage__item-media:focus-visible {
