@@ -22,7 +22,7 @@
   scale: 1.1;
 }
 
-.v2-category-collage__item-image {
+.v2-category-collage__item-media {
   display: block;
   height: 100%;
   width: 100%;
@@ -30,7 +30,7 @@
   overflow: hidden;
 }
 
-.v2-category-collage__item-image:focus-visible {
+.v2-category-collage__item-media:focus-visible {
   outline: 2px auto var(--border-focus);
   outline-offset: -2px;
 }

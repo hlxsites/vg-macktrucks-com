@@ -1,17 +1,36 @@
 import { createElement } from '../../scripts/common.js';
+import {
+  isVideoLink,
+  createVideo,
+} from '../../scripts/video-helper.js';
 
 const blockName = 'v2-category-collage';
+const itemMedia = `${blockName}__item-media`;
 
 const decorateImage = (item, itemContainer) => {
   const itemImage = item.querySelector('picture');
   const hasImageContainer = itemImage.parentElement === item;
   if (!hasImageContainer) {
     const imageContainer = itemImage.parentElement;
-    itemImage.classList.add(`${blockName}__item-image`);
+    itemImage.classList.add(itemMedia);
     itemContainer.prepend(itemImage);
     imageContainer.remove();
   }
   itemImage.setAttribute('tabindex', 0);
+};
+
+const decorateMedia = (item, itemContainer, imageEl) => {
+  if (imageEl) {
+    decorateImage(item, itemContainer);
+    return;
+  }
+  const videoLink = item.querySelector('a');
+  if (videoLink && isVideoLink(videoLink)) {
+    const video = createVideo(item, videoLink.getAttribute('href'), itemMedia);
+    itemContainer.prepend(video);
+    videoLink.remove();
+    video.nextElementSibling.remove();
+  }
 };
 
 const getTextLink = (item) => {
@@ -27,21 +46,25 @@ const removeInnerLink = (link) => {
   text.innerHTML = linkText;
 };
 
+const decorateNewItemContainer = (item, itemContainer) => {
+  const innerLink = getTextLink(item);
+  const { href, title } = innerLink;
+  const newItemContainer = createElement('a', {
+    classes: `${blockName}__item-link`,
+    props: { href, title, tabindex: -1 },
+  });
+  removeInnerLink(innerLink);
+  item.classList.add(`${blockName}__item-container`); // decorate container
+  newItemContainer.innerHTML = itemContainer.innerHTML; // move content
+  itemContainer.remove();
+  item.append(newItemContainer);
+};
+
 const decorateCollageItems = (items) => {
   items.forEach((item) => {
     const itemContainer = item.firstElementChild;
-    const innerLink = getTextLink(item);
-    const { href, title } = innerLink || { href: '#', title: '' };
-    const newItemContainer = createElement('a', {
-      classes: `${blockName}__item-link`,
-      props: { href, title, tabindex: -1 },
-    });
-    if (innerLink) removeInnerLink(innerLink);
-    item.classList.add(`${blockName}__item-container`); // decorate container
-    decorateImage(item, itemContainer);
-    newItemContainer.innerHTML = itemContainer.innerHTML; // move content
-    itemContainer.remove();
-    item.append(newItemContainer);
+    decorateMedia(item, itemContainer, itemContainer.querySelector('picture'));
+    decorateNewItemContainer(item, itemContainer);
   });
 };
 
