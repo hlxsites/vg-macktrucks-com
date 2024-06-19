@@ -6,45 +6,56 @@ import {
 
 const blockName = 'v2-category-collage';
 const itemMedia = `${blockName}__item-media`;
+const itemLinkClass = `${blockName}__item-link`;
 
-const decorateImage = (item, itemContainer) => {
-  const itemImage = item.querySelector('picture');
-  const hasImageContainer = itemImage.parentElement === item;
+const decorateImage = (itemLink, itemImage) => {
+  const hasImageContainer = itemImage.parentElement === itemLink;
   if (!hasImageContainer) {
     const imageContainer = itemImage.parentElement;
     itemImage.classList.add(itemMedia);
-    itemContainer.prepend(itemImage);
+    itemLink.prepend(itemImage);
     imageContainer.remove();
   }
   itemImage.setAttribute('tabindex', 0);
 };
 
-const decorateMedia = (item, itemContainer, imageEl) => {
-  if (imageEl) {
-    decorateImage(item, itemContainer);
-    return;
-  }
-  const videoLink = item.querySelector('a');
-  if (videoLink && isVideoLink(videoLink)) {
-    const video = createVideo(item, videoLink.getAttribute('href'), itemMedia, {
-      muted: true,
-      autoplay: true,
-      loop: true,
-      playsinline: true,
-    });
-    itemContainer.prepend(video);
-    videoLink.remove();
-    if (video.nextElementSibling.textContent.trim() === '') {
-      video.nextElementSibling.remove();
-    }
-  }
+const movePlayButton = (itemLink, item) => {
+  const playButton = itemLink.querySelector('.v2-video__playback-button');
+  if (!playButton) return;
+  item.prepend(playButton);
 };
 
-const getTextLink = (item) => {
-  const itemLink = item.querySelector('a');
-  if (!itemLink) return null;
-  itemLink.parentElement.classList.add(`${blockName}__item-content`);
-  return itemLink;
+const decorateVideo = (itemLink, item) => {
+  const videoLink = itemLink.querySelector('a');
+  if (!videoLink || !isVideoLink(videoLink)) return;
+  createVideo(itemLink, videoLink.getAttribute('href'), itemMedia, {
+    muted: true,
+    autoplay: true,
+    loop: true,
+    playsinline: true,
+  });
+  videoLink.parentElement.remove();
+  movePlayButton(itemLink, item);
+};
+
+const decorateMedia = (item, itemImage) => {
+  const itemLink = item.querySelector(`.${itemLinkClass}`);
+  if (itemImage) {
+    decorateImage(itemLink, itemImage);
+    return;
+  }
+  decorateVideo(itemLink, item);
+};
+
+const getTextLink = (links) => {
+  if (!links || links.length < 1) return null;
+  let innerLink = null;
+  [...links].forEach((link) => {
+    if (isVideoLink(link)) return;
+    innerLink = link;
+    innerLink.parentElement.classList.add(`${blockName}__item-content`);
+  });
+  return innerLink;
 };
 
 const removeInnerLink = (link) => {
@@ -53,11 +64,10 @@ const removeInnerLink = (link) => {
   text.innerHTML = linkText;
 };
 
-const decorateNewItemContainer = (item, itemContainer) => {
-  const innerLink = getTextLink(item);
+const decorateNewItemContainer = (item, itemContainer, innerLink) => {
   const { href, title } = innerLink;
   const newItemContainer = createElement('a', {
-    classes: `${blockName}__item-link`,
+    classes: itemLinkClass,
     props: { href, title, tabindex: -1 },
   });
   removeInnerLink(innerLink);
@@ -70,8 +80,11 @@ const decorateNewItemContainer = (item, itemContainer) => {
 const decorateCollageItems = (items) => {
   items.forEach((item) => {
     const itemContainer = item.firstElementChild;
-    decorateMedia(item, itemContainer, itemContainer.querySelector('picture'));
-    decorateNewItemContainer(item, itemContainer);
+    const itemLinks = item.querySelectorAll('a');
+    const innerLink = getTextLink(itemLinks);
+    decorateNewItemContainer(item, itemContainer, innerLink);
+    // item is now the new itemContainer
+    decorateMedia(item, item.querySelector('picture'));
   });
 };
 
