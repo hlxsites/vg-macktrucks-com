@@ -9,15 +9,21 @@
 .v2-category-collage__item-container {
   position: relative;
   aspect-ratio: 6 / 5;
+  overflow: hidden;
 }
 
 .v2-category-collage__item-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.v2-category-collage__item-container video,
+.v2-category-collage__item-container img {
   transition: scale var(--duration-large) var(--easing-standard);
 }
 
+.v2-category-collage__item-container:hover video,
 .v2-category-collage__item-container:hover img {
   scale: 1.1;
 }

@@ -33,6 +33,7 @@ const decorateVideo = (itemLink, item) => {
     autoplay: true,
     loop: true,
     playsinline: true,
+    tabindex: 0,
   });
   videoLink.parentElement.remove();
   movePlayButton(itemLink, item);
