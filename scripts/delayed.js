@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { sampleRUM, loadScript } from './lib-franklin.js';
+import { sampleRUM, loadCSS, loadScript } from './lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
 import {
   isPerformanceAllowed,
@@ -8,6 +8,8 @@ import {
   extractObjectFromArray,
   COOKIE_CONFIGS,
 } from './common.js';
+
+const devHosts = ['localhost', 'hlx.page', 'hlx.live', 'aem.page', 'aem.live'];
 
 // COOKIE ACCEPTANCE AND IDs default to false in case no ID is present
 const {
@@ -46,12 +48,17 @@ if (isTargetingAllowed()) {
 
 // Prevent the cookie banner from loading when running in library
 if (!window.location.pathname.includes('srcdoc')
-  && !['localhost', 'hlx.page', 'hlx.live', 'aem.page', 'aem.live'].some((url) => window.location.host.includes(url))) {
+  && !devHosts.some((url) => window.location.host.includes(url))) {
   loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
     type: 'text/javascript',
     charset: 'UTF-8',
     'data-domain-script': DATA_DOMAIN_SCRIPT,
   });
+}
+
+if (devHosts.some((url) => window.location.host.includes(url))) {
+  loadCSS('/styles/snackbar.css');
+  loadScript('/scripts/validate-elements.js', { type: 'text/javascript', charset: 'UTF-8' });
 }
 
 window.OptanonWrapper = () => {
