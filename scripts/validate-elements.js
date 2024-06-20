@@ -38,18 +38,19 @@ const v1SectionClasses = [
 ];
 
 const v2SectionClasses = [
+  'header-with-mark',
+  'recalls-padding',
+  'section--background-with-dots',
   'section--black-background',
   'section--gray-background',
   'section--light-gray-background',
-  'section--background-with-dots',
+  'section--no-gap',
+  'section--no-vertical-padding',
   'section--with-background',
-  'header-with-mark',
-  'recalls-padding',
 ];
 
 const v1AllowedBlocks = [
   'v2-embed',
-  'v2-hero',
 ];
 
 const v2AllowedBlocks = [
