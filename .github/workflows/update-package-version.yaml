@@ -22,7 +22,7 @@ jobs:
       - name: Update package version by release tag
         uses: BellCubeDev/update-package-version-by-release-tag@v2
         with:
-          keep-v: "true"
+          keep-v: "false"
           ignore-semver-check: "true"
           encoding: "utf8"
 
