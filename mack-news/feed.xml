@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-06-03T00:00:00.000Z</updated>
+    <updated>2024-06-17T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2919,5 +2919,13 @@
         <updated>2024-06-03T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (June 3, 2024) – Mack Trucks today announced the winning entries of the 2025 Mack Trucks Calendar Contest. Twelve Mack® trucks will be spotlighted in the 2025 Mack calendar, each representing a month in the year.]]></content>
         <published>2024-06-03T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Delivers the LR Electric to Portland, Maine – the State’s First Electric Refuse Vehicle]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-delivers-the-lr-electric-to-portland-maine-the-states-first-electric-refuse-vehicle</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-delivers-the-lr-electric-to-portland-maine-the-states-first-electric-refuse-vehicle"/>
+        <updated>2024-06-17T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (June 17, 2024) – City of Portland, Maine, officials today took delivery of a Class 8 MackÒ LR Electric model – the state’s first refuse battery-electric vehicle (BEV) – during an event in the city.]]></content>
+        <published>2024-06-17T00:00:00.000Z</published>
     </entry>
 </feed>
