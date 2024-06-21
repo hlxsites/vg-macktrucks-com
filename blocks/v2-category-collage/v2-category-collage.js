@@ -21,8 +21,7 @@ const decorateImage = (itemLink, itemImage) => {
 
 const movePlayButton = (itemLink, item) => {
   const playButton = itemLink.querySelector('.v2-video__playback-button');
-  if (!playButton) return;
-  item.prepend(playButton);
+  if (playButton) item.prepend(playButton);
 };
 
 const decorateVideo = (itemLink, item) => {
@@ -41,11 +40,8 @@ const decorateVideo = (itemLink, item) => {
 
 const decorateMedia = (item, itemImage) => {
   const itemLink = item.querySelector(`.${itemLinkClass}`);
-  if (itemImage) {
-    decorateImage(itemLink, itemImage);
-    return;
-  }
-  decorateVideo(itemLink, item);
+  if (itemImage) decorateImage(itemLink, itemImage);
+  else decorateVideo(itemLink, item);
 };
 
 const getTextLink = (links) => {
