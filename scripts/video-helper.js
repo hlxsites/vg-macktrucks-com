@@ -318,8 +318,12 @@ const setVideoEvents = (video, playPauseButton, props) => {
 const createAndConfigureVideo = (src, className, props, block) => {
   const video = createVideoElement(src, className, props);
   const playPauseButton = createPlayPauseButton();
-  block.prepend(video);
-  block.insertBefore(playPauseButton, video.nextSibling);
+
+  if (block) {
+    block.prepend(video);
+    block.insertBefore(playPauseButton, video.nextSibling);
+  }
+
   setVideoEvents(video, playPauseButton, props);
   return video;
 };
