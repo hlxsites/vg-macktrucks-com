@@ -80,6 +80,10 @@
       "Text": "Close modal"
     },
     {
+      "Key": "Dismiss message",
+      "Text": "Dismiss message"
+    },
+    {
       "Key": "Next",
       "Text": "Next"
     },

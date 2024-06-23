@@ -1,146 +1,115 @@
-const v1SectionClasses = [
-  'background',
-  'background-top',
-  'bg-paper',
-  'bg-white-paper',
-  'dark-background',
-  'center',
-  'flex-center',
-  'font-l',
-  'font-m',
-  'font-s',
-  'font-xl',
-  'font-xxl',
-  'font-xs',
-  'font-xxs',
-  'helvetica-55',
-  'helvetica-65',
-  'helvetica-75',
-  'helvetica-56',
-  'helvetica-66',
-  'helvetica-76',
-  'gap',
-  'highlight',
-  'line-separator',
-  'magazine-listing-content',
-  'no-first-line',
-  'padding-0',
-  'padding-16',
-  'padding-32',
-  'section-width',
-  'text-white',
-  'text-black',
-  'responsive-title',
-  'title-line',
-  'title-margin-bottom-0',
-  'title-white',
-  'wrapper-margin-top-0',
-];
+// eslint-disable-next-line import/no-cycle
+import {
+  formatStringToArray,
+  TOOLS_CONFIGS,
+} from './common.js';
+import { loadCSS } from './lib-franklin.js';
+import showSnackbar from '../common/snackbar/snackbar.js';
 
-const v2SectionClasses = [
-  'header-with-mark',
-  'recalls-padding',
-  'section--background-with-dots',
-  'section--black-background',
-  'section--gray-background',
-  'section--light-gray-background',
-  'section--no-gap',
-  'section--no-vertical-padding',
-  'section--with-background',
-];
+loadCSS(`${window.hlx.codeBasePath}/common/snackbar/snackbar.css`);
 
-const v1AllowedBlocks = [
-  'v2-embed',
-];
+const {
+  v1SectionClasses,
+  v2SectionClasses,
+  v1AllowedBlocks,
+  v2AllowedBlocks,
+} = TOOLS_CONFIGS;
 
-const v2AllowedBlocks = [
-  'embed',
-  'footer',
-  'fragment',
-  'header',
-  'iframe',
-  'modal',
-];
+const formattedV1SectionClasses = formatStringToArray(v1SectionClasses);
+const formattedV2SectionClasses = formatStringToArray(v2SectionClasses);
+const formattedV1AllowedBlocks = formatStringToArray(v1AllowedBlocks);
+const formattedV2AllowedBlocks = formatStringToArray(v2AllowedBlocks);
+
+const allowlist = [''];
 
 const isV2 = document.documentElement.classList.contains('redesign-v2');
-const pageText = isV2 ? 'redesign page' : 'non-redesign page';
+const pageText = isV2 ? 'redesign page' : 'legacy page';
 const targetNode = document.body;
 const config = { childList: true, subtree: false };
 
-// Initialize the toast container
-const initSnackbarContainer = () => {
-  const container = document.createElement('section');
-  container.classList.add('snackbar-container');
-  document.body.insertBefore(container, document.body.firstChild);
-  return container;
-};
-
-// Create a toast element
-const createSnackbar = (text) => {
-  const toast = document.createElement('output');
-  toast.innerText = text;
-  toast.classList.add('snackbar');
-  toast.setAttribute('role', 'status');
-  return toast;
-};
-
-// Main function to show a toast
-const showSnackbar = (text, duration = 10000) => {
-  const container = document.querySelector('.snackbar-container') || initSnackbarContainer();
-  const toast = createSnackbar(text);
-  container.appendChild(toast);
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.addEventListener('transitionend', () => {
-        container.removeChild(toast);
-        resolve();
-      });
-    }, duration);
-  });
-};
-
-const checkSections = () => {
-  targetNode.querySelectorAll(':scope > main > .section').forEach((section) => {
-    const sectionClasses = Array.from(section.classList);
-
-    const checkList = isV2 ? v1SectionClasses : v2SectionClasses;
-
-    const matchingClasses = sectionClasses.filter((className) => checkList.includes(className));
-
-    const cleanedMatchingClasses = matchingClasses.map((className) => {
-      if (className.startsWith('section--')) {
-        return className.replace('section--', '');
+const countOccurrences = (elements, getName) => {
+  const counts = {};
+  elements.forEach((element) => {
+    const name = getName(element);
+    if (name) {
+      if (counts[name]) {
+        counts[name] += 1;
+      } else {
+        counts[name] = 1;
       }
-      return className;
-    });
-
-    if (matchingClasses.length > 0) {
-      showSnackbar(`Section with unsupported classes on ${pageText}: ${cleanedMatchingClasses.join(', ')}`);
     }
   });
+  return counts;
+};
+
+const collectViolations = (counts, checkFn) => {
+  const violations = [];
+  for (const name in counts) {
+    if (checkFn(name)) {
+      violations.push(`<span style="white-space: nowrap">${name}${counts[name] > 1 ? ` (${counts[name]}\xD7)` : ''}</span>`);
+    }
+  }
+  return violations;
 };
 
 const checkBlocks = () => {
   const blocks = document.querySelectorAll('[data-block-name]');
-
-  blocks.forEach((block) => {
-    const blockName = block.getAttribute('data-block-name');
-
+  const blockCounts = countOccurrences(blocks, (block) => block.getAttribute('data-block-name'));
+  const checkFn = (blockName) => {
     if (isV2) {
-      if (!blockName.startsWith('v2-') && !v2AllowedBlocks.includes(blockName)) {
-        showSnackbar(`Non-redesign block being used on ${pageText}: ${blockName}`);
-      }
-    } else if (blockName.startsWith('v2-') && !v1AllowedBlocks.includes(blockName)) {
-      showSnackbar(`Redesign block being used on ${pageText}: ${blockName}`);
+      return !blockName.startsWith('v2-') && !formattedV2AllowedBlocks.includes(blockName);
     }
+    return blockName.startsWith('v2-') && !formattedV1AllowedBlocks.includes(blockName);
+  };
+  return collectViolations(blockCounts, checkFn);
+};
+
+const checkSections = () => {
+  const sections = targetNode.querySelectorAll(':scope > main > .section');
+  const sectionCounts = {};
+
+  sections.forEach((section) => {
+    const sectionClasses = Array.from(section.classList);
+    const checkList = isV2 ? formattedV1SectionClasses : formattedV2SectionClasses;
+
+    sectionClasses.forEach((className) => {
+      if (checkList.includes(className)) {
+        const cleanedClassName = className.startsWith('section--') ? className.replace('section--', '') : className;
+        if (sectionCounts[cleanedClassName]) {
+          sectionCounts[cleanedClassName] += 1;
+        } else {
+          sectionCounts[cleanedClassName] = 1;
+        }
+      }
+    });
   });
+
+  const checkFn = (className) => !allowlist.includes(className);
+  return collectViolations(sectionCounts, checkFn);
+};
+
+const logCombinedViolations = (blockViolations, sectionViolations) => {
+  const allMessages = [];
+
+  if (sectionViolations.length > 0) {
+    const sectionMessage = `Found unsupported section classes on this ${pageText}: ${sectionViolations.join(', ')}`;
+    allMessages.push(sectionMessage);
+  }
+
+  if (blockViolations.length > 0) {
+    const blockMessage = `Found unsupported block${blockViolations.length > 1 ? 's' : ''} on this ${pageText}: ${blockViolations.join(', ')}`;
+    allMessages.push(blockMessage);
+  }
+
+  if (allMessages.length > 0) {
+    showSnackbar(allMessages.join('. '), 'error', 'center', 'bottom', true, false, 15000, true);
+  }
 };
 
 const performDomCheck = () => {
-  checkSections();
-  checkBlocks();
+  const blockViolations = checkBlocks();
+  const sectionViolations = checkSections();
+  logCombinedViolations(blockViolations, sectionViolations);
 };
 
 const existingElement = document.querySelector('body > helix-sidekick');
