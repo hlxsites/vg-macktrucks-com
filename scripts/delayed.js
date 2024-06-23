@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { sampleRUM, loadCSS, loadScript } from './lib-franklin.js';
+import { sampleRUM, loadScript } from './lib-franklin.js';
 // eslint-disable-next-line import/no-cycle
 import {
   isPerformanceAllowed,
@@ -57,8 +57,7 @@ if (!window.location.pathname.includes('srcdoc')
 }
 
 if (devHosts.some((url) => window.location.host.includes(url))) {
-  loadCSS('/styles/snackbar.css');
-  loadScript('/scripts/validate-elements.js', { type: 'text/javascript', charset: 'UTF-8' });
+  import('./validate-elements.js');
 }
 
 window.OptanonWrapper = () => {
