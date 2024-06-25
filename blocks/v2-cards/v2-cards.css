@@ -86,10 +86,6 @@
 }
 
 /* 4 cards row variant */
-.section:has(.v2-cards--4-cards-row) {
-  background-color: var(--c-primary-gray);
-}
-
 .v2-cards--4-cards-row {
   --card-container-padding: 24px;
   --card-background: var(--c-primary-white);
