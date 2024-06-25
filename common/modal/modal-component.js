@@ -129,7 +129,7 @@ const createModal = () => {
 
         // eslint-disable-next-line no-unused-vars
         const modalVideoComponent = new VideoComponent(videoId);
-        videoOrIframe = createVideo(newContent, 'modal-video', {
+        videoOrIframe = createVideo(null, newContent, 'modal-video', {
           autoplay: 'any',
           disablePictureInPicture: true,
           loop: false,
