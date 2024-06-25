@@ -11,7 +11,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '14'
-    - run: npm install
     - name: Set version environment variable
       run: echo "VERSION=19.0.0" >> $GITHUB_ENV
     - name: Update package.json version
@@ -19,6 +18,7 @@ jobs:
         sudo apt-get update && sudo apt-get install -y jq
         version=$(echo $VERSION)
         jq --arg version "$version" '.version = $version' package.json > package.tmp.json && mv package.tmp.json package.json
+    - run: npm install
     - run: npm run lint
     - run: npm test
       env:
