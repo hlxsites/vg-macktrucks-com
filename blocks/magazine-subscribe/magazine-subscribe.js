@@ -2,7 +2,7 @@ import {
   buildBlock,
   decorateBlock,
   loadBlock,
-} from '../../scripts/lib-franklin.js';
+} from '../../scripts/aem.js';
 import {
   createElement,
   getTextLabel,

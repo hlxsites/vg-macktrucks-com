@@ -1,4 +1,8 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
+import {
+  createElement,
+  getOrigin,
+  getTextLabel,
+} from '../../scripts/common.js';
 import {
   getAllArticles,
   getLimit,
@@ -8,8 +12,7 @@ import {
 import {
   getMetadata,
   createOptimizedPicture,
-  getOrigin,
-} from '../../scripts/lib-franklin.js';
+} from '../../scripts/aem.js';
 
 const recommendationsText = getTextLabel('Recommendations text');
 const readNowText = getTextLabel('READ NOW');
