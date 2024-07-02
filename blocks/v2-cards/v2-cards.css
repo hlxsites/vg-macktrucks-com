@@ -154,13 +154,13 @@
   }
 
   .v2-cards--4-cards-row .v2-cards__card-item {
-    max-width: calc((100% - 32px) / 2);
+    max-width: calc((100% - 2 * var(--card-container-padding)) / 2);
   }
 }
 
 @media (min-width: 1200px) {
   /* 4 cards row variant */
   .v2-cards--4-cards-row .v2-cards__card-item {
-    max-width: calc((100% - 48px) / 4);
+    max-width: calc((100% - 3 * var(--card-container-padding)) / 4);
   }
 }
