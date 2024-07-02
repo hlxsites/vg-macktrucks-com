@@ -104,13 +104,13 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--card-container-padding);
-  font-size: 18px;
+  font-size: var(--body-font-size-m);
 }
 
 .v2-cards--4-cards-row .v2-cards__button-container .icon,
 .v2-cards--4-cards-row .v2-cards__button-container svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .v2-cards--4-cards-row .v2-cards__button-container svg {
