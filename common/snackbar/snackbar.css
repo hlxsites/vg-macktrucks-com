@@ -1,0 +1,113 @@
+@keyframes slide-from-start {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-from-end {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.snackbar-container {
+  position: fixed;
+  inset: 0;
+  padding: 64px 16px 16px;
+  display: flex;
+  flex-flow: column wrap;
+  place-content: var(--snackbar-position, center flex-end);
+  gap: 16px;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.snackbar {
+  --color-icon: var(--c-primary-white);
+
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--c-primary-black);
+  color: var(--c-primary-white);
+  padding: 16px;
+  gap: 10px;
+  transition: transform var(--duration-small) var(--easing-entrance);
+  animation:
+    fade-in var(--duration-medium) var(--duration-small) var(--easing-entrance) forwards,
+    var(--snackbar-animation) var(--duration-large) var(--easing-entrance);
+  border-radius: 4px;
+  box-shadow: rgba(0 0 0 / 20%) 0 0.2px 2px, rgba(0 0 0 / 20%) 0 2px 4px;
+  display: flex;
+  opacity: 0;
+  pointer-events: auto;
+  will-change: transform;
+}
+
+.snackbar--hide {
+  animation: fade-out var(--duration-medium) 0s var(--easing-entrance) forwards;
+}
+
+.snackbar--error {
+  background-color: var(--c-error);
+}
+
+.snackbar--success {
+  background-color: var(--c-success);
+}
+
+.snackbar p {
+  margin: 0;
+}
+
+.snackbar .icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.snackbar__close-button {
+  padding: 0;
+  margin: -8px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  place-content: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.snackbar__close-button:focus {
+  outline: 0;
+}
+
+.snackbar__close-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.snackbar__close-button .icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+@media (prefers-reduced-motion) {
+  .snackbar,
+  .snackbar--hide {
+    animation: none;
+  }
+
+  .snackbar {
+    opacity: 1;
+  }
+}

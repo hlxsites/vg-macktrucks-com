@@ -87,6 +87,7 @@
   /* Error */
   --c-error: #f66;
   --c-error-inverted: #099;
+  --c-success: #1a6c31;
 
   /* Font family */
 
@@ -201,6 +202,26 @@
   --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
   --easing-exit: cubic-bezier(0.2, 0, 1, 1);
   --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @media (min-width: 1200px) {
