@@ -117,14 +117,6 @@
   margin: 0;
 }
 
-.v2-product-listing__button-container .button--primary {
-  margin-right: 8px;
-}
-
-.v2-product-listing__button-container .button--secondary {
-  margin-left: 8px;
-}
-
 .v2-product-listing__detail-list,
 .v2-product-listing__segment-list {
   list-style: none;
@@ -137,7 +129,7 @@
   position: relative;
   font-size: var(--superscript-font-size);
   line-height: 1.2;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 }
 
 .v2-product-listing__segment-list li:first-child {
@@ -145,7 +137,7 @@
 }
 
 .v2-product-listing__segment-list li::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   right: 0;
@@ -156,25 +148,39 @@
 }
 
 .v2-product-listing__detail-list {
-  text-transform: capitalize;
   gap: 12px;
-  flex-direction: column;
   align-items: flex-start;
+}
+
+.v2-product-listing--with-dots .v2-product-listing__detail-list {
+  text-transform: capitalize;
+  flex-direction: column;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .v2-product-listing__detail-list li {
+  --v2-product-listing-info-font-size: 12px;
+
   display: flex;
   flex-flow: row wrap;
   gap: 12px;
+  font-size: var(--v2-product-listing-info-font-size);
 }
 
 .v2-product-listing__detail-list li strong {
   font-family: var(--ff-body-bold);
 }
 
+.v2-product-listing--with-dots .v2-product-listing__detail-list li {
+  --v2-product-listing-info-font-size: var(--body-1-font-size);
+}
+
+.v2-product-listing:not(.v2-product-listing--with-dots) .v2-product-listing__detail-list li:not(:last-child)::after {
+  content: "|";
+}
+
 .v2-product-listing--with-dots .v2-product-listing__product-image picture:first-child::before {
-  content: '';
+  content: "";
   height: 70%;
   max-height: 275px;
   aspect-ratio: 1;
@@ -182,7 +188,7 @@
   left: 0;
   z-index: 1;
   background: var(--c-primary-gold);
-  mask: url('/media/dots.svg');
+  mask: url("/media/dots.svg");
   transition: background var(--duration-small) var(--easing-standard);
 }
 
@@ -269,7 +275,7 @@
   }
 
   .v2-product-listing__product-info > p {
-    letter-spacing: .01em;
+    letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
@@ -316,7 +322,7 @@
 
   .v2-product-listing__segment-button::after {
     bottom: 0;
-    content: '';
+    content: "";
     display: block;
     height: 4px;
     position: absolute;
@@ -343,7 +349,6 @@
   }
 
   .v2-product-listing__detail-list li {
-    font-size: var(--body-1-font-size);
     line-height: var(--body-1-line-height);
   }
 
