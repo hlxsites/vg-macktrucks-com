@@ -57,7 +57,7 @@
 .v2-magazine-tabbed-carousel__figure figcaption a {
   --text-color: var(--c-primary-white);
   --color-icon: var(--text-color);
-  
+
   color: var(--text-color);
   font-family: var(--ff-headline-compressed);
   font-size: 48px;
@@ -109,7 +109,7 @@
   overflow: hidden;
   scroll-snap-align: center;
   background-color: var(--background-color);
-  transition: 
+  transition:
     color,
     border-color;
   transition-duration: var(--duration-large);
@@ -140,7 +140,7 @@
 .v2-magazine-tabbed-carousel__navigation-item:not(.v2-magazine-tabbed-carousel__navigation-item--active):hover {
   --text-color: var(--c-primary-black);
 
-  transition: 
+  transition:
     color,
     border-color;
   transition-duration: var(--duration-large);
@@ -204,7 +204,7 @@
   outline-offset: -3px;
 }
 
-.v2-magazine-tabbed-carousel .switch-buttons .switch-slider  {
+.v2-magazine-tabbed-carousel .switch-buttons .switch-slider {
   position: absolute;
   top: 2px;
   left: 0;
