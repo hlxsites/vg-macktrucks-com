@@ -81,6 +81,7 @@ function buildProductInfoDom(prodEle) {
 
     [...buttons].forEach((b) => {
       const parent = b.parentElement;
+      b.classList.add('button--large');
       buttonContainer.appendChild(b);
       parent.remove(); // Remove the previous empty button container
     });
