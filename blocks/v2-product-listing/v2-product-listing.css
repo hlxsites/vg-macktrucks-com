@@ -109,7 +109,7 @@
   margin-top: 4px; /* 4 + 12 = 16px to match design */
   width: 100%;
   display: flex;
-  gap: 16px;
+  gap: var(--v2-product-listing-content-gap);
 }
 
 .v2-product-listing--with-dots .v2-product-listing__button-container {
@@ -152,12 +152,13 @@
 }
 
 .v2-product-listing__detail-list {
-  gap: 16px;
+  gap: var(--v2-product-listing-content-gap);
   align-items: flex-start;
 }
 
 .v2-product-listing--with-dots .v2-product-listing__detail-list {
-  gap: 12px;
+  --v2-product-listing-content-gap: 12px;
+
   text-transform: capitalize;
   flex-direction: column;
 }
