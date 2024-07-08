@@ -69,6 +69,9 @@
   position: relative;
   top: 0;
   left: 0;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  width: 100%;
 }
 
 .v2-product-listing__product picture:first-child img:hover {
@@ -324,6 +327,12 @@
     height: 100%;
     position: absolute;
     top: 0;
+  }
+
+  .v2-product-listing__product-image picture:first-child img {
+    aspect-ratio: auto;
+    object-fit: fill;
+    width: auto;
   }
 
   .v2-product-listing__product-image picture:first-child img,
