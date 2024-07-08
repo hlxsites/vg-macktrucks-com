@@ -95,6 +95,10 @@
   justify-content: center;
 }
 
+.v2-product-listing--with-dots .v2-product-listing__product-info {
+  padding: 24px 16px 64px;
+}
+
 .v2-product-listing__product-info h2 {
   font-family: var(--ff-subheadings-medium);
   font-size: var(--headline-1-font-size);
@@ -120,6 +124,10 @@
 .v2-product-listing__button-container a.button {
   flex: 0 1 50%;
   margin: 0;
+}
+
+.v2-product-listing--with-dots .v2-product-listing__button-container a.button {
+  flex: none;
 }
 
 .v2-product-listing__detail-list,
