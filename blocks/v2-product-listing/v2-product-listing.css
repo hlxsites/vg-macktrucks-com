@@ -429,6 +429,10 @@
     flex: 0 1 var(--v2-product-listing-content-width);
   }
 
+  .v2-product-listing__product-image picture:first-child img {
+    width: 100%;
+  }
+
   .v2-product-listing__product-info {
     flex: 0 1 calc(100% - var(--v2-product-listing-content-width));
     padding: 0 88px 65px;
