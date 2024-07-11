@@ -102,7 +102,7 @@ const logCombinedViolations = (blockViolations, sectionViolations) => {
   }
 
   if (allMessages.length > 0) {
-    showSnackbar(allMessages.join('. '), 'error', 'center', 'bottom', true, false, 15000, true);
+    showSnackbar(allMessages.join('. '), 'error', 'center', 'bottom', false, true, 15000, true);
   }
 };
 
