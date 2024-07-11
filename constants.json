@@ -1,4 +1,19 @@
 {
+  "truckConfiguratorUrls": {
+    "total": 2,
+    "offset": 0,
+    "limit": 2,
+    "data": [
+      {
+        "name": "JS",
+        "value": "[\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/runtime~configurator.bundle.js\",\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/665.bundle.js\",\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.bundle.js\"]"
+      },
+      {
+        "name": "CSS",
+        "value": "[\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/665.css\",\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.css\"]"
+      }
+    ]
+  },
   "searchUrls": {
     "total": 2,
     "offset": 0,
@@ -11,29 +26,6 @@
       {
         "name": "SEARCH_URL_DEV",
         "value": "https://search-api-dev.aws.43636.vnonprod.com/search"
-      }
-    ]
-  },
-  "magazineConfig": {
-    "total": 4,
-    "offset": 0,
-    "limit": 4,
-    "data": [
-      {
-        "name": "HREF",
-        "value": "https://go.pardot.com/l/1038343/2023-12-12/3m4w2c"
-      },
-      {
-        "name": "IFRAME_SIZE",
-        "value": "900px"
-      },
-      {
-        "name": "DATE_LANGUAGE",
-        "value": "en-US"
-      },
-      {
-        "name": "DATE_OPTIONS",
-        "value": "[\"month: long\",\"day: numeric\",\"year: numeric\"]"
       }
     ]
   },
@@ -69,40 +61,6 @@
       {
         "name": "v2AllowedBlocks",
         "value": "[\"embed\",\"footer\",\"fragment\",\"header\",\"iframe\",\"modal\"]"
-      }
-    ]
-  },
-  "fgrep": {
-    "total": 3,
-    "offset": 0,
-    "limit": 3,
-    "data": [
-      {
-        "name": "GIT_OWNER",
-        "value": "hlxsites"
-      },
-      {
-        "name": "GIT_REPO",
-        "value": "vg-macktrucks-com"
-      },
-      {
-        "name": "GLOBAL_SITEMAP_URL",
-        "value": "/sitemap.xml"
-      }
-    ]
-  },
-  "headerConfig": {
-    "total": 2,
-    "offset": 0,
-    "limit": 2,
-    "data": [
-      {
-        "name": "SEARCH_DISABLED",
-        "value": "false"
-      },
-      {
-        "name": "LOGIN_DISABLED",
-        "value": "false"
       }
     ]
   },
@@ -153,18 +111,18 @@
       }
     ]
   },
-  "truckConfiguratorUrls": {
+  "headerConfig": {
     "total": 2,
     "offset": 0,
     "limit": 2,
     "data": [
       {
-        "name": "JS",
-        "value": "[\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.bundle.js\"]"
+        "name": "SEARCH_DISABLED",
+        "value": "false"
       },
       {
-        "name": "CSS",
-        "value": "[\"https://truckbuilder-mack-100031.onecx.prod.rapidimages.net/configurator.css\"]"
+        "name": "LOGIN_DISABLED",
+        "value": "false"
       }
     ]
   },
@@ -211,16 +169,58 @@
       }
     ]
   },
+  "magazineConfig": {
+    "total": 4,
+    "offset": 0,
+    "limit": 4,
+    "data": [
+      {
+        "name": "HREF",
+        "value": "https://go.pardot.com/l/1038343/2023-12-12/3m4w2c"
+      },
+      {
+        "name": "IFRAME_SIZE",
+        "value": "900px"
+      },
+      {
+        "name": "DATE_LANGUAGE",
+        "value": "en-US"
+      },
+      {
+        "name": "DATE_OPTIONS",
+        "value": "[\"month: long\",\"day: numeric\",\"year: numeric\"]"
+      }
+    ]
+  },
+  "fgrep": {
+    "total": 3,
+    "offset": 0,
+    "limit": 3,
+    "data": [
+      {
+        "name": "GIT_OWNER",
+        "value": "hlxsites"
+      },
+      {
+        "name": "GIT_REPO",
+        "value": "vg-macktrucks-com"
+      },
+      {
+        "name": "GLOBAL_SITEMAP_URL",
+        "value": "/sitemap.xml"
+      }
+    ]
+  },
   ":version": 3,
   ":names": [
-    "searchUrls",
-    "magazineConfig",
-    "tools",
-    "fgrep",
-    "headerConfig",
-    "truckConfigurator",
     "truckConfiguratorUrls",
-    "cookieValues"
+    "searchUrls",
+    "tools",
+    "truckConfigurator",
+    "headerConfig",
+    "cookieValues",
+    "magazineConfig",
+    "fgrep"
   ],
   ":type": "multi-sheet"
 }
