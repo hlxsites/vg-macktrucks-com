@@ -54,29 +54,29 @@ if (!window.location.pathname.includes('srcdoc')
     charset: 'UTF-8',
     'data-domain-script': DATA_DOMAIN_SCRIPT,
   });
+
+  window.OptanonWrapper = () => {
+    const currentOnetrustActiveGroups = window.OnetrustActiveGroups;
+
+    function isSameGroups(groups1, groups2) {
+      const s1 = JSON.stringify(groups1.split(','));
+      const s2 = JSON.stringify(groups2.split(','));
+
+      return s1 === s2;
+    }
+
+    window.OneTrust.OnConsentChanged(() => {
+      // reloading the page only when the active group has changed
+      if (!isSameGroups(currentOnetrustActiveGroups, window.OnetrustActiveGroups) && window.isSingleVideo !== 'true') {
+        window.location.reload();
+      }
+    });
+  };
 }
 
 if (devHosts.some((url) => window.location.host.includes(url))) {
   import('./validate-elements.js');
 }
-
-window.OptanonWrapper = () => {
-  const currentOnetrustActiveGroups = window.OnetrustActiveGroups;
-
-  function isSameGroups(groups1, groups2) {
-    const s1 = JSON.stringify(groups1.split(',').sort());
-    const s2 = JSON.stringify(groups2.split(',').sort());
-
-    return s1 === s2;
-  }
-
-  window.OneTrust.OnConsentChanged(() => {
-    // reloading the page only when the active group has changed
-    if (!isSameGroups(currentOnetrustActiveGroups, window.OnetrustActiveGroups)) {
-      window.location.reload();
-    }
-  });
-};
 
 // Google Analytics
 async function loadGoogleTagManager() {
