@@ -44,11 +44,11 @@ const countOccurrences = (elements, getName) => {
 
 const collectViolations = (counts, checkFn) => {
   const violations = [];
-  for (const name in counts) {
+  Object.keys(counts).forEach((name) => {
     if (checkFn(name)) {
       violations.push(`<span style="white-space: nowrap">${name}${counts[name] > 1 ? ` (${counts[name]}\xD7)` : ''}</span>`);
     }
-  }
+  });
   return violations;
 };
 
@@ -117,7 +117,7 @@ if (existingElement) {
   performDomCheck();
 } else {
   const callback = (mutationsList, observer) => {
-    for (const mutation of mutationsList) {
+    mutationsList.forEach((mutation) => {
       if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === 1 && node.tagName.toLowerCase() === 'helix-sidekick') {
@@ -126,7 +126,7 @@ if (existingElement) {
           }
         });
       }
-    }
+    });
   };
 
   const observer = new MutationObserver(callback);
