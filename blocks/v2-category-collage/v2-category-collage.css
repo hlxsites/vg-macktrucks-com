@@ -23,6 +23,7 @@
   transition: scale var(--duration-large) var(--easing-standard);
 }
 
+.v2-category-collage__item-container:hover video,
 .v2-category-collage__item-container:hover img {
   scale: 1.1;
 }
