@@ -133,9 +133,6 @@
   --headline-5-font-size: 1.8rem; /* 18px */
   --headline-5-line-height: 140%;
 
-  /* Superscript font size */
-  --superscript-font-size: 0.750rem; /* 12px */
-
   /* Wrapper for generic components */
   --wrapper-width: 1040px;
 
@@ -688,9 +685,12 @@ main .section.magazine-listing-content h3 {
   margin: 0 0 13px;
 }
 
-main sup {
-  font-size: clamp(var(--body-font-size-s), 12px, 1em);
-  padding-left: 3px;
+sup {
+  font-size: clamp(8px, 0.337em, 24px);
+  padding-left: 1px;
+  position: relative; 
+  top: -0.75em;
+  vertical-align: top;
 }
 
 @media (min-width: 768px) {
