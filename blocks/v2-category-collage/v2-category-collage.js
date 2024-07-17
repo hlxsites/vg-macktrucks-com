@@ -1,75 +1,109 @@
-import { createElement, decorateIcons } from '../../scripts/common.js';
+import { createElement, clearElementAttributes, decorateIcons } from '../../scripts/common.js';
 import {
   isVideoLink,
   createVideo,
 } from '../../scripts/video-helper.js';
 
 const blockName = 'v2-category-collage';
-const itemMedia = `${blockName}__item-media`;
-const itemLinkClass = `${blockName}__item-link`;
+
+const CLASSES = {
+  itemContainer: `${blockName}__item-container`,
+  itemContent: `${blockName}__item-content`,
+  itemTitle: `${blockName}__item-title`,
+  itemCategoryTitle: `${blockName}__item-category-title`,
+  itemMedia: `${blockName}__item-media`,
+  itemLinkClass: `${blockName}__item-link`,
+};
+
+const getItemTitleContainer = (item) => item.querySelector('div:nth-child(3)');
+const getItemCategoryTitleContainer = (item) => item.querySelector('div:nth-child(2)');
+const getItemLink = (item) => item.querySelector('div:nth-child(3) > a');
+
+const arrowButtonElement = () => createElement('span', { classes: ['icon', 'icon-arrow-right'] });
 
 const decorateImage = (itemLink, itemImage) => {
   const hasImageContainer = itemImage.parentElement === itemLink;
+
   if (!hasImageContainer) {
     const imageContainer = itemImage.parentElement;
-    itemImage.classList.add(itemMedia);
+    itemImage.classList.add(CLASSES.itemMedia);
     itemLink.prepend(itemImage);
     imageContainer.remove();
   }
+
   itemImage.setAttribute('tabindex', 0);
 };
 
 const movePlayButton = (itemLink, item) => {
   const playButton = itemLink.querySelector('.v2-video__playback-button');
-  if (playButton) item.prepend(playButton);
+  if (playButton) {
+    item.prepend(playButton);
+  }
 };
 
 const decorateVideo = (itemLink, item) => {
-  const videoLink = itemLink.querySelector('a');
-  if (!videoLink || !isVideoLink(videoLink)) return;
-  createVideo(itemLink, videoLink.getAttribute('href'), itemMedia, {
+  const videoLink = itemLink.querySelector('a.text-link-with-video');
+
+  if (!videoLink || !isVideoLink(videoLink)) {
+    return;
+  }
+
+  createVideo(itemLink, videoLink.getAttribute('href'), CLASSES.itemMedia, {
     muted: true,
     autoplay: true,
     loop: true,
     playsinline: true,
     tabindex: 0,
   });
-  videoLink.parentElement.remove();
+
+  videoLink.remove();
+
   movePlayButton(itemLink, item);
 };
 
 const decorateMedia = (item, itemImage) => {
-  const itemLink = item.querySelector(`.${itemLinkClass}`);
-  if (itemImage) decorateImage(itemLink, itemImage);
-  else decorateVideo(itemLink, item);
-};
+  const itemLink = item.querySelector(`.${CLASSES.itemLinkClass}`);
 
-const getTextLink = (links) => {
-  if (!links || links.length < 1) return null;
-  let innerLink = null;
-  [...links].forEach((link) => {
-    if (isVideoLink(link)) return;
-    innerLink = link;
-    innerLink.parentElement.classList.add(`${blockName}__item-content`);
-  });
-  return innerLink;
+  if (itemImage) {
+    decorateImage(itemLink, itemImage);
+  } else {
+    decorateVideo(itemLink, item);
+  }
 };
 
 const removeInnerLink = (link) => {
   const text = link.parentElement;
   const linkText = link.innerHTML;
+
   text.innerHTML = linkText;
 };
 
 const decorateNewItemContainer = (item, itemContainer, innerLink) => {
   const { href, title } = innerLink;
   const newItemContainer = createElement('a', {
-    classes: itemLinkClass,
+    classes: CLASSES.itemLinkClass,
     props: { href, title, tabindex: -1 },
   });
+  const itemContent = createElement('div', {
+    classes: CLASSES.itemContent,
+  });
+  const itemCategoryTitleContainer = getItemCategoryTitleContainer(item);
+  const itemTitleContainer = getItemTitleContainer(item);
+
   removeInnerLink(innerLink);
-  item.classList.add(`${blockName}__item-container`); // decorate container
-  newItemContainer.innerHTML = itemContainer.innerHTML; // move content
+  item.classList.add(CLASSES.itemContainer);
+  clearElementAttributes(itemTitleContainer)
+    .classList.add(CLASSES.itemTitle);
+  clearElementAttributes(itemCategoryTitleContainer)
+    .classList.add(CLASSES.itemCategoryTitle);
+
+  itemTitleContainer.append(arrowButtonElement());
+
+  itemContent.append(itemCategoryTitleContainer);
+  itemContent.append(itemTitleContainer);
+
+  newItemContainer.innerHTML = itemContainer.innerHTML;
+  newItemContainer.prepend(itemContent);
   itemContainer.remove();
   item.append(newItemContainer);
 };
@@ -77,10 +111,9 @@ const decorateNewItemContainer = (item, itemContainer, innerLink) => {
 const decorateCollageItems = (items) => {
   items.forEach((item) => {
     const itemContainer = item.firstElementChild;
-    const itemLinks = item.querySelectorAll('a');
-    const innerLink = getTextLink(itemLinks);
-    decorateNewItemContainer(item, itemContainer, innerLink);
-    // item is now the new itemContainer
+    const itemLink = getItemLink(item);
+
+    decorateNewItemContainer(item, itemContainer, itemLink);
     decorateMedia(item, item.querySelector('picture'));
   });
 };
@@ -88,7 +121,9 @@ const decorateCollageItems = (items) => {
 export default function decorate(block) {
   const blockWrapper = block.parentElement;
   const collageItemContainers = block.querySelectorAll(':scope > div');
+
   blockWrapper.classList.add('full-width');
+
   decorateCollageItems([...collageItemContainers]);
   decorateIcons(block);
 }
