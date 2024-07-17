@@ -9,6 +9,8 @@ import {
   COOKIE_CONFIGS,
 } from './common.js';
 
+const devHosts = ['localhost', 'hlx.page', 'hlx.live', 'aem.page', 'aem.live'];
+
 // COOKIE ACCEPTANCE AND IDs default to false in case no ID is present
 const {
   ACC_ENG_TRACKING = false,
@@ -46,31 +48,35 @@ if (isTargetingAllowed()) {
 
 // Prevent the cookie banner from loading when running in library
 if (!window.location.pathname.includes('srcdoc')
-  && !['localhost', 'hlx.page', 'hlx.live', 'aem.page', 'aem.live'].some((url) => window.location.host.includes(url))) {
+  && !devHosts.some((url) => window.location.host.includes(url))) {
   loadScript('https://cdn.cookielaw.org/scripttemplates/otSDKStub.js', {
     type: 'text/javascript',
     charset: 'UTF-8',
     'data-domain-script': DATA_DOMAIN_SCRIPT,
   });
+
+  window.OptanonWrapper = () => {
+    const currentOnetrustActiveGroups = window.OnetrustActiveGroups;
+
+    function isSameGroups(groups1, groups2) {
+      const s1 = JSON.stringify(groups1.split(','));
+      const s2 = JSON.stringify(groups2.split(','));
+
+      return s1 === s2;
+    }
+
+    window.OneTrust.OnConsentChanged(() => {
+      // reloading the page only when the active group has changed
+      if (!isSameGroups(currentOnetrustActiveGroups, window.OnetrustActiveGroups) && window.isSingleVideo !== 'true') {
+        window.location.reload();
+      }
+    });
+  };
 }
 
-window.OptanonWrapper = () => {
-  const currentOnetrustActiveGroups = window.OnetrustActiveGroups;
-
-  function isSameGroups(groups1, groups2) {
-    const s1 = JSON.stringify(groups1.split(',').sort());
-    const s2 = JSON.stringify(groups2.split(',').sort());
-
-    return s1 === s2;
-  }
-
-  window.OneTrust.OnConsentChanged(() => {
-    // reloading the page only when the active group has changed
-    if (!isSameGroups(currentOnetrustActiveGroups, window.OnetrustActiveGroups)) {
-      window.location.reload();
-    }
-  });
-};
+if (devHosts.some((url) => window.location.host.includes(url))) {
+  import('./validate-elements.js');
+}
 
 // Google Analytics
 async function loadGoogleTagManager() {
