@@ -41,7 +41,6 @@
   object-fit: cover;
 }
 
-.v2-cards--2-cards-row .v2-cards__image,
 .v2-cards--image-aspect-ratio-7-5 .v2-cards__image {
   aspect-ratio: 7/5;
 }
@@ -121,6 +120,11 @@
 
 .v2-cards--4-cards-row .v2-cards__button-container svg {
   stroke-width: 0.1;
+}
+
+/* 2 cards row variant */
+.v2-cards--2-cards-row .v2-cards__image {
+  aspect-ratio: 7/5;
 }
 
 /* spaced text variant */
