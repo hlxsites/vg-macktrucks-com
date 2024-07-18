@@ -63,6 +63,8 @@
   font-family: var(--ff-body);
   font-size: var(--body-1-font-size);
   font-style: normal;
+  line-height: var(--body-1-line-height);
+  letter-spacing: 0.16px;
 }
 
 .v2-cards__text-wrapper li::before {
@@ -136,6 +138,10 @@
 
 .v2-cards.v2-cards--spaced strong {
   font-family: var(--ff-body-bold);
+}
+
+.v2-cards.v2-cards--spaced li strong {
+  margin-right: 12px;
 }
 
 .v2-cards.v2-cards--spaced .v2-cards__text-wrapper p,
