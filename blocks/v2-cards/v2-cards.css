@@ -41,6 +41,7 @@
   object-fit: cover;
 }
 
+.v2-cards--2-cards-row .v2-cards__image,
 .v2-cards--image-aspect-ratio-7-5 .v2-cards__image {
   aspect-ratio: 7/5;
 }
@@ -146,10 +147,6 @@
 
 .v2-cards.v2-cards--spaced .v2-cards__text-wrapper .v2-cards__button-container {
   margin-top: 12px;
-}
-
-.v2-cards.v2-cards--spaced .v2-cards__image {
-  aspect-ratio: 7/5;
 }
 
 @media (min-width: 744px) {
