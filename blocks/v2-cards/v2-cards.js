@@ -2,7 +2,15 @@ import { variantsClassesToBEM } from '../../scripts/common.js';
 
 export default async function decorate(block) {
   const blockName = 'v2-cards';
-  const variantClasses = ['no-background', 'horizontal', 'image-aspect-ratio-7-5', 'large-heading', '4-cards-row'];
+  const variantClasses = [
+    'no-background',
+    'horizontal',
+    'image-aspect-ratio-7-5',
+    'large-heading',
+    '4-cards-row',
+    '2-cards-row',
+    'spaced',
+  ];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
 
   const cardsItems = [...block.querySelectorAll(':scope > div')];
@@ -36,6 +44,9 @@ export default async function decorate(block) {
         link.classList.add('button--small');
       } else {
         link.classList.add('standalone-link', `${blockName}__button`);
+      }
+      if (block.classList.contains(`${blockName}--spaced`)) {
+        link.classList.replace('button--small', 'button--large');
       }
     });
   });
