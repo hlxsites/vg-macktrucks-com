@@ -152,6 +152,14 @@
   line-height: var(--headline-4-line-height);
 }
 
+.v2-cards.v2-cards--spaced strong {
+  font-family: var(--ff-body-bold);
+}
+
+.v2-cards.v2-cards--spaced li strong {
+  margin-right: 12px;
+}
+
 .v2-cards.v2-cards--spaced .v2-cards__text-wrapper p,
 .v2-cards.v2-cards--spaced .v2-cards__text-wrapper li {
   display: inline-flex;
