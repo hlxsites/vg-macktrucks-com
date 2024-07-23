@@ -192,17 +192,16 @@
   gap: 8px;
 }
 
-/* with arrow variant */
-.v2-cards.v2-cards--with-arrow .v2-cards__heading {
-  font-size: var(--headline-5-font-size);
-  line-height: var(--headline-5-line-height);
+/* heading with link and arrow */
+.v2-cards.v2-cards--heading-with-arrow .v2-cards__heading a {
+  color: var(--text-color);
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-.v2-cards.v2-cards--with-arrow .v2-cards__heading::after {
+.v2-cards.v2-cards--heading-with-arrow .v2-cards__heading a::after {
   height: 28px;
   width: 28px;
   content: url('../../icons/arrow-right.svg');

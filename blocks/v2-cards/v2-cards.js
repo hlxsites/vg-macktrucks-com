@@ -10,7 +10,7 @@ export default async function decorate(block) {
     '4-cards-row',
     '2-cards-row',
     'spaced',
-    'with-arrow',
+    // 'with-arrow',
     'with-border',
   ];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
@@ -34,7 +34,10 @@ export default async function decorate(block) {
   images.forEach((el) => el.classList.add(`${blockName}__image`));
 
   const cardsHeadings = [...block.querySelectorAll('h1, h2, h3, h4, h5, h6')];
-  cardsHeadings.forEach((el) => el.classList.add(`${blockName}__heading`));
+  cardsHeadings.forEach((el) => {
+    el.classList.add(`${blockName}__heading`);
+    if (el.querySelector('a')) block.classList.add(`${blockName}--heading-with-arrow`);
+  });
 
   const buttons = [...block.querySelectorAll('.button-container')];
   buttons.forEach((el) => {
