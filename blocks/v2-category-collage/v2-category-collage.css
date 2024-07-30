@@ -54,18 +54,36 @@
 }
 
 .v2-category-collage__item-content {
-  --color-icon: var(--text-color);
-
   position: absolute;
+  z-index: 1;
   bottom: 0;
   width: 100%;
   padding: 16px;
-  display: flex;
-  justify-content: space-between;
   color: var(--text-color);
   font-family: var(--ff-testimonial);
-  font-size: 20px;
+  font-size: var(--body-font-size-m);
   margin: 0;
+  background: linear-gradient(0deg, #00000060 0%, transparent 100%);
+}
+
+.v2-category-collage__item-title {
+  --color-icon: var(--text-color);
+
+  font-family: var(--ff-accents-medium);
+  margin-top: 12px;
+  font-size: 20px;
+  font-style: normal;
+  letter-spacing: -0.4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.v2-category-collage__item-category-title {
+  font-family: var(--ff-body-bold);
+  font-size: var(--body-font-size-xxs);
+  text-transform: uppercase;
+  line-height: 16px;
+  letter-spacing: 1.92px;
 }
 
 .v2-category-collage__item-content .icon svg {

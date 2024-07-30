@@ -326,6 +326,7 @@ const {
   cookieValues,
   magazineConfig,
   headerConfig,
+  tools,
   truckConfiguratorUrls,
 } = await getConstantValues();
 
@@ -334,6 +335,7 @@ export const SEARCH_URLS = formatValues(searchUrls?.data);
 export const COOKIE_CONFIGS = formatValues(cookieValues?.data);
 export const MAGAZINE_CONFIGS = formatValues(magazineConfig?.data);
 export const HEADER_CONFIGS = formatValues(headerConfig?.data);
+export const TOOLS_CONFIGS = formatValues(tools?.data);
 export const TRUCK_CONFIGURATOR_URLS = formatValues(truckConfiguratorUrls?.data);
 
 /**
@@ -555,4 +557,32 @@ export const deepMerge = (originalTarget, source) => {
     }
   });
   return target;
+};
+
+/**
+ * Clear/removes all of the attributes of an element by reference
+ * @param {HTMLElement} element - Element to clear attributes from
+ * @returns {HTMLElement} The created picture element
+ *
+ * USAGE:
+ * Clean by reference:
+ *
+ * clearElementAttributes(element);
+ * // Then do things on the clean element...
+ *
+ * OR, leverage the return of the element and do chaining operations:
+ *
+ * removeAllAttributes(element).classList.add('SOME-CLASS-NAME');
+ *
+ */
+export const clearElementAttributes = (element) => {
+  // Get all attributes of the element
+  const attributes = Array.from(element.attributes);
+
+  // Loop through the attributes and remove them
+  attributes.forEach((attr) => {
+    element.removeAttribute(attr.name);
+  });
+
+  return element;
 };

@@ -245,17 +245,6 @@
   letter-spacing: .08rem;
 }
 
-
-[data-page='pdp'] .v2-hero__content sup {
-  margin: -8px 0 0 -8px;
-  font-size: var(--superscript-font-size);
-  letter-spacing: initial;
-
-  @media (min-width: 1200px) {
-    margin: -24px 0 0 -8px;
-  }
-}
-
 [data-page='pdp'] .v2-hero__heading {
   display: flex;
   align-items: center;
