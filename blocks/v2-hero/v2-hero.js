@@ -86,7 +86,7 @@ export default async function decorate(block) {
 
   if (!isPdp && !isMagazine) {
     const firstHeading = headings[0];
-    firstHeading.classList.add('with-marker');
+    firstHeading?.classList.add('with-marker');
   }
 
   if (isMagazine) {
