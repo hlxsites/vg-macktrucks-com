@@ -4,6 +4,7 @@
 
 .v2-hero {
   --text-color: var(--c-primary-white);
+  --hero-magazine-headline: 48px;
   
   /* height of the hero block is set in main style to prevent CLS */
   position: relative;
@@ -110,7 +111,7 @@
 
 .v2-hero--magazine .v2-hero__heading {
   font-family: var(--ff-headline-compressed);
-  font-size: 48px;
+  font-size: var(--hero-magazine-headline);
   line-height: 90%;
   text-transform: uppercase;
 }
@@ -120,16 +121,16 @@
 }
 
 @media (min-width: 1200px) {
+  .v2-hero {
+    --hero-magazine-headline: 96px;
+  }
+
   .v2-hero-wrapper .v2-hero.v2-hero--magazine {
     height: 580px;
   }
 
   .v2-hero--magazine .v2-hero__content-wrapper {
     padding: 68px 0 0;
-  }
-
-  .v2-hero--magazine .v2-hero__heading {
-    font-size: 96px;
   }
 }
 
