@@ -9,14 +9,22 @@ import {
   createVideo,
 } from '../../scripts/video-helper.js';
 
-const variantClasses = ['dark', 'light', 'half-height'];
+const variantClasses = ['dark', 'light', 'half-height', 'magazine'];
 const blockName = 'v2-hero';
+
+const addLineBreaksToWords = (element) => {
+  element.innerHTML = element.textContent
+    .split(' ')
+    .map((word) => `<span>${word}</span>`)
+    .join(' ');
+};
 
 export default async function decorate(block) {
   variantsClassesToBEM(block.classList, variantClasses, blockName);
   const blockContainer = block.parentElement.parentElement;
   const isPdp = blockContainer.dataset.page === 'pdp';
   const isHalfHeight = block.classList.contains(`${blockName}--half-height`);
+  const isMagazine = block.classList.contains(`${blockName}--magazine`);
 
   const images = [...block.querySelectorAll('p > picture')];
   const imageURLs = getImageURLs(images);
@@ -76,9 +84,14 @@ export default async function decorate(block) {
   const headings = [...content.querySelectorAll('h1, h2, h3, h4, h5, h6')];
   headings.forEach((h) => h.classList.add(`${blockName}__heading`));
 
-  if (!isPdp) {
+  if (!isPdp && !isMagazine) {
     const firstHeading = headings[0];
     firstHeading.classList.add('with-marker');
+  }
+
+  if (isMagazine) {
+    const heading = content.querySelector(`.${blockName}__heading`);
+    addLineBreaksToWords(heading);
   }
 
   const button = content.querySelector('a');

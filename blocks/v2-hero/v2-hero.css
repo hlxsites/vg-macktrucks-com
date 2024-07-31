@@ -167,6 +167,47 @@
   }
 }
 
+/* Magazine variant */
+.v2-hero-wrapper .v2-hero.v2-hero--magazine {
+  height: 375px;
+}
+
+.v2-hero.v2-hero--magazine .v2-hero__content,
+.v2-hero.v2-hero--magazine .v2-hero__content * {
+  max-width: 850px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-hero--magazine .v2-hero__content-wrapper {
+  justify-content: flex-start;
+  padding: 25px 17px 0;
+}
+
+.v2-hero--magazine .v2-hero__heading {
+  font-family: var(--ff-headline-compressed);
+  font-size: 48px;
+  line-height: 90%;
+  text-transform: uppercase;
+}
+
+.v2-hero--magazine .v2-hero__heading span {
+  display: block;
+}
+
+@media (min-width: 1200px) {
+  .v2-hero-wrapper .v2-hero.v2-hero--magazine {
+    height: 580px;
+  }
+
+  .v2-hero--magazine .v2-hero__content-wrapper {
+    padding: 68px 0 0;
+  }
+
+  .v2-hero--magazine .v2-hero__heading {
+    font-size: 96px;
+  }
+}
+
 /* PDP - Hero section */
 
 [data-page='pdp'] .v2-hero picture::after {
