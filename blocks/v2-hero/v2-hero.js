@@ -91,7 +91,10 @@ export default async function decorate(block) {
 
   if (isMagazine) {
     const heading = content.querySelector(`.${blockName}__heading`);
-    addLineBreaksToWords(heading);
+
+    if (heading) {
+      addLineBreaksToWords(heading);
+    }
   }
 
   const button = content.querySelector('a');
