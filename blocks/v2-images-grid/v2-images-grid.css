@@ -274,6 +274,10 @@
   aspect-ratio: 16/9;
 }
 
+.v2-images-grid--with-captions .v2-images-grid__item:hover {
+  cursor: default;
+}
+
 .v2-images-grid--with-captions .v2-images-grid__figcaption {
   --text-color: var(--c-primary-white);
 
