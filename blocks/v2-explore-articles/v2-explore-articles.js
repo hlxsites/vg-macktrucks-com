@@ -5,6 +5,7 @@ import { getAllArticles } from '../recent-articles/recent-articles.js';
 const blockName = 'v2-explore-articles';
 const filterItemClass = `${blockName}__filter-item`;
 const defaultAmount = 9;
+let currentAmount = 0;
 
 const decorateSelect = (filter, { styleClass = filterItemClass } = {}) => {
   const options = filter.innerText.split('\n').filter((item) => item.trim()).map((item) => item.trim());
@@ -48,10 +49,13 @@ const decorateFilters = (filters) => {
   });
 };
 
-const decorateShowingText = (showingEl, allArticles, amount = defaultAmount) => {
+const decorateShowingText = (showingEl, allArticles) => {
   const [showing, of, stories] = showingEl.textContent.split('$');
   const boldedTextEl = createElement('strong');
-  boldedTextEl.textContent = `${showing}${amount}`;
+  const amountSpanEl = createElement('span');
+  boldedTextEl.textContent = `${showing}`;
+  amountSpanEl.textContent = `${defaultAmount}`;
+  boldedTextEl.appendChild(amountSpanEl);
   showingEl.textContent = '';
   showingEl.appendChild(boldedTextEl);
   showingEl.innerHTML += `${of}${allArticles.length}${stories}`;
@@ -76,6 +80,42 @@ const decorateExtraFilters = (extraFilters, allArticles) => {
   sortByTextEl.appendChild(sortByItemsEl);
 };
 
+const createArticleItem = (article) => {
+  const itemContainerEl = createElement('div', {
+    classes: [`${blockName}__collage-item-container`],
+  });
+  const srcImage = `${window.location.origin}${article.image}`;
+  const picture = createOptimizedPicture(srcImage, article.title, true);
+  const collageItemFragment = document.createRange().createContextualFragment(`
+    <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
+      <div class="${blockName}__collage-item-content">
+        <div class="${blockName}__collage-item-category-title">${article.category}</div>
+        <div class="${blockName}__collage-item-title">
+          ${article.title.split('|')[0]}
+          <span class="icon icon-arrow-right"></span>
+        </div>
+      </div>
+      ${picture.outerHTML}
+    </a>
+  `);
+  picture.setAttribute('tabindex', 0);
+
+  itemContainerEl.appendChild(collageItemFragment);
+  return itemContainerEl;
+};
+
+const addArticlesToCollage = (allArticles, collageEl) => {
+  // eslint-disable-next-line no-plusplus
+  for (let i = currentAmount; i < currentAmount + defaultAmount; i++) {
+    const article = allArticles[i];
+    if (!article) {
+      break;
+    }
+    const collageItemContainerEl = createArticleItem(article);
+    collageEl.appendChild(collageItemContainerEl);
+  }
+};
+
 const decorateCollage = (allArticles, block) => {
   // 3rd row
   const collageWrapperEl = createElement('div', {
@@ -85,39 +125,14 @@ const decorateCollage = (allArticles, block) => {
     classes: [`${blockName}__collage`],
   });
 
-  allArticles.forEach((article, idx) => {
-    const collageItemContainerEl = createElement('div', {
-      classes: [`${blockName}__collage-item-container`],
-    });
-    const srcImage = `${window.location.origin}${article.image}`;
-    const picture = createOptimizedPicture(srcImage, article.title, true);
-    const collageItemFragment = document.createRange().createContextualFragment(`
-      <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
-        <div class="${blockName}__collage-item-content">
-          <div class="${blockName}__collage-item-category-title">${article.category}</div>
-          <div class="${blockName}__collage-item-title">
-            ${article.title.split('|')[0]}
-            <span class="icon icon-arrow-right"></span>
-          </div>
-        </div>
-        ${picture.outerHTML}
-      </a>
-    `);
-    picture.setAttribute('tabindex', 0);
-    if (idx >= defaultAmount) {
-      collageItemContainerEl.classList.add(`${blockName}__collage-item-container--hidden`);
-    }
-
-    collageItemContainerEl.appendChild(collageItemFragment);
-    collageEl.appendChild(collageItemContainerEl);
-  });
-
+  addArticlesToCollage(allArticles, collageEl);
+  currentAmount = defaultAmount;
   collageWrapperEl.appendChild(collageEl);
   block.appendChild(collageWrapperEl);
   decorateIcons(block);
 };
 
-const addShowMoreButton = (block) => {
+const addShowMoreButton = (allArticles, block) => {
   // 4th row
   const buttonContainer = createElement('div', {
     classes: [`${blockName}__show-more-container`],
@@ -131,15 +146,16 @@ const addShowMoreButton = (block) => {
   block.appendChild(buttonContainer);
 
   showMoreButton.addEventListener('click', () => {
-    const hiddenItems = block.querySelectorAll(`.${blockName}__collage-item-container--hidden`);
-    hiddenItems.forEach((item, idx) => {
-      if (idx < defaultAmount) {
-        item.classList.remove(`${blockName}__collage-item-container--hidden`);
-      }
-    });
-    if (hiddenItems.length <= defaultAmount) {
-      showMoreButton.style.display = 'none';
+    const collageEl = block.querySelector(`.${blockName}__collage`);
+    const amountEl = block.querySelector(`.${blockName}__showing strong span`);
+    addArticlesToCollage(allArticles, collageEl);
+
+    currentAmount += defaultAmount;
+    if (currentAmount >= allArticles.length) {
+      showMoreButton.remove();
+      currentAmount = allArticles.length;
     }
+    amountEl.textContent = currentAmount;
   });
 };
 
@@ -150,7 +166,7 @@ export default async function decorate(block) {
   const filters = filtersRow1 && filtersRow1.querySelector(':scope > div');
   const extraFilters = filtersRow2 && filtersRow2.querySelector(':scope > div');
 
-  if (!filtersRow1 || !filters || !filtersRow2 || !extraFilters) {
+  if (![filtersRow1, filters, filtersRow2, extraFilters].every(Boolean)) {
     return;
   }
 
@@ -160,5 +176,5 @@ export default async function decorate(block) {
   decorateFilters(filters); // 1st Row: search, category, topic, truck
   decorateExtraFilters(extraFilters, allArticles); // 2nd Row: amount of items, sort by
   decorateCollage(allArticles, block); // 3rd Row: collage
-  addShowMoreButton(block); // 4th Row: show more button
+  addShowMoreButton(allArticles, block); // 4th Row: show more button
 }
