@@ -9,7 +9,7 @@ const defaultAmount = 9;
 const decorateSelect = (filter, { styleClass = filterItemClass } = {}) => {
   const options = filter.innerText.split('\n').filter((item) => item.trim()).map((item) => item.trim());
   const defaultValue = options[0];
-  const select = createElement('select', {
+  const selectEl = createElement('select', {
     classes: [`${blockName}__filter`, styleClass],
     props: { name: defaultValue },
   });
@@ -18,77 +18,81 @@ const decorateSelect = (filter, { styleClass = filterItemClass } = {}) => {
       props: { value: option },
     });
     optionElement.textContent = option;
-    select.appendChild(optionElement);
+    selectEl.appendChild(optionElement);
   });
   filter.textContent = '';
-  filter.appendChild(select);
+  filter.appendChild(selectEl);
 };
 
 const decorateFilters = (filters) => {
   // 1st row
   const filterElements = filters.querySelectorAll(':scope > ul > li');
-  const filterList = filterElements[0].parentElement;
-  filterList.classList.add(`${blockName}__filter-list`);
+  const filterListEL = filterElements[0].parentElement;
+  filterListEL.classList.add(`${blockName}__filter-list`);
   filters.classList.add(`${blockName}__main-filters`);
 
   [...filterElements].forEach((filter) => {
-    const optionList = filter.querySelector(':scope > ul');
-    if (optionList) {
+    const optionListEl = filter.querySelector(':scope > ul');
+    if (optionListEl) {
       // decorate select
       decorateSelect(filter);
     } else {
       // decorate input search
-      const inputSearch = createElement('input', {
+      const inputSearchEl = createElement('input', {
         classes: [`${blockName}__input-search`, filterItemClass],
         props: { type: 'search', placeholder: filter.textContent },
       });
       filter.textContent = '';
-      filter.appendChild(inputSearch);
+      filter.appendChild(inputSearchEl);
     }
   });
 };
 
 const decorateShowingText = (showingEl, allArticles, amount = defaultAmount) => {
   const [showing, of, stories] = showingEl.textContent.split('$');
-  const boldedText = createElement('strong');
-  boldedText.textContent = `${showing}${amount}`;
+  const boldedTextEl = createElement('strong');
+  boldedTextEl.textContent = `${showing}${amount}`;
   showingEl.textContent = '';
-  showingEl.appendChild(boldedText);
+  showingEl.appendChild(boldedTextEl);
   showingEl.innerHTML += `${of}${allArticles.length}${stories}`;
 };
 
 const decorateExtraFilters = (extraFilters, allArticles) => {
   // 2nd row
   const showingTextEl = extraFilters.querySelector(':scope > p');
-  const sortByText = extraFilters.querySelector(':scope > p + p');
-  const sortByItems = extraFilters.querySelector(':scope > ul');
+  const sortByTextEl = extraFilters.querySelector(':scope > p + p');
+  const sortByItemsEl = extraFilters.querySelector(':scope > ul');
+
+  if (![showingTextEl, sortByTextEl, sortByItemsEl].every(Boolean)) {
+    return;
+  }
+
   extraFilters.classList.add(`${blockName}__extra-filters`);
   showingTextEl.classList.add(`${blockName}__showing`);
-  sortByText.classList.add(`${blockName}__sort-by`);
+  sortByTextEl.classList.add(`${blockName}__sort-by`);
 
   decorateShowingText(showingTextEl, allArticles);
-  decorateSelect(sortByItems, { styleClass: `${blockName}__sort-by-items` });
-  sortByText.appendChild(sortByItems);
+  decorateSelect(sortByItemsEl, { styleClass: `${blockName}__sort-by-items` });
+  sortByTextEl.appendChild(sortByItemsEl);
 };
 
 const decorateCollage = (allArticles, block) => {
   // 3rd row
-  const urlDomain = window.location.origin;
-  const collageWrapper = createElement('div', {
+  const collageWrapperEl = createElement('div', {
     classes: [`${blockName}__collage-wrapper`],
   });
-  const collage = createElement('div', {
+  const collageEl = createElement('div', {
     classes: [`${blockName}__collage`],
   });
 
   allArticles.forEach((article, idx) => {
-    const collageItemContainer = createElement('div', {
+    const collageItemContainerEl = createElement('div', {
       classes: [`${blockName}__collage-item-container`],
     });
-    const srcImage = `${urlDomain}${article.image}`;
+    const srcImage = `${window.location.origin}${article.image}`;
     const picture = createOptimizedPicture(srcImage, article.title, true);
     const collageItemFragment = document.createRange().createContextualFragment(`
-      <a class="${blockName}__collage-item-link" href="${urlDomain}${article.path}">
+      <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
         <div class="${blockName}__collage-item-content">
           <div class="${blockName}__collage-item-category-title">${article.category}</div>
           <div class="${blockName}__collage-item-title">
@@ -101,15 +105,15 @@ const decorateCollage = (allArticles, block) => {
     `);
     picture.setAttribute('tabindex', 0);
     if (idx >= defaultAmount) {
-      collageItemContainer.classList.add(`${blockName}__collage-item-container--hidden`);
+      collageItemContainerEl.classList.add(`${blockName}__collage-item-container--hidden`);
     }
 
-    collageItemContainer.appendChild(collageItemFragment);
-    collage.appendChild(collageItemContainer);
+    collageItemContainerEl.appendChild(collageItemFragment);
+    collageEl.appendChild(collageItemContainerEl);
   });
 
-  collageWrapper.appendChild(collage);
-  block.appendChild(collageWrapper);
+  collageWrapperEl.appendChild(collageEl);
+  block.appendChild(collageWrapperEl);
   decorateIcons(block);
 };
 
