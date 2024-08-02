@@ -51,7 +51,7 @@
 .v2-explore-articles__filter-item,
 .v2-explore-articles__extra-filters {
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: var(--body-font-size-xs);
 }
 
 .v2-explore-articles__extra-filters strong {
@@ -64,7 +64,7 @@
 
 .v2-explore-articles__sort-by-items {
   border: 0;
-  font-size: 14px;
+  font-size: var(--body-font-size-xs);
 }
 
 .v2-explore-articles__showing,
@@ -149,9 +149,9 @@
 .v2-explore-articles__collage-item-title {
   --color-icon: var(--text-color);
 
-  font-family: var(--ff-accents-medium);
+  font-family: var(--ff-testimonial);
   margin-top: 12px;
-  font-size: 20px;
+  font-size: var(--body-font-size-l);
   font-style: normal;
   letter-spacing: -0.4px;
   display: flex;
@@ -174,7 +174,7 @@
 
 /* show more */
 .v2-explore-articles__show-more-container {
-  margin: 32px 0;
+  margin: 32px 16px;
   text-align: center;
 }
 
@@ -225,6 +225,6 @@
   }
 
   .v2-explore-articles__show-more-container button {
-    width: 231px;
+    width: fit-content;
   }
 }
