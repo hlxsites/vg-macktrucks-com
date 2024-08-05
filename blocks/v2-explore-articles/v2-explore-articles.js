@@ -1,219 +1,86 @@
-import { createElement, decorateIcons, getTextLabel } from '../../scripts/common.js';
+import { decorateIcons, getTextLabel } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import { getAllArticles } from '../recent-articles/recent-articles.js';
 
 const LABELS = {
   SHOW_MORE: getTextLabel('Show More'),
+  SEARCH: getTextLabel('Search'),
+  FILTERS_PLACEHOLDERS: getTextLabel('Magazine filters placeholders'),
+  SHOWING_PLACEHOLDER: getTextLabel('Showing placeholder'),
+  SORT_BY: getTextLabel('Sort by'),
+  SORT_PLACEHOLDERS: getTextLabel('Sort filter placeholders'),
 };
 
 const blockName = 'v2-explore-articles';
 const CLASSES = {
-  filterItemClass: `${blockName}__filter-item`,
+  filterItem: `${blockName}__filter-item`,
   collageWrapper: `${blockName}__collage-wrapper`,
-  showMorebutton: `${blockName}__show-more-button`,
-  showMorebuttonWrapper: `${blockName}__show-more-container`,
+  collage: `${blockName}__collage`,
+  showMoreButton: `${blockName}__show-more-button`,
+  showMoreButtonWrapper: `${blockName}__show-more-container`,
 };
 
+const docRange = document.createRange();
 const defaultAmount = 9;
 let currentAmount = 0;
 
-// INIT
-
-const decorateSelect = (filter, { styleClass = CLASSES.filterItemClass } = {}) => {
-  const options = filter.innerText.split('\n').filter((item) => item.trim()).map((item) => item.trim());
-  const defaultValue = options[0];
-  const selectEl = createElement('select', {
-    classes: [`${blockName}__filter`, styleClass],
-    props: { name: defaultValue },
-  });
-  options.forEach((option) => {
-    const optionElement = createElement('option', {
-      props: { value: option },
-    });
-    optionElement.textContent = option;
-    selectEl.appendChild(optionElement);
-  });
-  filter.textContent = '';
-  filter.appendChild(selectEl);
-};
-
-const decorateFilters = (filters) => {
-  // 1st row
-  const filterElements = filters.querySelectorAll(':scope > ul > li');
-  const filterListEL = filterElements[0].parentElement;
-  filterListEL.classList.add(`${blockName}__filter-list`);
-  filters.classList.add(`${blockName}__main-filters`);
-
-  [...filterElements].forEach((filter) => {
-    const optionListEl = filter.querySelector(':scope > ul');
-    if (optionListEl) {
-      // decorate select
-      decorateSelect(filter);
-    } else {
-      // decorate input search
-      const inputSearchEl = createElement('input', {
-        classes: [`${blockName}__input-search`, CLASSES.filterItemClass],
-        props: { type: 'search', placeholder: filter.textContent },
-      });
-      filter.textContent = '';
-      filter.appendChild(inputSearchEl);
-    }
-  });
-};
-
-const decorateShowingText = (showingEl, allArticles) => {
-  const [showing, of, stories] = showingEl.textContent.split('$');
-  const boldedTextEl = createElement('strong');
-  const amountSpanEl = createElement('span');
-  boldedTextEl.textContent = `${showing}`;
-  amountSpanEl.textContent = `${defaultAmount}`;
-  boldedTextEl.appendChild(amountSpanEl);
-  showingEl.textContent = '';
-  showingEl.appendChild(boldedTextEl);
-  showingEl.innerHTML += `${of}${allArticles.length}${stories}`;
-};
-
-const decorateExtraFilters = (extraFilters, allArticles) => {
-  // 2nd row
-  const showingTextEl = extraFilters.querySelector(':scope > p');
-  const sortByTextEl = extraFilters.querySelector(':scope > p + p');
-  const sortByItemsEl = extraFilters.querySelector(':scope > ul');
-
-  if (![showingTextEl, sortByTextEl, sortByItemsEl].every(Boolean)) {
-    return;
-  }
-
-  extraFilters.classList.add(`${blockName}__extra-filters`);
-  showingTextEl.classList.add(`${blockName}__showing`);
-  sortByTextEl.classList.add(`${blockName}__sort-by`);
-
-  decorateShowingText(showingTextEl, allArticles);
-  decorateSelect(sortByItemsEl, { styleClass: `${blockName}__sort-by-items` });
-  sortByTextEl.appendChild(sortByItemsEl);
-};
-
-/* const createArticleItem = (article) => {
-  const itemContainerEl = createElement('div', {
-    classes: [`${blockName}__collage-item-container`],
-  });
-  const srcImage = `${window.location.origin}${article.image}`;
-  const picture = createOptimizedPicture(srcImage, article.title, true);
-  const collageItemFragment = document.createRange().createContextualFragment(`
-    <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
-      <div class="${blockName}__collage-item-content">
-        <div class="${blockName}__collage-item-category-title">${article.category}</div>
-        <div class="${blockName}__collage-item-title">
-          ${article.title.split('|')[0]}
-          <span class="icon icon-arrow-right"></span>
-        </div>
-      </div>
-      ${picture.outerHTML}
-    </a>
-  `);
-  picture.setAttribute('tabindex', 0);
-
-  itemContainerEl.appendChild(collageItemFragment);
-  return itemContainerEl;
-}; */
-
-const addArticlesToCollage = (allArticles, collageEl) => {
-  // eslint-disable-next-line no-plusplus
-  for (let i = currentAmount; i < currentAmount + defaultAmount; i++) {
-    const article = allArticles[i];
-    if (!article) {
-      break;
-    }
-    const collageItemContainerEl = createArticleItem(article);
-    collageEl.appendChild(collageItemContainerEl);
-  }
-};
-
-const decorateCollage = (allArticles, block) => {
-  // 3rd row
-  const collageWrapperEl = createElement('div', {
-    classes: [`${blockName}__collage-wrapper`],
-  });
-  const collageEl = createElement('div', {
-    classes: [`${blockName}__collage`],
-  });
-
-  addArticlesToCollage(allArticles, collageEl);
-  currentAmount = defaultAmount;
-  collageWrapperEl.appendChild(collageEl);
-  block.appendChild(collageWrapperEl);
-  decorateIcons(block);
-};
-
-const addShowMoreButton = (allArticles, block) => {
-  // 4th row
-  const buttonContainer = createElement('div', {
-    classes: [`${blockName}__show-more-container`],
-  });
-  const showMoreButton = createElement('button', {
-    classes: [`${blockName}__show-more-button`, 'button--secondary', 'button--large'],
-  });
-
-  showMoreButton.textContent = getTextLabel('Show More');
-  buttonContainer.appendChild(showMoreButton);
-  block.appendChild(buttonContainer);
-
-  showMoreButton.addEventListener('click', () => {
-    const collageEl = block.querySelector(`.${blockName}__collage`);
-    const amountEl = block.querySelector(`.${blockName}__showing strong span`);
-    addArticlesToCollage(allArticles, collageEl);
-
-    currentAmount += defaultAmount;
-    if (currentAmount >= allArticles.length) {
-      showMoreButton.remove();
-      currentAmount = allArticles.length;
-    }
-    amountEl.textContent = currentAmount;
-  });
-};
-
-// export default async function decorate(block) {
-// eslint-disable-next-line no-unused-vars
-async function oldDecorate(block) {
-  const allArticles = await getAllArticles();
-  const filtersRow1 = block.querySelector(':scope > div') || null;
-  const filtersRow2 = block.querySelector(':scope > div + div') || null;
-  const filters = filtersRow1 && filtersRow1.querySelector(':scope > div');
-  const extraFilters = filtersRow2 && filtersRow2.querySelector(':scope > div');
-
-  if (![filtersRow1, filters, filtersRow2, extraFilters].every(Boolean)) {
-    return;
-  }
-
-  block.parentElement.classList.add('full-width');
-  filtersRow1.classList.add(`${blockName}__filters`, `${blockName}__filters--row-1`);
-  filtersRow2.classList.add(`${blockName}__filters`, `${blockName}__filters--row-2`);
-  decorateFilters(filters); // 1st Row: search, category, topic, truck
-  decorateExtraFilters(extraFilters, allArticles); // 2nd Row: amount of items, sort by
-  decorateCollage(allArticles, block); // 3rd Row: collage
-  addShowMoreButton(allArticles, block); // 4th Row: show more button
-}
-
-// New code:
-
 const getData = async () => {
   const allArticles = await getAllArticles();
-  const data = {
-    articles: allArticles,
-    categories: [],
-    topics: [],
-    trucks: [],
+  // Preparing the data for every collage item
+  const collageItemsData = allArticles.map((article) => {
+    const {
+      title, image, path, category,
+    } = article;
+    const linkUrl = new URL(path, window.location.origin);
+    const picture = createOptimizedPicture(new URL(image, window.location.origin), title, true);
+    picture.setAttribute('tabindex', '0');
+    return {
+      title, picture, linkUrl, category,
+    };
+  });
+
+  // TODO: prepare the data to fill the categories, topics, and trucks filters
+
+  return {
+    articles: collageItemsData,
+    // categories: [],
+    // topics: [],
+    // trucks: [],
   };
-
-  // work on the data ( actegories, etc)
-
-  return data;
 };
 
-const createArticleItem = (article) => {
-  const srcImage = `${window.location.origin}${article.image}`;
-  const picture = createOptimizedPicture(srcImage, article.title, true);
+const buildFiltersTemplate = () => {
+  const filtersPlaceholderList = LABELS.FILTERS_PLACEHOLDERS.split(',');
+  return filtersPlaceholderList.reduce((accumulator, placeholder) => {
+    const filterFragment = `
+    <select class="${CLASSES.filterItem}" name="${placeholder}">
+      <option value="">${placeholder}</option>
+    </select>`;
+    return `${accumulator}${filterFragment}`;
+  }, '');
+};
+
+const buildFiltersExtraLine = (articlesAmount) => {
+  const sortPlaceholderList = LABELS.SORT_PLACEHOLDERS.split(',');
+  const showingText = LABELS.SHOWING_PLACEHOLDER.replace('$0', defaultAmount)
+    .replace('$1', articlesAmount);
+  return `
+    <div class="${blockName}__showing">
+      ${showingText}
+    </div>
+    <div class="${blockName}__sort-by">
+      <span>${LABELS.SORT_BY}</span>
+      <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
+        ${sortPlaceholderList.reduce((accumulator, placeholder) => `
+          ${accumulator}<option value="${placeholder.toLowerCase()}">${placeholder}</option>`, '')}
+      </select>
+    </div>
+  `;
+};
+
+const buildArticlesTemplate = (articles) => articles.reduce((accumulator, article) => {
   const collageItemFragment = `
-    <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
+    <a class="${blockName}__collage-item-link" href="${article.linkUrl.toString()}">
       <div class="${blockName}__collage-item-content">
         <div class="${blockName}__collage-item-category-title">${article.category}</div>
         <div class="${blockName}__collage-item-title">
@@ -221,38 +88,48 @@ const createArticleItem = (article) => {
           <span class="icon icon-arrow-right"></span>
         </div>
       </div>
-      ${picture.outerHTML}
+      ${article.picture.outerHTML}
     </a>
   `;
-  picture.setAttribute('tabindex', 0);
+  return `${accumulator}
+    <div class="${blockName}__collage-item-container">${collageItemFragment}</div>`;
+}, '');
 
-  return `<div class="${`${blockName}__collage-item-container`}">${collageItemFragment}</div>`;
-};
-
-const getArticlesTemplateBlock = (articles) => articles.reduce((accumulator, article) => `${accumulator}${createArticleItem(article)}`, '');
-
-const buildTemplate = (articles) => document.createRange().createContextualFragment(`<div>
-    <div class="v2-explore-articles__filters"></div>
-    <div class="v2-explore-articles__extra-line"></div>
-    <div class="${CLASSES.collageWrapper}">
-      ${getArticlesTemplateBlock(articles)}
+// TODO: add <span class="icon icon-search"></span> below the input
+const buildTemplate = (articles, articlesAmount) => docRange.createContextualFragment(`
+  <div class="v2-explore-articles__filters">
+    <input class="${CLASSES.filterItem}" type="search" placeholder="${LABELS.SEARCH}" />
+    ${buildFiltersTemplate()}
+  </div>
+  <div class="v2-explore-articles__extra-line">
+    ${buildFiltersExtraLine(articlesAmount)}
+  </div>
+  <div class="${CLASSES.collageWrapper}">
+    <div class="${CLASSES.collage}">
+      ${buildArticlesTemplate(articles)}
     </div>
-    <div class="v2-explore-articles__show-more-container">
-      <button class="${CLASSES.showMorebutton} button--secondary button--large">${LABELS.SHOW_MORE}</button>
-    </div>
-  </div>`);
+  </div>
+  <div class="${CLASSES.showMoreButtonWrapper}">
+    <button class="${CLASSES.showMoreButton} button--secondary button--large">
+      ${LABELS.SHOW_MORE}
+    </button>
+  </div>
+`);
 
 const addEventListeners = (block, articles) => {
-  const showMoreButtonElement = block.querySelector(`.${CLASSES.showMorebutton}`);
+  const showMoreButtonEl = block.querySelector(`.${CLASSES.showMoreButton}`);
 
-  showMoreButtonElement.addEventListener('click', () => {
+  showMoreButtonEl.addEventListener('click', () => {
     const collageEl = block.querySelector(`.${blockName}__collage`);
     const amountEl = block.querySelector(`.${blockName}__showing strong span`);
-    addArticlesToCollage(articles, collageEl);
+    const newArticles = articles.slice(currentAmount, currentAmount + defaultAmount);
+    const newArticlesTemplate = buildArticlesTemplate(newArticles);
+    const newArticlesFragment = docRange.createContextualFragment(newArticlesTemplate);
+    collageEl.appendChild(newArticlesFragment);
 
     currentAmount += defaultAmount;
     if (currentAmount >= articles.length) {
-      showMoreButtonElement.remove();
+      showMoreButtonEl.remove();
       currentAmount = articles.length;
     }
     amountEl.textContent = currentAmount;
@@ -261,14 +138,15 @@ const addEventListeners = (block, articles) => {
 
 export default async function decorate(block) {
   const {
-    articles,
-    // categories,
-    // topics,
-    // trucks,
+    articles, // TODO: categories, topics, trucks, are missing
   } = await getData();
-  const template = buildTemplate(articles);
+
+  const initialArticles = articles.slice(0, defaultAmount);
+  const template = buildTemplate(initialArticles, articles.length);
+  currentAmount += defaultAmount;
 
   block.appendChild(template);
+  decorateIcons(block);
 
   addEventListeners(block, articles);
 }
