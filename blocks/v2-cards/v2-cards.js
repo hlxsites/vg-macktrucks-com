@@ -10,7 +10,6 @@ export default async function decorate(block) {
     '4-cards-row',
     '2-cards-row',
     'spaced',
-    // 'with-arrow',
     'with-border',
   ];
   variantsClassesToBEM(block.classList, variantClasses, blockName);
