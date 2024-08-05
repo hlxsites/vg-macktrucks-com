@@ -2,12 +2,24 @@ import { createElement, decorateIcons, getTextLabel } from '../../scripts/common
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import { getAllArticles } from '../recent-articles/recent-articles.js';
 
+const LABELS = {
+  SHOW_MORE: getTextLabel('Show More'),
+};
+
 const blockName = 'v2-explore-articles';
-const filterItemClass = `${blockName}__filter-item`;
+const CLASSES = {
+  filterItemClass: `${blockName}__filter-item`,
+  collageWrapper: `${blockName}__collage-wrapper`,
+  showMorebutton: `${blockName}__show-more-button`,
+  showMorebuttonWrapper: `${blockName}__show-more-container`,
+};
+
 const defaultAmount = 9;
 let currentAmount = 0;
 
-const decorateSelect = (filter, { styleClass = filterItemClass } = {}) => {
+// INIT
+
+const decorateSelect = (filter, { styleClass = CLASSES.filterItemClass } = {}) => {
   const options = filter.innerText.split('\n').filter((item) => item.trim()).map((item) => item.trim());
   const defaultValue = options[0];
   const selectEl = createElement('select', {
@@ -40,7 +52,7 @@ const decorateFilters = (filters) => {
     } else {
       // decorate input search
       const inputSearchEl = createElement('input', {
-        classes: [`${blockName}__input-search`, filterItemClass],
+        classes: [`${blockName}__input-search`, CLASSES.filterItemClass],
         props: { type: 'search', placeholder: filter.textContent },
       });
       filter.textContent = '';
@@ -80,7 +92,7 @@ const decorateExtraFilters = (extraFilters, allArticles) => {
   sortByTextEl.appendChild(sortByItemsEl);
 };
 
-const createArticleItem = (article) => {
+/* const createArticleItem = (article) => {
   const itemContainerEl = createElement('div', {
     classes: [`${blockName}__collage-item-container`],
   });
@@ -102,7 +114,7 @@ const createArticleItem = (article) => {
 
   itemContainerEl.appendChild(collageItemFragment);
   return itemContainerEl;
-};
+}; */
 
 const addArticlesToCollage = (allArticles, collageEl) => {
   // eslint-disable-next-line no-plusplus
@@ -159,7 +171,9 @@ const addShowMoreButton = (allArticles, block) => {
   });
 };
 
-export default async function decorate(block) {
+// export default async function decorate(block) {
+// eslint-disable-next-line no-unused-vars
+async function oldDecorate(block) {
   const allArticles = await getAllArticles();
   const filtersRow1 = block.querySelector(':scope > div') || null;
   const filtersRow2 = block.querySelector(':scope > div + div') || null;
@@ -177,4 +191,84 @@ export default async function decorate(block) {
   decorateExtraFilters(extraFilters, allArticles); // 2nd Row: amount of items, sort by
   decorateCollage(allArticles, block); // 3rd Row: collage
   addShowMoreButton(allArticles, block); // 4th Row: show more button
+}
+
+// New code:
+
+const getData = async () => {
+  const allArticles = await getAllArticles();
+  const data = {
+    articles: allArticles,
+    categories: [],
+    topics: [],
+    trucks: [],
+  };
+
+  // work on the data ( actegories, etc)
+
+  return data;
+};
+
+const createArticleItem = (article) => {
+  const srcImage = `${window.location.origin}${article.image}`;
+  const picture = createOptimizedPicture(srcImage, article.title, true);
+  const collageItemFragment = `
+    <a class="${blockName}__collage-item-link" href="${window.location.origin}${article.path}">
+      <div class="${blockName}__collage-item-content">
+        <div class="${blockName}__collage-item-category-title">${article.category}</div>
+        <div class="${blockName}__collage-item-title">
+          ${article.title.split('|')[0]}
+          <span class="icon icon-arrow-right"></span>
+        </div>
+      </div>
+      ${picture.outerHTML}
+    </a>
+  `;
+  picture.setAttribute('tabindex', 0);
+
+  return `<div class="${`${blockName}__collage-item-container`}">${collageItemFragment}</div>`;
+};
+
+const getArticlesTemplateBlock = (articles) => articles.reduce((accumulator, article) => `${accumulator}${createArticleItem(article)}`, '');
+
+const buildTemplate = (articles) => document.createRange().createContextualFragment(`<div>
+    <div class="v2-explore-articles__filters"></div>
+    <div class="v2-explore-articles__extra-line"></div>
+    <div class="${CLASSES.collageWrapper}">
+      ${getArticlesTemplateBlock(articles)}
+    </div>
+    <div class="v2-explore-articles__show-more-container">
+      <button class="${CLASSES.showMorebutton} button--secondary button--large">${LABELS.SHOW_MORE}</button>
+    </div>
+  </div>`);
+
+const addEventListeners = (block, articles) => {
+  const showMoreButtonElement = block.querySelector(`.${CLASSES.showMorebutton}`);
+
+  showMoreButtonElement.addEventListener('click', () => {
+    const collageEl = block.querySelector(`.${blockName}__collage`);
+    const amountEl = block.querySelector(`.${blockName}__showing strong span`);
+    addArticlesToCollage(articles, collageEl);
+
+    currentAmount += defaultAmount;
+    if (currentAmount >= articles.length) {
+      showMoreButtonElement.remove();
+      currentAmount = articles.length;
+    }
+    amountEl.textContent = currentAmount;
+  });
+};
+
+export default async function decorate(block) {
+  const {
+    articles,
+    // categories,
+    // topics,
+    // trucks,
+  } = await getData();
+  const template = buildTemplate(articles);
+
+  block.appendChild(template);
+
+  addEventListeners(block, articles);
 }
