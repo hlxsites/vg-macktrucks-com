@@ -33,6 +33,7 @@ import {
   isVideoLink,
   addVideoShowHandler,
 } from './video-helper.js';
+import { validateCountries } from './validate-countries.js';
 
 const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
 const disableFooter = getMetadata('disable-footer').toLowerCase() === 'true';
@@ -773,6 +774,16 @@ moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
+  const allowedCountries = getMetadata('allowed-countries');
+  const isCountryAllowed = await validateCountries(allowedCountries);
+
+  // TODO replace for page in main directory
+  const errorPage = '/drafts/shomps/country-error';
+  const completeUrl = window.location.origin + errorPage;
+
+  // If user country is not in the allowed countries array it will redirect to the set url
+  if (!isCountryAllowed) window.location.replace(completeUrl);
+
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');
   main.innerHTML = '';
