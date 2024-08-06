@@ -77,16 +77,15 @@ const buildFiltersExtraLine = (articlesAmount) => {
     <div class="${CLASSES.showing}">
       ${showingText}
     </div>
-    <div class="${CLASSES.sortBy}">
-      <span>${LABELS.SORT_BY}</span>
-      
-    </div>
   `;
-  // TODO: add the sort filter below the span SORT_BY
-  // <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
-  //   ${sortPlaceholderList.reduce((accumulator, placeholder) => `
-  //     ${accumulator}<option value="${placeholder.toLowerCase()}">${placeholder}</option>`, '')}
-  //  </select>
+  // TODO: add the sort filter below the showing div element
+  // <div class="${CLASSES.sortBy}">
+  //   <span>${LABELS.SORT_BY}</span>
+  //   <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
+  //     ${sortPlaceholderList.reduce((accumulator, placeholder) => `
+  //       ${accumulator}<option value="${placeholder.toLowerCase()}">${placeholder}</option>`, '')}
+  //   </select>
+  // </div>
 };
 
 const buildArticlesTemplate = (articles) => articles.reduce((accumulator, article) => {
