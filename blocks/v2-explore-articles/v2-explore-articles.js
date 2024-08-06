@@ -70,7 +70,7 @@ const buildFiltersTemplate = () => {
 };
 
 const buildFiltersExtraLine = (articlesAmount) => {
-  const sortPlaceholderList = LABELS.SORT_PLACEHOLDERS.split(',');
+  // const sortPlaceholderList = LABELS.SORT_PLACEHOLDERS.split(',');
   const showingText = LABELS.SHOWING_PLACEHOLDER.replace('$0', defaultAmount)
     .replace('$1', articlesAmount);
   return `
@@ -79,12 +79,14 @@ const buildFiltersExtraLine = (articlesAmount) => {
     </div>
     <div class="${CLASSES.sortBy}">
       <span>${LABELS.SORT_BY}</span>
-      <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
-        ${sortPlaceholderList.reduce((accumulator, placeholder) => `
-          ${accumulator}<option value="${placeholder.toLowerCase()}">${placeholder}</option>`, '')}
-      </select>
+      
     </div>
   `;
+  // TODO: add the sort filter below the span SORT_BY
+  // <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
+  //   ${sortPlaceholderList.reduce((accumulator, placeholder) => `
+  //     ${accumulator}<option value="${placeholder.toLowerCase()}">${placeholder}</option>`, '')}
+  //  </select>
 };
 
 const buildArticlesTemplate = (articles) => articles.reduce((accumulator, article) => {
