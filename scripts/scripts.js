@@ -775,14 +775,7 @@ moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
   const allowedCountries = getMetadata('allowed-countries');
-  const isCountryAllowed = await validateCountries(allowedCountries);
-
-  // TODO replace for page in main directory
-  const errorPage = '/drafts/shomps/country-error';
-  const completeUrl = window.location.origin + errorPage;
-
-  // If user country is not in the allowed countries array it will redirect to the set url
-  if (!isCountryAllowed) window.location.replace(completeUrl);
+  validateCountries(allowedCountries);
 
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');

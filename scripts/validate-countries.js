@@ -15,7 +15,6 @@ export const getUserCountryName = async (lat, lng) => {
 };
 
 export const validateCountries = async (countries = []) => {
-  let isAllowed;
   const allowedCountries = splitString(countries);
 
   const locationSuccess = async (position) => {
@@ -23,15 +22,19 @@ export const validateCountries = async (countries = []) => {
     const response = await getUserCountryName(latitude, longitude);
     const country = (splitString(response).reverse())[0];
 
-    if (allowedCountries.includes(country)) isAllowed = true;
+    // Check if country is included in the list that comes from the metadata
+    if (!allowedCountries.includes(country)) {
+      // TODO replace for page in main directory
+      const errorPage = '/drafts/shomps/country-error';
+      const completeUrl = window.location.origin + errorPage;
+
+      // If user country is not in the allowed countries array it will redirect to the set url
+      window.location.replace(completeUrl);
+    }
   };
   const locationError = (error) => {
     // eslint-disable-next-line no-console
     console.error('Error:', error);
-    isAllowed = false;
   };
-
   navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
-
-  return isAllowed;
 };
