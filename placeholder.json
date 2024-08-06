@@ -258,10 +258,6 @@
     {
       "Key": "All Products",
       "Text": "All Products"
-    },
-    {
-      "Key": "loading",
-      "Text": "Loading..."
     }
   ],
   ":type": "sheet"
