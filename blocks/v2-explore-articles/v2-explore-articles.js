@@ -13,9 +13,18 @@ const LABELS = {
 
 const blockName = 'v2-explore-articles';
 const CLASSES = {
+  filters: `${blockName}__filters`,
+  extraLine: `${blockName}__extra-line`,
   filterItem: `${blockName}__filter-item`,
+  showing: `${blockName}__showing`,
+  sortBy: `${blockName}__sort-by`,
   collageWrapper: `${blockName}__collage-wrapper`,
   collage: `${blockName}__collage`,
+  collageItemContainer: `${blockName}__collage-item-container`,
+  collageItemLink: `${blockName}__collage-item-link`,
+  collageItemContent: `${blockName}__collage-item-content`,
+  collageItemCategoryTitle: `${blockName}__collage-item-category-title`,
+  collageItemTitle: `${blockName}__collage-item-title`,
   showMoreButton: `${blockName}__show-more-button`,
   showMoreButtonWrapper: `${blockName}__show-more-container`,
 };
@@ -65,10 +74,10 @@ const buildFiltersExtraLine = (articlesAmount) => {
   const showingText = LABELS.SHOWING_PLACEHOLDER.replace('$0', defaultAmount)
     .replace('$1', articlesAmount);
   return `
-    <div class="${blockName}__showing">
+    <div class="${CLASSES.showing}">
       ${showingText}
     </div>
-    <div class="${blockName}__sort-by">
+    <div class="${CLASSES.sortBy}">
       <span>${LABELS.SORT_BY}</span>
       <select class="${CLASSES.filterItem}" name="${LABELS.SORT_BY}">
         ${sortPlaceholderList.reduce((accumulator, placeholder) => `
@@ -80,10 +89,10 @@ const buildFiltersExtraLine = (articlesAmount) => {
 
 const buildArticlesTemplate = (articles) => articles.reduce((accumulator, article) => {
   const collageItemFragment = `
-    <a class="${blockName}__collage-item-link" href="${article.linkUrl.toString()}">
-      <div class="${blockName}__collage-item-content">
-        <div class="${blockName}__collage-item-category-title">${article.category}</div>
-        <div class="${blockName}__collage-item-title">
+    <a class="${CLASSES.collageItemLink}" href="${article.linkUrl.toString()}">
+      <div class="${CLASSES.collageItemContent}">
+        <div class="${CLASSES.collageItemCategoryTitle}">${article.category}</div>
+        <div class="${CLASSES.collageItemTitle}">
           ${article.title.split('|')[0]}
           <span class="icon icon-arrow-right"></span>
         </div>
@@ -92,16 +101,16 @@ const buildArticlesTemplate = (articles) => articles.reduce((accumulator, articl
     </a>
   `;
   return `${accumulator}
-    <div class="${blockName}__collage-item-container">${collageItemFragment}</div>`;
+    <div class="${CLASSES.collageItemContainer}">${collageItemFragment}</div>`;
 }, '');
 
 // TODO: add <span class="icon icon-search"></span> below the input
 const buildTemplate = (articles, articlesAmount) => docRange.createContextualFragment(`
-  <div class="v2-explore-articles__filters">
+  <div class="${CLASSES.filters}">
     <input class="${CLASSES.filterItem}" type="search" placeholder="${LABELS.SEARCH}" />
     ${buildFiltersTemplate()}
   </div>
-  <div class="v2-explore-articles__extra-line">
+  <div class="${CLASSES.extraLine}">
     ${buildFiltersExtraLine(articlesAmount)}
   </div>
   <div class="${CLASSES.collageWrapper}">
@@ -120,8 +129,8 @@ const addEventListeners = (block, articles) => {
   const showMoreButtonEl = block.querySelector(`.${CLASSES.showMoreButton}`);
 
   showMoreButtonEl.addEventListener('click', () => {
-    const collageEl = block.querySelector(`.${blockName}__collage`);
-    const amountEl = block.querySelector(`.${blockName}__showing strong span`);
+    const collageEl = block.querySelector(`.${CLASSES.collage}`);
+    const amountEl = block.querySelector(`.${CLASSES.showing} strong span`);
     const newArticles = articles.slice(currentAmount, currentAmount + defaultAmount);
     const newArticlesTemplate = buildArticlesTemplate(newArticles);
     const newArticlesFragment = docRange.createContextualFragment(newArticlesTemplate);
