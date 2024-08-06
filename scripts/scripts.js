@@ -775,7 +775,8 @@ moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
   const allowedCountries = getMetadata('allowed-countries');
-  validateCountries(allowedCountries);
+  const errorPageUrl = getMetadata('redirect-url');
+  if (allowedCountries && errorPageUrl) validateCountries(allowedCountries, errorPageUrl);
 
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');

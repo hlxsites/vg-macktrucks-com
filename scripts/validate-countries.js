@@ -1,4 +1,3 @@
-// TODO this 2 values could come from constants file
 const apiKey = 'AIzaSyAP8IewqHuU8SMz_6tNiIUlbU_l0GFOd1w';
 const languageCode = 'en';
 
@@ -14,7 +13,7 @@ export const getUserCountryName = async (lat, lng) => {
   return locationString;
 };
 
-export const validateCountries = async (countries = []) => {
+export const validateCountries = async (countries, url) => {
   const allowedCountries = splitString(countries);
 
   const locationSuccess = async (position) => {
@@ -24,11 +23,7 @@ export const validateCountries = async (countries = []) => {
 
     // Check if country is included in the list that comes from the metadata
     if (!allowedCountries.includes(country)) {
-      // TODO replace for page in main directory
-      const errorPage = '/drafts/shomps/country-error';
-      const completeUrl = window.location.origin + errorPage;
-
-      // If user country is not in the allowed countries array it will redirect to the set url
+      const completeUrl = window.location.origin + url;
       window.location.replace(completeUrl);
     }
   };
