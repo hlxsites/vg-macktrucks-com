@@ -1,3 +1,22 @@
+/* filters */
+.v2-explore-articles__extra-line {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 40px;
+  max-width: var(--wrapper-width);
+  font-size: var(--body-font-size-xs);
+}
+
+.v2-explore-articles__extra-line strong {
+  font-family: var(--ff-body-bold);
+}
+
+@media (min-width: 1200px) {
+  .v2-explore-articles__extra-line {
+    justify-content: space-between;
+  }
+}
+
 /* collage grid & Show more button */
 .v2-explore-articles__collage-wrapper {
   --background-color: var(--media-background);

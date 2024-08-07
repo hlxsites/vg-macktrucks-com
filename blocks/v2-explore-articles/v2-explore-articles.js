@@ -58,18 +58,20 @@ const getData = async () => {
   };
 };
 
-const buildFiltersTemplate = () => {
-  const filtersPlaceholderList = LABELS.FILTERS_PLACEHOLDERS.split(',');
-  return filtersPlaceholderList.reduce((accumulator, placeholder) => {
-    const filterFragment = `
-    <select class="${CLASSES.filterItem}" name="${placeholder}">
-      <option value="">${placeholder}</option>
-    </select>`;
-    return `${accumulator}${filterFragment}`;
-  }, '');
-};
+// TODO: to be restored to enable the filters
+// const buildFiltersTemplate = () => {
+//   const filtersPlaceholderList = LABELS.FILTERS_PLACEHOLDERS.split(',');
+//   return filtersPlaceholderList.reduce((accumulator, placeholder) => {
+//     const filterFragment = `
+//     <select class="${CLASSES.filterItem}" name="${placeholder}">
+//       <option value="">${placeholder}</option>
+//     </select>`;
+//     return `${accumulator}${filterFragment}`;
+//   }, '');
+// };
 
 const buildFiltersExtraLine = (articlesAmount) => {
+  // TODO: to be restored to enable the sort filter
   // const sortPlaceholderList = LABELS.SORT_PLACEHOLDERS.split(',');
   const showingText = LABELS.SHOWING_PLACEHOLDER.replace('$0', defaultAmount)
     .replace('$1', articlesAmount);
@@ -105,11 +107,16 @@ const buildArticlesTemplate = (articles) => articles.reduce((accumulator, articl
     <div class="${CLASSES.collageItemContainer}">${collageItemFragment}</div>`;
 }, '');
 
-// TODO: add <span class="icon icon-search"></span> below the input
-const buildTemplate = (articles, articlesAmount) => docRange.createContextualFragment(`
+// TODO: replace the filters div with the following code
+/*
   <div class="${CLASSES.filters}">
     <input class="${CLASSES.filterItem}" type="search" placeholder="${LABELS.SEARCH}" />
+    <span class="icon icon-search"></span>
     ${buildFiltersTemplate()}
+  </div>
+*/
+const buildTemplate = (articles, articlesAmount) => docRange.createContextualFragment(`
+  <div class="${CLASSES.filters}">
   </div>
   <div class="${CLASSES.extraLine}">
     ${buildFiltersExtraLine(articlesAmount)}
@@ -150,13 +157,14 @@ export default async function decorate(block) {
   const {
     articles, // TODO: categories, topics, trucks, are missing
   } = await getData();
-
+  const blockWrapper = block.closest(`.${blockName}-wrapper`);
   const initialArticles = articles.slice(0, defaultAmount);
   const template = buildTemplate(initialArticles, articles.length);
+
   currentAmount += defaultAmount;
+  blockWrapper.classList.add('full-width');
 
   block.appendChild(template);
   decorateIcons(block);
-
   addEventListeners(block, articles);
 }
