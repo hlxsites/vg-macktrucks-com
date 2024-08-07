@@ -35,6 +35,25 @@ let currentAmount = 0;
 
 const getData = async () => {
   const allArticles = await getAllArticles();
+  // sort data by date from newest to oldest
+  allArticles.sort((a, b) => {
+    const aPath = a.path.split('/');
+    const bPath = b.path.split('/');
+    const aYear = aPath[3];
+    const aMonth = aPath[4];
+    const bYear = bPath[3];
+    const bMonth = bPath[4];
+
+    const aDate = new Date(`${aYear}-${aMonth}`);
+    const bDate = new Date(`${bYear}-${bMonth}`);
+
+    if (aDate.getTime() === bDate.getTime()) {
+      return b.lastModified - a.lastModified;
+    }
+
+    return bDate - aDate;
+  });
+
   // Preparing the data for every collage item
   const collageItemsData = allArticles.map((article) => {
     const {
