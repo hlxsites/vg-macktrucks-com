@@ -150,6 +150,7 @@ const addEventListeners = (block, articles) => {
       currentAmount = articles.length;
     }
     amountEl.textContent = currentAmount;
+    decorateIcons(block);
   });
 };
 
