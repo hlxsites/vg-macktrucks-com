@@ -21,6 +21,7 @@
 .v2-explore-articles__collage-wrapper {
   --background-color: var(--media-background);
   --text-color: var(--c-primary-white);
+  --body-font-size-xxs: 0.75rem;
 }
 
 .v2-explore-articles__collage {
