@@ -103,12 +103,9 @@ indices:
       description:
         select: head > meta[property="og:description"]
         value: attribute(el, "content")
-      category:
-        select: head > meta[name="category"]
-        value: attribute(el, "content")
-      truck:
-        select: head > meta[name="truck"]
-        value: attribute(el, "content")
+      tags:
+        select: head > meta[property="article:tag"]
+        values: attribute(el, "content")
       author:
         select: head > meta[name="author"]
         value: attribute(el, "content")
