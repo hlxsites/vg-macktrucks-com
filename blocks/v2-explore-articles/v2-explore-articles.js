@@ -147,7 +147,7 @@ const buildTemplate = (articles, articlesAmount) => docRange.createContextualFra
     </div>
   </div>
   <div class="${CLASSES.showMoreButtonWrapper}">
-    <button class="${CLASSES.showMoreButton} button--secondary button--large">
+    <button class="${CLASSES.showMoreButton} button button--secondary button--large">
       ${LABELS.SHOW_MORE}
     </button>
   </div>

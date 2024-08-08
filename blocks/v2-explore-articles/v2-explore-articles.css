@@ -94,11 +94,6 @@
   text-align: center;
 }
 
-.v2-explore-articles__show-more-container button {
-  border-radius: 2px;
-  width: calc(100% - 32px);
-}
-
 @media (min-width: 744px) {
   .v2-explore-articles__collage {
     max-width: 1440px;
@@ -138,9 +133,5 @@
     grid-column: span 3;
     grid-row: span 2;
     aspect-ratio: 4 / 3;
-  }
-
-  .v2-explore-articles__show-more-container button {
-    width: fit-content;
   }
 }
