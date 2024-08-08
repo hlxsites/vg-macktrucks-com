@@ -1,4 +1,4 @@
-import { TOOLS_CONFIGS } from './common.js';
+import { TOOLS_CONFIGS, getJsonFromUrl } from './common.js';
 
 const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
 const languageCode = 'en';
@@ -8,9 +8,8 @@ export const splitString = (str) => str.split(',').map((item) => item.trim());
 export const getUserCountryName = async (lat, lng) => {
   const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=${languageCode}&key=${GOOGLE_API_KEY}`;
 
-  const response = await fetch(apiUrl);
-  const locationObj = await response.json();
-  const locationString = locationObj.plus_code.compound_code;
+  const response = await getJsonFromUrl(apiUrl);
+  const locationString = response?.plus_code.compound_code;
 
   return locationString;
 };
@@ -31,7 +30,7 @@ export const validateCountries = async (countries, url) => {
     const response = await getUserCountryName(latitude, longitude);
     const country = (splitString(response).reverse())[0];
 
-    checkForRedirect(allowedCountries, country, url);
+    if (country) checkForRedirect(allowedCountries, country, url);
   };
   const locationError = (error) => {
     // eslint-disable-next-line no-console
