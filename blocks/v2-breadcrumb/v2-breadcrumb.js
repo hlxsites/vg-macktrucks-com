@@ -1,4 +1,4 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 import { createElement, getTextLabel } from '../../scripts/common.js';
 
 const blockName = 'v2-breadcrumb';
