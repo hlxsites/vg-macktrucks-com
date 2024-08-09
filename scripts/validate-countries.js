@@ -28,7 +28,7 @@ export const validateCountries = async (countries, url) => {
   const locationSuccess = async (position) => {
     const { latitude, longitude } = position.coords;
     const response = await getUserCountryName(latitude, longitude);
-    const country = (splitString(response).reverse())[0];
+    const country = response && (splitString(response).reverse())[0];
 
     if (country) checkForRedirect(allowedCountries, country, url);
   };
