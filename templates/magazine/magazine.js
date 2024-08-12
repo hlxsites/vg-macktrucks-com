@@ -4,15 +4,16 @@ import {
 } from '../../scripts/lib-franklin.js';
 import {
   createElement,
+  getJsonFromUrl,
 } from '../../scripts/common.js';
 
-async function buildArticleHero() {
+async function buildArticleHero({ truckTags, categoryTag } = {}) {
   const title = getMetadata('og:title');
   const headPic = getMetadata('og:image');
   const headAlt = getMetadata('og:image:alt');
 
-  const truckModel = getMetadata('truck');
-  const category = getMetadata('category');
+  const truckModel = truckTags || getMetadata('truck');
+  const category = categoryTag || getMetadata('category');
 
   const section = createElement('div', { classes: ['section', 'template', 'article-template', 'article-hero-container'] });
 
@@ -88,7 +89,30 @@ async function buildShareSection() {
   return shareSection;
 }
 
+function getValuesfromObjectsArray(array = []) {
+  if (array.length === 0) return [];
+  return array.map((item) => Object.values(item)[0]);
+}
+
+function getMetadataFromTags(tags, articleTags) {
+  if (!tags || !articleTags) {
+    return '';
+  }
+
+  const matchingTags = [...articleTags]
+    .filter((tag) => tags.includes(tag.content))
+    .map((tag) => tag.content);
+  return matchingTags && matchingTags?.length > 0 ? matchingTags.join(', ') : '';
+}
+
 export default async function decorate(doc) {
+  const articleTags = doc.head.querySelectorAll('meta[property="article:tag"]') || [];
+  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
+  const categories = tagItems && getValuesfromObjectsArray(tagItems.categories.data);
+  const trucks = tagItems && getValuesfromObjectsArray(tagItems.trucks.data);
+  const categoryTag = (categories && getMetadataFromTags(categories, articleTags)) || '';
+  const truckTags = (trucks && getMetadataFromTags(trucks, articleTags)) || '';
+
   const container = doc.querySelector('main');
 
   const article = createElement('div', { classes: 'article-content' });
@@ -104,7 +128,7 @@ export default async function decorate(doc) {
     recommendationsSection,
   ] = await Promise.all([
     buildSection(container, 'breadcrumb'),
-    buildArticleHero(),
+    buildArticleHero({ truckTags, categoryTag }),
     buildShareSection(),
     buildShareSection(),
     buildSection(container, 'recent-articles'),
