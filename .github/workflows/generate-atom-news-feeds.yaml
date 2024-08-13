@@ -23,6 +23,7 @@ jobs:
         # must be created from: https://github.com/settings/tokens
         # The token is then stored in the secrets of the this.
         # see https://github.com/hlxsites/vg-macktrucks-com/settings/secrets/actions
+        # more info: https://stackoverflow.com/a/72515781/79461
         token: ${{ secrets.BOT_ACCESS_TOKEN }}
     - name: Configure git
       run: |
