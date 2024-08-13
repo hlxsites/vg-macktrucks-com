@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-08-12T00:00:00.000Z</updated>
+    <updated>2024-08-13T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2967,5 +2967,13 @@
         <updated>2024-08-12T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Aug. 12, 2024) – Mack Trucks today announced a significant refresh of its Mack® MD Series diesel and electric medium-duty trucks, featuring a larger cab that improves the driver environment and incorporates new safety features.]]></content>
         <published>2024-08-12T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks and Kriete Truck Centers Deliver Mack® MD Electric to ABC Supply Co., Inc.]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-trucks-and-kriete-truck-centers-deliver-mack-md-electric-to-abc-supply-co-inc</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-trucks-and-kriete-truck-centers-deliver-mack-md-electric-to-abc-supply-co-inc"/>
+        <updated>2024-08-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Aug. 13, 2024) – Mack Trucks and Kriete Truck Centers, a leading commercial truck and equipment dealer with 10 locations across Wisconsin, recently delivered a Mack® MD Electric vehicle – the first to operate in the state – to ABC Supply Co., Inc.]]></content>
+        <published>2024-08-13T00:00:00.000Z</published>
     </entry>
 </feed>
