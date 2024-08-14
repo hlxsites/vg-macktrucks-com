@@ -90,7 +90,7 @@ async function buildShareSection() {
 }
 
 function getValuesfromObjectsArray(array = []) {
-  if (array.length === 0) return [];
+  if (!Array.isArray(array) || array.length === 0) return [];
   return array.map((item) => Object.values(item)[0]);
 }
 
@@ -107,9 +107,11 @@ function getMetadataFromTags(tags, articleTags) {
 
 export default async function decorate(doc) {
   const articleTags = doc.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
-  const categories = tagItems && getValuesfromObjectsArray(tagItems.categories.data);
-  const trucks = tagItems && getValuesfromObjectsArray(tagItems.trucks.data);
+  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json') || null;
+  const categories = tagItems && tagItems.categories
+    && getValuesfromObjectsArray(tagItems.categories.data);
+  const trucks = tagItems && tagItems.trucks
+    && getValuesfromObjectsArray(tagItems.trucks.data);
   const categoryTag = (categories && getMetadataFromTags(categories, articleTags)) || '';
   const truckTags = (trucks && getMetadataFromTags(trucks, articleTags)) || '';
 
