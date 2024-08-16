@@ -370,10 +370,6 @@ a.header__link {
   display: none;
 }
 
-.header sup {
-  font-size: 0.6em;
-}
-
 @media (min-width: 744px) {
   .header {
     padding: 0 clamp(32px, 2.8vw, 40px);
