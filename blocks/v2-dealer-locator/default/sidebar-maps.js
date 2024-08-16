@@ -897,9 +897,9 @@ $.fn.renderPinDetails = async function (markerId) {
   templateClone.find('#share-link').val(window.location.href.split('?')[0] + '?view=' + markerDetails.IDENTIFIER_VALUE);
 
   if (markerDetails.REG_PHONE_NUMBER) {
-    templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/phone.svg" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
   } else {
-    templateClone.find('.detail-call').html('<a>' + '<img src="/blocks/dealer-locator/images/phone.svg" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a>' + '<img src="/blocks/dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
     templateClone.find('.detail-call a').css({'pointer-events':'none','cursor':'default','opacity':'0.5'});
   }
 
@@ -913,11 +913,12 @@ $.fn.renderPinDetails = async function (markerId) {
 
   if (myDealer == markerDetails.IDENTIFIER_VALUE) {
     //  templateClone.find('#set-dealer span').text('Preferred Dealer');
-    templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/star-2.svg" />');
+    templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/Vector-3.svg" />');
     templateClone.find('#head-marker').attr('src', $viewingPin.icon);
-  } else {
+  }
+  else {
     // templateClone.find('#set-dealer span').text('Set As Your Dealer');
-    templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/star.svg" />');
+    templateClone.find('#set-dealer').html('<img src="/blocks/dealer-locator/images/Star-1.svg" />');
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
