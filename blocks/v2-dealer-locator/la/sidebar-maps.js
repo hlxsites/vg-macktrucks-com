@@ -778,7 +778,7 @@ $.fn.renderPinDetails = function (markerId) {
     templateClone.find('#website .controls').css('display', 'none');
   }
   if (markerDetails.EMAIL_ADDRESS) {
-    templateClone.find('#email').html('<a href="mailto:' + markerDetails.EMAIL_ADDRESS.toLowerCase() + '">' + '<img src="/blocks/dealer-locator/images/Mail.svg" />' + markerDetails.EMAIL_ADDRESS.toLowerCase() + '</a>');
+    templateClone.find('#email').html('<a href="mailto:' + markerDetails.EMAIL_ADDRESS.toLowerCase() + '">' + markerDetails.EMAIL_ADDRESS.toLowerCase() + '</a>');
 
   }
   templateClone.find('.detail-website a').attr('href', $.fn.formatWebAddress(markerDetails.WEB_ADDRESS));

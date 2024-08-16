@@ -26,6 +26,7 @@ export default async function decorate(block) {
     selectedBrand: 'mack',
     dataSource: datasource,
     apiKey: GOOGLE_API_KEY,
+    country: 'Chile',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
 
@@ -246,11 +247,10 @@ export default async function decorate(block) {
 
             </div>
             <div class="detail-share">
-
-                <a id="share" class="accordion">
-                    <img src="/blocks/dealer-locator/images/Share.svg"/>
-                    SHARE
-                </a>
+                <button type="button" class="accordion">
+                  <img src="/blocks/dealer-locator/images/Share.svg"/>
+                  <span>SHARE</span>
+                </button>
                 <div class="accordion-panel">
                     <input type="text" id="share-link" value="" onclick="this.select();"/>
                 </div>
@@ -274,7 +274,7 @@ export default async function decorate(block) {
                         <br/>
                         <div id="address2">
                             <div></div>
-                            </div>
+                        </div>
                         <br/>
                         <div id="city-state-zip">
                             <div></div>
@@ -297,7 +297,7 @@ export default async function decorate(block) {
                         </div>
                     </li>
                     <li>
-                        <img src="/blocks/dealer-locator/images/Mail.svg"/>
+                        <img src="/blocks/dealer-locator/images/mail.svg"/>
                         <div id="email" ></div>
                     </li>
 
@@ -371,12 +371,12 @@ export default async function decorate(block) {
 <div id="sidebar-filter" style="display: none;">
     <div class="row" style="padding-top: 25px;">
         <div class="panel-card result-item">
-            <div class="panel-container">
+            <div class="panel-container panel-filter-distance">
                 <span class="header-title">Filter By Distance</span>
                 <ul>
                     <li>
                         <div>
-                            <input name=range-filter class=range-filter type=range id=range value=75 list=steplist
+                            <input name=range-filter class=range-filter type=range id=range value=100 list=steplist
                                    max=100 min=25 step=25 onchange="$.fn.radiusChange();"/>
                             <datalist id=steplist class=sliderticks>
                                 <option>25</option>
@@ -406,7 +406,6 @@ export default async function decorate(block) {
                             <span class="checkmark"></span>
                         </label>
                     </li>
-
                 </ul>
             </div>
         </div>
