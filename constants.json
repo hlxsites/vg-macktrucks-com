@@ -56,11 +56,11 @@
       },
       {
         "name": "v1AllowedBlocks",
-        "value": "[\"v2-embed\"]"
+        "value": "[\"v2-embed\",\"v2-forms\"]"
       },
       {
         "name": "v2AllowedBlocks",
-        "value": "[\"embed\",\"footer\",\"fragment\",\"header\",\"iframe\",\"modal\"]"
+        "value": "[\"embed\",\"footer\",\"fragment\",\"header\",\"iframe\",\"modal\",\"library-metadata\"]"
       }
     ]
   },
