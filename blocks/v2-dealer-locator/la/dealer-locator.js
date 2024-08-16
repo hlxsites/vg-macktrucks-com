@@ -1,4 +1,4 @@
-import { loadScript } from '../../scripts/lib-franklin.js';
+import { loadScript } from '../../../scripts/lib-franklin.js';
 
 function escapeHTML(input) {
   return input.replace(/&/g, '&amp;')
