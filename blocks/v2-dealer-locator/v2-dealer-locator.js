@@ -1,4 +1,7 @@
 import { loadScript } from '../../scripts/lib-franklin.js';
+import { TOOLS_CONFIGS } from '../../scripts/common.js';
+
+const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
 
 function escapeHTML(input) {
   return input.replace(/&/g, '&amp;')
@@ -22,6 +25,7 @@ export default async function decorate(block) {
     consolidateFilters: true,
     selectedBrand: 'mack',
     dataSource: datasource,
+    apiKey: GOOGLE_API_KEY,
     country: 'Chile',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
@@ -244,8 +248,10 @@ export default async function decorate(block) {
             </div>
             <div class="detail-share">
 
-                <button type="button" class="accordion"><img
-                        src="/blocks/dealer-locator/images/Share.svg"/><span>SHARE</span></button>
+                <button type="button" class="accordion">
+                  <img src="/blocks/dealer-locator/images/Share.svg"/>
+                  <span>SHARE</span>
+                </button>
                 <div class="accordion-panel">
                     <input type="text" id="share-link" value="" onclick="this.select();"/>
                 </div>
@@ -269,7 +275,8 @@ export default async function decorate(block) {
                         <br/>
                         <div id="address2">
                             <div></div>
-                        </div>
+                            </div>
+                        <br/>
                         <div id="city-state-zip">
                             <div></div>
                         </div>
@@ -290,9 +297,9 @@ export default async function decorate(block) {
                                     class="tooltiptext link">Open website</span></i>
                         </div>
                     </li>
-                    <li id="email">
-
-                        <div></div>
+                    <li>
+                        <img src="/blocks/dealer-locator/images/Mail.svg"/>
+                        <div id="email" ></div>
                     </li>
 
 
@@ -312,7 +319,7 @@ export default async function decorate(block) {
     <div class="panel-card">
         <div class="panel-container">
             <article class="teaser">
-                <div class="marker-main" style="width: 15%;">
+                <div class="marker-main">
                     <img id="marker" src=""/>
                 </div>
                 <div class="dealerPanelContainer">
@@ -370,7 +377,7 @@ export default async function decorate(block) {
                 <ul>
                     <li>
                         <div>
-                            <input name=range-filter class=range-filter type=range id=range value=100 list=steplist
+                            <input name=range-filter class=range-filter type=range id=range value=75 list=steplist
                                    max=100 min=25 step=25 onchange="$.fn.radiusChange();"/>
                             <datalist id=steplist class=sliderticks>
                                 <option>25</option>
