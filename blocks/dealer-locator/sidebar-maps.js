@@ -92,6 +92,7 @@ var uptimeClicked = false;
 $electricDealer = false;
 $hoverText = $('#hoverText').val();
 $country = window.locatorConfig.country;
+var isLocationOFF = false;
 
 // Google callback letting us know maps is ready to be used
 (function () {
@@ -103,7 +104,7 @@ $country = window.locatorConfig.country;
         lat: defaultCenterCoords.lat,
         lng: defaultCenterCoords.lng
       },
-      zoom: 8,
+      zoom: 4,
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: false,
@@ -1386,7 +1387,7 @@ $.fn.deleteCookie = function (name) {
   document.cookie = name + '=; Max-Age=-99999999;';
 }
 
-$.fn.sortedPins = function () {
+$.fn.sortedPins = function (isLocationOff = false) {
   $pinLength = $pins.length;
 
   for (var i = 0; i < $pinLength; i++) {
@@ -1399,7 +1400,9 @@ $.fn.sortedPins = function () {
   $sortedPins = $pins;
 
   $sortedPins.sort(function (a, b) {
-    return parseFloat(a.distance) - parseFloat(b.distance);
+    return isLocationOff
+      ? a.COMPANY_DBA_NAME.localeCompare(b.COMPANY_DBA_NAME)
+      : parseFloat(a.distance) - parseFloat(b.distance);
   });
 
   $sortedPins.filter(function (i) {
@@ -1566,9 +1569,6 @@ $.fn.tmpPins = function (tmpPinList) {
     $("<div/>", {
       'html': templateClone,
       'click': function () {
-        // look into a child element with class teaser-top and get the data-id attribute
-        var id = $(this).find('.teaser-top').attr('data-id');
-        $.fn.switchSidebarPane('sidebar-pin', id);
       },
       'mouseenter': function () {
 
@@ -1680,7 +1680,7 @@ $.fn.filterNearbyPins = function () {
 
   // First get the full details of our locations
   var tmpPinList = [];
-  var sorted = $.fn.sortedPins();
+  var sorted = $.fn.sortedPins(isLocationOFF);
 
   $nearbyPins.forEach(function (pin) {
     tmpPinList.push($.grep(sorted, function (v, i) {
@@ -1689,7 +1689,9 @@ $.fn.filterNearbyPins = function () {
   });
 
   tmpPinList.sort(function (a, b) {
-    return parseFloat(a.distance) - parseFloat(b.distance);
+    return isLocationOFF
+    ? a.COMPANY_DBA_NAME.localeCompare(b.COMPANY_DBA_NAME)
+    : parseFloat(a.distance) - parseFloat(b.distance);
   });
   $("#filterUptime,#filterElectricDealer,#filterDealer").css("cursor", "pointer");
   $('.no-dealer-text').hide();
@@ -2401,10 +2403,11 @@ $.fn.setAddress = function () {
 };
 
 // Handles geolocation
-$.fn.setLocation = function () {
+$.fn.setLocation = function (e) {
   if (navigator.geolocation) {
 
     navigator.geolocation.getCurrentPosition(function (position) {
+
       var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -2645,6 +2648,10 @@ $.fn.handleLocationError = function (browserHasGeolocation, infoWindow, pos) {
   if (!browserHasGeolocation) {
     alert('Error: Your browser doesn\'t support geolocation.');
   } else {
+    console.log('%cError:%c The Geolocation service failed. Check your browser if Geolocation is enabled.'
+      , 'color: white; font-weight: bold; background-color: red', 'color: default; font-weight: normal;');
+    // sort pins Alphabetically by Brand Name if Geolocation is disabled
+    isLocationOFF = true;
     $('.loading-overlay').css('display', 'none');
     $('.waiting-overlay').css('display', 'block');
   }
