@@ -1,12 +1,17 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import {
-  createElement, removeEmptyTags, getTextLabel, debounce,
+  createElement,
+  removeEmptyTags,
+  getTextLabel,
+  debounce,
   decorateIcons,
+  variantsClassesToBEM,
 } from '../../scripts/common.js';
 import { getAllElWithChildren } from '../../scripts/scripts.js';
 import { showModal } from '../../common/modal/modal-component.js';
 
-const blockClassName = 'v2-images-grid';
+const blockName = 'v2-images-grid';
+const variantClasses = ['with-captions'];
 
 const scrollLeft = (el, leftPadding, behavior = 'smooth') => {
   el.scrollTo({
@@ -16,7 +21,7 @@ const scrollLeft = (el, leftPadding, behavior = 'smooth') => {
 };
 
 const udpateArrowsState = (activeSlideIndex, itemsCount) => {
-  const arrowButtons = [...document.querySelectorAll(`.${blockClassName}__modal-arrows-wrapper button`)];
+  const arrowButtons = [...document.querySelectorAll(`.${blockName}__modal-arrows-wrapper button`)];
 
   if (!arrowButtons.length) {
     return;
@@ -46,8 +51,8 @@ const setActiveSlide = (activeSlideIndex, carouselItemsList, carouselImagesList,
 };
 
 const createModalContent = (content) => {
-  const carouselItemsList = createElement('ul', { classes: `${blockClassName}__carousel-items-list` });
-  const carouselImagesList = createElement('ul', { classes: `${blockClassName}__carousel-preview-list` });
+  const carouselItemsList = createElement('ul', { classes: `${blockName}__carousel-items-list` });
+  const carouselImagesList = createElement('ul', { classes: `${blockName}__carousel-preview-list` });
 
   let isScrolling = false;
   let stopScrolling;
@@ -74,7 +79,7 @@ const createModalContent = (content) => {
 
     // adding image to carousel preview
     const carouselImage = createOptimizedPicture(image.src, image.alt, false, [{ width: '80' }]);
-    const carousePreviewlItem = createElement('li', { classes: `${blockClassName}__carousel-preview-item` });
+    const carousePreviewlItem = createElement('li', { classes: `${blockName}__carousel-preview-item` });
     const buttonWithImage = createElement('button');
 
     buttonWithImage.addEventListener('click', () => {
@@ -90,7 +95,7 @@ const createModalContent = (content) => {
     // creating item content
     const itemImage = createOptimizedPicture(image.src, image.alt, false);
     const [, caption, description] = el.querySelectorAll('p');
-    const carouselItem = createElement('li', { classes: `${blockClassName}__carousel-item` });
+    const carouselItem = createElement('li', { classes: `${blockName}__carousel-item` });
 
     carouselItem.append(itemImage, description || caption);
     carouselItemsList.append(carouselItem);
@@ -108,20 +113,20 @@ const createModalContent = (content) => {
 
       debouncedOnItemChange(index);
 
-      udpateArrowsState(index, carouselItemsList.children.length, el.closest(`${blockClassName}__carousel-items-wrapper`));
+      udpateArrowsState(index, carouselItemsList.children.length, el.closest(`${blockName}__carousel-items-wrapper`));
     }, options);
 
     observer.observe(carouselItem);
   });
 
-  const itemsWrapper = createElement('div', { classes: `${blockClassName}__carousel-items-wrapper` });
-  const wrapper = createElement('div', { classes: `${blockClassName}__modal-content` });
+  const itemsWrapper = createElement('div', { classes: `${blockName}__carousel-items-wrapper` });
+  const wrapper = createElement('div', { classes: `${blockName}__modal-content` });
 
-  itemsWrapper.innerHTML = `<div class="${blockClassName}__modal-arrows-wrapper">
-    <button class="${blockClassName}__modal-arrow" aria-label="${getTextLabel('Previous')}">
+  itemsWrapper.innerHTML = `<div class="${blockName}__modal-arrows-wrapper">
+    <button class="${blockName}__modal-arrow" aria-label="${getTextLabel('Previous')}">
       <span class="icon icon-arrow-left" />
     </button>
-    <button class="${blockClassName}__modal-arrow" aria-label="${getTextLabel('Next')}">
+    <button class="${blockName}__modal-arrow" aria-label="${getTextLabel('Next')}">
       <span class="icon icon-arrow-right" />
     </button>
   </div>`;
@@ -150,20 +155,27 @@ const showImagesGridModal = async (modalContent) => {
 };
 
 export default function decorate(block) {
+  variantsClassesToBEM(block.classList, variantClasses, blockName);
+  const isCaptionsVariant = block.classList.contains(`${blockName}--with-captions`);
+
   // all items are inside a ul list with classname called 'v2-images-grid__items'
-  const ul = createElement('ul', { classes: `${blockClassName}__items` });
+  const ul = createElement('ul', { classes: `${blockName}__items` });
   [...block.querySelectorAll(':scope > div > div')].forEach((cell) => {
     // If cell contain any element, we add them in the ul
     if (cell.childElementCount) {
-      const li = createElement('li', { classes: [`${blockClassName}__item`] });
+      const li = createElement('li', { classes: `${blockName}__item` });
       li.append(...cell.childNodes);
       ul.append(li);
     }
     cell.remove();
   });
+  if (isCaptionsVariant) {
+    const amountOfItems = ul.querySelectorAll('li').length;
+    ul.classList.add(`${blockName}__${amountOfItems}-items`);
+  }
   block.append(ul);
 
-  const modalContent = createModalContent(ul);
+  const modalContent = !isCaptionsVariant && createModalContent(ul);
 
   // give format to the first 4 list items
   [...ul.children].forEach((li, idx) => {
@@ -174,46 +186,48 @@ export default function decorate(block) {
       if (picture) {
         const img = picture.lastElementChild;
         // no width provided because we are using object-fit, we need the biggest option
-        const newPicture = createOptimizedPicture(img.src, captionEle.textContent, false);
+        const newPicture = createOptimizedPicture(img.src, captionEle?.textContent, false);
         picture.replaceWith(newPicture);
         picture = newPicture;
-        picture.classList.add(`${blockClassName}__picture`);
+        picture.classList.add(`${blockName}__picture`);
         // use figcaption for text
-        const figCaption = createElement('figcaption', { classes: `${blockClassName}__figcaption` });
-        figCaption.textContent = captionEle.textContent;
+        const figCaption = createElement('figcaption', { classes: `${blockName}__figcaption` });
+        figCaption.textContent = captionEle?.textContent;
         picture.append(figCaption);
       }
 
       li.innerHTML = '';
-
       li.append(picture);
 
-      li.addEventListener('click', async () => {
-        const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
-        const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
+      if (!isCaptionsVariant) {
+        li.addEventListener('click', async () => {
+          const carouselItemsList = modalContent.querySelector(`.${blockName}__carousel-items-list`);
+          const carouselImagesList = modalContent.querySelector(`.${blockName}__carousel-preview-list`);
 
-        await showImagesGridModal(modalContent);
-        setActiveSlide(idx, carouselItemsList, carouselImagesList, modalContent, 'instant');
-      });
-
+          await showImagesGridModal(modalContent);
+          setActiveSlide(idx, carouselItemsList, carouselImagesList, modalContent, 'instant');
+        });
+      }
       return;
     }
     li.remove();
   });
 
-  const button = createElement('a', {
-    classes: ['button', 'button--large', 'button--primary'],
-  });
-  button.textContent = getTextLabel('Open Gallery');
-  button.addEventListener('click', async () => {
-    const carouselItemsList = modalContent.querySelector(`.${blockClassName}__carousel-items-list`);
-    const carouselImagesList = modalContent.querySelector(`.${blockClassName}__carousel-preview-list`);
+  if (!isCaptionsVariant) {
+    const button = createElement('a', {
+      classes: ['button', 'button--large', 'button--primary'],
+    });
+    button.textContent = getTextLabel('Open Gallery');
+    button.addEventListener('click', async () => {
+      const carouselItemsList = modalContent.querySelector(`.${blockName}__carousel-items-list`);
+      const carouselImagesList = modalContent.querySelector(`.${blockName}__carousel-preview-list`);
 
-    await showImagesGridModal(modalContent);
-    setActiveSlide(0, carouselItemsList, carouselImagesList, modalContent);
-  });
+      await showImagesGridModal(modalContent);
+      setActiveSlide(0, carouselItemsList, carouselImagesList, modalContent);
+    });
 
-  block.append(button);
+    block.append(button);
+  }
 
   // remove empty tags
   removeEmptyTags(block);

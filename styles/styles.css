@@ -87,6 +87,7 @@
   /* Error */
   --c-error: #f66;
   --c-error-inverted: #099;
+  --c-success: #1a6c31;
 
   /* Font family */
 
@@ -97,6 +98,7 @@
 
   /* Headlines */
   --ff-headline-medium: "GT America Extended Medium", var(--fallback-ff-headlines);
+  --ff-headline-compressed: "GT America Compressed Regular", var(--fallback-ff-headlines);
   --ff-subheadings-medium: "Helvetica Neue LT Pro 65 Medium", var(--fallback-ff-texts);
 
   /* Body */
@@ -131,9 +133,6 @@
   /* Helvetica Neue LT Pro, 65 Medium, 18px, 140%  */
   --headline-5-font-size: 1.8rem; /* 18px */
   --headline-5-line-height: 140%;
-
-  /* Superscript font size */
-  --superscript-font-size: 0.750rem; /* 12px */
 
   /* Wrapper for generic components */
   --wrapper-width: 1040px;
@@ -191,6 +190,35 @@
   --nav-height-m: 60px;
   --nav-height-l: 80px;
   --nav-height: var(--nav-height-m);
+  --breadcrumb-height: 56px;
+
+  /* Motions */
+  --duration-small: 160ms;
+  --duration-medium: 240ms;
+  --duration-large: 320ms;
+  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
+  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
+  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -678,9 +706,12 @@ main .section.magazine-listing-content h3 {
   margin: 0 0 13px;
 }
 
-main sup {
-  font-size: clamp(var(--body-font-size-s), 12px, 1em);
-  padding-left: 3px;
+sup {
+  font-size: clamp(8px, 0.337em, 24px);
+  padding-left: 1px;
+  position: relative; 
+  top: -0.75em;
+  vertical-align: top;
 }
 
 @media (min-width: 768px) {
@@ -893,16 +924,8 @@ main .section.responsive-title h1 {
   --testimonial-line-height: 120%;
   --testimonial-letter-spacing: -0.0225rem;
 
-  /* Motions */
-  --duration-small: 160ms;
-  --duration-medium: 240ms;
-  --duration-large: 320ms;
-  --easing-entrance: cubic-bezier(0, 0, 0.4, 1);
-  --easing-exit: cubic-bezier(0.2, 0, 1, 1);
-  --easing-standard: cubic-bezier(0.2, 0, 0.1, 1);
-
   /* In page navigation */
-  --inpage-navigation-height: 0px;
+  --inpage-navigation-height: 0;
 
   /* Buttons */
   --button-primary-color: var(--c-primary-black);
@@ -1114,7 +1137,50 @@ main .section.responsive-title h1 {
   border-color: var(--button-secondary-border-active);
 }
 
+/* Play/pause buttons */
+.v2-video__playback-button {
+  --playback-button-size: 80px;
+
+  border: 0;
+  color: var(--c-primary-black);
+  cursor: pointer;
+  height: var(--playback-button-size);
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--playback-button-size);
+  z-index: 1;
+}
+
+.v2-video__playback-button:focus {
+  outline: 0;
+}
+
+.v2-video__playback-button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.v2-video__playback-button .icon-play-video,
+.v2-video__playback-button .icon-pause-video {
+  display: none;
+  justify-content: center;
+}
+
+.v2-video__playback-button .icon {
+  align-items: center;
+  height: 100%;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.v2-video__playback-button .icon svg {
+  height: var(--playback-button-size);
+  width: var(--playback-button-size);
+}
+
 /* Section Background colors */
+.redesign-v2 .section--primary-gray-background,
 .redesign-v2 .section--black-background,
 .redesign-v2 .section--graphite-background,
 .redesign-v2 .section--gray-background,
@@ -1133,7 +1199,11 @@ main .section.responsive-title h1 {
   --navigation-line-default-color: #393939;
   --text-color: var(--c-primary-white);
   --color-icon: var(--c-primary-white);
-  --text-subtle: #8D8D8D;
+  --text-subtle: #8d8d8d;
+}
+
+.redesign-v2 .section--primary-gray-background {
+  --section-background: var(--c-primary-gray);
 }
 
 .redesign-v2 .section--black-background {
@@ -1221,7 +1291,9 @@ main .section.responsive-title h1 {
 }
 
 .redesign-v2 .section--no-gap,
-.redesign-v2 .v2-icon-cards-container {
+.redesign-v2 .v2-icon-cards-container,
+.v2-breadcrumb-container.v2-hero-container,
+.redesign-v2 .v2-icon-cards-container:not(.section--with-background) {
   gap: 0;
 }
 
@@ -1437,6 +1509,28 @@ main .section.responsive-title h1 {
 /* CLS OPTIMIZATION */
 .v2-hero {
   height: calc(100vh - var(--nav-height));
+}
+
+.v2-sub-navigation-container + .v2-hero-container .v2-hero {
+  height: calc(100vh - var(--nav-height) - var(--v2-sub-navigation-height));
+}
+
+.v2-breadcrumb-container.v2-hero-container .v2-hero:not(.v2-hero--no-image) {
+  height: calc(100vh - (var(--nav-height) + var(--breadcrumb-height)));
+}
+
+@supports (height: 1svh) {
+  .v2-hero {
+    height: calc(100svh - var(--nav-height));
+  }
+
+  .v2-sub-navigation-container + .v2-hero-container .v2-hero {
+    height: calc(100svh - var(--nav-height) - var(--v2-sub-navigation-height));
+  }
+
+  .v2-breadcrumb-container.v2-hero-container .v2-hero:not(.v2-hero--no-image) {
+    height: calc(100svh - (var(--nav-height) + var(--breadcrumb-height)));
+  }
 }
 
 .v2-inpage-navigation {

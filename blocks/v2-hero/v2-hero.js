@@ -2,20 +2,45 @@ import {
   getImageURLs,
   createResponsivePicture,
   variantsClassesToBEM,
+  decorateIcons,
 } from '../../scripts/common.js';
+import {
+  isVideoLink,
+  createVideo,
+} from '../../scripts/video-helper.js';
 
-const variantClasses = ['dark', 'light', 'half-height'];
+const variantClasses = ['dark', 'light', 'half-height', 'magazine'];
 const blockName = 'v2-hero';
+
+const addLineBreaksToWords = (element) => {
+  element.innerHTML = element.textContent
+    .split(' ')
+    .map((word) => `<span>${word}</span>`)
+    .join(' ');
+};
 
 export default async function decorate(block) {
   variantsClassesToBEM(block.classList, variantClasses, blockName);
   const blockContainer = block.parentElement.parentElement;
   const isPdp = blockContainer.dataset.page === 'pdp';
   const isHalfHeight = block.classList.contains(`${blockName}--half-height`);
+  const isMagazine = block.classList.contains(`${blockName}--magazine`);
 
   const images = [...block.querySelectorAll('p > picture')];
   const imageURLs = getImageURLs(images);
   const imageData = imageURLs.map((src) => ({ src, breakpoints: [] }));
+
+  const link = block.querySelector('a');
+  const isVideo = link ? isVideoLink(link) : false;
+  if (isVideo) {
+    createVideo(block, link.getAttribute('href'), `${blockName}__video`, {
+      muted: true,
+      autoplay: true,
+      loop: true,
+      playsinline: true,
+    });
+    link.remove();
+  }
 
   if (imageData.length === 1) {
     imageData[0].breakpoints = [
@@ -46,7 +71,7 @@ export default async function decorate(block) {
 
   if (images.length !== 0) {
     block.prepend(newPicture);
-  } else {
+  } else if (!isVideo) {
     block.classList.add(`${blockName}--no-image`);
   }
 
@@ -59,9 +84,17 @@ export default async function decorate(block) {
   const headings = [...content.querySelectorAll('h1, h2, h3, h4, h5, h6')];
   headings.forEach((h) => h.classList.add(`${blockName}__heading`));
 
-  if (!isPdp) {
+  if (!isPdp && !isMagazine) {
     const firstHeading = headings[0];
-    firstHeading.classList.add('with-marker');
+    firstHeading?.classList.add('with-marker');
+  }
+
+  if (isMagazine) {
+    const heading = content.querySelector(`.${blockName}__heading`);
+
+    if (heading) {
+      addLineBreaksToWords(heading);
+    }
   }
 
   const button = content.querySelector('a');
@@ -80,4 +113,5 @@ export default async function decorate(block) {
   });
 
   block.parentElement.classList.add('full-width');
+  decorateIcons(block);
 }

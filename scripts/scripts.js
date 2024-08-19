@@ -24,6 +24,7 @@ import {
   decorateIcons,
   formatStringToArray,
   getPlaceholders,
+  TRUCK_CONFIGURATOR_URLS,
   loadDelayed,
   loadTemplate,
   slugify,
@@ -33,6 +34,7 @@ import {
   isVideoLink,
   addVideoShowHandler,
 } from './video-helper.js';
+import { validateCountries } from './validate-countries.js';
 
 const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
 const disableFooter = getMetadata('disable-footer').toLowerCase() === 'true';
@@ -119,19 +121,7 @@ const getButtonClass = (up, twoUp) => {
     if (upTag === 'EM' && twoUpTag === 'P') return 'button button--secondary';
   }
 
-  if (
-    upTag === 'LI'
-    && twoUp.children.length === 1
-    && up.firstElementChild
-    && up.firstElementChild.tagName === 'STRONG'
-  ) {
-    return 'arrowed';
-  }
-
-  if (
-    (upTag === 'STRONG' || upTag === 'EM')
-    && (twoUpTag === 'STRONG' || twoUpTag === 'EM')
-  ) {
+  if ((upTag === 'STRONG' || upTag === 'EM') && (twoUpTag === 'STRONG' || twoUpTag === 'EM')) {
     return 'button button--red';
   }
 
@@ -155,20 +145,46 @@ const addClassToContainer = (element) => {
 const handleLinkDecoration = (link) => {
   const up = link.parentElement;
   const twoUp = up.parentElement;
+  const threeUp = twoUp.parentElement;
 
-  if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
-  if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
+  if (getMetadata('style') === 'redesign-v2') {
+    if (['STRONG', 'EM'].includes(up.tagName)) reparentChildren(up);
+    if (['STRONG', 'EM'].includes(twoUp.tagName)) reparentChildren(twoUp);
 
-  const buttonClass = getButtonClass(up, twoUp);
-  if (buttonClass) link.className = `${buttonClass}`;
+    const buttonClass = getButtonClass(up, twoUp);
+    if (buttonClass) link.className = `${buttonClass}`;
 
-  if (buttonClass === 'arrowed') {
-    const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
-    link.appendChild(arrow);
+    addClassToContainer(up);
+    addClassToContainer(twoUp);
+    addClassToContainer(threeUp);
+  } else {
+    // TODO: remove v1 button decoration logic when v2 is fully used
+    if (up.tagName === 'P' || up.tagName === 'DIV') {
+      link.className = 'button button--primary'; // default
+      up.className = 'button-container';
+    }
+    if (up.tagName === 'STRONG' && twoUp.childNodes.length === 1 && twoUp.tagName === 'P') {
+      link.className = 'button button--primary';
+      twoUp.className = 'button-container';
+    }
+    if (up.tagName === 'EM' && twoUp.childNodes.length === 1 && twoUp.tagName === 'P') {
+      link.className = 'button button--secondary';
+      twoUp.className = 'button-container';
+    }
+    if (up.tagName === 'STRONG' && twoUp.childNodes.length === 1 && twoUp.tagName === 'LI') {
+      const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
+      link.className = 'button arrowed';
+      twoUp.parentElement.className = 'button-container';
+      link.appendChild(arrow);
+    }
+    if (up.tagName === 'LI' && twoUp.children.length === 1
+      && link.children.length > 0 && link.firstElementChild.tagName === 'STRONG') {
+      const arrow = createElement('span', { classes: ['fa', 'fa-arrow-right'] });
+      link.className = 'button arrowed';
+      twoUp.className = 'button-container';
+      link.appendChild(arrow);
+    }
   }
-
-  addClassToContainer(up);
-  addClassToContainer(twoUp);
 };
 
 /**
@@ -178,7 +194,7 @@ const handleLinkDecoration = (link) => {
  */
 const shouldDecorateLink = (link) => {
   link.title = link.title || link.textContent;
-  return link.href !== link.textContent && !link.querySelector('img');
+  return link.href !== link.textContent && !link.querySelector('img') && link.parentElement.childNodes.length === 1;
 };
 
 /**
@@ -257,6 +273,25 @@ function buildSubNavigation(main, head) {
 }
 
 /**
+ * Builds and inserts a v2-sub-navigation block as the first child of the element preceding
+ * the main element if the v2-sub-navigation meta tag is present and its content starts with a '/'.
+ *
+ * @param {HTMLElement} main - The main element, used to find the preceding sibling element where
+ * the block will be inserted.
+ * @param {HTMLElement} head - The head element where the meta tag is located.
+ */
+const buildV2SubNavigation = (main, head) => {
+  const v2SubNavigation = head.querySelector('meta[name="v2-sub-navigation"]');
+  if (v2SubNavigation && v2SubNavigation.content.startsWith('/')) {
+    const block = buildBlock('v2-sub-navigation', []);
+    const v2SubNavigationContainer = createElement('div');
+    v2SubNavigationContainer.append(block);
+    decorateBlock(v2SubNavigationContainer);
+    main.prepend(v2SubNavigationContainer);
+  }
+};
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -265,6 +300,7 @@ function buildAutoBlocks(main, head) {
     buildHeroBlock(main);
     if (head) {
       buildSubNavigation(main, head);
+      buildV2SubNavigation(main, head);
     }
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -309,6 +345,7 @@ export function decorateLinks(block) {
 function decorateSectionBackgrounds(main) {
   const variantClasses = [
     'light-gray-background',
+    'primary-gray-background',
     'gray-background',
     'graphite-background',
     'black-background',
@@ -715,31 +752,25 @@ moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
-  const config = getMetadata('truck-configurator');
+  const allowedCountries = getMetadata('allowed-countries');
+  const errorPageUrl = getMetadata('redirect-url');
+  if (allowedCountries && errorPageUrl) validateCountries(allowedCountries, errorPageUrl);
+
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');
   main.innerHTML = '';
   main.append(container);
 
-  fetch(`${config}?sheet=urls`)
-    .then((response) => response.json())
-    .then((data) => {
-      const urls = data.data[0];
-      const jsUrls = formatStringToArray(urls.js);
-      const cssUrls = formatStringToArray(urls.css);
+  const jsUrls = formatStringToArray(TRUCK_CONFIGURATOR_URLS.JS);
+  const cssUrls = formatStringToArray(TRUCK_CONFIGURATOR_URLS.CSS);
 
-      jsUrls.forEach((url) => {
-        loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
-      });
+  jsUrls.forEach((url) => {
+    loadScript(url, { type: 'text/javascript', charset: 'UTF-8', defer: 'defer' });
+  });
 
-      cssUrls.forEach((url) => {
-        loadCSS(url);
-      });
-    })
-    .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error('[truck-configurator]: Failed to load configurator data:', error);
-    });
+  cssUrls.forEach((url) => {
+    loadCSS(url);
+  });
 
   window.addEventListener('reactRouterChange', (e) => {
     const newLocation = e.detail;

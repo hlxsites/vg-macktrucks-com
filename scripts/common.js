@@ -304,7 +304,16 @@ export const slugify = (text) => (
 
 async function getConstantValues() {
   const url = '/constants.json';
-  const constants = await fetch(url).then((resp) => resp.json());
+  let constants;
+  try {
+    const response = await fetch(url).then((resp) => resp.json());
+    if (!response.ok) {
+      constants = response;
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error with constants file', error);
+  }
   return constants;
 }
 
@@ -325,10 +334,10 @@ export const extractObjectFromArray = (data) => {
   return obj;
 };
 
-const formatValues = (values) => {
+export const formatValues = (values) => {
   const obj = {};
   /* eslint-disable-next-line */
-  values.forEach(({ name, value }) => obj[name] = value);
+  if (values) values.forEach(({ name, value }) => obj[name] = value);
   return obj;
 };
 
@@ -337,15 +346,17 @@ const {
   cookieValues,
   magazineConfig,
   headerConfig,
-  truckConfigurator,
+  tools,
+  truckConfiguratorUrls,
 } = await getConstantValues();
 
 // This data comes from the sharepoint 'constants.xlsx' file
-export const SEARCH_URLS = formatValues(searchUrls.data);
-export const COOKIE_CONFIGS = formatValues(cookieValues.data);
-export const MAGAZINE_CONFIGS = formatValues(magazineConfig.data);
-export const HEADER_CONFIGS = formatValues(headerConfig.data);
-export const TRUCK_CONFIGURATOR = formatValues(truckConfigurator.data);
+export const SEARCH_URLS = formatValues(searchUrls?.data);
+export const COOKIE_CONFIGS = formatValues(cookieValues?.data);
+export const MAGAZINE_CONFIGS = formatValues(magazineConfig?.data);
+export const HEADER_CONFIGS = formatValues(headerConfig?.data);
+export const TOOLS_CONFIGS = formatValues(tools?.data);
+export const TRUCK_CONFIGURATOR_URLS = formatValues(truckConfiguratorUrls?.data);
 
 /**
  * Check if one trust group is checked.
@@ -566,4 +577,32 @@ export const deepMerge = (originalTarget, source) => {
     }
   });
   return target;
+};
+
+/**
+ * Clear/removes all of the attributes of an element by reference
+ * @param {HTMLElement} element - Element to clear attributes from
+ * @returns {HTMLElement} The created picture element
+ *
+ * USAGE:
+ * Clean by reference:
+ *
+ * clearElementAttributes(element);
+ * // Then do things on the clean element...
+ *
+ * OR, leverage the return of the element and do chaining operations:
+ *
+ * removeAllAttributes(element).classList.add('SOME-CLASS-NAME');
+ *
+ */
+export const clearElementAttributes = (element) => {
+  // Get all attributes of the element
+  const attributes = Array.from(element.attributes);
+
+  // Loop through the attributes and remove them
+  attributes.forEach((attr) => {
+    element.removeAttribute(attr.name);
+  });
+
+  return element;
 };
