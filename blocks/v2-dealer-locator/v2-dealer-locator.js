@@ -39,7 +39,12 @@ export default async function decorate(block) {
   loadScript('/blocks/v2-dealer-locator/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
     .then(() => {
       // these scripts depend on jquery:
-      loadScript('/blocks/v2-dealer-locator/default/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+      if (window.locatorConfig.vervion === 'la') {
+        loadScript('/blocks/v2-dealer-locator/la/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+      } else {
+        loadScript('/blocks/v2-dealer-locator/default/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+      }
+
       loadScript('/blocks/v2-dealer-locator/default/my-dealer.js', { type: 'text/javascript', charset: 'UTF-8' });
     });
 
