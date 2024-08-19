@@ -1,8 +1,6 @@
 import { loadScript, loadCSS } from '../../scripts/lib-franklin.js';
 import { TOOLS_CONFIGS } from '../../scripts/common.js';
-
-import { default as laTemplate } from './la/template.js'; // eslint-disable-line import/no-named-default
-import { default as defaultTemplate } from './default/template.js'; // eslint-disable-line import/no-named-default
+import template from './shared/template.js';
 
 const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
 
@@ -34,15 +32,14 @@ export default async function decorate(block) {
     country: 'Chile',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
-  let template = defaultTemplate({ zipCode, isMobile });
+  const isLAMarket = window.locatorConfig.vervion === 'la';
+  const sharedTemplate = template({ zipCode, isMobile, isLAMarket });
 
   if (window.locatorConfig.vervion === 'la') {
     loadCSS('/blocks/v2-dealer-locator/la/dealer-locator.css');
-
-    template = laTemplate({ zipCode, isMobile });
   }
 
-  block.innerHTML = template;
+  block.innerHTML = sharedTemplate;
 
   loadScript('/blocks/v2-dealer-locator/shared/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
     .then(() => {
