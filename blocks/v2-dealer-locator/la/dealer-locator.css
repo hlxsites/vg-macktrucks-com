@@ -2415,15 +2415,15 @@ main .section.dealer-locator-container>div {
 
   .sidebar .mobile-electric-dealer img {
     width: 16px;
-    height: 22px;
+    height: 22px
   }
 
   .sidebar .main-header {
-    display: none !important;
+    display: none !important
   }
 
   .sidebar .panel-header input {
-    min-width: 123%;
+    min-width: 123%
   }
 
   .sidebar .main-directions .panel-header {
@@ -2476,15 +2476,9 @@ footer {
   width: 45.389%
 }
 
-
-
 .desktop-header {
   display: none
 }
-
-
-
-
 
 .tooltip {
   position: absolute;
