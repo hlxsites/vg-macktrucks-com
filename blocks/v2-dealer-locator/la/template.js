@@ -1,48 +1,7 @@
-import { loadScript } from '../../../scripts/lib-franklin.js';
-import { TOOLS_CONFIGS } from '../../../scripts/common.js';
-
-const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
-
-function escapeHTML(input) {
-  return input.replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-export default async function decorate(block) {
-  const searchParams = new URLSearchParams(window.location.search);
-  const hasZipLocation = searchParams.has('l');
-  const MQ = window.matchMedia('(max-width: 992px)');
-  const isMobile = MQ.matches;
-  // add the zip code to the input search, if it is present
-  const zipCode = hasZipLocation ? escapeHTML(searchParams.get('l')) : null;
-  const datasource = block.textContent.trim();
-  window.locatorConfig = {
-    asist: false,
-    showAsistDialog: true,
-    consolidateFilters: true,
-    selectedBrand: 'mack',
-    dataSource: datasource,
-    apiKey: GOOGLE_API_KEY,
-    country: 'Chile',
-    amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
-  };
-
-  loadScript('/blocks/dealer-locator/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
-    .then(() => {
-      // these scripts depend on jquery:
-      loadScript('/blocks/dealer-locator/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
-      loadScript('/blocks/dealer-locator/my-dealer.js', { type: 'text/javascript', charset: 'UTF-8' });
-    });
-
-  loadScript('/blocks/dealer-locator/vendor/moment.js', { type: 'text/javascript', charset: 'UTF-8' })
-    .then(() => {
-      loadScript('/blocks/dealer-locator/vendor/moment-timezone.min.js', { type: 'text/javascript', charset: 'UTF-8' });
-    });
-
-  block.innerHTML = `<input id="hoverText" value="Please unselect the selected option to click this option" hidden/>
+const template = ({
+  zipCode,
+  isMobile,
+}) => `<input id="hoverText" value="Please unselect the selected option to click this option" hidden/>
 <!-- PartsASIST Datasource Selection -->
 <div class="datasource-option" style="display:none;">
     <div class="backdrop"></div>
@@ -298,7 +257,7 @@ export default async function decorate(block) {
                         </div>
                     </li>
                     <li>
-                        <img src="/blocks/dealer-locator/images/Mail.svg"/>
+                        <img src="/blocks/dealer-locator/images/mail.svg"/>
                         <div id="email" ></div>
                     </li>
 
@@ -534,4 +493,5 @@ export default async function decorate(block) {
 </script>
 
 </div> `;
-}
+
+export default template;
