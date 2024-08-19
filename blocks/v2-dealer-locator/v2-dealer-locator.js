@@ -1,4 +1,4 @@
-import { loadScript } from '../../scripts/lib-franklin.js';
+import { loadScript, loadCSS } from '../../scripts/lib-franklin.js';
 import { TOOLS_CONFIGS } from '../../scripts/common.js';
 
 const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
@@ -26,15 +26,23 @@ export default async function decorate(block) {
     selectedBrand: 'mack',
     dataSource: datasource,
     apiKey: GOOGLE_API_KEY,
+    // These need to come from a config:
+    vervion: 'Chile', // 'default' or 'latinamerica'
     country: 'Chile',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
 
-  loadScript('/blocks/dealer-locator/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
+  if (window.locatorConfig.vervion === 'la') {
+    loadCSS('/blocks/v2-dealer-locator/la/dealer-locator.css');
+  } else {
+    loadCSS('/blocks/v2-dealer-locator/default/dealer-locator.css');
+  }
+
+  loadScript('/blocks/v2-dealer-locator/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
     .then(() => {
       // these scripts depend on jquery:
-      loadScript('/blocks/dealer-locator/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
-      loadScript('/blocks/dealer-locator/my-dealer.js', { type: 'text/javascript', charset: 'UTF-8' });
+      loadScript('/blocks/v2-dealer-locator/default/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+      loadScript('/blocks/v2-dealer-locator/default/my-dealer.js', { type: 'text/javascript', charset: 'UTF-8' });
     });
 
   loadScript('/blocks/dealer-locator/vendor/moment.js', { type: 'text/javascript', charset: 'UTF-8' })
