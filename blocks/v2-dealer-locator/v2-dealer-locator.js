@@ -56,8 +56,8 @@ export default async function decorate(block) {
       loadComponentScript('/blocks/v2-dealer-locator/default/my-dealer.js');
     });
 
-  loadComponentScript('/blocks/dealer-locator/shared/vendor/moment.js')
+  loadComponentScript('/blocks/v2-dealer-locator/shared/vendor/moment.js')
     .then(() => {
-      loadComponentScript('/blocks/dealer-locator/shared/vendor/moment-timezone.min.js');
+      loadComponentScript('/blocks/v2-dealer-locator/shared/vendor/moment-timezone.min.js');
     });
 }
