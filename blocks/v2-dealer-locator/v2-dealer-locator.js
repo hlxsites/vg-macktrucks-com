@@ -27,15 +27,13 @@ export default async function decorate(block) {
     dataSource: datasource,
     apiKey: GOOGLE_API_KEY,
     // These need to come from a config:
-    vervion: 'Chile', // 'default' or 'latinamerica'
+    vervion: 'latinamerica', // 'default' or 'latinamerica'
     country: 'Chile',
     amenities: ['Appointments Accepted', 'Bilingual Service', 'Driver Lounge', 'Free Pickup and Delivery', 'Hotel Shuttle', 'Internet Service', 'Laundry', 'Showers', 'Telephones', 'Trailer Parking', 'Video Games'],
   };
 
   if (window.locatorConfig.vervion === 'la') {
     loadCSS('/blocks/v2-dealer-locator/la/dealer-locator.css');
-  } else {
-    loadCSS('/blocks/v2-dealer-locator/default/dealer-locator.css');
   }
 
   loadScript('/blocks/v2-dealer-locator/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
