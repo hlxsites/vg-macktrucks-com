@@ -12,6 +12,8 @@ function escapeHTML(input) {
     .replace(/'/g, '&#039;');
 }
 
+const loadComponentScript = (scriptlink) => loadScript(scriptlink, { type: 'text/javascript', charset: 'UTF-8' });
+
 export default async function decorate(block) {
   const searchParams = new URLSearchParams(window.location.search);
   const hasZipLocation = searchParams.has('l');
@@ -41,20 +43,21 @@ export default async function decorate(block) {
 
   block.innerHTML = sharedTemplate;
 
-  loadScript('/blocks/v2-dealer-locator/shared/vendor/jquery.min.js', { type: 'text/javascript', charset: 'UTF-8' })
+  loadComponentScript('/blocks/v2-dealer-locator/shared/vendor/jquery.min.js')
     .then(() => {
-      // these scripts depend on jquery:
-      if (window.locatorConfig.vervion === 'la') {
-        loadScript('/blocks/v2-dealer-locator/la/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+      // These scripts depend on jquery
+
+      if (isLAMarket) {
+        loadComponentScript('/blocks/v2-dealer-locator/la/sidebar-maps.js');
       } else {
-        loadScript('/blocks/v2-dealer-locator/default/sidebar-maps.js', { type: 'text/javascript', charset: 'UTF-8' });
+        loadComponentScript('/blocks/v2-dealer-locator/default/sidebar-maps.js');
       }
 
-      loadScript('/blocks/v2-dealer-locator/default/my-dealer.js', { type: 'text/javascript', charset: 'UTF-8' });
+      loadComponentScript('/blocks/v2-dealer-locator/default/my-dealer.js');
     });
 
-  loadScript('/blocks/dealer-locator/shared/vendor/moment.js', { type: 'text/javascript', charset: 'UTF-8' })
+  loadComponentScript('/blocks/dealer-locator/shared/vendor/moment.js')
     .then(() => {
-      loadScript('/blocks/dealer-locator/shared/vendor/moment-timezone.min.js', { type: 'text/javascript', charset: 'UTF-8' });
+      loadComponentScript('/blocks/dealer-locator/shared/vendor/moment-timezone.min.js');
     });
 }
