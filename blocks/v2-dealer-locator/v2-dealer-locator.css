@@ -981,7 +981,7 @@ main .section.v2-dealer-locator-container>div {
   right: 0;
   float: right;
   padding-top: 10px;
-  background: none;
+  background: none !important;
 }
 
 .v2-dealer-locator .go-back button {
@@ -999,6 +999,7 @@ main .section.v2-dealer-locator-container>div {
   padding: 1px 6px;
   font-family: var(--ff-body);
   margin: 0;
+  cursor: pointer;
 }
 
 .v2-dealer-locator .sidebar {
