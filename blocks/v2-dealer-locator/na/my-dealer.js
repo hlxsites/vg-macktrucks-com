@@ -77,13 +77,13 @@ function MyDealer() {
 
         if (startTime.toLowerCase().indexOf('24') > -1) {
           startTime = '12:00 AM';
-          //dealer is open 24 hours
+          // Dealer is open 24 hours
           return { open: true, endTime: null, closeSoon: null, alwaysOpen: true };
         }
 
         if (endTime.toLowerCase().indexOf('24') > -1) {
           endTime = '12:00 AM';
-          //dealer is open 24 hours
+          // Dealer is open 24 hours
           return { open: true, endTime: null, closeSoon: null, alwaysOpen: true };
         }
 
