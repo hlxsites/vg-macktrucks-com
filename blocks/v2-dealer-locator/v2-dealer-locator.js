@@ -81,7 +81,7 @@ export default async function decorate(block) {
   const zipCode = getZipCode();
   const isMobile = checkIfIsMobile();
   const blockConfig = getBlockConfigs(block);
-  const isExportMarket = blockConfig.vervion === 'export-market';
+  const isExportMarket = blockConfig.vervion?.toLowerCase() === 'export-market';
 
   // blockConfig.datasource is a required field for the block to work:
   if (!blockConfig.datasource) {
