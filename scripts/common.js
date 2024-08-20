@@ -591,8 +591,8 @@ export const clearElementAttributes = (element) => {
 /**
  * Extracts the values from an array of objects and returns an array of values
  * example: [{ key: 'value' }] => ['value']
- * @param {array} array - An array of objects
- * @returns {array} An array of values
+ * @param {Array} array - An array of objects
+ * @returns {Array} An array of values
  */
 function getValuesFromObjectsArray(array = []) {
   if (!Array.isArray(array) || array.length === 0) return [];
@@ -602,8 +602,8 @@ function getValuesFromObjectsArray(array = []) {
 /**
  * Extracts the matching tags from an array of tags and an array of article tags
  * and returns a string of matching tags
- * @param {array} tags - An array of tags from the JSON file
- * @param {array} articleTags - An array of article:tags
+ * @param {Array} tags - An array of tags from the JSON file
+ * @param {Array} articleTags - An array of article:tags
  * @returns {string} A string of matching tags
  */
 function getMetadataFromTags(tags, articleTags) {
@@ -625,7 +625,7 @@ function getMetadataFromTags(tags, articleTags) {
  */
 export async function getArticleTags(tagType) {
   const articleTags = document.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json') || null;
+  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
   const tags = tagItems && tagItems[tagType]
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
