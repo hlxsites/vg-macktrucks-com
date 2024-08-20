@@ -877,7 +877,7 @@ $.fn.renderPinDetails = async function (markerId) {
     templateClone.find('.detail-website a').attr('href', $.fn.formatWebAddress(markerDetails.WEB_ADDRESS));
     templateClone.find('#website').text(markerDetails.WEB_ADDRESS).css('text-transform','lowercase');
   } else {
-    templateClone.find('.detail-website a').css({'pointer-events':'none','cursor':'default','opacity':'0.5'});
+    templateClone.find('.detail-website a').css({'pointer-events':'none','cursor':'default','opacity':'0.5','border-color':'red'});
     templateClone.find('#website').parent().addClass('noDataClass');
   }
 
@@ -1662,7 +1662,7 @@ $.fn.tmpPins = function (tmpPinList) {
     if (pin.WEB_ADDRESS) {
       templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
     } else {
-      templateClone.find('.website').css({'pointer-events':'none','cursor':'default','opacity':'0.7'});
+      templateClone.find('.website').css({'pointer-events':'none','cursor':'default','opacity':'0.7','border-color':'rgba(0, 0, 0, 0.7)'});
     }
 
     if (pin.REG_PHONE_NUMBER) {
@@ -1670,7 +1670,7 @@ $.fn.tmpPins = function (tmpPinList) {
       templateClone.find('.call a').attr("href", $.fn.formatPhoneNumber(pin.REG_PHONE_NUMBER));
     } else {
       templateClone.find('.call').text('Call');
-      templateClone.find('.call').css({'pointer-events':'none','cursor':'default','opacity':'0.7'});
+      templateClone.find('.call').css({'pointer-events':'none','cursor':'default','opacity':'0.7','border-color':'rgba(0, 0, 0, 0.7)'});
     }
         
     var marker;
@@ -2164,10 +2164,10 @@ $.fn.selectNearbyPins = function () {
     templateClone.find('.address').text(pin.MAIN_ADDRESS_LINE_1_TXT);
     templateClone.find('.city').text(pin.MAIN_CITY_NM + ', ' + pin.MAIN_STATE_PROV_CD + ' ' + pin.MAIN_POSTAL_CD);
     templateClone.find('.phone').text($.fn.formatPhoneNumber(pin.REG_PHONE_NUMBER));
-      templateClone.find('.website a').text('Dealer Site');
-      templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-      templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-      templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
+    templateClone.find('.website a').text('Dealer Site');
+    templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
+    templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
+    templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
 
     var marker;
     for (i = 0; i < $markers.length; i++) {

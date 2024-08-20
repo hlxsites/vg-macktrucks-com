@@ -9,11 +9,11 @@
 }
 
 .v2-dealer-locator .mobile-main-header .panel-header .search-container {
-  right: 90px;
+  right: 45px;
 }
 
 .v2-dealer-locator .mobile-main-header .panel-header .filter-container {
-  display: block;
+  display: none;
 }
 
 .v2-dealer-locator .go-back {
@@ -26,11 +26,11 @@
 }
 
 .v2-dealer-locator .sidebar .panel-header .search-container {
-  right: 90px;
+  right: 45px;
 }
 
 .v2-dealer-locator .sidebar .panel-header .filter-container {
-  display: block;
+  display: none;
 }
 
 .legend-header,
