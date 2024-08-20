@@ -50,9 +50,9 @@ const laFilterOptionTemplate = `
 const template = ({
   zipCode,
   isMobile,
-  isLAMarket,
+  isExportMarket,
 }) => {
-  const rangeFilterValue = isLAMarket ? 75 : 100;
+  const rangeFilterValue = isExportMarket ? 75 : 100;
 
   return `<input id="hoverText" value="Please unselect the selected option to click this option" hidden/>
   <!-- PartsASIST Datasource Selection -->
@@ -404,7 +404,7 @@ const template = ({
           <div class="panel-card result-item">
               <div class="panel-container">
                   <span class="header-title">Filter By Service</span>
-                  ${isLAMarket ? laFilterOptionTemplate : defaultFilterOptionTemplate}
+                  ${isExportMarket ? laFilterOptionTemplate : defaultFilterOptionTemplate}
               </div>
           </div>
       </div>

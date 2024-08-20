@@ -81,7 +81,7 @@ export default async function decorate(block) {
   const zipCode = getZipCode();
   const isMobile = checkIfIsMobile();
   const blockConfig = getBlockConfigs(block);
-  const isLAMarket = blockConfig.vervion === 'la';
+  const isExportMarket = blockConfig.vervion === 'export-market';
 
   // blockConfig.datasource is a required field for the block to work:
   if (!blockConfig.datasource) {
@@ -94,14 +94,14 @@ export default async function decorate(block) {
       selectedBrand: 'mack',
       dataSource: blockConfig.datasource,
       apiKey: GOOGLE_API_KEY,
-      vervion: blockConfig.version, // 'default' or 'la'
+      vervion: blockConfig.version, // 'default' or 'export-market'
       country: blockConfig.country,
       amenities: blockConfig.amenities,
     };
 
-    const sharedTemplate = template({ zipCode, isMobile, isLAMarket });
+    const sharedTemplate = template({ zipCode, isMobile, isExportMarket });
 
-    if (window.locatorConfig.vervion === 'la') {
+    if (isExportMarket) {
       loadCSS('/blocks/v2-dealer-locator/la/dealer-locator.css');
     }
 
@@ -111,7 +111,7 @@ export default async function decorate(block) {
       .then(() => {
         // These scripts depend on jquery
 
-        if (isLAMarket) {
+        if (isExportMarket) {
           loadComponentScript('/blocks/v2-dealer-locator/la/sidebar-maps.js');
         } else {
           loadComponentScript('/blocks/v2-dealer-locator/default/sidebar-maps.js');
