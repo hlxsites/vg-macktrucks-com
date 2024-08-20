@@ -4,7 +4,7 @@ import {
 } from '../../scripts/lib-franklin.js';
 import {
   createElement,
-  getJsonFromUrl,
+  getArticleTags,
 } from '../../scripts/common.js';
 
 async function buildArticleHero({ truckTags, categoryTag } = {}) {
@@ -89,31 +89,9 @@ async function buildShareSection() {
   return shareSection;
 }
 
-function getValuesfromObjectsArray(array = []) {
-  if (!Array.isArray(array) || array.length === 0) return [];
-  return array.map((item) => Object.values(item)[0]);
-}
-
-function getMetadataFromTags(tags, articleTags) {
-  if (!tags || !articleTags) {
-    return '';
-  }
-
-  const matchingTags = [...articleTags]
-    .filter((tag) => tags.includes(tag.content))
-    .map((tag) => tag.content);
-  return matchingTags && matchingTags?.length > 0 ? matchingTags.join(', ') : '';
-}
-
 export default async function decorate(doc) {
-  const articleTags = doc.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json') || null;
-  const categories = tagItems && tagItems.categories
-    && getValuesfromObjectsArray(tagItems.categories.data);
-  const trucks = tagItems && tagItems.trucks
-    && getValuesfromObjectsArray(tagItems.trucks.data);
-  const categoryTag = (categories && getMetadataFromTags(categories, articleTags)) || '';
-  const truckTags = (trucks && getMetadataFromTags(trucks, articleTags)) || '';
+  const categoryTag = await getArticleTags('categories');
+  const truckTags = await getArticleTags('trucks');
 
   const container = doc.querySelector('main');
 

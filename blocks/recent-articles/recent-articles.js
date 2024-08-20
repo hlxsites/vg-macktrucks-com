@@ -60,6 +60,7 @@ export default async function decorate(block) {
       ${pictureTag}
     </a>`;
 
+    // TODO: to be updated if the category is not properly gathered from magazine-articles.json
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
     const category = createElement('a', {
