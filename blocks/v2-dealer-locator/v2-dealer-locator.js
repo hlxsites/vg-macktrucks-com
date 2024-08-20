@@ -102,7 +102,7 @@ export default async function decorate(block) {
     const sharedTemplate = template({ zipCode, isMobile, isExportMarket });
 
     if (isExportMarket) {
-      loadCSS('/blocks/v2-dealer-locator/la/dealer-locator.css');
+      loadCSS('/blocks/v2-dealer-locator/versions/export/dealer-locator.css');
     }
 
     block.innerHTML = sharedTemplate;
@@ -112,12 +112,12 @@ export default async function decorate(block) {
         // These scripts depend on jquery
 
         if (isExportMarket) {
-          loadComponentScript('/blocks/v2-dealer-locator/la/sidebar-maps.js');
+          loadComponentScript('/blocks/v2-dealer-locator/versions/export/sidebar-maps.js');
         } else {
-          loadComponentScript('/blocks/v2-dealer-locator/default/sidebar-maps.js');
+          loadComponentScript('/blocks/v2-dealer-locator/versions/default/sidebar-maps.js');
         }
 
-        loadComponentScript('/blocks/v2-dealer-locator/default/my-dealer.js');
+        loadComponentScript('/blocks/v2-dealer-locator/versions/default/my-dealer.js');
       });
 
     loadComponentScript('/blocks/v2-dealer-locator/shared/vendor/moment.js')
