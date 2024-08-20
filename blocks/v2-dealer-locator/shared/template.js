@@ -97,19 +97,19 @@ const template = ({
                 placeholder="Enter City, State, or Zip Code"/>
               <div class="search-container">
                   <button type="button" id="search" onclick="$.fn.setAddress2();">
-                      <img src="/blocks/dealer-locator/images/search.svg"/>
+                      <img src="/blocks/v2-dealer-locator/images/search.svg"/>
                   </button>
               </div>
               <div class="filter-container">
                   <button type="button" onclick="$.fn.switchSidebarPane('sidebar-filter');">
                       <div style="width:44px;">
-                          <div class="icon"><img src="/blocks/dealer-locator/images/filter.svg"/></div>
+                          <div class="icon"><img src="/blocks/v2-dealer-locator/images/filter.svg"/></div>
                       </div>
                   </button>
               </div>
               <div class="geo-container">
                   <button type="button" id="search" onclick="$.fn.setLocation();"><img
-                          src="/blocks/dealer-locator/images/location.svg"/></button>
+                          src="/blocks/v2-dealer-locator/images/location.svg"/></button>
               </div>
 
           </div>
@@ -117,7 +117,7 @@ const template = ({
       <div id="map"></div>
       <div class="map-geo-container">
           <button type="button" id="search" onclick="$.fn.setLocation();"><img
-                  src="/blocks/dealer-locator/images/location.svg"/></button>
+                  src="/blocks/v2-dealer-locator/images/location.svg"/></button>
       </div>
       <div class="sidebar" style="left:0px;">
           <div class="row main-header">
@@ -127,19 +127,19 @@ const template = ({
                     placeholder="Enter City, State, or Zip Code"/>
                   <div class="search-container">
                       <button type="button" id="search" onclick="$.fn.setAddress();">
-                          <img src="/blocks/dealer-locator/images/search.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/search.svg"/>
                       </button>
                   </div>
                   <div class="filter-container">
                       <button type="button" onclick="$.fn.switchSidebarPane('sidebar-filter');">
                           <div style="width:44px;">
-                              <div class="icon"><img src="/blocks/dealer-locator/images/filter.svg"/></div>
+                              <div class="icon"><img src="/blocks/v2-dealer-locator/images/filter.svg"/></div>
                           </div>
                       </button>
                   </div>
                   <div class="geo-container">
                       <button type="button" id="search" onclick="$.fn.setLocation();"><img
-                              src="/blocks/dealer-locator/images/location.svg"/></button>
+                              src="/blocks/v2-dealer-locator/images/location.svg"/></button>
                   </div>
 
               </div>
@@ -151,7 +151,7 @@ const template = ({
                   <span id="dealer-tag">
                   <div class="dealer" id="filterDealer">
                       <div>
-                      <img src="/blocks/dealer-locator/images/dealer.svg" class="legend-icon"/>
+                      <img src="/blocks/v2-dealer-locator/images/dealer.svg" class="legend-icon"/>
                       <span>Dealer</span>
                         </div>
                   </div>
@@ -159,31 +159,31 @@ const template = ({
                   <span id="uptime-tag">
                   <div class="uptime-dealer" id="filterUptime">
                       <div>
-                      <img src="/blocks/dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime Dealer</span>
+                      <img src="/blocks/v2-dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime Dealer</span>
                   </div>
                           </div>
                       </span>
                   <span id="electric-tag">
                   <div class="electric-dealer" id="filterElectricDealer">
                       <div>
-                      <img src="/blocks/dealer-locator/images/bolt.svg" class="legend-icon"/> <span>Certified Electric Dealer</span>
+                      <img src="/blocks/v2-dealer-locator/images/bolt.svg" class="legend-icon"/> <span>Certified Electric Dealer</span>
                   </div>
                       </div>
                         </span>
                   <div class="mobile-dealer" id="filterDealerMobile">
                       <div>
-                          <img src="/blocks/dealer-locator/images/dealer.svg" class="legend-icon"/>
+                          <img src="/blocks/v2-dealer-locator/images/dealer.svg" class="legend-icon"/>
                           <span>Dealer</span>
                       </div>
                   </div>
                   <div class="mobile-uptime-dealer" id="filterUptimeMobile">
                       <div>
-                          <img src="/blocks/dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime</span>
+                          <img src="/blocks/v2-dealer-locator/images/uptime.svg" class="legend-icon"/> <span>Certified Uptime</span>
                       </div>
                   </div>
                   <div class="mobile-electric-dealer" id="filterElectricDealerMobile">
                       <div>
-                          <img src="/blocks/dealer-locator/images/bolt.svg" class="legend-icon"/>
+                          <img src="/blocks/v2-dealer-locator/images/bolt.svg" class="legend-icon"/>
                           <span>Certified Electric</span>
                       </div>
                   </div>
@@ -251,12 +251,12 @@ const template = ({
           <div class="dealer-deatils-header">
               <div class="detail-website">
                   <a target="_blank">
-                      <img src="/blocks/dealer-locator/images/Globe.svg"/>
+                      <img src="/blocks/v2-dealer-locator/images/Globe.svg"/>
                       Website</a>
               </div>
               <div class="detail-direction">
                   <a id="directions" data-id="" onclick="$.fn.switchSidebarPane('sidebar-directions', this);">
-                      <img src="/blocks/dealer-locator/images/GPS.svg"/>
+                      <img src="/blocks/v2-dealer-locator/images/GPS.svg"/>
                       Directions</a>
               </div>
               <div class="detail-call">
@@ -264,7 +264,7 @@ const template = ({
               </div>
               <div class="detail-share">
                   <button type="button" class="accordion">
-                    <img src="/blocks/dealer-locator/images/Share.svg"/>
+                    <img src="/blocks/v2-dealer-locator/images/Share.svg"/>
                     <span>SHARE</span>
                   </button>
                   <div class="accordion-panel">
@@ -281,7 +281,7 @@ const template = ({
 
                   <ul class="pin-details">
                       <li>
-                          <img src="/blocks/dealer-locator/images/map-detail.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/map-detail.svg"/>
                           <div id="title2"></div>
                           <br/>
                           <div id="address1">
@@ -301,11 +301,11 @@ const template = ({
                           </div>
                       </li>
                       <li id="hours">
-                          <img src="/blocks/dealer-locator/images/Clock.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/Clock.svg"/>
                           <div></div>
                       </li>
                       <li>
-                          <img src="/blocks/dealer-locator/images/Globe-detail.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/Globe-detail.svg"/>
                           <div id="website">No website available</div>
                           <div class="controls">
                               <i class="tooltip fa fa-external-link" id="open-website" onclick=""><span
@@ -313,7 +313,7 @@ const template = ({
                           </div>
                       </li>
                       <li>
-                          <img src="/blocks/dealer-locator/images/mail.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/mail.svg"/>
                           <div id="email" ></div>
                       </li>
 
@@ -419,12 +419,12 @@ const template = ({
               <div class="directions-panel">
                   <div class="pin-actions directions">
                       <button type="button" id="gmaps-link"><img
-                              src="/blocks/dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
+                              src="/blocks/v2-dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
                       </button>
                       <button type="button" id="print"><img
-                              src="/blocks/dealer-locator/images/Print.svg"/><span>Print</span></button>
+                              src="/blocks/v2-dealer-locator/images/Print.svg"/><span>Print</span></button>
                       <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                          <img src="/blocks/dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                          <img src="/blocks/v2-dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                       </button>
                   </div>
                   <div id="directions-container"></div>
@@ -440,12 +440,12 @@ const template = ({
               <div class="directions-panel">
                   <div class="pin-actions directions">
                       <button type="button" id="gmaps-link"><img
-                              src="/blocks/dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
+                              src="/blocks/v2-dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
                       </button>
                       <button type="button" id="print"><img
-                              src="/blocks/dealer-locator/images/Print.svg"/><span>Print</span></button>
+                              src="/blocks/v2-dealer-locator/images/Print.svg"/><span>Print</span></button>
                       <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                          <img src="/blocks/dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                          <img src="/blocks/v2-dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                       </button>
                   </div>
                   <div id="directions-container"></div>
