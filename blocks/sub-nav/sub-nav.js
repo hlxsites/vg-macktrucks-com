@@ -95,6 +95,9 @@ function toggleListMagazine(el) {
 async function buildMagazineSubNav(block, ref) {
   const resp = await fetch(`${ref}.plain.html`);
   if (!resp.ok) return;
+  const { SUBSCRIBE_DISABLED } = MAGAZINE_CONFIGS;
+  const isSubscribeEnabled = MAGAZINE_CONFIGS && SUBSCRIBE_DISABLED
+    && SUBSCRIBE_DISABLED === 'false';
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
@@ -130,23 +133,37 @@ async function buildMagazineSubNav(block, ref) {
   dogIconWrapper.className = 'sub-nav-list-icon';
   mainList.className = 'sub-nav-list main';
   innerList.className = 'sub-nav-list inner';
-  listSubscribeBtn.textContent = subscribeText;
-  supR.textContent = '®';
-  listSubscribeBtn.appendChild(supR);
-  listSubscribeBtnContainer.appendChild(listSubscribeBtn);
   listWrapper.appendChild(closeBtn);
-  listContainer.append(listWrapper, listSubscribeBtnContainer);
+
+  if (isSubscribeEnabled) {
+    listSubscribeBtn.textContent = subscribeText;
+    supR.textContent = '®';
+    listSubscribeBtn.appendChild(supR);
+    listSubscribeBtnContainer.appendChild(listSubscribeBtn);
+    listContainer.append(listWrapper, listSubscribeBtnContainer);
+  } else {
+    listContainer.appendChild(listWrapper);
+  }
+
   mainList.nextElementSibling.remove();
 
   // adding it to the block
+  const elementsToAppend = [listIcon, mainSubNav, subscribeBtnContainer, listContainer];
   mainTitleLink.textContent = '';
   mainTitleLink.title = mainTitleImg.lastElementChild.alt;
-  subscribeBtn.textContent = subscribeText;
-  subscribeBtnContainer.appendChild(subscribeBtn);
   mainTitleLink.appendChild(mainTitleImg);
   subNavTitle.appendChild(mainTitleLink);
   mainSubNav.appendChild(subNavTitle);
-  subNavContainer.append(listIcon, mainSubNav, subscribeBtnContainer, listContainer);
+
+  if (isSubscribeEnabled) {
+    subscribeBtn.textContent = subscribeText;
+    subscribeBtnContainer.appendChild(subscribeBtn);
+  } else {
+    // remove the subscribe button from the list of elements to append
+    elementsToAppend.splice(2, 1);
+  }
+
+  subNavContainer.append(...elementsToAppend);
   block.appendChild(subNavContainer);
 
   const allSubscribeButtons = document.querySelectorAll('.magazine-subscribe-button');
@@ -155,7 +172,7 @@ async function buildMagazineSubNav(block, ref) {
       const container = document.querySelector('[data-form-type="Subscribe-magazine"]');
       if (container) {
         container.scrollIntoView({ block: 'start', behavior: 'smooth' });
-      } else {
+      } else if (MAGAZINE_CONFIGS && MAGAZINE_CONFIGS.HREF) {
         window.location.href = MAGAZINE_CONFIGS.HREF;
       }
     });
