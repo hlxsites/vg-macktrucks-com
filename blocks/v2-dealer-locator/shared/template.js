@@ -52,11 +52,7 @@ const template = ({
   isMobile,
   isLAMarket,
 }) => {
-  let rangeFilterValue = 100;
-
-  if (isLAMarket) {
-    rangeFilterValue = 75;
-  }
+  const rangeFilterValue = isLAMarket ? 75 : 100;
 
   return `<input id="hoverText" value="Please unselect the selected option to click this option" hidden/>
   <!-- PartsASIST Datasource Selection -->
