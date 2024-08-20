@@ -247,12 +247,12 @@ const template = ({
           <div class="dealer-deatils-header">
               <div class="detail-website">
                   <a target="_blank">
-                      <img src="/blocks/v2-dealer-locator/images/Globe.svg"/>
+                      <img src="/blocks/v2-dealer-locator/images/globe.svg"/>
                       Website</a>
               </div>
               <div class="detail-direction">
                   <a id="directions" data-id="" onclick="$.fn.switchSidebarPane('sidebar-directions', this);">
-                      <img src="/blocks/v2-dealer-locator/images/GPS.svg"/>
+                      <img src="/blocks/v2-dealer-locator/images/gps.svg"/>
                       Directions</a>
               </div>
               <div class="detail-call">
@@ -260,7 +260,7 @@ const template = ({
               </div>
               <div class="detail-share">
                   <button type="button" class="accordion">
-                    <img src="/blocks/v2-dealer-locator/images/Share.svg"/>
+                    <img src="/blocks/v2-dealer-locator/images/share.svg"/>
                     <span>SHARE</span>
                   </button>
                   <div class="accordion-panel">
@@ -297,11 +297,11 @@ const template = ({
                           </div>
                       </li>
                       <li id="hours">
-                          <img src="/blocks/v2-dealer-locator/images/Clock.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/clock.svg"/>
                           <div></div>
                       </li>
                       <li>
-                          <img src="/blocks/v2-dealer-locator/images/Globe-detail.svg"/>
+                          <img src="/blocks/v2-dealer-locator/images/globe-detail.svg"/>
                           <div id="website">No website available</div>
                           <div class="controls">
                               <i class="tooltip fa fa-external-link" id="open-website" onclick=""><span
@@ -415,12 +415,12 @@ const template = ({
               <div class="directions-panel">
                   <div class="pin-actions directions">
                       <button type="button" id="gmaps-link"><img
-                              src="/blocks/v2-dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
+                              src="/blocks/v2-dealer-locator/images/google-maps.svg"/><span>Open in<br>Google Maps</span>
                       </button>
                       <button type="button" id="print"><img
-                              src="/blocks/v2-dealer-locator/images/Print.svg"/><span>Print</span></button>
+                              src="/blocks/v2-dealer-locator/images/print.svg"/><span>Print</span></button>
                       <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                          <img src="/blocks/v2-dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                          <img src="/blocks/v2-dealer-locator/images/add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                       </button>
                   </div>
                   <div id="directions-container"></div>
@@ -436,12 +436,12 @@ const template = ({
               <div class="directions-panel">
                   <div class="pin-actions directions">
                       <button type="button" id="gmaps-link"><img
-                              src="/blocks/v2-dealer-locator/images/Google-Maps-Old.svg"/><span>Open in<br>Google Maps</span>
+                              src="/blocks/v2-dealer-locator/images/google-maps.svg"/><span>Open in<br>Google Maps</span>
                       </button>
                       <button type="button" id="print"><img
-                              src="/blocks/v2-dealer-locator/images/Print.svg"/><span>Print</span></button>
+                              src="/blocks/v2-dealer-locator/images/print.svg"/><span>Print</span></button>
                       <button type="button" id="add-directions" onclick="$.fn.switchSidebarPane('sidebar-select-pins');">
-                          <img src="/blocks/v2-dealer-locator/images/Add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
+                          <img src="/blocks/v2-dealer-locator/images/add.svg"/></i><span>Modify Dealer<br>Waypoints</span>
                       </button>
                   </div>
                   <div id="directions-container"></div>

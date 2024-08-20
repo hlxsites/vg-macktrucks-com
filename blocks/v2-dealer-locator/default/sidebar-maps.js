@@ -897,9 +897,9 @@ $.fn.renderPinDetails = async function (markerId) {
   templateClone.find('#share-link').val(window.location.href.split('?')[0] + '?view=' + markerDetails.IDENTIFIER_VALUE);
 
   if (markerDetails.REG_PHONE_NUMBER) {
-    templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a href="tel:' + markerDetails.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
   } else {
-    templateClone.find('.detail-call').html('<a>' + '<img src="/blocks/v2-dealer-locator/images/Phone.svg" />' + "Call" + '</a>');
+    templateClone.find('.detail-call').html('<a>' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
     templateClone.find('.detail-call a').css({'pointer-events':'none','cursor':'default','opacity':'0.5'});
   }
 
@@ -913,12 +913,12 @@ $.fn.renderPinDetails = async function (markerId) {
 
   if (myDealer == markerDetails.IDENTIFIER_VALUE) {
     //  templateClone.find('#set-dealer span').text('Preferred Dealer');
-    templateClone.find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/Vector-3.svg" />');
+    templateClone.find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/star-2.svg" />');
     templateClone.find('#head-marker').attr('src', $viewingPin.icon);
   }
   else {
     // templateClone.find('#set-dealer span').text('Set As Your Dealer');
-    templateClone.find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/Star-1.svg" />');
+    templateClone.find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/star.svg" />');
   }
   templateClone.find('#set-dealer').attr('data-pin', markerDetails.IDENTIFIER_VALUE);
 
@@ -1157,7 +1157,7 @@ $.fn.renderAddDirectionsPin = function (marker, details) {
   templateClone.find('.city').text(details.MAIN_CITY_NM + ', ' + details.MAIN_STATE_PROV_CD + ' ' + details.MAIN_POSTAL_CD);
   templateClone.find('.phone').text(details.REG_PHONE_NUMBER);
   templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-  templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+  templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
 
 
   $("<div/>", {
@@ -1668,7 +1668,6 @@ $.fn.tmpPins = function (tmpPinList) {
     if (pin.REG_PHONE_NUMBER) {
       templateClone.find('.call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + "Call" + '</a>');      
       templateClone.find('.call a').attr("href", $.fn.formatPhoneNumber(pin.REG_PHONE_NUMBER));
-      // templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
     } else {
       templateClone.find('.call').text('Call');
       templateClone.find('.call').css({'pointer-events':'none','cursor':'default','opacity':'0.7'});
@@ -2168,7 +2167,7 @@ $.fn.selectNearbyPins = function () {
       templateClone.find('.website a').text('Dealer Site');
       templateClone.find('.website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
       templateClone.find('.detail-website a').attr("href", $.fn.formatWebAddress(pin.WEB_ADDRESS));
-      templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/Phone-2.png" />' + "Call" + '</a>');
+      templateClone.find('.detail-call').html('<a href="tel:' + pin.REG_PHONE_NUMBER + '">' + '<img src="/blocks/v2-dealer-locator/images/phone.svg" />' + "Call" + '</a>');
 
     var marker;
     for (i = 0; i < $markers.length; i++) {
@@ -3288,7 +3287,7 @@ $(document).on('click', '#set-dealer', function (eventObject) {
 
   $.fn.setMyDealer(pin);
 
-  $(this).find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/Vector-3.svg" />');
+  $(this).find('#set-dealer').html('<img src="/blocks/v2-dealer-locator/images/star-2.svg" />');
 
 });
 
