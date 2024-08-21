@@ -33,6 +33,7 @@ import {
   isVideoLink,
   addVideoShowHandler,
 } from './video-helper.js';
+import { validateCountries } from './validate-countries.js';
 
 const disableHeader = getMetadata('disable-header').toLowerCase() === 'true';
 const disableFooter = getMetadata('disable-footer').toLowerCase() === 'true';
@@ -773,6 +774,10 @@ moveClassToHtmlEl('redesign-v2');
 moveClassToHtmlEl('truck-configurator');
 
 if (document.documentElement.classList.contains('truck-configurator')) {
+  const allowedCountries = getMetadata('allowed-countries');
+  const errorPageUrl = getMetadata('redirect-url');
+  if (allowedCountries && errorPageUrl) validateCountries(allowedCountries, errorPageUrl);
+
   const container = createElement('div', { props: { id: 'configurator' } });
   const main = document.querySelector('main');
   main.innerHTML = '';

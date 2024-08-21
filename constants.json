@@ -61,6 +61,10 @@
       {
         "name": "v2AllowedBlocks",
         "value": "[\"embed\",\"footer\",\"fragment\",\"header\",\"iframe\",\"modal\",\"library-metadata\"]"
+      },
+      {
+        "name": "GOOGLE_API_KEY",
+        "value": "AIzaSyAP8IewqHuU8SMz_6tNiIUlbU_l0GFOd1w"
       }
     ]
   },
