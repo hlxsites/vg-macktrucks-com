@@ -1,0 +1,33 @@
+.section.v2-image-banner-container {
+  margin-bottom: 48px;
+  margin-top: 48px;
+}
+
+.v2-image-banner {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.v2-image-banner--16-9 {
+  aspect-ratio: 16/9;
+  max-height: 160px;
+}
+
+.v2-image-banner--4-3 {
+  aspect-ratio: 4/3;
+}
+
+@media (min-width: 1200px) {
+  .section.v2-image-banner-container {
+    margin-bottom: 64px;
+    margin-top: 64px;
+  }
+
+  .v2-image-banner--16-9 {
+    max-height: 360px;
+  }
+}
