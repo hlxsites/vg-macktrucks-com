@@ -4,9 +4,9 @@
 }
 
 .v2-image-banner {
-  background-attachment: fixed;
-  background-position: center;
   background-size: cover;
+  background-position: center;
+  max-height: 160px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -14,11 +14,11 @@
 
 .v2-image-banner--16-9 {
   aspect-ratio: 16/9;
-  max-height: 160px;
 }
 
 .v2-image-banner--4-3 {
   aspect-ratio: 4/3;
+  background-attachment: fixed;
 }
 
 @media (min-width: 1200px) {
@@ -27,7 +27,7 @@
     margin-top: 64px;
   }
 
-  .v2-image-banner--16-9 {
+  .v2-image-banner {
     max-height: 360px;
   }
 }
