@@ -304,8 +304,9 @@ const template = ({
                           <img src="/blocks/v2-dealer-locator/images/globe-detail.svg"/>
                           <div id="website">No website available</div>
                           <div class="controls">
-                              <i class="tooltip fa fa-external-link" id="open-website" onclick=""><span
-                                      class="tooltiptext link">Open website</span></i>
+                              <i class="tooltip fa fa-external-link" id="open-website" onclick="">
+                                <span class="tooltiptext link">Open website</span>
+                              </i>
                           </div>
                       </li>
                       <li>
@@ -350,7 +351,6 @@ const template = ({
                           </div>
                       </div>
                       <div class="teaser-bottom">
-
                           <div class="right">
                               <div class="website">
                                   <a href="" target="_blank" rel="noopener"></a>
