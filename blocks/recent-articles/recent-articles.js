@@ -1,5 +1,9 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
-import { createOptimizedPicture, getOrigin } from '../../scripts/lib-franklin.js';
+import {
+  createElement,
+  getOrigin,
+  getTextLabel,
+} from '../../scripts/common.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');

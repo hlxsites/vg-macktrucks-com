@@ -1,4 +1,4 @@
-import { loadScript } from '../../scripts/lib-franklin.js';
+import { loadScript } from '../../scripts/aem.js';
 import { TOOLS_CONFIGS } from '../../scripts/common.js';
 
 const { GOOGLE_API_KEY } = TOOLS_CONFIGS;
