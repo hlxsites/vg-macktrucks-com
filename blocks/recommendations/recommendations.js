@@ -1,5 +1,6 @@
 import {
   createElement,
+  getArticleTags,
   getOrigin,
   getTextLabel,
 } from '../../scripts/common.js';
@@ -19,7 +20,7 @@ const readNowText = getTextLabel('READ NOW');
 
 export default async function decorate(block) {
   const limit = Number(getLimit(block));
-  const category = getMetadata('category');
+  const category = await getArticleTags('categories') || getMetadata('category');
   const allArticles = await getAllArticles();
 
   const recommendedArticles = allArticles.filter((e) => e.category === category);
