@@ -1,4 +1,4 @@
-import { loadScript, loadCSS, readBlockConfig } from '../../scripts/lib-franklin.js';
+import { loadScript, loadCSS, readBlockConfig } from '../../scripts/aem.js';
 import { TOOLS_CONFIGS } from '../../scripts/common.js';
 import template from './shared/template.js';
 
