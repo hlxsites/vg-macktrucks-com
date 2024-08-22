@@ -5,7 +5,7 @@ import {
   loadBlocks,
   loadHeader,
   loadFooter,
-} from './lib-franklin.js';
+} from './aem.js';
 
 let placeholders = null;
 
@@ -15,6 +15,28 @@ export async function getPlaceholders() {
 
 export function getTextLabel(key) {
   return placeholders.data.find((el) => el.Key === key)?.Text || key;
+}
+
+/**
+ * Returns the true origin of the current page in the browser.
+ * If the page is running in a iframe with srcdoc, the ancestor origin is returned.
+ * @returns {String} The true origin
+ */
+export function getOrigin() {
+  return window.location.href === 'about:srcdoc' ? window.parent.location.origin : window.location.origin;
+}
+
+/**
+ * Returns the true of the current page in the browser.mac
+ * If the page is running in a iframe with srcdoc,
+ * the ancestor origin + the path query param is returned.
+ * @returns {String} The href of the current page or the href of the block running in the library
+ */
+export function getHref() {
+  if (window.location.href !== 'about:srcdoc') return window.location.href;
+
+  const urlParams = new URLSearchParams(window.parent.location.search);
+  return `${window.parent.location.origin}${urlParams.get('path')}`;
 }
 
 /**
@@ -138,9 +160,7 @@ export async function decorateIcons(element) {
 
 export async function loadTemplate(doc, templateName) {
   try {
-    const cssLoaded = new Promise((resolve) => {
-      loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`, resolve);
-    });
+    await loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`);
     const decorationComplete = new Promise((resolve) => {
       (async () => {
         try {
@@ -155,7 +175,7 @@ export async function loadTemplate(doc, templateName) {
         resolve();
       })();
     });
-    await Promise.all([cssLoaded, decorationComplete]);
+    await decorationComplete;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(`failed to load block ${templateName}`, error);
@@ -586,3 +606,47 @@ export const clearElementAttributes = (element) => {
 
   return element;
 };
+
+// magazine common functions
+/**
+ * Extracts the values from an array of objects and returns an array of values
+ * example: [{ key: 'value' }] => ['value']
+ * @param {Array} array - An array of objects
+ * @returns {Array} An array of values
+ */
+function getValuesFromObjectsArray(array = []) {
+  if (!Array.isArray(array) || array.length === 0) return [];
+  return array.map((item) => Object.values(item)[0]);
+}
+
+/**
+ * Extracts the matching tags from an array of tags and an array of article tags
+ * and returns a string of matching tags
+ * @param {Array} tags - An array of tags from the JSON file
+ * @param {Array} articleTags - An array of article:tags
+ * @returns {string} A string of matching tags
+ */
+function getMetadataFromTags(tags, articleTags) {
+  if (!tags || !articleTags) {
+    return '';
+  }
+
+  const matchingTags = [...articleTags]
+    .filter((tag) => tags.includes(tag.content))
+    .map((tag) => tag.content);
+  return matchingTags && matchingTags?.length > 0 ? matchingTags.join(', ') : '';
+}
+
+/**
+ * Get the article tags from the JSON file and the article tags from the document
+ * and return the matching tags
+ * @param {string} tagType - The type of tag to get such as 'categories', 'topics' or 'trucks'
+ * @returns {string} A string of matching tags
+ */
+export async function getArticleTags(tagType) {
+  const articleTags = document.head.querySelectorAll('meta[property="article:tag"]') || [];
+  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
+  const tags = tagItems && tagItems[tagType]
+    && getValuesFromObjectsArray(tagItems[tagType].data);
+  return getMetadataFromTags(tags, articleTags);
+}

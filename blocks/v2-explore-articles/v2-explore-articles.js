@@ -1,5 +1,5 @@
 import { decorateIcons, getJsonFromUrl, getTextLabel } from '../../scripts/common.js';
-import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const LABELS = {
   SHOW_MORE: getTextLabel('Show More'),
