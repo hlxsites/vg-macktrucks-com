@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.v2-image-banner picture {
+  display: none;
+}
+
 .v2-image-banner--16-9 {
   aspect-ratio: 16/9;
 }
