@@ -1,5 +1,9 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
-import { createOptimizedPicture, getOrigin } from '../../scripts/lib-franklin.js';
+import {
+  createElement,
+  getOrigin,
+  getTextLabel,
+} from '../../scripts/common.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
@@ -60,6 +64,7 @@ export default async function decorate(block) {
       ${pictureTag}
     </a>`;
 
+    // TODO: to be updated if the category is not properly gathered from magazine-articles.json
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
     const category = createElement('a', {
