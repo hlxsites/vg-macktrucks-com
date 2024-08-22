@@ -95,9 +95,8 @@ function toggleListMagazine(el) {
 async function buildMagazineSubNav(block, ref) {
   const resp = await fetch(`${ref}.plain.html`);
   if (!resp.ok) return;
-  const { SUBSCRIBE_DISABLED } = MAGAZINE_CONFIGS;
-  const isSubscribeEnabled = MAGAZINE_CONFIGS && SUBSCRIBE_DISABLED
-    && SUBSCRIBE_DISABLED === 'false';
+  const subscribeSection = document.querySelector('[data-form-type="Subscribe-magazine"]');
+  const isSubscribeEnabled = !!MAGAZINE_CONFIGS.HREF && !!subscribeSection;
   const text = await resp.text();
   const fragment = document.createRange().createContextualFragment(text);
   const mainTitleImgWrapper = fragment.querySelector('div');
@@ -116,7 +115,7 @@ async function buildMagazineSubNav(block, ref) {
     classes: ['magazine-subscribe-button', 'button-container'],
     props: { type: 'button' },
   });
-  // list section overlay
+  // hamburger dropdown: list section overlay
   const closeBtn = createElement('div', { classes: ['fa', 'fa-close', 'icon'] });
   const listSubscribeBtnContainer = createElement('div', { classes: 'list-button-container' });
   const listSubscribeBtn = createElement('button', {
@@ -169,10 +168,9 @@ async function buildMagazineSubNav(block, ref) {
   const allSubscribeButtons = document.querySelectorAll('.magazine-subscribe-button');
   allSubscribeButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const container = document.querySelector('[data-form-type="Subscribe-magazine"]');
-      if (container) {
-        container.scrollIntoView({ block: 'start', behavior: 'smooth' });
-      } else if (MAGAZINE_CONFIGS && MAGAZINE_CONFIGS.HREF) {
+      if (subscribeSection) {
+        subscribeSection.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      } else if (MAGAZINE_CONFIGS.HREF) {
         window.location.href = MAGAZINE_CONFIGS.HREF;
       }
     });

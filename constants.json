@@ -193,10 +193,6 @@
       {
         "name": "DATE_OPTIONS",
         "value": "[\"month: long\",\"day: numeric\",\"year: numeric\"]"
-      },
-      {
-        "name": "SUBSCRIBE_DISABLED",
-        "value": "false"
       }
     ]
   },

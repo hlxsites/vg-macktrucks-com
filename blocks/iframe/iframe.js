@@ -1,18 +1,6 @@
-import {
-  createElement,
-  MAGAZINE_CONFIGS,
-} from '../../scripts/common.js';
+import { createElement } from '../../scripts/common.js';
 
 export default async function decorate(block) {
-  const { SUBSCRIBE_DISABLED } = MAGAZINE_CONFIGS;
-  const isSubscribeDisabled = !MAGAZINE_CONFIGS || !SUBSCRIBE_DISABLED
-    || SUBSCRIBE_DISABLED === 'true';
-  if (isSubscribeDisabled) {
-    const magazineIFrameSection = block.closest('.section[data-form-type="Subscribe-magazine"]');
-    if (magazineIFrameSection) magazineIFrameSection.remove();
-    return;
-  }
-
   const link = block.querySelector('a')?.getAttribute('href');
   const iframe = createElement('iframe', {
     props: { frameborder: 0, src: link },
