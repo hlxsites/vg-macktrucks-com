@@ -117,7 +117,7 @@ export default async function decorate(block) {
           loadComponentScript('/blocks/v2-dealer-locator/versions/default/sidebar-maps.js');
         }
 
-        loadComponentScript('/blocks/v2-dealer-locator/versions/default/my-dealer.js');
+        loadComponentScript('/blocks/v2-dealer-locator/shared/my-dealer.js');
       });
 
     loadComponentScript('/blocks/v2-dealer-locator/shared/vendor/moment.js')
