@@ -109,25 +109,14 @@ async function buildMagazineSubNav(block, ref) {
   // add (hamburger menu)/(down arrow) to open close the sub-nav-list
   const iconClass = MQ.matches ? 'fa-bars' : 'fa-caret-down';
   const listIcon = createElement('div', { classes: ['fa', iconClass, 'icon'] });
-  // add a cta button to open an eloqua form (subscribe to bulldog)
-  const subscribeBtnContainer = createElement('div', { classes: 'button-container' });
-  const subscribeBtn = createElement('button', {
-    classes: ['magazine-subscribe-button', 'button-container'],
-    props: { type: 'button' },
-  });
   // hamburger dropdown: list section overlay
   const closeBtn = createElement('div', { classes: ['fa', 'fa-close', 'icon'] });
-  const listSubscribeBtnContainer = createElement('div', { classes: 'list-button-container' });
-  const listSubscribeBtn = createElement('button', {
-    classes: ['magazine-subscribe-button', 'list-subscribe-button'],
-    props: { type: 'button' },
-  });
-  const supR = createElement('sup');
   const listContainer = createElement('div', { classes: 'sub-nav-list-container' });
   const listWrapper = getAllElWithChildren(fragment.querySelectorAll('div'), 'ul')[0];
   const dogIconWrapper = getAllElWithChildren(listWrapper.querySelectorAll('p'), 'picture')[0];
   const mainList = listWrapper.querySelector('ul');
   const innerList = mainList.querySelector('ul');
+  const elementsToAppend = [listIcon, mainSubNav, listContainer];
   listWrapper.className = 'sub-nav-list-wrapper';
   dogIconWrapper.className = 'sub-nav-list-icon';
   mainList.className = 'sub-nav-list main';
@@ -135,6 +124,13 @@ async function buildMagazineSubNav(block, ref) {
   listWrapper.appendChild(closeBtn);
 
   if (isSubscribeEnabled) {
+    // add a cta button to open a form (subscribe to bulldog) in the dropdown list
+    const listSubscribeBtnContainer = createElement('div', { classes: 'list-button-container' });
+    const listSubscribeBtn = createElement('button', {
+      classes: ['magazine-subscribe-button', 'list-subscribe-button'],
+      props: { type: 'button' },
+    });
+    const supR = createElement('sup');
     listSubscribeBtn.textContent = subscribeText;
     supR.textContent = '®';
     listSubscribeBtn.appendChild(supR);
@@ -147,7 +143,6 @@ async function buildMagazineSubNav(block, ref) {
   mainList.nextElementSibling.remove();
 
   // adding it to the block
-  const elementsToAppend = [listIcon, mainSubNav, subscribeBtnContainer, listContainer];
   mainTitleLink.textContent = '';
   mainTitleLink.title = mainTitleImg.lastElementChild.alt;
   mainTitleLink.appendChild(mainTitleImg);
@@ -155,11 +150,15 @@ async function buildMagazineSubNav(block, ref) {
   mainSubNav.appendChild(subNavTitle);
 
   if (isSubscribeEnabled) {
+    // add a cta button to open a form (subscribe to bulldog)
+    const subscribeBtnContainer = createElement('div', { classes: 'button-container' });
+    const subscribeBtn = createElement('button', {
+      classes: ['magazine-subscribe-button', 'button-container'],
+      props: { type: 'button' },
+    });
     subscribeBtn.textContent = subscribeText;
     subscribeBtnContainer.appendChild(subscribeBtn);
-  } else {
-    // remove the subscribe button from the list of elements to append
-    elementsToAppend.splice(2, 1);
+    elementsToAppend.push(subscribeBtnContainer);
   }
 
   subNavContainer.append(...elementsToAppend);
