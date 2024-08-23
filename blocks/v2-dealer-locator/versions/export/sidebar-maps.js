@@ -3,8 +3,19 @@
 // these variable set the coords of where the map should appear when the user does not allow the location set.
 // in this case it is set to CHILE
 var defaultCenterCoords = {
-  lat: -33,
-  lng: -70,
+  lat: 0,
+  lng: 0,
+}
+
+if (window?.locatorConfig?.coords) {
+  const coords = window.locatorConfig.coords.split(',');
+  
+  if (coords.length === 2) {
+    defaultCenterCoords = {
+      lat: parseFloat(coords[0]),
+      lng: parseFloat(coords[1]),
+    }
+  }
 }
 
 // Map Sidebar Animation

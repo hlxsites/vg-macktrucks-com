@@ -97,6 +97,7 @@ export default async function decorate(block) {
       version: blockConfig.version, // 'default' or 'export-market'
       country: blockConfig.country,
       amenities: blockConfig.amenities,
+      coords: blockConfig.coords,
     };
 
     const sharedTemplate = template({ zipCode, isMobile, isExportMarket });
