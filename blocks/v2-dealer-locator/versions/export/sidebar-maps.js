@@ -108,6 +108,10 @@ var isLocationOFF = false;
 // Google callback letting us know maps is ready to be used
 (function () {
   initMap = function () {
+    if (!window.locatorConfig.dataSource) {
+      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
+    }
+
     $geocoder = new google.maps.Geocoder();
 
     $map = new google.maps.Map(document.getElementById("map"),{
@@ -281,11 +285,6 @@ var isLocationOFF = false;
       });
     }
 
-    // by default load pins
-    if (!window.locatorConfig.dataSource) {
-      window.locatorConfig.dataSource = '/buy-mack/find-a-dealer/market-export-dealer.json';
-    }
-
     // set the default location for country if there is no postcode in url or stored location
     if (!$('#location').val() && ($location === null)) {
       $geocoder = new google.maps.Geocoder;
@@ -362,7 +361,7 @@ $.fn.loadPins = function () {
   if (!$markers.length) {
     $.ajax({
       // use json file from franklin
-      url: '/buy-mack/find-a-dealer/market-export-dealer.json',
+      url: window.locatorConfig.dataSource,
       type: "GET",
       success: function ({ data }) {
 
