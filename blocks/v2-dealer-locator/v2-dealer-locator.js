@@ -85,6 +85,7 @@ export default async function decorate(block) {
 
   // blockConfig.datasource is a required field for the block to work:
   if (!blockConfig.datasource) {
+    // eslint-disable-next-line no-console
     console.error('The block is missing the datasource field in the configuration.');
   } else {
     window.locatorConfig = {
