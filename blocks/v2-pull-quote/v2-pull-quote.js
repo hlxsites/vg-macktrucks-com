@@ -16,7 +16,8 @@ export default function decorate(block) {
   const previousTextEl = parentWrapper.previousElementSibling.lastChild;
 
   if (isHalfWidth && previousTextEl) {
-    parentWrapper.classList.add(`${blockName}-wrapper--half-width`, quoteIsRight && 'quote-right');
+    parentWrapper.classList.add(`${blockName}-wrapper--half-width`,
+      quoteIsRight ? 'quote-right' : 'quote-left');
     quoteIsRight = !quoteIsRight;
     previousTextEl.classList.add('half-width-text');
     parentWrapper.prepend(previousTextEl);
