@@ -2,12 +2,13 @@
   --quote-font-size: 40px;
   --quote-line-height: 90%;
   --quote-vertical-gap: 24px;
+  --quote-horizontal-gap: 40px;
 }
 
 .v2-pull-quote-wrapper--half-width {
   display: flex;
   flex-direction: column-reverse;
-  gap: 40px;
+  gap: var(--quote-horizontal-gap);
 }
 
 .v2-pull-quote-wrapper--half-width.quote-right {
@@ -18,12 +19,8 @@
   font-family: var(--ff-headline-compressed);
   color: var(--c-secondary-dark-gold);
   font-size: var(--quote-font-size);
-  width: 100%;
   line-height: var(--quote-line-height);
-  outline: 4px;
   border-left: 4px solid var(--c-secondary-dark-gold);
-  box-sizing: border-box;
-  margin: 0;
 }
 
 .v2-pull-quote p,
@@ -31,13 +28,15 @@
   padding-left: 36px;
 }
 
-.v2-pull-quote-wrapper .half-width-text {
+.v2-pull-quote p,
+.v2-pull-quote-wrapper--half-width .half-width-text {
   margin: 0;
 }
 
 @media (min-width: 744px) {
   .v2-pull-quote-wrapper {
-    /* margin: 20px 0; */
+    --quote-vertical-gap: 48px;
+  
     gap: var(--quote-vertical-gap);
     justify-content: space-between;
   }
