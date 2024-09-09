@@ -1,5 +1,4 @@
 import {
-  // createElement,
   unwrapDivs,
   variantsClassesToBEM,
 } from '../../scripts/common.js';
