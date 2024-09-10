@@ -348,6 +348,8 @@ const {
   headerConfig,
   tools,
   truckConfiguratorUrls,
+  newsFeedConfig,
+  bodyBuilderNewsConfig,
 } = await getConstantValues();
 
 // This data comes from the sharepoint 'constants.xlsx' file
@@ -357,6 +359,8 @@ export const MAGAZINE_CONFIGS = formatValues(magazineConfig?.data);
 export const HEADER_CONFIGS = formatValues(headerConfig?.data);
 export const TOOLS_CONFIGS = formatValues(tools?.data);
 export const TRUCK_CONFIGURATOR_URLS = formatValues(truckConfiguratorUrls?.data);
+export const NEWS_FEED_CONFIGS = formatValues(newsFeedConfig?.data);
+export const BODY_BUILDER_NEWS_CONFIGS = formatValues(bodyBuilderNewsConfig?.data);
 
 /**
  * Check if one trust group is checked.
