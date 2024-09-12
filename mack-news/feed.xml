@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.macktrucks.com/mack-news/</id>
     <title>Mack News</title>
-    <updated>2024-08-19T00:00:00.000Z</updated>
+    <updated>2024-09-05T00:00:00.000Z</updated>
     <generator>AEM Project Franklin News feed generator (GitHub action)</generator>
     <link rel="alternate" href="https://www.macktrucks.com/mack-news/"/>
     <subtitle>Get the latest news from Mack® Trucks and see how we are taking our Born Ready semi truck line to the next level with new innovations and technology.</subtitle>
@@ -2991,5 +2991,13 @@
         <updated>2024-08-19T00:00:00.000Z</updated>
         <content type="html"><![CDATA[GREENSBORO, NC (Aug. 19, 2024) – Mack Trucks will spotlight its Mack ® MD Electric model, the second zero-emissions vehicle in Mack’s lineup, at the Green Transportation Summit & Expo (GTSE), Aug. 20-22, in Tacoma, Washington. Mack is a sponsor of the ride-and-drive event occurring from 2 to 4:30 p.m. Aug. 20 on a closed course at the Tacoma Dome.]]></content>
         <published>2024-08-19T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mack Trucks Unveils Virtual Truck Builder]]></title>
+        <id>https://www.macktrucks.com/mack-news/2024/mack-trucks-unveils-virtual-truck-builder</id>
+        <link href="https://www.macktrucks.com/mack-news/2024/mack-trucks-unveils-virtual-truck-builder"/>
+        <updated>2024-09-05T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[GREENSBORO, NC (Sept. 5, 2024) – Mack Trucks recently launched its cutting-edge Truck Builder, a digital platform that allows customers to customize their dream Mack® truck from the ground up. This innovative tool represents a comprehensive overhaul of Mack’s previous online truck customization technology and significantly enhances the user experience.]]></content>
+        <published>2024-09-05T00:00:00.000Z</published>
     </entry>
 </feed>
