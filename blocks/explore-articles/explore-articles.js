@@ -2,9 +2,9 @@ import { createElement, getTextLabel, getArticleTagsJSON } from '../../scripts/c
 import { getAllArticles } from '../recent-articles/recent-articles.js';
 
 const allArticles = await getAllArticles();
-const allCategoryTags = await getArticleTagsJSON();
-const allCategories = allCategoryTags.categories;
-const allTrucks = allCategoryTags.trucks;
+const allArticleTags = await getArticleTagsJSON();
+const allCategories = allArticleTags.categories;
+const allTrucks = allArticleTags.trucks;
 
 const [categoryPlaceholder, truckPlaceholder] = getTextLabel('Article filter placeholder').split(',');
 

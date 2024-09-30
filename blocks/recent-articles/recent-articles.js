@@ -2,11 +2,20 @@ import {
   createElement,
   getOrigin,
   getTextLabel,
+  getArticleTagsJSON,
 } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
+const allArticleTags = await getArticleTagsJSON();
+const allCategories = allArticleTags.categories;
+
+const getArticleCategory = (article) => {
+  const articleTags = JSON.parse(article.tags);
+  const articleCategory = articleTags.find((e) => allCategories.includes(e));
+  return articleCategory;
+};
 
 export const getAllArticles = async () => {
   const response = await fetch('/magazine-articles.json');
@@ -64,14 +73,14 @@ export default async function decorate(block) {
       ${pictureTag}
     </a>`;
 
-    // TODO: to be updated if the category is not properly gathered from magazine-articles.json
-    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
+    const articleCategory = getArticleCategory(e);
+    const categoryWithDash = articleCategory.replaceAll(' ', '-').toLowerCase();
+    const categoryUrl = new URL(`magazine/categories/${categoryWithDash}`, getOrigin());
     const category = createElement('a', {
       classes: `recent-articles-${firstOrRest}-category`,
       props: { href: categoryUrl },
     });
-    category.innerText = e.category;
+    category.innerText = articleCategory;
 
     const title = createElement('a', {
       classes: `recent-articles-${firstOrRest}-title`,
