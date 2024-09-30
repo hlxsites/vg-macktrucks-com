@@ -1,5 +1,10 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { createElement, getTextLabel, variantsClassesToBEM } from '../../scripts/common.js';
+import {
+  createElement,
+  getTextLabel,
+  variantsClassesToBEM,
+  isLinkExternal,
+} from '../../scripts/common.js';
 
 const blockName = 'v2-breadcrumb';
 const sectionStatus = 'data-section-status';
@@ -82,6 +87,7 @@ export default function decorate(block) {
       crumbProps['aria-current'] = 'page';
     }
     const crumb = createElement('a', { classes: crumbClasses, props: crumbProps });
+    if (isCustomPath) isLinkExternal(crumb);
     crumb.textContent = content;
     liEl.append(crumb);
     return liEl;
