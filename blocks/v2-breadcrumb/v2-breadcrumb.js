@@ -97,6 +97,7 @@ export default function decorate(block) {
     classes: [`${blockName}__crumb`, `${blockName}__crumb--home`],
     props: { href: isCustomPath ? `${customLinks[0].value}` : '/' },
   });
+  isLinkExternal(homeEl);
 
   homeEl.textContent = isCustomPath ? `${customLinks[0].key}` : homeText.home;
   homeItem.append(homeEl);
