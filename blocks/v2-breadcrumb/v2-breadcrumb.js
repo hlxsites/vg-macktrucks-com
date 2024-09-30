@@ -76,7 +76,7 @@ export default function decorate(block) {
     const crumbProps = { 'data-content': content };
     const crumbClasses = [`${blockName}__crumb`];
     if (i !== path.length - 1) {
-      crumbProps.href = isCustomPath ? `/${customLinks[i].value}` : `/${path.slice(0, i + 1).join('/')}/`;
+      crumbProps.href = isCustomPath ? `${customLinks[i].value}` : `/${path.slice(0, i + 1).join('/')}/`;
     } else {
       crumbClasses.push(`${blockName}__crumb--active`);
       crumbProps['aria-current'] = 'page';
@@ -89,7 +89,7 @@ export default function decorate(block) {
   const homeItem = createElement('li', { classes: [`${blockName}__crumb-item`] });
   const homeEl = createElement('a', {
     classes: [`${blockName}__crumb`, `${blockName}__crumb--home`],
-    props: { href: isCustomPath ? `/${customLinks[0].value}` : '/' },
+    props: { href: isCustomPath ? `${customLinks[0].value}` : '/' },
   });
 
   homeEl.textContent = isCustomPath ? `${customLinks[0].key}` : homeText.home;
