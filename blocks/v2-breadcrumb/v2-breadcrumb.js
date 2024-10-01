@@ -42,12 +42,13 @@ const makeCustomUrl = (bread) => {
   const allCrumbs = [];
   const allEls = bread.querySelectorAll('p');
 
-  for (let i = 0; i < allEls.length; i += 2) {
-    const key = allEls[i].textContent;
-    const value = i + 1 < allEls.length ? allEls[i + 1].textContent : '';
-    allCrumbs.push({ key, value });
+  if (allEls) {
+    for (let i = 0; i < allEls.length; i += 2) {
+      const key = allEls[i].textContent;
+      const value = i + 1 < allEls.length ? allEls[i + 1].textContent : '';
+      allCrumbs.push({ key, value });
+    }
   }
-
   const keyString = allCrumbs.map((obj) => obj.key).join('/');
   return ([keyString, allCrumbs]);
 };
