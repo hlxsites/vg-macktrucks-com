@@ -20,9 +20,9 @@ jobs:
         sleep 1s
         PAGE_PATH=$(echo "${{ github.event.client_payload.path }}" | sed 's/\.md$//g')
         WEBSITE_NAME="${{ vars.WEBSITE_NAME }}"
-        URI=$(echo "${{ vars.CONNECTOR_DOMAIN }}/$WEBSITE_NAME")
+        URI=$(echo "${{ vars.OLD_CONNECTOR_DOMAIN }}/$WEBSITE_NAME")
         BODY='{ "paths": [ "'$PAGE_PATH'" ] }'
         BODY="$(echo "$BODY" | jq -c)"
-        response=$(curl -s -H "x-api-key: ${{ secrets.API_KEY }}" -X POST "$URI" -d "$BODY")
+        response=$(curl -s -H "x-api-key: ${{ secrets.OLD_API_KEY }}" -X POST "$URI" -d "$BODY")
         echo "response: $response"
       shell: bash
