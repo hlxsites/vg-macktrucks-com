@@ -803,15 +803,8 @@ if (getMetadata('truck-configurator-page')) {
 const allItalics = [...document.querySelectorAll('em')];
 allItalics.forEach((emTag) => {
   const tagLength = emTag.textContent.length;
-  const parentEl = emTag.parentElement;
-
-  if (tagLength === 1 && parentEl) {
-    // This regex matches for all <em> tags with one character that are followed by a space
-    const regex = /<em[^>]*>[a-zA-Z]<\/em>\s/g;
-    const newString = parentEl.innerHTML.replace(regex, (em) => {
-      const letter = em.charAt(4); // Get the letter inside the <em> tag
-      return `<em>${letter}</em>`; // Return the <em> without the space at the end
-    });
-    parentEl.innerHTML = newString; // replace old <em> with new
+  const { nextSibling } = emTag;
+  if (tagLength === 1 && nextSibling.nodeType === Node.TEXT_NODE && nextSibling.nodeValue.startsWith(' ')) {
+    nextSibling.nodeValue = nextSibling.nodeValue.slice(1);
   }
 });
