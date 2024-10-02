@@ -1,3 +1,4 @@
+import getConfigs from './generate-news-feed-config.js';
 import { Feed } from 'feed';
 import fs from 'fs';
 import ALL_FEEDS from './generate-news-feed-config';
