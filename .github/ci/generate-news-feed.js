@@ -27,7 +27,7 @@ async function createFeed() {
 
   async function getConfigs() {
     try {
-      const ALL_FEEDS = await import('/generate-news-feed-config.js');
+      const ALL_FEEDS = await import('./generate-news-feed-config.js');
       feedsConfigurations = ALL_FEEDS;
     } catch (error) {
       console.error('Error importing or processing object:', error);
