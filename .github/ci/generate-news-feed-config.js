@@ -25,14 +25,12 @@ const formatValues = (values) => {
   return obj;
 };
 
-const {
-  newsFeedConfig,
-  bodyBuilderNewsConfig,
-} = await getConstantValues();
+const getConfigs = async () => {
+  const { newsFeedConfig, bodyBuilderNewsConfig } = await getConstantValues();
+  const NEWS_FEED_CONFIGS = formatValues(newsFeedConfig?.data);
+  const BODY_BUILDERS_FEED_CONFIGS = formatValues(bodyBuilderNewsConfig?.data);
+  
+  return [ NEWS_FEED_CONFIGS, BODY_BUILDERS_FEED_CONFIGS ];
+};
 
-const NEWS_FEED_CONFIGS = formatValues(newsFeedConfig?.data);
-const BODY_BUILDERS_FEED_CONFIGS = formatValues(bodyBuilderNewsConfig?.data);
-
-const ALL_FEEDS = [ NEWS_FEED_CONFIGS, BODY_BUILDERS_FEED_CONFIGS ]
-
-export default ALL_FEEDS;
+export default getConfigs;
