@@ -1,5 +1,6 @@
 import { Feed } from 'feed';
 import fs from 'fs';
+import ALL_FEEDS from './generate-news-feed-config.js';
 
 /**
  * @typedef {Object} FeedConfig
@@ -23,25 +24,13 @@ import fs from 'fs';
  * @return {Promise<void>}
  */
 async function createFeed() {
-  let feedsConfigurations;
-
-  async function getConfigs() {
-    try {
-      const ALL_FEEDS = await import('./generate-news-feed-config.js');
-      feedsConfigurations = ALL_FEEDS;
-    } catch (error) {
-      console.error('Error importing or processing object:', error);
-    }
-  }
-  getConfigs()
-
-  for (const feed of feedsConfigurations) {
+  for (const oneFeed of ALL_FEEDS) {
     const {
       ENDPOINT,
       FEED_INFO_ENDPOINT,
       TARGET_DIRECTORY,
       LIMIT,
-    } = feed;
+    } = oneFeed;
   
     const TARGET_FILE = `${TARGET_DIRECTORY}/feed.xml`;
     const PARSED_LIMIT = Number(LIMIT)
