@@ -633,9 +633,7 @@ function getValuesFromObjectsArray(array = []) {
   return array.map((item) => Object.values(item)[0]);
 }
 
-async function fetchArticleTagsJSON() {
-  return getJsonFromUrl('/magazine/articles/tags.json');
-}
+const fetchArticleTagsJSON = async () => getJsonFromUrl('/magazine/articles/tags.json');
 
 /**
  * Fetches the tags from the JSON file
@@ -644,15 +642,21 @@ async function fetchArticleTagsJSON() {
  * @property {Array} trucks - An array of trucks
  * @property {Array} topics - An array of topics
  */
-export async function getArticleTagsJSON() {
-  const tagsJSON = await fetchArticleTagsJSON();
-  const tags = {
-    categories: getValuesFromObjectsArray(tagsJSON.categories?.data),
-    trucks: getValuesFromObjectsArray(tagsJSON.trucks?.data),
-    topics: getValuesFromObjectsArray(tagsJSON.topics?.data),
-  };
-  return tags;
-}
+export const getArticleTagsJSON = async () => {
+  try {
+    const tagsJSON = await fetchArticleTagsJSON();
+
+    return {
+      categories: getValuesFromObjectsArray(tagsJSON.categories?.data),
+      trucks: getValuesFromObjectsArray(tagsJSON.trucks?.data),
+      topics: getValuesFromObjectsArray(tagsJSON.topics?.data),
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching article tags JSON:', error);
+    throw new Error('Unable to fetch article tags.');
+  }
+};
 
 /**
  * Extracts the matching tags from an array of tags and an array of article tags
