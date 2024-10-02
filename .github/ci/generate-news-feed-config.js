@@ -1,5 +1,5 @@
 async function getConstantValues() {
-  const url = '/constants.json';
+  const url = './constants.json';
   let constants;
   try {
     const response = await fetch(url).then((resp) => resp.json());

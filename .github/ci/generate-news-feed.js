@@ -1,6 +1,6 @@
 import { Feed } from 'feed';
 import fs from 'fs';
-import ALL_FEEDS from './generate-news-feed-config.js';
+import ALL_FEEDS from './generate-news-feed-config';
 
 /**
  * @typedef {Object} FeedConfig
@@ -24,7 +24,8 @@ import ALL_FEEDS from './generate-news-feed-config.js';
  * @return {Promise<void>}
  */
 async function createFeed() {
-  for (const oneFeed of ALL_FEEDS) {
+  const allFeedsConfigs = ALL_FEEDS;
+  for (const oneFeed of allFeedsConfigs) {
     const {
       ENDPOINT,
       FEED_INFO_ENDPOINT,
