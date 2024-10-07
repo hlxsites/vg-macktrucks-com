@@ -83,7 +83,9 @@ export default function decorate(block) {
       crumbProps['aria-current'] = 'page';
     }
     const crumb = createElement('a', { classes: crumbClasses, props: crumbProps });
-    if (hasCustomClass) addTargetBlankToExternalLink(crumb);
+    if (hasCustomClass) {
+      addTargetBlankToExternalLink(crumb);
+    }
     crumb.textContent = content;
     liEl.append(crumb);
     return liEl;
@@ -98,7 +100,9 @@ export default function decorate(block) {
   homeEl.textContent = hasCustomClass ? `${customLinks[0].key}` : homeText.home;
   homeItem.append(homeEl);
   crumbs.unshift(homeItem);
-  if (hasCustomClass) crumbs.splice(1, 1);
+  if (hasCustomClass) {
+    crumbs.splice(1, 1);
+  }
   ul.append(...crumbs);
   nav.append(ul);
   block.textContent = '';
