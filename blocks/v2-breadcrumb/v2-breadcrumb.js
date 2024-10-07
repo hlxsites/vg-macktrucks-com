@@ -18,7 +18,7 @@ const variantClasses = ['custom'];
 const formatText = (str) => str.replace(/-/g, ' ').toLowerCase();
 
 const getPadding = (elCompCSS) => parseInt(elCompCSS.getPropertyValue('padding-left'), 10)
-      + parseInt(elCompCSS.getPropertyValue('padding-right'), 10);
+  + parseInt(elCompCSS.getPropertyValue('padding-right'), 10);
 
 const getCrumbsWidth = (block) => {
   const crumbs = block.querySelectorAll(`.${blockName}__crumb-item`);
@@ -39,16 +39,9 @@ const getBlockWidth = (block) => {
 const fitting = (block) => getCrumbsWidth(block) < getBlockWidth(block);
 
 const generateCustomUrl = (breadcrumbBlockConfig) => {
-  const keysArray = Object.keys(breadcrumbBlockConfig);
-  const valuesArray = Object.values(breadcrumbBlockConfig);
+  const objectEntries = Object.entries(breadcrumbBlockConfig);
   const allCrumbs = [];
-  for (let i = 0; i < keysArray.length; i += 1) {
-    const crumb = {
-      key: keysArray[i],
-      value: valuesArray[i],
-    };
-    allCrumbs.push(crumb);
-  }
+  for (const [key, value] of objectEntries) allCrumbs.push({ key, value });
   const keyString = allCrumbs.map((obj) => obj.key).join('/');
 
   return ([keyString, allCrumbs]);
@@ -59,8 +52,9 @@ export default function decorate(block) {
   let url;
   let customLinks;
   const hasCustomClass = block.classList.contains(`${blockName}--custom`);
+  const shouldSanitizeString = !hasCustomClass;
 
-  const cfg = readBlockConfig(block);
+  const cfg = readBlockConfig(block, shouldSanitizeString);
   const hasPath = cfg && Object.hasOwn(cfg, 'path');
 
   if (hasPath) {
