@@ -215,18 +215,17 @@ function toCamelCase(name) {
 /**
  * Extracts the config from a block.
  * @param {Element} block The block element
- * @param {Boolean} sanitizeString Sets if the string should be sanitized; defaults to true
  * @returns {object} The block config
  */
 // eslint-disable-next-line import/prefer-default-export
-function readBlockConfig(block, sanitizeString = true) {
+function readBlockConfig(block) {
   const config = {};
   block.querySelectorAll(':scope > div').forEach((row) => {
     if (row.children) {
       const cols = [...row.children];
       if (cols[1]) {
         const col = cols[1];
-        const name = sanitizeString ? toClassName(cols[0].textContent) : cols[0].textContent;
+        const name = toClassName(cols[0].textContent);
         let value = '';
         if (col.querySelector('a')) {
           const as = [...col.querySelectorAll('a')];

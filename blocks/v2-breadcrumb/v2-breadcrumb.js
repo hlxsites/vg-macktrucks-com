@@ -38,10 +38,20 @@ const getBlockWidth = (block) => {
 
 const fitting = (block) => getCrumbsWidth(block) < getBlockWidth(block);
 
-const generateCustomUrl = (breadcrumbBlockConfig) => {
-  const objectEntries = Object.entries(breadcrumbBlockConfig);
+const generateCustomUrl = (block) => {
   const allCrumbs = [];
-  for (const [key, value] of objectEntries) allCrumbs.push({ key, value });
+  block.querySelectorAll(':scope > div').forEach((row) => {
+    if (row.children) {
+      const cols = [...row.children];
+      if (cols[1]) {
+        const obj = {
+          key: cols[0].textContent,
+          value: row.children[1].textContent,
+        };
+        allCrumbs.push(obj);
+      }
+    }
+  });
   const keyString = allCrumbs.map((obj) => obj.key).join('/');
 
   return ([keyString, allCrumbs]);
@@ -52,15 +62,14 @@ export default function decorate(block) {
   let url;
   let customLinks;
   const hasCustomClass = block.classList.contains(`${blockName}--custom`);
-  const shouldSanitizeString = !hasCustomClass;
 
-  const cfg = readBlockConfig(block, shouldSanitizeString);
+  const cfg = readBlockConfig(block);
   const hasPath = cfg && Object.hasOwn(cfg, 'path');
 
   if (hasPath) {
     url = cfg.path;
   } else if (hasCustomClass) {
-    const [customPath, allCrumbs] = generateCustomUrl(cfg);
+    const [customPath, allCrumbs] = generateCustomUrl(block);
     customLinks = allCrumbs;
     url = customPath;
   } else {
