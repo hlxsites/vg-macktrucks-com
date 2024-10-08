@@ -310,7 +310,7 @@ export const slugify = (text) => (
 );
 
 /**
- * loads the constants file where configuration values are stored
+ * Loads the constants file where configuration values are stored
  */
 async function getConstantValues() {
   const url = `${getLanguagePath()}constants.json`;
@@ -327,6 +327,13 @@ async function getConstantValues() {
   return constants;
 }
 
+/**
+ * Extracts the values from an array in format: ['key1: value1', 'key2: value2', 'key3: value3']
+ * and returns this into an object with those keys and values:
+ * { key1: value1, key2: value2, key3: value3 }
+ * @param {Array} data - Array of strings that contain an object coming from sharepoint
+ * @returns {Object} An parsed object with those values and keys
+ */
 export const extractObjectFromArray = (data) => {
   const obj = {};
   for (const item of data) {
