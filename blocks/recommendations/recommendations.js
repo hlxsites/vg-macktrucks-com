@@ -5,7 +5,7 @@ import {
   getTextLabel,
   getAllArticles,
   getLimit,
-  clearOpenArticle,
+  deleteCurrentArticle,
   sortArticlesByLastModified,
 } from '../../scripts/common.js';
 import {
@@ -25,7 +25,7 @@ export default async function decorate(block) {
   const allArticles = await getAllArticles();
   const recommendedArticles = allArticles.filter((e) => e.category === category);
   const soredtArticles = sortArticlesByLastModified(recommendedArticles);
-  const filteredArticles = clearOpenArticle(soredtArticles);
+  const filteredArticles = deleteCurrentArticle(soredtArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
   const recommendationsSection = createElement('div', { classes: `${blockName}-section` });

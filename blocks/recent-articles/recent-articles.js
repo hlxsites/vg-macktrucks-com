@@ -4,35 +4,36 @@ import {
   getTextLabel,
   getAllArticles,
   getLimit,
-  clearOpenArticle,
+  deleteCurrentArticle,
   sortArticlesByLastModified,
 } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
+const blockName = 'recent-articles';
 
 export default async function decorate(block) {
   const limit = getLimit(block) || 5;
   const allArticles = await getAllArticles();
 
   const sortedArticles = sortArticlesByLastModified(allArticles);
-  const filteredArticles = clearOpenArticle(sortedArticles);
+  const filteredArticles = deleteCurrentArticle(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
-  const recentArticlesSection = createElement('div', { classes: 'recent-articles-section' });
-  const recentArticlesTitle = createElement('h3', { classes: 'recent-articles-section-title' });
+  const recentArticlesSection = createElement('div', { classes: `${blockName}-section` });
+  const recentArticlesTitle = createElement('h3', { classes: `${blockName}-section-title` });
   recentArticlesTitle.innerText = sectionTitle;
 
-  const recentArticleList = createElement('ul', { classes: 'recent-articles-list' });
+  const recentArticleList = createElement('ul', { classes: `${blockName}-list` });
 
   selectedArticles.forEach((e, idx) => {
     const linkUrl = new URL(e.path, getOrigin());
     const firstOrRest = (idx === 0) ? 'first' : 'rest';
 
-    const item = createElement('li', { classes: `recent-articles-${firstOrRest}-item` });
+    const item = createElement('li', { classes: `${blockName}-${firstOrRest}-item` });
 
-    const image = createElement('div', { classes: `recent-articles-${firstOrRest}-image` });
+    const image = createElement('div', { classes: `${blockName}-${firstOrRest}-image` });
     const picture = createOptimizedPicture(e.image, e.title);
     const pictureTag = picture.outerHTML;
     image.innerHTML = `<a href='${linkUrl}'>
@@ -43,22 +44,22 @@ export default async function decorate(block) {
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
     const category = createElement('a', {
-      classes: `recent-articles-${firstOrRest}-category`,
+      classes: `${blockName}-${firstOrRest}-category`,
       props: { href: categoryUrl },
     });
     category.innerText = e.category;
 
     const title = createElement('a', {
-      classes: `recent-articles-${firstOrRest}-title`,
+      classes: `${blockName}-${firstOrRest}-title`,
       props: { href: linkUrl },
     });
     title.innerText = e.title;
 
-    const subtitle = createElement('p', { classes: `recent-articles-${firstOrRest}-subtitle` });
+    const subtitle = createElement('p', { classes: `${blockName}-${firstOrRest}-subtitle` });
     subtitle.innerText = e.subtitle;
 
     const link = createElement('a', {
-      classes: `recent-articles-${firstOrRest}-link`,
+      classes: `${blockName}-${firstOrRest}-link`,
       props: { href: linkUrl },
     });
     link.innerText = readNowText;

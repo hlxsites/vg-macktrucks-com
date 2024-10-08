@@ -705,7 +705,7 @@ export const getLimit = (block) => {
  * Extract the article that is currently open and delete it from the article list
  * @param {Array} articles - The list of articles
  */
-export const clearOpenArticle = (articles) => articles.filter((e) => {
+export const deleteCurrentArticle = (articles) => articles.filter((e) => {
   const currentArticlePath = window.location.href.split('/').pop();
   const path = e.path.split('/').pop();
   if (path !== currentArticlePath) return e;

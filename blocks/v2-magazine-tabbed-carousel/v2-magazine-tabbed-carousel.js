@@ -16,7 +16,7 @@ let autoScrollEnabled = true;
 const maxAmountOfTabs = 4;
 
 const allArticles = await getAllArticles();
-const articleArray = Object.values(allArticles.data);
+const articleArray = Object.values(allArticles);
 
 let activeVideo = null;
 
