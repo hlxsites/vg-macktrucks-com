@@ -1,3 +1,4 @@
+import getConfigs from './generate-news-feed-config.js';
 import { Feed } from 'feed';
 import fs from 'fs';
 
@@ -23,17 +24,7 @@ import fs from 'fs';
  * @return {Promise<void>}
  */
 async function createFeed() {
-  let feedsConfigurations;
-
-  async function getConfigs() {
-    try {
-      const ALL_FEEDS = await import('/generate-news-feed-config.js');
-      feedsConfigurations = ALL_FEEDS;
-    } catch (error) {
-      console.error('Error importing or processing object:', error);
-    }
-  }
-  getConfigs()
+  let feedsConfigurations = await getConfigs();
 
   for (const feed of feedsConfigurations) {
     const {
