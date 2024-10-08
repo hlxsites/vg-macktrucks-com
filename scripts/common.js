@@ -685,3 +685,40 @@ export async function getArticleTags(tagType) {
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
 }
+
+/**
+ * Extract the classes of a block and in case there is a 'limit-X' set, extract it as a number
+ * @param {block} block - The block element
+ * @returns {number} A number representing the limit
+ */
+export const getLimit = (block) => {
+  const classes = block.classList;
+  let limit;
+  classes.forEach((e) => {
+    const [name, value] = e.split('-');
+    if (name === 'limit') limit = Number(value);
+  });
+  return limit;
+};
+
+/**
+ * Extract the article that is currently open and delete it from the article list
+ * @param {Array} articles - The list of articles
+ */
+export const clearOpenArticle = (articles) => articles.filter((e) => {
+  const currentArticlePath = window.location.href.split('/').pop();
+  const path = e.path.split('/').pop();
+  if (path !== currentArticlePath) return e;
+  return null;
+});
+
+/**
+ * Sorts the article list by the 'lastModified' field in the json
+ * @param {Array} articles - The list of article
+ * @returns {Array} The same list of articles but sorted by lastModified
+ */
+export const sortArticlesByLastModified = (articles) => articles.sort((a, b) => {
+  a.lastModified = +(a.lastModified);
+  b.lastModified = +(b.lastModified);
+  return b.lastModified - a.lastModified;
+});

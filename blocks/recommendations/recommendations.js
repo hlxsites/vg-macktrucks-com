@@ -4,12 +4,10 @@ import {
   getOrigin,
   getTextLabel,
   getAllArticles,
-} from '../../scripts/common.js';
-import {
   getLimit,
-  clearRepeatedArticles,
-  sortArticles,
-} from '../recent-articles/recent-articles.js';
+  clearOpenArticle,
+  sortArticlesByLastModified,
+} from '../../scripts/common.js';
 import {
   getMetadata,
   createOptimizedPicture,
@@ -17,27 +15,30 @@ import {
 
 const recommendationsText = getTextLabel('Recommendations text');
 const readNowText = getTextLabel('READ NOW');
+const blockName = 'recommendations';
 
 export default async function decorate(block) {
-  const limit = Number(getLimit(block));
-  const category = await getArticleTags('categories') || getMetadata('category');
+  const limit = getLimit(block) || 2;
+  const category = await getArticleTags('categories')
+    || getMetadata('article-category')
+    || getMetadata('category');
   const allArticles = await getAllArticles();
   const recommendedArticles = allArticles.filter((e) => e.category === category);
-  const soredtArticles = sortArticles(recommendedArticles);
-  const filteredArticles = clearRepeatedArticles(soredtArticles);
+  const soredtArticles = sortArticlesByLastModified(recommendedArticles);
+  const filteredArticles = clearOpenArticle(soredtArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
-  const recommendationsSection = createElement('div', { classes: 'recommendations-section' });
-  const recommendationsTitle = createElement('h3', { classes: 'recommendations-section-title' });
-  recommendationsTitle.innerText = recommendationsText;
+  const recommendationsSection = createElement('div', { classes: `${blockName}-section` });
+  const recommendationsTitle = createElement('h3', { classes: `${blockName}-section-title` });
+  recommendationsTitle.innerText = selectedArticles.length > 1 ? recommendationsText : '';
 
-  const recommendationsList = createElement('ul', { classes: 'recommendations-list' });
+  const recommendationsList = createElement('ul', { classes: `${blockName}-list` });
 
   selectedArticles.forEach((e, idx) => {
-    const item = createElement('li', { classes: ['recommendations-item', `recommendations-item-${idx}`] });
+    const item = createElement('li', { classes: [`${blockName}-item`, `${blockName}-item-${idx}`] });
     const linkUrl = new URL(e.path, getOrigin());
 
-    const image = createElement('div', { classes: 'recommendations-image' });
+    const image = createElement('div', { classes: `${blockName}-image` });
     const picture = createOptimizedPicture(e.image, e.title);
     const pictureTag = picture.outerHTML;
     image.innerHTML = `<a href="${linkUrl}" class="image-link">
@@ -47,21 +48,21 @@ export default async function decorate(block) {
     const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
     const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
 
-    const content = createElement('div', { classes: 'recommendations-text-content' });
+    const content = createElement('div', { classes: `${blockName}-text-content` });
     const categoryLink = createElement('a', {
-      classes: 'recommendations-category',
+      classes: `${blockName}-category`,
       props: { href: categoryUrl },
     });
     categoryLink.innerText = e.category;
 
     const title = createElement('a', {
-      classes: 'recommendations-title',
+      classes: `${blockName}-title`,
       props: { href: linkUrl },
     });
     title.innerText = e.title;
 
-    const truck = createElement('div', { classes: 'recommendations-truck' });
-    const truckText = createElement('p', { classes: 'recommendations-truck-text' });
+    const truck = createElement('div', { classes: `${blockName}-truck` });
+    const truckText = createElement('p', { classes: `${blockName}-truck-text` });
     truckText.innerText = e.truck;
     const truckIcon = createElement('img', {
       classes: 'truck-icon',
@@ -70,7 +71,7 @@ export default async function decorate(block) {
     if (e.truck.length !== 0) truck.append(truckIcon, truckText);
 
     const link = createElement('a', {
-      classes: 'recommendations-link',
+      classes: `${blockName}-link`,
       props: { href: linkUrl },
     });
     link.innerText = readNowText;
@@ -78,7 +79,7 @@ export default async function decorate(block) {
     content.append(categoryLink, title);
 
     const subtitle = createElement('a', {
-      classes: 'recommendations-subtitle',
+      classes: `${blockName}-subtitle`,
       props: { href: linkUrl },
     });
     subtitle.innerText = e.subtitle;

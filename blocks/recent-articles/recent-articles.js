@@ -3,41 +3,21 @@ import {
   getOrigin,
   getTextLabel,
   getAllArticles,
+  getLimit,
+  clearOpenArticle,
+  sortArticlesByLastModified,
 } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
 
-export const getLimit = (block) => {
-  const classes = block.classList;
-  let limit;
-  classes.forEach((e) => {
-    const [name, value] = e.split('-');
-    if (name === 'limit') limit = value;
-  });
-  return limit;
-};
-
-export const clearRepeatedArticles = (articles) => articles.filter((e) => {
-  const currentArticlePath = window.location.href.split('/').pop();
-  const path = e.path.split('/').pop();
-  if (path !== currentArticlePath) return e;
-  return null;
-});
-
-export const sortArticles = (articles) => articles.sort((a, b) => {
-  a.lastModified = +(a.lastModified);
-  b.lastModified = +(b.lastModified);
-  return b.lastModified - a.lastModified;
-});
-
 export default async function decorate(block) {
-  const limit = Number(getLimit(block));
+  const limit = getLimit(block) || 5;
   const allArticles = await getAllArticles();
 
-  const sortedArticles = sortArticles(allArticles);
-  const filteredArticles = clearRepeatedArticles(sortedArticles);
+  const sortedArticles = sortArticlesByLastModified(allArticles);
+  const filteredArticles = clearOpenArticle(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
   const recentArticlesSection = createElement('div', { classes: 'recent-articles-section' });
