@@ -621,7 +621,7 @@ export const clearElementAttributes = (element) => {
   return element;
 };
 
-// magazine common functions
+// Magazine common functions
 /**
  * Extracts the values from an array of objects and returns an array of values
  * example: [{ key: 'value' }] => ['value']
