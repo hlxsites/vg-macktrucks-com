@@ -1,5 +1,8 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
-import { getAllArticles } from '../recent-articles/recent-articles.js';
+import {
+  createElement,
+  getTextLabel,
+  getAllArticles,
+} from '../../scripts/common.js';
 
 const allArticles = await getAllArticles();
 const allCategories = [...new Set(allArticles.map((article) => article.category))];

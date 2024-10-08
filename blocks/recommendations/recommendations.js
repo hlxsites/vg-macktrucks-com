@@ -3,9 +3,9 @@ import {
   getArticleTags,
   getOrigin,
   getTextLabel,
+  getAllArticles,
 } from '../../scripts/common.js';
 import {
-  getAllArticles,
   getLimit,
   clearRepeatedArticles,
   sortArticles,

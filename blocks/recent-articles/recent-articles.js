@@ -2,17 +2,12 @@ import {
   createElement,
   getOrigin,
   getTextLabel,
+  getAllArticles,
 } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
 const readNowText = getTextLabel('READ NOW');
-
-export const getAllArticles = async () => {
-  const response = await fetch('/magazine-articles.json');
-  const json = await response.json();
-  return json.data;
-};
 
 export const getLimit = (block) => {
   const classes = block.classList;
@@ -89,7 +84,7 @@ export default async function decorate(block) {
     link.innerText = readNowText;
 
     if (idx === 0) {
-      item.append(image, category, title, subtitle, link);
+      item.append(image, e.category !== '' ? category : '', title, subtitle, link);
     } else {
       item.append(image, title);
     }

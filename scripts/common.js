@@ -664,3 +664,17 @@ export async function getArticleTags(tagType) {
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
 }
+
+/**
+ * Get the magazine-article the JSON file at the root folder in sharepoint.
+ * It filters out the articles with no image
+ * @returns {Object} the object that contains all the magazine articles metadata
+ */
+export const getAllArticles = async () => {
+  const magazineArticlesUrl = '/magazine-articles.json';
+  const response = await fetch(magazineArticlesUrl);
+  const json = await response.json();
+  const filteredArray = json.data.filter((art) => art.image !== '');
+
+  return filteredArray;
+};
