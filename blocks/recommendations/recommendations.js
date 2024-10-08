@@ -22,7 +22,6 @@ export default async function decorate(block) {
   const limit = Number(getLimit(block));
   const category = await getArticleTags('categories') || getMetadata('category');
   const allArticles = await getAllArticles();
-
   const recommendedArticles = allArticles.filter((e) => e.category === category);
   const soredtArticles = sortArticles(recommendedArticles);
   const filteredArticles = clearRepeatedArticles(soredtArticles);

@@ -621,7 +621,6 @@ export const clearElementAttributes = (element) => {
   return element;
 };
 
-// magazine common functions
 /**
  * Extracts the values from an array of objects and returns an array of values
  * example: [{ key: 'value' }] => ['value']
@@ -632,6 +631,21 @@ function getValuesFromObjectsArray(array = []) {
   if (!Array.isArray(array) || array.length === 0) return [];
   return array.map((item) => Object.values(item)[0]);
 }
+
+// Magazine common functions
+/**
+ * Get the magazine-article the JSON file at the root folder in sharepoint.
+ * Filters out the articles with no image
+ * @returns {Object} the object that contains all the magazine articles metadata
+ */
+export const getAllArticles = async () => {
+  const magazineArticlesUrl = '/magazine-articles.json';
+  const response = await fetch(magazineArticlesUrl);
+  const json = await response.json();
+  const filteredArray = json.data.filter((art) => art.image !== '');
+
+  return filteredArray;
+};
 
 /**
  * Extracts the matching tags from an array of tags and an array of article tags
@@ -659,22 +673,8 @@ function getMetadataFromTags(tags, articleTags) {
  */
 export async function getArticleTags(tagType) {
   const articleTags = document.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
+  const tagItems = await getAllArticles();
   const tags = tagItems && tagItems[tagType]
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
 }
-
-/**
- * Get the magazine-article the JSON file at the root folder in sharepoint.
- * It filters out the articles with no image
- * @returns {Object} the object that contains all the magazine articles metadata
- */
-export const getAllArticles = async () => {
-  const magazineArticlesUrl = '/magazine-articles.json';
-  const response = await fetch(magazineArticlesUrl);
-  const json = await response.json();
-  const filteredArray = json.data.filter((art) => art.image !== '');
-
-  return filteredArray;
-};
