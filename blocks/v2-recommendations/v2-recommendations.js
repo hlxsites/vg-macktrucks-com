@@ -42,29 +42,27 @@ const sortArticlesByLastModifiedDate = (articles) => articles
   .sort((a, b) => b.timestamp - a.timestamp);
 
 /**
- * Retrieves up to three articles based on the specified category.
- * If there are fewer than 3 matching articles, the most recent articles are used to fill the
- * remaining slots.
+ * Retrieves up to 3 articles, prioritizing those that match the given category.
+ * If fewer than 3 articles match the category, fills the remaining spots with
+ * non-category articles.
  *
- * @param {Array} articles - The array of sorted article objects.
- * @param {string} category - The category to filter articles by.
- * @returns {Array} - An array containing up to three articles.
+ * @param {Array} articles - The full array of article objects to select from.
+ * @param {string} category - The category to prioritize when selecting top articles.
+ * @returns {Array} An array containing up to 3 articles, prioritizing those in the given category.
  */
 const getTopArticles = (articles, category) => {
   const topArticles = [];
-  const nonCategoryArticles = [];
 
   for (const article of articles) {
     if (article.category === category) {
       topArticles.push(article);
-      if (topArticles.length === 3) break;
-    } else {
-      nonCategoryArticles.push(article);
+    } else if (topArticles.length < 3) {
+      topArticles.push(article);
     }
+    if (topArticles.length === 3) break;
   }
 
-  // If we don't have enough filtered articles, fill with the remaining articles
-  return topArticles.concat(nonCategoryArticles).slice(0, 3);
+  return topArticles;
 };
 
 /**
