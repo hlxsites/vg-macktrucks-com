@@ -38,6 +38,8 @@ async function getConstantValues() {
       const responseData = await response.json();
 
       constants = responseData;
+    } else {
+      console.error('Error fetching constants file', response.statusText);
     }
   } catch (error) {
     console.error('Error with constants file', error);
@@ -154,6 +156,8 @@ async function fetchBlogPosts(endpoint, limit) {
 
       if (response.ok) {
         result = await response.json();
+      } else {
+        console.error('Error fetching blog posts', response.statusText);
       }
     } catch (error) {
       console.error('Error with constants file', error);
