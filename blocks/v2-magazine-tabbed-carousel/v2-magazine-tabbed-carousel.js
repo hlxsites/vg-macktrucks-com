@@ -1,10 +1,10 @@
 import {
   createElement,
   unwrapDivs,
-  getJsonFromUrl,
   getTextLabel,
   decorateIcons,
 } from '../../scripts/common.js';
+import { getAllArticles } from '../../scripts/magazine-helper.js';
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 import { isVideoLink, createVideo } from '../../scripts/video-helper.js';
 
@@ -15,9 +15,8 @@ const activeCarouselClass = `${blockName}__carousel-item--active`;
 let autoScrollEnabled = true;
 const maxAmountOfTabs = 4;
 
-const url = '/magazine-articles.json';
-const allArticles = await getJsonFromUrl(url);
-const articleArray = Object.values(allArticles.data);
+const allArticles = await getAllArticles();
+const articleArray = Object.values(allArticles);
 
 let activeVideo = null;
 

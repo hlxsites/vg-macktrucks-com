@@ -1,5 +1,9 @@
-import { decorateIcons, getJsonFromUrl, getTextLabel } from '../../scripts/common.js';
+import {
+  decorateIcons,
+  getTextLabel,
+} from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { getAllArticles } from '../../scripts/magazine-helper.js';
 
 const LABELS = {
   SHOW_MORE: getTextLabel('Show More'),
@@ -33,8 +37,7 @@ const defaultAmount = 9;
 let currentAmount = 0;
 
 const getData = async () => {
-  const allArticlesRaw = await getJsonFromUrl('/magazine-articles.json');
-  const allArticles = allArticlesRaw ? allArticlesRaw.data : [];
+  const allArticles = await getAllArticles() || [];
 
   // sort data by date from newest to oldest
   allArticles.sort((a, b) => {

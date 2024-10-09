@@ -1,5 +1,11 @@
-import { createElement, getTextLabel, getArticleTagsJSON } from '../../scripts/common.js';
-import { getAllArticles } from '../recent-articles/recent-articles.js';
+import {
+  createElement,
+  getTextLabel,
+} from '../../scripts/common.js';
+import {
+  getAllArticles,
+  getArticleTagsJSON,
+} from '../../scripts/magazine-helper.js';
 
 const allArticles = await getAllArticles();
 const allArticleTags = await getArticleTagsJSON();
