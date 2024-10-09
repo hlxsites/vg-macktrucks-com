@@ -2,6 +2,7 @@ import {
   createElement,
   getOrigin,
   getTextLabel,
+  getArticleTagsJSON,
 } from '../../scripts/common.js';
 import {
   getAllArticles,
@@ -42,14 +43,14 @@ export default async function decorate(block) {
       ${pictureTag}
     </a>`;
 
-    // TODO: to be updated if the category is not properly gathered from magazine-articles.json
-    const categoriesWithDash = e.category.replaceAll(' ', '-').toLowerCase();
-    const categoryUrl = new URL(`magazine/categories/${categoriesWithDash}`, getOrigin());
+    const articleCategory = getArticleCategory(e);
+    const categoryWithDash = articleCategory.replaceAll(' ', '-').toLowerCase();
+    const categoryUrl = new URL(`magazine/categories/${categoryWithDash}`, getOrigin());
     const category = createElement('a', {
       classes: `${blockName}-${firstOrRest}-category`,
       props: { href: categoryUrl },
     });
-    category.innerText = e.category;
+    category.innerText = articleCategory;
 
     const title = createElement('a', {
       classes: `${blockName}-${firstOrRest}-title`,
