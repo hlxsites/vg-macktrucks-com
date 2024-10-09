@@ -23,7 +23,7 @@ import fs from 'fs';
  * @property {string} template
  */
 
-const CONSTANT_FILE_URL = 'https://www.macktrucks.com/constants.json';
+const CONSTANTS_FILE_URL = 'https://www.macktrucks.com/constants.json';
 
 /**
  * @return {Promise<FeedConfig[]>}
@@ -32,7 +32,7 @@ async function getConstantValues() {
   let constants = {};
 
   try {
-    const response = await fetch(CONSTANT_FILE_URL);
+    const response = await fetch(CONSTANTS_FILE_URL);
 
     if (response.ok) {
       const responseData = await response.json();
