@@ -43,27 +43,32 @@ const sortArticlesByLastModifiedDate = (articles) => articles
 
 /**
  * Retrieves up to 3 articles, prioritizing those that match the given category.
- * Only if fewer than 3 articles match the category, fills the remaining spots
+ * If fewer than 3 articles match the category, fills the remaining spots
  * with non-category articles.
  *
  * @param {Array} articles - The full array of article objects to select from.
  * @param {string} category - The category to prioritize when selecting top articles.
  * @returns {Array} An array containing up to 3 articles, prioritizing those in the given category.
  */
-const getTopArticles = (articles, category) => {
+const getFilteredArticles = (articles, category) => {
   const categoryArticles = [];
-  const nonCategoryArticles = [];
+  const fallbackArticles = [];
 
   for (const article of articles) {
     if (article.category === category) {
       categoryArticles.push(article);
     } else {
-      nonCategoryArticles.push(article);
+      fallbackArticles.push(article);
+    }
+
+    // Break early if we've collected enough articles
+    if (categoryArticles.length + fallbackArticles.length >= 3) {
+      break;
     }
   }
 
-  // Combine category-matching articles and non-category articles (only if fewer than 3 articles)
-  return categoryArticles.concat(nonCategoryArticles).slice(0, 3);
+  // Combine category and fallback articles and return up to 3 articles
+  return categoryArticles.concat(fallbackArticles).slice(0, 3);
 };
 
 /**
@@ -118,10 +123,10 @@ export default async function decorate(block) {
 
   const sortedArticles = sortArticlesByLastModifiedDate(articles);
   const category = getMetadata('article-category');
-  const topArticles = getTopArticles(sortedArticles, category);
+  const filteredArticles = getFilteredArticles(sortedArticles, category);
 
-  if (topArticles.length) {
-    buildBlock(topArticles, block);
+  if (filteredArticles.length) {
+    buildBlock(filteredArticles, block);
   }
 
   unwrapDivs(block);
