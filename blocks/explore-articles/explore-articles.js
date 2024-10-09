@@ -1,9 +1,10 @@
-import { createElement, getTextLabel } from '../../scripts/common.js';
+import { createElement, getTextLabel, getArticleTagsJSON } from '../../scripts/common.js';
 import { getAllArticles } from '../recent-articles/recent-articles.js';
 
 const allArticles = await getAllArticles();
-const allCategories = [...new Set(allArticles.map((article) => article.category))];
-const allTrucks = [...new Set(allArticles.map((article) => article.truck))];
+const allArticleTags = await getArticleTagsJSON();
+const allCategories = allArticleTags.categories;
+const allTrucks = allArticleTags.trucks;
 
 const [categoryPlaceholder, truckPlaceholder] = getTextLabel('Article filter placeholder').split(',');
 

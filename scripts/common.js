@@ -633,6 +633,31 @@ function getValuesFromObjectsArray(array = []) {
   return array.map((item) => Object.values(item)[0]);
 }
 
+const fetchArticleTagsJSON = async () => getJsonFromUrl('/magazine/articles/tags.json');
+
+/**
+ * Fetches the tags from the JSON file
+ * @returns {Object} An object with the tags
+ * @property {Array} categories - An array of categories
+ * @property {Array} trucks - An array of trucks
+ * @property {Array} topics - An array of topics
+ */
+export const getArticleTagsJSON = async () => {
+  try {
+    const tagsJSON = await fetchArticleTagsJSON();
+
+    return {
+      categories: getValuesFromObjectsArray(tagsJSON.categories?.data),
+      trucks: getValuesFromObjectsArray(tagsJSON.trucks?.data),
+      topics: getValuesFromObjectsArray(tagsJSON.topics?.data),
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching article tags JSON:', error);
+    throw new Error('Unable to fetch article tags.');
+  }
+};
+
 /**
  * Extracts the matching tags from an array of tags and an array of article tags
  * and returns a string of matching tags
@@ -659,7 +684,7 @@ function getMetadataFromTags(tags, articleTags) {
  */
 export async function getArticleTags(tagType) {
   const articleTags = document.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await getJsonFromUrl('/magazine/articles/tags.json');
+  const tagItems = await fetchArticleTagsJSON();
   const tags = tagItems && tagItems[tagType]
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
