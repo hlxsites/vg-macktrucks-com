@@ -1,8 +1,8 @@
 import {
   createElement,
   getTextLabel,
-  getAllArticles,
 } from '../../scripts/common.js';
+import { getAllArticles } from '../../scripts/magazine-helper.js';
 
 const allArticles = await getAllArticles();
 const allCategories = [...new Set(allArticles.map((article) => article.category))];

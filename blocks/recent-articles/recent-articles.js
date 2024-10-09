@@ -2,11 +2,13 @@ import {
   createElement,
   getOrigin,
   getTextLabel,
+} from '../../scripts/common.js';
+import {
   getAllArticles,
   getLimit,
   deleteCurrentArticle,
   sortArticlesByLastModified,
-} from '../../scripts/common.js';
+} from '../../scripts/magazine-helper.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');

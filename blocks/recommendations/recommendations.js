@@ -1,13 +1,15 @@
 import {
   createElement,
-  getArticleTags,
   getOrigin,
   getTextLabel,
+} from '../../scripts/common.js';
+import {
   getAllArticles,
   getLimit,
   deleteCurrentArticle,
   sortArticlesByLastModified,
-} from '../../scripts/common.js';
+  getArticleTags,
+} from '../../scripts/magazine-helper.js';
 import {
   getMetadata,
   createOptimizedPicture,

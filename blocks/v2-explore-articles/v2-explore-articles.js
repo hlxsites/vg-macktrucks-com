@@ -1,9 +1,9 @@
 import {
   decorateIcons,
-  getAllArticles,
   getTextLabel,
 } from '../../scripts/common.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { getAllArticles } from '../../scripts/magazine-helper.js';
 
 const LABELS = {
   SHOW_MORE: getTextLabel('Show More'),

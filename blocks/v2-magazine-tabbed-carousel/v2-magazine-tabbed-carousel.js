@@ -3,8 +3,8 @@ import {
   unwrapDivs,
   getTextLabel,
   decorateIcons,
-  getAllArticles,
 } from '../../scripts/common.js';
+import { getAllArticles } from '../../scripts/magazine-helper.js';
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 import { isVideoLink, createVideo } from '../../scripts/video-helper.js';
 
