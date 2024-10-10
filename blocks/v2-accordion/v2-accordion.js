@@ -8,10 +8,23 @@ const blockName = 'v2-accordion';
 
 /* Function checks if the content of the provided element is just a link to other doc */
 function isContentLink(el) {
-  // The assumptions:
-  // 1. The content is just plain text - no HTML inside
-  // 2. The link starts from '/' and doesn't contain any white space character
-  return el.innerHTML === el.textContent && /^\/(\S+)$/g.test(el.innerHTML);
+  // Check if the element has exactly one child element and that child is a <p> tag
+  if (el.children.length === 1 && el.children[0].tagName.toLowerCase() === 'p') {
+    const pTag = el.children[0];
+    // Check if the text content of the <p> tag starts with '/'
+    return pTag.textContent && pTag.textContent.startsWith('/');
+  }
+  return false;
+}
+
+function isContentInsideAnotherElement(el) {
+  // Check if the element has exactly one child element and that child is a <p> tag
+  if (el.children.length === 1 && el.children[0].tagName.toLowerCase() === 'p') {
+    const pTag = el.children[0];
+    // Check if the text content of the <p> tag starts with '#id-'
+    return pTag.textContent && pTag.textContent.startsWith('#id-');
+  }
+  return false;
 }
 
 function loaded(element, pointedContent, display) {
@@ -27,10 +40,7 @@ export default async function decorate(block) {
       ':scope > div > h1, :scope > div > h2, :scope > div > h3, :scope > div > h4, :scope > div > h5, :scope > div > h6',
     );
     accordionHeader?.classList.add(`${blockName}__title`);
-    let accordionContent = row.querySelector(':scope > div:nth-child(2) p');
-    if (!accordionContent) {
-      accordionContent = row.querySelector(':scope > div:nth-child(2)');
-    }
+    const accordionContent = row.querySelector(':scope > div:nth-child(2)');
 
     const headerButton = createElement('button', { classes: `${blockName}__button` });
     const dropdownArrowIcon = createElement('span', { classes: [`${blockName}__icon`, 'icon', 'icon-dropdown-caret'] });
@@ -44,7 +54,7 @@ export default async function decorate(block) {
 
     contentEl.innerHTML = accordionContent.innerHTML;
 
-    if (accordionContent.textContent.startsWith('#id-') && accordionContent.innerHTML === accordionContent.textContent) {
+    if (isContentInsideAnotherElement(accordionContent)) {
       const pointedContent = document.querySelector(`.${accordionContent.textContent.substring(1)}`);
       if (pointedContent) {
         const prevDisplay = pointedContent.parentElement.style.display;
