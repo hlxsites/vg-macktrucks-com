@@ -6,25 +6,23 @@ import fragmentBlock from '../fragment/fragment.js';
 
 const blockName = 'v2-accordion';
 
-/* Function checks if the content of the provided element is just a link to other doc */
-function isContentLink(el) {
-  // Check if the element has exactly one child element and that child is a <p> tag
-  if (el.children.length === 1 && el.children[0].tagName.toLowerCase() === 'p') {
-    const pTag = el.children[0];
-    // Check if the text content of the <p> tag starts with '/'
-    return pTag.textContent && pTag.textContent.startsWith('/');
+function isContentLinkedCheck(el, startsWithString) {
+  if (
+    (el.children.length === 1 && el.children[0].tagName.toLowerCase() === 'p')
+    || (el.children.length === 0 && el.textContent === el.innerHTML)
+  ) {
+    return el.textContent.startsWith(startsWithString);
   }
   return false;
 }
 
+/* Function checks if the content of the provided element is just a link to other doc */
+function isContentLink(el) {
+  return isContentLinkedCheck(el, '/');
+}
+
 function isContentInsideAnotherElement(el) {
-  // Check if the element has exactly one child element and that child is a <p> tag
-  if (el.children.length === 1 && el.children[0].tagName.toLowerCase() === 'p') {
-    const pTag = el.children[0];
-    // Check if the text content of the <p> tag starts with '#id-'
-    return pTag.textContent && pTag.textContent.startsWith('#id-');
-  }
-  return false;
+  return isContentLinkedCheck(el, '#id-');
 }
 
 function loaded(element, pointedContent, display) {
