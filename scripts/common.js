@@ -689,3 +689,16 @@ export async function getArticleTags(tagType) {
     && getValuesFromObjectsArray(tagItems[tagType].data);
   return getMetadataFromTags(tags, articleTags);
 }
+
+/**
+ * Get a HTML link element and adds the target=blank attribute if href is external
+ * @param {HTMLElement} link - Anchor HTML element with an href attribute
+ */
+export function addTargetBlankToExternalLink(link) {
+  if (!link.href) return;
+  const url = link.href;
+  const isExternal = !url.match('macktrucks') && !url.match('.hlx.(page|live)') && !url.match('.aem.(page|live)') && !url.match('localhost');
+  if (url.match('build.macktrucks') || url.endsWith('.pdf') || isExternal) {
+    link.target = '_blank';
+  }
+}
