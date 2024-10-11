@@ -3,7 +3,7 @@ import {
   createOptimizedPicture,
 } from '../../scripts/aem.js';
 import { createElement } from '../../scripts/common.js';
-import { getArticleTags } from '../../scripts/magazine-helper.js';
+import { getArticleTags } from '../../scripts/services/magazine.service.js';
 
 async function buildArticleHero({ truckTags, categoryTag } = {}) {
   const title = getMetadata('og:title');

@@ -3,7 +3,7 @@ import {
   fetchMagazineArticles,
   sortArticlesByDateInURL,
   removeArticlesWithNoImage,
-} from '../../scripts/magazine-helper.js';
+} from '../../scripts/services/magazine.service.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const LABELS = {
@@ -39,9 +39,8 @@ let currentAmount = 0;
 
 const getData = async () => {
   const allArticles = await fetchMagazineArticles();
-  removeArticlesWithNoImage(allArticles);
-  const sortedArticlesByDate = sortArticlesByDateInURL(allArticles);
-
+  const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
+  const sortedArticlesByDate = sortArticlesByDateInURL(allArticlesWithImage);
   // Preparing the data for every collage item
   const collageItemsData = sortedArticlesByDate.map((article) => {
     const {

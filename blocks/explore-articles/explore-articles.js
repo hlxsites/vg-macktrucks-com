@@ -3,10 +3,10 @@ import {
   fetchMagazineArticles,
   getArticleTagsJSON,
   removeArticlesWithNoImage,
-} from '../../scripts/magazine-helper.js';
+} from '../../scripts/services/magazine.service.js';
 
 const allArticles = await fetchMagazineArticles();
-removeArticlesWithNoImage(allArticles);
+const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
 const allArticleTags = await getArticleTagsJSON();
 const allCategories = allArticleTags.categories;
 const allTrucks = allArticleTags.trucks;
@@ -187,7 +187,7 @@ const handleForm = () => {
   const selects = fieldset.querySelectorAll('select');
   const [category, truck] = selects;
 
-  const filteredList = allArticles.filter((article) => {
+  const filteredList = allArticlesWithImage.filter((article) => {
     const criteria = [
       category.value === categoryPlaceholder && truck.value === truckPlaceholder,
       category.value === categoryPlaceholder && truck.value === article.truck,
@@ -246,7 +246,7 @@ export default async function decorate(block) {
   headingSection.append(h4Element, text);
   contentSection.append(buildFieldset());
 
-  contentSection.append(buildArticleList(allArticles, 0));
+  contentSection.append(buildArticleList(allArticlesWithImage, 0));
 
   generalSection.append(headingSection, contentSection);
 

@@ -10,7 +10,7 @@ import {
   clearRepeatedArticles,
   sortArticlesByLastModifiedDate,
   removeArticlesWithNoImage,
-} from '../../scripts/magazine-helper.js';
+} from '../../scripts/services/magazine.service.js';
 import { getMetadata, createOptimizedPicture } from '../../scripts/aem.js';
 
 const recommendationsText = getTextLabel('Recommendations text');
@@ -23,9 +23,9 @@ export default async function decorate(block) {
   const limit = extractLimitFromBlock(block) || defaultLimit;
   const category = await getArticleTags('categories') || getMetadata('category');
   const allArticles = await fetchMagazineArticles();
-  removeArticlesWithNoImage(allArticles);
+  const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
 
-  const recommendedArticles = allArticles.filter((e) => e.category === category);
+  const recommendedArticles = allArticlesWithImage.filter((e) => e.category === category);
   const soredtArticles = sortArticlesByLastModifiedDate(recommendedArticles);
   const filteredArticles = clearRepeatedArticles(soredtArticles);
   const selectedArticles = filteredArticles.slice(0, limit);

@@ -1,4 +1,4 @@
-import { getJsonFromUrl } from './common.js';
+import { getJsonFromUrl } from '../common.js';
 
 /**
  * Fetches magazine articles from a given URL.
@@ -32,12 +32,13 @@ export const fetchMagazineArticles = async () => {
  * @returns {Array} - The same array of articles but without those that dont have an image field
  */
 export const removeArticlesWithNoImage = (articles) => {
-  articles.forEach((art, idx) => {
+  const filteredArray = [...articles];
+  filteredArray.forEach((art, idx) => {
     if (!art.image) {
-      articles.splice(idx, 1);
+      filteredArray.splice(idx, 1);
     }
   });
-  return articles;
+  return filteredArray;
 };
 
 /**

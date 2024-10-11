@@ -11,7 +11,7 @@ import {
   clearRepeatedArticles,
   sortArticlesByLastModifiedDate,
   removeArticlesWithNoImage,
-} from '../../scripts/magazine-helper.js';
+} from '../../scripts/services/magazine.service.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 const sectionTitle = getTextLabel('Recent article text');
@@ -26,8 +26,8 @@ export default async function decorate(block) {
   const limit = extractLimitFromBlock(block) || defaultLimit;
   const allArticles = await fetchMagazineArticles();
 
-  removeArticlesWithNoImage(allArticles);
-  const sortedArticles = sortArticlesByLastModifiedDate(allArticles);
+  const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
+  const sortedArticles = sortArticlesByLastModifiedDate(allArticlesWithImage);
   const filteredArticles = clearRepeatedArticles(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 

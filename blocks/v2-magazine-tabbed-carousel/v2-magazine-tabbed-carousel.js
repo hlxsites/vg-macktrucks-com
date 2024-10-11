@@ -7,7 +7,7 @@ import {
 import {
   removeArticlesWithNoImage,
   fetchMagazineArticles,
-} from '../../scripts/magazine-helper.js';
+} from '../../scripts/services/magazine.service.js';
 import { setCarouselPosition, listenScroll } from '../../scripts/carousel-helper.js';
 import { isVideoLink, createVideo } from '../../scripts/video-helper.js';
 
@@ -19,7 +19,7 @@ let autoScrollEnabled = true;
 const maxAmountOfTabs = 4;
 
 const allArticles = await fetchMagazineArticles();
-removeArticlesWithNoImage(allArticles);
+const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
 
 let activeVideo = null;
 
@@ -182,7 +182,7 @@ export default async function decorate(block) {
 
   const tabItems = block.querySelectorAll(':scope > div');
 
-  buildTabItems(carouselItems, tabNavigation, tabItems, allArticles);
+  buildTabItems(carouselItems, tabNavigation, tabItems, allArticlesWithImage);
 
   const handleAutoScroll = (isEnabled) => {
     if (isEnabled) {
