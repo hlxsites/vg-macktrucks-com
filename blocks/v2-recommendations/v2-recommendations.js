@@ -42,13 +42,15 @@ const sortArticlesByDate = (articles) => articles
   .sort((a, b) => b.timestamp - a.timestamp);
 
 /**
- * Retrieves up to 3 articles, prioritizing those that match the given category.
- * If fewer than 3 articles match the category, fills the remaining spots
- * with non-category articles.
+ * Retrieves up to 3 articles, prioritizing those in the specified category.
+ * If fewer than 3 articles are found in the specified category, it will include
+ * fallback articles from other categories to reach a total of 3.
  *
- * @param {Array} articles - The full array of article objects to select from.
- * @param {string} category - The category to prioritize when selecting top articles.
- * @returns {Array} An array containing up to 3 articles, prioritizing those in the given category.
+ * @param {Array<Object>} articles - The list of articles to filter through. Each article
+ *                                   is an object with a `category` property.
+ * @param {string} category - The target category to filter articles by.
+ * @returns {Array<Object>} - A list of up to 3 articles, prioritizing those in
+ *                            the specified category.
  */
 const getFilteredArticles = (articles, category) => {
   const categoryArticles = [];
@@ -57,13 +59,17 @@ const getFilteredArticles = (articles, category) => {
   for (const article of articles) {
     if (article.category === category) {
       categoryArticles.push(article);
-    } else {
-      fallbackArticles.push(article);
     }
+  }
 
-    // Break early if we've collected enough articles
-    if (categoryArticles.length + fallbackArticles.length >= 3) {
-      break;
+  if (categoryArticles.length < 3) {
+    for (const article of articles) {
+      if (article.category !== category) {
+        fallbackArticles.push(article);
+        if (categoryArticles.length + fallbackArticles.length >= 3) {
+          break;
+        }
+      }
     }
   }
 
