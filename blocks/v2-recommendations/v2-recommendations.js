@@ -34,10 +34,10 @@ const fetchMagazineArticles = async () => {
  * @param {Array} articles - The array of article objects to be sorted.
  * @returns {Array} - A new array of articles sorted by the most recent date.
  */
-const sortArticlesByLastModifiedDate = (articles) => articles
+const sortArticlesByDate = (articles) => articles
   .map((article) => ({
     ...article,
-    timestamp: new Date(article.lastModified).getTime(),
+    timestamp: new Date(article.date).getTime(),
   }))
   .sort((a, b) => b.timestamp - a.timestamp);
 
@@ -121,7 +121,7 @@ export default async function decorate(block) {
   const articles = await fetchMagazineArticles();
   if (!articles.length) return;
 
-  const sortedArticles = sortArticlesByLastModifiedDate(articles);
+  const sortedArticles = sortArticlesByDate(articles);
   const category = getMetadata('article-category');
   const filteredArticles = getFilteredArticles(sortedArticles, category);
 
