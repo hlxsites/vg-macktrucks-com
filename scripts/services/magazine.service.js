@@ -33,11 +33,7 @@ export const fetchMagazineArticles = async () => {
  */
 export const removeArticlesWithNoImage = (articles) => {
   const filteredArray = [...articles];
-  filteredArray.forEach((art, idx) => {
-    if (!art.image) {
-      filteredArray.splice(idx, 1);
-    }
-  });
+  filteredArray.filter((art) => !art.image);
   return filteredArray;
 };
 
