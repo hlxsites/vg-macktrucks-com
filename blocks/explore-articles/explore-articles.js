@@ -1,4 +1,8 @@
-import { createElement, getTextLabel, getArticleTagsJSON } from '../../scripts/common.js';
+import {
+  createElement,
+  getTextLabel,
+  getArticleTagsJSON,
+} from '../../scripts/common.js';
 import { getAllArticles } from '../recent-articles/recent-articles.js';
 
 const allArticles = await getAllArticles();
