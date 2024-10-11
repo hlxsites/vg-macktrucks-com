@@ -1,13 +1,23 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
 
-npx lint-staged
+# Define colors and styles
+YELLOW='\033[1;33m'
+BOLD='\033[1m'
+RESET='\033[0m'
 
 # Check for untracked files
 untracked_files=$(git ls-files --others --exclude-standard)
 
 if [ -n "$untracked_files" ]; then
-  echo "Warning: There are untracked files in your repository:"
-  echo "$untracked_files"
-  echo "Consider adding them with 'git add' or update .gitignore if they should be ignored."
+  echo "${YELLOW}${BOLD}Warning: There are untracked files in your repository.${RESET}"
+  echo "  ${YELLOW}Consider adding them with 'git add' or update .gitignore if they should be ignored.${RESET}\n"
+  
+  # Print untracked files as an ordered list
+  IFS=$'\n' # Change the internal field separator to newline, to handle filenames with spaces
+  index=1
+  for file in $untracked_files; do
+    echo "	$file"
+  done
+
+  echo "\n"
 fi
