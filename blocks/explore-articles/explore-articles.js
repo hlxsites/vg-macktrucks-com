@@ -1,14 +1,16 @@
+import { createElement, getTextLabel } from '../../scripts/common.js';
 import {
-  createElement,
-  getTextLabel,
+  fetchMagazineArticles,
   getArticleTagsJSON,
-} from '../../scripts/common.js';
-import { getAllArticles } from '../recent-articles/recent-articles.js';
+  removeArticlesWithNoImage,
+} from '../../scripts/magazine-helper.js';
 
-const allArticles = await getAllArticles();
+const allArticles = await fetchMagazineArticles();
+removeArticlesWithNoImage(allArticles);
 const allArticleTags = await getArticleTagsJSON();
 const allCategories = allArticleTags.categories;
 const allTrucks = allArticleTags.trucks;
+const blockName = 'explore-articles';
 
 const [categoryPlaceholder, truckPlaceholder] = getTextLabel('Article filter placeholder').split(',');
 
@@ -63,36 +65,42 @@ const buildArticle = (e) => {
   });
   articleImage.append(image);
 
-  const category = createElement('a', {
-    classes: 'article-category',
-    props: { href: categoryUrl },
-  });
-  category.innerText = e.category;
+  if (e.category.length !== 0) {
+    const category = createElement('a', {
+      classes: 'article-category',
+      props: { href: categoryUrl },
+    });
+    category.innerText = e.category;
+    articleContent.append(category);
+  }
 
   const link = createElement('a', {
     classes: 'article-link',
     props: { href: linkUrl },
   });
+
   const title = createElement('h3', { classes: 'article-title' });
   title.innerText = e.title;
-  const subtitle = createElement('p', { classes: 'article-subtitle' });
-  subtitle.innerText = e.subtitle;
-
   link.append(title);
-  if (e.subtitle.length !== 0) link.append(subtitle);
 
-  const truck = createElement('div', { classes: 'article-truck' });
-  const truckText = createElement('p', { classes: 'article-truck-text' });
-  truckText.innerText = e.truck;
-  const truckIcon = createElement('img', {
-    classes: 'article-truck-icon',
-    props: { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' },
-  });
-  truck.append(truckIcon, truckText);
+  if (e.subtitle.length !== 0) {
+    const subtitle = createElement('p', { classes: 'article-subtitle' });
+    subtitle.innerText = e.subtitle;
+    link.append(subtitle);
+  }
+  articleContent.append(link);
 
-  articleContent.append(category, link);
-  if (e.truck.length !== 0) articleContent.append(truck);
-
+  if (e.truck.length !== 0) {
+    const truck = createElement('div', { classes: 'article-truck' });
+    const truckText = createElement('p', { classes: 'article-truck-text' });
+    truckText.innerText = e.truck;
+    const truckIcon = createElement('img', {
+      classes: 'article-truck-icon',
+      props: { src: '/icons/Truck_Key_icon.svg', alt: 'truck icon' },
+    });
+    truck.append(truckIcon, truckText);
+    articleContent.append(truck);
+  }
   article.append(articleImage, articleContent);
   return article;
 };
@@ -151,7 +159,7 @@ const buildArticleList = (articles) => {
   const amountOfGroups = articleGroups.length;
 
   const paginationSection = createElement('div', { classes: 'pagination-section' });
-  const articlesSection = createElement('div', { classes: 'explore-articles-articles' });
+  const articlesSection = createElement('div', { classes: `${blockName}-articles` });
 
   const amountOfArticles = createElement('p', { classes: 'article-amount' });
   amountOfArticles.textContent = (totalArticlesNumber !== 0) ? `${totalArticlesNumber} articles` : getTextLabel('No article Message');
@@ -159,7 +167,7 @@ const buildArticleList = (articles) => {
   paginationSection.append(amountOfArticles);
   articlesSection.append(paginationSection);
 
-  const moreSection = createElement('div', { classes: 'explore-articles-more' });
+  const moreSection = createElement('div', { classes: `${blockName}-more` });
   const moreButton = createElement('button', { classes: 'more-btn' });
   moreButton.textContent = getTextLabel('Load more articles button');
   moreButton.addEventListener('click', (evt) => loadMoreArticles(evt, articleGroups, amountOfGroups));
@@ -194,7 +202,7 @@ const handleForm = () => {
     return null;
   });
 
-  const articleList = document.querySelector('.explore-articles-articles');
+  const articleList = document.querySelector(`.${blockName}-articles`);
 
   articleList.textContent = '';
   const filteredArticles = buildArticleList(filteredList, 0);
@@ -202,7 +210,7 @@ const handleForm = () => {
 };
 
 const buildFieldset = () => {
-  const formSection = createElement('div', { classes: 'explore-articles-fieldset' });
+  const formSection = createElement('div', { classes: `${blockName}-fieldset` });
   const form = createElement('form', ['form', 'filter-list'], { method: 'get', name: 'article-fieldset' });
   form.addEventListener('change', handleForm);
 
@@ -226,14 +234,14 @@ export default async function decorate(block) {
   const children = block.querySelectorAll('p');
   const [title, text] = children;
 
-  const generalSection = createElement('div', { classes: 'explore-articles-section' });
+  const generalSection = createElement('div', { classes: `${blockName}-section` });
 
-  const headingSection = createElement('div', { classes: 'explore-articles-heading' });
-  const contentSection = createElement('div', { classes: 'explore-articles-content' });
+  const headingSection = createElement('div', { classes: `${blockName}-heading` });
+  const contentSection = createElement('div', { classes: `${blockName}-content` });
 
-  const h4Element = createElement('h4', { classes: 'explore-articles-title' });
+  const h4Element = createElement('h4', { classes: `${blockName}-title` });
   h4Element.innerText = title.innerText;
-  text.classList.add('explore-articles-text');
+  text.classList.add(`${blockName}-text`);
 
   headingSection.append(h4Element, text);
   contentSection.append(buildFieldset());
