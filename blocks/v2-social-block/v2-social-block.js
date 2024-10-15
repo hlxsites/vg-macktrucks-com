@@ -54,7 +54,6 @@ const buildDefaultBlock = (block) => {
   socialWrapper.classList.add(`${blockName}__list-wrapper`);
 
   const list = socialWrapper.querySelector('ul');
-  // let copyAnchor;
 
   list.classList.add(`${blockName}__list`);
   list.classList.remove('cta-list');
@@ -67,7 +66,6 @@ const buildDefaultBlock = (block) => {
 
     const copyLink = item.querySelector('.icon-link');
     if (copyLink) {
-      // copyAnchor = anchor;
       anchor.dataset.tooltip = getTextLabel('tooltip copied text');
 
       anchor.addEventListener('click', async (e) => {
