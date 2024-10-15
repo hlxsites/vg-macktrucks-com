@@ -9,7 +9,7 @@ import {
   getArticleCategory,
   extractLimitFromBlock,
   clearRepeatedArticles,
-  sortArticlesByLastModifiedDate,
+  sortArticlesByDateField,
   removeArticlesWithNoImage,
 } from '../../scripts/services/magazine.service.js';
 import { createOptimizedPicture } from '../../scripts/aem.js';
@@ -27,7 +27,7 @@ export default async function decorate(block) {
   const allArticles = await fetchMagazineArticles();
 
   const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
-  const sortedArticles = sortArticlesByLastModifiedDate(allArticlesWithImage);
+  const sortedArticles = sortArticlesByDateField(allArticlesWithImage, 'lastModified');
   const filteredArticles = clearRepeatedArticles(sortedArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 

@@ -1,45 +1,8 @@
-import { getJsonFromUrl, unwrapDivs } from '../../scripts/common.js';
+import { unwrapDivs } from '../../scripts/common.js';
 import { getMetadata } from '../../scripts/aem.js';
+import { fetchMagazineArticles, sortArticlesByDateField } from '../../scripts/services/magazine.service.js';
 
 const blockName = 'v2-recommendations';
-
-/**
- * Fetches magazine articles from a given URL.
- * @async
- * @returns {Promise<Array>} - A promise that resolves to an array of article objects or an
- * empty array if the fetch fails.
- */
-const fetchMagazineArticles = async () => {
-  try {
-    const response = await getJsonFromUrl('/magazine-articles.json');
-
-    if (!response?.data) {
-      // eslint-disable-next-line no-console
-      console.warn('No data found in response.');
-      return [];
-    }
-
-    const { data } = response;
-
-    return Array.isArray(data) ? data : [data];
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(`Error fetching articles: ${error.message || error}`);
-    return [];
-  }
-};
-
-/**
- * Sorts articles by the most recent `lastModified` date in descending order.
- * @param {Array} articles - The array of article objects to be sorted.
- * @returns {Array} - A new array of articles sorted by the most recent date.
- */
-const sortArticlesByDate = (articles) => articles
-  .map((article) => ({
-    ...article,
-    timestamp: new Date(article.date).getTime(),
-  }))
-  .sort((a, b) => b.timestamp - a.timestamp);
 
 /**
  * Retrieves up to 3 articles, prioritizing those in the specified category.
@@ -127,7 +90,7 @@ export default async function decorate(block) {
   const articles = await fetchMagazineArticles();
   if (!articles.length) return;
 
-  const sortedArticles = sortArticlesByDate(articles);
+  const sortedArticles = sortArticlesByDateField(articles, 'date');
   const category = getMetadata('article-category');
   const filteredArticles = getFilteredArticles(sortedArticles, category);
 

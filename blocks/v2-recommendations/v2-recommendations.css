@@ -8,6 +8,11 @@
 }
 
 .v2-recommendations > h3 {
+  font-family: var(--ff-headline-medium);
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 117%;
+  letter-spacing: -0.54px;
   padding-left: 16px;
   padding-right: 16px;
 }
@@ -47,9 +52,10 @@
 }
 
 .v2-recommendations__article-content-title {
+  font-family: var(--ff-headline-medium);
   font-size: 20px;
   font-weight: 500;
-  line-height: 23px;
+  line-height: 115%;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -61,6 +67,9 @@
   }
 
   .v2-recommendations > h3 {
+    font-size: 45px;
+    line-height: 115%;
+    letter-spacing: -0.9px;
     padding-left: 0;
     padding-right: 0;
   }
