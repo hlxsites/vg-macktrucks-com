@@ -310,7 +310,7 @@ export const slugify = (text) => (
 );
 
 /**
- * loads the constants file where configuration values are stored
+ * Loads the constants file where configuration values are stored
  */
 async function getConstantValues() {
   const url = `${getLanguagePath()}constants.json`;
@@ -327,6 +327,13 @@ async function getConstantValues() {
   return constants;
 }
 
+/**
+ * Extracts the values from an array in format: ['key1: value1', 'key2: value2', 'key3: value3']
+ * and returns this into an object with those keys and values:
+ * { key1: value1, key2: value2, key3: value3 }
+ * @param {Array} data - Array of strings that contain an object coming from sharepoint
+ * @returns {Object} An parsed object with those values and keys
+ */
 export const extractObjectFromArray = (data) => {
   const obj = {};
   for (const item of data) {
@@ -620,75 +627,6 @@ export const clearElementAttributes = (element) => {
 
   return element;
 };
-
-// Magazine common functions
-/**
- * Extracts the values from an array of objects and returns an array of values
- * example: [{ key: 'value' }] => ['value']
- * @param {Array} array - An array of objects
- * @returns {Array} An array of values
- */
-function getValuesFromObjectsArray(array = []) {
-  if (!Array.isArray(array) || array.length === 0) return [];
-  return array.map((item) => Object.values(item)[0]);
-}
-
-const fetchArticleTagsJSON = async () => getJsonFromUrl('/magazine/articles/tags.json');
-
-/**
- * Fetches the tags from the JSON file
- * @returns {Object} An object with the tags
- * @property {Array} categories - An array of categories
- * @property {Array} trucks - An array of trucks
- * @property {Array} topics - An array of topics
- */
-export const getArticleTagsJSON = async () => {
-  try {
-    const tagsJSON = await fetchArticleTagsJSON();
-
-    return {
-      categories: getValuesFromObjectsArray(tagsJSON.categories?.data),
-      trucks: getValuesFromObjectsArray(tagsJSON.trucks?.data),
-      topics: getValuesFromObjectsArray(tagsJSON.topics?.data),
-    };
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error fetching article tags JSON:', error);
-    throw new Error('Unable to fetch article tags.');
-  }
-};
-
-/**
- * Extracts the matching tags from an array of tags and an array of article tags
- * and returns a string of matching tags
- * @param {Array} tags - An array of tags from the JSON file
- * @param {Array} articleTags - An array of article:tags
- * @returns {string} A string of matching tags
- */
-function getMetadataFromTags(tags, articleTags) {
-  if (!tags || !articleTags) {
-    return '';
-  }
-
-  const matchingTags = [...articleTags]
-    .filter((tag) => tags.includes(tag.content))
-    .map((tag) => tag.content);
-  return matchingTags && matchingTags?.length > 0 ? matchingTags.join(', ') : '';
-}
-
-/**
- * Get the article tags from the JSON file and the article tags from the document
- * and return the matching tags
- * @param {string} tagType - The type of tag to get such as 'categories', 'topics' or 'trucks'
- * @returns {string} A string of matching tags
- */
-export async function getArticleTags(tagType) {
-  const articleTags = document.head.querySelectorAll('meta[property="article:tag"]') || [];
-  const tagItems = await fetchArticleTagsJSON();
-  const tags = tagItems && tagItems[tagType]
-    && getValuesFromObjectsArray(tagItems[tagType].data);
-  return getMetadataFromTags(tags, articleTags);
-}
 
 /**
  * Get a HTML link element and adds the target=blank attribute if href is external
