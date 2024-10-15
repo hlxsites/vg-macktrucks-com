@@ -798,3 +798,13 @@ if (getMetadata('truck-configurator-page')) {
     document.location.hash = `#/${page}`;
   }
 }
+
+/* Checks for all <em> tags that contain only 1 character and deletes the space after it */
+const allItalics = [...document.querySelectorAll('em')];
+allItalics.forEach((emTag) => {
+  const tagLength = emTag.textContent.length;
+  const { nextSibling } = emTag;
+  if (tagLength === 1 && nextSibling.nodeType === Node.TEXT_NODE && nextSibling.nodeValue.startsWith(' ')) {
+    nextSibling.nodeValue = nextSibling.nodeValue.slice(1);
+  }
+});
