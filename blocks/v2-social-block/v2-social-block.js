@@ -7,18 +7,30 @@ import {
 
 const blockName = 'v2-social-block';
 
+const LABELS = {
+  COPIED: getTextLabel('tooltip copied text'),
+};
+const CLASSES = {
+  title: `${blockName}__title`,
+  listWrapper: `${blockName}__list-wrapper`,
+  list: `${blockName}__list`,
+  button: `${blockName}__button`,
+  tooltipTop: ['tooltip', 'tooltip--top'],
+  tooltipShow: 'show',
+};
+
 const buildTemplateBlock = (block) => {
-  const shareURLs = [
+  const shareConfigs = [
     ['twitter', 'https://twitter.com/intent/tweet?url='],
     ['linkedin', 'https://www.linkedin.com/cws/share?url='],
     ['fb', 'https://www.facebook.com/sharer/sharer.php?u='],
   ];
   const fragment = document.createDocumentFragment();
 
-  shareURLs.forEach((link) => {
+  shareConfigs.forEach((link) => {
     const linkElement = createElement('li');
     linkElement.innerHTML = `
-      <a class='${blockName}__button'>
+      <a class='${CLASSES.button}'>
         <span class='icon icon-${link[0]}'></span>
       </a>
     `;
@@ -31,14 +43,14 @@ const buildTemplateBlock = (block) => {
   decorateIcons(fragment);
 
   const shareLinkList = createElement('ul');
-  shareLinkList.classList.add(`${blockName}__list`);
+  shareLinkList.classList.add(CLASSES.list);
 
   shareLinkList.appendChild(fragment);
 
-  const isFirstOrLast = document.querySelectorAll(`.${blockName}__list`).length === 0;
+  const isFirstOrLast = document.querySelectorAll(`.${CLASSES.list}`).length === 0;
 
   const socialWrapper = createElement('div');
-  socialWrapper.classList.add(`${blockName}__list-wrapper`);
+  socialWrapper.classList.add(CLASSES.listWrapper);
 
   socialWrapper.appendChild(shareLinkList);
 
@@ -48,39 +60,39 @@ const buildTemplateBlock = (block) => {
 
 const buildDefaultBlock = (block) => {
   const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  [...headings].forEach((heading) => heading.classList.add(`${blockName}__title`));
+  [...headings].forEach((heading) => heading.classList.add(CLASSES.title));
 
   const socialWrapper = block.querySelector(':scope > div');
-  socialWrapper.classList.add(`${blockName}__list-wrapper`);
+  socialWrapper.classList.add(CLASSES.listWrapper);
 
   const list = socialWrapper.querySelector('ul');
-  list.classList.add(`${blockName}__list`);
+  list.classList.add(CLASSES.list);
 
   [...list.children].forEach((item) => {
     const anchor = item.querySelector('a');
     if (anchor) {
-      anchor.className = `${blockName}__button`;
+      anchor.className = CLASSES.button;
     }
 
     const copyLink = item.querySelector('.icon-link');
     if (copyLink) {
-      anchor.dataset.tooltip = getTextLabel('tooltip copied text');
+      anchor.dataset.tooltip = LABELS.COPIED;
 
       anchor.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
           await navigator.clipboard.writeText(`${anchor.href}`);
-          anchor.classList.add('show');
+          anchor.classList.add(CLASSES.tooltipShow);
 
           setTimeout(() => {
-            anchor.classList.remove('show');
+            anchor.classList.remove(CLASSES.tooltipShow);
           }, 1000);
         } catch (err) {
           /* eslint-disable-next-line no-console */
           console.error('Failed to copy: ', err);
         }
       });
-      anchor.classList.add('tooltip', 'tooltip--top');
+      anchor.classList.add(...CLASSES.tooltipTop);
     }
   });
 };
