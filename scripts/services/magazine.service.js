@@ -76,14 +76,15 @@ export const clearRepeatedArticles = (articles) => articles.filter((e) => {
 });
 
 /**
- * Sorts articles by the most recent `lastModified` date in descending order.
+ * Sorts articles by the specified date field in descending order.
  * @param {Array} articles - The array of article objects to be sorted.
+ * @param {string} dateField - The date field to sort by (e.g., 'lastModified' or 'date').
  * @returns {Array} - A new array of articles sorted by the most recent date.
  */
-export const sortArticlesByLastModifiedDate = (articles) => articles
+export const sortArticlesByDateField = (articles, dateField) => articles
   .map((article) => ({
     ...article,
-    timestamp: new Date(article.lastModified).getTime(),
+    timestamp: new Date(article[dateField]).getTime(),
   }))
   .sort((a, b) => b.timestamp - a.timestamp);
 

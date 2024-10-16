@@ -8,7 +8,7 @@ import {
   getArticleTags,
   extractLimitFromBlock,
   clearRepeatedArticles,
-  sortArticlesByLastModifiedDate,
+  sortArticlesByDateField,
   removeArticlesWithNoImage,
 } from '../../scripts/services/magazine.service.js';
 import { getMetadata, createOptimizedPicture } from '../../scripts/aem.js';
@@ -26,7 +26,7 @@ export default async function decorate(block) {
   const allArticlesWithImage = removeArticlesWithNoImage(allArticles);
 
   const recommendedArticles = allArticlesWithImage.filter((e) => e.category === category);
-  const soredtArticles = sortArticlesByLastModifiedDate(recommendedArticles);
+  const soredtArticles = sortArticlesByDateField(recommendedArticles, 'lastModified');
   const filteredArticles = clearRepeatedArticles(soredtArticles);
   const selectedArticles = filteredArticles.slice(0, limit);
 
