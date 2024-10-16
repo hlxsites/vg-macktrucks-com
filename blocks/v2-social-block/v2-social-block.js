@@ -54,9 +54,7 @@ const buildDefaultBlock = (block) => {
   socialWrapper.classList.add(`${blockName}__list-wrapper`);
 
   const list = socialWrapper.querySelector('ul');
-
   list.classList.add(`${blockName}__list`);
-  list.classList.remove('cta-list');
 
   [...list.children].forEach((item) => {
     const anchor = item.querySelector('a');
