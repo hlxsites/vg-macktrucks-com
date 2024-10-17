@@ -58,7 +58,7 @@ const addTooltip = (link) => {
   anchorEl.addEventListener('click', async (e) => {
     e.preventDefault();
     try {
-      await navigator.clipboard.writeText(`${anchorEl.href}`);
+      await navigator.clipboard.writeText(`${window.location.href}`);
       anchorEl.classList.add(CLASSES.tooltipShow);
 
       setTimeout(() => {
