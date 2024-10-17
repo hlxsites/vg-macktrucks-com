@@ -72,7 +72,7 @@ const addTooltip = (link) => {
   anchorEl.classList.add(...CLASSES.tooltipTop);
 };
 
-export default async function decorate(block) {
+export default function decorate(block) {
   let fragment;
   const isMagazineTemplate = document.body.classList.contains('v2-magazine');
 
