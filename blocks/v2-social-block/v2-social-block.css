@@ -61,9 +61,9 @@
 }
 
 .v2-magazine .v2-social-block:first-of-type .v2-social-block__list {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .v2-magazine .v2-social-block-wrapper:last-child .v2-social-block__list {
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
