@@ -31,7 +31,7 @@
   align-items: center;
   display: inline-flex;
   font: var(--accent-2-font-size) / var(--accent-2-line-height)
-  var(--ff-accents);
+    var(--ff-accents);
   letter-spacing: 0.4px;
   justify-content: center;
   max-width: 21.5em;
@@ -64,6 +64,10 @@
   justify-content: flex-start;
 }
 
-.v2-magazine .v2-social-block-wrapper:last-child .v2-social-block__list {
-  justify-content: flex-end;
+@media (min-width: 744px) {
+  .v2-magazine
+    .v2-social-block-wrapper:not(:last-child)
+    .v2-social-block__list {
+    justify-content: flex-end;
+  }
 }
